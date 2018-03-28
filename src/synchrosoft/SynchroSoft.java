@@ -5,6 +5,10 @@
  */
 package synchrosoft;
 
+import java.sql.*;
+import javax.swing.JFrame;
+import view.FrmPrincipal;
+
 /**
  *
  * @author LuizV1
@@ -14,8 +18,41 @@ public class SynchroSoft {
     /**
      * @param args the command line arguments
      */
+    public static JFrame telaPrincipal;
     public static void main(String[] args) {
         System.out.println("Hello, World! Welcome to SynchroSoft!!! ");
+        Connection conn = null;
+        try{
+            String driverName = "oracle.jdbc.driver.OracleDriver";
+            Class.forName(driverName);
+            String serverName = "localhost";
+            String serverPort = "1521";
+            String sid = "XE";
+            String url = "jdbc:oracle:thin:@"+ serverName + ":" + serverPort + ":" + sid;
+            String username = "system";
+            String password = "system";
+            conn = DriverManager.getConnection(url, username, password);
+            System.out.println("Conectado ao DB Oracle com sucesso!");
+        } catch(ClassNotFoundException e) {
+            System.out.println("Não foi possível achar o driver do banco de dados. "+e.getMessage());
+        } catch (SQLException e) {
+            System.err.println("Não foi possível conectar ao banco de dados. "+ e.getMessage());
+        }
+        
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM SYNCHROSOFT.TB_PECA");
+            while (rs.next()){
+                System.out.println(""+rs.getString("NM_PECA"));
+            }
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        telaPrincipal = new FrmPrincipal();
+        telaPrincipal.setVisible(true);
+        
     }
     
 }
