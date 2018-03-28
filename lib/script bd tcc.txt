@@ -1,0 +1,162 @@
+banco de dados synchroSoft
+
+CREATE TABLE tb_endereco
+(
+  cd_CEP varchar2(8),
+  ds_logradouro varchar2(100),
+  nm_bairro varchar2(50),
+  nm_cidade varchar2(50),
+  sg_estado varchar2(2),
+  constraint pk_endereco primary key(cd_CEP)
+);
+
+CREATE TABLE tb_pessoa_fisica
+(
+  cd_CPF varchar2(11),
+  cd_CEP varchar2(8),
+  nm_pessoa_fisica varchar2(80),
+  id_sexo numeric(1) check(id_sexo in (1,0)),
+  nr_telefone numeric(10),
+  nr_celular numeric(11),
+  nr_complemento_logradouro varchar2(10),
+  dt_cadastro date,
+  id_contrato numeric(1) check(id_contrato in (1,0)),
+  constraint pk_pessoa_fisica primary key(cd_CPF),
+  constraint fk_endereco_pessoaF foreign key(cd_CEP) references tb_endereco(cd_CEP)
+);
+
+CREATE TABLE tb_pessoa_juridica
+(
+ cd_CNPJ varchar2(14),
+ cd_CEP varchar2(8),
+ nm_ficticio varchar2(50),
+ nm_razao_social varchar2(50),
+ nr_logradouro varchar2(5),
+ nr_telefone numeric(10),
+ nr_ramal numeric(2),
+ id_contrato numeric(1) check(id_contrato in(1,0)),
+ constraint pk_pessoa_juridica primary key(cd_CNPJ),
+ constraint fk_endereco_pessoaJ foreign key(cd_CEP) references tb_endereco(cd_CEP)
+);
+
+CREATE TABLE tb_funcionario
+(
+ cd_funcionario numeric(4),
+ cd_CEP varchar2(8),
+ nm_funcionario varchar2(50),
+ cpf_funcionario varchar2(11),
+ id_sexo numeric(1) check(id_sexo in (1,0)),
+ nr_telefone numeric(10),
+ nr_celular numeric(11),
+ nr_logradouro varchar2(5),
+ vl_salario numeric(5,2),
+ ds_cargo varchar2(20),
+ dt_admissao date,
+ dt_demissao date,
+ nr_horas_trabalho numeric(2),
+ constraint pk_funcionario primary key(cd_funcionario),
+ constraint fk_endereco_funcionario foreign key(cd_CEP) references tb_endereco(cd_CEP)
+);
+
+CREATE TABLE tb_peca
+(
+ cd_peca numeric(5),
+ nm_peca varchar2(40),
+ ds_categoria varchar2(20),
+ qt_peca numeric(4),
+ vl_peca numeric(4,2),
+ constraint pk_peca primary key(cd_peca)
+);
+
+CREATE TABLE tb_servico
+(
+ cd_servico numeric(10),
+ ds_tipo_servico numeric(1) check(ds_tipo_servico in(1,2,3)),
+ ds_tipo_cliente numeric(1) check(ds_tipo_cliente in (1,0)),
+ ds_servico varchar2(100),
+ dt_servico date,
+ vl_servico numeric(5,2),
+ constraint pk_servico primary key(cd_servico)
+);
+
+CREATE TABLE tb_orcamento
+(
+ cd_orcamento numeric(4),
+ cd_servico numeric(10),
+ id_peca numeric(1) check(id_peca in (1,0)),
+ constraint pk_orcamento primary key(cd_orcamento),
+ constraint fk_servico_orcamento foreign key(cd_servico) references tb_servico(cd_servico)
+);
+
+CREATE TABLE tb_func_servico
+(
+ cd_funcionario_servico numeric(5),
+ cd_funcionario numeric(4),
+ cd_servico numeric(10),
+ constraint pk_funcionario_servico primary key(cd_funcionario_servico),
+ constraint fk_funcionario_func_servico foreign key(cd_funcionario) references tb_funcionario(cd_funcionario),
+ constraint fk_servico_func_servico foreign key(cd_servico) references tb_servico(cd_servico)
+);
+
+CREATE TABLE tb_pessoaF_servico
+(
+ cd_pessoaF_servico numeric(4),
+ cd_CPF varchar2(11),
+ cd_servico numeric(10),
+ dt_servico date,
+ constraint pk_pessoaF_servico primary key(cd_pessoaF_servico),
+ constraint fk_cpf_pessoaF_servico foreign key(cd_CPF) references tb_pessoa_fisica(cd_CPF),
+ constraint fk_servico_pessoaF_servico foreign key(cd_servico) references tb_servico(cd_servico)
+);
+
+CREATE TABLE tb_pessoaJ_servico
+(
+ cd_pessoaJ_servico numeric(4),
+ cd_CNPJ varchar2(14),
+ cd_servico numeric(10),
+ dt_servico date,
+ constraint pk_pessoaJ_servico primary key(cd_pessoaJ_servico),
+ constraint fk_cnpj_pessoaJ_servico foreign key(cd_CNPJ) references tb_pessoa_juridica(cd_CNPJ),
+ constraint fk_servico_pessoaJ_servico foreign key(cd_servico) references tb_servico(cd_servico)
+);
+
+CREATE TABLE tb_despesa
+(
+ cd_despesa numeric(10),
+ ds_tipo_despesa varchar2(30),
+ dt_despesa date,
+ ds_despesa varchar2(100),
+ vl_despesa numeric(5,2),
+ constraint pk_despesa primary key(cd_despesa)
+);
+
+CREATE TABLE tb_despesa_servico
+(
+ cd_despesa_servico numeric(4),
+ cd_despesa numeric(10),
+ cd_servico numeric(10),
+ constraint pk_despesa_servico primary key(cd_despesa_servico),
+ constraint fk_despesa_despesa_servico foreign key(cd_despesa) references tb_despesa(cd_despesa),
+ constraint fk_servico_despesa_servico foreign key(cd_servico) references tb_servico(cd_servico)
+);
+
+CREATE TABLE tb_peca_orcamento
+(
+ cd_peca_orcamento numeric(4),
+ cd_peca numeric(5),
+ cd_orcamento numeric(4),
+ constraint pk_peca_orcamento primary key(cd_peca_orcamento),
+ constraint fk_peca_peca_orcamento foreign key(cd_peca) references tb_peca(cd_peca),
+ constraint fk_orcamento_peca_orcamento foreign key(cd_orcamento) references tb_orcamento(cd_orcamento)
+);
+
+CREATE TABLE tb_endereco_servico
+(
+ cd_endereco_servico numeric(4),
+ cd_CEP varchar(8),
+ cd_servico numeric(10),
+ constraint pk_endereco_servico primary key(cd_endereco_servico),
+ constraint fk_endereco_endereco_servico foreign key(cd_CEP) references tb_endereco(cd_CEP),
+ constraint fk_servico_endereco_servico foreign key(cd_servico) references tb_servico(cd_servico)
+);
+
