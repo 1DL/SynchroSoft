@@ -7,6 +7,7 @@ package synchrosoft;
 
 import java.sql.*;
 import javax.swing.JFrame;
+import view.FrmCadastroPeca;
 import view.FrmPrincipal;
 
 /**
@@ -19,6 +20,7 @@ public class SynchroSoft {
      * @param args the command line arguments
      */
     public static JFrame telaPrincipal;
+    public static JFrame telaCadastroPeca;
     public static void main(String[] args) {
         System.out.println("Hello, World! Welcome to SynchroSoft!!! ");
         Connection conn = null;
@@ -39,19 +41,21 @@ public class SynchroSoft {
             System.err.println("Não foi possível conectar ao banco de dados. "+ e.getMessage());
         }
         
-        try {
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM SYNCHROSOFT.TB_PECA");
-            while (rs.next()){
-                System.out.println(""+rs.getString("NM_PECA"));
-            }
-            rs.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Statement st = conn.createStatement();
+//            ResultSet rs = st.executeQuery("SELECT * FROM SYNCHROSOFT.TB_PECA");
+//            while (rs.next()){
+//                System.out.println(""+rs.getString("NM_PECA"));
+//            }
+//            rs.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         
-        telaPrincipal = new FrmPrincipal();
-        telaPrincipal.setVisible(true);
+//        telaPrincipal = new FrmPrincipal();
+//        telaPrincipal.setVisible(true);
+        telaCadastroPeca = new FrmCadastroPeca();
+        telaCadastroPeca.setVisible(true);
         
     }
     
