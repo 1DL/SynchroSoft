@@ -13,7 +13,7 @@ import java.sql.*;
  */
 public class Conexao {
     
-    public static Connection conectar(String URL, String user, String pass) throws SQLException, ClassNotFoundException {
+    public static Connection conectar() throws SQLException, ClassNotFoundException {
         
         Connection conn = null;
         

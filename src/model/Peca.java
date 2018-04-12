@@ -11,10 +11,21 @@ package model;
  */
 public class Peca {
     private int codigoPeca;
-    private int categoriaPeca;
+    private String categoriaPeca;
     private String nomePeca;
     private int quantidadePeca;
     private float valorUnitario;
+
+    public Peca() {
+    }   
+    
+    public Peca(int codigoPeca, String nomePeca, String categoriaPeca, int quantidadePeca, float valorUnitario) {
+        this.codigoPeca = codigoPeca;
+        this.nomePeca = nomePeca;
+        this.categoriaPeca = categoriaPeca;
+        this.quantidadePeca = quantidadePeca;
+        this.valorUnitario = valorUnitario;
+    }
 
     public int getCodigoPeca() {
         return codigoPeca;
@@ -24,11 +35,11 @@ public class Peca {
         this.codigoPeca = codigoPeca;
     }
 
-    public int getCategoriaPeca() {
+    public String getCategoriaPeca() {
         return categoriaPeca;
     }
 
-    public void setCategoriaPeca(int categoriaPeca) {
+    public void setCategoriaPeca(String categoriaPeca) {
         this.categoriaPeca = categoriaPeca;
     }
 

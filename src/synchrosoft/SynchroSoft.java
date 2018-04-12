@@ -8,7 +8,9 @@ package synchrosoft;
 import java.sql.*;
 import javax.swing.JFrame;
 import view.FrmCadastroPeca;
+import view.FrmListagemPeca;
 import view.FrmPrincipal;
+import dao.DaoPeca;
 
 /**
  *
@@ -21,6 +23,7 @@ public class SynchroSoft {
      */
     public static JFrame telaPrincipal;
     public static JFrame telaCadastroPeca;
+    public static JFrame telaListagemPeca;
     public static void main(String[] args) {
         System.out.println("Hello, World! Welcome to SynchroSoft!!! ");
         Connection conn = null;
@@ -54,8 +57,13 @@ public class SynchroSoft {
         
 //        telaPrincipal = new FrmPrincipal();
 //        telaPrincipal.setVisible(true);
-        telaCadastroPeca = new FrmCadastroPeca();
-        telaCadastroPeca.setVisible(true);
+        telaListagemPeca = new FrmListagemPeca();
+        telaListagemPeca.setVisible(true);
+        
+        DaoPeca d = new DaoPeca();
+        d.listarPeca();
+        
+        
         
     }
     

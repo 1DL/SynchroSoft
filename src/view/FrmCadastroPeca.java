@@ -5,6 +5,12 @@
  */
 package view;
 
+import dao.DaoPeca;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Luiz
@@ -40,8 +46,9 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
         txtValorUnitario = new javax.swing.JTextField();
         cmbCategoria = new javax.swing.JComboBox<>();
         btnLimpar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCadastrar = new javax.swing.JButton();
         btnMenuPrincipal = new javax.swing.JButton();
+        btnListarPeca = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1152, 648));
@@ -73,9 +80,21 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
 
         btnLimpar.setText("Limpar");
 
-        jButton2.setText("jButton1");
+        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
 
         btnMenuPrincipal.setText("Menu Principal");
+
+        btnListarPeca.setText("Listar Peças já cadastradas (DEBUG)");
+        btnListarPeca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarPecaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -115,7 +134,9 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
                 .addGap(122, 122, 122)
                 .addComponent(btnMenuPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(122, 122, 122)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnListarPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
@@ -140,9 +161,11 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
                             .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblValorUnitario))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnListarPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnLimpar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnCadastrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                         .addComponent(btnMenuPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -180,6 +203,27 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtValorUnitarioActionPerformed
 
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        DaoPeca dao = new DaoPeca();
+        int cod = Integer.parseInt(txtCodigoPeca.getText());
+        String nome = txtNomePeca.getText();
+        String cat = "Utilitarios";
+        int qtd = Integer.parseInt(txtQuantidadePeca.getText());
+        float valor = Float.parseFloat(txtValorUnitario.getText());
+        try {
+            dao.cadastrarPeca(cod, nome, cat, qtd, valor);
+            JOptionPane.showMessageDialog(rootPane, "Cadastrado!");
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmCadastroPeca.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FrmCadastroPeca.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void btnListarPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarPecaActionPerformed
+        //TEste
+    }//GEN-LAST:event_btnListarPecaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -216,10 +260,11 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnLimpar;
+    private javax.swing.JButton btnListarPeca;
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JComboBox<String> cmbCategoria;
-    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCategoriaPeca;
     private javax.swing.JLabel lblCodigoPeca;
