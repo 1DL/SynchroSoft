@@ -26,7 +26,7 @@ public class SynchroSoft {
     public static JFrame telaCadastroPeca;
     public static JFrame telaListagemPeca;
     public static void main(String[] args) {
-        System.out.println("Hello, World! Welcome to SynchroSoft!!! ");
+        System.out.println("Hello, World2! Welcome to SynchroSoft!!! ");
         Connection conn = null;
         try{
             String driverName = "oracle.jdbc.driver.OracleDriver";
