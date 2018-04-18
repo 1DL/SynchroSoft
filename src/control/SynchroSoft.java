@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package synchrosoft;
+package control;
+
 
 import java.sql.*;
 import javax.swing.JFrame;
