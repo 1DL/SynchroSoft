@@ -30,7 +30,7 @@ public class DaoPeca {
             st.executeUpdate();
             st.close();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível cadastrar a peça.\nErro:\n\n" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Não foi possível cadastrar a peça.\n Erro:\n\n" + ex.getMessage());
         }
     }
     
