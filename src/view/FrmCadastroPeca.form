@@ -83,14 +83,18 @@
                           <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="lblQuantidadePeca" min="-2" pref="140" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="txtQuantidadePeca" min="-2" pref="114" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
                                   <Component id="lblCategoriaPeca" min="-2" pref="140" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                                   <Component id="cmbCategoria" min="-2" pref="246" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="lblQuantidadePeca" min="-2" pref="140" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="btnListarPeca" min="-2" pref="315" max="-2" attributes="0"/>
+                                      <Component id="txtQuantidadePeca" min="-2" pref="114" max="-2" attributes="0"/>
+                                      <Component id="btnFecharFrame" alignment="0" min="-2" pref="315" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                       </Group>
@@ -104,15 +108,18 @@
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnLimpar" min="-2" pref="315" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
-                  <Component id="btnMenuPrincipal" min="-2" pref="161" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="btnCadastrar" min="-2" pref="315" max="-2" attributes="0"/>
-                      <Component id="btnListarPeca" min="-2" pref="315" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="btnLimpar" min="-2" pref="315" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="btnCadastrar" min="-2" pref="315" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="btnMenuPrincipal" min="-2" pref="161" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="457" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -141,11 +148,17 @@
                               <Component id="lblValorUnitario" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="btnListarPeca" min="-2" pref="60" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btnLimpar" alignment="1" min="-2" pref="60" max="-2" attributes="0"/>
-                              <Component id="btnCadastrar" alignment="1" min="-2" pref="60" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="btnCadastrar" min="-2" pref="60" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="btnLimpar" min="-2" pref="60" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="btnListarPeca" min="-2" pref="60" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                                  <Component id="btnFecharFrame" min="-2" pref="60" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
@@ -245,10 +258,18 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnListarPeca">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Listar Pe&#xe7;as j&#xe1; cadastradas (DEBUG)"/>
+            <Property name="text" type="java.lang.String" value="Listar Pe&#xe7;as"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnListarPecaActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnFecharFrame">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Fechar "/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFecharFrameActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
