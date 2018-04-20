@@ -241,7 +241,7 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarPecaActionPerformed
 
     private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
-        
+    dispose();
     }//GEN-LAST:event_btnFecharFrameActionPerformed
 
     /**

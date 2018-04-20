@@ -5,6 +5,10 @@
  */
 package model;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+
 /**
  *
  * @author LuizV1
@@ -26,6 +30,29 @@ public class Peca {
         this.quantidadePeca = quantidadePeca;
         this.valorUnitario = valorUnitario;
     }
+    
+//        private ArrayList<Peca> gerarArrayPeca (){
+//
+//            ArrayList<Peca> lista = new ArrayList<>();
+//            Peca p = new Peca();
+//            System.out.println("GerarArrayPeca "+tblListagemPeca.getRowCount());
+//            
+//            for (int i = 0; i< tblListagemPeca.getRowCount(); i++) {
+//                p.setCodigoPeca((int)tblListagemPeca.getModel().getValueAt(i, 0));
+//                p.setNomePeca((String)tblListagemPeca.getModel().getValueAt(i, 1));
+//                p.setCategoriaPeca((String)tblListagemPeca.getModel().getValueAt(i, 2));
+//                p.setQuantidadePeca((int)tblListagemPeca.getModel().getValueAt(i, 3));
+//                p.setValorUnitario((Float)tblListagemPeca.getModel().getValueAt(i, 4));
+//                lista.add(i, p);
+//                JOptionPane.showMessageDialog(null,"gerarArrayPeca\n"+lista.get(i).getCodigoPeca());
+//                System.out.println(lista.get(i).getNomePeca());
+//                System.out.println(lista.get(i).getCategoriaPeca());
+//                System.out.println(lista.get(i).getQuantidadePeca());
+//                System.out.println(lista.get(i).getValorUnitario()+"\n\n");
+//            }
+//            System.out.println("Tamanho array"+lista.size());
+//            return lista;
+//        }
 
     public int getCodigoPeca() {
         return codigoPeca;

@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.Peca;
 
@@ -139,13 +140,21 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         for (int i = 0; i <= tblListagemPeca.getRowCount();i++){
             
         }*/
-        
-        
-        try {
+        try{
+        tblListagemPeca.getCellEditor().stopCellEditing();
+        } catch (Exception ex) {
+            
+        }
+        try{
             dp.alterarPeca(tblListagemPeca);
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmListagemPeca.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(FrmListagemPeca.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
+        
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnAtualizarTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarTabelaActionPerformed
@@ -159,7 +168,8 @@ public class FrmListagemPeca extends javax.swing.JFrame {
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
         Peca peca = new Peca();
-        peca.setCodigoPeca((int) tblListagemPeca.getValueAt(tblListagemPeca.getSelectedRow(), 0));
+        String aux = (String) tblListagemPeca.getValueAt(tblListagemPeca.getSelectedRow(), 0);
+        peca.setCodigoPeca(Integer.parseInt(aux));
         try {
             dp.deletarPeca(peca.getCodigoPeca());
             atualizarTabela();
@@ -203,7 +213,10 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         });
     }
     
+    
+    
     private void atualizarTabela (){
+       
 //        DaoPeca teste = new DaoPeca();
         ArrayList<Peca> lista = new ArrayList<>();
         lista = DaoPeca.listarPeca();
@@ -221,12 +234,13 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         Object rowData[] = new Object[5];
         for(int i = 0; i < lista.size(); i++)
         {
-            rowData[0] = lista.get(i).getCodigoPeca();
+            rowData[0] = Integer.toString(lista.get(i).getCodigoPeca());
             rowData[1] = lista.get(i).getNomePeca();
             rowData[2] = lista.get(i).getCategoriaPeca();
-            rowData[3] = lista.get(i).getQuantidadePeca();
-            rowData[4] = lista.get(i).getValorUnitario();
+            rowData[3] = Integer.toString(lista.get(i).getQuantidadePeca());
+            rowData[4] = Float.toString(lista.get(i).getValorUnitario());
             model.addRow(rowData);
+            
         }
                     
         }

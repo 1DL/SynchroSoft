@@ -9,6 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import model.Peca;
 
 /**
@@ -30,7 +31,7 @@ public class DaoPeca {
             st.executeUpdate();
             st.close();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível cadastrar a peça.\n Erro:\n\n" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar a peça.\n Erro:\n\n" + ex.getMessage());
         }
     }
     
@@ -77,10 +78,31 @@ public class DaoPeca {
     }
 
     public void alterarPeca(JTable tabela) throws SQLException, ClassNotFoundException {
+//        Connection con = Conexao.conectar();
+//        String sql = "UPDATE SYNCHROSOFT.TB_PECA "
+//        + "SET CD_PECA = ?, NM_PECA = ?, DS_CATEGORIA = ?, "
+//        + "QT_PECA = ?, VL_PECA = ?";
+//        System.out.println(lista.size());
+//        PreparedStatement st = con.prepareStatement(sql);
+//        for (int i = 0; i < lista.size(); i++) {
+//            st.setInt(1,(int) lista.get(i).getCodigoPeca());                
+//            st.setString(2, lista.get(i).getNomePeca());
+//            st.setString(3, lista.get(i).getCategoriaPeca());
+//            st.setInt(4, (int)lista.get(i).getQuantidadePeca());
+//            st.setFloat(5, (float)lista.get(i).getValorUnitario());
+//
+//            st.addBatch();
+//            st.executeBatch();
+////            con.commit();
+//            JOptionPane.showMessageDialog(null, "A base de peças foi alterada com sucesso!");
+//            st.close();
+//         }
         
         try{
+            
             int rows = tabela.getRowCount();
             String log = "";
+            JOptionPane.showConfirmDialog(null, tabela.getValueAt(0, 0));
 
             Connection con = Conexao.conectar();
             con.setAutoCommit(false);
@@ -90,17 +112,17 @@ public class DaoPeca {
             PreparedStatement st = con.prepareStatement(sql);
             for (int row = 0; row < rows; row++) {
                 
-                int CD_PECA = (int) tabela.getValueAt(row, 0);
+                String CD_PECA = (String) tabela.getValueAt(row, 0);
                 String NM_PECA = (String) tabela.getValueAt(row, 1);
                 String DS_CATEGORIA = (String) tabela.getValueAt(row, 2);
-                int QT_PECA = (int) tabela.getValueAt(row, 3);
-                float VL_PECA = (float) tabela.getValueAt(row, 4);
+                String QT_PECA = (String) tabela.getValueAt(row, 3);
+                String VL_PECA = (String) tabela.getValueAt(row, 4);
 
-                st.setInt(1, CD_PECA);                
+                st.setInt(1, Integer.parseInt(CD_PECA));                
                 st.setString(2, NM_PECA);
                 st.setString(3, DS_CATEGORIA);
-                st.setInt(4, QT_PECA);
-                st.setFloat(5, VL_PECA);
+                st.setInt(4, Integer.parseInt(QT_PECA));
+                st.setFloat(5, Float.parseFloat(VL_PECA));
                 
                 
 //                log = "" + CD_PECA + " ";
