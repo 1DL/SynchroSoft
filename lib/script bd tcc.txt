@@ -170,3 +170,8 @@ CREATE TABLE tb_usuario
  CONSTRAINT fk_funcionario_usuario FOREIGN KEY(cd_funcionario) REFERENCES tb_funcionario(cd_funcionario)
 );
 
+INSERT INTO tb_funcionario (cd_funcionario, cd_cep, nm_funcionario, cpf_funcionario, id_sexo, nr_telefone, nr_celular, nr_logradouro, vl_salario, ds_cargo, dt_admissao, dt_demissao, nr_horas_trabalho)
+  VALUES (0001, null, 'admin', null, null, null, null, null, null, null, null, null, null);
+
+INSERT INTO tb_usuario (cd_usuario, cd_funcionario, ds_login, ds_senha) VALUES (0001, 0001, 'admin', 'admin');
+
