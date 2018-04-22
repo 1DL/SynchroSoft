@@ -160,3 +160,13 @@ CREATE TABLE tb_endereco_servico
  constraint fk_servico_endereco_servico foreign key(cd_servico) references tb_servico(cd_servico)
 );
 
+CREATE TABLE tb_usuario
+(
+ cd_usuario NUMERIC(4),
+ cd_funcionario NUMERIC(4),
+ ds_login VARCHAR2(100),
+ ds_senha VARCHAR2(8),
+ CONSTRAINT pk_usuario PRIMARY KEY(cd_usuario),
+ CONSTRAINT fk_funcionario_usuario FOREIGN KEY(cd_funcionario) REFERENCES tb_funcionario(cd_funcionario)
+);
+
