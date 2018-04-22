@@ -45,6 +45,11 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         btnAtualizarTabela = new javax.swing.JButton();
         btnTelaCadastro = new javax.swing.JButton();
         btnDeletar = new javax.swing.JButton();
+        lblPesquisar = new javax.swing.JLabel();
+        cmbFiltro = new javax.swing.JComboBox<>();
+        txtPesquisa = new javax.swing.JTextField();
+        lblDescrever = new javax.swing.JLabel();
+        btnPesquisa = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1152, 648));
@@ -90,30 +95,74 @@ public class FrmListagemPeca extends javax.swing.JFrame {
             }
         });
 
+        lblPesquisar.setText("Pesquisar por: ");
+
+        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "Nome", "Categoria", "Quantidade", "Valor", " " }));
+
+        txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPesquisaActionPerformed(evt);
+            }
+        });
+        txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPesquisaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPesquisaKeyTyped(evt);
+            }
+        });
+
+        lblDescrever.setText("Descrição:");
+
+        btnPesquisa.setText("Pesquisar");
+        btnPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(217, 217, 217)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(159, 159, 159)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(263, 263, 263)
+                        .addGap(104, 104, 104)
                         .addComponent(btnAtualizarTabela)
                         .addGap(18, 18, 18)
                         .addComponent(btnAlterar)
                         .addGap(34, 34, 34)
                         .addComponent(btnDeletar)
                         .addGap(32, 32, 32)
-                        .addComponent(btnTelaCadastro)))
-                .addGap(0, 363, Short.MAX_VALUE))
+                        .addComponent(btnTelaCadastro))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(lblPesquisar)
+                            .addGap(18, 18, 18)
+                            .addComponent(cmbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(43, 43, 43)
+                            .addComponent(lblDescrever)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnPesquisa))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(296, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(109, 109, 109)
+                .addGap(58, 58, 58)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPesquisar)
+                    .addComponent(cmbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDescrever)
+                    .addComponent(btnPesquisa))
+                .addGap(28, 28, 28)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,6 +227,44 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDeletarActionPerformed
 
+    private void btnPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaActionPerformed
+        
+    }//GEN-LAST:event_btnPesquisaActionPerformed
+
+    private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
+        
+    }//GEN-LAST:event_txtPesquisaActionPerformed
+
+    private void txtPesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyTyped
+        
+    }//GEN-LAST:event_txtPesquisaKeyTyped
+
+    private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
+        // Chamando método de listagem com filtro, se txt preenchido
+        try
+        {
+            //criando variável de controle
+            int controle = 0;
+            
+            //Se campo de texto não estiver vazio
+            if (txtPesquisa.getText().trim() != "")
+            {
+                controle = 1;
+                atualizarTabelaFiltrada();
+            }
+            
+            //Se a variável de controle for 0, diz-se que o campo está vazio e, portanto, atualiza a JTable
+            if (controle == 0)
+            {
+                atualizarTabela();
+            }
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Exceção: "+ex);
+        }
+    }//GEN-LAST:event_txtPesquisaKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -214,12 +301,51 @@ public class FrmListagemPeca extends javax.swing.JFrame {
     }
     
     
-    
+    //Criando método de preenchimento/atualização de tabela com dados do banco
     private void atualizarTabela (){
        
 //        DaoPeca teste = new DaoPeca();
+        
+        //Instanciando array de peças para preenchimento da tabela
         ArrayList<Peca> lista = new ArrayList<>();
+        
+        //Chamando método para preenchimento de Jtable com dados da tabela de peça
         lista = DaoPeca.listarPeca();
+//        System.out.println(lista.get(0).getNomePeca());
+        String[] nomeColunas = {"Código","Nome","Categoria","Quantidade","Valor Unitário"};
+        try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPeca()
+        {
+//            DefaultTableModel modelo = new DefaultTableModel(
+//        lista.toArray(new Peca[lista.size()][]), nomeColunas);
+//            tblListagemPeca.setModel(modelo);
+            
+            DefaultTableModel model = (DefaultTableModel) tblListagemPeca.getModel();
+            model.setColumnIdentifiers(nomeColunas);
+            model.setRowCount(0);
+        Object rowData[] = new Object[5];
+        for(int i = 0; i < lista.size(); i++)
+        {
+            rowData[0] = Integer.toString(lista.get(i).getCodigoPeca());
+            rowData[1] = lista.get(i).getNomePeca();
+            rowData[2] = lista.get(i).getCategoriaPeca();
+            rowData[3] = Integer.toString(lista.get(i).getQuantidadePeca());
+            rowData[4] = Float.toString(lista.get(i).getValorUnitario());
+            model.addRow(rowData);
+            
+        }
+                    
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Erro ao popular tabela.\n\n"+ex.getMessage());
+        }
+    }
+    
+    private void atualizarTabelaFiltrada (){ //Igual método de ListarPeca, mas chama o método de ListarPecaFiltrada()
+       
+//        DaoPeca teste = new DaoPeca();
+        ArrayList<Peca> lista = new ArrayList<>();
+        lista = DaoPeca.listarPecaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim()); //Filtrando dados que aparecem na pesquisa
 //        System.out.println(lista.get(0).getNomePeca());
         String[] nomeColunas = {"Código","Nome","Categoria","Quantidade","Valor Unitário"};
         try
@@ -254,8 +380,13 @@ public class FrmListagemPeca extends javax.swing.JFrame {
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnAtualizarTabela;
     private javax.swing.JButton btnDeletar;
+    private javax.swing.JButton btnPesquisa;
     private javax.swing.JButton btnTelaCadastro;
+    private javax.swing.JComboBox<String> cmbFiltro;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblDescrever;
+    private javax.swing.JLabel lblPesquisar;
     private javax.swing.JTable tblListagemPeca;
+    private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables
 }

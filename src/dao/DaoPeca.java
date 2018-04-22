@@ -76,6 +76,76 @@ public class DaoPeca {
         //return lista;
         return lista;
     }
+    
+    public static ArrayList listarPecaFiltrada(String cmbFiltro, String txtPesquisa) {
+        ArrayList<Peca> lista = new ArrayList<>();
+        try {
+            //Chamando método de conexão ao banco
+            Connection con = Conexao.conectar();
+            
+            //Declarando variável de String de conexão
+            String sql = "";
+            
+//            DatabaseMetaData teste = con.getMetaData();
+//            System.out.println(teste.supportsBatchUpdates());
+
+            //Criando estrutura switch case para identificar o tipo de filtro de pesquisa
+            switch(cmbFiltro)
+            {
+                //preparando sql de acordo com código
+                case "Código":  sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE CD_PECA LIKE ?";
+                break;
+                
+                //preparando tratamento de acordo com nome
+                case "Nome": sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE NM_PECA LIKE ?";
+                break;
+                
+                //preparando tratamento de acordo com categoria
+                case "Categoria": sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE DS_CATEGORIA LIKE ?";
+                break;
+                
+                //preparando tratamento de acordo com quantidade em estoque
+                case "Quantidade": sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE QT_PECA LIKE ?";
+                break;
+                
+                //preparando tratamento de acordo com valor da peça
+                case "Valor": sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE VL_PECA LIKE ?";
+                break;
+            }
+            
+            //realizando preparedStatement para tratamento de variáveis
+            PreparedStatement st = con.prepareStatement(sql);
+            
+            //colocando valor da variável ? da query 
+            st.setString(1, "%"+txtPesquisa+"%");
+            
+            //executando query selecionada pelo switch case
+            ResultSet rs = st.executeQuery();
+            
+            //listando dados do banco em jtable
+            while (rs.next()) {
+                Peca pecas = new Peca(rs.getInt("CD_PECA"), rs.getString("NM_PECA"), rs.getString("DS_CATEGORIA"), rs.getInt("QT_PECA"), rs.getFloat("VL_PECA"));
+                lista.add(pecas);
+
+                /*lista.add(new String[]{String.valueOf(rs.getInt("CD_PECA")),
+                (rs.getString("NM_PECA")),(rs.getString("DS_CATEGORIA")),
+                String.valueOf(rs.getInt("QT_PECA")),String.valueOf(rs.getFloat("VL_PECA"))});                
+                System.out.println(lista.get(0));*/
+            }
+            
+            //teste de funcionamento do método
+            System.out.println(lista.get(0).getNomePeca());
+            
+            //fechamento de preparedStatement e Conexão do banco
+            st.close();
+            rs.close();
+            
+        } catch (Exception ex) { //Caso exista a possibilidade de retorno de erro
+            System.err.println("DAOPECA Instanciamento: " + ex);
+        }
+        //return lista;
+        return lista;
+    }
 
     public void alterarPeca(JTable tabela) throws SQLException, ClassNotFoundException {
 //        Connection con = Conexao.conectar();
@@ -102,7 +172,7 @@ public class DaoPeca {
             
             int rows = tabela.getRowCount();
             String log = "";
-            JOptionPane.showConfirmDialog(null, tabela.getValueAt(0, 0));
+            JOptionPane.showConfirmDialog(null, "Deseja realizar a alteração?");
 
             Connection con = Conexao.conectar();
             con.setAutoCommit(false);
