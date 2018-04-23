@@ -24,8 +24,8 @@ public class DaoPeca {
             String sql = "INSERT INTO SYNCHROSOFT.TB_PECA VALUES (?,?,?,?,?)";
             PreparedStatement st = con.prepareStatement(sql);
             st.setInt(1, cod);
-            st.setString(2, nome);
-            st.setString(3, cat);
+            st.setString(2, nome.toLowerCase());
+            st.setString(3, cat.toLowerCase());
             st.setInt(4, qtd);
             st.setFloat(5, valor);
             st.executeUpdate();

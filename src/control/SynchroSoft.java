@@ -12,6 +12,7 @@ import view.FrmCadastroPeca;
 import view.FrmListagemPeca;
 import view.FrmPrincipal;
 import dao.DaoPeca;
+import view.FrmLogin;
 
 /**
  *
@@ -23,6 +24,7 @@ public class SynchroSoft {
      * @param args the command line arguments
      */
     public static JFrame telaPrincipal;
+    public static JFrame telaLogin;
     public static JFrame telaCadastroPeca;
     public static JFrame telaListagemPeca;
     public static void main(String[] args) {
@@ -58,8 +60,11 @@ public class SynchroSoft {
         
 //        telaPrincipal = new FrmPrincipal();
 //        telaPrincipal.setVisible(true);
-        telaListagemPeca = new FrmListagemPeca();
-        telaListagemPeca.setVisible(true);
+//        telaListagemPeca = new FrmListagemPeca();
+//        telaListagemPeca.setVisible(true);
+
+          telaLogin = new FrmLogin();
+          telaLogin.setVisible(true);
         
         DaoPeca d = new DaoPeca();
         d.listarPeca();
