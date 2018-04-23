@@ -84,8 +84,8 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="lblCategoriaPeca" min="-2" pref="140" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                                  <Component id="cmbCategoria" min="-2" pref="246" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="cmbCategoria" min="-2" pref="221" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="lblQuantidadePeca" min="-2" pref="140" max="-2" attributes="0"/>
@@ -226,11 +226,15 @@
         <Component class="javax.swing.JComboBox" name="cmbCategoria">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
+              <StringArray count="8">
+                <StringItem index="0" value="Gerador"/>
+                <StringItem index="1" value="Bombas"/>
+                <StringItem index="2" value="Aquecedores"/>
+                <StringItem index="3" value="Alarme de inc&#xea;ndio"/>
+                <StringItem index="4" value="Pressurizadores de escada"/>
+                <StringItem index="5" value="Alarme perimetral"/>
+                <StringItem index="6" value="Cabine prim&#xe1;ria"/>
+                <StringItem index="7" value="Redutoras de press&#xe3;o"/>
               </StringArray>
             </Property>
           </Properties>

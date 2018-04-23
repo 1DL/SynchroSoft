@@ -18,15 +18,15 @@ import model.Peca;
  */
 public class DaoPeca {
 
-    public void cadastrarPeca(int cod, String nome, String cat, int qtd, float valor) throws SQLException, ClassNotFoundException {
+    public void cadastrarPeca(int codigo, String nome, String categoria, int quantidade, float valor) throws SQLException, ClassNotFoundException {
         try {
             Connection con = Conexao.conectar();
             String sql = "INSERT INTO SYNCHROSOFT.TB_PECA VALUES (?,?,?,?,?)";
             PreparedStatement st = con.prepareStatement(sql);
-            st.setInt(1, cod);
+            st.setInt(1, codigo);
             st.setString(2, nome.toLowerCase());
-            st.setString(3, cat.toLowerCase());
-            st.setInt(4, qtd);
+            st.setString(3, categoria.toLowerCase());
+            st.setInt(4, quantidade);
             st.setFloat(5, valor);
             st.executeUpdate();
             st.close();

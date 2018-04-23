@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import model.Peca;
 
 /**
  *
@@ -77,7 +78,7 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
             }
         });
 
-        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gerador", "Bombas", "Aquecedores", "Alarme de incêndio", "Pressurizadores de escada", "Alarme perimetral", "Cabine primária", "Redutoras de pressão" }));
 
         btnLimpar.setText("Limpar");
 
@@ -125,8 +126,8 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblCategoriaPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(39, 39, 39)
-                                .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblQuantidadePeca, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -222,13 +223,11 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         DaoPeca dao = new DaoPeca();
-        int cod = Integer.parseInt(txtCodigoPeca.getText());
-        String nome = txtNomePeca.getText();
-        String cat = "Utilitarios";
-        int qtd = Integer.parseInt(txtQuantidadePeca.getText());
-        float valor = Float.parseFloat(txtValorUnitario.getText());
+        Peca peca = new Peca(Integer.parseInt(txtCodigoPeca.getText()), txtNomePeca.getText(), 
+            cmbCategoria.getSelectedItem().toString(), Integer.parseInt(txtQuantidadePeca.getText()), 
+            Float.parseFloat(txtValorUnitario.getText()));
         try {
-            dao.cadastrarPeca(cod, nome, cat, qtd, valor);
+            dao.cadastrarPeca(peca.getCodigoPeca(), peca.getNomePeca(), peca.getCategoriaPeca(), peca.getQuantidadePeca(), peca.getValorUnitario());
             JOptionPane.showMessageDialog(rootPane, "Cadastrado!");
         } catch (SQLException ex) {
             Logger.getLogger(FrmCadastroPeca.class.getName()).log(Level.SEVERE, null, ex);
@@ -238,7 +237,8 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnListarPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarPecaActionPerformed
-        //TEste
+        FrmListagemPeca telaListarPeca = new FrmListagemPeca();
+        telaListarPeca.setVisible(true);
     }//GEN-LAST:event_btnListarPecaActionPerformed
 
     private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
