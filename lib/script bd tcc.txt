@@ -62,7 +62,7 @@ CREATE TABLE tb_peca
 (
  cd_peca numeric(5),
  nm_peca varchar2(40),
- ds_categoria varchar2(20),
+ ds_categoria varchar2(50),
  qt_peca numeric(4),
  vl_peca numeric(4,2),
  constraint pk_peca primary key(cd_peca)
