@@ -5,6 +5,7 @@
  */
 package view;
 
+import dao.DaoEndereco;
 import dao.DaoPeca;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,22 +15,23 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import model.Endereco;
 import model.Peca;
 
 /**
  *
  * @author Administrator
  */
-public class FrmListagemPeca extends javax.swing.JFrame {
+public class FrmListagemEndereco extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmListagemPeca
      */
-    public FrmListagemPeca() {
+    public FrmListagemEndereco() {
         initComponents();
-        atualizarTabela();    
+        atualizarTabela();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,7 +42,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblListagemPeca = new javax.swing.JTable();
+        tblListagemEndereco = new javax.swing.JTable();
         btnAlterar = new javax.swing.JButton();
         btnAtualizarTabela = new javax.swing.JButton();
         btnTelaCadastro = new javax.swing.JButton();
@@ -49,13 +51,11 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         cmbFiltro = new javax.swing.JComboBox<>();
         txtPesquisa = new javax.swing.JTextField();
         lblDescrever = new javax.swing.JLabel();
-        btnPesquisa = new javax.swing.JButton();
         btnMenuPrincipal = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1152, 648));
 
-        tblListagemPeca.setModel(new javax.swing.table.DefaultTableModel(
+        tblListagemEndereco.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -66,7 +66,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblListagemPeca);
+        jScrollPane1.setViewportView(tblListagemEndereco);
 
         btnAlterar.setText("Alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -98,7 +98,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
 
         lblPesquisar.setText("Pesquisar por: ");
 
-        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "Nome", "Categoria", "Quantidade", "Valor" }));
+        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CEP", "Logradouro", "Bairro", "Cidade", "Estado", " " }));
 
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,13 +115,6 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         });
 
         lblDescrever.setText("Descrição:");
-
-        btnPesquisa.setText("Pesquisar");
-        btnPesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPesquisaActionPerformed(evt);
-            }
-        });
 
         btnMenuPrincipal.setText("Menu Principal");
 
@@ -148,10 +141,8 @@ public class FrmListagemPeca extends javax.swing.JFrame {
                         .addGap(43, 43, 43)
                         .addComponent(lblDescrever)
                         .addGap(18, 18, 18)
-                        .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addComponent(btnPesquisa)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(394, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(225, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -167,9 +158,8 @@ public class FrmListagemPeca extends javax.swing.JFrame {
                     .addComponent(lblPesquisar)
                     .addComponent(cmbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDescrever)
-                    .addComponent(btnPesquisa))
-                .addGap(40, 40, 40)
+                    .addComponent(lblDescrever))
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnMenuPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -187,33 +177,23 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    DaoPeca dp = new DaoPeca();
-    
+    DaoEndereco de = new DaoEndereco();
+
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        /*ArrayList<Peca> pecaAlterar = new ArrayList<>();
-        JOptionPane.showMessageDialog(null,""+tblListagemPeca.getRowCount());
-        JOptionPane.showMessageDialog(null,""+tblListagemPeca.getColumnCount());
-        
-        
-        
-        for (int i = 0; i <= tblListagemPeca.getRowCount();i++){
-            
-        }*/
-        try{
-        tblListagemPeca.getCellEditor().stopCellEditing();
+        try {
+            tblListagemEndereco.getCellEditor().stopCellEditing();
         } catch (Exception ex) {
-            
+
         }
-        try{
-            dp.alterarPeca(tblListagemPeca);
+        try {
+            de.alterarEndereco(tblListagemEndereco);
         } catch (SQLException ex) {
-            Logger.getLogger(FrmListagemPeca.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrmListagemEndereco.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrmListagemPeca.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrmListagemEndereco.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
+
+
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnAtualizarTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarTabelaActionPerformed
@@ -226,52 +206,43 @@ public class FrmListagemPeca extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTelaCadastroActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-        Peca peca = new Peca();
-        String aux = (String) tblListagemPeca.getValueAt(tblListagemPeca.getSelectedRow(), 0);
-        peca.setCodigoPeca(Integer.parseInt(aux));
+        Endereco end = new Endereco();
+        end.setCep((String) tblListagemEndereco.getValueAt(tblListagemEndereco.getSelectedRow(), 0));
+        
         try {
-            dp.deletarPeca(peca.getCodigoPeca());
+            de.deletarEndereco(end.getCep());
             atualizarTabela();
         } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(FrmListagemPeca.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrmListagemEndereco.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnDeletarActionPerformed
 
-    private void btnPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaActionPerformed
-        
-    }//GEN-LAST:event_btnPesquisaActionPerformed
-
     private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
-        
+
     }//GEN-LAST:event_txtPesquisaActionPerformed
 
     private void txtPesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyTyped
-        
+
     }//GEN-LAST:event_txtPesquisaKeyTyped
 
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
         // Chamando método de listagem com filtro, se txt preenchido
-        try
-        {
+        try {
             //criando variável de controle
             int controle = 0;
-            
+
             //Se campo de texto não estiver vazio
-            if (txtPesquisa.getText().trim() != "")
-            {
+            if (txtPesquisa.getText().trim() != "") {
                 controle = 1;
                 atualizarTabelaFiltrada();
             }
-            
+
             //Se a variável de controle for 0, diz-se que o campo está vazio e, portanto, atualiza a JTable
-            if (controle == 0)
-            {
+            if (controle == 0) {
                 atualizarTabela();
             }
-        }
-        catch(Exception ex)
-        {
-            System.out.println("Exceção: "+ex);
+        } catch (Exception ex) {
+            System.out.println("Exceção: " + ex);
         }
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
@@ -292,97 +263,71 @@ public class FrmListagemPeca extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmListagemPeca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListagemEndereco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmListagemPeca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListagemEndereco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmListagemPeca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListagemEndereco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmListagemPeca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListagemEndereco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmListagemPeca().setVisible(true);
+                new FrmListagemEndereco().setVisible(true);
             }
         });
     }
-    
-    
+
     //Criando método de preenchimento/atualização de tabela com dados do banco
-    private void atualizarTabela (){
-       
-//        DaoPeca teste = new DaoPeca();
-        
-        //Instanciando array de peças para preenchimento da tabela
-        ArrayList<Peca> lista = new ArrayList<>();
-        
-        //Chamando método para preenchimento de Jtable com dados da tabela de peça
-        lista = DaoPeca.listarPeca();
-//        System.out.println(lista.get(0).getNomePeca());
-        String[] nomeColunas = {"Código","Nome","Categoria","Quantidade","Valor Unitário"};
-        try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPeca()
-        {
-//            DefaultTableModel modelo = new DefaultTableModel(
-//        lista.toArray(new Peca[lista.size()][]), nomeColunas);
-//            tblListagemPeca.setModel(modelo);
-            
-            DefaultTableModel model = (DefaultTableModel) tblListagemPeca.getModel();
+    private void atualizarTabela() {
+        ArrayList<Endereco> lista = new ArrayList<>();
+        lista = DaoEndereco.listarEndereco();
+        String[] nomeColunas = {"CEP", "Logradouro", "Bairro", "Cidade", "Estado"};
+        try {
+            DefaultTableModel model = (DefaultTableModel) tblListagemEndereco.getModel();
             model.setColumnIdentifiers(nomeColunas);
             model.setRowCount(0);
-        Object rowData[] = new Object[5];
-        for(int i = 0; i < lista.size(); i++)
-        {
-            rowData[0] = Integer.toString(lista.get(i).getCodigoPeca());
-            rowData[1] = lista.get(i).getNomePeca();
-            rowData[2] = lista.get(i).getCategoriaPeca();
-            rowData[3] = Integer.toString(lista.get(i).getQuantidadePeca());
-            rowData[4] = Float.toString(lista.get(i).getValorUnitario());
-            model.addRow(rowData);
-            
-        }
-                    
-        }
-        catch(Exception ex)
-        {
-            System.out.println("Erro ao popular tabela.\n\n"+ex.getMessage());
+            Object rowData[] = new Object[5];
+            for (int i = 0; i < lista.size(); i++) {
+                rowData[0] = lista.get(i).getCep();
+                rowData[1] = lista.get(i).getLogradouro();
+                rowData[2] = lista.get(i).getBairro();
+                rowData[3] = lista.get(i).getCidade();
+                rowData[4] = lista.get(i).getEstado();
+                model.addRow(rowData);
+
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
         }
     }
-    
-    private void atualizarTabelaFiltrada (){ //Igual método de ListarPeca, mas chama o método de ListarPecaFiltrada()
-       
-//        DaoPeca teste = new DaoPeca();
-        ArrayList<Peca> lista = new ArrayList<>();
-        lista = DaoPeca.listarPecaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim()); //Filtrando dados que aparecem na pesquisa
-//        System.out.println(lista.get(0).getNomePeca());
-        String[] nomeColunas = {"Código","Nome","Categoria","Quantidade","Valor Unitário"};
-        try
-        {
-//            DefaultTableModel modelo = new DefaultTableModel(
-//        lista.toArray(new Peca[lista.size()][]), nomeColunas);
-//            tblListagemPeca.setModel(modelo);
-            
-            DefaultTableModel model = (DefaultTableModel) tblListagemPeca.getModel();
+
+    private void atualizarTabelaFiltrada() {
+        ArrayList<Endereco> lista = new ArrayList<>();
+        lista = DaoEndereco.listarEnderecoFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim()); //Filtrando dados que aparecem na pesquisa
+        String[] nomeColunas = {"CEP", "Logradouro", "Bairro", "Cidade", "Estado"};
+        try {
+            DefaultTableModel model = (DefaultTableModel) tblListagemEndereco.getModel();
             model.setColumnIdentifiers(nomeColunas);
             model.setRowCount(0);
-        Object rowData[] = new Object[5];
-        for(int i = 0; i < lista.size(); i++)
-        {
-            rowData[0] = Integer.toString(lista.get(i).getCodigoPeca());
-            rowData[1] = lista.get(i).getNomePeca();
-            rowData[2] = lista.get(i).getCategoriaPeca();
-            rowData[3] = Integer.toString(lista.get(i).getQuantidadePeca());
-            rowData[4] = Float.toString(lista.get(i).getValorUnitario());
-            model.addRow(rowData);
-            
-        }
-                    
-        }
-        catch(Exception ex)
-        {
-            System.out.println("Erro ao popular tabela.\n\n"+ex.getMessage());
+            Object rowData[] = new Object[5];
+            for (int i = 0; i < lista.size(); i++) {
+                rowData[0] = lista.get(i).getCep();
+                rowData[1] = lista.get(i).getLogradouro();
+                rowData[2] = lista.get(i).getBairro();
+                rowData[3] = lista.get(i).getCidade();
+                rowData[4] = lista.get(i).getEstado();
+                model.addRow(rowData);
+
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
         }
     }
 
@@ -391,13 +336,12 @@ public class FrmListagemPeca extends javax.swing.JFrame {
     private javax.swing.JButton btnAtualizarTabela;
     private javax.swing.JButton btnDeletar;
     private javax.swing.JButton btnMenuPrincipal;
-    private javax.swing.JButton btnPesquisa;
     private javax.swing.JButton btnTelaCadastro;
     private javax.swing.JComboBox<String> cmbFiltro;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDescrever;
     private javax.swing.JLabel lblPesquisar;
-    private javax.swing.JTable tblListagemPeca;
+    private javax.swing.JTable tblListagemEndereco;
     private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables
 }

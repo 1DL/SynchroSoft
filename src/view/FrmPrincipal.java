@@ -43,6 +43,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1152, 648));
 
         btnPeca.setText("Cadastro de peças");
+        btnPeca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPecaActionPerformed(evt);
+            }
+        });
 
         btnFuncionario.setText("Cadastro de Funcionários");
 
@@ -93,6 +98,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPecaActionPerformed
+        FrmListagemPeca telaListarPeca = new FrmListagemPeca();
+        telaListarPeca.setVisible(true);
+    }//GEN-LAST:event_btnPecaActionPerformed
 
     /**
      * @param args the command line arguments
