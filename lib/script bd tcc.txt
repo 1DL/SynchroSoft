@@ -35,6 +35,7 @@ CREATE TABLE tb_pessoa_juridica
  nr_telefone numeric(10),
  nr_ramal numeric(2),
  id_contrato numeric(1) check(id_contrato in(1,0)),
+ dt_cadastro date,
  constraint pk_pessoa_juridica primary key(cd_CNPJ),
  constraint fk_endereco_pessoaJ foreign key(cd_CEP) references tb_endereco(cd_CEP)
 );
