@@ -50,7 +50,7 @@
                       <Component id="btnPeca" min="-2" pref="155" max="-2" attributes="0"/>
                       <Component id="btnCliente" min="-2" pref="155" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="275" max="32767" attributes="0"/>
+                  <EmptySpace pref="603" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btnFuncionario" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="btnServico" alignment="1" min="-2" pref="155" max="-2" attributes="0"/>
@@ -72,7 +72,7 @@
                       <Component id="btnServico" alignment="3" min="-2" pref="140" max="-2" attributes="0"/>
                       <Component id="btnCliente" alignment="3" min="-2" pref="140" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="53" max="32767" attributes="0"/>
+                  <EmptySpace pref="273" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
