@@ -14,12 +14,12 @@ public class Pessoa {
     private Endereco endereco;
     private int telefone;
     private String complementoLogradouro;
-    private boolean manterContrato;
+    private int manterContrato;
 
     public Pessoa() {
     }
 
-    public Pessoa(String nome, Endereco endereco, int telefone, String complementoLogradouro, boolean manterContrato) {
+    public Pessoa(String nome, Endereco endereco, int telefone, String complementoLogradouro, int manterContrato) {
         this.nome = nome;
         this.endereco = endereco;
         this.telefone = telefone;
@@ -59,11 +59,11 @@ public class Pessoa {
         this.complementoLogradouro = complementoLogradouro;
     }
 
-    public boolean isManterContrato() {
+    public int getManterContrato() {
         return manterContrato;
     }
 
-    public void setManterContrato(boolean manterContrato) {
+    public void setManterContrato(int manterContrato) {
         this.manterContrato = manterContrato;
     }
 }

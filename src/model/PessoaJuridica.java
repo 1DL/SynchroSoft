@@ -15,8 +15,19 @@ public class PessoaJuridica {
     private String cnpj;
     private String razaoSocial;
     private Date dataCadastro;
-    private Pessoa nomeFicticio;
+    private Pessoa pessoa;
     private int ramalCliente;
+
+    public PessoaJuridica() {
+    }
+
+    public PessoaJuridica(Pessoa pessoa, String cnpj, String razaoSocial, Date dataCadastro, int ramalCliente) {
+        this.pessoa = pessoa;
+        this.cnpj = cnpj;
+        this.razaoSocial = razaoSocial;
+        this.dataCadastro = dataCadastro;
+        this.ramalCliente = ramalCliente;
+    }
 
     public String getCnpj() {
         return cnpj;
@@ -42,12 +53,12 @@ public class PessoaJuridica {
         this.dataCadastro = dataCadastro;
     }
 
-    public Pessoa getNomeFicticio() {
-        return nomeFicticio;
+    public Pessoa getPessoa() {
+        return pessoa;
     }
 
-    public void setNomeFicticio(Pessoa nomeFicticio) {
-        this.nomeFicticio = nomeFicticio;
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
     }
 
     public int getRamalCliente() {

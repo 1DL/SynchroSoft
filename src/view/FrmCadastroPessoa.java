@@ -11,7 +11,9 @@ import dao.DaoPessoa;
 import java.awt.Component;
 import java.awt.GridBagLayout;
 import java.awt.PopupMenu;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -19,6 +21,7 @@ import model.Endereco;
 import model.Peca;
 import model.Pessoa;
 import model.PessoaFisica;
+import model.PessoaJuridica;
 
 /**
  *
@@ -26,9 +29,6 @@ import model.PessoaFisica;
  */
 public class FrmCadastroPessoa extends javax.swing.JFrame {
 
-    GridBagLayout layout = new GridBagLayout();
-    PanPessoaFisica panelPessoa;
-    PanPessoaJuridica panelJuridica;
     boolean cepCadastrado;
     boolean mantemContrato;
 
@@ -37,13 +37,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
      */
     public FrmCadastroPessoa() {
         initComponents();
-        panelPessoa = new PanPessoaFisica();
-        panelJuridica = new PanPessoaJuridica();
-        panelDinamico.setLayout(layout);
-        panelDinamico.add(panelPessoa);
-        panelDinamico.add(panelJuridica);
-        panelPessoa.setVisible(true);
-        panelJuridica.setVisible(false);
+        modoFisica();
 
     }
 
@@ -58,6 +52,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
 
         grupoTipoPessoa = new javax.swing.ButtonGroup();
         grupoCadastro = new javax.swing.ButtonGroup();
+        grupoSexo = new javax.swing.ButtonGroup();
         lblTituloJanela = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lblCodigoPeca = new javax.swing.JLabel();
@@ -67,7 +62,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         rbtFisica = new javax.swing.JRadioButton();
         rbtJuridica = new javax.swing.JRadioButton();
         lblNome = new javax.swing.JLabel();
-        txtNomePessoa = new javax.swing.JTextField();
+        txtNomePessoaFicticio = new javax.swing.JTextField();
         lblCep = new javax.swing.JLabel();
         txtCep = new javax.swing.JTextField();
         lblCepExiste = new javax.swing.JLabel();
@@ -76,12 +71,20 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         lblTipoPessoa1 = new javax.swing.JLabel();
         rbtSimCadastro = new javax.swing.JRadioButton();
         rbtNaoCadastro = new javax.swing.JRadioButton();
-        panelDinamico = new javax.swing.JPanel();
         btnMenuPrincipal = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
         btnCadastrar = new javax.swing.JButton();
         btnListarPessoa = new javax.swing.JButton();
         btnFecharFrame = new javax.swing.JButton();
+        lblCpfCnpj = new javax.swing.JLabel();
+        txtCpfCnpj = new javax.swing.JTextField();
+        txtRazaoSocial = new javax.swing.JTextField();
+        lblRazaoSocial = new javax.swing.JLabel();
+        lblCelRamal = new javax.swing.JLabel();
+        txtCelRamal = new javax.swing.JTextField();
+        lblSexo = new javax.swing.JLabel();
+        rbtMasculino = new javax.swing.JRadioButton();
+        rbtFeminino = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -169,17 +172,6 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout panelDinamicoLayout = new javax.swing.GroupLayout(panelDinamico);
-        panelDinamico.setLayout(panelDinamicoLayout);
-        panelDinamicoLayout.setHorizontalGroup(
-            panelDinamicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelDinamicoLayout.setVerticalGroup(
-            panelDinamicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 192, Short.MAX_VALUE)
-        );
-
         btnMenuPrincipal.setText("Menu Principal");
 
         btnLimpar.setText("Limpar");
@@ -205,67 +197,120 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
             }
         });
 
+        lblCpfCnpj.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblCpfCnpj.setText("CPF");
+
+        lblRazaoSocial.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblRazaoSocial.setText("Razão Social");
+
+        lblCelRamal.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblCelRamal.setText("Celular");
+
+        lblSexo.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblSexo.setText("Sexo");
+
+        grupoSexo.add(rbtMasculino);
+        rbtMasculino.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        rbtMasculino.setSelected(true);
+        rbtMasculino.setText("Masculino");
+        rbtMasculino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtMasculinoActionPerformed(evt);
+            }
+        });
+
+        grupoSexo.add(rbtFeminino);
+        rbtFeminino.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        rbtFeminino.setText("Feminino");
+        rbtFeminino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtFemininoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelDinamico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblTipoPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(rbtFisica)
-                                .addGap(18, 18, 18)
-                                .addComponent(rbtJuridica))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNomePessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblCodigoPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(76, 76, 76)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCep, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblTipoPessoa1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(rbtSimCadastro)
-                                .addGap(31, 31, 31)
-                                .addComponent(rbtNaoCadastro))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(lblCategoriaPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtNumero))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addGap(85, 85, 85)
-                                        .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(26, 26, 26)
-                                .addComponent(lblCepExiste)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnCadastrarCep, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 141, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnMenuPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(122, 122, 122)
-                        .addComponent(btnFecharFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnListarPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(43, 43, 43)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnMenuPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(122, 122, 122)
+                                .addComponent(btnFecharFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnListarPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(lblTipoPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(rbtFisica)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(rbtJuridica))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtNomePessoaFicticio, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(lblCodigoPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(lblCelRamal, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtCelRamal, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(76, 76, 76)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(lblCategoriaPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(lblCep, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(30, 30, 30)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(txtRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(lblCepExiste)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(btnCadastrarCep)
+                                                .addGap(0, 0, Short.MAX_VALUE))))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(lblTipoPessoa1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(rbtSimCadastro)
+                                                .addGap(31, 31, 31)
+                                                .addComponent(rbtNaoCadastro))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(lblSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(rbtMasculino)
+                                                .addGap(10, 10, 10)
+                                                .addComponent(rbtFeminino)))
+                                        .addGap(0, 0, Short.MAX_VALUE)))))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -288,21 +333,35 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblNome)
-                        .addComponent(lblCep)
+                        .addComponent(lblCep))
+                    .addComponent(txtNomePessoaFicticio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblCepExiste)
-                        .addComponent(btnCadastrarCep, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtNomePessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnCadastrarCep, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblCodigoPeca)
                         .addComponent(lblCategoriaPeca))
                     .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelDinamico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtNumero, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCpfCnpj)
+                    .addComponent(txtCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblRazaoSocial)
+                    .addComponent(txtRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblSexo)
+                        .addComponent(rbtMasculino)
+                        .addComponent(rbtFeminino))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(txtCelRamal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblCelRamal)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnListarPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -328,7 +387,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -345,15 +404,11 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rbtJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtJuridicaActionPerformed
-        panelPessoa.setVisible(false);
-        panelJuridica.setVisible(true);
-        lblNome.setText("Nome Fictício");
+        modoJuridica();
     }//GEN-LAST:event_rbtJuridicaActionPerformed
 
     private void rbtFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtFisicaActionPerformed
-        panelPessoa.setVisible(true);
-        panelJuridica.setVisible(false);
-        lblNome.setText("Nome");
+        modoFisica();
     }//GEN-LAST:event_rbtFisicaActionPerformed
 
     private void btnCadastrarCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCepActionPerformed
@@ -372,24 +427,55 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         DaoPessoa dao = new DaoPessoa();
         Endereco end = new Endereco();
+        Date dataCadastro = new Date(Calendar.getInstance().getTimeInMillis());
+        int sexo = 0;
+        int contrato = 0;
+        mantemContrato = rbtSimCadastro.isSelected();
+        if (mantemContrato) {
+            contrato = 1;
+        } else {
+            contrato = 0;
+        }
 
         if (rbtFisica.isSelected() && cepCadastrado) {
-            mantemContrato = rbtSimCadastro.isSelected();
             try {
+                if (rbtMasculino.isSelected()) {
+                    sexo = 0;
+                } else {
+                    sexo = 1;
+                }
                 end = DaoEndereco.popularEndereco(txtCep.getText());
-                Pessoa pessoa = new Pessoa(txtNomePessoa.getText(), end, Integer.parseInt(txtTelefone.getText()), txtNumero.getText(), mantemContrato);
-
-                Component[] childF = panelPessoa.getComponents();
-
                 
-
-                PessoaFisica fisica = new PessoaFisica(, pessoa, dataCadastro, ERROR, 0);
+                Pessoa pessoa = new Pessoa(txtNomePessoaFicticio.getText(), end, Integer.parseInt(txtTelefone.getText()), txtNumero.getText(), contrato);
+                PessoaFisica fisica = new PessoaFisica(pessoa,txtCpfCnpj.getText(), dataCadastro, Integer.parseInt(txtCelRamal.getText()), sexo);
+                
+                dao.cadastrarPessoaFisica(fisica.getCpf(), fisica.getPessoa().getEndereco().getCep(), fisica.getPessoa().getNome(),
+                fisica.getSexo(), fisica.getPessoa().getTelefone(), fisica.getCelular(), fisica.getPessoa().getComplementoLogradouro(), 
+                    fisica.getDataCadastro(), fisica.getPessoa().getManterContrato());
+                JOptionPane.showMessageDialog(rootPane, "Cadastrado!");
             } catch (SQLException ex) {
                 Logger.getLogger(FrmCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(FrmCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
             }
 
+        } else if (rbtJuridica.isSelected() && cepCadastrado) {
+            try {
+                end = DaoEndereco.popularEndereco(txtCep.getText());
+                
+                Pessoa pessoa = new Pessoa(txtNomePessoaFicticio.getText(), end, Integer.parseInt(txtTelefone.getText()), txtNumero.getText(), contrato);
+                PessoaJuridica juridica = new PessoaJuridica(pessoa,txtCpfCnpj.getText(), txtRazaoSocial.getText(), dataCadastro, Integer.parseInt(txtCelRamal.getText()));
+                
+                dao.cadastrarPessoaJuridica(juridica.getCnpj(), juridica.getPessoa().getEndereco().getCep(), juridica.getPessoa().getNome(), 
+                    juridica.getRazaoSocial(), juridica.getPessoa().getComplementoLogradouro(), juridica.getPessoa().getTelefone(), 
+                    juridica.getRamalCliente(), juridica.getPessoa().getManterContrato(), dataCadastro);
+                JOptionPane.showMessageDialog(rootPane, "Cadastrado!");
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(FrmCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(FrmCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
 //        DaoEndereco dao = new DaoEndereco();
@@ -439,6 +525,16 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtCepKeyReleased
 
+    private void rbtMasculinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtMasculinoActionPerformed
+        rbtNaoCadastro.setSelected(false);
+        rbtSimCadastro.setSelected(true);
+    }//GEN-LAST:event_rbtMasculinoActionPerformed
+
+    private void rbtFemininoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtFemininoActionPerformed
+        rbtNaoCadastro.setSelected(true);
+        rbtSimCadastro.setSelected(false);
+    }//GEN-LAST:event_rbtFemininoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -475,6 +571,28 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         });
     }
 
+    public void modoFisica() {
+        lblCpfCnpj.setText("CPF");
+        lblCelRamal.setText("Celular");
+        lblNome.setText("Nome");
+        lblSexo.setVisible(true);
+        rbtFeminino.setVisible(true);
+        rbtMasculino.setVisible(true);
+        lblRazaoSocial.setVisible(false);
+        txtRazaoSocial.setVisible(false);
+    }
+
+    public void modoJuridica() {
+        lblCpfCnpj.setText("CNPJ");
+        lblCelRamal.setText("Ramal");
+        lblNome.setText("Nome Fictício");
+        lblSexo.setVisible(false);
+        rbtFeminino.setVisible(false);
+        rbtMasculino.setVisible(false);
+        lblRazaoSocial.setVisible(true);
+        txtRazaoSocial.setVisible(true);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCadastrarCep;
@@ -483,24 +601,33 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     private javax.swing.JButton btnListarPessoa;
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.ButtonGroup grupoCadastro;
+    private javax.swing.ButtonGroup grupoSexo;
     private javax.swing.ButtonGroup grupoTipoPessoa;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCategoriaPeca;
+    private javax.swing.JLabel lblCelRamal;
     private javax.swing.JLabel lblCep;
     private javax.swing.JLabel lblCepExiste;
     private javax.swing.JLabel lblCodigoPeca;
+    private javax.swing.JLabel lblCpfCnpj;
     private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblRazaoSocial;
+    private javax.swing.JLabel lblSexo;
     private javax.swing.JLabel lblTipoPessoa;
     private javax.swing.JLabel lblTipoPessoa1;
     private javax.swing.JLabel lblTituloJanela;
-    private javax.swing.JPanel panelDinamico;
+    private javax.swing.JRadioButton rbtFeminino;
     private javax.swing.JRadioButton rbtFisica;
     private javax.swing.JRadioButton rbtJuridica;
+    private javax.swing.JRadioButton rbtMasculino;
     private javax.swing.JRadioButton rbtNaoCadastro;
     private javax.swing.JRadioButton rbtSimCadastro;
+    private javax.swing.JTextField txtCelRamal;
     private javax.swing.JTextField txtCep;
-    private javax.swing.JTextField txtNomePessoa;
+    private javax.swing.JTextField txtCpfCnpj;
+    private javax.swing.JTextField txtNomePessoaFicticio;
     private javax.swing.JTextField txtNumero;
+    private javax.swing.JTextField txtRazaoSocial;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 }

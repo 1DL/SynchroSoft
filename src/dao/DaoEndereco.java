@@ -89,6 +89,7 @@ public class DaoEndereco {
         PreparedStatement st = con.prepareStatement(sql);
         st.setString(1, cep);
         ResultSet rs = st.executeQuery();
+        rs.next();
         Endereco end = new Endereco(rs.getString("CD_CEP"), rs.getString("DS_LOGRADOURO"), 
         rs.getString("NM_BAIRRO"), rs.getString("NM_CIDADE"), rs.getString("SG_ESTADO"));
         st.close();

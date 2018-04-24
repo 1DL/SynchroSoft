@@ -12,18 +12,18 @@ import java.sql.Date;
  * @author LuizV1
  */
 public class PessoaFisica {
+    private Pessoa pessoa;
     private String cpf;
-    private Pessoa telefone;
     private Date dataCadastro;
     private int celular;
-    private char sexo;
+    private int sexo;
 
     public PessoaFisica() {
     }
 
-    public PessoaFisica(String cpf, Pessoa telefone, Date dataCadastro, int celular, char sexo) {
+    public PessoaFisica(Pessoa pessoa, String cpf, Date dataCadastro, int celular, int sexo) {
+        this.pessoa = pessoa;
         this.cpf = cpf;
-        this.telefone = telefone;
         this.dataCadastro = dataCadastro;
         this.celular = celular;
         this.sexo = sexo;
@@ -37,12 +37,12 @@ public class PessoaFisica {
         this.cpf = cpf;
     }
 
-    public Pessoa getTelefone() {
-        return telefone;
+    public Pessoa getPessoa() {
+        return pessoa;
     }
 
-    public void setTelefone(Pessoa telefone) {
-        this.telefone = telefone;
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
     }
 
     public Date getDataCadastro() {
@@ -61,11 +61,11 @@ public class PessoaFisica {
         this.celular = celular;
     }
 
-    public char getSexo() {
+    public int getSexo() {
         return sexo;
     }
 
-    public void setSexo(char sexo) {
+    public void setSexo(int sexo) {
         this.sexo = sexo;
     }
 }
