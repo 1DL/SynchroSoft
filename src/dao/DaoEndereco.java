@@ -70,6 +70,33 @@ public class DaoEndereco {
         return lista;
     }
     
+    public static boolean existeEndereco(String cep) throws SQLException, ClassNotFoundException{
+        boolean flag;
+        Connection con = Conexao.conectar();
+        String sql = "SELECT CD_CEP FROM SYNCHROSOFT.TB_ENDERECO WHERE CD_CEP = ?";
+        PreparedStatement st = con.prepareStatement(sql);
+        st.setString(1, cep);
+        ResultSet rs = st.executeQuery();
+        flag = rs.isBeforeFirst(); 
+        st.close();
+        rs.close();
+        return flag;
+    }
+    
+    public static Endereco popularEndereco (String cep) throws SQLException, ClassNotFoundException {
+        Connection con = Conexao.conectar();
+        String sql = "SELECT * FROM SYNCHROSOFT.TB_ENDERECO WHERE CD_CEP = ?";
+        PreparedStatement st = con.prepareStatement(sql);
+        st.setString(1, cep);
+        ResultSet rs = st.executeQuery();
+        Endereco end = new Endereco(rs.getString("CD_CEP"), rs.getString("DS_LOGRADOURO"), 
+        rs.getString("NM_BAIRRO"), rs.getString("NM_CIDADE"), rs.getString("SG_ESTADO"));
+        st.close();
+        rs.close();
+        return end;
+        
+    }
+    
     public void alterarEndereco(JTable tabela) throws SQLException, ClassNotFoundException {
         try{
             int rows = tabela.getRowCount();

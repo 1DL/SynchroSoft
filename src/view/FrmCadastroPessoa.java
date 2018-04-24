@@ -5,36 +5,46 @@
  */
 package view;
 
+import dao.DaoEndereco;
 import dao.DaoPeca;
+import dao.DaoPessoa;
+import java.awt.Component;
 import java.awt.GridBagLayout;
 import java.awt.PopupMenu;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import model.Endereco;
 import model.Peca;
+import model.Pessoa;
+import model.PessoaFisica;
 
 /**
  *
  * @author Luiz
  */
 public class FrmCadastroPessoa extends javax.swing.JFrame {
+
     GridBagLayout layout = new GridBagLayout();
-    PanPessoaFisica pessoa;
-    PanPessoaJuridica juridica;
+    PanPessoaFisica panelPessoa;
+    PanPessoaJuridica panelJuridica;
+    boolean cepCadastrado;
+    boolean mantemContrato;
+
     /**
      * Creates new form FrmCadastroPeca
      */
     public FrmCadastroPessoa() {
         initComponents();
-        pessoa = new PanPessoaFisica();
-        juridica = new PanPessoaJuridica();
+        panelPessoa = new PanPessoaFisica();
+        panelJuridica = new PanPessoaJuridica();
         panelDinamico.setLayout(layout);
-        panelDinamico.add(pessoa);
-        panelDinamico.add(juridica);
-        pessoa.setVisible(true);
-        juridica.setVisible(false);
-        
+        panelDinamico.add(panelPessoa);
+        panelDinamico.add(panelJuridica);
+        panelPessoa.setVisible(true);
+        panelJuridica.setVisible(false);
+
     }
 
     /**
@@ -62,7 +72,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         txtCep = new javax.swing.JTextField();
         lblCepExiste = new javax.swing.JLabel();
         btnCadastrarCep = new javax.swing.JButton();
-        txtComplemento = new javax.swing.JTextField();
+        txtNumero = new javax.swing.JTextField();
         lblTipoPessoa1 = new javax.swing.JLabel();
         rbtSimCadastro = new javax.swing.JRadioButton();
         rbtNaoCadastro = new javax.swing.JRadioButton();
@@ -81,7 +91,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         lblCodigoPeca.setText("Telefone");
 
         lblCategoriaPeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCategoriaPeca.setText("Complemento Logradouro");
+        lblCategoriaPeca.setText("Número");
 
         lblTipoPessoa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblTipoPessoa.setText("Tipo de Pessoa:");
@@ -111,7 +121,18 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         lblCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCep.setText("CEP");
 
-        lblCepExiste.setText("Cadastrado");
+        txtCep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCepActionPerformed(evt);
+            }
+        });
+        txtCep.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCepKeyReleased(evt);
+            }
+        });
+
+        lblCepExiste.setText("Cep inválido.");
 
         btnCadastrarCep.setText("Cadastrar");
         btnCadastrarCep.addActionListener(new java.awt.event.ActionListener() {
@@ -120,8 +141,14 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
             }
         });
 
+        txtNumero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumeroActionPerformed(evt);
+            }
+        });
+
         lblTipoPessoa1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblTipoPessoa1.setText("Possui Cadastro:");
+        lblTipoPessoa1.setText("Possui Contrato:");
 
         grupoCadastro.add(rbtSimCadastro);
         rbtSimCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -212,19 +239,19 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                                 .addGap(31, 31, 31)
                                 .addComponent(rbtNaoCadastro))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblCategoriaPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(26, 26, 26)
-                                        .addComponent(lblCepExiste)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnCadastrarCep, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 38, Short.MAX_VALUE))))
+                                        .addComponent(lblCategoriaPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtNumero))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addGap(85, 85, 85)
+                                        .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(26, 26, 26)
+                                .addComponent(lblCepExiste)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnCadastrarCep, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 141, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,9 +297,9 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblCodigoPeca)
-                        .addComponent(lblCategoriaPeca)
-                        .addComponent(txtComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblCategoriaPeca))
+                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelDinamico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -318,14 +345,14 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rbtJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtJuridicaActionPerformed
-        pessoa.setVisible(false);
-        juridica.setVisible(true);
+        panelPessoa.setVisible(false);
+        panelJuridica.setVisible(true);
         lblNome.setText("Nome Fictício");
     }//GEN-LAST:event_rbtJuridicaActionPerformed
 
     private void rbtFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtFisicaActionPerformed
-        pessoa.setVisible(true);
-        juridica.setVisible(false);
+        panelPessoa.setVisible(true);
+        panelJuridica.setVisible(false);
         lblNome.setText("Nome");
     }//GEN-LAST:event_rbtFisicaActionPerformed
 
@@ -335,14 +362,36 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarCepActionPerformed
 
     private void rbtSimCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtSimCadastroActionPerformed
-        
+
     }//GEN-LAST:event_rbtSimCadastroActionPerformed
 
     private void rbtNaoCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtNaoCadastroActionPerformed
-        
+
     }//GEN-LAST:event_rbtNaoCadastroActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        DaoPessoa dao = new DaoPessoa();
+        Endereco end = new Endereco();
+
+        if (rbtFisica.isSelected() && cepCadastrado) {
+            mantemContrato = rbtSimCadastro.isSelected();
+            try {
+                end = DaoEndereco.popularEndereco(txtCep.getText());
+                Pessoa pessoa = new Pessoa(txtNomePessoa.getText(), end, Integer.parseInt(txtTelefone.getText()), txtNumero.getText(), mantemContrato);
+
+                Component[] childF = panelPessoa.getComponents();
+
+                
+
+                PessoaFisica fisica = new PessoaFisica(, pessoa, dataCadastro, ERROR, 0);
+            } catch (SQLException ex) {
+                Logger.getLogger(FrmCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(FrmCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
 //        DaoEndereco dao = new DaoEndereco();
 //        Endereco end = new Endereco (txtCep.getText(), txtLogradouro.getText(), txtBairro.getText(), txtCidade.getText(), (String) cmbEstado.getSelectedItem());
 //        JOptionPane.showMessageDialog(null, "Valor CMB UF "+ end.getEstado());
@@ -361,6 +410,34 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
         dispose();
     }//GEN-LAST:event_btnFecharFrameActionPerformed
+
+    private void txtNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroActionPerformed
+
+    }//GEN-LAST:event_txtNumeroActionPerformed
+
+    private void txtCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCepActionPerformed
+
+    }//GEN-LAST:event_txtCepActionPerformed
+
+    private void txtCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyReleased
+        if ((txtCep.getText().length() < 8) || (txtCep.getText().length() > 8)) {
+            lblCepExiste.setText("Cep Inválido.");
+        } else {
+            DaoEndereco de = new DaoEndereco();
+            try {
+                cepCadastrado = de.existeEndereco(txtCep.getText());
+                if (cepCadastrado) {
+                    lblCepExiste.setText("CEP Cadastrado.");
+                } else {
+                    lblCepExiste.setText("CEP Inexistente.");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(FrmCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(FrmCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_txtCepKeyReleased
 
     /**
      * @param args the command line arguments
@@ -422,8 +499,8 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtNaoCadastro;
     private javax.swing.JRadioButton rbtSimCadastro;
     private javax.swing.JTextField txtCep;
-    private javax.swing.JTextField txtComplemento;
     private javax.swing.JTextField txtNomePessoa;
+    private javax.swing.JTextField txtNumero;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 }

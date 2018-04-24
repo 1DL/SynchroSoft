@@ -18,6 +18,17 @@ public class PessoaFisica {
     private int celular;
     private char sexo;
 
+    public PessoaFisica() {
+    }
+
+    public PessoaFisica(String cpf, Pessoa telefone, Date dataCadastro, int celular, char sexo) {
+        this.cpf = cpf;
+        this.telefone = telefone;
+        this.dataCadastro = dataCadastro;
+        this.celular = celular;
+        this.sexo = sexo;
+    }
+
     public String getCpf() {
         return cpf;
     }
