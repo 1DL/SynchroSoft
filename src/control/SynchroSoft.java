@@ -12,6 +12,7 @@ import view.FrmCadastroPeca;
 import view.FrmListagemPeca;
 import view.FrmPrincipal;
 import dao.DaoPeca;
+import view.FrmCadastroFuncionario;
 import view.FrmLogin;
 
 /**
@@ -27,6 +28,7 @@ public class SynchroSoft {
     public static JFrame telaLogin;
     public static JFrame telaCadastroPeca;
     public static JFrame telaListagemPeca;
+    public static JFrame telaCadastroFuncionario;
     public static void main(String[] args) {
         System.out.println("Hello, World3! Welcome to SynchroSoft!!! ");
         Connection conn = null;
@@ -63,8 +65,11 @@ public class SynchroSoft {
 //        telaListagemPeca = new FrmListagemPeca();
 //        telaListagemPeca.setVisible(true);
 
-          telaLogin = new FrmLogin();
-          telaLogin.setVisible(true);
+//          telaLogin = new FrmLogin();
+//          telaLogin.setVisible(true);
+
+            telaCadastroFuncionario = new FrmCadastroFuncionario();
+            telaCadastroFuncionario.setVisible(true);
         
         DaoPeca d = new DaoPeca();
         d.listarPeca();

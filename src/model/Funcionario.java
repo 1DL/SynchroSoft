@@ -6,18 +6,44 @@
 package model;
 
 import java.sql.Date;
+import model.Pessoa;
+import model.PessoaFisica;
 
 /**
  *
- * @author LuizV1
+ * @author Luiz
  */
-public class Funcionario {
+public class Funcionario{
     private int codigoFuncionario;
-    private float salarioHora;
-    private String cargoFuncionario;
-    private Date dataAdmissao;
+    private String cepFuncionario;
+    private Pessoa nome;
+    private PessoaFisica cpf;
+    private PessoaFisica sexo;
+    private Pessoa telefone;
+    private PessoaFisica celular;
+    private Pessoa complementoLogradouro;
+    private float Salario;
+    private String cargo;
+    private Date dataContrato;
     private Date dataDemissao;
-    private int cargaHoraria;
+    private int horasTrabalhadas;
+    private boolean nivelAdministrativo;
+
+    public Funcionario(int codigoFuncionario, String cepFuncionario, Pessoa nome, PessoaFisica cpf, PessoaFisica sexo, PessoaFisica celular, Pessoa complementoLogradouro, int Salario, String cargo, Date dataContrato, Date dataDemissao, int horasTrabalhadas, boolean nivelAdministrativo) {
+        this.codigoFuncionario = codigoFuncionario;
+        this.cepFuncionario = cepFuncionario;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.sexo = sexo;
+        this.celular = celular;
+        this.complementoLogradouro = complementoLogradouro;
+        this.Salario = Salario;
+        this.cargo = cargo;
+        this.dataContrato = dataContrato;
+        this.dataDemissao = dataDemissao;
+        this.horasTrabalhadas = horasTrabalhadas;
+        this.nivelAdministrativo = nivelAdministrativo;
+    }
 
     public int getCodigoFuncionario() {
         return codigoFuncionario;
@@ -27,28 +53,76 @@ public class Funcionario {
         this.codigoFuncionario = codigoFuncionario;
     }
 
-    public float getSalarioHora() {
-        return salarioHora;
+    public String getCepFuncionario() {
+        return cepFuncionario;
     }
 
-    public void setSalarioHora(float salarioHora) {
-        this.salarioHora = salarioHora;
+    public void setCepFuncionario(String cepFuncionario) {
+        this.cepFuncionario = cepFuncionario;
     }
 
-    public String getCargoFuncionario() {
-        return cargoFuncionario;
+    public Pessoa getNome() {
+        return nome;
     }
 
-    public void setCargoFuncionario(String cargoFuncionario) {
-        this.cargoFuncionario = cargoFuncionario;
+    public void setNome(Pessoa nome) {
+        this.nome = nome;
     }
 
-    public Date getDataAdmissao() {
-        return dataAdmissao;
+    public PessoaFisica getCpf() {
+        return cpf;
     }
 
-    public void setDataAdmissao(Date dataAdmissao) {
-        this.dataAdmissao = dataAdmissao;
+    public void setCpf(PessoaFisica cpf) {
+        this.cpf = cpf;
+    }
+
+    public PessoaFisica getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(PessoaFisica sexo) {
+        this.sexo = sexo;
+    }
+
+    public PessoaFisica getCelular() {
+        return celular;
+    }
+
+    public void setCelular(PessoaFisica celular) {
+        this.celular = celular;
+    }
+
+    public Pessoa getComplementoLogradouro() {
+        return complementoLogradouro;
+    }
+
+    public void setComplementoLogradouro(Pessoa complementoLogradouro) {
+        this.complementoLogradouro = complementoLogradouro;
+    }
+
+    public float getSalario() {
+        return Salario;
+    }
+
+    public void setSalario(float Salario) {
+        this.Salario = Salario;
+    }
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    public Date getDataContrato() {
+        return dataContrato;
+    }
+
+    public void setDataContrato(Date dataContrato) {
+        this.dataContrato = dataContrato;
     }
 
     public Date getDataDemissao() {
@@ -59,11 +133,27 @@ public class Funcionario {
         this.dataDemissao = dataDemissao;
     }
 
-    public int getCargaHoraria() {
-        return cargaHoraria;
+    public int getHorasTrabalhadas() {
+        return horasTrabalhadas;
     }
 
-    public void setCargaHoraria(int cargaHoraria) {
-        this.cargaHoraria = cargaHoraria;
+    public void setHorasTrabalhadas(int horasTrabalhadas) {
+        this.horasTrabalhadas = horasTrabalhadas;
+    }
+
+    public boolean isNivelAdministrativo() {
+        return nivelAdministrativo;
+    }
+
+    public void setNivelAdministrativo(boolean nivelAdministrativo) {
+        this.nivelAdministrativo = nivelAdministrativo;
+    }
+
+    public Pessoa getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(Pessoa telefone) {
+        this.telefone = telefone;
     }
 }
