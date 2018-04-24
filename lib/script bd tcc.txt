@@ -176,3 +176,5 @@ INSERT INTO tb_funcionario (cd_funcionario, cd_cep, nm_funcionario, cpf_funciona
 
 INSERT INTO tb_usuario (cd_usuario, cd_funcionario, ds_login, ds_senha) VALUES (0001, 0001, 'admin', 'admin');
 
+ALTER TABLE tb_funcionario ADD id_administrativo NUMERIC(1) CHECK (id_administrativo IN(1,0));
+
