@@ -10,7 +10,10 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import model.Endereco;
 import model.Peca;
+import model.Pessoa;
+import model.PessoaFisica;
 
 /**
  *
@@ -101,6 +104,44 @@ public class DaoPessoa {
         }
     }
     
+    public static ArrayList listarPessoaFisica() {
+        ArrayList<PessoaFisica> lista = new ArrayList<>();
+        try {
+            Connection con = Conexao.conectar();
+//            DatabaseMetaData teste = con.getMetaData();
+//            System.out.println(teste.supportsBatchUpdates());
+            String sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP)";
+            PreparedStatement st = con.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Endereco end = new Endereco();
+                Pessoa p = new Pessoa(rs.getString("NM_PESSOA_FISICA"),
+                                      end,
+                                      rs.getLong("NR_TELEFONE"),
+                                      rs.getString("NR_COMPLEMENTO_LOGRADOURO"),
+                                      rs.getInt("ID_CONTRATO"));
+                PessoaFisica pessoaF = new PessoaFisica(p, 
+                                                        rs.getString("CD_CPF"),
+                                                        rs.getDate("DT_CADASTRO"),
+                                                        rs.getLong("NR_CELULAR"),
+                                                        rs.getInt("ID_SEXO"));
+                
+                lista.add(pessoaF);
+
+                /*lista.add(new String[]{String.valueOf(rs.getInt("CD_PECA")),
+                (rs.getString("NM_PECA")),(rs.getString("DS_CATEGORIA")),
+                String.valueOf(rs.getInt("QT_PECA")),String.valueOf(rs.getFloat("VL_PECA"))});                
+                System.out.println(lista.get(0));*/
+            }
+            
+            st.close();
+            rs.close();
+        } catch (Exception ex) {
+            System.err.println("DAOPECA Instanciamento: " + ex);
+        }
+        //return lista;
+        return lista;
+    }
     
 }
 
