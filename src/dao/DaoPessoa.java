@@ -238,7 +238,7 @@ public class DaoPessoa {
             Connection con = Conexao.conectar();
             con.setAutoCommit(false);
             String sql = "UPDATE SYNCHROSOFT.TB_PESSOA_FISICA "
-                    + "SET NM_PESSOA_FISICA = ?, "
+                    + "SET CD_PECA = ?, NM_PESSOA_FISICA = ?, "
                     + "ID_SEXO = ?, NR_TELEFONE = ?, NR_CELULAR = ?, NR_COMPLEMENTO_LOGRADOURO = ?,"
                     + "DT_CADASTRO = ?, ID_CONTRATO = ? WHERE CD_CPF = ?";
             PreparedStatement st = con.prepareStatement(sql);
@@ -273,15 +273,16 @@ public class DaoPessoa {
                     contrato = 0;
                 }
                 
+                st.setString(1, CD_CPF);
                 st.setString(8, CD_CPF);
-                st.setString(1, NM_PESSOA_FISICA);
-                st.setInt(2, sexo);
-                st.setLong(3, Long.parseLong(NR_TELEFONE));
-                st.setLong(4, Long.parseLong(NR_CELULAR));
-                st.setInt(5, Integer.parseInt(NR_COMPLEMENTO_LOGRADOURO));
+                st.setString(2, NM_PESSOA_FISICA);
+                st.setInt(3, sexo);
+                st.setLong(4, Long.parseLong(NR_TELEFONE));
+                st.setLong(5, Long.parseLong(NR_CELULAR));
+                st.setInt(6, Integer.parseInt(NR_COMPLEMENTO_LOGRADOURO));
                 
-                st.setDate(6, (Date) DT_CADASTRO);
-                st.setInt(7, contrato);
+                st.setDate(7, (Date) DT_CADASTRO);
+                st.setInt(8, contrato);
                 
 
                 st.addBatch();

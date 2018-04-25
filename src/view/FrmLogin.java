@@ -48,7 +48,7 @@ public class FrmLogin extends javax.swing.JFrame {
         jpnLogin.setOpaque(false);
         jpnLogin.setLayout(null);
 
-        lblLogo.setIcon(new javax.swing.ImageIcon("C:\\Users\\Luiz\\Desktop\\teste.png")); // NOI18N
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/teste.png"))); // NOI18N
         jpnLogin.add(lblLogo);
         lblLogo.setBounds(10, 20, 203, 292);
 
@@ -80,7 +80,7 @@ public class FrmLogin extends javax.swing.JFrame {
         jpnLogin.add(txtPassword);
         txtPassword.setBounds(235, 209, 246, 31);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Luiz\\Desktop\\fundo pequeno.png")); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo pequeno.png"))); // NOI18N
         jLabel4.setLabelFor(this);
         jpnLogin.add(jLabel4);
         jLabel4.setBounds(0, 0, 540, 320);

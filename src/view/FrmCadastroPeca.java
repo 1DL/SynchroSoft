@@ -92,7 +92,7 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
             }
         });
 
-        btnMenuPrincipal.setIcon(new javax.swing.ImageIcon("C:\\Users\\Luiz\\Desktop\\logo pequeno.png")); // NOI18N
+        btnMenuPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo pequeno.png"))); // NOI18N
         btnMenuPrincipal.setText("Menu Principal");
         btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

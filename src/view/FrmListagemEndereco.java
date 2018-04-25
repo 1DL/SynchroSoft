@@ -146,7 +146,6 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         getContentPane().add(lblDescrever);
         lblDescrever.setBounds(520, 50, 83, 30);
 
-        btnMenuPrincipal.setIcon(new javax.swing.ImageIcon("C:\\Users\\Luiz\\Desktop\\logo pequeno.png")); // NOI18N
         btnMenuPrincipal.setText("Menu Principal");
         btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

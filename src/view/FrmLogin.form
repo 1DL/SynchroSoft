@@ -52,7 +52,7 @@
         <Component class="javax.swing.JLabel" name="lblLogo">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Luiz\Desktop\teste.png"/>
+              <Image iconType="3" name="/img/teste.png"/>
             </Property>
           </Properties>
           <Constraints>
@@ -130,7 +130,7 @@
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Luiz\Desktop\fundo pequeno.png"/>
+              <Image iconType="3" name="/img/fundo pequeno.png"/>
             </Property>
             <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="Form"/>

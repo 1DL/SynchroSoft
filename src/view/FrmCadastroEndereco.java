@@ -84,6 +84,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
             }
         });
 
+        btnMenuPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo pequeno.png"))); // NOI18N
         btnMenuPrincipal.setText("Menu Principal");
 
         btnListarEndereco.setText("Listar Endereços Cadastrados");

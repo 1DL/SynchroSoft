@@ -203,13 +203,7 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtualizarTabelaActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        /*ArrayList<Peca> pecaAlterar = new ArrayList<>();
-        JOptionPane.showMessageDialog(null,""+tblListagemPeca.getRowCount());
-        JOptionPane.showMessageDialog(null,""+tblListagemPeca.getColumnCount());
-
-        for (int i = 0; i <= tblListagemPeca.getRowCount();i++){
-
-        }*/
+        
         try{
             tblListagemPessoaF.getCellEditor().stopCellEditing();
         } catch (Exception ex) {
@@ -301,7 +295,7 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
             
             DefaultTableModel model = (DefaultTableModel) tblListagemPessoaF.getModel();
             model.setColumnIdentifiers(nomeColunas);
-                        
+            model.setRowCount(0);
         Object rowData[] = new Object[10];
         for(int i = 0; i < lista.size(); i++)
         {
