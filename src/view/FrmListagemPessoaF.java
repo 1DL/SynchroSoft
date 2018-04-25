@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import model.FrmListagemPessoaJ;
 import model.Pessoa;
 import model.PessoaFisica;
 
@@ -93,6 +92,11 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         btnMenuPrincipal.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnMenuPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo pequeno.png"))); // NOI18N
         btnMenuPrincipal.setText("Menu Principal");
+        btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuPrincipalActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnMenuPrincipal);
         btnMenuPrincipal.setBounds(950, 220, 161, 239);
 
@@ -254,6 +258,12 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         j.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnJuridicaActionPerformed
+
+    private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
+        FrmPrincipal princ = new FrmPrincipal();
+        princ.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
     /**
      * @param args the command line arguments

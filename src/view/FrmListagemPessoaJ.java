@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package view;
 
 import view.*;
 import dao.DaoPessoa;
@@ -15,6 +15,8 @@ import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import model.Pessoa;
 import model.PessoaFisica;
+import model.PessoaFisica;
+import model.PessoaJuridica;
 
 /**
  *
@@ -93,6 +95,11 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         btnMenuPrincipal.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnMenuPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo pequeno.png"))); // NOI18N
         btnMenuPrincipal.setText("Menu Principal");
+        btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuPrincipalActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnMenuPrincipal);
         btnMenuPrincipal.setBounds(950, 220, 161, 239);
 
@@ -219,7 +226,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
 
         }
         try{
-            pessoa.alterarPessoaFisica(tblListagemPessoaJ);
+            pessoa.alterarPessoaJuridica(tblListagemPessoaJ);
         } catch (SQLException ex) {
             Logger.getLogger(FrmListagemPeca.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -254,6 +261,12 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         f.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnFisicaActionPerformed
+
+    private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
+        FrmPrincipal princ = new FrmPrincipal();
+        princ.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -375,18 +388,13 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         //Chamando método para preenchimento de Jtable com dados da tabela de peça
         lista = DaoPessoa.listarPessoaJuridica();
 //        System.out.println(lista.get(0).);
-        String[] nomeColunas = {"Nome","CPF","Sexo","CEP","Endereço", "Número", "Telefone", "Celular", "Contrato"};
+        String[] nomeColunas = {"CNPJ","CEP","Nome Fictício","Razão Social","Nº", "Telefone", "Ramal", "Contrato", 
+            "Data Cadastro"};
         try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPeca()
         {
-            //declaração de variável pra contrato e para sexo
+            //declaração de variável pra contrato
             String contrato = "";
-            String sexo = "";
-            
-            
-//            DefaultTableModel modelo = new DefaultTableModel(
-//        lista.toArray(new Peca[lista.size()][]), nomeColunas);
-//            tblListagemPeca.setModel(modelo);
-            
+ 
             DefaultTableModel model = (DefaultTableModel) tblListagemPessoaJ.getModel();
             model.setColumnIdentifiers(nomeColunas);
             model.setRowCount(0);
@@ -396,18 +404,18 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
             //Se o manter contrato for 1, possui; senão, não possui
             if(lista.get(i).getPessoa().getManterContrato() == 0)
             {
-                contrato = "Possui contrato";
+                contrato = "Sim";
             }
             else
             {
-                contrato = "Não possui contrato";
+                contrato = "Não";
             }
             
             
-            rowData[0] = lista.get(i).getPessoa().getNome();
-            rowData[1] = lista.get(i).getCnpj();     
-            rowData[2] = lista.get(i).getPessoa().getEndereco().getCep();
-            rowData[3] = lista.get(i).getPessoa().getEndereco().getLogradouro();
+            rowData[0] = lista.get(i).getCnpj();
+            rowData[1] = lista.get(i).getPessoa().getEndereco().getCep();
+            rowData[2] = lista.get(i).getPessoa().getNome();
+            rowData[3] = lista.get(i).getRazaoSocial();
             rowData[4] = lista.get(i).getPessoa().getComplementoLogradouro();
             rowData[5] = Long.toString(lista.get(i).getPessoa().getTelefone());
             rowData[6] = Long.toString(lista.get(i).getRamalCliente());

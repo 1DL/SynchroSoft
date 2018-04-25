@@ -119,7 +119,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         getContentPane().add(lblTituloJanela);
         lblTituloJanela.setBounds(550, 0, 194, 25);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setMaximumSize(new java.awt.Dimension(1152, 648));
         jPanel1.setMinimumSize(new java.awt.Dimension(1152, 648));
         jPanel1.setPreferredSize(new java.awt.Dimension(1152, 648));

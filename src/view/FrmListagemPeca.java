@@ -6,6 +6,8 @@
 package view;
 
 import dao.DaoPeca;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -198,7 +200,11 @@ public class FrmListagemPeca extends javax.swing.JFrame {
 
     private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
         FrmCadastroPeca telaCadastro = new FrmCadastroPeca();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        telaCadastro.setLocation(dim.width/2-this.getPreferredSize().width/2, dim.height/2-this.getPreferredSize().height/2);
         telaCadastro.setVisible(true);
+        telaCadastro.setSize(1152, 648);
+        
     }//GEN-LAST:event_btnTelaCadastroActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
@@ -250,6 +256,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
         FrmPrincipal princ = new FrmPrincipal();
         princ.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
     /**

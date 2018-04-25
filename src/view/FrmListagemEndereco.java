@@ -239,6 +239,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
         FrmPrincipal princ = new FrmPrincipal();
         princ.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
     /**

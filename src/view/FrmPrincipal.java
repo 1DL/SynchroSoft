@@ -48,7 +48,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         btnPeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        btnPeca.setText("Cadastro de peças");
+        btnPeca.setText("Cadastro de Peças");
         btnPeca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPecaActionPerformed(evt);
@@ -68,7 +68,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnFuncionario1.setBounds(50, 100, 290, 170);
 
         btnFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        btnFuncionario.setText("Cadastro de serviço");
+        btnFuncionario.setText("Relatório de Despeas");
         btnFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFuncionarioActionPerformed(evt);
@@ -108,11 +108,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void btnPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPecaActionPerformed
         FrmListagemPeca telaListarPeca = new FrmListagemPeca();
         telaListarPeca.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnPecaActionPerformed
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
         FrmCadastroPessoa cad = new FrmCadastroPessoa();
         cad.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnClienteActionPerformed
 
     private void btnServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServicoActionPerformed
@@ -126,6 +128,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void btnFuncionario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionario1ActionPerformed
         FrmCadastroFuncionario func = new FrmCadastroFuncionario();
         func.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnFuncionario1ActionPerformed
 
     /**
