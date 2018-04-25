@@ -6,6 +6,8 @@
 package dao;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -141,6 +143,67 @@ public class DaoPessoa {
         }
         //return lista;
         return lista;
+    }
+    
+    public void alterarPessoaFisica(JTable tabela) throws SQLException, ClassNotFoundException, ParseException {
+//      
+        try{
+            
+            int rows = tabela.getRowCount();
+            String log = "";
+            JOptionPane.showConfirmDialog(null, "Deseja realizar a alteração?");
+
+            Connection con = Conexao.conectar();
+            con.setAutoCommit(false);
+            String sql = "UPDATE SYNCHROSOFT.TB_PESSOA_FISICA "
+                    + "SET CD_CPF = ?, NM_PESSOA_FISICA = ?, "
+                    + "ID_SEXO = ?, NR_TELEFONE = ?, NR_CELULAR = ?, NR_COMPLEMENTO_LOGRADOURO = ?,"
+                    + "DT_CADASTRO = ?, ID_CONTRATO = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            for (int row = 0; row < rows; row++) {
+                
+                String CD_CPF = (String) tabela.getValueAt(row, 1);
+                String NM_PESSOA_FISICA = (String) tabela.getValueAt(row, 0);
+                String ID_SEXO = (String) tabela.getValueAt(row, 2);
+                String NR_TELEFONE = (String) tabela.getValueAt(row, 6);
+                String NR_CELULAR = (String) tabela.getValueAt(row, 7);
+                String NR_COMPLEMENTO_LOGRADOURO = (String) tabela.getValueAt(row, 5);
+                String DT_CADASTRO = (String) tabela.getValueAt(row, 9);
+                String ID_CONTRATO = (String) tabela.getValueAt(row, 8);
+                
+                st.setInt(1, Integer.parseInt(CD_CPF));
+                st.setString(2, NM_PESSOA_FISICA);
+                st.setInt(3, Integer.parseInt(ID_SEXO));
+                st.setInt(4, Integer.parseInt(NR_TELEFONE));
+                st.setInt(4, Integer.parseInt(NR_CELULAR));
+                st.setInt(4, Integer.parseInt(NR_COMPLEMENTO_LOGRADOURO));
+                
+                //aplicando formato de data oracle
+                final String OLD_FORMAT = "yyyy/MM/dd";
+                final String NEW_FORMAT = "dd/MM/yyyy";
+
+                // August 12, 2010
+                String oldDateString = DT_CADASTRO;
+                String newDateString;
+
+                SimpleDateFormat sdf = new SimpleDateFormat(OLD_FORMAT);
+                Date d = (Date) sdf.parse(oldDateString);
+                sdf.applyPattern(NEW_FORMAT);
+                newDateString = sdf.format(d);
+                
+                st.setDate(5, Date.valueOf(DT_CADASTRO));
+                st.setInt(3, Integer.parseInt(ID_CONTRATO));
+                
+
+                st.addBatch();
+                st.executeBatch();
+                con.commit();
+                JOptionPane.showMessageDialog(null, "A base de pessoas físicas foi alterada com sucesso!");
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar a base de pessoas físicas. \n\n"+ex.getMessage());
+        }
     }
     
 }

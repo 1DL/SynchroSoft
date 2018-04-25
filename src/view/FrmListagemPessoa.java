@@ -7,7 +7,10 @@ package view;
 
 import dao.DaoPessoa;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import model.Pessoa;
 import model.PessoaFisica;
@@ -208,18 +211,18 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
         for (int i = 0; i <= tblListagemPeca.getRowCount();i++){
 
         }*/
-//        try{
-//            tblListagemPeca.getCellEditor().stopCellEditing();
-//        } catch (Exception ex) {
-//
-//        }
-//        try{
-//            dp.alterarPeca(tblListagemPeca);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(FrmListagemPeca.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(FrmListagemPeca.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try{
+            tblListagemPessoaF.getCellEditor().stopCellEditing();
+        } catch (Exception ex) {
+
+        }
+        try{
+            pessoa.alterarPessoaFisica(tblListagemPessoaF);
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmListagemPeca.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FrmListagemPeca.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_btnAlterarActionPerformed
 
