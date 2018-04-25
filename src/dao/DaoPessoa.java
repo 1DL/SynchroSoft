@@ -162,7 +162,7 @@ public class DaoPessoa {
         return lista;
     }
     
-    public void alterarPessoaFisica(JTable tabela) throws SQLException, ClassNotFoundException, ParseException {
+    public void alterarPessoaFisica(JTable tabela) throws SQLException, ClassNotFoundException {
 //      
         try{
             
@@ -173,50 +173,58 @@ public class DaoPessoa {
             Connection con = Conexao.conectar();
             con.setAutoCommit(false);
             String sql = "UPDATE SYNCHROSOFT.TB_PESSOA_FISICA "
-                    + "SET CD_CPF = ?, NM_PESSOA_FISICA = ?, "
+                    + "SET NM_PESSOA_FISICA = ?, "
                     + "ID_SEXO = ?, NR_TELEFONE = ?, NR_CELULAR = ?, NR_COMPLEMENTO_LOGRADOURO = ?,"
-                    + "DT_CADASTRO = ?, ID_CONTRATO = ?";
+                    + "DT_CADASTRO = ?, ID_CONTRATO = ? WHERE CD_CPF = ?";
             PreparedStatement st = con.prepareStatement(sql);
             for (int row = 0; row < rows; row++) {
                 
                 String CD_CPF = (String) tabela.getValueAt(row, 1);
                 String NM_PESSOA_FISICA = (String) tabela.getValueAt(row, 0);
                 String ID_SEXO = (String) tabela.getValueAt(row, 2);
+                int sexo;
+                if (ID_SEXO == "Masculino")
+                {
+                    sexo = 0;
+                }
+                else
+                {
+                    sexo = 1;
+                }
+                
                 String NR_TELEFONE = (String) tabela.getValueAt(row, 6);
                 String NR_CELULAR = (String) tabela.getValueAt(row, 7);
                 String NR_COMPLEMENTO_LOGRADOURO = (String) tabela.getValueAt(row, 5);
-                String DT_CADASTRO = (String) tabela.getValueAt(row, 9);
+                Object DT_CADASTRO =  tabela.getValueAt(row, 9);
                 String ID_CONTRATO = (String) tabela.getValueAt(row, 8);
                 
-                st.setInt(1, Integer.parseInt(CD_CPF));
-                st.setString(2, NM_PESSOA_FISICA);
-                st.setInt(3, Integer.parseInt(ID_SEXO));
-                st.setInt(4, Integer.parseInt(NR_TELEFONE));
-                st.setInt(4, Integer.parseInt(NR_CELULAR));
-                st.setInt(4, Integer.parseInt(NR_COMPLEMENTO_LOGRADOURO));
+                int contrato;
+                if (ID_SEXO == "Não possui contrato")
+                {
+                    contrato = 1;
+                }
+                else
+                {
+                    contrato = 0;
+                }
                 
-                //aplicando formato de data oracle
-                final String OLD_FORMAT = "yyyy/MM/dd";
-                final String NEW_FORMAT = "dd/MM/yyyy";
-
-                // August 12, 2010
-                String oldDateString = DT_CADASTRO;
-                String newDateString;
-
-                SimpleDateFormat sdf = new SimpleDateFormat(OLD_FORMAT);
-                Date d = (Date) sdf.parse(oldDateString);
-                sdf.applyPattern(NEW_FORMAT);
-                newDateString = sdf.format(d);
+                st.setString(8, CD_CPF);
+                st.setString(1, NM_PESSOA_FISICA);
+                st.setInt(2, sexo);
+                st.setLong(3, Long.parseLong(NR_TELEFONE));
+                st.setLong(4, Long.parseLong(NR_CELULAR));
+                st.setInt(5, Integer.parseInt(NR_COMPLEMENTO_LOGRADOURO));
                 
-                st.setDate(5, Date.valueOf(DT_CADASTRO));
-                st.setInt(3, Integer.parseInt(ID_CONTRATO));
+                st.setDate(6, (Date) DT_CADASTRO);
+                st.setInt(7, contrato);
                 
 
                 st.addBatch();
                 st.executeBatch();
                 con.commit();
-                JOptionPane.showMessageDialog(null, "A base de pessoas físicas foi alterada com sucesso!");
             }
+                JOptionPane.showMessageDialog(null, "A base de pessoas físicas foi alterada com sucesso!");
+            
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao alterar a base de pessoas físicas. \n\n"+ex.getMessage());
