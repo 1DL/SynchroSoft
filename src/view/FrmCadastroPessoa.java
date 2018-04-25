@@ -347,11 +347,12 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                     .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNumero, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCpfCnpj)
-                    .addComponent(txtCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblRazaoSocial)
-                    .addComponent(txtRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblCpfCnpj)
+                        .addComponent(txtCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -446,8 +447,8 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 }
                 end = DaoEndereco.popularEndereco(txtCep.getText());
                 
-                Pessoa pessoa = new Pessoa(txtNomePessoaFicticio.getText(), end, Integer.parseInt(txtTelefone.getText()), txtNumero.getText(), contrato);
-                PessoaFisica fisica = new PessoaFisica(pessoa,txtCpfCnpj.getText(), dataCadastro, Integer.parseInt(txtCelRamal.getText()), sexo);
+                Pessoa pessoa = new Pessoa(txtNomePessoaFicticio.getText(), end, Long.parseLong(txtTelefone.getText()), txtNumero.getText(), contrato);
+                PessoaFisica fisica = new PessoaFisica(pessoa,txtCpfCnpj.getText(), dataCadastro, Long.parseLong (txtCelRamal.getText()), sexo);
                 
                 dao.cadastrarPessoaFisica(fisica.getCpf(), fisica.getPessoa().getEndereco().getCep(), fisica.getPessoa().getNome(),
                 fisica.getSexo(), fisica.getPessoa().getTelefone(), fisica.getCelular(), fisica.getPessoa().getComplementoLogradouro(), 
@@ -463,8 +464,8 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
             try {
                 end = DaoEndereco.popularEndereco(txtCep.getText());
                 
-                Pessoa pessoa = new Pessoa(txtNomePessoaFicticio.getText(), end, Integer.parseInt(txtTelefone.getText()), txtNumero.getText(), contrato);
-                PessoaJuridica juridica = new PessoaJuridica(pessoa,txtCpfCnpj.getText(), txtRazaoSocial.getText(), dataCadastro, Integer.parseInt(txtCelRamal.getText()));
+                Pessoa pessoa = new Pessoa(txtNomePessoaFicticio.getText(), end, Long.parseLong(txtTelefone.getText()), txtNumero.getText(), contrato);
+                PessoaJuridica juridica = new PessoaJuridica(pessoa,txtCpfCnpj.getText(), txtRazaoSocial.getText(), dataCadastro, Long.parseLong(txtCelRamal.getText()));
                 
                 dao.cadastrarPessoaJuridica(juridica.getCnpj(), juridica.getPessoa().getEndereco().getCep(), juridica.getPessoa().getNome(), 
                     juridica.getRazaoSocial(), juridica.getPessoa().getComplementoLogradouro(), juridica.getPessoa().getTelefone(), 

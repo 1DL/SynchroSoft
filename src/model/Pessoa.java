@@ -12,14 +12,14 @@ package model;
 public class Pessoa {
     private String nome;
     private Endereco endereco;
-    private int telefone;
+    private long telefone;
     private String complementoLogradouro;
     private int manterContrato;
 
     public Pessoa() {
     }
 
-    public Pessoa(String nome, Endereco endereco, int telefone, String complementoLogradouro, int manterContrato) {
+    public Pessoa(String nome, Endereco endereco, long telefone, String complementoLogradouro, int manterContrato) {
         this.nome = nome;
         this.endereco = endereco;
         this.telefone = telefone;
@@ -43,11 +43,11 @@ public class Pessoa {
         this.endereco = endereco;
     }
 
-    public int getTelefone() {
+    public long getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(long telefone) {
         this.telefone = telefone;
     }
 

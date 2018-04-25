@@ -18,7 +18,7 @@ import model.Peca;
  */
 public class DaoPessoa {
  
-    public void cadastrarPessoaFisica (String cpf, String cep, String nomeFisica, int sexo, int telefone, int celular, String complemento, Date dataCadastro, int isContratado) {
+    public void cadastrarPessoaFisica (String cpf, String cep, String nomeFisica, int sexo, long telefone, long celular, String complemento, Date dataCadastro, int isContratado) {
        try {
             Connection con = Conexao.conectar();
             String sql = "INSERT INTO SYNCHROSOFT.TB_PESSOA_FISICA VALUES (?,?,?,?,?,?,?,?,?)";
@@ -27,8 +27,8 @@ public class DaoPessoa {
             st.setString(2, cep);
             st.setString(3, nomeFisica.toLowerCase());
             st.setInt(4, sexo);
-            st.setInt(5, telefone);
-            st.setInt(6, celular);
+            st.setLong(5, telefone);
+            st.setLong(6, celular);
             st.setString(7, complemento.toLowerCase());
             st.setDate(8, dataCadastro);
             st.setInt(9, isContratado);
@@ -39,7 +39,7 @@ public class DaoPessoa {
         } 
     }
     
-    public void cadastrarPessoaJuridica (String cnpj, String cep, String nomeFicticio, String razaoSocial, String logradouro, int telefone, int ramal, int isContratado, Date dataCadastro) {
+    public void cadastrarPessoaJuridica (String cnpj, String cep, String nomeFicticio, String razaoSocial, String logradouro, long telefone, long ramal, int isContratado, Date dataCadastro) {
        try {
             Connection con = Conexao.conectar();
             String sql = "INSERT INTO SYNCHROSOFT.TB_PESSOA_JURIDICA VALUES (?,?,?,?,?,?,?,?,?)";
@@ -49,8 +49,8 @@ public class DaoPessoa {
             st.setString(3, nomeFicticio.toLowerCase());
             st.setString(4, razaoSocial.toLowerCase());
             st.setString(5, logradouro.toLowerCase());
-            st.setInt(6, telefone);
-            st.setInt(7, ramal);
+            st.setLong(6, telefone);
+            st.setLong(7, ramal);
             st.setInt(8, isContratado);
             st.setDate(9, dataCadastro);
             st.executeUpdate();

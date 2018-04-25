@@ -16,12 +16,12 @@ public class PessoaJuridica {
     private String razaoSocial;
     private Date dataCadastro;
     private Pessoa pessoa;
-    private int ramalCliente;
+    private long ramalCliente;
 
     public PessoaJuridica() {
     }
 
-    public PessoaJuridica(Pessoa pessoa, String cnpj, String razaoSocial, Date dataCadastro, int ramalCliente) {
+    public PessoaJuridica(Pessoa pessoa, String cnpj, String razaoSocial, Date dataCadastro, long ramalCliente) {
         this.pessoa = pessoa;
         this.cnpj = cnpj;
         this.razaoSocial = razaoSocial;
@@ -61,11 +61,11 @@ public class PessoaJuridica {
         this.pessoa = pessoa;
     }
 
-    public int getRamalCliente() {
+    public long getRamalCliente() {
         return ramalCliente;
     }
 
-    public void setRamalCliente(int ramalCliente) {
+    public void setRamalCliente(long ramalCliente) {
         this.ramalCliente = ramalCliente;
     }
 }

@@ -222,11 +222,13 @@
                       <Component id="txtNumero" alignment="1" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblCpfCnpj" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtCpfCnpj" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lblRazaoSocial" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="txtRazaoSocial" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblCpfCnpj" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtCpfCnpj" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">

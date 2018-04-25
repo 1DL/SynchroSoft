@@ -15,13 +15,13 @@ public class PessoaFisica {
     private Pessoa pessoa;
     private String cpf;
     private Date dataCadastro;
-    private int celular;
+    private long celular;
     private int sexo;
 
     public PessoaFisica() {
     }
 
-    public PessoaFisica(Pessoa pessoa, String cpf, Date dataCadastro, int celular, int sexo) {
+    public PessoaFisica(Pessoa pessoa, String cpf, Date dataCadastro, long celular, int sexo) {
         this.pessoa = pessoa;
         this.cpf = cpf;
         this.dataCadastro = dataCadastro;
@@ -53,11 +53,11 @@ public class PessoaFisica {
         this.dataCadastro = dataCadastro;
     }
 
-    public int getCelular() {
+    public long getCelular() {
         return celular;
     }
 
-    public void setCelular(int celular) {
+    public void setCelular(long celular) {
         this.celular = celular;
     }
 
