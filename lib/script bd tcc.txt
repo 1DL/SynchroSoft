@@ -44,17 +44,17 @@ CREATE TABLE tb_funcionario
 (
  cd_funcionario numeric(4),
  cd_CEP varchar2(8),
- nm_funcionario varchar2(50),
+ nm_funcionario varchar2(80),
  cpf_funcionario varchar2(11),
  id_sexo numeric(1) check(id_sexo in (1,0)),
  nr_telefone numeric(10),
  nr_celular numeric(11),
- nr_logradouro varchar2(5),
- vl_salario numeric(5,2),
- ds_cargo varchar2(20),
+ nr_logradouro varchar2(10),
+ vl_salario numeric(10,2),
+ ds_cargo varchar2(80),
  dt_admissao date,
  dt_demissao date,
- nr_horas_trabalho numeric(2),
+ nr_horas_trabalho numeric(5),
  constraint pk_funcionario primary key(cd_funcionario),
  constraint fk_endereco_funcionario foreign key(cd_CEP) references tb_endereco(cd_CEP)
 );
