@@ -187,8 +187,8 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtualizarTabelaActionPerformed
 
     private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
-        FrmCadastroPeca telaCadastro = new FrmCadastroPeca();
-        telaCadastro.setVisible(true);
+        FrmCadastroEndereco telaCadastroEnd = new FrmCadastroEndereco();
+        telaCadastroEnd.setVisible(true);
     }//GEN-LAST:event_btnTelaCadastroActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
