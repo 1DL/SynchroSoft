@@ -515,43 +515,43 @@ public class FrmCadastroFuncionario_Tabs extends javax.swing.JFrame {
     }//GEN-LAST:event_chkAdminActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        // primeiramente, definindo valores para radio button e checkbox
-        DaoFuncionario dao = new DaoFuncionario();
-        Endereco end = new Endereco();
-        Pessoa pessoa = new Pessoa();
-        PessoaFisica fisica = new PessoaFisica();
-        Date dataCadastro = new Date(Calendar.getInstance().getTimeInMillis());
-        int sexo = 0;
-        int nivelAdm = 0;
-        if(rdbMasculino.isSelected())
-        {
-            sexo = 0;
-        }
-        else
-        {
-            sexo = 1; 
-        }
-        
-        //Pegando valor selecionado do nível administrativo
-        if(chkAdmin.isSelected())
-        {
-            nivelAdm = 1;
-        }
-        else
-        {
-            nivelAdm = 0;
-        }                
-        Funcionario func = new Funcionario(Integer.parseInt(txtCodigo.getText()), txtCep.getText(), pessoa, fisica, Float.parseFloat(txtSalario.getText()), 
-            txtCargo.getText(), dataCadastro , null, Integer.parseInt(txtHorasTrabalhadas.getText()), nivelAdm);
-        
-        try { 
-            dao.cadastrarFuncionario(peca.getCodigoPeca(), peca.getNomePeca(), peca.getCategoriaPeca(), peca.getQuantidadePeca(), peca.getValorUnitario());
-            JOptionPane.showMessageDialog(rootPane, "Cadastrado!");
-        } catch (SQLException ex) {
-            Logger.getLogger(FrmCadastroPeca.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrmCadastroPeca.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        // primeiramente, definindo valores para radio button e checkbox
+//        DaoFuncionario dao = new DaoFuncionario();
+//        Endereco end = new Endereco();
+//        Pessoa pessoa = new Pessoa();
+//        PessoaFisica fisica = new PessoaFisica();
+//        Date dataCadastro = new Date(Calendar.getInstance().getTimeInMillis());
+//        int sexo = 0;
+//        int nivelAdm = 0;
+//        if(rdbMasculino.isSelected())
+//        {
+//            sexo = 0;
+//        }
+//        else
+//        {
+//            sexo = 1; 
+//        }
+//        
+//        //Pegando valor selecionado do nível administrativo
+//        if(chkAdmin.isSelected())
+//        {
+//            nivelAdm = 1;
+//        }
+//        else
+//        {
+//            nivelAdm = 0;
+//        }                
+//        Funcionario func = new Funcionario(Integer.parseInt(txtCodigo.getText()), txtCep.getText(), pessoa, fisica, Float.parseFloat(txtSalario.getText()), 
+//            txtCargo.getText(), dataCadastro , null, Integer.parseInt(txtHorasTrabalhadas.getText()), nivelAdm);
+//        
+//        try { 
+//            dao.cadastrarFuncionario(peca.getCodigoPeca(), peca.getNomePeca(), peca.getCategoriaPeca(), peca.getQuantidadePeca(), peca.getValorUnitario());
+//            JOptionPane.showMessageDialog(rootPane, "Cadastrado!");
+//        } catch (SQLException ex) {
+//            Logger.getLogger(FrmCadastroPeca.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(FrmCadastroPeca.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProximoActionPerformed

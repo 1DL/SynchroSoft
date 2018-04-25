@@ -31,11 +31,13 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
 
     boolean cepCadastrado;
     boolean mantemContrato;
+    Endereco endExibicao;
 
     /**
      * Creates new form FrmCadastroPeca
      */
     public FrmCadastroPessoa() {
+        this.endExibicao = new Endereco();
         initComponents();
         modoFisica();
 
@@ -583,14 +585,18 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     private void txtCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyReleased
         if ((txtCep.getText().length() < 8) || (txtCep.getText().length() > 8)) {
             lblCepExiste.setText("Cep Inválido.");
+            limparExibicaoEndereco();
         } else {
             DaoEndereco de = new DaoEndereco();
             try {
                 cepCadastrado = de.existeEndereco(txtCep.getText());
                 if (cepCadastrado) {
                     lblCepExiste.setText("CEP Cadastrado.");
+                    endExibicao = de.popularEndereco(txtCep.getText());
+                    popularExibicaoEndereco(endExibicao);
                 } else {
                     lblCepExiste.setText("CEP Inexistente.");
+                    limparExibicaoEndereco();
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(FrmCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
@@ -665,6 +671,21 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         lblRazaoSocial.setVisible(true);
         txtRazaoSocial.setVisible(true);
     }
+    
+    public void popularExibicaoEndereco (Endereco end){
+        txtLogradouro.setText(end.getLogradouro());
+        txtCidade.setText(end.getCidade());
+        txtBairro.setText(end.getBairro());
+        txtEstado.setText(end.getEstado());
+    }
+    
+    public void limparExibicaoEndereco (){
+        txtLogradouro.setText("");
+        txtCidade.setText("");
+        txtBairro.setText("");
+        txtEstado.setText("");
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Bairro;
