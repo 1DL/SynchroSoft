@@ -15,7 +15,7 @@ import dao.DaoPeca;
 import view.FrmCadastroFuncionario;
 import view.FrmCadastroFuncionario_Tabs;
 import view.FrmCadastroPessoa;
-import view.FrmListagemPessoa;
+import view.FrmListagemPessoaF;
 import view.FrmLogin;
 
 /**
@@ -70,7 +70,7 @@ public class SynchroSoft {
           telaLogin.setVisible(true);
 //            telaCadastroFuncionario = new FrmCadastroFuncionario();
 //            telaCadastroFuncionario.setVisible(true);
-//                FrmListagemPessoa telaListagemPessoa = new FrmListagemPessoa();
+//                FrmListagemPessoaF telaListagemPessoa = new FrmListagemPessoaF();
 //                telaListagemPessoa.setVisible(true);
 //        FrmCadastroPessoa telaCadastroPessoa = new FrmCadastroPessoa();
 //                telaCadastroPessoa.setVisible(true);

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package model;
 
+import view.*;
 import dao.DaoPessoa;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -19,12 +20,12 @@ import model.PessoaFisica;
  *
  * @author Luiz
  */
-public class FrmListagemPessoa extends javax.swing.JFrame {
+public class FrmListagemPessoaJ extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmListagemPessoa
      */
-    public FrmListagemPessoa() {
+    public FrmListagemPessoaJ() {
         initComponents();
         atualizarTabela();
     }
@@ -43,12 +44,13 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
         lblDescrever = new javax.swing.JLabel();
         txtPesquisa = new javax.swing.JTextField();
         btnMenuPrincipal = new javax.swing.JButton();
-        btnAtualizarTabela = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
         btnDeletar = new javax.swing.JButton();
         btnTelaCadastro = new javax.swing.JButton();
+        btnAtualizarTabela1 = new javax.swing.JButton();
+        btnFisica = new javax.swing.JButton();
         scpListagemPessoaF = new javax.swing.JScrollPane();
-        tblListagemPessoaF = new javax.swing.JTable();
+        tblListagemPessoaJ = new javax.swing.JTable();
         lblFundo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -59,17 +61,17 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
         lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblPesquisar.setText("Pesquisar por: ");
         getContentPane().add(lblPesquisar);
-        lblPesquisar.setBounds(240, 60, 120, 25);
+        lblPesquisar.setBounds(240, 100, 120, 25);
 
         cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CPF", "CEP", "Nome", "Telefone", "Celular", "Data" }));
         getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(400, 60, 107, 31);
+        cmbFiltro.setBounds(400, 100, 107, 31);
 
         lblDescrever.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDescrever.setText("Descrição:");
         getContentPane().add(lblDescrever);
-        lblDescrever.setBounds(540, 60, 83, 25);
+        lblDescrever.setBounds(540, 100, 83, 25);
 
         txtPesquisa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -86,22 +88,13 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtPesquisa);
-        txtPesquisa.setBounds(660, 60, 256, 31);
+        txtPesquisa.setBounds(660, 100, 256, 31);
 
         btnMenuPrincipal.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        btnMenuPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo pequeno.png"))); // NOI18N
         btnMenuPrincipal.setText("Menu Principal");
         getContentPane().add(btnMenuPrincipal);
         btnMenuPrincipal.setBounds(950, 220, 161, 239);
-
-        btnAtualizarTabela.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        btnAtualizarTabela.setText("AtualizarTabela");
-        btnAtualizarTabela.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtualizarTabelaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnAtualizarTabela);
-        btnAtualizarTabela.setBounds(240, 560, 180, 33);
 
         btnAlterar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnAlterar.setText("Alterar");
@@ -133,13 +126,33 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
         getContentPane().add(btnTelaCadastro);
         btnTelaCadastro.setBounds(743, 560, 170, 33);
 
+        btnAtualizarTabela1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        btnAtualizarTabela1.setText("AtualizarTabela");
+        btnAtualizarTabela1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarTabela1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAtualizarTabela1);
+        btnAtualizarTabela1.setBounds(240, 560, 180, 33);
+
+        btnFisica.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        btnFisica.setText("Listar Pessoa Física");
+        btnFisica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFisicaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnFisica);
+        btnFisica.setBounds(10, 150, 210, 80);
+
         scpListagemPessoaF.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         scpListagemPessoaF.setMaximumSize(new java.awt.Dimension(100, 100));
         scpListagemPessoaF.setMinimumSize(new java.awt.Dimension(100, 100));
         scpListagemPessoaF.setPreferredSize(new java.awt.Dimension(100, 100));
 
-        tblListagemPessoaF.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
-        tblListagemPessoaF.setModel(new javax.swing.table.DefaultTableModel(
+        tblListagemPessoaJ.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
+        tblListagemPessoaJ.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -147,11 +160,11 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
 
             }
         ));
-        tblListagemPessoaF.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tblListagemPessoaF.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        tblListagemPessoaF.setGridColor(new java.awt.Color(51, 153, 255));
-        tblListagemPessoaF.setSelectionBackground(new java.awt.Color(0, 153, 255));
-        scpListagemPessoaF.setViewportView(tblListagemPessoaF);
+        tblListagemPessoaJ.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tblListagemPessoaJ.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tblListagemPessoaJ.setGridColor(new java.awt.Color(51, 153, 255));
+        tblListagemPessoaJ.setSelectionBackground(new java.awt.Color(0, 153, 255));
+        scpListagemPessoaF.setViewportView(tblListagemPessoaJ);
 
         getContentPane().add(scpListagemPessoaF);
         scpListagemPessoaF.setBounds(240, 140, 670, 402);
@@ -198,19 +211,15 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtPesquisaKeyTyped
 
-    private void btnAtualizarTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarTabelaActionPerformed
-        atualizarTabela();
-    }//GEN-LAST:event_btnAtualizarTabelaActionPerformed
-
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         
         try{
-            tblListagemPessoaF.getCellEditor().stopCellEditing();
+            tblListagemPessoaJ.getCellEditor().stopCellEditing();
         } catch (Exception ex) {
 
         }
         try{
-            pessoa.alterarPessoaFisica(tblListagemPessoaF);
+            pessoa.alterarPessoaFisica(tblListagemPessoaJ);
         } catch (SQLException ex) {
             Logger.getLogger(FrmListagemPeca.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -221,7 +230,7 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
         PessoaFisica p = new PessoaFisica();
-        String aux = (String) tblListagemPessoaF.getValueAt(tblListagemPessoaF.getSelectedRow(), 1);
+        String aux = (String) tblListagemPessoaJ.getValueAt(tblListagemPessoaJ.getSelectedRow(), 1);
         p.setCpf(aux);
         try {
             pessoa.deletarPessoaFisica(p.getCpf());
@@ -235,6 +244,16 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
         FrmCadastroPessoa telaCadastro = new FrmCadastroPessoa();
         telaCadastro.setVisible(true);
     }//GEN-LAST:event_btnTelaCadastroActionPerformed
+
+    private void btnAtualizarTabela1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarTabela1ActionPerformed
+        atualizarTabela();
+    }//GEN-LAST:event_btnAtualizarTabela1ActionPerformed
+
+    private void btnFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFisicaActionPerformed
+        FrmListagemPessoaF f = new FrmListagemPessoaF();
+        f.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnFisicaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -253,20 +272,23 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmListagemPessoa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListagemPessoaJ.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmListagemPessoa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListagemPessoaJ.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmListagemPessoa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListagemPessoaJ.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmListagemPessoa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListagemPessoaJ.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmListagemPessoa().setVisible(true);
+                new FrmListagemPessoaJ().setVisible(true);
             }
         });
     }  
@@ -293,7 +315,7 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
 //        lista.toArray(new Peca[lista.size()][]), nomeColunas);
 //            tblListagemPeca.setModel(modelo);
             
-            DefaultTableModel model = (DefaultTableModel) tblListagemPessoaF.getModel();
+            DefaultTableModel model = (DefaultTableModel) tblListagemPessoaJ.getModel();
             model.setColumnIdentifiers(nomeColunas);
             model.setRowCount(0);
         Object rowData[] = new Object[10];
@@ -349,11 +371,11 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
         
         //Instanciando array de pessoas para preenchimento da tabela
         //ArrayList<Pessoa> lista = new ArrayList<>();
-        ArrayList<PessoaFisica> lista = new ArrayList<>();
+        ArrayList<PessoaJuridica> lista = new ArrayList<>();
         //Chamando método para preenchimento de Jtable com dados da tabela de peça
-        lista = DaoPessoa.listarPessoaFisica();
+        lista = DaoPessoa.listarPessoaJuridica();
 //        System.out.println(lista.get(0).);
-        String[] nomeColunas = {"Nome","CPF","Sexo","CEP","Endereço", "Número", "Telefone", "Celular", "Contrato", "Data de Cadastro"};
+        String[] nomeColunas = {"Nome","CPF","Sexo","CEP","Endereço", "Número", "Telefone", "Celular", "Contrato"};
         try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPeca()
         {
             //declaração de variável pra contrato e para sexo
@@ -365,7 +387,7 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
 //        lista.toArray(new Peca[lista.size()][]), nomeColunas);
 //            tblListagemPeca.setModel(modelo);
             
-            DefaultTableModel model = (DefaultTableModel) tblListagemPessoaF.getModel();
+            DefaultTableModel model = (DefaultTableModel) tblListagemPessoaJ.getModel();
             model.setColumnIdentifiers(nomeColunas);
             model.setRowCount(0);
         Object rowData[] = new Object[10];
@@ -381,26 +403,16 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
                 contrato = "Não possui contrato";
             }
             
-            //Se o sexo for 0, masculino; senão, feminino
-            if(lista.get(i).getSexo() == 0)
-            {
-                sexo = "Masculino";
-            }
-            else
-            {
-                sexo = "Feminino";
-            }
             
             rowData[0] = lista.get(i).getPessoa().getNome();
-            rowData[1] = lista.get(i).getCpf();
-            rowData[2] = sexo;            
-            rowData[3] = lista.get(i).getPessoa().getEndereco().getCep();
-            rowData[4] = lista.get(i).getPessoa().getEndereco().getLogradouro();
-            rowData[5] = lista.get(i).getPessoa().getComplementoLogradouro();
-            rowData[6] = Long.toString(lista.get(i).getPessoa().getTelefone());
-            rowData[7] = Long.toString(lista.get(i).getCelular());
-            rowData[8] = contrato;            
-            rowData[9] = lista.get(i).getDataCadastro();
+            rowData[1] = lista.get(i).getCnpj();     
+            rowData[2] = lista.get(i).getPessoa().getEndereco().getCep();
+            rowData[3] = lista.get(i).getPessoa().getEndereco().getLogradouro();
+            rowData[4] = lista.get(i).getPessoa().getComplementoLogradouro();
+            rowData[5] = Long.toString(lista.get(i).getPessoa().getTelefone());
+            rowData[6] = Long.toString(lista.get(i).getRamalCliente());
+            rowData[7] = contrato;            
+            rowData[8] = lista.get(i).getDataCadastro();
             
             
             model.addRow(rowData);
@@ -417,8 +429,9 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
-    private javax.swing.JButton btnAtualizarTabela;
+    private javax.swing.JButton btnAtualizarTabela1;
     private javax.swing.JButton btnDeletar;
+    private javax.swing.JButton btnFisica;
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JButton btnTelaCadastro;
     private javax.swing.JComboBox<String> cmbFiltro;
@@ -426,7 +439,7 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
     private javax.swing.JLabel lblFundo;
     private javax.swing.JLabel lblPesquisar;
     private javax.swing.JScrollPane scpListagemPessoaF;
-    private javax.swing.JTable tblListagemPessoaF;
+    private javax.swing.JTable tblListagemPessoaJ;
     private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables
 }

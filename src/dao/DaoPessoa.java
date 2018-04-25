@@ -16,6 +16,7 @@ import model.Endereco;
 import model.Peca;
 import model.Pessoa;
 import model.PessoaFisica;
+import model.PessoaJuridica;
 
 /**
  *
@@ -240,7 +241,7 @@ public class DaoPessoa {
             Connection con = Conexao.conectar();
             con.setAutoCommit(false);
             String sql = "UPDATE SYNCHROSOFT.TB_PESSOA_FISICA "
-                    + "SET CD_PECA = ?, NM_PESSOA_FISICA = ?, "
+                    + "SET CD_CPF = ?, NM_PESSOA_FISICA = ?, "
                     + "ID_SEXO = ?, NR_TELEFONE = ?, NR_CELULAR = ?, NR_COMPLEMENTO_LOGRADOURO = ?,"
                     + "DT_CADASTRO = ?, ID_CONTRATO = ? WHERE CD_CPF = ?";
             PreparedStatement st = con.prepareStatement(sql);
@@ -276,7 +277,7 @@ public class DaoPessoa {
                 }
                 
                 st.setString(1, CD_CPF);
-                st.setString(8, CD_CPF);
+                st.setString(9, CD_CPF);
                 st.setString(2, NM_PESSOA_FISICA);
                 st.setInt(3, sexo);
                 st.setLong(4, Long.parseLong(NR_TELEFONE));
@@ -297,6 +298,45 @@ public class DaoPessoa {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao alterar a base de pessoas físicas. \n\n"+ex.getMessage());
         }
+    }
+    
+    public static ArrayList listarPessoaJuridica() {
+        ArrayList<PessoaJuridica> lista = new ArrayList<>();
+        try {
+            Connection con = Conexao.conectar();
+//            DatabaseMetaData teste = con.getMetaData();
+//            System.out.println(teste.supportsBatchUpdates());
+            String sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_JURIDICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP)";
+            PreparedStatement st = con.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Endereco end = new Endereco();
+                Pessoa p = new Pessoa(rs.getString("NM_FICTICIO"),
+                                      end,
+                                      rs.getLong("NR_TELEFONE"),
+                                      rs.getString("NR_COMPLEMENTO_LOGRADOURO"),
+                                      rs.getInt("ID_CONTRATO"));
+                PessoaJuridica pessoaJ = new PessoaJuridica(p,
+                                                            rs.getString("CD_CNPJ"),
+                                                            rs.getString("NM_RAZAO_SOCIAL"),
+                                                            rs.getDate("DT_CADASTRO"),
+                                                            rs.getInt("NR_RAMAL"));
+                
+                lista.add(pessoaJ);
+
+                /*lista.add(new String[]{String.valueOf(rs.getInt("CD_PECA")),
+                (rs.getString("NM_PECA")),(rs.getString("DS_CATEGORIA")),
+                String.valueOf(rs.getInt("QT_PECA")),String.valueOf(rs.getFloat("VL_PECA"))});                
+                System.out.println(lista.get(0));*/
+            }
+            
+            st.close();
+            rs.close();
+        } catch (Exception ex) {
+            System.err.println("DAOPESSOA Instanciamento: " + ex);
+        }
+        //return lista;
+        return lista;
     }
     
 }
