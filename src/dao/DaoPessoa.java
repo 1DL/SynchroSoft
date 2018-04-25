@@ -39,6 +39,19 @@ public class DaoPessoa {
         } 
     }
     
+    public static boolean existePessoaFisica(String cpf) throws SQLException, ClassNotFoundException{
+        boolean flag;
+        Connection con = Conexao.conectar();
+        String sql = "SELECT CD_CPF FROM SYNCHROSOFT.TB_PESSOA_FISICA WHERE CD_CPF = ?";
+        PreparedStatement st = con.prepareStatement(sql);
+        st.setString(1, cpf);
+        ResultSet rs = st.executeQuery();
+        flag = rs.isBeforeFirst(); 
+        st.close();
+        rs.close();
+        return flag;
+    }
+    
     public void cadastrarPessoaJuridica (String cnpj, String cep, String nomeFicticio, String razaoSocial, String logradouro, long telefone, long ramal, int isContratado, Date dataCadastro) {
        try {
             Connection con = Conexao.conectar();

@@ -16,27 +16,23 @@ import model.PessoaFisica;
 public class Funcionario{
     private int codigoFuncionario;
     private String cepFuncionario;
-    private Pessoa nome;
-    private PessoaFisica cpf;
-    private PessoaFisica sexo;
-    private Pessoa telefone;
-    private PessoaFisica celular;
-    private Pessoa complementoLogradouro;
+    private Pessoa pessoa;
+    private PessoaFisica fisica;
     private float Salario;
     private String cargo;
     private Date dataContrato;
     private Date dataDemissao;
     private int horasTrabalhadas;
-    private boolean nivelAdministrativo;
+    private int nivelAdministrativo;
 
-    public Funcionario(int codigoFuncionario, String cepFuncionario, Pessoa nome, PessoaFisica cpf, PessoaFisica sexo, PessoaFisica celular, Pessoa complementoLogradouro, int Salario, String cargo, Date dataContrato, Date dataDemissao, int horasTrabalhadas, boolean nivelAdministrativo) {
+    public Funcionario() {
+    }
+
+    public Funcionario(int codigoFuncionario, String cepFuncionario, Pessoa pessoa, PessoaFisica fisica, float Salario, String cargo, Date dataContrato, Date dataDemissao, int horasTrabalhadas, int nivelAdministrativo) {
         this.codigoFuncionario = codigoFuncionario;
         this.cepFuncionario = cepFuncionario;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.sexo = sexo;
-        this.celular = celular;
-        this.complementoLogradouro = complementoLogradouro;
+        this.pessoa = pessoa;
+        this.fisica = fisica;
         this.Salario = Salario;
         this.cargo = cargo;
         this.dataContrato = dataContrato;
@@ -61,44 +57,20 @@ public class Funcionario{
         this.cepFuncionario = cepFuncionario;
     }
 
-    public Pessoa getNome() {
-        return nome;
+    public Pessoa getPessoa() {
+        return pessoa;
     }
 
-    public void setNome(Pessoa nome) {
-        this.nome = nome;
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
     }
 
-    public PessoaFisica getCpf() {
-        return cpf;
+    public PessoaFisica getFisica() {
+        return fisica;
     }
 
-    public void setCpf(PessoaFisica cpf) {
-        this.cpf = cpf;
-    }
-
-    public PessoaFisica getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(PessoaFisica sexo) {
-        this.sexo = sexo;
-    }
-
-    public PessoaFisica getCelular() {
-        return celular;
-    }
-
-    public void setCelular(PessoaFisica celular) {
-        this.celular = celular;
-    }
-
-    public Pessoa getComplementoLogradouro() {
-        return complementoLogradouro;
-    }
-
-    public void setComplementoLogradouro(Pessoa complementoLogradouro) {
-        this.complementoLogradouro = complementoLogradouro;
+    public void setFisica(PessoaFisica fisica) {
+        this.fisica = fisica;
     }
 
     public float getSalario() {
@@ -141,19 +113,11 @@ public class Funcionario{
         this.horasTrabalhadas = horasTrabalhadas;
     }
 
-    public boolean isNivelAdministrativo() {
+    public int isNivelAdministrativo() {
         return nivelAdministrativo;
     }
 
-    public void setNivelAdministrativo(boolean nivelAdministrativo) {
+    public void setNivelAdministrativo(int nivelAdministrativo) {
         this.nivelAdministrativo = nivelAdministrativo;
-    }
-
-    public Pessoa getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(Pessoa telefone) {
-        this.telefone = telefone;
     }
 }

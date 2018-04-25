@@ -12,7 +12,7 @@ import view.FrmCadastroPeca;
 import view.FrmListagemPeca;
 import view.FrmPrincipal;
 import dao.DaoPeca;
-import view.FrmCadastroFuncionario;
+import view.FrmCadastroFuncionario_Tabs;
 import view.FrmLogin;
 
 /**
@@ -68,7 +68,7 @@ public class SynchroSoft {
 //          telaLogin = new FrmLogin();
 //          telaLogin.setVisible(true);
 
-            telaCadastroFuncionario = new FrmCadastroFuncionario();
+            telaCadastroFuncionario = new FrmCadastroFuncionario_Tabs();
             telaCadastroFuncionario.setVisible(true);
         
         DaoPeca d = new DaoPeca();

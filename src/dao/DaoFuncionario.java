@@ -8,6 +8,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import model.Pessoa;
@@ -19,7 +20,9 @@ import model.PessoaFisica;
  */
 public class DaoFuncionario {
     
-    public void cadastrarFuncionario(int codigoFuncionario, String cepFuncionario, String nome, String cpf, boolean sexo, int telefone, int celular, String complementoLogradouro, float salario, String cargo, Date dataContrato, int horasTrabalhadas, boolean nivelAdministrativo) throws SQLException, ClassNotFoundException {
+    public void cadastrarFuncionario(int codigoFuncionario, String cepFuncionario, String nome, String cpf, int sexo, long telefone, 
+            long celular, String complementoLogradouro, float salario, String cargo, Date dataContrato, int horasTrabalhadas, 
+            boolean nivelAdministrativo) throws SQLException, ClassNotFoundException {
         try {
             Connection con = Conexao.conectar();
             String sql = "INSERT INTO SYNCHROSOFT.TB_FUNCIONARIO VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -28,9 +31,9 @@ public class DaoFuncionario {
             st.setString(2, cepFuncionario.toLowerCase());
             st.setString(3, nome.toLowerCase());
             st.setString(4, cpf.toLowerCase());
-            st.setBoolean(5, sexo);
-            st.setInt(6, telefone);
-            st.setInt(7, celular);
+            st.setInt(5, sexo);
+            st.setLong(6, telefone);
+            st.setLong(7, celular);
             st.setString(8, complementoLogradouro);
             st.setFloat(9, salario);
             st.setString(10, cargo);
@@ -41,8 +44,22 @@ public class DaoFuncionario {
             st.executeUpdate();
             st.close();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar a peça.\n Erro:\n\n" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o Funcionário.\n Erro:\n\n" + ex.getMessage());
         }
     }
+    
+    public static boolean existeFuncionario(int codigo) throws SQLException, ClassNotFoundException{
+        boolean flag;
+        Connection con = Conexao.conectar();
+        String sql = "SELECT CD_FUNCIONARIO FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE CD_FUNCIONARIO = ?";
+        PreparedStatement st = con.prepareStatement(sql);
+        st.setInt(1, codigo);
+        ResultSet rs = st.executeQuery();
+        flag = rs.isBeforeFirst(); 
+        st.close();
+        rs.close();
+        return flag;
+    }
+    
     
 }
