@@ -28,7 +28,7 @@ public class Funcionario{
     public Funcionario() {
     }
 
-    public Funcionario(int codigoFuncionario, String cepFuncionario, Pessoa pessoa, PessoaFisica fisica, float Salario, String cargo, Date dataContrato, Date dataDemissao, int horasTrabalhadas, int nivelAdministrativo) {
+    public Funcionario(int codigoFuncionario, String cepFuncionario, Pessoa pessoa, PessoaFisica fisica, float Salario, String cargo, Date dataContrato, int horasTrabalhadas, int nivelAdministrativo) {
         this.codigoFuncionario = codigoFuncionario;
         this.cepFuncionario = cepFuncionario;
         this.pessoa = pessoa;
@@ -36,7 +36,6 @@ public class Funcionario{
         this.Salario = Salario;
         this.cargo = cargo;
         this.dataContrato = dataContrato;
-        this.dataDemissao = dataDemissao;
         this.horasTrabalhadas = horasTrabalhadas;
         this.nivelAdministrativo = nivelAdministrativo;
     }
@@ -113,7 +112,7 @@ public class Funcionario{
         this.horasTrabalhadas = horasTrabalhadas;
     }
 
-    public int isNivelAdministrativo() {
+    public int getNivelAdministrativo() {
         return nivelAdministrativo;
     }
 

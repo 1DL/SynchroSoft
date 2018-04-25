@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Endereco;
+import model.Funcionario;
 import model.Peca;
 import model.Pessoa;
 import model.PessoaFisica;
@@ -560,6 +561,39 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         DaoFuncionario dao = new DaoFuncionario();
+        PessoaFisica pf = new PessoaFisica();
+        Pessoa p = new Pessoa();
+        Date dataCadastro = new Date(Calendar.getInstance().getTimeInMillis());
+        int nivelAdm = 0;
+        
+        if (cepCadastrado && cpfCadastrado){
+            if (rbtVisualizacao.isSelected()) {
+                nivelAdm = 0;
+            } else {
+                nivelAdm = 1;
+            }
+            
+            try {
+                pf = DaoPessoa.popularPessoaFisica(txtCpf.getText(), txtCep.getText());
+                Funcionario func = new Funcionario(Integer.parseInt(txtCodigoFuncionario.getText()), txtCep.getText(), 
+                    pf.getPessoa(), pf, Float.parseFloat(txtSalario.getText()), txtCargo.getText(), dataCadastro, 
+                    Integer.parseInt(txtHorasTrabalhadas.getText()), nivelAdm);
+                
+                JOptionPane.showMessageDialog(null, ""+func.getCodigoFuncionario() +" "+ func.getCepFuncionario() +" "+ func.getPessoa().getNome() +" "+
+                    func.getFisica().getCpf() +" "+ func.getFisica().getSexo() + " "+func.getPessoa().getTelefone() +" "+ func.getFisica().getCelular() +" "+ func.getPessoa().getComplementoLogradouro() + " "+
+                    func.getSalario() + " "+ func.getCargo() + " "+ func.getDataContrato() + " " + func.getHorasTrabalhadas() + " " +func.getNivelAdministrativo());
+                
+                dao.cadastrarFuncionario(func.getCodigoFuncionario(), func.getCepFuncionario(), func.getPessoa().getNome(), 
+                    func.getFisica().getCpf(), func.getFisica().getSexo(), func.getPessoa().getTelefone(), func.getFisica().getCelular(),func.getPessoa().getComplementoLogradouro(), 
+                    func.getSalario(), func.getCargo(), func.getDataContrato(),func.getHorasTrabalhadas(), func.getNivelAdministrativo());
+                
+                JOptionPane.showMessageDialog(rootPane, "Cadastrado!");
+            } catch (SQLException ex) {
+                Logger.getLogger(FrmCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(FrmCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         
         
     }//GEN-LAST:event_btnCadastrarActionPerformed

@@ -21,9 +21,9 @@ import model.PessoaFisica;
 public class DaoFuncionario {
     
     public void cadastrarFuncionario(int codigoFuncionario, String cepFuncionario, String nome, String cpf, int sexo, long telefone, 
-            long celular, String complementoLogradouro, float salario, String cargo, Date dataContrato, int horasTrabalhadas, 
-            boolean nivelAdministrativo) throws SQLException, ClassNotFoundException {
-        try {
+            long celular, String numeroCasa, float salario, String cargo, Date dataContrato, int horasTrabalhadas, 
+            int nivelAdministrativo) throws SQLException, ClassNotFoundException {
+//        try {
             Connection con = Conexao.conectar();
             String sql = "INSERT INTO SYNCHROSOFT.TB_FUNCIONARIO VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement st = con.prepareStatement(sql);
@@ -34,18 +34,20 @@ public class DaoFuncionario {
             st.setInt(5, sexo);
             st.setLong(6, telefone);
             st.setLong(7, celular);
-            st.setString(8, complementoLogradouro);
+            st.setString(8, numeroCasa);
             st.setFloat(9, salario);
-            st.setString(10, cargo);
+            st.setString(10, cargo.toLowerCase());
             st.setDate(11, dataContrato);
-            st.setDate(12, null);
+            st.setDate(12, dataContrato);
             st.setInt(13, horasTrabalhadas);
-            st.setBoolean(14, nivelAdministrativo);
+            st.setInt(14, nivelAdministrativo);
             st.executeUpdate();
             st.close();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o Funcionário.\n Erro:\n\n" + ex.getMessage());
-        }
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o Funcionário.\n Erro:\n\n" + ex.getMessage());
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o Funcionário.\n Erro:\n\n" + e.getMessage());
+//        }
     }
     
     public static boolean existeFuncionario(int codigo) throws SQLException, ClassNotFoundException{
