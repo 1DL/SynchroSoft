@@ -38,76 +38,62 @@ public class FrmLogin extends javax.swing.JFrame {
         txtLogin = new javax.swing.JTextField();
         BtnAcesso = new javax.swing.JButton();
         txtPassword = new javax.swing.JPasswordField();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
         setSize(new java.awt.Dimension(1152, 648));
 
-        lblLogo.setText("logo com nome");
+        jpnLogin.setAutoscrolls(true);
+        jpnLogin.setOpaque(false);
+        jpnLogin.setLayout(null);
 
+        lblLogo.setIcon(new javax.swing.ImageIcon("C:\\Users\\Luiz\\Desktop\\teste.png")); // NOI18N
+        jpnLogin.add(lblLogo);
+        lblLogo.setBounds(10, 20, 203, 292);
+
+        jLabel2.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel2.setText("Login:");
+        jpnLogin.add(jLabel2);
+        jLabel2.setBounds(235, 63, 49, 25);
 
+        jLabel3.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel3.setText("Senha:");
+        jpnLogin.add(jLabel3);
+        jLabel3.setBounds(235, 155, 53, 25);
 
+        txtLogin.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        jpnLogin.add(txtLogin);
+        txtLogin.setBounds(235, 106, 246, 31);
+
+        BtnAcesso.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         BtnAcesso.setText("Acessar");
         BtnAcesso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnAcessoActionPerformed(evt);
             }
         });
+        jpnLogin.add(BtnAcesso);
+        BtnAcesso.setBounds(381, 246, 100, 66);
 
-        org.jdesktop.layout.GroupLayout jpnLoginLayout = new org.jdesktop.layout.GroupLayout(jpnLogin);
-        jpnLogin.setLayout(jpnLoginLayout);
-        jpnLoginLayout.setHorizontalGroup(
-            jpnLoginLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jpnLoginLayout.createSequentialGroup()
-                .add(22, 22, 22)
-                .add(lblLogo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(33, 33, 33)
-                .add(jpnLoginLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jpnLoginLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                        .add(BtnAcesso)
-                        .add(jpnLoginLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jLabel2)
-                            .add(jLabel3)
-                            .add(txtLogin, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 246, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, txtPassword, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 246, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(67, Short.MAX_VALUE))
-        );
-        jpnLoginLayout.setVerticalGroup(
-            jpnLoginLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jpnLoginLayout.createSequentialGroup()
-                .add(jpnLoginLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jpnLoginLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(lblLogo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .add(jpnLoginLayout.createSequentialGroup()
-                        .add(63, 63, 63)
-                        .add(jLabel2)
-                        .add(18, 18, 18)
-                        .add(txtLogin, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(18, 18, 18)
-                        .add(jLabel3)
-                        .add(29, 29, 29)
-                        .add(txtPassword, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 35, Short.MAX_VALUE)
-                        .add(BtnAcesso, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 66, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .add(46, 46, 46))
-        );
+        txtPassword.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        jpnLogin.add(txtPassword);
+        txtPassword.setBounds(235, 209, 246, 31);
+
+        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Luiz\\Desktop\\fundo pequeno.png")); // NOI18N
+        jLabel4.setLabelFor(this);
+        jpnLogin.add(jLabel4);
+        jLabel4.setBounds(0, 0, 540, 320);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(jpnLogin, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(0, 0, Short.MAX_VALUE))
+            .add(jpnLogin, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 538, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(jpnLogin, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(0, 0, Short.MAX_VALUE))
+            .add(jpnLogin, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 320, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -170,6 +156,7 @@ public class FrmLogin extends javax.swing.JFrame {
     private javax.swing.JButton BtnAcesso;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jpnLogin;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JTextField txtLogin;

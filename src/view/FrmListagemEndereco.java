@@ -52,8 +52,10 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         txtPesquisa = new javax.swing.JTextField();
         lblDescrever = new javax.swing.JLabel();
         btnMenuPrincipal = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
 
         tblListagemEndereco.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -68,12 +70,17 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblListagemEndereco);
 
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(232, 119, 632, 402);
+
         btnAlterar.setText("Alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarActionPerformed(evt);
             }
         });
+        getContentPane().add(btnAlterar);
+        btnAlterar.setBounds(446, 552, 65, 23);
 
         btnAtualizarTabela.setText("AtualizarTabela");
         btnAtualizarTabela.addActionListener(new java.awt.event.ActionListener() {
@@ -81,6 +88,8 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
                 btnAtualizarTabelaActionPerformed(evt);
             }
         });
+        getContentPane().add(btnAtualizarTabela);
+        btnAtualizarTabela.setBounds(321, 552, 107, 23);
 
         btnTelaCadastro.setText("Tela Cadastro");
         btnTelaCadastro.addActionListener(new java.awt.event.ActionListener() {
@@ -88,6 +97,8 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
                 btnTelaCadastroActionPerformed(evt);
             }
         });
+        getContentPane().add(btnTelaCadastro);
+        btnTelaCadastro.setBounds(644, 552, 99, 23);
 
         btnDeletar.setText("Deletar");
         btnDeletar.addActionListener(new java.awt.event.ActionListener() {
@@ -95,11 +106,25 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
                 btnDeletarActionPerformed(evt);
             }
         });
+        getContentPane().add(btnDeletar);
+        btnDeletar.setBounds(545, 552, 67, 23);
 
+        lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblPesquisar.setText("Pesquisar por: ");
+        getContentPane().add(lblPesquisar);
+        lblPesquisar.setBounds(230, 50, 160, 40);
 
+        cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CEP", "Logradouro", "Bairro", "Cidade", "Estado", " " }));
+        cmbFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbFiltroActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cmbFiltro);
+        cmbFiltro.setBounds(360, 60, 107, 31);
 
+        txtPesquisa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPesquisaActionPerformed(evt);
@@ -113,65 +138,27 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
                 txtPesquisaKeyTyped(evt);
             }
         });
+        getContentPane().add(txtPesquisa);
+        txtPesquisa.setBounds(640, 50, 221, 40);
 
+        lblDescrever.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDescrever.setText("Descrição:");
+        getContentPane().add(lblDescrever);
+        lblDescrever.setBounds(520, 50, 83, 30);
 
+        btnMenuPrincipal.setIcon(new javax.swing.ImageIcon("C:\\Users\\Luiz\\Desktop\\logo pequeno.png")); // NOI18N
         btnMenuPrincipal.setText("Menu Principal");
+        btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuPrincipalActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMenuPrincipal);
+        btnMenuPrincipal.setBounds(949, 119, 161, 239);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(217, 217, 217)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addComponent(btnAtualizarTabela)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAlterar)
-                        .addGap(34, 34, 34)
-                        .addComponent(btnDeletar)
-                        .addGap(32, 32, 32)
-                        .addComponent(btnTelaCadastro))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblPesquisar)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addComponent(lblDescrever)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(401, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(232, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(85, 85, 85)
-                .addComponent(btnMenuPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPesquisar)
-                    .addComponent(cmbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDescrever))
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMenuPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnAtualizarTabela)
-                        .addComponent(btnAlterar)
-                        .addComponent(btnDeletar))
-                    .addComponent(btnTelaCadastro))
-                .addContainerGap(75, Short.MAX_VALUE))
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(0, 0, 1150, 650);
 
         pack();
         setLocationRelativeTo(null);
@@ -245,6 +232,15 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             System.out.println("Exceção: " + ex);
         }
     }//GEN-LAST:event_txtPesquisaKeyReleased
+
+    private void cmbFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFiltroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbFiltroActionPerformed
+
+    private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
+        FrmPrincipal princ = new FrmPrincipal();
+        princ.setVisible(true);
+    }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -338,6 +334,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JButton btnTelaCadastro;
     private javax.swing.JComboBox<String> cmbFiltro;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDescrever;
     private javax.swing.JLabel lblPesquisar;

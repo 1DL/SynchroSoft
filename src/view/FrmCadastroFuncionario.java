@@ -105,10 +105,23 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         rbtMasculino = new javax.swing.JRadioButton();
         lblSexo = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1152, 648));
+        setMinimumSize(new java.awt.Dimension(1152, 648));
+        setSize(new java.awt.Dimension(1152, 648));
+        getContentPane().setLayout(null);
 
-        lblTituloJanela.setText("TITULO JANELA");
+        lblTituloJanela.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblTituloJanela.setText("Cadastro de funcionário");
+        getContentPane().add(lblTituloJanela);
+        lblTituloJanela.setBounds(556, 11, 194, 25);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setMaximumSize(new java.awt.Dimension(1152, 648));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1152, 648));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1152, 648));
 
         lblCpf.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCpf.setText("CPF");
@@ -400,13 +413,13 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(199, 199, 199)
+                .addGap(154, 154, 154)
                 .addComponent(btnMenuPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(93, 93, 93)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnListarPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFecharFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 71, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -520,29 +533,15 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                         .addGap(25, 25, 25))))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(556, 556, 556)
-                        .addComponent(lblTituloJanela))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1228, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblTituloJanela)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(40, 40, 1110, 590);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
+        jLabel1.setMaximumSize(new java.awt.Dimension(1152, 648));
+        jLabel1.setMinimumSize(new java.awt.Dimension(1152, 648));
+        jLabel1.setPreferredSize(new java.awt.Dimension(1152, 648));
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(0, 0, 1200, 640);
 
         pack();
         setLocationRelativeTo(null);
@@ -728,6 +727,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.ButtonGroup grupoNivelADM;
     private javax.swing.ButtonGroup grupoSexoExib;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

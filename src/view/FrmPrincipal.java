@@ -8,6 +8,7 @@ package view;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,68 +33,73 @@ public class FrmPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         btnPeca = new javax.swing.JButton();
+        btnFuncionario1 = new javax.swing.JButton();
         btnFuncionario = new javax.swing.JButton();
         btnServico = new javax.swing.JButton();
         btnCliente = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1152, 468));
+        setMaximumSize(new java.awt.Dimension(1152, 648));
+        setMinimumSize(new java.awt.Dimension(1152, 648));
+        setPreferredSize(new java.awt.Dimension(1152, 648));
         setSize(new java.awt.Dimension(1152, 648));
+        getContentPane().setLayout(null);
 
+        btnPeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnPeca.setText("Cadastro de peças");
         btnPeca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPecaActionPerformed(evt);
             }
         });
+        getContentPane().add(btnPeca);
+        btnPeca.setBounds(800, 100, 290, 170);
 
-        btnFuncionario.setText("Cadastro de Funcionários");
+        btnFuncionario1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        btnFuncionario1.setText("Cadastro de Funcionários");
+        btnFuncionario1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFuncionario1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnFuncionario1);
+        btnFuncionario1.setBounds(50, 100, 290, 170);
 
+        btnFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        btnFuncionario.setText("Cadastro de serviço");
+        btnFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFuncionarioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnFuncionario);
+        btnFuncionario.setBounds(420, 240, 290, 170);
+
+        btnServico.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnServico.setText("Cadastro de serviço");
+        btnServico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnServicoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnServico);
+        btnServico.setBounds(50, 330, 290, 170);
 
+        btnCliente.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnCliente.setText("Cadastro de Clientes");
+        btnCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClienteActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCliente);
+        btnCliente.setBounds(800, 340, 290, 170);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(96, 96, 96)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 603, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnFuncionario, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnServico, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(141, 141, 141))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnServico, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(273, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(0, 0, 1150, 650);
 
         pack();
         setLocationRelativeTo(null);
@@ -103,6 +109,24 @@ public class FrmPrincipal extends javax.swing.JFrame {
         FrmListagemPeca telaListarPeca = new FrmListagemPeca();
         telaListarPeca.setVisible(true);
     }//GEN-LAST:event_btnPecaActionPerformed
+
+    private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
+        FrmCadastroPessoa cad = new FrmCadastroPessoa();
+        cad.setVisible(true);
+    }//GEN-LAST:event_btnClienteActionPerformed
+
+    private void btnServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServicoActionPerformed
+        JOptionPane.showMessageDialog(null, "Funcionalidade em produção!");
+    }//GEN-LAST:event_btnServicoActionPerformed
+
+    private void btnFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionarioActionPerformed
+        JOptionPane.showMessageDialog(null, "Funcionalidade em produção!");
+    }//GEN-LAST:event_btnFuncionarioActionPerformed
+
+    private void btnFuncionario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionario1ActionPerformed
+        FrmCadastroFuncionario func = new FrmCadastroFuncionario();
+        func.setVisible(true);
+    }//GEN-LAST:event_btnFuncionario1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,8 +167,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCliente;
     private javax.swing.JButton btnFuncionario;
+    private javax.swing.JButton btnFuncionario1;
     private javax.swing.JButton btnPeca;
     private javax.swing.JButton btnServico;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -162,6 +162,71 @@ public class DaoPessoa {
         return lista;
     }
     
+    public static ArrayList listarPessoaFisicaFiltrada(String cmbFiltro, String txtPesquisa) {
+        ArrayList<PessoaFisica> lista = new ArrayList<>();
+        try {
+            //Chamando método de conexão ao banco
+            Connection con = Conexao.conectar();
+            
+            //Declarando variável de String de conexão
+            String sql = "";
+            
+//            DatabaseMetaData teste = con.getMetaData();
+//            System.out.println(teste.supportsBatchUpdates());
+
+            //Criando estrutura switch case para identificar o tipo de filtro de pesquisa
+            switch(cmbFiltro)
+            {
+                //preparando sql de acordo com código
+                case "CPF":  sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA WHERE CD_CPF LIKE ?";
+                break;
+                
+                //preparando tratamento de acordo com nome
+                case "Nome": sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA WHERE NM_PESSOA_FISICA LIKE ?";
+                break;
+                
+                
+            }
+            
+            //realizando preparedStatement para tratamento de variáveis
+            PreparedStatement st = con.prepareStatement(sql);
+            
+            //colocando valor da variável ? da query 
+            st.setString(1, "%"+txtPesquisa+"%");
+            
+            //executando query selecionada pelo switch case
+            ResultSet rs = st.executeQuery();
+            
+            //listando dados do banco em jtable
+            while (rs.next()) {
+               Endereco end = new Endereco();
+                Pessoa p = new Pessoa(rs.getString("NM_PESSOA_FISICA"),
+                                      end,
+                                      rs.getLong("NR_TELEFONE"),
+                                      rs.getString("NR_COMPLEMENTO_LOGRADOURO"),
+                                      rs.getInt("ID_CONTRATO"));
+                PessoaFisica pessoaF = new PessoaFisica(p, 
+                                                        rs.getString("CD_CPF"),
+                                                        rs.getDate("DT_CADASTRO"),
+                                                        rs.getLong("NR_CELULAR"),
+                                                        rs.getInt("ID_SEXO"));
+                lista.add(pessoaF);
+
+               
+            }
+            
+            
+            //fechamento de preparedStatement e Conexão do banco
+            st.close();
+            rs.close();
+            
+        } catch (Exception ex) { //Caso exista a possibilidade de retorno de erro
+            System.err.println("DAOPECA Instanciamento: " + ex);
+        }
+        //return lista;
+        return lista;
+    }
+    
     public void alterarPessoaFisica(JTable tabela) throws SQLException, ClassNotFoundException {
 //      
         try{

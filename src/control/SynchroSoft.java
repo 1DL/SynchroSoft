@@ -66,12 +66,12 @@ public class SynchroSoft {
 //        telaPrincipal.setVisible(true);
 //        telaListagemPeca = new FrmListagemPeca();
 //        telaListagemPeca.setVisible(true);
-//          telaLogin = new FrmLogin();
-//          telaLogin.setVisible(true);
+          telaLogin = new FrmLogin();
+          telaLogin.setVisible(true);
 //            telaCadastroFuncionario = new FrmCadastroFuncionario();
 //            telaCadastroFuncionario.setVisible(true);
-                FrmListagemPessoa telaListagemPessoa = new FrmListagemPessoa();
-                telaListagemPessoa.setVisible(true);
+//                FrmListagemPessoa telaListagemPessoa = new FrmListagemPessoa();
+//                telaListagemPessoa.setVisible(true);
 //        FrmCadastroPessoa telaCadastroPessoa = new FrmCadastroPessoa();
 //                telaCadastroPessoa.setVisible(true);
         

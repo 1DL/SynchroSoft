@@ -52,7 +52,6 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
         lblFundo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         setSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
@@ -170,29 +169,29 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesquisaActionPerformed
 
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
-        // Chamando método de listagem com filtro, se txt preenchido
-//        try
-//        {
-//            //criando variável de controle
-//            int controle = 0;
-//
-//            //Se campo de texto não estiver vazio
-//            if (txtPesquisa.getText().trim() != "")
-//            {
-//                controle = 1;
-//                atualizarTabelaFiltrada();
-//            }
-//
-//            //Se a variável de controle for 0, diz-se que o campo está vazio e, portanto, atualiza a JTable
-//            if (controle == 0)
-//            {
-//                atualizarTabela();
-//            }
-//        }
-//        catch(Exception ex)
-//        {
-//            System.out.println("Exceção: "+ex);
-//        }
+//         Chamando método de listagem com filtro, se txt preenchido
+        try
+        {
+            //criando variável de controle
+            int controle = 0;
+
+            //Se campo de texto não estiver vazio
+            if (txtPesquisa.getText().trim() != "")
+            {
+                controle = 1;
+                atualizarTabelaFiltrada();
+            }
+
+            //Se a variável de controle for 0, diz-se que o campo está vazio e, portanto, atualiza a JTable
+            if (controle == 0)
+            {
+                atualizarTabela();
+            }
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Exceção: "+ex);
+        }
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
     private void txtPesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyTyped
@@ -227,15 +226,15 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-//        Peca peca = new Peca();
-//        String aux = (String) tblListagemPeca.getValueAt(tblListagemPeca.getSelectedRow(), 0);
-//        peca.setCodigoPeca(Integer.parseInt(aux));
-//        try {
-//            dp.deletarPeca(peca.getCodigoPeca());
-//            atualizarTabela();
-//        } catch (SQLException | ClassNotFoundException ex) {
-//            Logger.getLogger(FrmListagemPeca.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        PessoaFisica p = new PessoaFisica();
+        String aux = (String) tblListagemPessoaF.getValueAt(tblListagemPessoaF.getSelectedRow(), 1);
+        p.setCpf(aux);
+        try {
+            pessoa.deletarPessoaFisica(p.getCpf());
+            atualizarTabela();
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(FrmListagemPeca.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
@@ -277,7 +276,79 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
             }
         });
     }  
-        //Criando método de preenchimento/atualização de tabela com dados do banco
+       
+    private void atualizarTabelaFiltrada (){
+       
+//        DaoPeca teste = new DaoPeca();
+        
+        //Instanciando array de pessoas para preenchimento da tabela
+        //ArrayList<Pessoa> lista = new ArrayList<>();
+        ArrayList<PessoaFisica> lista = new ArrayList<>();
+        //Chamando método para preenchimento de Jtable com dados da tabela de peça
+        lista = DaoPessoa.listarPessoaFisicaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim());
+//        System.out.println(lista.get(0).);
+        String[] nomeColunas = {"Nome","CPF","Sexo","CEP","Endereço", "Número", "Telefone", "Celular", "Contrato", "Data de Cadastro"};
+        try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPessoaF()
+        {
+            //declaração de variável pra contrato e para sexo
+            String contrato = "";
+            String sexo = "";
+            
+            
+//            DefaultTableModel modelo = new DefaultTableModel(
+//        lista.toArray(new Peca[lista.size()][]), nomeColunas);
+//            tblListagemPeca.setModel(modelo);
+            
+            DefaultTableModel model = (DefaultTableModel) tblListagemPessoaF.getModel();
+            model.setColumnIdentifiers(nomeColunas);
+                        
+        Object rowData[] = new Object[10];
+        for(int i = 0; i < lista.size(); i++)
+        {
+            //Se o manter contrato for 1, possui; senão, não possui
+            if(lista.get(i).getPessoa().getManterContrato() == 0)
+            {
+                contrato = "Possui contrato";
+            }
+            else
+            {
+                contrato = "Não possui contrato";
+            }
+            
+            //Se o sexo for 0, masculino; senão, feminino
+            if(lista.get(i).getSexo() == 0)
+            {
+                sexo = "Masculino";
+            }
+            else
+            {
+                sexo = "Feminino";
+            }
+            
+            rowData[0] = lista.get(i).getPessoa().getNome();
+            rowData[1] = lista.get(i).getCpf();
+            rowData[2] = sexo;            
+            rowData[3] = lista.get(i).getPessoa().getEndereco().getCep();
+            rowData[4] = lista.get(i).getPessoa().getEndereco().getLogradouro();
+            rowData[5] = lista.get(i).getPessoa().getComplementoLogradouro();
+            rowData[6] = Long.toString(lista.get(i).getPessoa().getTelefone());
+            rowData[7] = Long.toString(lista.get(i).getCelular());
+            rowData[8] = contrato;            
+            rowData[9] = lista.get(i).getDataCadastro();
+            
+            
+            model.addRow(rowData);
+            
+        }
+                    
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Erro ao popular tabela.\n\n"+ex.getMessage());
+        }
+    }
+
+    //Criando método de preenchimento/atualização de tabela com dados do banco
     private void atualizarTabela (){
        
 //        DaoPeca teste = new DaoPeca();
@@ -302,7 +373,7 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
             
             DefaultTableModel model = (DefaultTableModel) tblListagemPessoaF.getModel();
             model.setColumnIdentifiers(nomeColunas);
-                        
+            model.setRowCount(0);
         Object rowData[] = new Object[10];
         for(int i = 0; i < lista.size(); i++)
         {

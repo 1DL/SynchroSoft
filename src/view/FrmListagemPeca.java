@@ -49,12 +49,14 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         cmbFiltro = new javax.swing.JComboBox<>();
         txtPesquisa = new javax.swing.JTextField();
         lblDescrever = new javax.swing.JLabel();
-        btnPesquisa = new javax.swing.JButton();
         btnMenuPrincipal = new javax.swing.JButton();
+        lblFundo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1152, 648));
+        getContentPane().setLayout(null);
 
+        tblListagemPeca.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
         tblListagemPeca.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -68,38 +70,60 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblListagemPeca);
 
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(230, 130, 660, 402);
+
+        btnAlterar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarActionPerformed(evt);
             }
         });
+        getContentPane().add(btnAlterar);
+        btnAlterar.setBounds(440, 560, 85, 33);
 
+        btnAtualizarTabela.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnAtualizarTabela.setText("AtualizarTabela");
         btnAtualizarTabela.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAtualizarTabelaActionPerformed(evt);
             }
         });
+        getContentPane().add(btnAtualizarTabela);
+        btnAtualizarTabela.setBounds(230, 560, 153, 33);
 
+        btnTelaCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnTelaCadastro.setText("Tela Cadastro");
         btnTelaCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTelaCadastroActionPerformed(evt);
             }
         });
+        getContentPane().add(btnTelaCadastro);
+        btnTelaCadastro.setBounds(750, 560, 143, 33);
 
+        btnDeletar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnDeletar.setText("Deletar");
         btnDeletar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeletarActionPerformed(evt);
             }
         });
+        getContentPane().add(btnDeletar);
+        btnDeletar.setBounds(590, 560, 91, 33);
 
+        lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblPesquisar.setText("Pesquisar por: ");
+        getContentPane().add(lblPesquisar);
+        lblPesquisar.setBounds(230, 60, 120, 25);
 
+        cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "Nome", "Categoria", "Quantidade", "Valor" }));
+        getContentPane().add(cmbFiltro);
+        cmbFiltro.setBounds(370, 60, 107, 31);
 
+        txtPesquisa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPesquisaActionPerformed(evt);
@@ -113,75 +137,28 @@ public class FrmListagemPeca extends javax.swing.JFrame {
                 txtPesquisaKeyTyped(evt);
             }
         });
+        getContentPane().add(txtPesquisa);
+        txtPesquisa.setBounds(670, 60, 221, 31);
 
+        lblDescrever.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDescrever.setText("Descrição:");
+        getContentPane().add(lblDescrever);
+        lblDescrever.setBounds(530, 60, 83, 25);
 
-        btnPesquisa.setText("Pesquisar");
-        btnPesquisa.addActionListener(new java.awt.event.ActionListener() {
+        btnMenuPrincipal.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        btnMenuPrincipal.setIcon(new javax.swing.ImageIcon("C:\\Users\\Luiz\\Desktop\\logo pequeno.png")); // NOI18N
+        btnMenuPrincipal.setText("Menu Principal");
+        btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPesquisaActionPerformed(evt);
+                btnMenuPrincipalActionPerformed(evt);
             }
         });
+        getContentPane().add(btnMenuPrincipal);
+        btnMenuPrincipal.setBounds(960, 170, 161, 239);
 
-        btnMenuPrincipal.setText("Menu Principal");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(217, 217, 217)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addComponent(btnAtualizarTabela)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAlterar)
-                        .addGap(34, 34, 34)
-                        .addComponent(btnDeletar)
-                        .addGap(32, 32, 32)
-                        .addComponent(btnTelaCadastro))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblPesquisar)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addComponent(lblDescrever)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addComponent(btnPesquisa)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(232, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(85, 85, 85)
-                .addComponent(btnMenuPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPesquisar)
-                    .addComponent(cmbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDescrever)
-                    .addComponent(btnPesquisa))
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMenuPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnAtualizarTabela)
-                        .addComponent(btnAlterar)
-                        .addComponent(btnDeletar))
-                    .addComponent(btnTelaCadastro))
-                .addContainerGap(75, Short.MAX_VALUE))
-        );
+        lblFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
+        getContentPane().add(lblFundo);
+        lblFundo.setBounds(0, 0, 1150, 650);
 
         pack();
         setLocationRelativeTo(null);
@@ -237,10 +214,6 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDeletarActionPerformed
 
-    private void btnPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaActionPerformed
-        
-    }//GEN-LAST:event_btnPesquisaActionPerformed
-
     private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
         
     }//GEN-LAST:event_txtPesquisaActionPerformed
@@ -274,6 +247,11 @@ public class FrmListagemPeca extends javax.swing.JFrame {
             System.out.println("Exceção: "+ex);
         }
     }//GEN-LAST:event_txtPesquisaKeyReleased
+
+    private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
+        FrmPrincipal princ = new FrmPrincipal();
+        princ.setVisible(true);
+    }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -355,8 +333,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
        
 //        DaoPeca teste = new DaoPeca();
         ArrayList<Peca> lista = new ArrayList<>();
-        lista = DaoPeca.listarPecaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim()); //Filtrando dados que aparecem na pesquisa
-//        System.out.println(lista.get(0).getNomePeca());
+        lista = DaoPeca.listarPecaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim()); //Filtrando 
         String[] nomeColunas = {"Código","Nome","Categoria","Quantidade","Valor Unitário"};
         try
         {
@@ -391,11 +368,11 @@ public class FrmListagemPeca extends javax.swing.JFrame {
     private javax.swing.JButton btnAtualizarTabela;
     private javax.swing.JButton btnDeletar;
     private javax.swing.JButton btnMenuPrincipal;
-    private javax.swing.JButton btnPesquisa;
     private javax.swing.JButton btnTelaCadastro;
     private javax.swing.JComboBox<String> cmbFiltro;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDescrever;
+    private javax.swing.JLabel lblFundo;
     private javax.swing.JLabel lblPesquisar;
     private javax.swing.JTable tblListagemPeca;
     private javax.swing.JTextField txtPesquisa;
