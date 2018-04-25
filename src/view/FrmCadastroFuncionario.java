@@ -116,7 +116,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         lblTituloJanela.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblTituloJanela.setText("Cadastro de funcionário");
         getContentPane().add(lblTituloJanela);
-        lblTituloJanela.setBounds(556, 11, 194, 25);
+        lblTituloJanela.setBounds(550, 0, 194, 25);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMaximumSize(new java.awt.Dimension(1152, 648));
@@ -534,14 +534,14 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(40, 40, 1110, 590);
+        jPanel1.setBounds(30, 30, 1110, 590);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         jLabel1.setMaximumSize(new java.awt.Dimension(1152, 648));
         jLabel1.setMinimumSize(new java.awt.Dimension(1152, 648));
         jLabel1.setPreferredSize(new java.awt.Dimension(1152, 648));
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 1200, 640);
+        jLabel1.setBounds(0, 0, 1170, 630);
 
         pack();
         setLocationRelativeTo(null);
