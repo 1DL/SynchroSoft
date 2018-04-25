@@ -6,6 +6,7 @@
 package view;
 
 import dao.DaoEndereco;
+import dao.DaoFuncionario;
 import dao.DaoPeca;
 import dao.DaoPessoa;
 import java.awt.Component;
@@ -30,6 +31,10 @@ import model.PessoaJuridica;
 public class FrmCadastroFuncionario extends javax.swing.JFrame {
 
     boolean cepCadastrado;
+    boolean cpfCadastrado;
+    Endereco endExibicao;
+    PessoaFisica pessoaFisicaExibicao;
+    Pessoa pessoaExibicao;
     
 
     /**
@@ -37,8 +42,9 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
      */
     public FrmCadastroFuncionario() {
         initComponents();
-        
-
+        this.endExibicao = new Endereco();
+        this.pessoaFisicaExibicao = new PessoaFisica();
+        this.pessoaExibicao = new Pessoa();
     }
 
     /**
@@ -106,6 +112,12 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
 
         lblCpf.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCpf.setText("CPF");
+
+        txtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCpfKeyReleased(evt);
+            }
+        });
 
         lblSalario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblSalario.setText("Salário");
@@ -542,6 +554,8 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarCepActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        DaoFuncionario dao = new DaoFuncionario();
+        
         
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
@@ -601,6 +615,30 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
 
     }//GEN-LAST:event_rbtFemininoActionPerformed
 
+    private void txtCpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyReleased
+        if ((txtCpf.getText().length() < 11) || (txtCpf.getText().length() > 11)) {
+            lblCpfExiste.setText("Cpf Inválido.");
+            limparExibicaoPessoa();
+        } else {
+            DaoPessoa dp = new DaoPessoa();
+            try {
+                cpfCadastrado = dp.existePessoaFisica(txtCpf.getText());
+                if (cpfCadastrado) {
+                    lblCpfExiste.setText("CPF Cadastrado.");
+                    pessoaFisicaExibicao = dp.popularPessoaFisica(txtCpf.getText(), txtCep.getText());
+                    popularExibicaoPessoa(pessoaFisicaExibicao);
+                } else {
+                    lblCpfExiste.setText("CPF Inexistente.");
+                    limparExibicaoPessoa();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(FrmCadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(FrmCadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_txtCpfKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -630,6 +668,10 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -637,6 +679,39 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                 new FrmCadastroFuncionario().setVisible(true);
             }
         });
+    }
+    
+    public void popularExibicaoPessoa(PessoaFisica pf){
+        txtNomePessoa.setText(pf.getPessoa().getNome());
+        txtLogradouro.setText(pf.getPessoa().getEndereco().getLogradouro());
+        txtCidade.setText(pf.getPessoa().getEndereco().getCidade());
+        txtEstado.setText(pf.getPessoa().getEndereco().getEstado());
+        txtBairro.setText(pf.getPessoa().getEndereco().getBairro());
+        txtNumero.setText(pf.getPessoa().getComplementoLogradouro());
+        txtTelefone.setText(""+pf.getPessoa().getTelefone());
+        txtCelular.setText(""+pf.getCelular());
+        if (pf.getSexo() == 0) {
+            rbtMasculino.setSelected(true);
+            rbtFeminino.setSelected(false);
+        } else {
+            rbtFeminino.setSelected(true);
+            rbtMasculino.setSelected(false);
+        }
+        
+    }
+    
+    public void limparExibicaoPessoa (){
+        txtNomePessoa.setText("");
+        txtLogradouro.setText("");
+        txtCidade.setText("");
+        txtEstado.setText("");
+        txtBairro.setText("");
+        txtNumero.setText("");
+        txtTelefone.setText("");
+        txtCelular.setText("");
+        rbtMasculino.setSelected(false);
+        rbtFeminino.setSelected(false);
+        
     }
 
     

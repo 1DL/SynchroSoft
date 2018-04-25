@@ -65,7 +65,7 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
         cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CPF", "CEP", "Nome", "Telefone", "Celular", "Data" }));
         getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(400, 60, 107, 31);
+        cmbFiltro.setBounds(400, 60, 107, 33);
 
         lblDescrever.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDescrever.setText("Descrição:");
@@ -102,7 +102,7 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAtualizarTabela);
-        btnAtualizarTabela.setBounds(240, 560, 180, 33);
+        btnAtualizarTabela.setBounds(240, 560, 180, 35);
 
         btnAlterar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnAlterar.setText("Alterar");
@@ -112,7 +112,7 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAlterar);
-        btnAlterar.setBounds(450, 560, 100, 33);
+        btnAlterar.setBounds(450, 560, 100, 35);
 
         btnDeletar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnDeletar.setText("Deletar");
@@ -122,7 +122,7 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnDeletar);
-        btnDeletar.setBounds(590, 560, 110, 33);
+        btnDeletar.setBounds(590, 560, 110, 35);
 
         btnTelaCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnTelaCadastro.setText("Tela Cadastro");
@@ -132,7 +132,7 @@ public class FrmListagemPessoa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnTelaCadastro);
-        btnTelaCadastro.setBounds(743, 560, 170, 33);
+        btnTelaCadastro.setBounds(743, 560, 170, 35);
 
         scpListagemPessoaF.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         scpListagemPessoaF.setMaximumSize(new java.awt.Dimension(100, 100));
