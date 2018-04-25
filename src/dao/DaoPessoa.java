@@ -134,6 +134,8 @@ public class DaoPessoa {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Endereco end = new Endereco();
+                end.setCep(rs.getString("CD_CEP"));
+                end.setLogradouro(rs.getString("DS_LOGRADOURO"));
                 Pessoa p = new Pessoa(rs.getString("NM_PESSOA_FISICA"),
                                       end,
                                       rs.getLong("NR_TELEFONE"),
@@ -156,7 +158,7 @@ public class DaoPessoa {
             st.close();
             rs.close();
         } catch (Exception ex) {
-            System.err.println("DAOPECA Instanciamento: " + ex);
+            System.err.println("DaoPessoa Instanciamento: " + ex);
         }
         //return lista;
         return lista;
