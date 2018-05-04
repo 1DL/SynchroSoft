@@ -572,7 +572,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnListarPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarPessoaActionPerformed
-        FrmListagemPessoa telaListP = new FrmListagemPessoa();
+        FrmListagemPessoaF telaListP = new FrmListagemPessoaF();
         telaListP.setVisible(true);
     }//GEN-LAST:event_btnListarPessoaActionPerformed
 
