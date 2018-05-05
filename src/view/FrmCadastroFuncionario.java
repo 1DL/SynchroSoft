@@ -575,15 +575,15 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
             
             try {
                 pf = DaoPessoa.popularPessoaFisica(txtCpf.getText(), txtCep.getText());
-                Funcionario func = new Funcionario(Integer.parseInt(txtCodigoFuncionario.getText()), txtCep.getText(), 
-                    pf.getPessoa(), pf, Float.parseFloat(txtSalario.getText()), txtCargo.getText(), dataCadastro, 
+                Funcionario func = new Funcionario(Integer.parseInt(txtCodigoFuncionario.getText()),pf.getPessoa(), pf, Float.parseFloat(txtSalario.getText()), 
+                    txtCargo.getText(), dataCadastro, dataCadastro, 
                     Integer.parseInt(txtHorasTrabalhadas.getText()), nivelAdm);
                 
-                JOptionPane.showMessageDialog(null, ""+func.getCodigoFuncionario() +" "+ func.getCepFuncionario() +" "+ func.getPessoa().getNome() +" "+
+                JOptionPane.showMessageDialog(null, ""+func.getCodigoFuncionario() +" "+ func.getPessoa().getEndereco().getCep() +" "+ func.getPessoa().getNome() +" "+
                     func.getFisica().getCpf() +" "+ func.getFisica().getSexo() + " "+func.getPessoa().getTelefone() +" "+ func.getFisica().getCelular() +" "+ func.getPessoa().getComplementoLogradouro() + " "+
                     func.getSalario() + " "+ func.getCargo() + " "+ func.getDataContrato() + " " + func.getHorasTrabalhadas() + " " +func.getNivelAdministrativo());
                 
-                dao.cadastrarFuncionario(func.getCodigoFuncionario(), func.getCepFuncionario(), func.getPessoa().getNome(), 
+                dao.cadastrarFuncionario(func.getCodigoFuncionario(), func.getPessoa().getEndereco().getCep(), func.getPessoa().getNome(), 
                     func.getFisica().getCpf(), func.getFisica().getSexo(), func.getPessoa().getTelefone(), func.getFisica().getCelular(),func.getPessoa().getComplementoLogradouro(), 
                     func.getSalario(), func.getCargo(), func.getDataContrato(),func.getHorasTrabalhadas(), func.getNivelAdministrativo());
                 
@@ -599,7 +599,8 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnListarFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarFuncionariosActionPerformed
-        //TEste
+        FrmListagemFuncionario ListagemFunc = new FrmListagemFuncionario();
+        ListagemFunc.setVisible(true);
     }//GEN-LAST:event_btnListarFuncionariosActionPerformed
 
     private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed

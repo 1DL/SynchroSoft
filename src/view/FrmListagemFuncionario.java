@@ -6,6 +6,7 @@
 package view;
 
 import dao.DaoEndereco;
+import dao.DaoFuncionario;
 import dao.DaoPeca;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.Endereco;
+import model.Funcionario;
 import model.Peca;
 
 /**
@@ -43,6 +45,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListagemFuncionario = new javax.swing.JTable();
+        btnFechar = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
         btnAtualizarTabela = new javax.swing.JButton();
         btnTelaCadastro = new javax.swing.JButton();
@@ -51,10 +54,13 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         cmbFiltro = new javax.swing.JComboBox<>();
         txtPesquisa = new javax.swing.JTextField();
         lblDescrever = new javax.swing.JLabel();
-        btnMenuPrincipal = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnMenuPrincipal = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1152, 648));
+        setMinimumSize(new java.awt.Dimension(1152, 648));
+        setSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
 
         tblListagemFuncionario.setModel(new javax.swing.table.DefaultTableModel(
@@ -71,7 +77,16 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblListagemFuncionario);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(232, 119, 632, 404);
+        jScrollPane1.setBounds(232, 119, 632, 402);
+
+        btnFechar.setText("Fechar");
+        btnFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnFechar);
+        btnFechar.setBounds(990, 550, 130, 50);
 
         btnAlterar.setText("Alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -80,7 +95,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAlterar);
-        btnAlterar.setBounds(446, 552, 67, 23);
+        btnAlterar.setBounds(301, 552, 210, 40);
 
         btnAtualizarTabela.setText("AtualizarTabela");
         btnAtualizarTabela.addActionListener(new java.awt.event.ActionListener() {
@@ -89,7 +104,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAtualizarTabela);
-        btnAtualizarTabela.setBounds(321, 552, 109, 23);
+        btnAtualizarTabela.setBounds(60, 550, 190, 40);
 
         btnTelaCadastro.setText("Tela Cadastro");
         btnTelaCadastro.addActionListener(new java.awt.event.ActionListener() {
@@ -98,7 +113,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnTelaCadastro);
-        btnTelaCadastro.setBounds(644, 552, 101, 23);
+        btnTelaCadastro.setBounds(770, 550, 160, 50);
 
         btnDeletar.setText("Deletar");
         btnDeletar.addActionListener(new java.awt.event.ActionListener() {
@@ -107,7 +122,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnDeletar);
-        btnDeletar.setBounds(545, 552, 69, 23);
+        btnDeletar.setBounds(545, 552, 170, 40);
 
         lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblPesquisar.setText("Pesquisar por: ");
@@ -115,14 +130,14 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         lblPesquisar.setBounds(230, 50, 160, 40);
 
         cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome", "Código", "CPF", "CEP", "Sexo", "Telefone", "Celular", "Salário", "Cargo", "Data Admissão", "Data Demissão", "Horas Trabalhadas", "Nível Admnistrativo", "Número Endereço", " " }));
+        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome", "Código", "CPF", "CEP", "Sexo", "Telefone", "Celular", "Salário", "Cargo", "Data Admissão", "Data Demissão", "Horas Trabalhadas", "Nível Admnistrativo", "Número Endereço" }));
         cmbFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbFiltroActionPerformed(evt);
             }
         });
         getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(360, 60, 107, 33);
+        cmbFiltro.setBounds(360, 60, 107, 31);
 
         txtPesquisa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -146,6 +161,10 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         getContentPane().add(lblDescrever);
         lblDescrever.setBounds(520, 50, 83, 30);
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(0, 0, 1150, 650);
+
         btnMenuPrincipal.setText("Menu Principal");
         btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,15 +174,11 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         getContentPane().add(btnMenuPrincipal);
         btnMenuPrincipal.setBounds(949, 119, 161, 239);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 1150, 650);
-
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    DaoEndereco de = new DaoEndereco();
+    DaoFuncionario df = new DaoFuncionario();
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         try {
@@ -172,7 +187,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
 
         }
         try {
-            de.alterarEndereco(tblListagemFuncionario);
+            df.alterarFuncionario(tblListagemFuncionario);
         } catch (SQLException ex) {
             Logger.getLogger(FrmListagemFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -187,16 +202,18 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtualizarTabelaActionPerformed
 
     private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
-        FrmCadastroEndereco telaCadastroEnd = new FrmCadastroEndereco();
-        telaCadastroEnd.setVisible(true);
+        FrmCadastroFuncionario telaCadastroFunc = new FrmCadastroFuncionario();
+        telaCadastroFunc.setVisible(true);
     }//GEN-LAST:event_btnTelaCadastroActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-        Endereco end = new Endereco();
-        end.setCep((String) tblListagemFuncionario.getValueAt(tblListagemFuncionario.getSelectedRow(), 0));
+        Funcionario func = new Funcionario();
+        String aux;
+        aux = (String) tblListagemFuncionario.getValueAt(tblListagemFuncionario.getSelectedRow(), 0);
+        func.setCodigoFuncionario(Integer.parseInt(aux));
         
         try {
-            de.deletarEndereco(end.getCep());
+            df.deletarFuncionario(func.getCodigoFuncionario());
             atualizarTabela();
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(FrmListagemFuncionario.class.getName()).log(Level.SEVERE, null, ex);
@@ -242,6 +259,10 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
+    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnFecharActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -282,20 +303,40 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
 
     //Criando método de preenchimento/atualização de tabela com dados do banco
     private void atualizarTabela() {
-        ArrayList<Endereco> lista = new ArrayList<>();
-        lista = DaoEndereco.listarEndereco();
-        String[] nomeColunas = {"CEP", "Logradouro", "Bairro", "Cidade", "Estado"};
+        ArrayList<Funcionario> lista = new ArrayList<>();
+        lista = DaoFuncionario.listarFuncionario();
+        String[] nomeColunas = {"Código", "CEP", "Nome", "CPF", "Sexo", "Telefone", "Celular", "Número", 
+            "Salário", "Cargo", "Admissão", "Demissão", "Horas Trabalhadas", "Nível Administrativo" };
         try {
             DefaultTableModel model = (DefaultTableModel) tblListagemFuncionario.getModel();
             model.setColumnIdentifiers(nomeColunas);
             model.setRowCount(0);
-            Object rowData[] = new Object[5];
+            Object rowData[] = new Object[15];
             for (int i = 0; i < lista.size(); i++) {
-                rowData[0] = lista.get(i).getCep();
-                rowData[1] = lista.get(i).getLogradouro();
-                rowData[2] = lista.get(i).getBairro();
-                rowData[3] = lista.get(i).getCidade();
-                rowData[4] = lista.get(i).getEstado();
+                rowData[0] = Integer.toString(lista.get(i).getCodigoFuncionario());
+                rowData[1] = lista.get(i).getPessoa().getEndereco().getCep();
+                rowData[2] = lista.get(i).getPessoa().getNome();
+                rowData[3] = lista.get(i).getFisica().getCpf();
+                if (lista.get(i).getFisica().getSexo() == 0) {
+                    rowData[4] = "Masculino";
+                } else {
+                    rowData[4] = "Feminino";
+                }
+                
+                rowData[5] = Long.toString(lista.get(i).getPessoa().getTelefone());
+                rowData[6] = Long.toString(lista.get(i).getFisica().getCelular());
+                rowData[7] = lista.get(i).getPessoa().getComplementoLogradouro();
+                rowData[8] = Float.toString(lista.get(i).getSalario());
+                rowData[9] = lista.get(i).getCargo();
+                rowData[10] = lista.get(i).getDataContrato();
+                rowData[11] = lista.get(i).getDataDemissao();
+                rowData[12] = Integer.toString(lista.get(i).getHorasTrabalhadas());
+                if (lista.get(i).getNivelAdministrativo()== 0) {
+                    rowData[13] = "Visualização";
+                } else {
+                    rowData[13] = "Administrador";
+                }
+                
                 model.addRow(rowData);
 
             }
@@ -306,20 +347,30 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     }
 
     private void atualizarTabelaFiltrada() {
-        ArrayList<Endereco> lista = new ArrayList<>();
-        lista = DaoEndereco.listarEnderecoFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim()); //Filtrando dados que aparecem na pesquisa
-        String[] nomeColunas = {"CEP", "Logradouro", "Bairro", "Cidade", "Estado"};
+        ArrayList<Funcionario> lista = new ArrayList<>();
+        lista = DaoFuncionario.listarFuncionarioFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim()); //Filtrando dados que aparecem na pesquisa
+        String[] nomeColunas = {"Código", "CEP", "Nome", "CPF", "Sexo", "Telefone", "Celular", "Número", 
+            "Salário", "Cargo", "Admissão", "Demissão", "Horas Trabalhadas", "Nível Administrativo" };
         try {
             DefaultTableModel model = (DefaultTableModel) tblListagemFuncionario.getModel();
             model.setColumnIdentifiers(nomeColunas);
             model.setRowCount(0);
-            Object rowData[] = new Object[5];
+            Object rowData[] = new Object[15];
             for (int i = 0; i < lista.size(); i++) {
-                rowData[0] = lista.get(i).getCep();
-                rowData[1] = lista.get(i).getLogradouro();
-                rowData[2] = lista.get(i).getBairro();
-                rowData[3] = lista.get(i).getCidade();
-                rowData[4] = lista.get(i).getEstado();
+                rowData[0] = lista.get(i).getCodigoFuncionario();
+                rowData[1] = lista.get(i).getPessoa().getEndereco().getCep();
+                rowData[2] = lista.get(i).getPessoa().getNome();
+                rowData[3] = lista.get(i).getFisica().getCpf();
+                rowData[4] = lista.get(i).getFisica().getSexo();
+                rowData[5] = lista.get(i).getPessoa().getTelefone();
+                rowData[6] = lista.get(i).getFisica().getCelular();
+                rowData[7] = lista.get(i).getPessoa().getComplementoLogradouro();
+                rowData[8] = lista.get(i).getSalario();
+                rowData[9] = lista.get(i).getCargo();
+                rowData[10] = lista.get(i).getDataContrato();
+                rowData[11] = lista.get(i).getDataDemissao();
+                rowData[12] = lista.get(i).getHorasTrabalhadas();
+                rowData[13] = lista.get(i).getNivelAdministrativo();
                 model.addRow(rowData);
 
             }
@@ -333,6 +384,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnAtualizarTabela;
     private javax.swing.JButton btnDeletar;
+    private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JButton btnTelaCadastro;
     private javax.swing.JComboBox<String> cmbFiltro;

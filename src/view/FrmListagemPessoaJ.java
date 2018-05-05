@@ -236,11 +236,11 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-        PessoaFisica p = new PessoaFisica();
+        PessoaJuridica pj = new PessoaJuridica();
         String aux = (String) tblListagemPessoaJ.getValueAt(tblListagemPessoaJ.getSelectedRow(), 1);
-        p.setCpf(aux);
+        pj.setCnpj(aux);
         try {
-            pessoa.deletarPessoaFisica(p.getCpf());
+            pessoa.deletarPessoaJuridica(pj.getCnpj());
             atualizarTabela();
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(FrmListagemPeca.class.getName()).log(Level.SEVERE, null, ex);

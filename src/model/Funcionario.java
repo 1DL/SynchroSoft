@@ -14,8 +14,10 @@ import model.PessoaFisica;
  * @author Luiz
  */
 public class Funcionario{
+    
+    
+    
     private int codigoFuncionario;
-    private String cepFuncionario;
     private Pessoa pessoa;
     private PessoaFisica fisica;
     private float Salario;
@@ -28,32 +30,26 @@ public class Funcionario{
     public Funcionario() {
     }
 
-    public Funcionario(int codigoFuncionario, String cepFuncionario, Pessoa pessoa, PessoaFisica fisica, float Salario, String cargo, Date dataContrato, int horasTrabalhadas, int nivelAdministrativo) {
-        this.codigoFuncionario = codigoFuncionario;
-        this.cepFuncionario = cepFuncionario;
-        this.pessoa = pessoa;
-        this.fisica = fisica;
-        this.Salario = Salario;
-        this.cargo = cargo;
-        this.dataContrato = dataContrato;
-        this.horasTrabalhadas = horasTrabalhadas;
-        this.nivelAdministrativo = nivelAdministrativo;
-    }
+    
 
     public int getCodigoFuncionario() {
         return codigoFuncionario;
     }
 
+    public Funcionario(int codigoFuncionario, Pessoa pessoa, PessoaFisica fisica, float Salario, String cargo, Date dataContrato, Date dataDemissao, int horasTrabalhadas, int nivelAdministrativo) {
+        this.codigoFuncionario = codigoFuncionario;
+        this.pessoa = pessoa;
+        this.fisica = fisica;
+        this.Salario = Salario;
+        this.cargo = cargo;
+        this.dataContrato = dataContrato;
+        this.dataDemissao = dataDemissao;
+        this.horasTrabalhadas = horasTrabalhadas;
+        this.nivelAdministrativo = nivelAdministrativo;
+    }
+
     public void setCodigoFuncionario(int codigoFuncionario) {
         this.codigoFuncionario = codigoFuncionario;
-    }
-
-    public String getCepFuncionario() {
-        return cepFuncionario;
-    }
-
-    public void setCepFuncionario(String cepFuncionario) {
-        this.cepFuncionario = cepFuncionario;
     }
 
     public Pessoa getPessoa() {
