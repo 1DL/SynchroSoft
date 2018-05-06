@@ -28,6 +28,7 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
+        btnMenuPrincipal = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txtValorDespesa = new javax.swing.JTextField();
         btnCadastrar = new javax.swing.JButton();
@@ -49,6 +50,15 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         jLabel2.setText("Código da despesa: ");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(230, 70, 168, 25);
+
+        btnMenuPrincipal.setText("Menu Principal");
+        btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuPrincipalActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMenuPrincipal);
+        btnMenuPrincipal.setBounds(980, 270, 130, 170);
 
         jLabel6.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel6.setText("Valor da despesa:");
@@ -112,6 +122,11 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
+        FrmPrincipal telaPrincipal = new FrmPrincipal();
+        telaPrincipal.setVisible(true);
+    }//GEN-LAST:event_btnMenuPrincipalActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -150,6 +165,7 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnLimpar;
+    private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JComboBox<String> cmbTipoDespesa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
