@@ -88,8 +88,11 @@ public class DaoFuncionario {
                 String nrend = (String) tabela.getValueAt(row, 7);
                 String salario = (String) tabela.getValueAt(row, 8);
                 String cargo = (String) tabela.getValueAt(row, 9);
-                /*Object admissao = (String) tabela.getValueAt(row, 10);
-                Object demissao = (String) tabela.getValueAt(row, 11);*/
+                String admissao = (String) tabela.getValueAt(row, 10);
+                String demissao = (String) tabela.getValueAt(row, 11);
+                Funcionario func = new Funcionario();
+                func.setDataContrato(admissao);
+                func.setDataDemissao(demissao);
                 String horatrab =  (String) tabela.getValueAt(row, 12);
                 String nvladm = (String) tabela.getValueAt(row, 13);
 
@@ -111,8 +114,8 @@ public class DaoFuncionario {
                 st.setString(8, nrend);
                 st.setFloat(9, Float.parseFloat(salario));
                 st.setString(10, cargo);
-//                st.setDate(10, (Date) admissao);
-//                st.setDate(11, (Date) demissao);
+                st.setDate(10, func.getDataContrato());
+                st.setDate(11, func.getDataDemissao());
                 st.setInt(11, Integer.parseInt(horatrab));
                 st.setInt(12, nivel);
                 st.setInt(13, Integer.parseInt(cod_ref));
@@ -188,7 +191,7 @@ public class DaoFuncionario {
             switch (cmbFiltro) {
                 //preparando sql de acordo com código
                 case "Nome":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE NM_FUNCIONARIO LIKE ?)";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE LOWER(NM_FUNCIONARIO) LIKE LOWER(?)";
                     break;
 
                 //preparando tratamento de acordo com nome
@@ -244,19 +247,19 @@ public class DaoFuncionario {
             ResultSet rs = st.executeQuery();
 
             //listando dados do banco em jtable
-            while (rs.next()) {
+           while (rs.next()) {
                 Endereco end = new Endereco();
                 end.setCep(rs.getString("CD_CEP"));
                 Pessoa p = new Pessoa(rs.getString("NM_FUNCIONARIO"), end, rs.getLong("NR_TELEFONE"), rs.getString("NR_LOGRADOURO"), 0);
                 PessoaFisica pf = new PessoaFisica();
                 pf.setPessoa(p);
                 pf.setSexo(rs.getInt("ID_SEXO"));
+                pf.setCpf(rs.getString("CPF_FUNCIONARIO"));
 
                 Funcionario func = new Funcionario(rs.getInt("CD_FUNCIONARIO"), p, pf, rs.getFloat("VL_SALARIO"),
                         rs.getString("DS_CARGO"), rs.getDate("DT_ADMISSAO"), rs.getDate("DT_DEMISSAO"), rs.getInt("NR_HORAS_TRABALHO"),
                         rs.getInt("ID_ADMINISTRATIVO"));
                 lista.add(func);
-
             }
 
             //fechamento de preparedStatement e Conexão do banco

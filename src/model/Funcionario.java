@@ -88,16 +88,16 @@ public class Funcionario{
         return dataContrato;
     }
 
-    public void setDataContrato(Date dataContrato) {
-        this.dataContrato = dataContrato;
+    public void setDataContrato(String dataContrato) {
+        this.dataContrato = Date.valueOf(dataContrato);
     }
 
     public Date getDataDemissao() {
         return dataDemissao;
     }
 
-    public void setDataDemissao(Date dataDemissao) {
-        this.dataDemissao = dataDemissao;
+    public void setDataDemissao(String dataDemissao) {
+        this.dataDemissao = Date.valueOf(dataDemissao);
     }
 
     public int getHorasTrabalhadas() {

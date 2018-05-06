@@ -371,7 +371,8 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
             rowData[4] = lista.get(i).getPessoa().getComplementoLogradouro();
             rowData[5] = Long.toString(lista.get(i).getPessoa().getTelefone());
             rowData[6] = Long.toString(lista.get(i).getRamalCliente());
-            rowData[7] = contrato;            
+            rowData[7] = contrato;
+            rowData[8] = lista.get(i).getDataCadastro().toString();
             rowData[9] = lista.get(i).getCnpj();
             
             
@@ -443,6 +444,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
             rowData[5] = Long.toString(lista.get(i).getPessoa().getTelefone());
             rowData[6] = Long.toString(lista.get(i).getRamalCliente());
             rowData[7] = contrato;            
+            rowData[8] = lista.get(i).getDataCadastro().toString();
             rowData[9] = lista.get(i).getCnpj();
             
             

@@ -49,8 +49,8 @@ public class PessoaJuridica {
         return dataCadastro;
     }
 
-    public void setDataCadastro(Date dataCadastro) {
-        this.dataCadastro = dataCadastro;
+    public void setDataCadastro(String dataCadastro) {
+        this.dataCadastro = Date.valueOf(dataCadastro);
     }
 
     public Pessoa getPessoa() {

@@ -158,7 +158,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnJuridica);
-        btnJuridica.setBounds(10, 150, 210, 80);
+        btnJuridica.setBounds(20, 50, 210, 80);
 
         scpListagemPessoaF.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         scpListagemPessoaF.setMaximumSize(new java.awt.Dimension(100, 100));
@@ -181,7 +181,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         scpListagemPessoaF.setViewportView(tblListagemPessoaF);
 
         getContentPane().add(scpListagemPessoaF);
-        scpListagemPessoaF.setBounds(240, 140, 670, 402);
+        scpListagemPessoaF.setBounds(20, 140, 890, 402);
 
         lblFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(lblFundo);
@@ -382,7 +382,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
             rowData[6] = Long.toString(lista.get(i).getPessoa().getTelefone());
             rowData[7] = Long.toString(lista.get(i).getCelular());
             rowData[8] = contrato;            
-            rowData[9] = lista.get(i).getDataCadastro();
+            rowData[9] = lista.get(i).getDataCadastro().toString();
             rowData[10] = lista.get(i).getCpf();
             
             
@@ -460,7 +460,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
             rowData[6] = Long.toString(lista.get(i).getPessoa().getTelefone());
             rowData[7] = Long.toString(lista.get(i).getCelular());
             rowData[8] = contrato;            
-            rowData[9] = lista.get(i).getDataCadastro();
+            rowData[9] = lista.get(i).getDataCadastro().toString();
             rowData[10] = lista.get(i).getCpf();
             
             

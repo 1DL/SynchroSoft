@@ -49,8 +49,12 @@ public class PessoaFisica {
         return dataCadastro;
     }
 
-    public void setDataCadastro(Date dataCadastro) {
-        this.dataCadastro = dataCadastro;
+    public void setDataCadastro(String dataCadastro) {
+//        int dd,mm,aa;
+//        aa = Integer.parseInt(dataCadastro.substring(0, 4));
+//        mm = Integer.parseInt(dataCadastro.substring(5, 2));
+//        dd = Integer.parseInt(dataCadastro.substring(8, 4));
+        this.dataCadastro = Date.valueOf(dataCadastro);
     }
 
     public long getCelular() {

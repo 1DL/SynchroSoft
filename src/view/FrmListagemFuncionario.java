@@ -337,8 +337,8 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
                 rowData[7] = lista.get(i).getPessoa().getComplementoLogradouro();
                 rowData[8] = Float.toString(lista.get(i).getSalario());
                 rowData[9] = lista.get(i).getCargo();
-                rowData[10] = lista.get(i).getDataContrato();
-                rowData[11] = lista.get(i).getDataDemissao();
+                rowData[10] = lista.get(i).getDataContrato().toString();
+                rowData[11] = lista.get(i).getDataDemissao().toString();
                 rowData[12] = Integer.toString(lista.get(i).getHorasTrabalhadas());
                 if (lista.get(i).getNivelAdministrativo()== 0) {
                     rowData[13] = "Visualização";
@@ -363,7 +363,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     private void atualizarTabelaFiltrada() {
         ArrayList<Funcionario> lista = new ArrayList<>();
         lista = DaoFuncionario.listarFuncionarioFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().toLowerCase().trim()); //Filtrando dados que aparecem na pesquisa
-         String[] nomeColunas = {"Código", "CEP", "Nome", "CPF", "Sexo", "Telefone", "Celular", "Número", 
+        String[] nomeColunas = {"Código", "CEP", "Nome", "CPF", "Sexo", "Telefone", "Celular", "Número", 
             "Salário", "Cargo", "Admissão", "Demissão", "Horas Trabalhadas", "Nível Administrativo", "PK_REF" };
         try {
             DefaultTableModel model = new DefaultTableModel() {
@@ -395,8 +395,8 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
                 rowData[7] = lista.get(i).getPessoa().getComplementoLogradouro();
                 rowData[8] = Float.toString(lista.get(i).getSalario());
                 rowData[9] = lista.get(i).getCargo();
-                rowData[10] = lista.get(i).getDataContrato();
-                rowData[11] = lista.get(i).getDataDemissao();
+                rowData[10] = lista.get(i).getDataContrato().toString();
+                rowData[11] = lista.get(i).getDataDemissao().toString();
                 rowData[12] = Integer.toString(lista.get(i).getHorasTrabalhadas());
                 if (lista.get(i).getNivelAdministrativo()== 0) {
                     rowData[13] = "Visualização";

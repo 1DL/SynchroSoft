@@ -418,7 +418,9 @@ Data Cadastro
                 String NR_TELEFONE = (String) tabela.getValueAt(row, 6);
                 String NR_CELULAR = (String) tabela.getValueAt(row, 7);
                 String NR_COMPLEMENTO_LOGRADOURO = (String) tabela.getValueAt(row, 5);
-                Object DT_CADASTRO = tabela.getValueAt(row, 9);
+                PessoaFisica pf = new PessoaFisica();
+                String DT_CADASTRO = (String)tabela.getValueAt(row, 9);
+                pf.setDataCadastro(DT_CADASTRO);
                 String ID_CONTRATO = (String) tabela.getValueAt(row, 8);
 
                 int contrato;
@@ -437,7 +439,7 @@ Data Cadastro
                 st.setLong(6, Long.parseLong(NR_CELULAR));
                 st.setInt(7, Integer.parseInt(NR_COMPLEMENTO_LOGRADOURO));
 
-                st.setDate(8, (Date) DT_CADASTRO);
+                st.setDate(8, pf.getDataCadastro());
                 st.setInt(9, contrato);
                 st.setString(10, CD_CPF_REFERENCIA);
 
@@ -478,7 +480,11 @@ Data Cadastro
                 String telefone = (String) tabela.getValueAt(row, 5);
                 String ramal = (String) tabela.getValueAt(row, 6);
                 String contrato = (String) tabela.getValueAt(row, 7);
-                Object dataCadastro = tabela.getValueAt(row, 8);
+               
+                
+                String dataCadastro = (String) tabela.getValueAt(row, 8);
+                PessoaJuridica pj = new PessoaJuridica();
+                pj.setDataCadastro(dataCadastro);
                 String cnpj_ref = (String) tabela.getValueAt(row, 9);
 
                 if (contrato.equals("Sim")) {
@@ -494,7 +500,7 @@ Data Cadastro
                 st.setLong(6, Long.parseLong(telefone));
                 st.setLong(7, Long.parseLong(ramal));
                 st.setInt(8, Integer.parseInt(contrato));
-                st.setDate(9, (Date) dataCadastro);
+                st.setDate(9, pj.getDataCadastro());
                 st.setString(10, cnpj_ref);
                 st.addBatch();
                 st.executeBatch();
