@@ -188,48 +188,48 @@ public class DaoFuncionario {
             switch (cmbFiltro) {
                 //preparando sql de acordo com código
                 case "Nome":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE NM_FUNCIONARIO LIKE ?";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE NM_FUNCIONARIO LIKE ?)";
                     break;
 
                 //preparando tratamento de acordo com nome
                 case "Código":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE CD_FUNCIONARIO LIKE ?";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE LOWER(CD_FUNCIONARIO) LIKE LOWER(?)";
                     break;
                 case "CPF":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE CPF_FUNCIONARIO LIKE ?";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE LOWER(CPF_FUNCIONARIO) LIKE LOWER(?)";
                     break;
                 case "CEP":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE CD_CEP LIKE ?";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE LOWER(CD_CEP) LIKE LOWER(?)";
                     break;
                 case "Sexo":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE ID_SEXO LIKE ?";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE LOWER(ID_SEXO) LIKE LOWER(?)";
                     break;
                 case "Telefone":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE NR_TELEFONE LIKE ?";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE LOWER(NR_TELEFONE) LIKE LOWER(?)";
                     break;
                 case "Celular":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE NR_CELULAR LIKE ?";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE LOWER(NR_CELULAR) LIKE LOWER(?)";
                     break;
                 case "Salário":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE VL_SALARIO LIKE ?";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE LOWER(VL_SALARIO) LIKE LOWER(?)";
                     break;
                 case "Cargo":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE DS_CARGO LIKE ?";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE LOWER(DS_CARGO) LIKE LOWER(?)";
                     break;
                 case "Data Admissão":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE DT_ADMISSAO LIKE ?";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE LOWER(DT_ADMISSAO) LIKE LOWER(?)";
                     break;
                 case "Data Demissão":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE DT_DEMISSAO LIKE ?";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE LOWER(DT_DEMISSAO) LIKE LOWER(?)";
                     break;
                 case "Horas Trabalhadas":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE NR_HORAS_TRABALHO LIKE ?";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE LOWER(NR_HORAS_TRABALHO) LIKE LOWER(?)";
                     break;
                 case "Nível Administrativo":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE ID_ADMINISTRATIVO LIKE ?";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE LOWER(ID_ADMINISTRATIVO) LIKE LOWER(?)";
                     break;
                 case "Número Endereço":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE NR_LOGRADOURO LIKE ?";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE LOWER(NR_LOGRADOURO) LIKE LOWER(?)";
                     break;
 
             }

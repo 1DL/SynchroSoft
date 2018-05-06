@@ -334,7 +334,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
 
     private void atualizarTabelaFiltrada() {
         ArrayList<Endereco> lista = new ArrayList<>();
-        lista = DaoEndereco.listarEnderecoFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim()); //Filtrando dados que aparecem na pesquisa
+        lista = DaoEndereco.listarEnderecoFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().toLowerCase().trim()); //Filtrando dados que aparecem na pesquisa
         String[] nomeColunas = {"CEP", "Logradouro", "Bairro", "Cidade", "Estado", "PK_REF"};
         try {
             DefaultTableModel model = new DefaultTableModel() {

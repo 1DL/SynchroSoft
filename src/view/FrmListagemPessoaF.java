@@ -323,7 +323,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         //ArrayList<Pessoa> lista = new ArrayList<>();
         ArrayList<PessoaFisica> lista = new ArrayList<>();
         //Chamando método para preenchimento de Jtable com dados da tabela de peça
-        lista = DaoPessoa.listarPessoaFisicaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim());
+        lista = DaoPessoa.listarPessoaFisicaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().toLowerCase().trim());
 //        System.out.println(lista.get(0).);
         String[] nomeColunas = {"Nome","CPF","Sexo","CEP","Endereço", "Número", "Telefone", "Celular", "Contrato", "Data de Cadastro", "PK Ref"};
         try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPeca()

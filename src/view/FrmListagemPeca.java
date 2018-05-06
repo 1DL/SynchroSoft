@@ -240,7 +240,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
 
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
         // Chamando método de listagem com filtro, se txt preenchido
-        try {
+//        try {
             //criando variável de controle
             int controle = 0;
 
@@ -254,9 +254,9 @@ public class FrmListagemPeca extends javax.swing.JFrame {
             if (controle == 0) {
                 atualizarTabela();
             }
-        } catch (Exception ex) {
-            System.out.println("Exceção: " + ex);
-        }
+//        } catch (Exception ex) {
+//            System.out.println("Exceção: " + ex);
+//        }
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
@@ -357,9 +357,10 @@ public class FrmListagemPeca extends javax.swing.JFrame {
 
 
         ArrayList<Peca> lista = new ArrayList<>();
-        lista = DaoPeca.listarPecaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim()); //Filtrando 
-        String[] nomeColunas = {"Código", "Nome", "Categoria", "Quantidade", "Valor Unitário"};
-        try {
+        lista = DaoPeca.listarPecaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim().toLowerCase()); //Filtrando 
+         String[] nomeColunas = {"Código", "Nome", "Categoria", "Quantidade", "Valor Unitário", "PK Ref"};
+        try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPeca()
+        {
             DefaultTableModel model = new DefaultTableModel() {
                 @Override
                 public boolean isCellEditable(int row, int column) {
@@ -370,9 +371,13 @@ public class FrmListagemPeca extends javax.swing.JFrame {
                     return true;
                 }
             };
+            //atribui o modelo para a tabela.
             tblListagemPeca.setModel(model);
+            //atribui os cabeçalhos para o modelo.
             model.setColumnIdentifiers(nomeColunas);
+            //Remove as linhas da tabela.
             model.setRowCount(0);
+            //declara um array de objetos para armazenar os valores.
             Object rowData[] = new Object[6];
             for (int i = 0; i < lista.size(); i++) {
                 rowData[0] = Integer.toString(lista.get(i).getCodigoPeca());
@@ -392,6 +397,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         tblListagemPeca.getColumnModel().getColumn(5).setMinWidth(0);
         tblListagemPeca.getColumnModel().getColumn(5).setPreferredWidth(0);
         tblListagemPeca.getColumnModel().getColumn(5).setMaxWidth(0);
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

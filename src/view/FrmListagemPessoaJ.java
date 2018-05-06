@@ -328,7 +328,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         //ArrayList<Pessoa> lista = new ArrayList<>();
         ArrayList<PessoaJuridica> lista = new ArrayList<>();
         //Chamando método para preenchimento de Jtable com dados da tabela de peça
-        lista = DaoPessoa.listarPessoaJuridicaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim());
+        lista = DaoPessoa.listarPessoaJuridicaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().toLowerCase().trim());
 //        System.out.println(lista.get(0).);
         String[] nomeColunas = {"CNPJ","CEP","Nome Fictício","Razão Social","Nº", "Telefone", "Ramal", "Contrato", 
             "Data Cadastro","PK Ref"};

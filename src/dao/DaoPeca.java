@@ -62,12 +62,8 @@ public class DaoPeca {
                 Peca pecas = new Peca(rs.getInt("CD_PECA"), rs.getString("NM_PECA"), rs.getString("DS_CATEGORIA"), rs.getInt("QT_PECA"), rs.getFloat("VL_PECA"));
                 lista.add(pecas);
 
-                /*lista.add(new String[]{String.valueOf(rs.getInt("CD_PECA")),
-                (rs.getString("NM_PECA")),(rs.getString("DS_CATEGORIA")),
-                String.valueOf(rs.getInt("QT_PECA")),String.valueOf(rs.getFloat("VL_PECA"))});                
-                System.out.println(lista.get(0));*/
             }
-            System.out.println(lista.get(0).getNomePeca());
+            
             st.close();
             rs.close();
         } catch (Exception ex) {
@@ -93,23 +89,23 @@ public class DaoPeca {
             switch(cmbFiltro)
             {
                 //preparando sql de acordo com código
-                case "Código":  sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE CD_PECA LIKE ?";
+                case "Código":  sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE LOWER(CD_PECA) LIKE LOWER(?)";
                 break;
                 
                 //preparando tratamento de acordo com nome
-                case "Nome": sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE NM_PECA LIKE ?";
+                case "Nome": sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE LOWER(NM_PECA) LIKE LOWER(?)";
                 break;
                 
                 //preparando tratamento de acordo com categoria
-                case "Categoria": sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE DS_CATEGORIA LIKE ?";
+                case "Categoria": sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE LOWER(DS_CATEGORIA) LIKE LOWER(?)";
                 break;
                 
                 //preparando tratamento de acordo com quantidade em estoque
-                case "Quantidade": sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE QT_PECA LIKE ?";
+                case "Quantidade": sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE LOWER(QT_PEC)A LIKE LOWER(?)";
                 break;
                 
                 //preparando tratamento de acordo com valor da peça
-                case "Valor": sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE VL_PECA LIKE ?";
+                case "Valor": sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE LOWER(VL_PECA) LIKE LOWER(?)";
                 break;
             }
             
@@ -148,26 +144,7 @@ public class DaoPeca {
     }
 
     public void alterarPeca(JTable tabela) throws SQLException, ClassNotFoundException {
-//        Connection con = Conexao.conectar();
-//        String sql = "UPDATE SYNCHROSOFT.TB_PECA "
-//        + "SET CD_PECA = ?, NM_PECA = ?, DS_CATEGORIA = ?, "
-//        + "QT_PECA = ?, VL_PECA = ?";
-//        System.out.println(lista.size());
-//        PreparedStatement st = con.prepareStatement(sql);
-//        for (int i = 0; i < lista.size(); i++) {
-//            st.setInt(1,(int) lista.get(i).getCodigoPeca());                
-//            st.setString(2, lista.get(i).getNomePeca());
-//            st.setString(3, lista.get(i).getCategoriaPeca());
-//            st.setInt(4, (int)lista.get(i).getQuantidadePeca());
-//            st.setFloat(5, (float)lista.get(i).getValorUnitario());
-//
-//            st.addBatch();
-//            st.executeBatch();
-////            con.commit();
-//            JOptionPane.showMessageDialog(null, "A base de peças foi alterada com sucesso!");
-//            st.close();
-//         }
-        
+
         try{
             
             int rows = tabela.getRowCount();
@@ -195,14 +172,6 @@ public class DaoPeca {
                 st.setInt(4, Integer.parseInt(QT_PECA));
                 st.setFloat(5, Float.parseFloat(VL_PECA));
                 st.setInt(6, Integer.parseInt(CD_PECA_REFERENCIA));
-                
-                
-//                log = "" + CD_PECA + " ";
-//                System.out.println(CD_PECA);
-//                log = "" + NM_PECA + " ";
-//                log = "" + DS_CATEGORIA + " ";
-//                log = "" + QT_PECA + " ";
-//                log = "" + VL_PECA + " /n/n";
 
                 st.addBatch();
                 st.executeBatch();

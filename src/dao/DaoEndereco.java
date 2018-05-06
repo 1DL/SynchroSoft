@@ -25,10 +25,10 @@ public class DaoEndereco {
             String sql = "INSERT INTO SYNCHROSOFT.TB_ENDERECO VALUES (?,?,?,?,?)";
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, cep);
-            st.setString(2, logradouro.toLowerCase());
-            st.setString(3, bairro.toLowerCase());
-            st.setString(4, cidade.toLowerCase());
-            st.setString(5, uf.toLowerCase());
+            st.setString(2, logradouro);
+            st.setString(3, bairro);
+            st.setString(4, cidade);
+            st.setString(5, uf);
             st.executeUpdate();
             st.close();
         } catch (Exception ex) {
@@ -146,23 +146,23 @@ public class DaoEndereco {
             switch(cmbFiltro)
             {
                 //preparando sql de acordo com cep
-                case "CEP":  sql = "SELECT * FROM SYNCHROSOFT.TB_ENDERECO WHERE CD_CEP LIKE ?";
+                case "CEP":  sql = "SELECT * FROM SYNCHROSOFT.TB_ENDERECO WHERE LOWER(CD_CEP) LIKE LOWER(?)";
                 break;
                 
                 //preparando tratamento de acordo com o logradouro
-                case "Logradouro": sql = "SELECT * FROM SYNCHROSOFT.TB_ENDERECO WHERE DS_LOGRADOURO LIKE ?";
+                case "Logradouro": sql = "SELECT * FROM SYNCHROSOFT.TB_ENDERECO WHERE LOWER(DS_LOGRADOURO) LIKE LOWER(?)";
                 break;
                 
                 //preparando tratamento de acordo com o bairro
-                case "Bairro": sql = "SELECT * FROM SYNCHROSOFT.TB_ENDERECO WHERE NM_BAIRRO LIKE ?";
+                case "Bairro": sql = "SELECT * FROM SYNCHROSOFT.TB_ENDERECO WHERE LOWER(NM_BAIRRO) LIKE LOWER(?)";
                 break;
                 
                 //preparando tratamento de acordo com a cidade
-                case "Cidade": sql = "SELECT * FROM SYNCHROSOFT.TB_ENDERECO WHERE NM_CIDADE LIKE ?";
+                case "Cidade": sql = "SELECT * FROM SYNCHROSOFT.TB_ENDERECO WHERE LOWER(NM_CIDADE) LIKE LOWER(?)";
                 break;
                 
                 //preparando tratamento de acordo com valor do estado
-                case "Estado": sql = "SELECT * FROM SYNCHROSOFT.TB_ENDERECO WHERE SG_ESTADO LIKE ?";
+                case "Estado": sql = "SELECT * FROM SYNCHROSOFT.TB_ENDERECO WHERE LOWER(SG_ESTADO) LIKE LOWER(?)";
                 break;
             }
             
