@@ -39,6 +39,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
     private void initComponents() {
 
         lblPesquisar = new javax.swing.JLabel();
+        btnFechar = new javax.swing.JButton();
         cmbFiltro = new javax.swing.JComboBox<>();
         lblDescrever = new javax.swing.JLabel();
         txtPesquisa = new javax.swing.JTextField();
@@ -61,6 +62,15 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         lblPesquisar.setText("Pesquisar por: ");
         getContentPane().add(lblPesquisar);
         lblPesquisar.setBounds(240, 100, 120, 25);
+
+        btnFechar.setText("Fechar");
+        btnFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnFechar);
+        btnFechar.setBounds(990, 550, 130, 50);
 
         cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CPF", "CEP", "Nome", "Telefone", "Celular", "Data" }));
@@ -265,6 +275,10 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
+    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnFecharActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -312,17 +326,11 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         lista = DaoPessoa.listarPessoaFisicaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim());
 //        System.out.println(lista.get(0).);
         String[] nomeColunas = {"Nome","CPF","Sexo","CEP","Endereço", "Número", "Telefone", "Celular", "Contrato", "Data de Cadastro"};
-        try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPessoaF()
+        try 
         {
-            //declaração de variável pra contrato e para sexo
+            
             String contrato = "";
             String sexo = "";
-            
-            
-//            DefaultTableModel modelo = new DefaultTableModel(
-//        lista.toArray(new Peca[lista.size()][]), nomeColunas);
-//            tblListagemPeca.setModel(modelo);
-            
             DefaultTableModel model = (DefaultTableModel) tblListagemPessoaF.getModel();
             model.setColumnIdentifiers(nomeColunas);
             model.setRowCount(0);
@@ -375,14 +383,10 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
     //Criando método de preenchimento/atualização de tabela com dados do banco
     private void atualizarTabela (){
        
-//        DaoPeca teste = new DaoPeca();
-        
-        //Instanciando array de pessoas para preenchimento da tabela
-        //ArrayList<Pessoa> lista = new ArrayList<>();
         ArrayList<PessoaFisica> lista = new ArrayList<>();
-        //Chamando método para preenchimento de Jtable com dados da tabela de peça
+        
         lista = DaoPessoa.listarPessoaFisica();
-//        System.out.println(lista.get(0).);
+
         String[] nomeColunas = {"Nome","CPF","Sexo","CEP","Endereço", "Número", "Telefone", "Celular", "Contrato", "Data de Cadastro"};
         try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPeca()
         {
@@ -449,6 +453,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnAtualizarTabela1;
     private javax.swing.JButton btnDeletar;
+    private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnJuridica;
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JButton btnTelaCadastro;

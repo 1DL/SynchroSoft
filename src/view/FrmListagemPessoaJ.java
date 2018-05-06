@@ -41,6 +41,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnFechar = new javax.swing.JButton();
         lblPesquisar = new javax.swing.JLabel();
         cmbFiltro = new javax.swing.JComboBox<>();
         lblDescrever = new javax.swing.JLabel();
@@ -59,6 +60,15 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1152, 648));
         setSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
+
+        btnFechar.setText("Fechar");
+        btnFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnFechar);
+        btnFechar.setBounds(990, 550, 130, 50);
 
         lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblPesquisar.setText("Pesquisar por: ");
@@ -268,6 +278,10 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
+    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnFecharActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -439,6 +453,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnAtualizarTabela1;
     private javax.swing.JButton btnDeletar;
+    private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnFisica;
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JButton btnTelaCadastro;

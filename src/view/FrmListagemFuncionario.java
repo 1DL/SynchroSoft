@@ -349,7 +349,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     private void atualizarTabelaFiltrada() {
         ArrayList<Funcionario> lista = new ArrayList<>();
         lista = DaoFuncionario.listarFuncionarioFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim()); //Filtrando dados que aparecem na pesquisa
-        String[] nomeColunas = {"Código", "CEP", "Nome", "CPF", "Sexo", "Telefone", "Celular", "Número", 
+         String[] nomeColunas = {"Código", "CEP", "Nome", "CPF", "Sexo", "Telefone", "Celular", "Número", 
             "Salário", "Cargo", "Admissão", "Demissão", "Horas Trabalhadas", "Nível Administrativo" };
         try {
             DefaultTableModel model = (DefaultTableModel) tblListagemFuncionario.getModel();
@@ -357,20 +357,30 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
             model.setRowCount(0);
             Object rowData[] = new Object[15];
             for (int i = 0; i < lista.size(); i++) {
-                rowData[0] = lista.get(i).getCodigoFuncionario();
+                rowData[0] = Integer.toString(lista.get(i).getCodigoFuncionario());
                 rowData[1] = lista.get(i).getPessoa().getEndereco().getCep();
                 rowData[2] = lista.get(i).getPessoa().getNome();
                 rowData[3] = lista.get(i).getFisica().getCpf();
-                rowData[4] = lista.get(i).getFisica().getSexo();
-                rowData[5] = lista.get(i).getPessoa().getTelefone();
-                rowData[6] = lista.get(i).getFisica().getCelular();
+                if (lista.get(i).getFisica().getSexo() == 0) {
+                    rowData[4] = "Masculino";
+                } else {
+                    rowData[4] = "Feminino";
+                }
+                
+                rowData[5] = Long.toString(lista.get(i).getPessoa().getTelefone());
+                rowData[6] = Long.toString(lista.get(i).getFisica().getCelular());
                 rowData[7] = lista.get(i).getPessoa().getComplementoLogradouro();
-                rowData[8] = lista.get(i).getSalario();
+                rowData[8] = Float.toString(lista.get(i).getSalario());
                 rowData[9] = lista.get(i).getCargo();
                 rowData[10] = lista.get(i).getDataContrato();
                 rowData[11] = lista.get(i).getDataDemissao();
-                rowData[12] = lista.get(i).getHorasTrabalhadas();
-                rowData[13] = lista.get(i).getNivelAdministrativo();
+                rowData[12] = Integer.toString(lista.get(i).getHorasTrabalhadas());
+                if (lista.get(i).getNivelAdministrativo()== 0) {
+                    rowData[13] = "Visualização";
+                } else {
+                    rowData[13] = "Administrador";
+                }
+                
                 model.addRow(rowData);
 
             }

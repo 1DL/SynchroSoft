@@ -43,6 +43,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListagemEndereco = new javax.swing.JTable();
+        btnFechar = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
         btnAtualizarTabela = new javax.swing.JButton();
         btnTelaCadastro = new javax.swing.JButton();
@@ -55,6 +56,8 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1152, 648));
+        setMinimumSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
 
         tblListagemEndereco.setModel(new javax.swing.table.DefaultTableModel(
@@ -72,6 +75,15 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(232, 119, 632, 402);
+
+        btnFechar.setText("Fechar");
+        btnFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnFechar);
+        btnFechar.setBounds(990, 550, 130, 50);
 
         btnAlterar.setText("Alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -242,6 +254,10 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
+    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnFecharActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -331,6 +347,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnAtualizarTabela;
     private javax.swing.JButton btnDeletar;
+    private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JButton btnTelaCadastro;
     private javax.swing.JComboBox<String> cmbFiltro;

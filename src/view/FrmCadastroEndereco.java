@@ -55,6 +55,8 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1152, 648));
+        setMinimumSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
 
         lblTituloJanela.setText("TITULO JANELA");
@@ -204,7 +206,8 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnListarEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarEnderecoActionPerformed
-        //TEste
+        FrmListagemEndereco listend = new FrmListagemEndereco();
+        listend.setVisible(true);
     }//GEN-LAST:event_btnListarEnderecoActionPerformed
 
     private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
