@@ -21,6 +21,8 @@ public class Servico {
     private Funcionario codigoFuncionario;
     private String descricaoServicoFILE;
     private float pagamentoServico;
+    private Endereco endereco;
+    private String numLogradouro;
 
     public int getCodigoServico() {
         return codigoServico;
@@ -92,5 +94,21 @@ public class Servico {
 
     public void setPagamentoServico(float pagamentoServico) {
         this.pagamentoServico = pagamentoServico;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getNumLogradouro() {
+        return numLogradouro;
+    }
+
+    public void setNumLogradouro(String numLogradouro) {
+        this.numLogradouro = numLogradouro;
     }
 }
