@@ -98,6 +98,8 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         btnMenuPrincipal = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1152, 648));
+        setMinimumSize(new java.awt.Dimension(1152, 648));
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 

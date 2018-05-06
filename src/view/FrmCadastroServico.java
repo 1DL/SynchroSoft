@@ -77,6 +77,8 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1152, 648));
+        setMinimumSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
 
         lblCNPJ.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
