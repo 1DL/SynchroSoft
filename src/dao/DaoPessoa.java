@@ -31,11 +31,11 @@ public class DaoPessoa {
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, cpf);
             st.setString(2, cep);
-            st.setString(3, nomeFisica.toLowerCase());
+            st.setString(3, nomeFisica);
             st.setInt(4, sexo);
             st.setLong(5, telefone);
             st.setLong(6, celular);
-            st.setString(7, complemento.toLowerCase());
+            st.setString(7, complemento);
             st.setDate(8, dataCadastro);
             st.setInt(9, isContratado);
             st.executeUpdate();
@@ -404,12 +404,12 @@ Data Cadastro
                     + "DT_CADASTRO = ?, ID_CONTRATO = ? WHERE CD_CPF = ?";
             PreparedStatement st = con.prepareStatement(sql);
             for (int row = 0; row < rows; row++) {
-                String CD_CPF = (String) tabela.getValueAt(row, 1);
+                String CD_CPF_ALTERADO = (String) tabela.getValueAt(row, 1);
                 String CD_CEP = (String) tabela.getValueAt(row, 3);
                 String NM_PESSOA_FISICA = (String) tabela.getValueAt(row, 0);
                 String ID_SEXO = (String) tabela.getValueAt(row, 2);
                 int sexo;
-                if (ID_SEXO == "Masculino") {
+                if (ID_SEXO.toLowerCase().substring(0,1).equals("m")) {
                     sexo = 0;
                 } else {
                     sexo = 1;
@@ -427,8 +427,9 @@ Data Cadastro
                 } else {
                     contrato = 0;
                 }
+                String CD_CPF_REFERENCIA = (String) tabela.getValueAt(row, 10); 
 
-                st.setString(1, CD_CPF);
+                st.setString(1, CD_CPF_ALTERADO);
                 st.setString(2, CD_CEP);
                 st.setString(3, NM_PESSOA_FISICA);
                 st.setInt(4, sexo);
@@ -438,7 +439,7 @@ Data Cadastro
 
                 st.setDate(8, (Date) DT_CADASTRO);
                 st.setInt(9, contrato);
-                st.setString(10, CD_CPF);
+                st.setString(10, CD_CPF_REFERENCIA);
 
                 st.addBatch();
                 st.executeBatch();
@@ -469,7 +470,7 @@ Data Cadastro
                     + "ID_CONTRATO = ?, DT_CADASTRO = ? WHERE CD_CNPJ = ?";
             PreparedStatement st = con.prepareStatement(sql);
             for (int row = 0; row < rows; row++) {
-                String cnpj = (String) tabela.getValueAt(row, 0);
+                String cnpj_alterado = (String) tabela.getValueAt(row, 0);
                 String cep = (String) tabela.getValueAt(row, 1);
                 String nomeFicticio = (String) tabela.getValueAt(row, 2);
                 String razaoSocial = (String) tabela.getValueAt(row, 3);
@@ -478,13 +479,14 @@ Data Cadastro
                 String ramal = (String) tabela.getValueAt(row, 6);
                 String contrato = (String) tabela.getValueAt(row, 7);
                 Object dataCadastro = tabela.getValueAt(row, 8);
+                String cnpj_ref = (String) tabela.getValueAt(row, 9);
 
                 if (contrato.equals("Sim")) {
                     contrato = "1";
                 } else if (contrato.equals("Não")) {
                     contrato = "0";
                 }
-                st.setString(1, cnpj);
+                st.setString(1, cnpj_alterado);
                 st.setString(2, cep);
                 st.setString(3, nomeFicticio);
                 st.setString(4, razaoSocial);
@@ -493,7 +495,7 @@ Data Cadastro
                 st.setLong(7, Long.parseLong(ramal));
                 st.setInt(8, Integer.parseInt(contrato));
                 st.setDate(9, (Date) dataCadastro);
-                st.setString(10, cnpj);
+                st.setString(10, cnpj_ref);
                 st.addBatch();
                 st.executeBatch();
                 con.commit();

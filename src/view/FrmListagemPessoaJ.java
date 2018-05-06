@@ -331,13 +331,23 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         lista = DaoPessoa.listarPessoaJuridicaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim());
 //        System.out.println(lista.get(0).);
         String[] nomeColunas = {"CNPJ","CEP","Nome Fictício","Razão Social","Nº", "Telefone", "Ramal", "Contrato", 
-            "Data Cadastro"};
+            "Data Cadastro","PK Ref"};
         try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPeca()
         {
             //declaração de variável pra contrato
             String contrato = "";
  
-            DefaultTableModel model = (DefaultTableModel) tblListagemPessoaJ.getModel();
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    if (column == 10) {
+                        //Coluna 9 não poderá ser editada.
+                        return false;
+                    }
+                    return true;
+                }
+            };
+            tblListagemPessoaJ.setModel(model);
             model.setColumnIdentifiers(nomeColunas);
             model.setRowCount(0);
         Object rowData[] = new Object[10];
@@ -362,7 +372,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
             rowData[5] = Long.toString(lista.get(i).getPessoa().getTelefone());
             rowData[6] = Long.toString(lista.get(i).getRamalCliente());
             rowData[7] = contrato;            
-            rowData[8] = lista.get(i).getDataCadastro();
+            rowData[9] = lista.get(i).getCnpj();
             
             
             model.addRow(rowData);
@@ -374,6 +384,10 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         {
             System.out.println("Erro ao popular tabela.\n\n"+ex.getMessage());
         }
+        
+        tblListagemPessoaJ.getColumnModel().getColumn(9).setMinWidth(0);
+        tblListagemPessoaJ.getColumnModel().getColumn(9).setPreferredWidth(0);
+        tblListagemPessoaJ.getColumnModel().getColumn(9).setMaxWidth(0);
     }
 
     //Criando método de preenchimento/atualização de tabela com dados do banco
@@ -388,13 +402,23 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         lista = DaoPessoa.listarPessoaJuridica();
 //        System.out.println(lista.get(0).);
         String[] nomeColunas = {"CNPJ","CEP","Nome Fictício","Razão Social","Nº", "Telefone", "Ramal", "Contrato", 
-            "Data Cadastro"};
+            "Data Cadastro","PK Ref"};
         try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPeca()
         {
             //declaração de variável pra contrato
             String contrato = "";
  
-            DefaultTableModel model = (DefaultTableModel) tblListagemPessoaJ.getModel();
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    if (column == 10) {
+                        //Coluna 9 não poderá ser editada.
+                        return false;
+                    }
+                    return true;
+                }
+            };
+            tblListagemPessoaJ.setModel(model);
             model.setColumnIdentifiers(nomeColunas);
             model.setRowCount(0);
         Object rowData[] = new Object[10];
@@ -419,7 +443,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
             rowData[5] = Long.toString(lista.get(i).getPessoa().getTelefone());
             rowData[6] = Long.toString(lista.get(i).getRamalCliente());
             rowData[7] = contrato;            
-            rowData[8] = lista.get(i).getDataCadastro();
+            rowData[9] = lista.get(i).getCnpj();
             
             
             model.addRow(rowData);
@@ -431,6 +455,10 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         {
             System.out.println("Erro ao popular tabela.\n\n"+ex.getMessage());
         }
+        
+        tblListagemPessoaJ.getColumnModel().getColumn(9).setMinWidth(0);
+        tblListagemPessoaJ.getColumnModel().getColumn(9).setPreferredWidth(0);
+        tblListagemPessoaJ.getColumnModel().getColumn(9).setMaxWidth(0);
     }
     
 

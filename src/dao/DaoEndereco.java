@@ -107,21 +107,23 @@ public class DaoEndereco {
             con.setAutoCommit(false);
             String sql = "UPDATE SYNCHROSOFT.TB_ENDERECO "
                     + "SET CD_CEP = ?, DS_LOGRADOURO = ?, NM_BAIRRO = ?, "
-                    + "NM_CIDADE= ?, SG_ESTADO= ?";
+                    + "NM_CIDADE= ?, SG_ESTADO= ? WHERE CD_CEP = ?";
             PreparedStatement st = con.prepareStatement(sql);
             for (int row = 0; row < rows; row++) {
                 
-                String cep = (String) tabela.getValueAt(row, 0);
+                String cep_alterado = (String) tabela.getValueAt(row, 0);
                 String logradouro = (String) tabela.getValueAt(row, 1);
                 String bairro = (String) tabela.getValueAt(row, 2);
                 String cidade = (String) tabela.getValueAt(row, 3);
                 String uf = (String) tabela.getValueAt(row, 4);
+                String cep_ref = (String) tabela.getValueAt(row, 5);
 
-                st.setString(1, cep);                
+                st.setString(1, cep_alterado);                
                 st.setString(2, logradouro);
                 st.setString(3, bairro);
                 st.setString(4, cidade);
                 st.setString(5, uf);
+                st.setString(6, cep_ref);  
                 st.addBatch();
                 st.executeBatch();
                 con.commit();

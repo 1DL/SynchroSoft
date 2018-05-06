@@ -77,7 +77,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblListagemFuncionario);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(232, 119, 632, 402);
+        jScrollPane1.setBounds(14, 119, 1090, 402);
 
         btnFechar.setText("Fechar");
         btnFechar.addActionListener(new java.awt.event.ActionListener() {
@@ -306,9 +306,18 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         ArrayList<Funcionario> lista = new ArrayList<>();
         lista = DaoFuncionario.listarFuncionario();
         String[] nomeColunas = {"Código", "CEP", "Nome", "CPF", "Sexo", "Telefone", "Celular", "Número", 
-            "Salário", "Cargo", "Admissão", "Demissão", "Horas Trabalhadas", "Nível Administrativo" };
+            "Salário", "Cargo", "Admissão", "Demissão", "Horas Trabalhadas", "Nível Administrativo", "PK_REF" };
         try {
-            DefaultTableModel model = (DefaultTableModel) tblListagemFuncionario.getModel();
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    if (column == 15) {
+                        return false;
+                    }
+                    return true;
+                }
+            };
+            tblListagemFuncionario.setModel(model);
             model.setColumnIdentifiers(nomeColunas);
             model.setRowCount(0);
             Object rowData[] = new Object[15];
@@ -336,6 +345,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
                 } else {
                     rowData[13] = "Administrador";
                 }
+                rowData[14] = Integer.toString(lista.get(i).getCodigoFuncionario());
                 
                 model.addRow(rowData);
 
@@ -344,15 +354,28 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         } catch (Exception ex) {
             System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
         }
+        
+        tblListagemFuncionario.getColumnModel().getColumn(14).setMinWidth(0);
+        tblListagemFuncionario.getColumnModel().getColumn(14).setPreferredWidth(0);
+        tblListagemFuncionario.getColumnModel().getColumn(14).setMaxWidth(0);
     }
 
     private void atualizarTabelaFiltrada() {
         ArrayList<Funcionario> lista = new ArrayList<>();
         lista = DaoFuncionario.listarFuncionarioFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim()); //Filtrando dados que aparecem na pesquisa
          String[] nomeColunas = {"Código", "CEP", "Nome", "CPF", "Sexo", "Telefone", "Celular", "Número", 
-            "Salário", "Cargo", "Admissão", "Demissão", "Horas Trabalhadas", "Nível Administrativo" };
+            "Salário", "Cargo", "Admissão", "Demissão", "Horas Trabalhadas", "Nível Administrativo", "PK_REF" };
         try {
-            DefaultTableModel model = (DefaultTableModel) tblListagemFuncionario.getModel();
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    if (column == 15) {
+                        return false;
+                    }
+                    return true;
+                }
+            };
+            tblListagemFuncionario.setModel(model);
             model.setColumnIdentifiers(nomeColunas);
             model.setRowCount(0);
             Object rowData[] = new Object[15];
@@ -380,6 +403,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
                 } else {
                     rowData[13] = "Administrador";
                 }
+                rowData[14] = Integer.toString(lista.get(i).getCodigoFuncionario());
                 
                 model.addRow(rowData);
 
@@ -388,6 +412,10 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         } catch (Exception ex) {
             System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
         }
+        
+        tblListagemFuncionario.getColumnModel().getColumn(14).setMinWidth(0);
+        tblListagemFuncionario.getColumnModel().getColumn(14).setPreferredWidth(0);
+        tblListagemFuncionario.getColumnModel().getColumn(14).setMaxWidth(0);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

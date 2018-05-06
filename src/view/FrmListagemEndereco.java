@@ -127,7 +127,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         lblPesquisar.setBounds(230, 50, 160, 40);
 
         cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CEP", "Logradouro", "Bairro", "Cidade", "Estado", " " }));
+        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CEP", "Logradouro", "Bairro", "Cidade", "Estado" }));
         cmbFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbFiltroActionPerformed(evt);
@@ -298,18 +298,28 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
     private void atualizarTabela() {
         ArrayList<Endereco> lista = new ArrayList<>();
         lista = DaoEndereco.listarEndereco();
-        String[] nomeColunas = {"CEP", "Logradouro", "Bairro", "Cidade", "Estado"};
+        String[] nomeColunas = {"CEP", "Logradouro", "Bairro", "Cidade", "Estado", "PK_REF"};
         try {
-            DefaultTableModel model = (DefaultTableModel) tblListagemEndereco.getModel();
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    if (column == 6) {
+                        return false;
+                    }
+                    return true;
+                }
+            };
+            tblListagemEndereco.setModel(model);
             model.setColumnIdentifiers(nomeColunas);
             model.setRowCount(0);
-            Object rowData[] = new Object[5];
+            Object rowData[] = new Object[6];
             for (int i = 0; i < lista.size(); i++) {
                 rowData[0] = lista.get(i).getCep();
                 rowData[1] = lista.get(i).getLogradouro();
                 rowData[2] = lista.get(i).getBairro();
                 rowData[3] = lista.get(i).getCidade();
                 rowData[4] = lista.get(i).getEstado();
+                rowData[5] = lista.get(i).getCep();
                 model.addRow(rowData);
 
             }
@@ -317,23 +327,36 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         } catch (Exception ex) {
             System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
         }
+        tblListagemEndereco.getColumnModel().getColumn(5).setMinWidth(0);
+        tblListagemEndereco.getColumnModel().getColumn(5).setPreferredWidth(0);
+        tblListagemEndereco.getColumnModel().getColumn(5).setMaxWidth(0);
     }
 
     private void atualizarTabelaFiltrada() {
         ArrayList<Endereco> lista = new ArrayList<>();
         lista = DaoEndereco.listarEnderecoFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim()); //Filtrando dados que aparecem na pesquisa
-        String[] nomeColunas = {"CEP", "Logradouro", "Bairro", "Cidade", "Estado"};
+        String[] nomeColunas = {"CEP", "Logradouro", "Bairro", "Cidade", "Estado", "PK_REF"};
         try {
-            DefaultTableModel model = (DefaultTableModel) tblListagemEndereco.getModel();
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    if (column == 6) {
+                        return false;
+                    }
+                    return true;
+                }
+            };
+            tblListagemEndereco.setModel(model);
             model.setColumnIdentifiers(nomeColunas);
             model.setRowCount(0);
-            Object rowData[] = new Object[5];
+            Object rowData[] = new Object[6];
             for (int i = 0; i < lista.size(); i++) {
                 rowData[0] = lista.get(i).getCep();
                 rowData[1] = lista.get(i).getLogradouro();
                 rowData[2] = lista.get(i).getBairro();
                 rowData[3] = lista.get(i).getCidade();
                 rowData[4] = lista.get(i).getEstado();
+                rowData[5] = lista.get(i).getCep();
                 model.addRow(rowData);
 
             }
@@ -341,6 +364,9 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         } catch (Exception ex) {
             System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
         }
+        tblListagemEndereco.getColumnModel().getColumn(5).setMinWidth(0);
+        tblListagemEndereco.getColumnModel().getColumn(5).setPreferredWidth(0);
+        tblListagemEndereco.getColumnModel().getColumn(5).setMaxWidth(0);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

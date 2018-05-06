@@ -325,69 +325,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         //Chamando método para preenchimento de Jtable com dados da tabela de peça
         lista = DaoPessoa.listarPessoaFisicaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim());
 //        System.out.println(lista.get(0).);
-        String[] nomeColunas = {"Nome","CPF","Sexo","CEP","Endereço", "Número", "Telefone", "Celular", "Contrato", "Data de Cadastro"};
-        try 
-        {
-            
-            String contrato = "";
-            String sexo = "";
-            DefaultTableModel model = (DefaultTableModel) tblListagemPessoaF.getModel();
-            model.setColumnIdentifiers(nomeColunas);
-            model.setRowCount(0);
-        Object rowData[] = new Object[10];
-        for(int i = 0; i < lista.size(); i++)
-        {
-            //Se o manter contrato for 1, possui; senão, não possui
-            if(lista.get(i).getPessoa().getManterContrato() == 0)
-            {
-                contrato = "Possui contrato";
-            }
-            else
-            {
-                contrato = "Não possui contrato";
-            }
-            
-            //Se o sexo for 0, masculino; senão, feminino
-            if(lista.get(i).getSexo() == 0)
-            {
-                sexo = "Masculino";
-            }
-            else
-            {
-                sexo = "Feminino";
-            }
-            
-            rowData[0] = lista.get(i).getPessoa().getNome();
-            rowData[1] = lista.get(i).getCpf();
-            rowData[2] = sexo;            
-            rowData[3] = lista.get(i).getPessoa().getEndereco().getCep();
-            rowData[4] = lista.get(i).getPessoa().getEndereco().getLogradouro();
-            rowData[5] = lista.get(i).getPessoa().getComplementoLogradouro();
-            rowData[6] = Long.toString(lista.get(i).getPessoa().getTelefone());
-            rowData[7] = Long.toString(lista.get(i).getCelular());
-            rowData[8] = contrato;            
-            rowData[9] = lista.get(i).getDataCadastro();
-            
-            
-            model.addRow(rowData);
-            
-        }
-                    
-        }
-        catch(Exception ex)
-        {
-            System.out.println("Erro ao popular tabela.\n\n"+ex.getMessage());
-        }
-    }
-
-    //Criando método de preenchimento/atualização de tabela com dados do banco
-    private void atualizarTabela (){
-       
-        ArrayList<PessoaFisica> lista = new ArrayList<>();
-        
-        lista = DaoPessoa.listarPessoaFisica();
-
-        String[] nomeColunas = {"Nome","CPF","Sexo","CEP","Endereço", "Número", "Telefone", "Celular", "Contrato", "Data de Cadastro"};
+        String[] nomeColunas = {"Nome","CPF","Sexo","CEP","Endereço", "Número", "Telefone", "Celular", "Contrato", "Data de Cadastro", "PK Ref"};
         try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPeca()
         {
             //declaração de variável pra contrato e para sexo
@@ -399,10 +337,20 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
 //        lista.toArray(new Peca[lista.size()][]), nomeColunas);
 //            tblListagemPeca.setModel(modelo);
             
-            DefaultTableModel model = (DefaultTableModel) tblListagemPessoaF.getModel();
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    if (column == 11) {
+                        //Coluna 10 não poderá ser editada.
+                        return false;
+                    }
+                    return true;
+                }
+            };
+            tblListagemPessoaF.setModel(model);
             model.setColumnIdentifiers(nomeColunas);
             model.setRowCount(0);
-        Object rowData[] = new Object[10];
+        Object rowData[] = new Object[11];
         for(int i = 0; i < lista.size(); i++)
         {
             //Se o manter contrato for 1, possui; senão, não possui
@@ -435,6 +383,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
             rowData[7] = Long.toString(lista.get(i).getCelular());
             rowData[8] = contrato;            
             rowData[9] = lista.get(i).getDataCadastro();
+            rowData[10] = lista.get(i).getCpf();
             
             
             model.addRow(rowData);
@@ -446,6 +395,88 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         {
             System.out.println("Erro ao popular tabela.\n\n"+ex.getMessage());
         }
+        
+        tblListagemPessoaF.getColumnModel().getColumn(10).setMinWidth(0);
+        tblListagemPessoaF.getColumnModel().getColumn(10).setPreferredWidth(0);
+        tblListagemPessoaF.getColumnModel().getColumn(10).setMaxWidth(0);
+    }
+
+    //Criando método de preenchimento/atualização de tabela com dados do banco
+    private void atualizarTabela (){
+       
+        ArrayList<PessoaFisica> lista = new ArrayList<>();
+        
+        lista = DaoPessoa.listarPessoaFisica();
+
+        String[] nomeColunas = {"Nome","CPF","Sexo","CEP","Endereço", "Número", "Telefone", "Celular", "Contrato", "Data de Cadastro", "PK Ref"};
+        try
+        {
+            
+            String contrato = "";
+            String sexo = "";
+            
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    if (column == 11) {
+                        //Coluna 10 não poderá ser editada.
+                        return false;
+                    }
+                    return true;
+                }
+            };
+            tblListagemPessoaF.setModel(model);
+            model.setColumnIdentifiers(nomeColunas);
+            model.setRowCount(0);
+        Object rowData[] = new Object[11];
+        for(int i = 0; i < lista.size(); i++)
+        {
+            //Se o manter contrato for 1, possui; senão, não possui
+            if(lista.get(i).getPessoa().getManterContrato() == 0)
+            {
+                contrato = "Possui contrato";
+            }
+            else
+            {
+                contrato = "Não possui contrato";
+            }
+            
+            //Se o sexo for 0, masculino; senão, feminino
+            if(lista.get(i).getSexo() == 0)
+            {
+                sexo = "Masculino";
+            }
+            else
+            {
+                sexo = "Feminino";
+            }
+            
+            rowData[0] = lista.get(i).getPessoa().getNome();
+            rowData[1] = lista.get(i).getCpf();
+            rowData[2] = sexo;            
+            rowData[3] = lista.get(i).getPessoa().getEndereco().getCep();
+            rowData[4] = lista.get(i).getPessoa().getEndereco().getLogradouro();
+            rowData[5] = lista.get(i).getPessoa().getComplementoLogradouro();
+            rowData[6] = Long.toString(lista.get(i).getPessoa().getTelefone());
+            rowData[7] = Long.toString(lista.get(i).getCelular());
+            rowData[8] = contrato;            
+            rowData[9] = lista.get(i).getDataCadastro();
+            rowData[10] = lista.get(i).getCpf();
+            
+            
+            model.addRow(rowData);
+            
+        }
+                    
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Erro ao popular tabela.\n\n"+ex.getMessage());
+        }
+        
+        tblListagemPessoaF.getColumnModel().getColumn(10).setMinWidth(0);
+        tblListagemPessoaF.getColumnModel().getColumn(10).setPreferredWidth(0);
+        tblListagemPessoaF.getColumnModel().getColumn(10).setMaxWidth(0);
     }
     
 

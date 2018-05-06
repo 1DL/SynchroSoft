@@ -24,8 +24,8 @@ public class DaoPeca {
             String sql = "INSERT INTO SYNCHROSOFT.TB_PECA VALUES (?,?,?,?,?)";
             PreparedStatement st = con.prepareStatement(sql);
             st.setInt(1, codigo);
-            st.setString(2, nome.toLowerCase());
-            st.setString(3, categoria.toLowerCase());
+            st.setString(2, nome);
+            st.setString(3, categoria);
             st.setInt(4, quantidade);
             st.setFloat(5, valor);
             st.executeUpdate();
@@ -178,21 +178,23 @@ public class DaoPeca {
             con.setAutoCommit(false);
             String sql = "UPDATE SYNCHROSOFT.TB_PECA "
                     + "SET CD_PECA = ?, NM_PECA = ?, DS_CATEGORIA = ?, "
-                    + "QT_PECA = ?, VL_PECA = ?";
+                    + "QT_PECA = ?, VL_PECA = ? WHERE CD_PECA = ?";
             PreparedStatement st = con.prepareStatement(sql);
             for (int row = 0; row < rows; row++) {
                 
-                String CD_PECA = (String) tabela.getValueAt(row, 0);
+                String CD_PECA_ALTERADA = (String) tabela.getValueAt(row, 0);
                 String NM_PECA = (String) tabela.getValueAt(row, 1);
                 String DS_CATEGORIA = (String) tabela.getValueAt(row, 2);
                 String QT_PECA = (String) tabela.getValueAt(row, 3);
                 String VL_PECA = (String) tabela.getValueAt(row, 4);
+                String CD_PECA_REFERENCIA = (String) tabela.getValueAt(row, 5);
 
-                st.setInt(1, Integer.parseInt(CD_PECA));                
+                st.setInt(1, Integer.parseInt(CD_PECA_ALTERADA));                
                 st.setString(2, NM_PECA);
                 st.setString(3, DS_CATEGORIA);
                 st.setInt(4, Integer.parseInt(QT_PECA));
                 st.setFloat(5, Float.parseFloat(VL_PECA));
+                st.setInt(6, Integer.parseInt(CD_PECA_REFERENCIA));
                 
                 
 //                log = "" + CD_PECA + " ";
@@ -205,8 +207,10 @@ public class DaoPeca {
                 st.addBatch();
                 st.executeBatch();
                 con.commit();
-                JOptionPane.showMessageDialog(null, "A base de peças foi alterada com sucesso!");
+               
             }
+            
+             JOptionPane.showMessageDialog(null, "A base de peças foi alterada com sucesso!");
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao alterar a base de Peças. \n\n"+ex.getMessage());

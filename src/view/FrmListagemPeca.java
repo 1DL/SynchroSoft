@@ -29,9 +29,10 @@ public class FrmListagemPeca extends javax.swing.JFrame {
      */
     public FrmListagemPeca() {
         initComponents();
-        atualizarTabela();    
+        atualizarTabela();
+
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -176,7 +177,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     DaoPeca dp = new DaoPeca();
-    
+
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         /*ArrayList<Peca> pecaAlterar = new ArrayList<>();
         JOptionPane.showMessageDialog(null,""+tblListagemPeca.getRowCount());
@@ -187,34 +188,34 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         for (int i = 0; i <= tblListagemPeca.getRowCount();i++){
             
         }*/
-        try{
-        tblListagemPeca.getCellEditor().stopCellEditing();
+        try {
+            tblListagemPeca.getCellEditor().stopCellEditing();
         } catch (Exception ex) {
-            
+
         }
-        try{
+        try {
             dp.alterarPeca(tblListagemPeca);
         } catch (SQLException ex) {
             Logger.getLogger(FrmListagemPeca.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(FrmListagemPeca.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
+
+
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnAtualizarTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarTabelaActionPerformed
         atualizarTabela();
+
     }//GEN-LAST:event_btnAtualizarTabelaActionPerformed
 
     private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
         FrmCadastroPeca telaCadastro = new FrmCadastroPeca();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        telaCadastro.setLocation(dim.width/2-this.getPreferredSize().width/2, dim.height/2-this.getPreferredSize().height/2);
+        telaCadastro.setLocation(dim.width / 2 - this.getPreferredSize().width / 2, dim.height / 2 - this.getPreferredSize().height / 2);
         telaCadastro.setVisible(true);
         telaCadastro.setSize(1152, 648);
-        
+
     }//GEN-LAST:event_btnTelaCadastroActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
@@ -230,36 +231,31 @@ public class FrmListagemPeca extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
-        
+
     }//GEN-LAST:event_txtPesquisaActionPerformed
 
     private void txtPesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyTyped
-        
+
     }//GEN-LAST:event_txtPesquisaKeyTyped
 
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
         // Chamando método de listagem com filtro, se txt preenchido
-        try
-        {
+        try {
             //criando variável de controle
             int controle = 0;
-            
+
             //Se campo de texto não estiver vazio
-            if (txtPesquisa.getText().trim() != "")
-            {
+            if (txtPesquisa.getText().trim() != "") {
                 controle = 1;
                 atualizarTabelaFiltrada();
             }
-            
+
             //Se a variável de controle for 0, diz-se que o campo está vazio e, portanto, atualiza a JTable
-            if (controle == 0)
-            {
+            if (controle == 0) {
                 atualizarTabela();
             }
-        }
-        catch(Exception ex)
-        {
-            System.out.println("Exceção: "+ex);
+        } catch (Exception ex) {
+            System.out.println("Exceção: " + ex);
         }
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
@@ -307,80 +303,95 @@ public class FrmListagemPeca extends javax.swing.JFrame {
             }
         });
     }
-    
-    
+
     //Criando método de preenchimento/atualização de tabela com dados do banco
-    private void atualizarTabela (){
-       
-//        DaoPeca teste = new DaoPeca();
-        
+    private void atualizarTabela() {
         //Instanciando array de peças para preenchimento da tabela
         ArrayList<Peca> lista = new ArrayList<>();
-        
         //Chamando método para preenchimento de Jtable com dados da tabela de peça
         lista = DaoPeca.listarPeca();
-//        System.out.println(lista.get(0).getNomePeca());
-        String[] nomeColunas = {"Código","Nome","Categoria","Quantidade","Valor Unitário"};
+        //Criando array com os nomes para cada coluna.
+        String[] nomeColunas = {"Código", "Nome", "Categoria", "Quantidade", "Valor Unitário", "PK Ref"};
         try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPeca()
         {
-//            DefaultTableModel modelo = new DefaultTableModel(
-//        lista.toArray(new Peca[lista.size()][]), nomeColunas);
-//            tblListagemPeca.setModel(modelo);
-            
-            DefaultTableModel model = (DefaultTableModel) tblListagemPeca.getModel();
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    if (column == 5) {
+                        //Coluna 6 não poderá ser editada.
+                        return false;
+                    }
+                    return true;
+                }
+            };
+            //atribui o modelo para a tabela.
+            tblListagemPeca.setModel(model);
+            //atribui os cabeçalhos para o modelo.
             model.setColumnIdentifiers(nomeColunas);
+            //Remove as linhas da tabela.
             model.setRowCount(0);
-        Object rowData[] = new Object[5];
-        for(int i = 0; i < lista.size(); i++)
-        {
-            rowData[0] = Integer.toString(lista.get(i).getCodigoPeca());
-            rowData[1] = lista.get(i).getNomePeca();
-            rowData[2] = lista.get(i).getCategoriaPeca();
-            rowData[3] = Integer.toString(lista.get(i).getQuantidadePeca());
-            rowData[4] = Float.toString(lista.get(i).getValorUnitario());
-            model.addRow(rowData);
-            
+            //declara um array de objetos para armazenar os valores.
+            Object rowData[] = new Object[6];
+            for (int i = 0; i < lista.size(); i++) {
+                rowData[0] = Integer.toString(lista.get(i).getCodigoPeca());
+                rowData[1] = lista.get(i).getNomePeca();
+                rowData[2] = lista.get(i).getCategoriaPeca();
+                rowData[3] = Integer.toString(lista.get(i).getQuantidadePeca());
+                rowData[4] = Float.toString(lista.get(i).getValorUnitario());
+                rowData[5] = Integer.toString(lista.get(i).getCodigoPeca());
+                model.addRow(rowData);
+
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
         }
-                    
-        }
-        catch(Exception ex)
-        {
-            System.out.println("Erro ao popular tabela.\n\n"+ex.getMessage());
-        }
+
+        tblListagemPeca.getColumnModel().getColumn(5).setMinWidth(0);
+        tblListagemPeca.getColumnModel().getColumn(5).setPreferredWidth(0);
+        tblListagemPeca.getColumnModel().getColumn(5).setMaxWidth(0);
+
     }
-    
-    private void atualizarTabelaFiltrada (){ //Igual método de ListarPeca, mas chama o método de ListarPecaFiltrada()
-       
-//        DaoPeca teste = new DaoPeca();
+
+    private void atualizarTabelaFiltrada() { //Igual método de ListarPeca, mas chama o método de ListarPecaFiltrada()
+
+
         ArrayList<Peca> lista = new ArrayList<>();
         lista = DaoPeca.listarPecaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim()); //Filtrando 
-        String[] nomeColunas = {"Código","Nome","Categoria","Quantidade","Valor Unitário"};
-        try
-        {
-//            DefaultTableModel modelo = new DefaultTableModel(
-//        lista.toArray(new Peca[lista.size()][]), nomeColunas);
-//            tblListagemPeca.setModel(modelo);
-            
-            DefaultTableModel model = (DefaultTableModel) tblListagemPeca.getModel();
+        String[] nomeColunas = {"Código", "Nome", "Categoria", "Quantidade", "Valor Unitário"};
+        try {
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    if (column == 5) {
+                        //Coluna 6 não poderá ser editada.
+                        return false;
+                    }
+                    return true;
+                }
+            };
+            tblListagemPeca.setModel(model);
             model.setColumnIdentifiers(nomeColunas);
             model.setRowCount(0);
-        Object rowData[] = new Object[5];
-        for(int i = 0; i < lista.size(); i++)
-        {
-            rowData[0] = Integer.toString(lista.get(i).getCodigoPeca());
-            rowData[1] = lista.get(i).getNomePeca();
-            rowData[2] = lista.get(i).getCategoriaPeca();
-            rowData[3] = Integer.toString(lista.get(i).getQuantidadePeca());
-            rowData[4] = Float.toString(lista.get(i).getValorUnitario());
-            model.addRow(rowData);
-            
+            Object rowData[] = new Object[6];
+            for (int i = 0; i < lista.size(); i++) {
+                rowData[0] = Integer.toString(lista.get(i).getCodigoPeca());
+                rowData[1] = lista.get(i).getNomePeca();
+                rowData[2] = lista.get(i).getCategoriaPeca();
+                rowData[3] = Integer.toString(lista.get(i).getQuantidadePeca());
+                rowData[4] = Float.toString(lista.get(i).getValorUnitario());
+                rowData[5] = Integer.toString(lista.get(i).getCodigoPeca());
+                model.addRow(rowData);
+
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
         }
-                    
-        }
-        catch(Exception ex)
-        {
-            System.out.println("Erro ao popular tabela.\n\n"+ex.getMessage());
-        }
+
+        tblListagemPeca.getColumnModel().getColumn(5).setMinWidth(0);
+        tblListagemPeca.getColumnModel().getColumn(5).setPreferredWidth(0);
+        tblListagemPeca.getColumnModel().getColumn(5).setMaxWidth(0);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

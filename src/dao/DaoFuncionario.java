@@ -32,15 +32,15 @@ public class DaoFuncionario {
         String sql = "INSERT INTO SYNCHROSOFT.TB_FUNCIONARIO VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement st = con.prepareStatement(sql);
         st.setInt(1, codigoFuncionario);
-        st.setString(2, cepFuncionario.toLowerCase());
-        st.setString(3, nome.toLowerCase());
-        st.setString(4, cpf.toLowerCase());
+        st.setString(2, cepFuncionario);
+        st.setString(3, nome);
+        st.setString(4, cpf);
         st.setInt(5, sexo);
         st.setLong(6, telefone);
         st.setLong(7, celular);
         st.setString(8, numeroCasa);
         st.setFloat(9, salario);
-        st.setString(10, cargo.toLowerCase());
+        st.setString(10, cargo);
         st.setDate(11, dataContrato);
         st.setDate(12, dataContrato);
         st.setInt(13, horasTrabalhadas);
@@ -71,13 +71,13 @@ public class DaoFuncionario {
                     + " WHERE CD_FUNCIONARIO = ?";
             PreparedStatement st = con.prepareStatement(sql);
             for (int row = 0; row < rows; row++) {
-                String cod = (String) tabela.getValueAt(row, 0);
+                String cod_alterado = (String) tabela.getValueAt(row, 0);
                 String cep = (String) tabela.getValueAt(row, 1);
                 String nome = (String) tabela.getValueAt(row, 2);
                 String cpf = (String) tabela.getValueAt(row, 3);
                 String idsexo = (String) tabela.getValueAt(row, 4);
                 int sexo;
-                if ("Masculino".equals(idsexo)) {
+                if (idsexo.toLowerCase().substring(0,1).equals("m")) {
                     sexo = 0;
                 } else {
                     sexo = 1;
@@ -99,8 +99,9 @@ public class DaoFuncionario {
                 } else if ("Administrador".equals(nvladm)) {
                     nivel = 1;
                 }
-
-                st.setInt(1,Integer.parseInt(cod));
+                String cod_ref = (String) tabela.getValueAt(row, 14);
+                        
+                st.setInt(1,Integer.parseInt(cod_alterado));
                 st.setString(2, cep);
                 st.setString(3, nome);
                 st.setString(4, cpf);
@@ -114,7 +115,7 @@ public class DaoFuncionario {
 //                st.setDate(11, (Date) demissao);
                 st.setInt(11, Integer.parseInt(horatrab));
                 st.setInt(12, nivel);
-                st.setInt(13, Integer.parseInt(cod));
+                st.setInt(13, Integer.parseInt(cod_ref));
 
                 st.addBatch();
                 st.executeBatch();
@@ -142,6 +143,7 @@ public class DaoFuncionario {
                 PessoaFisica pf = new PessoaFisica();
                 pf.setPessoa(p);
                 pf.setSexo(rs.getInt("ID_SEXO"));
+                pf.setCpf(rs.getString("CPF_FUNCIONARIO"));
 
                 Funcionario func = new Funcionario(rs.getInt("CD_FUNCIONARIO"), p, pf, rs.getFloat("VL_SALARIO"),
                         rs.getString("DS_CARGO"), rs.getDate("DT_ADMISSAO"), rs.getDate("DT_DEMISSAO"), rs.getInt("NR_HORAS_TRABALHO"),
