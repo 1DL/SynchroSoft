@@ -209,24 +209,52 @@ public class DaoPessoa {
     public static ArrayList listarPessoaFisicaFiltrada(String cmbFiltro, String txtPesquisa) {
         ArrayList<PessoaFisica> lista = new ArrayList<>();
         try {
-            //Chamando método de conexão ao banco
             Connection con = Conexao.conectar();
-
-            //Declarando variável de String de conexão
             String sql = "";
-
-//            DatabaseMetaData teste = con.getMetaData();
-//            System.out.println(teste.supportsBatchUpdates());
-            //Criando estrutura switch case para identificar o tipo de filtro de pesquisa
+            /*
+Nome
+CPF
+Sexo
+CEP
+Endereço
+Número Endereço
+Telefone
+Celular
+Contrato
+Data de Cadastro
+            
+             */
             switch (cmbFiltro) {
-                //preparando sql de acordo com código
-                case "CPF":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA WHERE CD_CPF LIKE ?";
-                    break;
 
-                //preparando tratamento de acordo com nome
                 case "Nome":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA WHERE NM_PESSOA_FISICA LIKE ?";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE NM_PESSOA_FISICA LIKE ?";
+                    break;
+                case "CPF":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE CD_CPF LIKE ?";
+                    break;
+                case "Sexo":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE ID_SEXO LIKE ?";
+                    break;
+                case "CEP":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE CD_CEP LIKE ?";
+                    break;
+                case "Eendereço":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE SYNCHROSOFT.TB_ENDERECO.CD_CEP LIKE ?";
+                    break;
+                case "Número Endereço":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE NR_COMPLEMENTO_LOGRADOURO LIKE ?";
+                    break;
+                case "Telefone":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE NR_TELEFONE LIKE ?";
+                    break;
+                case "Celular":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE NR_CELULAR LIKE ?";
+                    break;
+                case "Contrato":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE ID_CONTRATO LIKE ?";
+                    break;
+                case "Data de Cadastro":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE DT_CADASTRO LIKE ?";
                     break;
 
             }
@@ -243,6 +271,8 @@ public class DaoPessoa {
             //listando dados do banco em jtable
             while (rs.next()) {
                 Endereco end = new Endereco();
+                end.setCep(rs.getString("CD_CEP"));
+                end.setLogradouro(rs.getString("DS_LOGRADOURO"));
                 Pessoa p = new Pessoa(rs.getString("NM_PESSOA_FISICA"),
                         end,
                         rs.getLong("NR_TELEFONE"),
@@ -253,6 +283,7 @@ public class DaoPessoa {
                         rs.getDate("DT_CADASTRO"),
                         rs.getLong("NR_CELULAR"),
                         rs.getInt("ID_SEXO"));
+
                 lista.add(pessoaF);
 
             }
@@ -262,7 +293,96 @@ public class DaoPessoa {
             rs.close();
 
         } catch (Exception ex) { //Caso exista a possibilidade de retorno de erro
-            System.err.println("DAOPECA Instanciamento: " + ex);
+            System.err.println("DAOPessoa Instanciamento: " + ex);
+        }
+        //return lista;
+        return lista;
+    }
+
+    public static ArrayList listarPessoaJuridicaFiltrada(String cmbFiltro, String txtPesquisa) {
+        ArrayList<PessoaJuridica> lista = new ArrayList<>();
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "";
+            /*
+CNPJ
+CEP
+Nome Fictício
+Razão Social
+Número Endereço
+Telefone
+Ramal
+Contrato
+Data Cadastro
+            
+             */
+            switch (cmbFiltro) {
+
+                case "CNPJ":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_JURIDICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE CD_CNPJ LIKE ?";
+                    break;
+                case "CEP":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_JURIDICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE CD_CEP LIKE ?";
+                    break;
+                case "Nome Fictício":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_JURIDICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE NM_FICTICIO LIKE ?";
+                    break;
+                case "Razão Social":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_JURIDICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE NM_RAZAO_SOCIAL LIKE ?";
+                    break;
+                case "Número Endereço":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_JURIDICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE NR_LOGRADOURO LIKE ?";
+                    break;
+                case "Telefone":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_JURIDICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE NR_TELEFONE LIKE ?";
+                    break;
+                case "Ramal":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_JURIDICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE NR_RAMAL LIKE ?";
+                    break;
+                case "Contrato":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_JURIDICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE ID_CONTRATO LIKE ?";
+                    break;
+                case "Data Cadastro":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_JURIDICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE DT_CADASTRO LIKE ?";
+                    break;
+
+            }
+
+            //realizando preparedStatement para tratamento de variáveis
+            PreparedStatement st = con.prepareStatement(sql);
+
+            //colocando valor da variável ? da query 
+            st.setString(1, "%" + txtPesquisa + "%");
+
+            //executando query selecionada pelo switch case
+            ResultSet rs = st.executeQuery();
+
+            //listando dados do banco em jtable
+            while (rs.next()) {
+                Endereco end = new Endereco();
+                end.setCep(rs.getString("CD_CEP"));
+                end.setLogradouro("DS_LOGRADOURO");
+                Pessoa p = new Pessoa(rs.getString("NM_FICTICIO"),
+                        end,
+                        rs.getLong("NR_TELEFONE"),
+                        rs.getString("NR_LOGRADOURO"),
+                        rs.getInt("ID_CONTRATO"));
+                PessoaJuridica pessoaJ = new PessoaJuridica(p,
+                        rs.getString("CD_CNPJ"),
+                        rs.getString("NM_RAZAO_SOCIAL"),
+                        rs.getDate("DT_CADASTRO"),
+                        rs.getInt("NR_RAMAL"));
+
+                lista.add(pessoaJ);
+
+            }
+
+            //fechamento de preparedStatement e Conexão do banco
+            st.close();
+            rs.close();
+
+        } catch (Exception ex) { //Caso exista a possibilidade de retorno de erro
+            System.err.println("DAOPessoa Instanciamento: " + ex);
         }
         //return lista;
         return lista;
@@ -284,8 +404,8 @@ public class DaoPessoa {
                     + "DT_CADASTRO = ?, ID_CONTRATO = ? WHERE CD_CPF = ?";
             PreparedStatement st = con.prepareStatement(sql);
             for (int row = 0; row < rows; row++) {
-                String CD_CEP = (String) tabela.getValueAt(row, 3);
                 String CD_CPF = (String) tabela.getValueAt(row, 1);
+                String CD_CEP = (String) tabela.getValueAt(row, 3);
                 String NM_PESSOA_FISICA = (String) tabela.getValueAt(row, 0);
                 String ID_SEXO = (String) tabela.getValueAt(row, 2);
                 int sexo;
@@ -302,7 +422,7 @@ public class DaoPessoa {
                 String ID_CONTRATO = (String) tabela.getValueAt(row, 8);
 
                 int contrato;
-                if (ID_SEXO == "Não possui contrato") {
+                if (ID_CONTRATO == "Não possui contrato") {
                     contrato = 1;
                 } else {
                     contrato = 0;
@@ -329,7 +449,7 @@ public class DaoPessoa {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao alterar a base de pessoas físicas. \n\n" + ex.getMessage());
         }
-        
+
     }
 
     public void alterarPessoaJuridica(JTable tabela) throws SQLException, ClassNotFoundException {
@@ -361,7 +481,7 @@ public class DaoPessoa {
 
                 if (contrato.equals("Sim")) {
                     contrato = "1";
-                } else if(contrato.equals("Não")) {
+                } else if (contrato.equals("Não")) {
                     contrato = "0";
                 }
                 st.setString(1, cnpj);

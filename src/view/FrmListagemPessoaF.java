@@ -73,7 +73,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         btnFechar.setBounds(990, 550, 130, 50);
 
         cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CPF", "CEP", "Nome", "Telefone", "Celular", "Data" }));
+        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome", "CPF", "Sexo", "CEP", "Endereço", "Número Endereço", "Telefone", "Celular", "Contrato", "Data de Cadastro" }));
         getContentPane().add(cmbFiltro);
         cmbFiltro.setBounds(400, 100, 107, 31);
 
@@ -260,7 +260,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTelaCadastroActionPerformed
 
     private void btnAtualizarTabela1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarTabela1ActionPerformed
-        // TODO add your handling code here:
+       atualizarTabela();
     }//GEN-LAST:event_btnAtualizarTabela1ActionPerformed
 
     private void btnJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuridicaActionPerformed

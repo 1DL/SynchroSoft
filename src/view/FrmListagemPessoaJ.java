@@ -76,7 +76,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         lblPesquisar.setBounds(240, 100, 120, 25);
 
         cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CPF", "CEP", "Nome", "Telefone", "Celular", "Data" }));
+        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CNPJ", "CEP", "Nome Fictício", "Razão Social", "Número Endereço", "Telefone", "Ramal", "Contrato", "Data Cadastro" }));
         getContentPane().add(cmbFiltro);
         cmbFiltro.setBounds(400, 100, 107, 31);
 
@@ -326,22 +326,17 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         
         //Instanciando array de pessoas para preenchimento da tabela
         //ArrayList<Pessoa> lista = new ArrayList<>();
-        ArrayList<PessoaFisica> lista = new ArrayList<>();
+        ArrayList<PessoaJuridica> lista = new ArrayList<>();
         //Chamando método para preenchimento de Jtable com dados da tabela de peça
-        lista = DaoPessoa.listarPessoaFisicaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim());
+        lista = DaoPessoa.listarPessoaJuridicaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim());
 //        System.out.println(lista.get(0).);
-        String[] nomeColunas = {"Nome","CPF","Sexo","CEP","Endereço", "Número", "Telefone", "Celular", "Contrato", "Data de Cadastro"};
-        try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPessoaF()
+        String[] nomeColunas = {"CNPJ","CEP","Nome Fictício","Razão Social","Nº", "Telefone", "Ramal", "Contrato", 
+            "Data Cadastro"};
+        try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPeca()
         {
-            //declaração de variável pra contrato e para sexo
+            //declaração de variável pra contrato
             String contrato = "";
-            String sexo = "";
-            
-            
-//            DefaultTableModel modelo = new DefaultTableModel(
-//        lista.toArray(new Peca[lista.size()][]), nomeColunas);
-//            tblListagemPeca.setModel(modelo);
-            
+ 
             DefaultTableModel model = (DefaultTableModel) tblListagemPessoaJ.getModel();
             model.setColumnIdentifiers(nomeColunas);
             model.setRowCount(0);
@@ -351,33 +346,23 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
             //Se o manter contrato for 1, possui; senão, não possui
             if(lista.get(i).getPessoa().getManterContrato() == 0)
             {
-                contrato = "Possui contrato";
+                contrato = "Sim";
             }
             else
             {
-                contrato = "Não possui contrato";
+                contrato = "Não";
             }
             
-            //Se o sexo for 0, masculino; senão, feminino
-            if(lista.get(i).getSexo() == 0)
-            {
-                sexo = "Masculino";
-            }
-            else
-            {
-                sexo = "Feminino";
-            }
             
-            rowData[0] = lista.get(i).getPessoa().getNome();
-            rowData[1] = lista.get(i).getCpf();
-            rowData[2] = sexo;            
-            rowData[3] = lista.get(i).getPessoa().getEndereco().getCep();
-            rowData[4] = lista.get(i).getPessoa().getEndereco().getLogradouro();
-            rowData[5] = lista.get(i).getPessoa().getComplementoLogradouro();
-            rowData[6] = Long.toString(lista.get(i).getPessoa().getTelefone());
-            rowData[7] = Long.toString(lista.get(i).getCelular());
-            rowData[8] = contrato;            
-            rowData[9] = lista.get(i).getDataCadastro();
+            rowData[0] = lista.get(i).getCnpj();
+            rowData[1] = lista.get(i).getPessoa().getEndereco().getCep();
+            rowData[2] = lista.get(i).getPessoa().getNome();
+            rowData[3] = lista.get(i).getRazaoSocial();
+            rowData[4] = lista.get(i).getPessoa().getComplementoLogradouro();
+            rowData[5] = Long.toString(lista.get(i).getPessoa().getTelefone());
+            rowData[6] = Long.toString(lista.get(i).getRamalCliente());
+            rowData[7] = contrato;            
+            rowData[8] = lista.get(i).getDataCadastro();
             
             
             model.addRow(rowData);
