@@ -27,19 +27,19 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
+        lblCodigoDespesa = new javax.swing.JLabel();
         btnMenuPrincipal = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txtValorDespesa = new javax.swing.JTextField();
         btnCadastrar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        txaDespesa = new javax.swing.JTextArea();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        txaDescricaoDespesa = new javax.swing.JTextArea();
+        lblDescrição = new javax.swing.JLabel();
+        lblDataDespesa = new javax.swing.JLabel();
         txtDataDespesa = new javax.swing.JTextField();
         cmbTipoDespesa = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
+        lblTipoDespesa = new javax.swing.JLabel();
         txtCodigoDespesa = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
@@ -48,10 +48,10 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
 
-        jLabel2.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        jLabel2.setText("Código da despesa: ");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(230, 70, 168, 25);
+        lblCodigoDespesa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblCodigoDespesa.setText("Código da despesa: ");
+        getContentPane().add(lblCodigoDespesa);
+        lblCodigoDespesa.setBounds(230, 70, 168, 25);
 
         btnMenuPrincipal.setText("Menu Principal");
         btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
@@ -73,6 +73,11 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
 
         btnCadastrar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnCadastrar);
         btnCadastrar.setBounds(860, 550, 160, 50);
 
@@ -81,22 +86,22 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         getContentPane().add(btnLimpar);
         btnLimpar.setBounds(230, 550, 160, 50);
 
-        txaDespesa.setColumns(20);
-        txaDespesa.setRows(5);
-        jScrollPane1.setViewportView(txaDespesa);
+        txaDescricaoDespesa.setColumns(20);
+        txaDescricaoDespesa.setRows(5);
+        jScrollPane1.setViewportView(txaDescricaoDespesa);
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(410, 230, 520, 260);
 
-        jLabel5.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        jLabel5.setText("Descrição:");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(240, 230, 90, 25);
+        lblDescrição.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblDescrição.setText("Descrição:");
+        getContentPane().add(lblDescrição);
+        lblDescrição.setBounds(240, 230, 90, 25);
 
-        jLabel4.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        jLabel4.setText("Data da despesa:");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(230, 140, 140, 25);
+        lblDataDespesa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblDataDespesa.setText("Data da despesa:");
+        getContentPane().add(lblDataDespesa);
+        lblDataDespesa.setBounds(230, 140, 140, 25);
 
         txtDataDespesa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         getContentPane().add(txtDataDespesa);
@@ -107,10 +112,10 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         getContentPane().add(cmbTipoDespesa);
         cmbTipoDespesa.setBounds(780, 70, 150, 31);
 
-        jLabel3.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        jLabel3.setText("Tipo de despesa:");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(630, 70, 150, 25);
+        lblTipoDespesa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblTipoDespesa.setText("Tipo de despesa:");
+        getContentPane().add(lblTipoDespesa);
+        lblTipoDespesa.setBounds(630, 70, 150, 25);
 
         txtCodigoDespesa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         getContentPane().add(txtCodigoDespesa);
@@ -128,6 +133,10 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         FrmPrincipal telaPrincipal = new FrmPrincipal();
         telaPrincipal.setVisible(true);
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -170,13 +179,13 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JComboBox<String> cmbTipoDespesa;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea txaDespesa;
+    private javax.swing.JLabel lblCodigoDespesa;
+    private javax.swing.JLabel lblDataDespesa;
+    private javax.swing.JLabel lblDescrição;
+    private javax.swing.JLabel lblTipoDespesa;
+    private javax.swing.JTextArea txaDescricaoDespesa;
     private javax.swing.JTextField txtCodigoDespesa;
     private javax.swing.JTextField txtDataDespesa;
     private javax.swing.JTextField txtValorDespesa;
