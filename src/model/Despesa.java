@@ -12,12 +12,24 @@ import java.util.ArrayList;
  *
  * @author LuizV1
  */
-public class Despesas {
+public class Despesa {
     private int codigoDespesa;
     private Date dataDespesa;
-    private ArrayList<String> tipoDespesas = new ArrayList<>();
+    private String tipoDespesas;
     private String descricaoDespesa;
     private float valorDespesa;
+    
+    public Despesa(int codigoDespesa, Date dataDespesa, String tipoDespesas, String descricaoDespesa, float valorDespesa) {
+        this.codigoDespesa = codigoDespesa;
+        this.dataDespesa = dataDespesa;
+        this.tipoDespesas = tipoDespesas;
+        this.descricaoDespesa = descricaoDespesa;
+        this.valorDespesa = valorDespesa;
+    }
+
+    public Despesa () {
+        
+    }
 
     public int getCodigoDespesa() {
         return codigoDespesa;
@@ -31,15 +43,15 @@ public class Despesas {
         return dataDespesa;
     }
 
-    public void setDataDespesa(Date dataDespesa) {
-        this.dataDespesa = dataDespesa;
+    public void setDataDespesa(String dataDespesa) {
+        this.dataDespesa = Date.valueOf(dataDespesa);
     }
 
-    public ArrayList<String> getTipoDespesas() {
+    public String getTipoDespesas() {
         return tipoDespesas;
     }
 
-    public void setTipoDespesas(ArrayList<String> tipoDespesas) {
+    public void setTipoDespesas(String tipoDespesas) {
         this.tipoDespesas = tipoDespesas;
     }
 

@@ -5,11 +5,19 @@
  */
 package view;
 
+import dao.DaoDespesa;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Despesa;
+
 /**
  *
  * @author Luiz
  */
 public class FrmCadastroDespesa extends javax.swing.JFrame {
+   
 
     /**
      * Creates new form FrmCadastroDespesa
@@ -104,6 +112,12 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         lblDataDespesa.setBounds(230, 140, 140, 25);
 
         txtDataDespesa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtDataDespesa.setText("2018-05-06");
+        txtDataDespesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDataDespesaActionPerformed(evt);
+            }
+        });
         getContentPane().add(txtDataDespesa);
         txtDataDespesa.setBounds(410, 140, 140, 31);
 
@@ -135,8 +149,21 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        // TODO add your handling code here:
+        DaoDespesa dao = new DaoDespesa();
+        Despesa despesa = new Despesa(Integer.parseInt(txtCodigoDespesa.getText()), Date.valueOf(txtDataDespesa.getText()), 
+            cmbTipoDespesa.getSelectedItem().toString(), txaDescricaoDespesa.getText(), Float.parseFloat(txtValorDespesa.getText()));
+        try {
+            dao.cadastrarDespesa(despesa.getCodigoDespesa(), despesa.getTipoDespesas(), despesa.getDataDespesa(), despesa.getDescricaoDespesa(), despesa.getValorDespesa());
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmCadastroDespesa.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FrmCadastroDespesa.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void txtDataDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataDespesaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDataDespesaActionPerformed
 
     /**
      * @param args the command line arguments

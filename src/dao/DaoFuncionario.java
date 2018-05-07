@@ -27,7 +27,7 @@ public class DaoFuncionario {
     public void cadastrarFuncionario(int codigoFuncionario, String cepFuncionario, String nome, String cpf, int sexo, long telefone,
             long celular, String numeroCasa, float salario, String cargo, Date dataContrato, int horasTrabalhadas,
             int nivelAdministrativo) throws SQLException, ClassNotFoundException {
-//        try {
+        try {
         Connection con = Conexao.conectar();
         String sql = "INSERT INTO SYNCHROSOFT.TB_FUNCIONARIO VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement st = con.prepareStatement(sql);
@@ -47,11 +47,11 @@ public class DaoFuncionario {
         st.setInt(14, nivelAdministrativo);
         st.executeUpdate();
         st.close();
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o Funcionário.\n Erro:\n\n" + ex.getMessage());
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o Funcionário.\n Erro:\n\n" + e.getMessage());
-//        }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o Funcionário.\n Erro:\n\n" + ex.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o Funcionário.\n Erro:\n\n" + e.getMessage());
+        }
     }
     
     public void alterarFuncionario(JTable tabela) throws SQLException, ClassNotFoundException {
