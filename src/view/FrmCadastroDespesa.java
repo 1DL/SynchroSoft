@@ -8,8 +8,10 @@ package view;
 import dao.DaoDespesa;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Despesa;
 
 /**
@@ -24,6 +26,7 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
      */
     public FrmCadastroDespesa() {
         initComponents();
+        txtDataDespesa.setText(""+ new Date(Calendar.getInstance().getTimeInMillis()));
     }
 
     /**
@@ -35,7 +38,8 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblCodigoDespesa = new javax.swing.JLabel();
+        btnListarDespesas = new javax.swing.JButton();
+        btnFechar = new javax.swing.JButton();
         btnMenuPrincipal = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txtValorDespesa = new javax.swing.JTextField();
@@ -48,7 +52,6 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         txtDataDespesa = new javax.swing.JTextField();
         cmbTipoDespesa = new javax.swing.JComboBox<>();
         lblTipoDespesa = new javax.swing.JLabel();
-        txtCodigoDespesa = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -56,10 +59,25 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
 
-        lblCodigoDespesa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCodigoDespesa.setText("Código da despesa: ");
-        getContentPane().add(lblCodigoDespesa);
-        lblCodigoDespesa.setBounds(230, 70, 168, 25);
+        btnListarDespesas.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
+        btnListarDespesas.setText("Listar Despesas");
+        btnListarDespesas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarDespesasActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnListarDespesas);
+        btnListarDespesas.setBounds(350, 550, 240, 50);
+
+        btnFechar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        btnFechar.setText("Fechar");
+        btnFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnFechar);
+        btnFechar.setBounds(900, 550, 160, 50);
 
         btnMenuPrincipal.setText("Menu Principal");
         btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
@@ -87,12 +105,12 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCadastrar);
-        btnCadastrar.setBounds(860, 550, 160, 50);
+        btnCadastrar.setBounds(680, 550, 160, 50);
 
         btnLimpar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnLimpar.setText("Limpar");
         getContentPane().add(btnLimpar);
-        btnLimpar.setBounds(230, 550, 160, 50);
+        btnLimpar.setBounds(70, 550, 160, 50);
 
         txaDescricaoDespesa.setColumns(20);
         txaDescricaoDespesa.setRows(5);
@@ -112,7 +130,6 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         lblDataDespesa.setBounds(230, 140, 140, 25);
 
         txtDataDespesa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtDataDespesa.setText("2018-05-06");
         txtDataDespesa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDataDespesaActionPerformed(evt);
@@ -131,10 +148,6 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         getContentPane().add(lblTipoDespesa);
         lblTipoDespesa.setBounds(630, 70, 150, 25);
 
-        txtCodigoDespesa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        getContentPane().add(txtCodigoDespesa);
-        txtCodigoDespesa.setBounds(410, 70, 140, 31);
-
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 1150, 650);
@@ -150,10 +163,11 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         DaoDespesa dao = new DaoDespesa();
-        Despesa despesa = new Despesa(Integer.parseInt(txtCodigoDespesa.getText()), Date.valueOf(txtDataDespesa.getText()), 
+        Despesa despesa = new Despesa(Date.valueOf(txtDataDespesa.getText()), 
             cmbTipoDespesa.getSelectedItem().toString(), txaDescricaoDespesa.getText(), Float.parseFloat(txtValorDespesa.getText()));
         try {
-            dao.cadastrarDespesa(despesa.getCodigoDespesa(), despesa.getTipoDespesas(), despesa.getDataDespesa(), despesa.getDescricaoDespesa(), despesa.getValorDespesa());
+            dao.cadastrarDespesa(despesa.getTipoDespesas(), despesa.getDataDespesa(), despesa.getDescricaoDespesa(), despesa.getValorDespesa());
+            JOptionPane.showMessageDialog(null, "Cadastrado!");
         } catch (SQLException ex) {
             Logger.getLogger(FrmCadastroDespesa.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -164,6 +178,15 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
     private void txtDataDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataDespesaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDataDespesaActionPerformed
+
+    private void btnListarDespesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarDespesasActionPerformed
+        FrmListagemDespesa telaListarDespesa = new FrmListagemDespesa();
+        telaListarDespesa.setVisible(true);
+    }//GEN-LAST:event_btnListarDespesasActionPerformed
+
+    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnFecharActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,18 +225,18 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnLimpar;
+    private javax.swing.JButton btnListarDespesas;
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JComboBox<String> cmbTipoDespesa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblCodigoDespesa;
     private javax.swing.JLabel lblDataDespesa;
     private javax.swing.JLabel lblDescrição;
     private javax.swing.JLabel lblTipoDespesa;
     private javax.swing.JTextArea txaDescricaoDespesa;
-    private javax.swing.JTextField txtCodigoDespesa;
     private javax.swing.JTextField txtDataDespesa;
     private javax.swing.JTextField txtValorDespesa;
     // End of variables declaration//GEN-END:variables

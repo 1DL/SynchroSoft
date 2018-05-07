@@ -13,7 +13,7 @@ import view.FrmListagemPeca;
 import view.FrmPrincipal;
 import dao.DaoPeca;
 import view.FrmCadastroFuncionario;
-import view.FrmCadastroFuncionario_Tabs;
+import view.reserva.FrmCadastroFuncionario_Tabs;
 import view.FrmCadastroPessoa;
 import view.FrmListagemPessoaF;
 import view.FrmLogin;

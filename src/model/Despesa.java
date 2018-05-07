@@ -19,8 +19,7 @@ public class Despesa {
     private String descricaoDespesa;
     private float valorDespesa;
     
-    public Despesa(int codigoDespesa, Date dataDespesa, String tipoDespesas, String descricaoDespesa, float valorDespesa) {
-        this.codigoDespesa = codigoDespesa;
+    public Despesa(Date dataDespesa, String tipoDespesas, String descricaoDespesa, float valorDespesa) {
         this.dataDespesa = dataDespesa;
         this.tipoDespesas = tipoDespesas;
         this.descricaoDespesa = descricaoDespesa;

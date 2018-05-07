@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package view.reserva;
 
 import dao.DaoFuncionario;
 import java.sql.Date;
@@ -82,9 +82,7 @@ public class FrmCadastroFuncionario_Tabs extends javax.swing.JFrame {
         lblFundo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
-        setPreferredSize(new java.awt.Dimension(1152, 648));
         setSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
 

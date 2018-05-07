@@ -68,7 +68,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnFuncionario1.setBounds(50, 100, 290, 170);
 
         btnFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        btnFuncionario.setText("Relatório de Despeas");
+        btnFuncionario.setText("Relatório de Despesas");
         btnFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFuncionarioActionPerformed(evt);
@@ -118,11 +118,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClienteActionPerformed
 
     private void btnServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServicoActionPerformed
-        JOptionPane.showMessageDialog(null, "Funcionalidade em produção!");
+        FrmCadastroServico serv = new FrmCadastroServico();
+        serv.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnServicoActionPerformed
 
     private void btnFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionarioActionPerformed
-        JOptionPane.showMessageDialog(null, "Funcionalidade em produção!");
+        FrmCadastroDespesa desp = new FrmCadastroDespesa();
+        desp.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnFuncionarioActionPerformed
 
     private void btnFuncionario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionario1ActionPerformed
