@@ -126,8 +126,8 @@ CREATE TABLE tb_despesa
  cd_despesa numeric(10),
  ds_tipo_despesa varchar2(30),
  dt_despesa date,
- ds_despesa varchar2(100),
- vl_despesa numeric(5,2),
+ ds_despesa varchar2(500),
+ vl_despesa numeric(10,2),
  constraint pk_despesa primary key(cd_despesa)
 );
 
