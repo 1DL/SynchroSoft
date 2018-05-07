@@ -33,9 +33,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     
     public FrmCadastroServico() {
         initComponents();
-        this.endExibicao = new Endereco();
-        this.pessoaFisicaExibicao = new PessoaFisica();
-        this.pessoaExibicao = new Pessoa();
+        modoFisico();
     }
 
     /**
@@ -263,11 +261,11 @@ public class FrmCadastroServico extends javax.swing.JFrame {
 
         txtLimpar.setText("Limpar");
         getContentPane().add(txtLimpar);
-        txtLimpar.setBounds(40, 570, 110, 40);
+        txtLimpar.setBounds(40, 550, 110, 40);
 
         txtCadastrar.setText("Cadastrar");
         getContentPane().add(txtCadastrar);
-        txtCadastrar.setBounds(990, 570, 110, 40);
+        txtCadastrar.setBounds(990, 550, 110, 40);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados da Pessoa"));
 
@@ -399,7 +397,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(40, 220, 0, 0);
+        jPanel2.setBounds(40, 220, 1056, 193);
 
         cmbTipoServico.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         cmbTipoServico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Preventivo", "Corretivo", "Emergencial" }));
@@ -578,12 +576,16 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     {
         lblCPF.setVisible(true);
         lblCNPJ.setVisible(false);
+        lblCpfExiste.setVisible(true);
+        lblCnpjExiste.setVisible(false);
     }
     
     public void modoJuridico()
     {
         lblCPF.setVisible(false);
         lblCNPJ.setVisible(true);
+        lblCpfExiste.setVisible(false);
+        lblCnpjExiste.setVisible(true);
     }
     
     public void popularExibicaoEndereco (Endereco end){
