@@ -16,6 +16,8 @@ public class Orcamento {
     private Servico codigoServico;
     private boolean possuiPeca;
     private ArrayList<VendaPeca> pecas = new ArrayList<>();
+    private float maoDeObra;
+    private float valorTotal;
 
     public int getCodigoOrcamento() {
         return codigoOrcamento;
@@ -47,5 +49,21 @@ public class Orcamento {
 
     public void setPecas(ArrayList<VendaPeca> pecas) {
         this.pecas = pecas;
+    }
+
+    public float getMaoDeObra() {
+        return maoDeObra;
+    }
+
+    public void setMaoDeObra(float maoDeObra) {
+        this.maoDeObra = maoDeObra;
+    }
+
+    public float getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(float valorTotal) {
+        this.valorTotal = valorTotal;
     }
 }
