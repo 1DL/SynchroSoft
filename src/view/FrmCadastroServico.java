@@ -68,8 +68,6 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtCodFunc = new javax.swing.JTextField();
         lblCep3 = new javax.swing.JLabel();
         txtNomeFunc = new javax.swing.JTextField();
-        lblCep4 = new javax.swing.JLabel();
-        txtCodOrcamento = new javax.swing.JTextField();
         btnOrcamento = new javax.swing.JButton();
         txtLimpar = new javax.swing.JButton();
         txtCadastrar = new javax.swing.JButton();
@@ -213,7 +211,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel5.setText("Relatório do serviço:");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(540, 430, 170, 30);
+        jLabel5.setBounds(540, 400, 170, 30);
 
         btnArquivoRelatorio.setText("Procurar");
         btnArquivoRelatorio.addActionListener(new java.awt.event.ActionListener() {
@@ -222,50 +220,41 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnArquivoRelatorio);
-        btnArquivoRelatorio.setBounds(720, 430, 80, 30);
+        btnArquivoRelatorio.setBounds(720, 400, 80, 30);
 
         lblRelatorio.setText("Nenhum arquivo selecionado.");
         getContentPane().add(lblRelatorio);
-        lblRelatorio.setBounds(820, 440, 270, 14);
+        lblRelatorio.setBounds(820, 410, 270, 14);
 
         lblCep2.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCep2.setText("Código do Funcionário:");
         getContentPane().add(lblCep2);
-        lblCep2.setBounds(40, 430, 190, 30);
+        lblCep2.setBounds(40, 400, 190, 30);
 
         txtCodFunc.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         getContentPane().add(txtCodFunc);
-        txtCodFunc.setBounds(240, 430, 190, 30);
+        txtCodFunc.setBounds(240, 400, 190, 30);
 
         lblCep3.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCep3.setText("Funcionário requisitado:");
         getContentPane().add(lblCep3);
-        lblCep3.setBounds(40, 490, 200, 30);
+        lblCep3.setBounds(40, 460, 200, 30);
 
         txtNomeFunc.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         getContentPane().add(txtNomeFunc);
-        txtNomeFunc.setBounds(240, 490, 190, 30);
-
-        lblCep4.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCep4.setText("Código do Orçamento:");
-        getContentPane().add(lblCep4);
-        lblCep4.setBounds(640, 490, 190, 30);
-
-        txtCodOrcamento.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        getContentPane().add(txtCodOrcamento);
-        txtCodOrcamento.setBounds(840, 490, 100, 30);
+        txtNomeFunc.setBounds(240, 460, 190, 30);
 
         btnOrcamento.setText("Criar orçamento");
         getContentPane().add(btnOrcamento);
-        btnOrcamento.setBounds(970, 480, 130, 50);
+        btnOrcamento.setBounds(520, 510, 130, 40);
 
         txtLimpar.setText("Limpar");
         getContentPane().add(txtLimpar);
-        txtLimpar.setBounds(40, 550, 110, 40);
+        txtLimpar.setBounds(40, 510, 110, 40);
 
-        txtCadastrar.setText("Cadastrar");
+        txtCadastrar.setText("Ativar serviço");
         getContentPane().add(txtCadastrar);
-        txtCadastrar.setBounds(990, 550, 110, 40);
+        txtCadastrar.setBounds(990, 510, 110, 40);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados da Pessoa"));
 
@@ -393,11 +382,11 @@ public class FrmCadastroServico extends javax.swing.JFrame {
                     .add(txtTelefone, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(lblCelular)
                     .add(txtCelular, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(40, 220, 1056, 193);
+        jPanel2.setBounds(40, 220, 1056, 170);
 
         cmbTipoServico.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         cmbTipoServico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Preventivo", "Corretivo", "Emergencial" }));
@@ -652,7 +641,6 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JLabel lblCep1;
     private javax.swing.JLabel lblCep2;
     private javax.swing.JLabel lblCep3;
-    private javax.swing.JLabel lblCep4;
     private javax.swing.JLabel lblCepExiste;
     private javax.swing.JLabel lblCidade;
     private javax.swing.JLabel lblCnpjExiste;
@@ -671,7 +659,6 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JTextField txtCep1;
     private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtCodFunc;
-    private javax.swing.JTextField txtCodOrcamento;
     private javax.swing.JTextField txtCpfCnpj;
     private javax.swing.JTextField txtEstado;
     private javax.swing.JButton txtLimpar;

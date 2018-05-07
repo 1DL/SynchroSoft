@@ -20,7 +20,7 @@ public class Servico {
     private String cnpjCliente;
     private Funcionario codigoFuncionario;
     private String descricaoServicoFILE;
-    private float pagamentoServico;
+    private boolean statusServico;
 
     public int getCodigoServico() {
         return codigoServico;
@@ -86,11 +86,13 @@ public class Servico {
         this.descricaoServicoFILE = descricaoServicoFILE;
     }
 
-    public float getPagamentoServico() {
-        return pagamentoServico;
+    public boolean isStatusServico() {
+        return statusServico;
     }
 
-    public void setPagamentoServico(float pagamentoServico) {
-        this.pagamentoServico = pagamentoServico;
+    public void setStatusServico(boolean statusServico) {
+        this.statusServico = statusServico;
     }
+
+    
 }
