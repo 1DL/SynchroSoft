@@ -131,6 +131,37 @@ public class DaoFuncionario {
         }
         
     }
+    
+    public static Funcionario popularFuncionario(int codigo) throws SQLException, ClassNotFoundException {
+        boolean flag;
+        Connection con = Conexao.conectar();
+        String sql = "SELECT CD_FUNCIONARIO, NM_FUNCIONARIO FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE CD_FUNCIONARIO = ?";
+        PreparedStatement st = con.prepareStatement(sql);
+        st.setInt(1, codigo);
+        ResultSet rs = st.executeQuery();
+        rs.next();
+        Funcionario func = new Funcionario();
+        func.setCodigoFuncionario(rs.getInt("CD_FUNCIONARIO"));
+        Pessoa p = new Pessoa();
+        p.setNome(rs.getString("NM_FUNCIONARIO"));
+        func.setPessoa(p);
+        st.close();
+        rs.close();
+        return func;
+    }
+    
+    public static boolean existeFuncionario(int codigo) throws SQLException, ClassNotFoundException {
+        boolean flag;
+        Connection con = Conexao.conectar();
+        String sql = "SELECT CD_FUNCIONARIO FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE CD_FUNCIONARIO = ?";
+        PreparedStatement st = con.prepareStatement(sql);
+        st.setInt(1, codigo);
+        ResultSet rs = st.executeQuery();
+        flag = rs.isBeforeFirst();
+        st.close();
+        rs.close();
+        return flag;
+    }
 
     public static ArrayList listarFuncionario() {
         ArrayList<Funcionario> lista = new ArrayList<>();
@@ -273,17 +304,6 @@ public class DaoFuncionario {
         return lista;
     }
 
-    public static boolean existeFuncionario(int codigo) throws SQLException, ClassNotFoundException {
-        boolean flag;
-        Connection con = Conexao.conectar();
-        String sql = "SELECT CD_FUNCIONARIO FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE CD_FUNCIONARIO = ?";
-        PreparedStatement st = con.prepareStatement(sql);
-        st.setInt(1, codigo);
-        ResultSet rs = st.executeQuery();
-        flag = rs.isBeforeFirst();
-        st.close();
-        rs.close();
-        return flag;
-    }
+    
 
 }

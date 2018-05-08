@@ -6,15 +6,21 @@
 package view;
 
 import dao.DaoEndereco;
+import dao.DaoFuncionario;
 import dao.DaoPessoa;
+import dao.DaoServico;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import model.Endereco;
+import model.Funcionario;
 import model.Pessoa;
 import model.PessoaFisica;
+import model.Servico;
 import view.FrmCadastroEndereco;
 import view.FrmCadastroFuncionario;
 import view.FrmCadastroPessoa;
@@ -30,10 +36,13 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     Endereco endExibicao;
     PessoaFisica pessoaFisicaExibicao;
     Pessoa pessoaExibicao;
+    boolean flagFuncionario;
+    Funcionario f = new Funcionario();
     
     public FrmCadastroServico() {
         initComponents();
         modoFisico();
+        txtDataServico.setText(""+ new Date(Calendar.getInstance().getTimeInMillis()));
     }
 
     /**
@@ -53,7 +62,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtCep = new javax.swing.JTextField();
         txtCpfCnpj = new javax.swing.JTextField();
         lblCep1 = new javax.swing.JLabel();
-        txtCep1 = new javax.swing.JTextField();
+        txtDataServico = new javax.swing.JTextField();
         lblCpfExiste = new javax.swing.JLabel();
         btnCadastrarPessoaF = new javax.swing.JButton();
         lblCepExiste = new javax.swing.JLabel();
@@ -92,11 +101,12 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         lblCnpjExiste = new javax.swing.JLabel();
         btnCadastrarPessoaJ = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        txtCodigoServico = new javax.swing.JTextField();
+        lblCodigoServico = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
 
@@ -148,9 +158,9 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         getContentPane().add(lblCep1);
         lblCep1.setBounds(770, 50, 160, 50);
 
-        txtCep1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        getContentPane().add(txtCep1);
-        txtCep1.setBounds(940, 60, 150, 30);
+        txtDataServico.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        getContentPane().add(txtDataServico);
+        txtDataServico.setBounds(940, 60, 150, 30);
 
         lblCpfExiste.setText("Cpf inválido.");
         getContentPane().add(lblCpfExiste);
@@ -232,6 +242,11 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         lblCep2.setBounds(40, 400, 190, 30);
 
         txtCodFunc.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtCodFunc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodFuncKeyReleased(evt);
+            }
+        });
         getContentPane().add(txtCodFunc);
         txtCodFunc.setBounds(240, 400, 190, 30);
 
@@ -242,7 +257,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
 
         txtNomeFunc.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         getContentPane().add(txtNomeFunc);
-        txtNomeFunc.setBounds(240, 460, 190, 30);
+        txtNomeFunc.setBounds(240, 460, 490, 30);
 
         btnOrcamento.setText("Criar orçamento");
         getContentPane().add(btnOrcamento);
@@ -253,6 +268,11 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtLimpar.setBounds(40, 510, 110, 40);
 
         txtCadastrar.setText("Ativar serviço");
+        txtCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCadastrarActionPerformed(evt);
+            }
+        });
         getContentPane().add(txtCadastrar);
         txtCadastrar.setBounds(990, 510, 110, 40);
 
@@ -411,14 +431,14 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         getContentPane().add(jLabel3);
         jLabel3.setBounds(420, 50, 160, 50);
 
-        jTextField1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(210, 60, 180, 30);
+        txtCodigoServico.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        getContentPane().add(txtCodigoServico);
+        txtCodigoServico.setBounds(210, 60, 180, 30);
 
-        jLabel2.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        jLabel2.setText("Código do serviço: ");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(40, 50, 160, 50);
+        lblCodigoServico.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblCodigoServico.setText("Código do serviço: ");
+        getContentPane().add(lblCodigoServico);
+        lblCodigoServico.setBounds(40, 50, 160, 50);
 
         jLabel1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
@@ -526,6 +546,34 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtCpfCnpjKeyReleased
 
+    private void txtCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCadastrarActionPerformed
+        Servico serv = new Servico(Integer.parseInt(txtCodigoServico.getText()), cmbTipoServico.getSelectedItem().toString(), 
+                Date.valueOf(txtDataServico.getText()), rbtJuridica.isSelected(),txtCpfCnpj.getText(), txtCpfCnpj.getText(), f, "", true);
+        DaoServico dao = new DaoServico();
+        try {
+            dao.cadastrarServico(serv.getCodigoServico(), serv.getTipoServico(), serv.isTipoCliente(),serv.getDescricaoServicoFILE(),serv.getDataServico(),serv.isStatusServico());
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+    }//GEN-LAST:event_txtCadastrarActionPerformed
+
+    private void txtCodFuncKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodFuncKeyReleased
+        try {
+            flagFuncionario = DaoFuncionario.existeFuncionario(Integer.parseInt(txtCodFunc.getText()));
+            if (flagFuncionario) {
+                f = DaoFuncionario.popularFuncionario(Integer.parseInt(txtCodFunc.getText()));
+                txtNomeFunc.setText(f.getPessoa().getNome());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_txtCodFuncKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -628,12 +676,10 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbTipoServico;
     private javax.swing.JFileChooser db;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblCNPJ;
     private javax.swing.JLabel lblCPF;
     private javax.swing.JLabel lblCelular;
@@ -644,6 +690,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JLabel lblCepExiste;
     private javax.swing.JLabel lblCidade;
     private javax.swing.JLabel lblCnpjExiste;
+    private javax.swing.JLabel lblCodigoServico;
     private javax.swing.JLabel lblCpfExiste;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblLogradouro;
@@ -656,10 +703,11 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JButton txtCadastrar;
     private javax.swing.JTextField txtCelular;
     private javax.swing.JTextField txtCep;
-    private javax.swing.JTextField txtCep1;
     private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtCodFunc;
+    private javax.swing.JTextField txtCodigoServico;
     private javax.swing.JTextField txtCpfCnpj;
+    private javax.swing.JTextField txtDataServico;
     private javax.swing.JTextField txtEstado;
     private javax.swing.JButton txtLimpar;
     private javax.swing.JTextField txtLogradouro;
