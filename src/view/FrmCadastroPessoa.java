@@ -43,6 +43,22 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         modoFisica();
 
     }
+    
+    public FrmCadastroPessoa(boolean flagTipo) {
+        this.endExibicao = new Endereco();
+        initComponents();
+        if (flagTipo) {
+            rbtJuridica.setSelected(true);
+            rbtFisica.setSelected(false);
+            modoJuridica();
+        } else {
+            rbtFisica.setSelected(true);
+            rbtJuridica.setSelected(false);
+            modoFisica();
+        }
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

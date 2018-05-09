@@ -23,7 +23,7 @@ public class DaoServico {
             boolean statusServico) throws SQLException, ClassNotFoundException {
         try {
             Connection con = Conexao.conectar();
-            String sql = "INSERT INTO SYNCHROSOFT.TB_SERVICO (CD_SERVICO, DS_TIPO_SERVICO, DS_TIPO_CLIENTE, DS_SERVICO, DT_SERVICO, ID_STATUS_SERVICO) VALUES (?,?,?,?,?,?)";
+            String sql = "INSERT INTO SYNCHROSOFT.TB_SERVICO (CD_SERVICO, DS_TIPO_SERVICO, DS_TIPO_CLIENTE, DS_SERVICO, ID_STATUS_SERVICO) VALUES (?,?,?,?,?,?)";
             PreparedStatement st = con.prepareStatement(sql);
             st.setInt(1, codigoServico);
             int serv = 0;

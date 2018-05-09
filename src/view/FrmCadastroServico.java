@@ -67,7 +67,6 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         lblCep1 = new javax.swing.JLabel();
         txtDataServico = new javax.swing.JTextField();
         lblCpfCnpjExiste = new javax.swing.JLabel();
-        btnCadastrarPessoaF = new javax.swing.JButton();
         lblCepExiste = new javax.swing.JLabel();
         btnCadastrarCep = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -108,6 +107,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtCodigoServico = new javax.swing.JTextField();
         lblCodigoServico = new javax.swing.JLabel();
+        btnListarFunc = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -118,12 +118,12 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         lblCampoCpfCnpj.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCampoCpfCnpj.setText("CPF:");
         getContentPane().add(lblCampoCpfCnpj);
-        lblCampoCpfCnpj.setBounds(420, 120, 60, 50);
+        lblCampoCpfCnpj.setBounds(760, 120, 60, 50);
 
         lblCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCep.setText("CEP:");
         getContentPane().add(lblCep);
-        lblCep.setBounds(770, 120, 60, 50);
+        lblCep.setBounds(430, 120, 60, 50);
 
         txtCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtCep.addActionListener(new java.awt.event.ActionListener() {
@@ -137,7 +137,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtCep);
-        txtCep.setBounds(850, 130, 240, 30);
+        txtCep.setBounds(510, 130, 240, 30);
 
         txtCpfCnpj.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtCpfCnpj.addActionListener(new java.awt.event.ActionListener() {
@@ -151,7 +151,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtCpfCnpj);
-        txtCpfCnpj.setBounds(500, 130, 250, 30);
+        txtCpfCnpj.setBounds(840, 130, 250, 30);
 
         lblCep1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCep1.setText("Data de Cadastro:");
@@ -164,20 +164,11 @@ public class FrmCadastroServico extends javax.swing.JFrame {
 
         lblCpfCnpjExiste.setText("CPF Inválido");
         getContentPane().add(lblCpfCnpjExiste);
-        lblCpfCnpjExiste.setBounds(530, 180, 90, 14);
-
-        btnCadastrarPessoaF.setText("Cadastrar");
-        btnCadastrarPessoaF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarPessoaFActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnCadastrarPessoaF);
-        btnCadastrarPessoaF.setBounds(651, 180, 100, 23);
+        lblCpfCnpjExiste.setBounds(840, 160, 140, 14);
 
         lblCepExiste.setText("Cep inválido.");
         getContentPane().add(lblCepExiste);
-        lblCepExiste.setBounds(850, 180, 90, 14);
+        lblCepExiste.setBounds(510, 160, 130, 14);
 
         btnCadastrarCep.setText("Cadastrar");
         btnCadastrarCep.addActionListener(new java.awt.event.ActionListener() {
@@ -186,7 +177,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCadastrarCep);
-        btnCadastrarCep.setBounds(991, 180, 100, 23);
+        btnCadastrarCep.setBounds(650, 160, 100, 23);
 
         jLabel4.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel4.setText("Tipo de Cliente:");
@@ -252,7 +243,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtCodFunc);
-        txtCodFunc.setBounds(240, 400, 190, 30);
+        txtCodFunc.setBounds(240, 400, 120, 30);
 
         lblCep3.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCep3.setText("Funcionário requisitado:");
@@ -441,7 +432,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCadastrarPessoaJ);
-        btnCadastrarPessoaJ.setBounds(670, 180, 83, 23);
+        btnCadastrarPessoaJ.setBounds(1000, 160, 83, 23);
 
         jLabel3.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel3.setText("Tipo de serviço:");
@@ -456,6 +447,15 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         lblCodigoServico.setText("Código do serviço: ");
         getContentPane().add(lblCodigoServico);
         lblCodigoServico.setBounds(40, 50, 160, 50);
+
+        btnListarFunc.setText("Listar Funcionários");
+        btnListarFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarFuncActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnListarFunc);
+        btnListarFunc.setBounds(370, 400, 140, 30);
 
         jLabel1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
@@ -515,13 +515,14 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtCepKeyReleased
 
-    private void btnCadastrarPessoaFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarPessoaFActionPerformed
-        FrmCadastroPessoa telaCadPessoa = new FrmCadastroPessoa();
-        telaCadPessoa.setVisible(true);
-    }//GEN-LAST:event_btnCadastrarPessoaFActionPerformed
-
     private void btnCadastrarPessoaJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarPessoaJActionPerformed
-        // TODO add your handling code here:
+        if (rbtFisica.isSelected()) {
+            FrmCadastroPessoa telaCadP = new FrmCadastroPessoa(false);
+            telaCadP.setVisible(true);
+        } else if (rbtJuridica.isSelected()) {
+            FrmCadastroPessoa telaCadP = new FrmCadastroPessoa(true);
+            telaCadP.setVisible(true);
+        }
     }//GEN-LAST:event_btnCadastrarPessoaJActionPerformed
 
     private void btnArquivoRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArquivoRelatorioActionPerformed
@@ -632,6 +633,11 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_txtCodFuncKeyReleased
+
+    private void btnListarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarFuncActionPerformed
+        FrmListagemFuncionario telaListaF = new FrmListagemFuncionario();
+        telaListaF.setVisible(true);
+    }//GEN-LAST:event_btnListarFuncActionPerformed
 
     /**
      * @param args the command line arguments
@@ -753,8 +759,8 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JLabel Bairro1;
     private javax.swing.JButton btnArquivoRelatorio;
     private javax.swing.JButton btnCadastrarCep;
-    private javax.swing.JButton btnCadastrarPessoaF;
     private javax.swing.JButton btnCadastrarPessoaJ;
+    private javax.swing.JButton btnListarFunc;
     private javax.swing.JButton btnOrcamento;
     private javax.swing.ButtonGroup btngTipoCliente;
     private javax.swing.JComboBox<String> cmbTipoServico;
