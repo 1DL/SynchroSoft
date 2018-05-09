@@ -128,6 +128,11 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         lblCpf.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCpf.setText("CPF");
 
+        txtCpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCpfActionPerformed(evt);
+            }
+        });
         txtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCpfKeyReleased(evt);
@@ -243,6 +248,11 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         lblNome.setText("Nome");
 
         txtNomePessoa.setEditable(false);
+        txtNomePessoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomePessoaActionPerformed(evt);
+            }
+        });
 
         lblTelefone.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblTelefone.setText("Telefone");
@@ -686,6 +696,14 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         FrmPrincipal telaPrincipal = new FrmPrincipal();
         telaPrincipal.setVisible(true);
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
+
+    private void txtCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCpfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCpfActionPerformed
+
+    private void txtNomePessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomePessoaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomePessoaActionPerformed
 
     /**
      * @param args the command line arguments

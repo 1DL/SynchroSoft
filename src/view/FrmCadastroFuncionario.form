@@ -255,6 +255,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtCpf">
           <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCpfActionPerformed"/>
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCpfKeyReleased"/>
           </Events>
         </Component>
@@ -571,6 +572,9 @@
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNomePessoaActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblTelefone">
               <Properties>

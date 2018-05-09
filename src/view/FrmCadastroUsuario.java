@@ -232,7 +232,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         try
         {
-            if(txtSenha.getText().trim() == txtConfirma.getText().trim())
+            if(txtSenha.getText().trim().equals(txtConfirma.getText().trim()))
             {
                 DaoUsuario dao = new DaoUsuario();
                 Usuario user = new Usuario(Integer.parseInt(txtCodFuncionario.getText()), txtLogin.getText(), txtSenha.getText());

@@ -77,7 +77,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblListagemFuncionario);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(14, 119, 1090, 404);
+        jScrollPane1.setBounds(14, 119, 1090, 402);
 
         btnFechar.setText("Fechar");
         btnFechar.addActionListener(new java.awt.event.ActionListener() {
@@ -137,7 +137,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(360, 60, 107, 33);
+        cmbFiltro.setBounds(360, 60, 107, 31);
 
         txtPesquisa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -352,7 +352,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
             }
 
         } catch (Exception ex) {
-            System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
+            JOptionPane.showMessageDialog(null,"Erro ao popular tabela.\n\n" + ex.getMessage());
         }
         
         tblListagemFuncionario.getColumnModel().getColumn(14).setMinWidth(0);
