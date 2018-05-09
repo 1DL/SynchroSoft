@@ -23,7 +23,7 @@ public class DaoServico {
             boolean statusServico) throws SQLException, ClassNotFoundException {
         try {
             Connection con = Conexao.conectar();
-            String sql = "INSERT INTO SYNCHROSOFT.TB_SERVICO (CD_SERVICO, DS_TIPO_SERVICO, DS_TIPO_CLIENTE, DS_SERVICO, ID_STATUS_SERVICO) VALUES (?,?,?,?,?,?)";
+            String sql = "INSERT INTO SYNCHROSOFT.TB_SERVICO (CD_SERVICO, DS_TIPO_SERVICO, DS_TIPO_CLIENTE, DS_SERVICO, ID_STATUS_SERVICO, DT_SERVICO_INICIO) VALUES (?,?,?,?,?,?)";
             PreparedStatement st = con.prepareStatement(sql);
             st.setInt(1, codigoServico);
             int serv = 0;
@@ -43,15 +43,16 @@ public class DaoServico {
             }
             st.setInt(3, tipo);
             st.setString(4, descricaoServico);
-            st.setDate(5, dataServico);
-//            st.setFloat(6, valorServico);
             int status = 0;
             if (statusServico) {
                 status = 1;
             } else {
                 status = 0;
             }
-            st.setInt(6, status);
+            st.setInt(5, status);
+            st.setDate(6, dataServico);
+//            st.setFloat(6, valorServico);
+            
             st.executeUpdate();
             st.close();
             JOptionPane.showMessageDialog(null, "Serviço ativado.");
@@ -60,6 +61,20 @@ public class DaoServico {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o Funcionário.\n Erro:\n\n" + e.getMessage());
         }
+    }
+    
+    public static boolean existeServico(int codserv) throws SQLException, ClassNotFoundException {
+        boolean flag = false;
+        Connection con = Conexao.conectar();
+        String sql = "SELECT CD_SERVICO FROM SYNCHROSOFT.TB_SERVICO WHERE CD_SERVICO = ?";
+        PreparedStatement st = con.prepareStatement(sql);
+        st.setInt(1, codserv);
+        ResultSet rs = st.executeQuery();
+        flag = rs.isBeforeFirst();
+        st.close();
+        rs.close();
+        return flag;
+        
     }
     
     

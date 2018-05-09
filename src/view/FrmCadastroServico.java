@@ -440,6 +440,11 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         jLabel3.setBounds(420, 50, 160, 50);
 
         txtCodigoServico.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtCodigoServico.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodigoServicoKeyReleased(evt);
+            }
+        });
         getContentPane().add(txtCodigoServico);
         txtCodigoServico.setBounds(210, 60, 180, 30);
 
@@ -619,9 +624,10 @@ public class FrmCadastroServico extends javax.swing.JFrame {
                 txtNomeFunc.setText(f.getPessoa().getNome());
                 lblFuncExiste.setText("Funcionário Livre");
                 flagFuncionario = true;
-            } else if (DaoServico.isFuncionarioEmServico(Integer.parseInt(txtCodFunc.getText()))) {
-                lblFuncExiste.setText("Funcionário já vinculado a outro serviço");
-                flagFuncionario = false;
+                if (DaoServico.isFuncionarioEmServico(Integer.parseInt(txtCodFunc.getText()))) {
+                    lblFuncExiste.setText("Funcionário já vinculado a outro serviço");
+                    flagFuncionario = false;
+                }
             } else {
                 txtNomeFunc.setText("");
                 lblFuncExiste.setText("Funcionário Inexistente");
@@ -638,6 +644,10 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         FrmListagemFuncionario telaListaF = new FrmListagemFuncionario();
         telaListaF.setVisible(true);
     }//GEN-LAST:event_btnListarFuncActionPerformed
+
+    private void txtCodigoServicoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoServicoKeyReleased
+        
+    }//GEN-LAST:event_txtCodigoServicoKeyReleased
 
     /**
      * @param args the command line arguments
