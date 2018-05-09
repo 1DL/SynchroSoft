@@ -31,6 +31,10 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         txtCodFuncionario = new javax.swing.JTextField();
         lblLogin = new javax.swing.JLabel();
         txtLogin = new javax.swing.JTextField();
+        lblSenha = new javax.swing.JLabel();
+        txtSenha = new javax.swing.JPasswordField();
+        txtSenha1 = new javax.swing.JPasswordField();
+        lblSenha1 = new javax.swing.JLabel();
         pnlDadosFuncionario = new javax.swing.JPanel();
         lblNomeFuncionario = new javax.swing.JLabel();
         txtNomeFuncionario = new javax.swing.JTextField();
@@ -45,6 +49,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
+        setPreferredSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
 
         lblCodFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -63,7 +68,25 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
 
         txtLogin.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         getContentPane().add(txtLogin);
-        txtLogin.setBounds(740, 160, 250, 30);
+        txtLogin.setBounds(740, 160, 280, 30);
+
+        lblSenha.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblSenha.setText("Senha:");
+        getContentPane().add(lblSenha);
+        lblSenha.setBounds(670, 240, 60, 25);
+
+        txtSenha.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        getContentPane().add(txtSenha);
+        txtSenha.setBounds(770, 240, 250, 31);
+
+        txtSenha1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        getContentPane().add(txtSenha1);
+        txtSenha1.setBounds(770, 320, 250, 31);
+
+        lblSenha1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblSenha1.setText("Confirmar:");
+        getContentPane().add(lblSenha1);
+        lblSenha1.setBounds(670, 320, 90, 25);
 
         pnlDadosFuncionario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         pnlDadosFuncionario.setOpaque(false);
@@ -192,6 +215,8 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblNomeFuncionario;
     private javax.swing.JLabel lblSalario;
+    private javax.swing.JLabel lblSenha;
+    private javax.swing.JLabel lblSenha1;
     private javax.swing.JPanel pnlDadosFuncionario;
     private javax.swing.JTextField txtCargo;
     private javax.swing.JTextField txtCodFuncionario;
@@ -199,5 +224,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField txtLogin;
     private javax.swing.JTextField txtNomeFuncionario;
     private javax.swing.JTextField txtSalario;
+    private javax.swing.JPasswordField txtSenha;
+    private javax.swing.JPasswordField txtSenha1;
     // End of variables declaration//GEN-END:variables
 }
