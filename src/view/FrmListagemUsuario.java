@@ -333,18 +333,18 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtualizarTabelaActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-//        try {
-//            tblListagemDespesa.getCellEditor().stopCellEditing();
-//        } catch (Exception ex) {
-//
-//        }
-//        try {
-//            dp.alterarDespesa(tblListagemDespesa);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(FrmListagemDespesa.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(FrmListagemDespesa.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            tblListagemUsuario.getCellEditor().stopCellEditing();
+        } catch (Exception ex) {
+
+        }
+        try {
+            duser.alterarUsuario(tblListagemUsuario);
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmListagemDespesa.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FrmListagemDespesa.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
