@@ -9,6 +9,7 @@ import dao.DaoEndereco;
 import dao.DaoFuncionario;
 import dao.DaoPessoa;
 import dao.DaoServico;
+import java.awt.Color;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -62,6 +63,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         btngTipoCliente = new javax.swing.ButtonGroup();
         db = new javax.swing.JFileChooser();
         lblCampoCpfCnpj = new javax.swing.JLabel();
+        lblExisteServico = new javax.swing.JLabel();
         lblCep = new javax.swing.JLabel();
         txtCep = new javax.swing.JTextField();
         txtCpfCnpj = new javax.swing.JTextField();
@@ -121,6 +123,10 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         getContentPane().add(lblCampoCpfCnpj);
         lblCampoCpfCnpj.setBounds(760, 120, 60, 50);
 
+        lblExisteServico.setText("Código livre.");
+        getContentPane().add(lblExisteServico);
+        lblExisteServico.setBounds(210, 90, 210, 14);
+
         lblCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCep.setText("CEP:");
         getContentPane().add(lblCep);
@@ -165,11 +171,11 @@ public class FrmCadastroServico extends javax.swing.JFrame {
 
         lblCpfCnpjExiste.setText("CPF Inválido");
         getContentPane().add(lblCpfCnpjExiste);
-        lblCpfCnpjExiste.setBounds(840, 160, 140, 14);
+        lblCpfCnpjExiste.setBounds(840, 160, 190, 14);
 
         lblCepExiste.setText("Cep inválido.");
         getContentPane().add(lblCepExiste);
-        lblCepExiste.setBounds(510, 160, 130, 14);
+        lblCepExiste.setBounds(510, 160, 180, 14);
 
         btnCadastrarCep.setText("Cadastrar");
         btnCadastrarCep.addActionListener(new java.awt.event.ActionListener() {
@@ -217,7 +223,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
 
         lblFuncExiste.setText("Inválido");
         getContentPane().add(lblFuncExiste);
-        lblFuncExiste.setBounds(250, 430, 120, 14);
+        lblFuncExiste.setBounds(250, 430, 250, 14);
 
         btnArquivoRelatorio.setText("Procurar");
         btnArquivoRelatorio.addActionListener(new java.awt.event.ActionListener() {
@@ -601,11 +607,12 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private void txtCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCadastrarActionPerformed
         if (cepCadastrado && flagFuncionario && (cnpjCadastrado || cpfCadastrado)) {
             Servico serv = new Servico(Integer.parseInt(txtCodigoServico.getText()), cmbTipoServico.getSelectedItem().toString(),
-                    Date.valueOf(txtDataServico.getText()), rbtJuridica.isSelected(), txtCpfCnpj.getText(), txtCpfCnpj.getText(), f, "", true);
+                    Date.valueOf(txtDataServico.getText()), rbtJuridica.isSelected(), txtCpfCnpj.getText(), txtCpfCnpj.getText(), f, "Teste", true);
             DaoServico dao = new DaoServico();
             try {
-                dao.cadastrarServico(serv.getCodigoServico(), serv.getTipoServico(), serv.isTipoCliente(), serv.getDescricaoServicoFILE(), serv.getDataServico(), serv.isStatusServico());
-            } catch (SQLException ex) {
+                dao.cadastrarServico(serv.getCnpjCliente(), serv.getFuncionario().getCodigoFuncionario(), serv.getCodigoServico(), serv.getTipoServico(), 
+                        serv.isTipoCliente(),serv.getDescricaoServicoFILE(), serv.getDataServico(), serv.isStatusServico());
+                } catch (SQLException ex) {
                 Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
@@ -647,7 +654,26 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarFuncActionPerformed
 
     private void txtCodigoServicoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoServicoKeyReleased
-        
+        DaoServico dao = new DaoServico();
+        try {
+            if (txtCodigoServico.getText().length()<1){
+                lblExisteServico.setText("Código inválido.");
+                lblExisteServico.setForeground(Color.red);
+                servCadastrado = false;
+            } else if (dao.existeServico(Integer.parseInt(txtCodigoServico.getText()))) {
+                lblExisteServico.setText("Código já cadastrado.");
+                lblExisteServico.setForeground(Color.red);
+                servCadastrado = false;
+            } else {
+                lblExisteServico.setText("Código livre.");
+                lblExisteServico.setForeground(Color.black);
+                servCadastrado = true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_txtCodigoServicoKeyReleased
 
     /**
@@ -792,6 +818,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JLabel lblCodigoServico;
     private javax.swing.JLabel lblCpfCnpjExiste;
     private javax.swing.JLabel lblEstado;
+    private javax.swing.JLabel lblExisteServico;
     private javax.swing.JLabel lblFuncExiste;
     private javax.swing.JLabel lblLogradouro;
     private javax.swing.JLabel lblNomeFicticio;

@@ -18,21 +18,21 @@ public class Servico {
     private boolean tipoCliente;
     private String cpfCliente;
     private String cnpjCliente;
-    private Funcionario codigoFuncionario;
+    private Funcionario funcionario;
     private String descricaoServicoFILE;
     private boolean statusServico;
 
     public Servico() {
     }
 
-    public Servico(int codigoServico, String tipoServico, Date dataServico, boolean tipoCliente, String cpfCliente, String cnpjCliente, Funcionario codigoFuncionario, String descricaoServicoFILE, boolean statusServico) {
+    public Servico(int codigoServico, String tipoServico, Date dataServico, boolean tipoCliente, String cpfCliente, String cnpjCliente, Funcionario funcionario, String descricaoServicoFILE, boolean statusServico) {
         this.codigoServico = codigoServico;
         this.tipoServico = tipoServico;
         this.dataServico = dataServico;
         this.tipoCliente = tipoCliente;
         this.cpfCliente = cpfCliente;
         this.cnpjCliente = cnpjCliente;
-        this.codigoFuncionario = codigoFuncionario;
+        this.funcionario = funcionario;
         this.descricaoServicoFILE = descricaoServicoFILE;
         this.statusServico = statusServico;
     }
@@ -85,12 +85,12 @@ public class Servico {
         this.cnpjCliente = cnpjCliente;
     }
 
-    public Funcionario getCodigoFuncionario() {
-        return codigoFuncionario;
+    public Funcionario getFuncionario() {
+        return funcionario;
     }
 
-    public void setCodigoFuncionario(Funcionario codigoFuncionario) {
-        this.codigoFuncionario = codigoFuncionario;
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
     }
 
     public String getDescricaoServicoFILE() {
