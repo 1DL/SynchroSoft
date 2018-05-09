@@ -98,6 +98,7 @@ public class DaoUsuario {
                 user.setCodigoUsuario(rs.getInt("CD_USUARIO"));
                 user.setCodigoFuncionario(rs.getInt("CD_FUNCIONARIO"));
                 user.setLogin(rs.getString("DS_LOGIN"));
+                user.setSenha(rs.getString("DS_SENHA"));
                 lista.add(user);
             }
             st.close();
@@ -106,6 +107,20 @@ public class DaoUsuario {
             System.err.println("DaoUsuario Listagem Java: " + ex.getMessage());
         }
         return lista;
+    }
+     
+     public void deletarUsuario(int cod) throws SQLException, ClassNotFoundException {
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "DELETE FROM SYNCHROSOFT.TB_USUARIO WHERE CD_USUARIO = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, cod);
+            st.executeUpdate();
+            st.close();
+            JOptionPane.showMessageDialog(null, "Usuário removido com sucesso.");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível remover usuário.\nErro:\n\n" + ex.getMessage());
+        }
     }
     
 }

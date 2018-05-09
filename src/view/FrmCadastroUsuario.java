@@ -262,8 +262,8 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
     private void btnListarFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarFuncionariosActionPerformed
-        FrmListagemFuncionario ListagemFunc = new FrmListagemFuncionario();
-        ListagemFunc.setVisible(true);
+        FrmListagemUsuario ListagemUser = new FrmListagemUsuario();
+        ListagemUser.setVisible(true);
     }//GEN-LAST:event_btnListarFuncionariosActionPerformed
 
     private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed

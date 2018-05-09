@@ -6,7 +6,10 @@
 package view;
 
 import dao.DaoUsuario;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import model.Usuario;
 
@@ -23,6 +26,7 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
         initComponents();
         atualizarTabela();
     }
+    DaoUsuario duser = new DaoUsuario();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -43,7 +47,7 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
         txtDataDepois = new javax.swing.JTextField();
         btnHoje = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblListagemDespesa = new javax.swing.JTable();
+        tblListagemUsuario = new javax.swing.JTable();
         lblPesquisar1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txaDescricaoSelecionada = new javax.swing.JTextArea();
@@ -150,7 +154,7 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
         getContentPane().add(btnHoje);
         btnHoje.setBounds(1010, 50, 100, 40);
 
-        tblListagemDespesa.setModel(new javax.swing.table.DefaultTableModel(
+        tblListagemUsuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -161,12 +165,12 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblListagemDespesa.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblListagemUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblListagemDespesaMouseClicked(evt);
+                tblListagemUsuarioMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblListagemDespesa);
+        jScrollPane1.setViewportView(tblListagemUsuario);
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(14, 119, 1090, 280);
@@ -320,9 +324,9 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
 //        atualizarTabelaFiltradaData();
     }//GEN-LAST:event_btnHojeActionPerformed
 
-    private void tblListagemDespesaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListagemDespesaMouseClicked
-        txaDescricaoSelecionada.setText((String) tblListagemDespesa.getValueAt(tblListagemDespesa.getSelectedRow(), 3));
-    }//GEN-LAST:event_tblListagemDespesaMouseClicked
+    private void tblListagemUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListagemUsuarioMouseClicked
+        txaDescricaoSelecionada.setText((String) tblListagemUsuario.getValueAt(tblListagemUsuario.getSelectedRow(), 3));
+    }//GEN-LAST:event_tblListagemUsuarioMouseClicked
 
     private void btnAtualizarTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarTabelaActionPerformed
         atualizarTabela();
@@ -344,17 +348,17 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-//        Despesa despesa = new Despesa();
-//        String aux;
-//        aux = (String) tblListagemDespesa.getValueAt(tblListagemDespesa.getSelectedRow(), 0);
-//        despesa.setCodigoDespesa(Integer.parseInt(aux));
-//
-//        try {
-//            dp.deletarDespesa(despesa.getCodigoDespesa());
-//            atualizarTabela();
-//        } catch (SQLException | ClassNotFoundException ex) {
-//            Logger.getLogger(FrmListagemDespesa.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        Usuario user = new Usuario();
+        String aux;
+        aux = (String) tblListagemUsuario.getValueAt(tblListagemUsuario.getSelectedRow(), 0);
+        user.setCodigoUsuario(Integer.parseInt(aux));
+
+        try {
+            duser.deletarUsuario(user.getCodigoUsuario());
+            atualizarTabela();
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(FrmListagemDespesa.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
@@ -480,26 +484,27 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
     private void atualizarTabela() {
         ArrayList<Usuario> lista = new ArrayList<>();
         lista = DaoUsuario.listarUsuario();
-        String[] nomeColunas = {"Código", "Funcionario", "Login", "PK_REF"};
+        String[] nomeColunas = {"Código", "Funcionario", "Login", "senha", "PK_REF"};
         try {
             DefaultTableModel model = new DefaultTableModel() {
                 @Override
                 public boolean isCellEditable(int row, int column) {
-                    if (column == 4) {
+                    if (column == 5) {
                         return false;
                     }
                     return true;
                 }
             };
-            tblListagemDespesa.setModel(model);
+            tblListagemUsuario.setModel(model);
             model.setColumnIdentifiers(nomeColunas);
             model.setRowCount(0);
-            Object rowData[] = new Object[4];
+            Object rowData[] = new Object[5];
             for (int i = 0; i < lista.size(); i++) {
                 rowData[0] = Integer.toString(lista.get(i).getCodigoUsuario());
                 rowData[1] = lista.get(i).getCodigoFuncionario();
                 rowData[2] = lista.get(i).getLogin();
-                rowData[3] = lista.get(i).getCodigoUsuario();
+                rowData[3] = lista.get(i).getSenha();
+                rowData[4] = lista.get(i).getCodigoUsuario();
                 model.addRow(rowData);
             }
 
@@ -507,9 +512,9 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
             System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
         }
         
-        tblListagemDespesa.getColumnModel().getColumn(3).setMinWidth(0);
-        tblListagemDespesa.getColumnModel().getColumn(3).setPreferredWidth(0);
-        tblListagemDespesa.getColumnModel().getColumn(3).setMaxWidth(0);
+        tblListagemUsuario.getColumnModel().getColumn(4).setMinWidth(0);
+        tblListagemUsuario.getColumnModel().getColumn(4).setPreferredWidth(0);
+        tblListagemUsuario.getColumnModel().getColumn(4).setMaxWidth(0);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -528,7 +533,7 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel lblPesquisar1;
     private javax.swing.JLabel lblPesquisarData;
     private javax.swing.JLabel lblPesquisarData1;
-    private javax.swing.JTable tblListagemDespesa;
+    private javax.swing.JTable tblListagemUsuario;
     private javax.swing.JTextArea txaDescricaoSelecionada;
     private javax.swing.JTextField txtDataAntes;
     private javax.swing.JTextField txtDataDepois;
