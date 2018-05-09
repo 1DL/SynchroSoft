@@ -109,7 +109,6 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         setSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
@@ -117,7 +116,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         lblTituloJanela.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblTituloJanela.setText("Cadastro de funcionário");
         getContentPane().add(lblTituloJanela);
-        lblTituloJanela.setBounds(550, 0, 194, 25);
+        lblTituloJanela.setBounds(550, 0, 191, 24);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setMaximumSize(new java.awt.Dimension(1152, 648));
@@ -217,6 +216,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         rbtVisualizacao.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         rbtVisualizacao.setSelected(true);
         rbtVisualizacao.setText("Visualização");
+        rbtVisualizacao.setOpaque(false);
         rbtVisualizacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtVisualizacaoActionPerformed(evt);
@@ -226,6 +226,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         grupoNivelADM.add(rbtCompleto);
         rbtCompleto.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         rbtCompleto.setText("Completo");
+        rbtCompleto.setOpaque(false);
         rbtCompleto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtCompletoActionPerformed(evt);
@@ -292,6 +293,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         grupoSexoExib.add(rbtFeminino);
         rbtFeminino.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         rbtFeminino.setText("Feminino");
+        rbtFeminino.setOpaque(false);
         rbtFeminino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtFemininoActionPerformed(evt);
@@ -301,6 +303,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         grupoSexoExib.add(rbtMasculino);
         rbtMasculino.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         rbtMasculino.setText("Masculino");
+        rbtMasculino.setOpaque(false);
         rbtMasculino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtMasculinoActionPerformed(evt);

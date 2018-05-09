@@ -34,8 +34,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         btnPeca = new javax.swing.JButton();
-        btnFuncionario1 = new javax.swing.JButton();
+        btnUsuario = new javax.swing.JButton();
         btnFuncionario = new javax.swing.JButton();
+        btnDespesa = new javax.swing.JButton();
         btnServico = new javax.swing.JButton();
         btnCliente = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -57,25 +58,35 @@ public class FrmPrincipal extends javax.swing.JFrame {
         getContentPane().add(btnPeca);
         btnPeca.setBounds(800, 100, 290, 170);
 
-        btnFuncionario1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        btnFuncionario1.setText("Cadastro de Funcionários");
-        btnFuncionario1.addActionListener(new java.awt.event.ActionListener() {
+        btnUsuario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        btnUsuario.setText("Cadastro de Usuários");
+        btnUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFuncionario1ActionPerformed(evt);
+                btnUsuarioActionPerformed(evt);
             }
         });
-        getContentPane().add(btnFuncionario1);
-        btnFuncionario1.setBounds(50, 100, 290, 170);
+        getContentPane().add(btnUsuario);
+        btnUsuario.setBounds(430, 340, 290, 170);
 
         btnFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        btnFuncionario.setText("Relatório de Despesas");
+        btnFuncionario.setText("Cadastro de Funcionários");
         btnFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFuncionarioActionPerformed(evt);
             }
         });
         getContentPane().add(btnFuncionario);
-        btnFuncionario.setBounds(420, 240, 290, 170);
+        btnFuncionario.setBounds(50, 100, 290, 170);
+
+        btnDespesa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        btnDespesa.setText("Relatório de Despesas");
+        btnDespesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDespesaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnDespesa);
+        btnDespesa.setBounds(420, 100, 290, 170);
 
         btnServico.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnServico.setText("Cadastro de serviço");
@@ -123,17 +134,23 @@ public class FrmPrincipal extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnServicoActionPerformed
 
-    private void btnFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionarioActionPerformed
+    private void btnDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDespesaActionPerformed
         FrmCadastroDespesa desp = new FrmCadastroDespesa();
         desp.setVisible(true);
         dispose();
-    }//GEN-LAST:event_btnFuncionarioActionPerformed
+    }//GEN-LAST:event_btnDespesaActionPerformed
 
-    private void btnFuncionario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionario1ActionPerformed
+    private void btnFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionarioActionPerformed
         FrmCadastroFuncionario func = new FrmCadastroFuncionario();
         func.setVisible(true);
         dispose();
-    }//GEN-LAST:event_btnFuncionario1ActionPerformed
+    }//GEN-LAST:event_btnFuncionarioActionPerformed
+
+    private void btnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarioActionPerformed
+        FrmCadastroUsuario usuario = new FrmCadastroUsuario();
+        usuario.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,10 +190,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCliente;
+    private javax.swing.JButton btnDespesa;
     private javax.swing.JButton btnFuncionario;
-    private javax.swing.JButton btnFuncionario1;
     private javax.swing.JButton btnPeca;
     private javax.swing.JButton btnServico;
+    private javax.swing.JButton btnUsuario;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
