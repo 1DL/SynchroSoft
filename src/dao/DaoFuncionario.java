@@ -136,7 +136,7 @@ public class DaoFuncionario {
     public static Funcionario popularFuncionario(int codigo) throws SQLException, ClassNotFoundException {
         boolean flag;
         Connection con = Conexao.conectar();
-        String sql = "SELECT CD_FUNCIONARIO, NM_FUNCIONARIO FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE CD_FUNCIONARIO = ?";
+        String sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE CD_FUNCIONARIO = ?";
         PreparedStatement st = con.prepareStatement(sql);
         st.setInt(1, codigo);
         ResultSet rs = st.executeQuery();
@@ -144,8 +144,14 @@ public class DaoFuncionario {
         Funcionario func = new Funcionario();
         func.setCodigoFuncionario(rs.getInt("CD_FUNCIONARIO"));
         Pessoa p = new Pessoa();
+        PessoaFisica pf = new PessoaFisica();
         p.setNome(rs.getString("NM_FUNCIONARIO"));
+        pf.setPessoa(p);
+        pf.setCpf(rs.getString("CPF_FUNCIONARIO"));
+        func.setSalario(rs.getFloat("VL_SALARIO"));
         func.setPessoa(p);
+        func.setFisica(pf);
+        func.setCargo(rs.getString("DS_CARGO"));
         st.close();
         rs.close();
         return func;

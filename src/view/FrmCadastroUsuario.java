@@ -5,11 +5,14 @@
  */
 package view;
 
+import dao.DaoFuncionario;
 import dao.DaoUsuario;
+import java.awt.Color;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import model.Funcionario;
 import model.Usuario;
 
 /**
@@ -17,6 +20,8 @@ import model.Usuario;
  * @author Luiz
  */
 public class FrmCadastroUsuario extends javax.swing.JFrame {
+
+    boolean flagFuncionario;
 
     /**
      * Creates new form FrmCadastroUsuario
@@ -45,7 +50,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         btnCadastrar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
         btnMenuPrincipal = new javax.swing.JButton();
-        btnListarFuncionarios = new javax.swing.JButton();
+        btnListarUsuarios = new javax.swing.JButton();
         btnFecharFrame = new javax.swing.JButton();
         pnlDadosFuncionario = new javax.swing.JPanel();
         lblNomeFuncionario = new javax.swing.JLabel();
@@ -56,6 +61,8 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         txtCargo = new javax.swing.JTextField();
         lblSalario = new javax.swing.JLabel();
         txtSalario = new javax.swing.JTextField();
+        lblFuncionario = new javax.swing.JLabel();
+        btnListarFuncionarios = new javax.swing.JButton();
         lblFundo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -70,6 +77,11 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblCodFuncionario.setBounds(50, 70, 200, 25);
 
         txtCodFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtCodFuncionario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodFuncionarioKeyReleased(evt);
+            }
+        });
         getContentPane().add(txtCodFuncionario);
         txtCodFuncionario.setBounds(260, 70, 170, 30);
 
@@ -108,12 +120,12 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCadastrar);
-        btnCadastrar.setBounds(100, 470, 220, 33);
+        btnCadastrar.setBounds(100, 470, 220, 35);
 
         btnLimpar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnLimpar.setText("Limpar");
         getContentPane().add(btnLimpar);
-        btnLimpar.setBounds(100, 560, 220, 33);
+        btnLimpar.setBounds(100, 560, 220, 35);
 
         btnMenuPrincipal.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnMenuPrincipal.setText("Menu Principal");
@@ -125,15 +137,15 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         getContentPane().add(btnMenuPrincipal);
         btnMenuPrincipal.setBounds(490, 420, 170, 210);
 
-        btnListarFuncionarios.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        btnListarFuncionarios.setText("Listar Usuários");
-        btnListarFuncionarios.addActionListener(new java.awt.event.ActionListener() {
+        btnListarUsuarios.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        btnListarUsuarios.setText("Listar Usuários");
+        btnListarUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListarFuncionariosActionPerformed(evt);
+                btnListarUsuariosActionPerformed(evt);
             }
         });
-        getContentPane().add(btnListarFuncionarios);
-        btnListarFuncionarios.setBounds(840, 460, 200, 30);
+        getContentPane().add(btnListarUsuarios);
+        btnListarUsuarios.setBounds(840, 460, 200, 30);
 
         btnFecharFrame.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnFecharFrame.setText("Fechar ");
@@ -143,7 +155,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnFecharFrame);
-        btnFecharFrame.setBounds(840, 550, 200, 33);
+        btnFecharFrame.setBounds(840, 550, 200, 35);
 
         pnlDadosFuncionario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         pnlDadosFuncionario.setOpaque(false);
@@ -221,6 +233,20 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         pnlDadosFuncionario.setBounds(50, 160, 380, 230);
         pnlDadosFuncionario.getAccessibleContext().setAccessibleName("Dados do funcionário");
 
+        lblFuncionario.setForeground(new java.awt.Color(255, 0, 0));
+        lblFuncionario.setText("Funcionário inexistente.");
+        getContentPane().add(lblFuncionario);
+        lblFuncionario.setBounds(260, 100, 210, 14);
+
+        btnListarFuncionarios.setText("Listar Funcionários");
+        btnListarFuncionarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarFuncionariosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnListarFuncionarios);
+        btnListarFuncionarios.setBounds(450, 70, 150, 23);
+
         lblFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(lblFundo);
         lblFundo.setBounds(0, 0, 1150, 650);
@@ -230,10 +256,8 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        try
-        {
-            if(txtSenha.getText().trim().equals(txtConfirma.getText().trim()))
-            {
+        try {
+            if (txtSenha.getText().trim().equals(txtConfirma.getText().trim())) {
                 DaoUsuario dao = new DaoUsuario();
                 Usuario user = new Usuario(Integer.parseInt(txtCodFuncionario.getText()), txtLogin.getText(), txtSenha.getText());
                 try {
@@ -244,15 +268,11 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(FrmCadastroDespesa.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-            else
-            {
+            } else {
                 JOptionPane.showMessageDialog(null, "Senha não corresponde à confirmação de senha!");
             }
-        }
-        catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null, "Erro: "+e.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
@@ -261,14 +281,43 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         telaPrincipal.setVisible(true);
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
-    private void btnListarFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarFuncionariosActionPerformed
+    private void btnListarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarUsuariosActionPerformed
         FrmListagemUsuario ListagemUser = new FrmListagemUsuario();
         ListagemUser.setVisible(true);
-    }//GEN-LAST:event_btnListarFuncionariosActionPerformed
+    }//GEN-LAST:event_btnListarUsuariosActionPerformed
 
     private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
         dispose();
     }//GEN-LAST:event_btnFecharFrameActionPerformed
+
+    private void txtCodFuncionarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodFuncionarioKeyReleased
+        Funcionario f = new Funcionario();
+        DaoFuncionario dao = new DaoFuncionario();
+        try {
+            flagFuncionario = DaoFuncionario.existeFuncionario(Integer.parseInt(txtCodFuncionario.getText()));
+            if (flagFuncionario) {
+                f = DaoFuncionario.popularFuncionario(Integer.parseInt(txtCodFuncionario.getText()));
+                lblFuncionario.setText("Funcionário encontrado.");
+                lblFuncionario.setForeground(Color.BLACK);
+                txtNomeFuncionario.setText(f.getPessoa().getNome());
+                txtCpf.setText(f.getFisica().getCpf());
+                txtCargo.setText(f.getCargo());
+                txtSalario.setText("" + f.getSalario());
+            } else {
+                limparCampoFuncionario();
+                flagFuncionario = false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmCadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FrmCadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_txtCodFuncionarioKeyReleased
+
+    private void btnListarFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarFuncionariosActionPerformed
+        FrmListagemFuncionario ListagemFunc = new FrmListagemFuncionario();
+        ListagemFunc.setVisible(true);
+    }//GEN-LAST:event_btnListarFuncionariosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -305,15 +354,26 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         });
     }
 
+    private void limparCampoFuncionario() {
+        lblFuncionario.setText("Funcionário Inexistente.");
+        lblFuncionario.setForeground(Color.red);
+        txtNomeFuncionario.setText("");
+        txtCpf.setText("");
+        txtCargo.setText("");
+        txtSalario.setText("");
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnFecharFrame;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnListarFuncionarios;
+    private javax.swing.JButton btnListarUsuarios;
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblCodFuncionario;
     private javax.swing.JLabel lblCpf;
+    private javax.swing.JLabel lblFuncionario;
     private javax.swing.JLabel lblFundo;
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblNomeFuncionario;
