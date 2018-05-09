@@ -5,6 +5,11 @@
  */
 package view;
 
+import dao.DaoUsuario;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import model.Usuario;
+
 /**
  *
  * @author Luiz
@@ -16,6 +21,7 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
      */
     public FrmListagemUsuario() {
         initComponents();
+        atualizarTabela();
     }
 
     /**
@@ -240,23 +246,23 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
 
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
         // Chamando método de listagem com filtro, se txt preenchido
-        try {
-            //criando variável de controle
-            int controle = 0;
-
-            //Se campo de texto não estiver vazio
-            if (!"".equals(txtPesquisa.getText().trim())) {
-                controle = 1;
-                atualizarTabelaFiltrada();
-            }
-
-            //Se a variável de controle for 0, diz-se que o campo está vazio e, portanto, atualiza a JTable
-            if (controle == 0) {
-                atualizarTabela();
-            }
-        } catch (Exception ex) {
-            System.out.println("Exceção: " + ex);
-        }
+//        try {
+//            //criando variável de controle
+//            int controle = 0;
+//
+//            //Se campo de texto não estiver vazio
+//            if (!"".equals(txtPesquisa.getText().trim())) {
+//                controle = 1;
+//                atualizarTabelaFiltrada();
+//            }
+//
+//            //Se a variável de controle for 0, diz-se que o campo está vazio e, portanto, atualiza a JTable
+//            if (controle == 0) {
+//                atualizarTabela();
+//            }
+//        } catch (Exception ex) {
+//            System.out.println("Exceção: " + ex);
+//        }
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
     private void txtPesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyTyped
@@ -268,18 +274,18 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDataAntesActionPerformed
 
     private void txtDataAntesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDataAntesKeyReleased
-        try {
-            int controle = 0;
-            if (!"".equals(txtDataAntes.getText().trim())) {
-                controle = 1;
-                atualizarTabelaFiltradaData();
-            }
-            if (controle == 0) {
-                atualizarTabela();
-            }
-        } catch (Exception ex) {
-            System.out.println("Exceção: " + ex);
-        }
+//        try {
+//            int controle = 0;
+//            if (!"".equals(txtDataAntes.getText().trim())) {
+//                controle = 1;
+//                atualizarTabelaFiltradaData();
+//            }
+//            if (controle == 0) {
+//                atualizarTabela();
+//            }
+//        } catch (Exception ex) {
+//            System.out.println("Exceção: " + ex);
+//        }
     }//GEN-LAST:event_txtDataAntesKeyReleased
 
     private void txtDataAntesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDataAntesKeyTyped
@@ -291,18 +297,18 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDataDepoisActionPerformed
 
     private void txtDataDepoisKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDataDepoisKeyReleased
-        try {
-            int controle = 0;
-            if (!"".equals(txtDataDepois.getText().trim())) {
-                controle = 1;
-                atualizarTabelaFiltradaData();
-            }
-            if (controle == 0) {
-                atualizarTabela();
-            }
-        } catch (Exception ex) {
-            System.out.println("Exceção: " + ex);
-        }
+//        try {
+//            int controle = 0;
+//            if (!"".equals(txtDataDepois.getText().trim())) {
+//                controle = 1;
+//                atualizarTabelaFiltradaData();
+//            }
+//            if (controle == 0) {
+//                atualizarTabela();
+//            }
+//        } catch (Exception ex) {
+//            System.out.println("Exceção: " + ex);
+//        }
     }//GEN-LAST:event_txtDataDepoisKeyReleased
 
     private void txtDataDepoisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDataDepoisKeyTyped
@@ -310,8 +316,8 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDataDepoisKeyTyped
 
     private void btnHojeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojeActionPerformed
-        txtDataDepois.setText(""+new Date(Calendar.getInstance().getTimeInMillis()));
-        atualizarTabelaFiltradaData();
+//        txtDataDepois.setText(""+new Date(Calendar.getInstance().getTimeInMillis()));
+//        atualizarTabelaFiltradaData();
     }//GEN-LAST:event_btnHojeActionPerformed
 
     private void tblListagemDespesaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListagemDespesaMouseClicked
@@ -323,32 +329,32 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtualizarTabelaActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        try {
-            tblListagemDespesa.getCellEditor().stopCellEditing();
-        } catch (Exception ex) {
-
-        }
-        try {
-            dp.alterarDespesa(tblListagemDespesa);
-        } catch (SQLException ex) {
-            Logger.getLogger(FrmListagemDespesa.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrmListagemDespesa.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            tblListagemDespesa.getCellEditor().stopCellEditing();
+//        } catch (Exception ex) {
+//
+//        }
+//        try {
+//            dp.alterarDespesa(tblListagemDespesa);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(FrmListagemDespesa.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(FrmListagemDespesa.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-        Despesa despesa = new Despesa();
-        String aux;
-        aux = (String) tblListagemDespesa.getValueAt(tblListagemDespesa.getSelectedRow(), 0);
-        despesa.setCodigoDespesa(Integer.parseInt(aux));
-
-        try {
-            dp.deletarDespesa(despesa.getCodigoDespesa());
-            atualizarTabela();
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(FrmListagemDespesa.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        Despesa despesa = new Despesa();
+//        String aux;
+//        aux = (String) tblListagemDespesa.getValueAt(tblListagemDespesa.getSelectedRow(), 0);
+//        despesa.setCodigoDespesa(Integer.parseInt(aux));
+//
+//        try {
+//            dp.deletarDespesa(despesa.getCodigoDespesa());
+//            atualizarTabela();
+//        } catch (SQLException | ClassNotFoundException ex) {
+//            Logger.getLogger(FrmListagemDespesa.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
@@ -393,6 +399,117 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
                 new FrmListagemUsuario().setVisible(true);
             }
         });
+    }
+    
+//    private void atualizarTabelaFiltrada() {
+//        ArrayList<Usuario> lista = new ArrayList<>();
+//        lista = DaoUsuario.listarDespesaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim().toLowerCase());
+//        String[] nomeColunas = {"Código", "Tipo Despesa", "Data", "Descrição", "Valor", "PK_REF"};
+//        try {
+//            DefaultTableModel model = new DefaultTableModel() {
+//                @Override
+//                public boolean isCellEditable(int row, int column) {
+//                    if (column == 6) {
+//                        return false;
+//                    }
+//                    return true;
+//                }
+//            };
+//            tblListagemDespesa.setModel(model);
+//            model.setColumnIdentifiers(nomeColunas);
+//            model.setRowCount(0);
+//            Object rowData[] = new Object[6];
+//            for (int i = 0; i < lista.size(); i++) {
+//                rowData[0] = Integer.toString(lista.get(i).getCodigoDespesa());
+//                rowData[1] = lista.get(i).getTipoDespesas();
+//                rowData[2] = lista.get(i).getDataDespesa().toString();
+//                rowData[3] = lista.get(i).getDescricaoDespesa();             
+//                rowData[4] = Float.toString(lista.get(i).getValorDespesa());
+//                rowData[5] = Integer.toString(lista.get(i).getCodigoDespesa());
+//                
+//                model.addRow(rowData);
+//            }
+//
+//        } catch (Exception ex) {
+//            System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
+//        }
+//        
+//        tblListagemDespesa.getColumnModel().getColumn(5).setMinWidth(0);
+//        tblListagemDespesa.getColumnModel().getColumn(5).setPreferredWidth(0);
+//        tblListagemDespesa.getColumnModel().getColumn(5).setMaxWidth(0);
+//    }
+    
+//    private void atualizarTabelaFiltradaData() {
+//        ArrayList<Despesa> lista = new ArrayList<>();
+//        lista = DaoDespesa.listarDespesaFiltradaData(txtDataAntes.getText().trim(), txtDataDepois.getText().trim());
+//        String[] nomeColunas = {"Código", "Tipo Despesa", "Data", "Descrição", "Valor", "PK_REF"};
+//        try {
+//            DefaultTableModel model = new DefaultTableModel() {
+//                @Override
+//                public boolean isCellEditable(int row, int column) {
+//                    if (column == 6) {
+//                        return false;
+//                    }
+//                    return true;
+//                }
+//            };
+//            tblListagemDespesa.setModel(model);
+//            model.setColumnIdentifiers(nomeColunas);
+//            model.setRowCount(0);
+//            Object rowData[] = new Object[6];
+//            for (int i = 0; i < lista.size(); i++) {
+//                rowData[0] = Integer.toString(lista.get(i).getCodigoDespesa());
+//                rowData[1] = lista.get(i).getTipoDespesas();
+//                rowData[2] = lista.get(i).getDataDespesa().toString();
+//                rowData[3] = lista.get(i).getDescricaoDespesa();             
+//                rowData[4] = Float.toString(lista.get(i).getValorDespesa());
+//                rowData[5] = Integer.toString(lista.get(i).getCodigoDespesa());
+//                
+//                model.addRow(rowData);
+//            }
+//
+//        } catch (Exception ex) {
+//            System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
+//        }
+//        
+//        tblListagemDespesa.getColumnModel().getColumn(5).setMinWidth(0);
+//        tblListagemDespesa.getColumnModel().getColumn(5).setPreferredWidth(0);
+//        tblListagemDespesa.getColumnModel().getColumn(5).setMaxWidth(0);
+//    }
+    
+    private void atualizarTabela() {
+        ArrayList<Usuario> lista = new ArrayList<>();
+        lista = DaoUsuario.listarUsuario();
+        String[] nomeColunas = {"Código", "Funcionario", "Login", "PK_REF"};
+        try {
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    if (column == 4) {
+                        return false;
+                    }
+                    return true;
+                }
+            };
+            tblListagemDespesa.setModel(model);
+            model.setColumnIdentifiers(nomeColunas);
+            model.setRowCount(0);
+            Object rowData[] = new Object[4];
+            for (int i = 0; i < lista.size(); i++) {
+                rowData[0] = Integer.toString(lista.get(i).getCodigoUsuario());
+                rowData[1] = lista.get(i).getCodigoFuncionario();
+                rowData[2] = lista.get(i).getLogin();
+                rowData[3] = lista.get(i).getCodigoUsuario();
+                model.addRow(rowData);
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
+        }
+        
+        tblListagemDespesa.getColumnModel().getColumn(3).setMinWidth(0);
+        tblListagemDespesa.getColumnModel().getColumn(3).setPreferredWidth(0);
+        tblListagemDespesa.getColumnModel().getColumn(3).setMaxWidth(0);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

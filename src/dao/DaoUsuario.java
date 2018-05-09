@@ -9,8 +9,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import model.Usuario;
 import view.FrmLogin;
 import view.FrmPrincipal;
 
@@ -82,6 +84,28 @@ public class DaoUsuario {
         }
         
         return existe;
+    }
+    
+     public static ArrayList listarUsuario() {
+        ArrayList<Usuario> lista = new ArrayList<>();
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "SELECT * FROM SYNCHROSOFT.TB_USUARIO ORDER BY CD_USUARIO";
+            PreparedStatement st = con.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Usuario user = new Usuario();
+                user.setCodigoUsuario(rs.getInt("CD_USUARIO"));
+                user.setCodigoFuncionario(rs.getInt("CD_FUNCIONARIO"));
+                user.setLogin(rs.getString("DS_LOGIN"));
+                lista.add(user);
+            }
+            st.close();
+            rs.close();
+        } catch (Exception ex) {
+            System.err.println("DaoUsuario Listagem Java: " + ex.getMessage());
+        }
+        return lista;
     }
     
 }

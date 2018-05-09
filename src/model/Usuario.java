@@ -14,6 +14,11 @@ public class Usuario {
     private int codigoFuncionario;
     private String login;
     private String senha;
+    
+    public Usuario()
+    {
+        
+    }
 
     public Usuario(int codigoFuncionario, String login, String senha) {
         this.codigoFuncionario = codigoFuncionario;
