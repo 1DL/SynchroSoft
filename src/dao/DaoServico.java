@@ -8,6 +8,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -59,5 +60,36 @@ public class DaoServico {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o Funcionário.\n Erro:\n\n" + e.getMessage());
         }
+    }
+    
+    
+    public static boolean isFuncionarioEmServico(int codfunc) throws SQLException, ClassNotFoundException {
+        boolean flag = false;
+        long[] arrayFunc = null;
+        int i = 0;
+        int status = 0;
+        Connection con = Conexao.conectar();
+        String sql = "SELECT CD_FUNCIONARIO, CD_SERVICO FROM SYNCHROSOFT.TB_FUNC_SERVICO WHERE CD_FUNCIONARIO = ?";
+        PreparedStatement st = con.prepareStatement(sql);
+        st.setInt(1, codfunc);
+        ResultSet rs = st.executeQuery();
+        while(rs.next()){
+            arrayFunc[i] = rs.getLong("CD_SERVICO");
+            i++;
+        }
+        for (int j = 0; j <= i; j++){
+        sql = "SELECT ID_STATUS_SERVICO FROM SYNCHROSOFT.TB_SERVICO WHERE CD_SERVICO = ?";
+        PreparedStatement st2 = con.prepareStatement(sql);
+        st2.setLong(1, arrayFunc[j]);
+        while(rs.next()) {
+            status = rs.getInt("ID_STATUS_SERVICO");
+            if (status == 1) {
+                flag = true;                
+            }
+        }
+        }
+        st.close();
+        rs.close();
+        return flag;
     }
 }

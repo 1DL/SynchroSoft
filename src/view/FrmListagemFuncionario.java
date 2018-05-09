@@ -77,7 +77,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblListagemFuncionario);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(14, 119, 1090, 402);
+        jScrollPane1.setBounds(14, 119, 1090, 404);
 
         btnFechar.setText("Fechar");
         btnFechar.addActionListener(new java.awt.event.ActionListener() {
@@ -137,7 +137,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(360, 60, 107, 31);
+        cmbFiltro.setBounds(360, 60, 107, 33);
 
         txtPesquisa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {

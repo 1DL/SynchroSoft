@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import model.Endereco;
@@ -44,7 +45,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
 
     public FrmCadastroServico() {
         initComponents();
-        modoFisica();        
+        modoFisica();
         txtDataServico.setText("" + new Date(Calendar.getInstance().getTimeInMillis()));
     }
 
@@ -497,9 +498,9 @@ public class FrmCadastroServico extends javax.swing.JFrame {
                     lblCepExiste.setText("CEP Cadastrado.");
                     endExibicao = de.popularEndereco(txtCep.getText());
                     popularExibicaoEndereco(endExibicao);
-                    if(rbtFisica.isSelected()){
+                    if (rbtFisica.isSelected()) {
                         popularExibicaoPessoa(pessoaFisicaExibicao);
-                    } else if (rbtJuridica.isSelected()){
+                    } else if (rbtJuridica.isSelected()) {
                         popularExibicaoPessoaJuridica(pessoaJuridicaExibicao);
                     }
                 } else {
@@ -591,16 +592,21 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCpfCnpjKeyReleased
 
     private void txtCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCadastrarActionPerformed
-        Servico serv = new Servico(Integer.parseInt(txtCodigoServico.getText()), cmbTipoServico.getSelectedItem().toString(),
-                Date.valueOf(txtDataServico.getText()), rbtJuridica.isSelected(), txtCpfCnpj.getText(), txtCpfCnpj.getText(), f, "", true);
-        DaoServico dao = new DaoServico();
-        try {
-            dao.cadastrarServico(serv.getCodigoServico(), serv.getTipoServico(), serv.isTipoCliente(), serv.getDescricaoServicoFILE(), serv.getDataServico(), serv.isStatusServico());
-        } catch (SQLException ex) {
-            Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
+        if (cepCadastrado && flagFuncionario && (cnpjCadastrado || cpfCadastrado)) {
+            Servico serv = new Servico(Integer.parseInt(txtCodigoServico.getText()), cmbTipoServico.getSelectedItem().toString(),
+                    Date.valueOf(txtDataServico.getText()), rbtJuridica.isSelected(), txtCpfCnpj.getText(), txtCpfCnpj.getText(), f, "", true);
+            DaoServico dao = new DaoServico();
+            try {
+                dao.cadastrarServico(serv.getCodigoServico(), serv.getTipoServico(), serv.isTipoCliente(), serv.getDescricaoServicoFILE(), serv.getDataServico(), serv.isStatusServico());
+            } catch (SQLException ex) {
+                Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Erro! Preencha os campos corretamente.");
         }
+
 
     }//GEN-LAST:event_txtCadastrarActionPerformed
 
@@ -611,11 +617,14 @@ public class FrmCadastroServico extends javax.swing.JFrame {
                 f = DaoFuncionario.popularFuncionario(Integer.parseInt(txtCodFunc.getText()));
                 txtNomeFunc.setText(f.getPessoa().getNome());
                 lblFuncExiste.setText("Funcionário Livre");
-            } else if (){
-                
-            }else {
+                flagFuncionario = true;
+            } else if (DaoServico.isFuncionarioEmServico(Integer.parseInt(txtCodFunc.getText()))) {
+                lblFuncExiste.setText("Funcionário já vinculado a outro serviço");
+                flagFuncionario = false;
+            } else {
                 txtNomeFunc.setText("");
                 lblFuncExiste.setText("Funcionário Inexistente");
+                flagFuncionario = false;
             }
         } catch (SQLException ex) {
             Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
@@ -659,15 +668,15 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         });
     }
 
-    public void modoFisica (){
+    public void modoFisica() {
         lblCampoCpfCnpj.setText("CPF");
         txtRazaoSocial.setVisible(false);
         lblRazaoSocial.setVisible(false);
         lblNomeFicticio.setText("Nome");
         lblCelularRamal.setText("Celular");
     }
-    
-    public void modoJuridica (){
+
+    public void modoJuridica() {
         lblCampoCpfCnpj.setText("CNPJ");
         txtRazaoSocial.setVisible(true);
         lblRazaoSocial.setVisible(true);
@@ -700,7 +709,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtCelularRamal.setText("" + pf.getCelular());
 
     }
-    
+
     public void popularExibicaoPessoaJuridica(PessoaJuridica pj) {
         txtNomePessoaFicticio.setText(pj.getPessoa().getNome());
         txtLogradouro.setText(pj.getPessoa().getEndereco().getLogradouro());
@@ -708,7 +717,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtEstado.setText(pj.getPessoa().getEndereco().getEstado());
         txtBairro.setText(pj.getPessoa().getEndereco().getBairro());
         txtNumero.setText(pj.getPessoa().getComplementoLogradouro());
-        txtTelefone.setText(""+pj.getPessoa().getTelefone());
+        txtTelefone.setText("" + pj.getPessoa().getTelefone());
         txtCelularRamal.setText("" + pj.getRamalCliente());
         txtRazaoSocial.setText(pj.getRazaoSocial());
 
@@ -725,7 +734,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtCelularRamal.setText("");
 
     }
-    
+
     public void limparExibicaoPessoaJuridica() {
         txtNomePessoaFicticio.setText("");
         txtLogradouro.setText("");
