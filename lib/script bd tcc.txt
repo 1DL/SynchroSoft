@@ -212,3 +212,17 @@ ALTER TABLE tb_pessoaJ_servico DROP COLUMN dt_servico;
 --------------------------------------------------------------------------------------------------------------------
 ALTER TABLE tb_servico DROP COLUMN vl_servico;
 --------------------------------------------------------------------------------------------------------------------
+CREATE SEQUENCE SYNCHROSOFT.USUARIO_SEQ
+START WITH 1
+INCREMENT BY 1
+NOCYCLE;
+
+CREATE OR REPLACE TRIGGER SYNCHROSOFT.AUTOINC_USUARIO
+  BEFORE INSERT ON SYNCHROSOFT.TB_USUARIO
+  FOR EACH ROW
+BEGIN
+  SELECT SYNCHROSOFT.USUARIO_SEQ.nextval
+    INTO :new.CD_USUARIO
+    FROM dual;
+END;
+----------------------------------------------------------------------------------------------------------------------
