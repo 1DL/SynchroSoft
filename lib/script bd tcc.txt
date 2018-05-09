@@ -196,3 +196,6 @@ ALTER TABLE tb_servico ADD id_status_servico numeric(1) check(id_status_servico 
 
 ALTER TABLE tb_orcamento ADD id_status_orcamento numeric(1) check(id_status_orcamento in (1,0));
 
+ALTER TABLE tb_peca_orcamento ADD qt_peca_vendida NUMERIC(4);
+
+ALTER TABLE tb_peca_orcamento ADD vl_peca_vendida NUMERIC(4);
