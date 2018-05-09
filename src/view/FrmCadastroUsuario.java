@@ -5,6 +5,13 @@
  */
 package view;
 
+import dao.DaoUsuario;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import model.Usuario;
+
 /**
  *
  * @author Luiz
@@ -33,8 +40,13 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         txtLogin = new javax.swing.JTextField();
         lblSenha = new javax.swing.JLabel();
         txtSenha = new javax.swing.JPasswordField();
-        txtSenha1 = new javax.swing.JPasswordField();
+        txtConfirma = new javax.swing.JPasswordField();
         lblSenha1 = new javax.swing.JLabel();
+        btnCadastrar = new javax.swing.JButton();
+        btnLimpar = new javax.swing.JButton();
+        btnMenuPrincipal = new javax.swing.JButton();
+        btnListarFuncionarios = new javax.swing.JButton();
+        btnFecharFrame = new javax.swing.JButton();
         pnlDadosFuncionario = new javax.swing.JPanel();
         lblNomeFuncionario = new javax.swing.JLabel();
         txtNomeFuncionario = new javax.swing.JTextField();
@@ -79,14 +91,59 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         getContentPane().add(txtSenha);
         txtSenha.setBounds(770, 240, 250, 31);
 
-        txtSenha1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        getContentPane().add(txtSenha1);
-        txtSenha1.setBounds(770, 320, 250, 31);
+        txtConfirma.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        getContentPane().add(txtConfirma);
+        txtConfirma.setBounds(770, 320, 250, 31);
 
         lblSenha1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblSenha1.setText("Confirmar:");
         getContentPane().add(lblSenha1);
         lblSenha1.setBounds(670, 320, 90, 25);
+
+        btnCadastrar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCadastrar);
+        btnCadastrar.setBounds(100, 470, 220, 33);
+
+        btnLimpar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        btnLimpar.setText("Limpar");
+        getContentPane().add(btnLimpar);
+        btnLimpar.setBounds(100, 560, 220, 33);
+
+        btnMenuPrincipal.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        btnMenuPrincipal.setText("Menu Principal");
+        btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuPrincipalActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMenuPrincipal);
+        btnMenuPrincipal.setBounds(490, 420, 170, 210);
+
+        btnListarFuncionarios.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        btnListarFuncionarios.setText("Listar Usuários");
+        btnListarFuncionarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarFuncionariosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnListarFuncionarios);
+        btnListarFuncionarios.setBounds(840, 460, 200, 30);
+
+        btnFecharFrame.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        btnFecharFrame.setText("Fechar ");
+        btnFecharFrame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharFrameActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnFecharFrame);
+        btnFecharFrame.setBounds(840, 550, 200, 33);
 
         pnlDadosFuncionario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         pnlDadosFuncionario.setOpaque(false);
@@ -172,6 +229,47 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        try
+        {
+            if(txtSenha.getText().trim() == txtConfirma.getText().trim())
+            {
+                DaoUsuario dao = new DaoUsuario();
+                Usuario user = new Usuario(Integer.parseInt(txtCodFuncionario.getText()), txtLogin.getText(), txtSenha.getText());
+                try {
+                    dao.cadastrarUsuario(user.getCodigoFuncionario(), user.getLogin(), user.getSenha());
+                    JOptionPane.showMessageDialog(null, "Cadastrado!");
+                } catch (SQLException ex) {
+                    Logger.getLogger(FrmCadastroDespesa.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(FrmCadastroDespesa.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Senha não corresponde à confirmação de senha!");
+            }
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, "Erro: "+e.getMessage());
+        }
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
+        FrmPrincipal telaPrincipal = new FrmPrincipal();
+        telaPrincipal.setVisible(true);
+    }//GEN-LAST:event_btnMenuPrincipalActionPerformed
+
+    private void btnListarFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarFuncionariosActionPerformed
+        FrmListagemFuncionario ListagemFunc = new FrmListagemFuncionario();
+        ListagemFunc.setVisible(true);
+    }//GEN-LAST:event_btnListarFuncionariosActionPerformed
+
+    private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnFecharFrameActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -208,6 +306,11 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnFecharFrame;
+    private javax.swing.JButton btnLimpar;
+    private javax.swing.JButton btnListarFuncionarios;
+    private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblCodFuncionario;
     private javax.swing.JLabel lblCpf;
@@ -220,11 +323,11 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
     private javax.swing.JPanel pnlDadosFuncionario;
     private javax.swing.JTextField txtCargo;
     private javax.swing.JTextField txtCodFuncionario;
+    private javax.swing.JPasswordField txtConfirma;
     private javax.swing.JTextField txtCpf;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JTextField txtNomeFuncionario;
     private javax.swing.JTextField txtSalario;
     private javax.swing.JPasswordField txtSenha;
-    private javax.swing.JPasswordField txtSenha1;
     // End of variables declaration//GEN-END:variables
 }

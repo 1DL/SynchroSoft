@@ -20,6 +20,23 @@ import view.FrmPrincipal;
  */
 public class DaoUsuario {
     
+    public void cadastrarUsuario(int CodFunc, String login, String senha) throws SQLException, ClassNotFoundException {
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "INSERT INTO SYNCHROSOFT.TB_USUARIO (CD_FUNCIONARIO, DS_LOGIN, DS_SENHA) VALUES (?,?,?)";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, CodFunc);
+            st.setString(2, login);
+            st.setString(3, senha);
+            st.executeUpdate();
+            st.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o login do usuário.\n Erro SQL:\n\n" + ex.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o login do usuário.\n Erro JAVA:\n\n" + e.getMessage());
+        }
+    }
+    
     public static boolean ChecarLogin(String login, String senha)
     {
         //criando variável booleana de controle

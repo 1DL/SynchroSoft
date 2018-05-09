@@ -15,6 +15,12 @@ public class Usuario {
     private String login;
     private String senha;
 
+    public Usuario(int codigoFuncionario, String login, String senha) {
+        this.codigoFuncionario = codigoFuncionario;
+        this.login = login;
+        this.senha = senha;
+    }
+    
     public int getCodigoUsuario() {
         return codigoUsuario;
     }
