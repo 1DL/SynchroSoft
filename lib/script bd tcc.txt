@@ -72,7 +72,7 @@ CREATE TABLE tb_peca
 CREATE TABLE tb_servico
 (
  cd_servico numeric(10),
- ds_tipo_servico numeric(1) check(ds_tipo_servico in(1,2,3)),
+ ds_tipo_servico numeric(1) check(ds_tipo_servico in(0,1,2)),
  ds_tipo_cliente numeric(1) check(ds_tipo_cliente in (1,0)),
  ds_servico varchar2(100),
  dt_servico date,
@@ -92,7 +92,7 @@ CREATE TABLE tb_orcamento
 CREATE TABLE tb_func_servico
 (
  cd_funcionario_servico numeric(5),
- cd_funcionario numeric(4),
+ cd_funcionario numeric(10),
  cd_servico numeric(10),
  constraint pk_funcionario_servico primary key(cd_funcionario_servico),
  constraint fk_funcionario_func_servico foreign key(cd_funcionario) references tb_funcionario(cd_funcionario),
