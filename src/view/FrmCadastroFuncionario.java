@@ -122,6 +122,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setMaximumSize(new java.awt.Dimension(1152, 648));
         jPanel1.setMinimumSize(new java.awt.Dimension(1152, 648));
+        jPanel1.setOpaque(false);
         jPanel1.setPreferredSize(new java.awt.Dimension(1152, 648));
 
         lblCpf.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -236,6 +237,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados da Pessoa"));
+        jPanel2.setOpaque(false);
 
         lblNome.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblNome.setText("Nome");

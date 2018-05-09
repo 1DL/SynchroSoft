@@ -36,6 +36,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     boolean cepCadastrado;
     boolean cpfCadastrado;
     boolean cnpjCadastrado;
+    boolean servCadastrado;
     Endereco endExibicao;
     PessoaFisica pessoaFisicaExibicao;
     PessoaJuridica pessoaJuridicaExibicao;
