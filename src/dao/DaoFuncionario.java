@@ -54,6 +54,19 @@ public class DaoFuncionario {
         }
     }
     
+    public static boolean isFuncionarioEmServico(int codfunc, int codservico) throws SQLException, ClassNotFoundException {
+        boolean flag;
+        Connection con = Conexao.conectar();
+        String sql = "SELECT CD_FUNCIONARIO FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE CD_FUNCIONARIO = ?";
+        PreparedStatement st = con.prepareStatement(sql);
+        st.setInt(1, codigo);
+        ResultSet rs = st.executeQuery();
+        flag = rs.isBeforeFirst();
+        st.close();
+        rs.close();
+        return flag;
+    }
+    
     public void alterarFuncionario(JTable tabela) throws SQLException, ClassNotFoundException {
 //      
         try {

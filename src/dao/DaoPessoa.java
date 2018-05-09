@@ -61,6 +61,23 @@ public class DaoPessoa {
         rs.close();
         return pf;
     }
+    
+    public static PessoaJuridica popularPessoaJuridica(String cnpj, String cep) throws SQLException, ClassNotFoundException {
+        boolean flag;
+        Connection con = Conexao.conectar();
+        String sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA WHERE CD_CNPJ = ?";
+        PreparedStatement st = con.prepareStatement(sql);
+        st.setString(1, cnpj);
+        ResultSet rs = st.executeQuery();
+        rs.next();
+        Endereco end = new Endereco();
+        end = DaoEndereco.popularEndereco(cep);
+        Pessoa p = new Pessoa(rs.getString("NM_RAZAO_SOCIAL"), end, rs.getLong("NR_TELEFONE"), rs.getString("NR_LOGRADOURO"), rs.getInt("ID_CONTRATO"));
+        PessoaJuridica pj = new PessoaJuridica(p, rs.getString("CD_CNPJ"), rs.getString("NM_RAZAO_SOCIAL"), rs.getDate("DT_CADASTRO"), rs.getLong("NR_RAMAL"));
+        st.close();
+        rs.close();
+        return pj;
+    }
 
     public static boolean existePessoaFisica(String cpf) throws SQLException, ClassNotFoundException {
         boolean flag;
@@ -68,6 +85,19 @@ public class DaoPessoa {
         String sql = "SELECT CD_CPF FROM SYNCHROSOFT.TB_PESSOA_FISICA WHERE CD_CPF = ?";
         PreparedStatement st = con.prepareStatement(sql);
         st.setString(1, cpf);
+        ResultSet rs = st.executeQuery();
+        flag = rs.isBeforeFirst();
+        st.close();
+        rs.close();
+        return flag;
+    }
+    
+    public static boolean existePessoaJuridica(String cnpj) throws SQLException, ClassNotFoundException {
+        boolean flag;
+        Connection con = Conexao.conectar();
+        String sql = "SELECT CD_CNPJ FROM SYNCHROSOFT.TB_PESSOA_JURIDICA WHERE CD_CNPJ = ?";
+        PreparedStatement st = con.prepareStatement(sql);
+        st.setString(1, cnpj);
         ResultSet rs = st.executeQuery();
         flag = rs.isBeforeFirst();
         st.close();
@@ -95,6 +125,8 @@ public class DaoPessoa {
             JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar a Pessoa Juridica.\n Erro:\n\n" + ex.getMessage());
         }
     }
+    
+    
 
     public void deletarPessoaFisica(String cpf) throws SQLException, ClassNotFoundException {
         try {
