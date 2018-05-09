@@ -199,3 +199,13 @@ ALTER TABLE tb_orcamento ADD id_status_orcamento numeric(1) check(id_status_orca
 ALTER TABLE tb_peca_orcamento ADD qt_peca_vendida NUMERIC(4);
 
 ALTER TABLE tb_peca_orcamento ADD vl_peca_vendida NUMERIC(4);
+
+ALTER TABLE tb_servico DROP COLUMN dt_servico;
+
+ALTER TABLE tb_servico ADD dt_servico_inicio date;
+
+ALTER TABLE tb_servico ADD dt_servico_fim date;
+
+ALTER TABLE tb_pessoaF_servico DROP COLUMN dt_servico;
+
+ALTER TABLE tb_pessoaJ_servico DROP COLUMN dt_servico;
