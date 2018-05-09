@@ -649,8 +649,8 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodFuncKeyReleased
 
     private void btnListarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarFuncActionPerformed
-        FrmListagemFuncionario telaListaF = new FrmListagemFuncionario();
-        telaListaF.setVisible(true);
+        FrmListagemFuncionario tela = new FrmListagemFuncionario();
+        tela.setVisible(true);
     }//GEN-LAST:event_btnListarFuncActionPerformed
 
     private void txtCodigoServicoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoServicoKeyReleased
