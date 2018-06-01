@@ -41,16 +41,8 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
         cmbFiltro = new javax.swing.JComboBox<>();
         lblDescrever = new javax.swing.JLabel();
         txtPesquisa = new javax.swing.JTextField();
-        lblPesquisarData = new javax.swing.JLabel();
-        txtDataAntes = new javax.swing.JTextField();
-        lblPesquisarData1 = new javax.swing.JLabel();
-        txtDataDepois = new javax.swing.JTextField();
-        btnHoje = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListagemUsuario = new javax.swing.JTable();
-        lblPesquisar1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        txaDescricaoSelecionada = new javax.swing.JTextArea();
         btnAtualizarTabela = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
         btnDeletar = new javax.swing.JButton();
@@ -69,19 +61,19 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
         lblPesquisar.setBounds(30, 50, 160, 40);
 
         cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "Tipo", "Data", "Descrição", "Valor" }));
+        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "Funcionário", "Login", "Senha" }));
         cmbFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbFiltroActionPerformed(evt);
             }
         });
         getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(160, 60, 107, 31);
+        cmbFiltro.setBounds(160, 60, 150, 33);
 
         lblDescrever.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDescrever.setText("Descrição:");
         getContentPane().add(lblDescrever);
-        lblDescrever.setBounds(270, 50, 83, 40);
+        lblDescrever.setBounds(330, 50, 83, 40);
 
         txtPesquisa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -98,61 +90,7 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtPesquisa);
-        txtPesquisa.setBounds(370, 50, 221, 40);
-
-        lblPesquisarData.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblPesquisarData.setText("Data:  De:");
-        getContentPane().add(lblPesquisarData);
-        lblPesquisarData.setBounds(600, 50, 90, 40);
-
-        txtDataAntes.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtDataAntes.setText("1980-01-01");
-        txtDataAntes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDataAntesActionPerformed(evt);
-            }
-        });
-        txtDataAntes.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtDataAntesKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtDataAntesKeyTyped(evt);
-            }
-        });
-        getContentPane().add(txtDataAntes);
-        txtDataAntes.setBounds(690, 50, 130, 40);
-
-        lblPesquisarData1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblPesquisarData1.setText("Até:");
-        getContentPane().add(lblPesquisarData1);
-        lblPesquisarData1.setBounds(830, 50, 70, 40);
-
-        txtDataDepois.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtDataDepois.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDataDepoisActionPerformed(evt);
-            }
-        });
-        txtDataDepois.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtDataDepoisKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtDataDepoisKeyTyped(evt);
-            }
-        });
-        getContentPane().add(txtDataDepois);
-        txtDataDepois.setBounds(870, 50, 130, 40);
-
-        btnHoje.setText("Hoje");
-        btnHoje.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHojeActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnHoje);
-        btnHoje.setBounds(1010, 50, 100, 40);
+        txtPesquisa.setBounds(430, 50, 221, 40);
 
         tblListagemUsuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -173,19 +111,7 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblListagemUsuario);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(14, 119, 1090, 280);
-
-        lblPesquisar1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblPesquisar1.setText("Descrição da Despesa Selecionada:");
-        getContentPane().add(lblPesquisar1);
-        lblPesquisar1.setBounds(20, 400, 420, 40);
-
-        txaDescricaoSelecionada.setColumns(20);
-        txaDescricaoSelecionada.setRows(5);
-        jScrollPane2.setViewportView(txaDescricaoSelecionada);
-
-        getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(20, 430, 1080, 96);
+        jScrollPane1.setBounds(14, 119, 1090, 390);
 
         btnAtualizarTabela.setText("AtualizarTabela");
         btnAtualizarTabela.addActionListener(new java.awt.event.ActionListener() {
@@ -250,82 +176,31 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
 
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
         // Chamando método de listagem com filtro, se txt preenchido
-//        try {
-//            //criando variável de controle
-//            int controle = 0;
-//
-//            //Se campo de texto não estiver vazio
-//            if (!"".equals(txtPesquisa.getText().trim())) {
-//                controle = 1;
-//                atualizarTabelaFiltrada();
-//            }
-//
-//            //Se a variável de controle for 0, diz-se que o campo está vazio e, portanto, atualiza a JTable
-//            if (controle == 0) {
-//                atualizarTabela();
-//            }
-//        } catch (Exception ex) {
-//            System.out.println("Exceção: " + ex);
-//        }
+        try {
+            //criando variável de controle
+            int controle = 0;
+
+            //Se campo de texto não estiver vazio
+            if (!"".equals(txtPesquisa.getText().trim())) {
+                controle = 1;
+                atualizarTabelaFiltrada();
+            }
+
+            //Se a variável de controle for 0, diz-se que o campo está vazio e, portanto, atualiza a JTable
+            if (controle == 0) {
+                atualizarTabela();
+            }
+        } catch (Exception ex) {
+            System.out.println("Exceção: " + ex);
+        }
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
     private void txtPesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyTyped
 
     }//GEN-LAST:event_txtPesquisaKeyTyped
 
-    private void txtDataAntesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataAntesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDataAntesActionPerformed
-
-    private void txtDataAntesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDataAntesKeyReleased
-//        try {
-//            int controle = 0;
-//            if (!"".equals(txtDataAntes.getText().trim())) {
-//                controle = 1;
-//                atualizarTabelaFiltradaData();
-//            }
-//            if (controle == 0) {
-//                atualizarTabela();
-//            }
-//        } catch (Exception ex) {
-//            System.out.println("Exceção: " + ex);
-//        }
-    }//GEN-LAST:event_txtDataAntesKeyReleased
-
-    private void txtDataAntesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDataAntesKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDataAntesKeyTyped
-
-    private void txtDataDepoisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataDepoisActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDataDepoisActionPerformed
-
-    private void txtDataDepoisKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDataDepoisKeyReleased
-//        try {
-//            int controle = 0;
-//            if (!"".equals(txtDataDepois.getText().trim())) {
-//                controle = 1;
-//                atualizarTabelaFiltradaData();
-//            }
-//            if (controle == 0) {
-//                atualizarTabela();
-//            }
-//        } catch (Exception ex) {
-//            System.out.println("Exceção: " + ex);
-//        }
-    }//GEN-LAST:event_txtDataDepoisKeyReleased
-
-    private void txtDataDepoisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDataDepoisKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDataDepoisKeyTyped
-
-    private void btnHojeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojeActionPerformed
-//        txtDataDepois.setText(""+new Date(Calendar.getInstance().getTimeInMillis()));
-//        atualizarTabelaFiltradaData();
-    }//GEN-LAST:event_btnHojeActionPerformed
-
     private void tblListagemUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListagemUsuarioMouseClicked
-        txaDescricaoSelecionada.setText((String) tblListagemUsuario.getValueAt(tblListagemUsuario.getSelectedRow(), 3));
+        
     }//GEN-LAST:event_tblListagemUsuarioMouseClicked
 
     private void btnAtualizarTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarTabelaActionPerformed
@@ -405,86 +280,47 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
         });
     }
     
-//    private void atualizarTabelaFiltrada() {
-//        ArrayList<Usuario> lista = new ArrayList<>();
-//        lista = DaoUsuario.listarDespesaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim().toLowerCase());
-//        String[] nomeColunas = {"Código", "Tipo Despesa", "Data", "Descrição", "Valor", "PK_REF"};
-//        try {
-//            DefaultTableModel model = new DefaultTableModel() {
-//                @Override
-//                public boolean isCellEditable(int row, int column) {
-//                    if (column == 6) {
-//                        return false;
-//                    }
-//                    return true;
-//                }
-//            };
-//            tblListagemDespesa.setModel(model);
-//            model.setColumnIdentifiers(nomeColunas);
-//            model.setRowCount(0);
-//            Object rowData[] = new Object[6];
-//            for (int i = 0; i < lista.size(); i++) {
-//                rowData[0] = Integer.toString(lista.get(i).getCodigoDespesa());
-//                rowData[1] = lista.get(i).getTipoDespesas();
-//                rowData[2] = lista.get(i).getDataDespesa().toString();
-//                rowData[3] = lista.get(i).getDescricaoDespesa();             
-//                rowData[4] = Float.toString(lista.get(i).getValorDespesa());
-//                rowData[5] = Integer.toString(lista.get(i).getCodigoDespesa());
-//                
-//                model.addRow(rowData);
-//            }
-//
-//        } catch (Exception ex) {
-//            System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
-//        }
-//        
-//        tblListagemDespesa.getColumnModel().getColumn(5).setMinWidth(0);
-//        tblListagemDespesa.getColumnModel().getColumn(5).setPreferredWidth(0);
-//        tblListagemDespesa.getColumnModel().getColumn(5).setMaxWidth(0);
-//    }
-    
-//    private void atualizarTabelaFiltradaData() {
-//        ArrayList<Despesa> lista = new ArrayList<>();
-//        lista = DaoDespesa.listarDespesaFiltradaData(txtDataAntes.getText().trim(), txtDataDepois.getText().trim());
-//        String[] nomeColunas = {"Código", "Tipo Despesa", "Data", "Descrição", "Valor", "PK_REF"};
-//        try {
-//            DefaultTableModel model = new DefaultTableModel() {
-//                @Override
-//                public boolean isCellEditable(int row, int column) {
-//                    if (column == 6) {
-//                        return false;
-//                    }
-//                    return true;
-//                }
-//            };
-//            tblListagemDespesa.setModel(model);
-//            model.setColumnIdentifiers(nomeColunas);
-//            model.setRowCount(0);
-//            Object rowData[] = new Object[6];
-//            for (int i = 0; i < lista.size(); i++) {
-//                rowData[0] = Integer.toString(lista.get(i).getCodigoDespesa());
-//                rowData[1] = lista.get(i).getTipoDespesas();
-//                rowData[2] = lista.get(i).getDataDespesa().toString();
-//                rowData[3] = lista.get(i).getDescricaoDespesa();             
-//                rowData[4] = Float.toString(lista.get(i).getValorDespesa());
-//                rowData[5] = Integer.toString(lista.get(i).getCodigoDespesa());
-//                
-//                model.addRow(rowData);
-//            }
-//
-//        } catch (Exception ex) {
-//            System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
-//        }
-//        
-//        tblListagemDespesa.getColumnModel().getColumn(5).setMinWidth(0);
-//        tblListagemDespesa.getColumnModel().getColumn(5).setPreferredWidth(0);
-//        tblListagemDespesa.getColumnModel().getColumn(5).setMaxWidth(0);
-//    }
+    private void atualizarTabelaFiltrada() {
+        ArrayList<Usuario> lista = new ArrayList<>();
+        lista = DaoUsuario.listarUsuarioFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim().toLowerCase());
+        String[] nomeColunas = {"Código", "Funcionário", "Login", "Senha", "PK_REF"};
+        try {
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    if (column == 5) {
+                        return false;
+                    }
+                    return true;
+                }
+            };
+            tblListagemUsuario.setModel(model);
+            model.setColumnIdentifiers(nomeColunas);
+            model.setRowCount(0);
+            Object rowData[] = new Object[5];
+            for (int i = 0; i < lista.size(); i++) {
+                rowData[0] = Integer.toString(lista.get(i).getCodigoUsuario());
+                rowData[1] = Integer.toString(lista.get(i).getCodigoFuncionario());
+                rowData[2] = lista.get(i).getLogin();
+                rowData[3] = lista.get(i).getSenha();             
+                rowData[4] = Integer.toString(lista.get(i).getCodigoUsuario());
+                
+                model.addRow(rowData);
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
+        }
+        
+        tblListagemUsuario.getColumnModel().getColumn(4).setMinWidth(0);
+        tblListagemUsuario.getColumnModel().getColumn(4).setPreferredWidth(0);
+        tblListagemUsuario.getColumnModel().getColumn(4).setMaxWidth(0);
+    }
     
     private void atualizarTabela() {
         ArrayList<Usuario> lista = new ArrayList<>();
         lista = DaoUsuario.listarUsuario();
-        String[] nomeColunas = {"Código", "Funcionario", "Login", "senha", "PK_REF"};
+        String[] nomeColunas = {"Código", "Funcionário", "Login", "Senha", "PK_REF"};
         try {
             DefaultTableModel model = new DefaultTableModel() {
                 @Override
@@ -522,21 +358,13 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnAtualizarTabela;
     private javax.swing.JButton btnDeletar;
     private javax.swing.JButton btnFechar;
-    private javax.swing.JButton btnHoje;
     private javax.swing.JButton btnTelaCadastro;
     private javax.swing.JComboBox<String> cmbFiltro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblDescrever;
     private javax.swing.JLabel lblPesquisar;
-    private javax.swing.JLabel lblPesquisar1;
-    private javax.swing.JLabel lblPesquisarData;
-    private javax.swing.JLabel lblPesquisarData1;
     private javax.swing.JTable tblListagemUsuario;
-    private javax.swing.JTextArea txaDescricaoSelecionada;
-    private javax.swing.JTextField txtDataAntes;
-    private javax.swing.JTextField txtDataDepois;
     private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables
 }

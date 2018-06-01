@@ -159,5 +159,47 @@ public class DaoUsuario {
         }
 
     }
+      
+      public static ArrayList listarUsuarioFiltrada(String cmbFiltro, String txtPesquisa) {
+        ArrayList<Usuario> lista = new ArrayList<>();
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "";
+            /*
+Código", "Funcionário", "Login", "Senha            
+             */
+
+            switch (cmbFiltro) {
+                case "Código":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_USUARIO WHERE LOWER(CD_USUARIO) LIKE LOWER(?)";
+                    break;
+                case "Funcionário":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_USUARIO WHERE LOWER(CD_FUNCIONARIO) LIKE LOWER(?)";
+                    break;
+                case "Login":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_USUARIO WHERE LOWER(DS_LOGIN) LIKE LOWER(?)";
+                    break;
+                case "Senha":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_USUARIO WHERE LOWER(DS_SENHA) LIKE LOWER(?)";
+                    break;
+            }
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, "%" + txtPesquisa + "%");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Usuario u = new Usuario();
+                u.setCodigoUsuario(rs.getInt("CD_USUARIO"));
+                u.setCodigoFuncionario(rs.getInt("CD_FUNCIONARIO"));
+                u.setLogin(rs.getString("DS_LOGIN").toString());
+                u.setSenha(rs.getString("DS_SENHA"));
+                lista.add(u);
+            }
+            st.close();
+            rs.close();
+        } catch (Exception ex) {
+            System.err.println("DaoUsuario Listagem Java: " + ex.getMessage());
+        }
+        return lista;
+    }
     
 }
