@@ -20,6 +20,31 @@ import javax.swing.JTable;
  */
 public class DaoServico {
 
+    public static boolean verificarServicoAtivo(int codigoServico) throws SQLException, ClassNotFoundException {
+        int aux = 0;
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "SELECT ID_STATUS_SERVICO FROM SYNCHROSOFT.TB_SERVICO WHERE CD_SERVICO = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, codigoServico);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                aux = rs.getInt("ID_STATUS_SERVICO");
+            }
+            st.close();
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        if (aux == 1) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
     public void cadastrarServico(String cpfcnpj, int codFunc, int codigoServico, String tipoServico, boolean tipoCliente, String descricaoServico, Date dataServico,
             boolean statusServico) throws SQLException, ClassNotFoundException {
         try {
@@ -86,7 +111,7 @@ public class DaoServico {
 
             st.close();
             st2.close();
-            
+
             JOptionPane.showMessageDialog(null, "Serviço ativado.");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o Serviço.\n Erro SQL:\n\n" + ex.getMessage());
@@ -121,7 +146,7 @@ public class DaoServico {
         while (rs.next()) {
             arrayFunc.add(rs.getLong("CD_SERVICO"));
         }
-        for (int j = 0; j <= arrayFunc.size()-1; j++) {
+        for (int j = 0; j <= arrayFunc.size() - 1; j++) {
             sql = "SELECT ID_STATUS_SERVICO FROM SYNCHROSOFT.TB_SERVICO WHERE CD_SERVICO = ?";
             PreparedStatement st2 = con.prepareStatement(sql);
             st2.setLong(1, arrayFunc.get(j));

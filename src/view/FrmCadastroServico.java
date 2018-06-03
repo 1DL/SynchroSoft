@@ -9,6 +9,7 @@ import dao.DaoEndereco;
 import dao.DaoFuncionario;
 import dao.DaoPessoa;
 import dao.DaoServico;
+import dao.DaoUsuario;
 import java.awt.Color;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -49,6 +50,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         initComponents();
         modoFisica();
         txtDataServico.setText("" + new Date(Calendar.getInstance().getTimeInMillis()));
+        btnOrcamento.setEnabled(false);
     }
 
     /**
@@ -262,8 +264,13 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtNomeFunc.setBounds(240, 460, 490, 30);
 
         btnOrcamento.setText("Criar orçamento");
+        btnOrcamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrcamentoActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnOrcamento);
-        btnOrcamento.setBounds(520, 510, 130, 40);
+        btnOrcamento.setBounds(920, 510, 130, 40);
 
         txtLimpar.setText("Limpar");
         getContentPane().add(txtLimpar);
@@ -276,7 +283,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtCadastrar);
-        txtCadastrar.setBounds(990, 510, 110, 40);
+        txtCadastrar.setBounds(790, 510, 110, 40);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados da Pessoa"));
         jPanel2.setOpaque(false);
@@ -429,6 +436,11 @@ public class FrmCadastroServico extends javax.swing.JFrame {
 
         cmbTipoServico.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         cmbTipoServico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Preventivo", "Corretivo", "Emergencial" }));
+        cmbTipoServico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTipoServicoActionPerformed(evt);
+            }
+        });
         getContentPane().add(cmbTipoServico);
         cmbTipoServico.setBounds(580, 60, 170, 33);
 
@@ -675,6 +687,31 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_txtCodigoServicoKeyReleased
+
+    private void cmbTipoServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoServicoActionPerformed
+        if (cmbTipoServico.getSelectedIndex() == 0) {
+            btnOrcamento.setEnabled(false);
+        } else {
+            btnOrcamento.setEnabled(true);
+        }
+    }//GEN-LAST:event_cmbTipoServicoActionPerformed
+
+    private void btnOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrcamentoActionPerformed
+        Servico s = new Servico();
+        s.setCodigoServico(Integer.parseInt(txtCodigoServico.getText()));
+        try {
+            if (DaoServico.verificarServicoAtivo(s.getCodigoServico())){
+                FrmCadastroOrcamento telaCadOrcamento = new FrmCadastroOrcamento();
+                telaCadOrcamento.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Serviço ainda não está ativado. Ative-o para gerar um orçamento para o mesmo.");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnOrcamentoActionPerformed
 
     /**
      * @param args the command line arguments

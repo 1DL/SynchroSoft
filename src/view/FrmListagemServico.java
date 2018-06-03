@@ -21,12 +21,12 @@ import model.Funcionario;
  *
  * @author LuizV1
  */
-public class FrmListagemDespesa extends javax.swing.JFrame {
+public class FrmListagemServico extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmListagemDespesas
      */
-    public FrmListagemDespesa() {
+    public FrmListagemServico() {
         initComponents();
         atualizarTabela();
         txtDataDepois.setText(""+ new Date(Calendar.getInstance().getTimeInMillis()));
@@ -55,7 +55,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         btnTelaCadastro = new javax.swing.JButton();
         btnFechar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblListagemDespesa = new javax.swing.JTable();
+        tblListagemServico = new javax.swing.JTable();
         lblPesquisar = new javax.swing.JLabel();
         btnHoje = new javax.swing.JButton();
         cmbFiltro = new javax.swing.JComboBox<>();
@@ -64,7 +64,6 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
 
@@ -170,7 +169,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         getContentPane().add(btnFechar);
         btnFechar.setBounds(990, 550, 130, 50);
 
-        tblListagemDespesa.setModel(new javax.swing.table.DefaultTableModel(
+        tblListagemServico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -181,12 +180,12 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblListagemDespesa.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblListagemServico.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblListagemDespesaMouseClicked(evt);
+                tblListagemServicoMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblListagemDespesa);
+        jScrollPane1.setViewportView(tblListagemServico);
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(14, 119, 1090, 280);
@@ -206,7 +205,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         btnHoje.setBounds(1010, 50, 100, 40);
 
         cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "Tipo", "Data", "Descrição", "Valor" }));
+        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código Serviço", "Status Serviço", "Tipo Serviço", "Descrição Serviço", "Data Início", "Data Encerramento" }));
         cmbFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbFiltroActionPerformed(evt);
@@ -251,16 +250,16 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         try {
-            tblListagemDespesa.getCellEditor().stopCellEditing();
+            tblListagemServico.getCellEditor().stopCellEditing();
         } catch (Exception ex) {
 
         }
         try {
-            dp.alterarDespesa(tblListagemDespesa);
+            dp.alterarDespesa(tblListagemServico);
         } catch (SQLException ex) {
-            Logger.getLogger(FrmListagemDespesa.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrmListagemDespesa.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_btnAlterarActionPerformed
@@ -268,14 +267,14 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
         Despesa despesa = new Despesa();
         String aux;
-        aux = (String) tblListagemDespesa.getValueAt(tblListagemDespesa.getSelectedRow(), 0);
+        aux = (String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0);
         despesa.setCodigoDespesa(Integer.parseInt(aux));
 
         try {
             dp.deletarDespesa(despesa.getCodigoDespesa());
             atualizarTabela();
         } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(FrmListagemDespesa.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnDeletarActionPerformed
 
@@ -367,9 +366,9 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDataDepoisKeyTyped
 
-    private void tblListagemDespesaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListagemDespesaMouseClicked
-        txaDescricaoSelecionada.setText((String) tblListagemDespesa.getValueAt(tblListagemDespesa.getSelectedRow(), 3));
-    }//GEN-LAST:event_tblListagemDespesaMouseClicked
+    private void tblListagemServicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListagemServicoMouseClicked
+        txaDescricaoSelecionada.setText((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 3));
+    }//GEN-LAST:event_tblListagemServicoMouseClicked
 
     private void btnHojeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojeActionPerformed
         txtDataDepois.setText(""+new Date(Calendar.getInstance().getTimeInMillis()));
@@ -393,21 +392,23 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmListagemDespesa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListagemServico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmListagemDespesa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListagemServico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmListagemDespesa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListagemServico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmListagemDespesa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListagemServico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmListagemDespesa().setVisible(true);
+                new FrmListagemServico().setVisible(true);
             }
         });
     }
@@ -426,7 +427,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
                     return true;
                 }
             };
-            tblListagemDespesa.setModel(model);
+            tblListagemServico.setModel(model);
             model.setColumnIdentifiers(nomeColunas);
             model.setRowCount(0);
             Object rowData[] = new Object[6];
@@ -445,9 +446,9 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
             System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
         }
         
-        tblListagemDespesa.getColumnModel().getColumn(5).setMinWidth(0);
-        tblListagemDespesa.getColumnModel().getColumn(5).setPreferredWidth(0);
-        tblListagemDespesa.getColumnModel().getColumn(5).setMaxWidth(0);
+        tblListagemServico.getColumnModel().getColumn(5).setMinWidth(0);
+        tblListagemServico.getColumnModel().getColumn(5).setPreferredWidth(0);
+        tblListagemServico.getColumnModel().getColumn(5).setMaxWidth(0);
     }
     
     private void atualizarTabelaFiltradaData() {
@@ -464,7 +465,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
                     return true;
                 }
             };
-            tblListagemDespesa.setModel(model);
+            tblListagemServico.setModel(model);
             model.setColumnIdentifiers(nomeColunas);
             model.setRowCount(0);
             Object rowData[] = new Object[6];
@@ -483,9 +484,9 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
             System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
         }
         
-        tblListagemDespesa.getColumnModel().getColumn(5).setMinWidth(0);
-        tblListagemDespesa.getColumnModel().getColumn(5).setPreferredWidth(0);
-        tblListagemDespesa.getColumnModel().getColumn(5).setMaxWidth(0);
+        tblListagemServico.getColumnModel().getColumn(5).setMinWidth(0);
+        tblListagemServico.getColumnModel().getColumn(5).setPreferredWidth(0);
+        tblListagemServico.getColumnModel().getColumn(5).setMaxWidth(0);
     }
     
     private void atualizarTabela() {
@@ -502,7 +503,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
                     return true;
                 }
             };
-            tblListagemDespesa.setModel(model);
+            tblListagemServico.setModel(model);
             model.setColumnIdentifiers(nomeColunas);
             model.setRowCount(0);
             Object rowData[] = new Object[6];
@@ -521,9 +522,9 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
             System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
         }
         
-        tblListagemDespesa.getColumnModel().getColumn(5).setMinWidth(0);
-        tblListagemDespesa.getColumnModel().getColumn(5).setPreferredWidth(0);
-        tblListagemDespesa.getColumnModel().getColumn(5).setMaxWidth(0);
+        tblListagemServico.getColumnModel().getColumn(5).setMinWidth(0);
+        tblListagemServico.getColumnModel().getColumn(5).setPreferredWidth(0);
+        tblListagemServico.getColumnModel().getColumn(5).setMaxWidth(0);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -542,7 +543,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
     private javax.swing.JLabel lblPesquisar1;
     private javax.swing.JLabel lblPesquisarData;
     private javax.swing.JLabel lblPesquisarData1;
-    private javax.swing.JTable tblListagemDespesa;
+    private javax.swing.JTable tblListagemServico;
     private javax.swing.JTextArea txaDescricaoSelecionada;
     private javax.swing.JTextField txtDataAntes;
     private javax.swing.JTextField txtDataDepois;

@@ -18,6 +18,10 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         initComponents();
         VendaPeca();
     }
+    
+    public FrmCadastroOrcamento(int codigoServico) {
+        txtCodServico.setText(""+codigoServico);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,7 +55,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         txtQuantidadePeca = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         txtValorPeca = new javax.swing.JTextField();
-        txtCodOrcamento1 = new javax.swing.JTextField();
+        txtCodServico = new javax.swing.JTextField();
         txtCodOrcamento = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
@@ -251,14 +255,14 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         pnlPeca.setBounds(650, 130, 350, 450);
         pnlPeca.getAccessibleContext().setAccessibleName("Venda de peça");
 
-        txtCodOrcamento1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtCodOrcamento1.addActionListener(new java.awt.event.ActionListener() {
+        txtCodServico.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtCodServico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodOrcamento1ActionPerformed(evt);
+                txtCodServicoActionPerformed(evt);
             }
         });
-        getContentPane().add(txtCodOrcamento1);
-        txtCodOrcamento1.setBounds(270, 210, 150, 30);
+        getContentPane().add(txtCodServico);
+        txtCodServico.setBounds(270, 210, 150, 30);
 
         txtCodOrcamento.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtCodOrcamento.addActionListener(new java.awt.event.ActionListener() {
@@ -281,9 +285,9 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodOrcamentoActionPerformed
 
-    private void txtCodOrcamento1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodOrcamento1ActionPerformed
+    private void txtCodServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodServicoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodOrcamento1ActionPerformed
+    }//GEN-LAST:event_txtCodServicoActionPerformed
 
     private void rdbSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbSimActionPerformed
         VendaPeca();
@@ -388,8 +392,8 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     private javax.swing.JRadioButton rdbNao;
     private javax.swing.JRadioButton rdbSim;
     private javax.swing.JTextField txtCodOrcamento;
-    private javax.swing.JTextField txtCodOrcamento1;
     private javax.swing.JTextField txtCodPeca;
+    private javax.swing.JTextField txtCodServico;
     private javax.swing.JTextField txtMaoDeObra;
     private javax.swing.JTextField txtNomePeca;
     private javax.swing.JTextField txtQuantidadePeca;
