@@ -79,7 +79,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         rbtFisica = new javax.swing.JRadioButton();
         rbtJuridica = new javax.swing.JRadioButton();
         jLabel5 = new javax.swing.JLabel();
-        lblFuncExiste = new javax.swing.JLabel();
+        lblSelecionarFunc = new javax.swing.JLabel();
         btnArquivoRelatorio = new javax.swing.JButton();
         lblRelatorio = new javax.swing.JLabel();
         lblCep2 = new javax.swing.JLabel();
@@ -118,6 +118,9 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         lblCodigoServico = new javax.swing.JLabel();
         btnListarFunc = new javax.swing.JButton();
         btnListarServico = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblFuncSelecionados = new javax.swing.JTable();
+        btnListarFunc1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -209,7 +212,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(rbtFisica);
-        rbtFisica.setBounds(210, 130, 69, 33);
+        rbtFisica.setBounds(210, 130, 75, 33);
 
         btngTipoCliente.add(rbtJuridica);
         rbtJuridica.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -221,16 +224,16 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(rbtJuridica);
-        rbtJuridica.setBounds(310, 130, 85, 33);
+        rbtJuridica.setBounds(310, 130, 89, 33);
 
         jLabel5.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel5.setText("Relatório do serviço:");
         getContentPane().add(jLabel5);
         jLabel5.setBounds(540, 400, 170, 30);
 
-        lblFuncExiste.setText("Inválido");
-        getContentPane().add(lblFuncExiste);
-        lblFuncExiste.setBounds(250, 430, 250, 14);
+        lblSelecionarFunc.setText("Inválido");
+        getContentPane().add(lblSelecionarFunc);
+        lblSelecionarFunc.setBounds(250, 430, 250, 14);
 
         btnArquivoRelatorio.setText("Procurar");
         btnArquivoRelatorio.addActionListener(new java.awt.event.ActionListener() {
@@ -275,11 +278,11 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnOrcamento);
-        btnOrcamento.setBounds(920, 510, 130, 40);
+        btnOrcamento.setBounds(990, 590, 130, 40);
 
         txtLimpar.setText("Limpar");
         getContentPane().add(txtLimpar);
-        txtLimpar.setBounds(40, 510, 110, 40);
+        txtLimpar.setBounds(1000, 510, 110, 40);
 
         txtCadastrar.setText("Ativar serviço");
         txtCadastrar.addActionListener(new java.awt.event.ActionListener() {
@@ -288,7 +291,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtCadastrar);
-        txtCadastrar.setBounds(790, 510, 110, 40);
+        txtCadastrar.setBounds(1000, 550, 110, 40);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados da Pessoa"));
         jPanel2.setOpaque(false);
@@ -475,7 +478,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(40, 200, 1056, 190);
+        jPanel2.setBounds(40, 200, 1060, 190);
 
         cmbTipoServico.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         cmbTipoServico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Preventivo", "Corretivo", "Emergencial" }));
@@ -485,7 +488,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cmbTipoServico);
-        cmbTipoServico.setBounds(580, 60, 170, 33);
+        cmbTipoServico.setBounds(580, 60, 170, 30);
 
         btnCadastrarPessoaJ.setText("Cadastrar");
         btnCadastrarPessoaJ.addActionListener(new java.awt.event.ActionListener() {
@@ -494,7 +497,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCadastrarPessoaJ);
-        btnCadastrarPessoaJ.setBounds(1000, 160, 83, 23);
+        btnCadastrarPessoaJ.setBounds(1000, 160, 81, 23);
 
         jLabel3.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel3.setText("Tipo de serviço:");
@@ -522,7 +525,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnListarFunc);
-        btnListarFunc.setBounds(370, 400, 140, 30);
+        btnListarFunc.setBounds(60, 430, 140, 30);
 
         btnListarServico.setText("Listar Serviços");
         btnListarServico.addActionListener(new java.awt.event.ActionListener() {
@@ -532,6 +535,31 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         });
         getContentPane().add(btnListarServico);
         btnListarServico.setBounds(60, 90, 130, 23);
+
+        tblFuncSelecionados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblFuncSelecionados);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(50, 500, 680, 120);
+
+        btnListarFunc1.setText("Selecionar Funcionário");
+        btnListarFunc1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarFunc1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnListarFunc1);
+        btnListarFunc1.setBounds(380, 400, 140, 30);
 
         jLabel1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
@@ -694,15 +722,15 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             if (flagFuncionario) {
                 f = DaoFuncionario.popularFuncionario(Integer.parseInt(txtCodFunc.getText()));
                 txtNomeFunc.setText(f.getPessoa().getNome());
-                lblFuncExiste.setText("Funcionário Livre");
+                lblSelecionarFunc.setText("Funcionário Livre");
                 flagFuncionario = true;
                 if (DaoServico.isFuncionarioEmServico(Integer.parseInt(txtCodFunc.getText()))) {
-                    lblFuncExiste.setText("Funcionário já vinculado a outro serviço");
+                    lblSelecionarFunc.setText("Funcionário já vinculado a outro serviço");
                     flagFuncionario = false;
                 }
             } else {
                 txtNomeFunc.setText("");
-                lblFuncExiste.setText("Funcionário Inexistente");
+                lblSelecionarFunc.setText("Funcionário Inexistente");
                 flagFuncionario = false;
             }
         } catch (SQLException ex) {
@@ -777,6 +805,10 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         FrmListagemServico listaserv = new FrmListagemServico();
         listaserv.setVisible(true);
     }//GEN-LAST:event_btnListarServicoActionPerformed
+
+    private void btnListarFunc1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarFunc1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnListarFunc1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -905,6 +937,10 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtRazaoSocial.setText("");
 
     }
+    
+    public void reiniciarTabela(){
+        String[] nomeColunas = {"Código", "Nome"
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Bairro;
@@ -913,6 +949,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JButton btnCadastrarCep;
     private javax.swing.JButton btnCadastrarPessoaJ;
     private javax.swing.JButton btnListarFunc;
+    private javax.swing.JButton btnListarFunc1;
     private javax.swing.JButton btnListarServico;
     private javax.swing.JButton btnOrcamento;
     private javax.swing.ButtonGroup btngTipoCliente;
@@ -924,6 +961,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCampoCpfCnpj;
     private javax.swing.JLabel lblCelularRamal;
     private javax.swing.JLabel lblCep;
@@ -936,17 +974,18 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JLabel lblCpfCnpjExiste;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblExisteServico;
-    private javax.swing.JLabel lblFuncExiste;
     private javax.swing.JLabel lblLogradouro;
     private javax.swing.JLabel lblNomeFicticio;
     private javax.swing.JLabel lblRazaoSocial;
     private javax.swing.JLabel lblRelatorio;
+    private javax.swing.JLabel lblSelecionarFunc;
     private javax.swing.JLabel lblSexo;
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JRadioButton rbtFeminino;
     private javax.swing.JRadioButton rbtFisica;
     private javax.swing.JRadioButton rbtJuridica;
     private javax.swing.JRadioButton rbtMasculino;
+    private javax.swing.JTable tblFuncSelecionados;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JButton txtCadastrar;
     private javax.swing.JTextField txtCelularRamal;
