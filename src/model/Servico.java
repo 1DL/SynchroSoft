@@ -15,6 +15,7 @@ public class Servico {
     private int codigoServico;
     private String tipoServico;
     private Date dataServico;
+    private Date dataServicoFim;
     private boolean tipoCliente;
     private String cpfCliente;
     private String cnpjCliente;
@@ -107,6 +108,14 @@ public class Servico {
 
     public void setStatusServico(boolean statusServico) {
         this.statusServico = statusServico;
+    }
+
+    public Date getDataServicoFim() {
+        return dataServicoFim;
+    }
+
+    public void setDataServicoFim(Date dataServicoFim) {
+        this.dataServicoFim = dataServicoFim;
     }
 
     

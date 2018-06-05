@@ -62,6 +62,23 @@ public class DaoPessoa {
         return pf;
     }
     
+    public static PessoaFisica popularPessoaFisicaSemCep(String cpf) throws SQLException, ClassNotFoundException {
+        boolean flag;
+        Connection con = Conexao.conectar();
+        String sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA WHERE CD_CPF = ?";
+        PreparedStatement st = con.prepareStatement(sql);
+        st.setString(1, cpf);
+        ResultSet rs = st.executeQuery();
+        rs.next();
+        Endereco end = new Endereco();
+        end = DaoEndereco.popularEndereco(rs.getString(("CD_CEP")));
+        Pessoa p = new Pessoa(rs.getString("NM_PESSOA_FISICA"), end, rs.getLong("NR_TELEFONE"), rs.getString("NR_COMPLEMENTO_LOGRADOURO"), rs.getInt("ID_CONTRATO"));
+        PessoaFisica pf = new PessoaFisica(p, rs.getString("CD_CPF"), rs.getDate("DT_CADASTRO"), rs.getLong("NR_CELULAR"), rs.getInt("ID_SEXO"));
+        st.close();
+        rs.close();
+        return pf;
+    }
+    
     public static PessoaJuridica popularPessoaJuridica(String cnpj, String cep) throws SQLException, ClassNotFoundException {
         boolean flag;
         Connection con = Conexao.conectar();
@@ -72,6 +89,23 @@ public class DaoPessoa {
         rs.next();
         Endereco end = new Endereco();
         end = DaoEndereco.popularEndereco(cep);
+        Pessoa p = new Pessoa(rs.getString("NM_RAZAO_SOCIAL"), end, rs.getLong("NR_TELEFONE"), rs.getString("NR_LOGRADOURO"), rs.getInt("ID_CONTRATO"));
+        PessoaJuridica pj = new PessoaJuridica(p, rs.getString("CD_CNPJ"), rs.getString("NM_RAZAO_SOCIAL"), rs.getDate("DT_CADASTRO"), rs.getLong("NR_RAMAL"));
+        st.close();
+        rs.close();
+        return pj;
+    }
+    
+    public static PessoaJuridica popularPessoaJuridicaSemCep(String cnpj) throws SQLException, ClassNotFoundException {
+        boolean flag;
+        Connection con = Conexao.conectar();
+        String sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA WHERE CD_CNPJ = ?";
+        PreparedStatement st = con.prepareStatement(sql);
+        st.setString(1, cnpj);
+        ResultSet rs = st.executeQuery();
+        rs.next();
+        Endereco end = new Endereco();
+        end = DaoEndereco.popularEndereco(rs.getString("CD_CEP"));
         Pessoa p = new Pessoa(rs.getString("NM_RAZAO_SOCIAL"), end, rs.getLong("NR_TELEFONE"), rs.getString("NR_LOGRADOURO"), rs.getInt("ID_CONTRATO"));
         PessoaJuridica pj = new PessoaJuridica(p, rs.getString("CD_CNPJ"), rs.getString("NM_RAZAO_SOCIAL"), rs.getDate("DT_CADASTRO"), rs.getLong("NR_RAMAL"));
         st.close();

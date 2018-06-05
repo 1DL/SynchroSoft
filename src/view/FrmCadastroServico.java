@@ -64,6 +64,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
 
         btngTipoCliente = new javax.swing.ButtonGroup();
         db = new javax.swing.JFileChooser();
+        grupoSexo = new javax.swing.ButtonGroup();
         lblCampoCpfCnpj = new javax.swing.JLabel();
         lblExisteServico = new javax.swing.JLabel();
         lblCep = new javax.swing.JLabel();
@@ -107,12 +108,16 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtCelularRamal = new javax.swing.JTextField();
         lblRazaoSocial = new javax.swing.JLabel();
         txtRazaoSocial = new javax.swing.JTextField();
+        lblSexo = new javax.swing.JLabel();
+        rbtMasculino = new javax.swing.JRadioButton();
+        rbtFeminino = new javax.swing.JRadioButton();
         cmbTipoServico = new javax.swing.JComboBox<>();
         btnCadastrarPessoaJ = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtCodigoServico = new javax.swing.JTextField();
         lblCodigoServico = new javax.swing.JLabel();
         btnListarFunc = new javax.swing.JButton();
+        btnListarServico = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -333,6 +338,30 @@ public class FrmCadastroServico extends javax.swing.JFrame {
 
         txtRazaoSocial.setEditable(false);
 
+        lblSexo.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblSexo.setText("Sexo");
+
+        grupoSexo.add(rbtMasculino);
+        rbtMasculino.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        rbtMasculino.setSelected(true);
+        rbtMasculino.setText("Masculino");
+        rbtMasculino.setEnabled(false);
+        rbtMasculino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtMasculinoActionPerformed(evt);
+            }
+        });
+
+        grupoSexo.add(rbtFeminino);
+        rbtFeminino.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        rbtFeminino.setText("Feminino");
+        rbtFeminino.setEnabled(false);
+        rbtFeminino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtFemininoActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -340,26 +369,30 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createSequentialGroup()
+                            .add(lblNomeFicticio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 140, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(txtNomePessoaFicticio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 316, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createSequentialGroup()
+                            .add(lblCidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 140, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(txtCidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 114, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(lblEstado, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 73, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(txtEstado)))
                     .add(jPanel2Layout.createSequentialGroup()
-                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createSequentialGroup()
-                                    .add(lblNomeFicticio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 140, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                    .add(txtNomePessoaFicticio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 316, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createSequentialGroup()
-                                    .add(lblCidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 140, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                    .add(txtCidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 114, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                    .add(lblEstado, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 73, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                    .add(txtEstado)))
-                            .add(jPanel2Layout.createSequentialGroup()
-                                .add(lblTelefone, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 140, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(txtTelefone, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 316, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                        .add(62, 62, 62)
+                        .add(lblTelefone, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 140, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(txtTelefone, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 316, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(lblRazaoSocial, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 140, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(txtRazaoSocial, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 316, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .add(62, 62, 62)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel2Layout.createSequentialGroup()
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jPanel2Layout.createSequentialGroup()
                                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -383,9 +416,11 @@ public class FrmCadastroServico extends javax.swing.JFrame {
                                 .add(txtCelularRamal, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 316, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(29, Short.MAX_VALUE))
                     .add(jPanel2Layout.createSequentialGroup()
-                        .add(lblRazaoSocial, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 140, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(txtRazaoSocial, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 316, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(lblSexo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 140, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(26, 26, 26)
+                        .add(rbtMasculino)
+                        .add(18, 18, 18)
+                        .add(rbtFeminino)
                         .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -424,10 +459,18 @@ public class FrmCadastroServico extends javax.swing.JFrame {
                     .add(txtTelefone, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(lblCelularRamal)
                     .add(txtCelularRamal, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(18, 18, 18)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(lblRazaoSocial)
-                    .add(txtRazaoSocial, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(lblRazaoSocial)
+                            .add(txtRazaoSocial, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(jPanel2Layout.createSequentialGroup()
+                            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                .add(rbtFeminino, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(rbtMasculino, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(12, 12, 12)))
+                    .add(lblSexo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -481,6 +524,15 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         getContentPane().add(btnListarFunc);
         btnListarFunc.setBounds(370, 400, 140, 30);
 
+        btnListarServico.setText("Listar Serviços");
+        btnListarServico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarServicoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnListarServico);
+        btnListarServico.setBounds(60, 90, 130, 23);
+
         jLabel1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         jLabel1.setMaximumSize(new java.awt.Dimension(1152, 648));
@@ -511,32 +563,32 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCepActionPerformed
 
     private void txtCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyReleased
-        if ((txtCep.getText().length() < 8) || (txtCep.getText().length() > 8)) {
-            lblCepExiste.setText("Cep Inválido.");
-            limparExibicaoEndereco();
-        } else {
-            DaoEndereco de = new DaoEndereco();
-            try {
-                cepCadastrado = de.existeEndereco(txtCep.getText());
-                if (cepCadastrado) {
-                    lblCepExiste.setText("CEP Cadastrado.");
-                    endExibicao = de.popularEndereco(txtCep.getText());
-                    popularExibicaoEndereco(endExibicao);
-                    if (rbtFisica.isSelected()) {
-                        popularExibicaoPessoa(pessoaFisicaExibicao);
-                    } else if (rbtJuridica.isSelected()) {
-                        popularExibicaoPessoaJuridica(pessoaJuridicaExibicao);
-                    }
-                } else {
-                    lblCepExiste.setText("CEP Inexistente.");
-                    limparExibicaoEndereco();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(FrmCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(FrmCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+//        if ((txtCep.getText().length() < 8) || (txtCep.getText().length() > 8)) {
+//            lblCepExiste.setText("Cep Inválido.");
+//            limparExibicaoEndereco();
+//        } else {
+//            DaoEndereco de = new DaoEndereco();
+//            try {
+//                cepCadastrado = de.existeEndereco(txtCep.getText());
+//                if (cepCadastrado) {
+//                    lblCepExiste.setText("CEP Cadastrado.");
+//                    endExibicao = de.popularEndereco(txtCep.getText());
+//                    popularExibicaoEndereco(endExibicao);
+//                    if (rbtFisica.isSelected()) {
+//                        popularExibicaoPessoa(pessoaFisicaExibicao);
+//                    } else if (rbtJuridica.isSelected()) {
+//                        popularExibicaoPessoaJuridica(pessoaJuridicaExibicao);
+//                    }
+//                } else {
+//                    lblCepExiste.setText("CEP Inexistente.");
+//                    limparExibicaoEndereco();
+//                }
+//            } catch (SQLException ex) {
+//                Logger.getLogger(FrmCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (ClassNotFoundException ex) {
+//                Logger.getLogger(FrmCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
     }//GEN-LAST:event_txtCepKeyReleased
 
     private void btnCadastrarPessoaJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarPessoaJActionPerformed
@@ -713,6 +765,19 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnOrcamentoActionPerformed
 
+    private void rbtMasculinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtMasculinoActionPerformed
+
+    }//GEN-LAST:event_rbtMasculinoActionPerformed
+
+    private void rbtFemininoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtFemininoActionPerformed
+
+    }//GEN-LAST:event_rbtFemininoActionPerformed
+
+    private void btnListarServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarServicoActionPerformed
+        FrmListagemServico listaserv = new FrmListagemServico();
+        listaserv.setVisible(true);
+    }//GEN-LAST:event_btnListarServicoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -754,6 +819,9 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         lblRazaoSocial.setVisible(false);
         lblNomeFicticio.setText("Nome");
         lblCelularRamal.setText("Celular");
+        lblSexo.setVisible(true);
+        rbtFeminino.setVisible(true);
+        rbtMasculino.setVisible(true);
     }
 
     public void modoJuridica() {
@@ -762,6 +830,9 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         lblRazaoSocial.setVisible(true);
         lblNomeFicticio.setText("Nome Fictício");
         lblCelularRamal.setText("Ramal");
+        lblSexo.setVisible(false);
+        rbtFeminino.setVisible(false);
+        rbtMasculino.setVisible(false);
     }
 
     public void popularExibicaoEndereco(Endereco end) {
@@ -787,6 +858,12 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtNumero.setText(pf.getPessoa().getComplementoLogradouro());
         txtTelefone.setText("" + pf.getPessoa().getTelefone());
         txtCelularRamal.setText("" + pf.getCelular());
+        
+        if(pf.getSexo() == 0) {
+            rbtMasculino.setSelected(true);
+        } else {
+            rbtFeminino.setSelected(true);
+        }
 
     }
 
@@ -800,6 +877,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtTelefone.setText("" + pj.getPessoa().getTelefone());
         txtCelularRamal.setText("" + pj.getRamalCliente());
         txtRazaoSocial.setText(pj.getRazaoSocial());
+        
 
     }
 
@@ -835,10 +913,12 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JButton btnCadastrarCep;
     private javax.swing.JButton btnCadastrarPessoaJ;
     private javax.swing.JButton btnListarFunc;
+    private javax.swing.JButton btnListarServico;
     private javax.swing.JButton btnOrcamento;
     private javax.swing.ButtonGroup btngTipoCliente;
     private javax.swing.JComboBox<String> cmbTipoServico;
     private javax.swing.JFileChooser db;
+    private javax.swing.ButtonGroup grupoSexo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -861,9 +941,12 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JLabel lblNomeFicticio;
     private javax.swing.JLabel lblRazaoSocial;
     private javax.swing.JLabel lblRelatorio;
+    private javax.swing.JLabel lblSexo;
     private javax.swing.JLabel lblTelefone;
+    private javax.swing.JRadioButton rbtFeminino;
     private javax.swing.JRadioButton rbtFisica;
     private javax.swing.JRadioButton rbtJuridica;
+    private javax.swing.JRadioButton rbtMasculino;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JButton txtCadastrar;
     private javax.swing.JTextField txtCelularRamal;
