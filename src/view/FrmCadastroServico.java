@@ -19,6 +19,8 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import model.Endereco;
 import model.Funcionario;
 import model.Pessoa;
@@ -51,6 +53,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         modoFisica();
         txtDataServico.setText("" + new Date(Calendar.getInstance().getTimeInMillis()));
         btnOrcamento.setEnabled(false);
+        reiniciarTabela();
     }
 
     /**
@@ -120,7 +123,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         btnListarServico = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblFuncSelecionados = new javax.swing.JTable();
-        btnListarFunc1 = new javax.swing.JButton();
+        btnSelecionarfunc = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -212,7 +215,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(rbtFisica);
-        rbtFisica.setBounds(210, 130, 75, 33);
+        rbtFisica.setBounds(210, 130, 69, 33);
 
         btngTipoCliente.add(rbtJuridica);
         rbtJuridica.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -224,7 +227,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(rbtJuridica);
-        rbtJuridica.setBounds(310, 130, 89, 33);
+        rbtJuridica.setBounds(310, 130, 85, 33);
 
         jLabel5.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel5.setText("Relatório do serviço:");
@@ -254,6 +257,11 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         lblCep2.setBounds(40, 400, 190, 30);
 
         txtCodFunc.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtCodFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodFuncActionPerformed(evt);
+            }
+        });
         txtCodFunc.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCodFuncKeyReleased(evt);
@@ -478,7 +486,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(40, 200, 1060, 190);
+        jPanel2.setBounds(40, 200, 1056, 190);
 
         cmbTipoServico.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         cmbTipoServico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Preventivo", "Corretivo", "Emergencial" }));
@@ -488,7 +496,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cmbTipoServico);
-        cmbTipoServico.setBounds(580, 60, 170, 30);
+        cmbTipoServico.setBounds(580, 60, 170, 33);
 
         btnCadastrarPessoaJ.setText("Cadastrar");
         btnCadastrarPessoaJ.addActionListener(new java.awt.event.ActionListener() {
@@ -497,7 +505,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCadastrarPessoaJ);
-        btnCadastrarPessoaJ.setBounds(1000, 160, 81, 23);
+        btnCadastrarPessoaJ.setBounds(1000, 160, 83, 23);
 
         jLabel3.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel3.setText("Tipo de serviço:");
@@ -550,16 +558,17 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblFuncSelecionados);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(50, 500, 680, 120);
+        jScrollPane1.setBounds(50, 490, 680, 120);
 
-        btnListarFunc1.setText("Selecionar Funcionário");
-        btnListarFunc1.addActionListener(new java.awt.event.ActionListener() {
+        btnSelecionarfunc.setText("Selecionar Funcionário");
+        btnSelecionarfunc.setEnabled(false);
+        btnSelecionarfunc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListarFunc1ActionPerformed(evt);
+                btnSelecionarfuncActionPerformed(evt);
             }
         });
-        getContentPane().add(btnListarFunc1);
-        btnListarFunc1.setBounds(380, 400, 140, 30);
+        getContentPane().add(btnSelecionarfunc);
+        btnSelecionarfunc.setBounds(380, 400, 140, 30);
 
         jLabel1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
@@ -724,14 +733,17 @@ public class FrmCadastroServico extends javax.swing.JFrame {
                 txtNomeFunc.setText(f.getPessoa().getNome());
                 lblSelecionarFunc.setText("Funcionário Livre");
                 flagFuncionario = true;
+                btnSelecionarfunc.setEnabled(true);
                 if (DaoServico.isFuncionarioEmServico(Integer.parseInt(txtCodFunc.getText()))) {
                     lblSelecionarFunc.setText("Funcionário já vinculado a outro serviço");
-                    flagFuncionario = false;
+                    flagFuncionario = true;
+                    btnSelecionarfunc.setEnabled(true);
                 }
             } else {
                 txtNomeFunc.setText("");
                 lblSelecionarFunc.setText("Funcionário Inexistente");
                 flagFuncionario = false;
+                btnSelecionarfunc.setEnabled(false);
             }
         } catch (SQLException ex) {
             Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
@@ -806,9 +818,20 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         listaserv.setVisible(true);
     }//GEN-LAST:event_btnListarServicoActionPerformed
 
-    private void btnListarFunc1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarFunc1ActionPerformed
+    private void btnSelecionarfuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarfuncActionPerformed
+//        if (flagFuncionario) {
+            DefaultTableModel model = (DefaultTableModel) tblFuncSelecionados.getModel();
+            Object rowData[] = new Object[3];
+            rowData[0] = (String) txtCodFunc.getText();
+            rowData[1] = (String) txtNomeFunc.getText();
+            model.addRow(rowData);
+            tblFuncSelecionados.setModel(model);
+//        }
+    }//GEN-LAST:event_btnSelecionarfuncActionPerformed
+
+    private void txtCodFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodFuncActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnListarFunc1ActionPerformed
+    }//GEN-LAST:event_txtCodFuncActionPerformed
 
     /**
      * @param args the command line arguments
@@ -939,7 +962,21 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }
     
     public void reiniciarTabela(){
-        String[] nomeColunas = {"Código", "Nome"
+        String[] nomeColunas = {"Código", "Funcionário", "Serviços"};
+        try {
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+
+                    return false;
+                }
+            };
+            tblFuncSelecionados.setModel(model);
+            model.setColumnIdentifiers(nomeColunas);
+            model.setRowCount(0);
+        } catch (Exception ex) {
+            System.out.println("Erro ao reiniciar tabela.\n\n" + ex.getMessage());
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -949,9 +986,9 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JButton btnCadastrarCep;
     private javax.swing.JButton btnCadastrarPessoaJ;
     private javax.swing.JButton btnListarFunc;
-    private javax.swing.JButton btnListarFunc1;
     private javax.swing.JButton btnListarServico;
     private javax.swing.JButton btnOrcamento;
+    private javax.swing.JButton btnSelecionarfunc;
     private javax.swing.ButtonGroup btngTipoCliente;
     private javax.swing.JComboBox<String> cmbTipoServico;
     private javax.swing.JFileChooser db;
