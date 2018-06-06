@@ -736,6 +736,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
 
     private void btnHojeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojeActionPerformed
         txtDataDepois.setText("" + new Date(Calendar.getInstance().getTimeInMillis()));
+//        JOptionPane.showMessageDialog(rootPane, tblListagemServico.getSelectedRow());
 //        atualizarTabelaFiltradaData();
     }//GEN-LAST:event_btnHojeActionPerformed
 

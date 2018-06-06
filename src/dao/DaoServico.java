@@ -229,7 +229,7 @@ Data Encerramento
 
     }
 
-    public void cadastrarServico(String cpfcnpj, int codFunc, int codigoServico, String tipoServico, boolean tipoCliente, String descricaoServico, Date dataServico,
+    public void cadastrarServico(String cpfcnpj, ArrayList<Funcionario> lista, int codigoServico, String tipoServico, boolean tipoCliente, String descricaoServico, Date dataServico,
             boolean statusServico) throws SQLException, ClassNotFoundException {
         try {
             Connection con = Conexao.conectar();
@@ -270,12 +270,15 @@ Data Encerramento
             st.setDate(7, dataServico);
 
             st.executeUpdate();
-
+            
             sql = "INSERT INTO SYNCHROSOFT.TB_FUNC_SERVICO (CD_FUNCIONARIO, CD_SERVICO) VALUES (?,?)";
-            PreparedStatement st2 = con.prepareStatement(sql);
-            st2.setInt(1, codFunc);
+            PreparedStatement st2 = con.prepareStatement(sql);            
+            for (int i = 0; i < lista.size(); i++) {                
+            st2.setInt(1, lista.get(i).getCodigoFuncionario());
             st2.setInt(2, codigoServico);
             st2.executeUpdate();
+            }
+            
 
             if (tipoCliente) {
                 sql = "INSERT INTO SYNCHROSOFT.TB_PESSOAJ_SERVICO (CD_CNPJ, CD_SERVICO) VALUES (?,?)";
@@ -348,6 +351,21 @@ Data Encerramento
         rs.close();
 
         return flag;
+    }
+    
+    public static String listarServicosDoFuncionario (int codigoServico) throws SQLException, ClassNotFoundException{
+        String codigos = "";
+        Connection con = Conexao.conectar();
+        String sql = "SELECT CD_SERVICO FROM SYNCHROSOFT.TB_FUNC_SERVICO WHERE CD_FUNCIONARIO = ?";
+        PreparedStatement st = con.prepareStatement(sql);
+        st.setInt(1, codigoServico);
+        ResultSet rs = st.executeQuery();
+        while (rs.next()){
+            codigos = codigos +", "+rs.getInt("CD_SERVICO");
+        }
+        st.close();
+        rs.close();
+        return codigos;
     }
     
     public static ArrayList funcionarioEmServico (int codigoServico) throws SQLException, ClassNotFoundException{
