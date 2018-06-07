@@ -347,7 +347,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         lblCidade.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCidade.setText("Cidade");
         jPanel2.add(lblCidade);
-        lblCidade.setBounds(10, 50, 140, 25);
+        lblCidade.setBounds(10, 60, 140, 25);
 
         txtCidade.setEditable(false);
         jPanel2.add(txtCidade);
@@ -356,7 +356,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         lblEstado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblEstado.setText("Estado");
         jPanel2.add(lblEstado);
-        lblEstado.setBounds(270, 50, 73, 25);
+        lblEstado.setBounds(280, 60, 73, 25);
 
         txtEstado.setEditable(false);
         jPanel2.add(txtEstado);
@@ -987,7 +987,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }
 
     public void reiniciarTabela() {
-        String[] nomeColunas = {"Código", "Funcionário", "Cód. Serviços já atribuídos"};
+        String[] nomeColunas = {"Código", "Funcionário", "Cód. Serviços em execução"};
         try {
             DefaultTableModel model = new DefaultTableModel() {
                 @Override

@@ -96,7 +96,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAlterar);
-        btnAlterar.setBounds(440, 560, 85, 33);
+        btnAlterar.setBounds(440, 560, 87, 35);
 
         btnAtualizarTabela.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnAtualizarTabela.setText("AtualizarTabela");
@@ -106,7 +106,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAtualizarTabela);
-        btnAtualizarTabela.setBounds(230, 560, 153, 33);
+        btnAtualizarTabela.setBounds(230, 560, 155, 35);
 
         btnTelaCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnTelaCadastro.setText("Tela Cadastro");
@@ -116,7 +116,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnTelaCadastro);
-        btnTelaCadastro.setBounds(750, 560, 143, 33);
+        btnTelaCadastro.setBounds(750, 560, 145, 35);
 
         btnDeletar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnDeletar.setText("Deletar");
@@ -126,7 +126,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnDeletar);
-        btnDeletar.setBounds(590, 560, 91, 33);
+        btnDeletar.setBounds(590, 560, 93, 35);
 
         lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblPesquisar.setText("Pesquisar por: ");
@@ -136,7 +136,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "Nome", "Categoria", "Quantidade", "Valor" }));
         getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(370, 60, 107, 31);
+        cmbFiltro.setBounds(370, 60, 107, 33);
 
         txtPesquisa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {

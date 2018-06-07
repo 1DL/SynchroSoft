@@ -6,7 +6,9 @@
 package view;
 
 import dao.DaoDespesa;
+import dao.DaoEndereco;
 import dao.DaoFuncionario;
+import dao.DaoPessoa;
 import dao.DaoServico;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -15,10 +17,13 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import model.Despesa;
 import model.Endereco;
 import model.Funcionario;
+import model.Pessoa;
 import model.PessoaFisica;
 import model.PessoaJuridica;
 import model.Servico;
@@ -29,12 +34,23 @@ import model.Servico;
  */
 public class FrmListagemServico extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrmListagemDespesas
-     */
+    boolean cepCadastrado;
+    boolean cpfCadastrado;
+    boolean cnpjCadastrado;
+    boolean servCadastrado;
+    boolean flagContrato = false;
+    Endereco endExibicao;
+    PessoaFisica pessoaFisicaExibicao;
+    PessoaJuridica pessoaJuridicaExibicao;
+    Pessoa pessoaExibicao;
+    boolean flagFuncionario;
+    Funcionario f = new Funcionario();
+    boolean flagAtivo = false;
+
     public FrmListagemServico() {
         initComponents();
         atualizarTabela();
+        iniciarTabelaFuncionario();
         txtDataDepois.setText("" + new Date(Calendar.getInstance().getTimeInMillis()));
     }
     DaoDespesa dp = new DaoDespesa();
@@ -49,6 +65,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
     private void initComponents() {
 
         grupoTipoCliente = new javax.swing.ButtonGroup();
+        db = new javax.swing.JFileChooser();
         txtDataAntes = new javax.swing.JTextField();
         txtDataDepois = new javax.swing.JTextField();
         lblPesquisarData1 = new javax.swing.JLabel();
@@ -98,22 +115,28 @@ public class FrmListagemServico extends javax.swing.JFrame {
         btnCadastrarPessoaJ = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListagemServico = new javax.swing.JTable();
-        lblCep2 = new javax.swing.JLabel();
-        txtCodFunc = new javax.swing.JTextField();
-        lblFuncExiste = new javax.swing.JLabel();
-        btnListarFunc = new javax.swing.JButton();
         btnArquivoRelatorio = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         lblRelatorio = new javax.swing.JLabel();
-        lblCep3 = new javax.swing.JLabel();
-        txtNomeFunc = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         rbtFisica = new javax.swing.JRadioButton();
         rbtJuridica = new javax.swing.JRadioButton();
         btnAtivarDesativar = new javax.swing.JButton();
         lblOrcamento = new javax.swing.JLabel();
         lblAtivo = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblFuncionarioTrabalhando = new javax.swing.JTable();
+        lblPesquisarData2 = new javax.swing.JLabel();
+        lblPesquisarData3 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        btnRemoveLinhaFunc = new javax.swing.JButton();
+        lblCep2 = new javax.swing.JLabel();
+        txtCodFunc = new javax.swing.JTextField();
+        lblSelecionarFunc = new javax.swing.JLabel();
+        btnSelecionarfunc = new javax.swing.JButton();
+        btnListarFunc = new javax.swing.JButton();
+        lblCep3 = new javax.swing.JLabel();
+        txtNomeFunc = new javax.swing.JTextField();
         lblBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -179,9 +202,9 @@ public class FrmListagemServico extends javax.swing.JFrame {
         btnAlterar.setBounds(250, 600, 210, 40);
 
         lblPesquisarData.setFont(new java.awt.Font("Malgun Gothic", 0, 10)); // NOI18N
-        lblPesquisarData.setText("Data Início:");
+        lblPesquisarData.setText("Tabela de serviços. Pesquise por algum valor, e selecione uma linha para visualizar e alterar o serviço selecionado.");
         getContentPane().add(lblPesquisarData);
-        lblPesquisarData.setBounds(600, 20, 90, 40);
+        lblPesquisarData.setBounds(20, 60, 580, 40);
 
         btnDeletar.setText("Deletar");
         btnDeletar.addActionListener(new java.awt.event.ActionListener() {
@@ -304,7 +327,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         getContentPane().add(btnOrcamento);
         btnOrcamento.setBounds(590, 240, 130, 40);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados da Pessoa"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Cliente"));
         jPanel2.setOpaque(false);
         jPanel2.setLayout(null);
 
@@ -419,6 +442,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(30, 430, 1080, 150);
+        jPanel2.getAccessibleContext().setAccessibleDescription("");
 
         txtCpfCnpj.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtCpfCnpj.addActionListener(new java.awt.event.ActionListener() {
@@ -479,43 +503,16 @@ public class FrmListagemServico extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblListagemServico);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(20, 70, 1090, 160);
+        jScrollPane1.setBounds(20, 90, 610, 140);
 
-        lblCep2.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCep2.setText("Código do Funcionário:");
-        getContentPane().add(lblCep2);
-        lblCep2.setBounds(620, 350, 190, 30);
-
-        txtCodFunc.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtCodFunc.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCodFuncKeyReleased(evt);
-            }
-        });
-        getContentPane().add(txtCodFunc);
-        txtCodFunc.setBounds(820, 350, 120, 30);
-
-        lblFuncExiste.setText("Inválido");
-        getContentPane().add(lblFuncExiste);
-        lblFuncExiste.setBounds(830, 380, 250, 14);
-
-        btnListarFunc.setText("Listar Funcionários");
-        btnListarFunc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListarFuncActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnListarFunc);
-        btnListarFunc.setBounds(950, 350, 140, 30);
-
-        btnArquivoRelatorio.setText("Procurar");
+        btnArquivoRelatorio.setText("Trocar");
         btnArquivoRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnArquivoRelatorioActionPerformed(evt);
             }
         });
         getContentPane().add(btnArquivoRelatorio);
-        btnArquivoRelatorio.setBounds(210, 390, 80, 30);
+        btnArquivoRelatorio.setBounds(530, 390, 80, 30);
 
         jLabel5.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel5.setText("Relatório do serviço:");
@@ -524,16 +521,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
 
         lblRelatorio.setText("Nenhum arquivo selecionado.");
         getContentPane().add(lblRelatorio);
-        lblRelatorio.setBounds(300, 400, 270, 14);
-
-        lblCep3.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCep3.setText("Funcionário requisitado:");
-        getContentPane().add(lblCep3);
-        lblCep3.setBounds(20, 350, 200, 30);
-
-        txtNomeFunc.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        getContentPane().add(txtNomeFunc);
-        txtNomeFunc.setBounds(220, 350, 380, 30);
+        lblRelatorio.setBounds(210, 400, 300, 14);
 
         jLabel4.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel4.setText("Tipo de Cliente:");
@@ -544,7 +532,6 @@ public class FrmListagemServico extends javax.swing.JFrame {
         rbtFisica.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         rbtFisica.setSelected(true);
         rbtFisica.setText("Física");
-        rbtFisica.setEnabled(false);
         rbtFisica.setOpaque(false);
         rbtFisica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -557,7 +544,6 @@ public class FrmListagemServico extends javax.swing.JFrame {
         grupoTipoCliente.add(rbtJuridica);
         rbtJuridica.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         rbtJuridica.setText("Jurídica");
-        rbtJuridica.setEnabled(false);
         rbtJuridica.setOpaque(false);
         rbtJuridica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -568,8 +554,13 @@ public class FrmListagemServico extends javax.swing.JFrame {
         rbtJuridica.setBounds(520, 290, 85, 33);
 
         btnAtivarDesativar.setText("Ativar Serviço");
+        btnAtivarDesativar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtivarDesativarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnAtivarDesativar);
-        btnAtivarDesativar.setBounds(930, 240, 160, 40);
+        btnAtivarDesativar.setBounds(930, 240, 200, 40);
 
         lblOrcamento.setText("Existe ou não Orçamento");
         getContentPane().add(lblOrcamento);
@@ -579,20 +570,109 @@ public class FrmListagemServico extends javax.swing.JFrame {
         getContentPane().add(lblAtivo);
         lblAtivo.setBounds(730, 250, 200, 14);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        tblFuncionarioTrabalhando.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tblFuncionarioTrabalhando);
+
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(640, 90, 400, 140);
+
+        lblPesquisarData2.setFont(new java.awt.Font("Malgun Gothic", 0, 10)); // NOI18N
+        lblPesquisarData2.setText("Data Início:");
+        getContentPane().add(lblPesquisarData2);
+        lblPesquisarData2.setBounds(600, 20, 90, 40);
+
+        lblPesquisarData3.setFont(new java.awt.Font("Malgun Gothic", 0, 10)); // NOI18N
+        lblPesquisarData3.setText("Funcionários atualmente executando esse serviço. Selecione uma linha para excluir um funcionário do serivço.");
+        getContentPane().add(lblPesquisarData3);
+        lblPesquisarData3.setBounds(640, 60, 510, 40);
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
+        jButton2.setText("Excluir Todos");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(370, 270, 75, 23);
+        getContentPane().add(jButton2);
+        jButton2.setBounds(1040, 150, 100, 20);
+
+        btnRemoveLinhaFunc.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
+        btnRemoveLinhaFunc.setText("Excluir Func.");
+        btnRemoveLinhaFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveLinhaFuncActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnRemoveLinhaFunc);
+        btnRemoveLinhaFunc.setBounds(1040, 120, 100, 20);
+
+        lblCep2.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblCep2.setText("Código Funcionário:");
+        getContentPane().add(lblCep2);
+        lblCep2.setBounds(20, 350, 170, 30);
+
+        txtCodFunc.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtCodFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodFuncActionPerformed(evt);
+            }
+        });
+        txtCodFunc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodFuncKeyReleased(evt);
+            }
+        });
+        getContentPane().add(txtCodFunc);
+        txtCodFunc.setBounds(190, 350, 120, 30);
+
+        lblSelecionarFunc.setText("Inválido");
+        getContentPane().add(lblSelecionarFunc);
+        lblSelecionarFunc.setBounds(190, 380, 250, 14);
+
+        btnSelecionarfunc.setText("Selecionar Funcionário");
+        btnSelecionarfunc.setEnabled(false);
+        btnSelecionarfunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelecionarfuncActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnSelecionarfunc);
+        btnSelecionarfunc.setBounds(320, 350, 160, 30);
+
+        btnListarFunc.setText("Listar Funcionários");
+        btnListarFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarFuncActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnListarFunc);
+        btnListarFunc.setBounds(480, 350, 140, 30);
+
+        lblCep3.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblCep3.setText("Nome Func. :");
+        getContentPane().add(lblCep3);
+        lblCep3.setBounds(630, 350, 130, 30);
+
+        txtNomeFunc.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtNomeFunc.setEnabled(false);
+        getContentPane().add(txtNomeFunc);
+        txtNomeFunc.setBounds(760, 350, 350, 30);
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(lblBackground);
         lblBackground.setBounds(0, 0, 1150, 650);
 
-        setSize(new java.awt.Dimension(1168, 686));
+        setSize(new java.awt.Dimension(1160, 675));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -732,6 +812,49 @@ public class FrmListagemServico extends javax.swing.JFrame {
             modoJuridica();
             exibicaoJuridica();
         }
+        
+        int cod = 0;
+                cod = Integer.parseInt((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0));
+
+        try {
+            popularTabelaFuncionario(cod);
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        String aux = "";
+        aux = (String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 1);
+        switch (aux) {
+            case "Preventivo":
+                cmbTipoServico.removeAllItems();
+                cmbTipoServico.addItem("Preventivo");
+                cmbTipoServico.addItem("Corretivo");
+                cmbTipoServico.setSelectedIndex(0);
+                break;
+            case "Corretivo":
+                cmbTipoServico.removeAllItems();
+                cmbTipoServico.addItem("Corretivo");
+                cmbTipoServico.addItem("Emergencial");
+                cmbTipoServico.setSelectedIndex(0);
+                break;
+            case "Emergencial":
+                cmbTipoServico.removeAllItems();
+                cmbTipoServico.addItem("Emergencial");
+                cmbTipoServico.setSelectedIndex(0);
+                break;
+        }
+
+        if ("Ativado".equals((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 4))) {
+            btnAtivarDesativar.setText("Desativar/Concluir Serviço");
+            lblAtivo.setText("Serviço está em execução.");
+            flagAtivo = false;
+        } else {
+            btnAtivarDesativar.setText("Ativar/ Abrir Serviço");
+            lblAtivo.setText("Serviço concluído / não ativo.");
+            flagAtivo = true;
+        }
     }//GEN-LAST:event_tblListagemServicoMouseClicked
 
     private void btnHojeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojeActionPerformed
@@ -848,35 +971,6 @@ public class FrmListagemServico extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCadastrarPessoaJActionPerformed
 
-    private void txtCodFuncKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodFuncKeyReleased
-        try {
-            flagFuncionario = DaoFuncionario.existeFuncionario(Integer.parseInt(txtCodFunc.getText()));
-            if (flagFuncionario) {
-                f = DaoFuncionario.popularFuncionario(Integer.parseInt(txtCodFunc.getText()));
-                txtNomeFunc.setText(f.getPessoa().getNome());
-                lblFuncExiste.setText("Funcionário Livre");
-                flagFuncionario = true;
-                if (DaoServico.isFuncionarioEmServico(Integer.parseInt(txtCodFunc.getText()))) {
-                    lblFuncExiste.setText("Funcionário já vinculado a outro serviço");
-                    flagFuncionario = false;
-                }
-            } else {
-                txtNomeFunc.setText("");
-                lblFuncExiste.setText("Funcionário Inexistente");
-                flagFuncionario = false;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_txtCodFuncKeyReleased
-
-    private void btnListarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarFuncActionPerformed
-        FrmListagemFuncionario tela = new FrmListagemFuncionario();
-        tela.setVisible(true);
-    }//GEN-LAST:event_btnListarFuncActionPerformed
-
     private void btnArquivoRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArquivoRelatorioActionPerformed
         FileFilter ft1 = new FileNameExtensionFilter("Documentos do Word", "docx");
         FileFilter ft2 = new FileNameExtensionFilter("Arquivos de texto", "txt");
@@ -902,7 +996,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
 
     private void btnOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrcamentoActionPerformed
         Servico s = new Servico();
-        s.setCodigoServico(Integer.parseInt(txtCodigoServico.getText()));
+        s.setCodigoServico(Integer.parseInt((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)));
         try {
             if (DaoServico.verificarServicoAtivo(s.getCodigoServico())) {
                 FrmCadastroOrcamento telaCadOrcamento = new FrmCadastroOrcamento();
@@ -925,9 +1019,101 @@ public class FrmListagemServico extends javax.swing.JFrame {
 
     }//GEN-LAST:event_rbtFemininoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JOptionPane.showMessageDialog(rootPane, ""+cmbTipoServico.getSelectedIndex());
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        iniciarTabelaFuncionario();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnRemoveLinhaFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveLinhaFuncActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tblFuncionarioTrabalhando.getModel();
+        if (model.getRowCount() != 0) {
+            model.removeRow(tblFuncionarioTrabalhando.getSelectedRow());
+            tblFuncionarioTrabalhando.setModel(model);
+        }
+    }//GEN-LAST:event_btnRemoveLinhaFuncActionPerformed
+
+    private void txtCodFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodFuncActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodFuncActionPerformed
+
+    private void txtCodFuncKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodFuncKeyReleased
+        try {
+            flagFuncionario = DaoFuncionario.existeFuncionario(Integer.parseInt(txtCodFunc.getText()));
+            if (flagFuncionario) {
+                f = DaoFuncionario.popularFuncionario(Integer.parseInt(txtCodFunc.getText()));
+                txtNomeFunc.setText(f.getPessoa().getNome());
+                lblSelecionarFunc.setText("Funcionário Livre");
+                flagFuncionario = true;
+                btnSelecionarfunc.setEnabled(true);
+                if (DaoServico.isFuncionarioEmServico(Integer.parseInt(txtCodFunc.getText()))) {
+                    lblSelecionarFunc.setText("Funcionário já vinculado a outro serviço");
+                    flagFuncionario = true;
+                    btnSelecionarfunc.setEnabled(true);
+                }
+            } else {
+                txtNomeFunc.setText("");
+                lblSelecionarFunc.setText("Funcionário Inexistente");
+                flagFuncionario = false;
+                btnSelecionarfunc.setEnabled(false);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_txtCodFuncKeyReleased
+
+    private void btnSelecionarfuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarfuncActionPerformed
+        boolean flag = true;
+        if (flagFuncionario) {
+            DefaultTableModel model = (DefaultTableModel) tblFuncionarioTrabalhando.getModel();
+            Object rowData[] = new Object[3];
+            rowData[0] = (String) txtCodFunc.getText();
+            rowData[1] = (String) txtNomeFunc.getText();
+            String codigos = "";
+            try {
+                codigos = DaoServico.listarServicosDoFuncionario(Integer.parseInt(txtCodFunc.getText()));
+            } catch (SQLException ex) {
+                Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (codigos.equals("")) {
+                rowData[2] = (String) "Livre";
+            } else {
+                codigos = codigos.substring(2);
+                rowData[2] = (String) codigos;
+            }
+            String aux = (String) rowData[0];
+            String aux2 = "";
+            for (int i = 0; i < model.getRowCount(); i++) {
+                aux2 = (String) model.getValueAt(i, 0);
+                if (aux.equals(aux2)) {
+                    flag = false;
+                }
+            }
+            if (flag) {
+                model.addRow(rowData);
+                tblFuncionarioTrabalhando.setModel(model);
+                txtCodFunc.setText("");
+                txtCodFunc.requestFocus();
+            }
+        }
+    }//GEN-LAST:event_btnSelecionarfuncActionPerformed
+
+    private void btnListarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarFuncActionPerformed
+        FrmListagemFuncionario tela = new FrmListagemFuncionario();
+        tela.setVisible(true);
+    }//GEN-LAST:event_btnListarFuncActionPerformed
+
+    private void btnAtivarDesativarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtivarDesativarActionPerformed
+        try {
+            DaoServico.ativarDesativarServico(Integer.parseInt((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)), flagAtivo);
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAtivarDesativarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1063,6 +1249,53 @@ public class FrmListagemServico extends javax.swing.JFrame {
 //        tblListagemServico.getColumnModel().getColumn(7).setPreferredWidth(0);
 //        tblListagemServico.getColumnModel().getColumn(7).setMaxWidth(0);
 //    }
+    private void iniciarTabelaFuncionario() {
+        String[] nomeColunas = {"Código", "Funcionário", "Cód. Serviços em execução"};
+        try {
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+
+                    return false;
+                }
+            };
+            tblFuncionarioTrabalhando.setModel(model);
+            model.setColumnIdentifiers(nomeColunas);
+            model.setRowCount(0);
+        } catch (Exception ex) {
+            System.out.println("Erro ao iniciar tabela funcionário.\n\n" + ex.getMessage());
+        }
+    }
+
+    private void popularTabelaFuncionario(int codigoServico) throws SQLException, ClassNotFoundException {
+        ArrayList<Funcionario> lista = new ArrayList<>();
+        lista = DaoServico.listarFuncionariosEmServico(codigoServico);
+        String[] nomeColunas = {"Código", "Funcionário", "Cód. Serviços em execução"};
+        try {
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+
+                    return false;
+                }
+            };
+            tblFuncionarioTrabalhando.setModel(model);
+            model.setColumnIdentifiers(nomeColunas);
+            model.setRowCount(0);
+            Object rowData[] = new Object[3];
+            for (int i = 0; i < lista.size(); i++) {
+                rowData[0] = Integer.toString(lista.get(i).getCodigoFuncionario());
+                rowData[1] = lista.get(i).getPessoa().getNome();
+                rowData[2] = lista.get(i).getCargo();
+
+                model.addRow(rowData);
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Erro ao iniciar tabela funcionário.\n\n" + ex.getMessage());
+        }
+    }
+
     private void atualizarTabela() {
         ArrayList<Servico> lista = new ArrayList<>();
         lista = DaoServico.listarServico();
@@ -1142,7 +1375,8 @@ public class FrmListagemServico extends javax.swing.JFrame {
         ArrayList<Object> lista = new ArrayList<>();
 
         s.setCodigoServico(Integer.parseInt((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)));
-        
+        s.setDescricaoServicoFILE(((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 3)));
+
         try {
             lista = DaoServico.popularListaServicoDetalhada(s.getCodigoServico(), 1);
         } catch (ClassNotFoundException ex) {
@@ -1150,49 +1384,99 @@ public class FrmListagemServico extends javax.swing.JFrame {
         }
 
         pf = (PessoaFisica) lista.get(0);
-        
+
         end = (Endereco) lista.get(2);
         flag = (Boolean) lista.get(3);
-        
+
         txtNomePessoaFicticio.setText(pf.getPessoa().getNome());
         txtLogradouro.setText(end.getLogradouro());
         txtCidade.setText(end.getCidade());
         txtEstado.setText(end.getEstado());
         txtBairro.setText(end.getBairro());
         txtNumero.setText(pf.getPessoa().getComplementoLogradouro());
-        txtTelefone.setText(""+pf.getPessoa().getTelefone());
-        txtCelularRamal.setText(""+pf.getCelular());
-        if (pf.getSexo()==0) {
+        txtTelefone.setText("" + pf.getPessoa().getTelefone());
+        txtCelularRamal.setText("" + pf.getCelular());
+        lblRelatorio.setText(s.getDescricaoServicoFILE());
+        if (pf.getSexo() == 0) {
             rbtMasculino.setSelected(true);
         } else {
             rbtFeminino.setSelected(true);
         }
-        
+
         txtCep.setText(end.getCep());
         txtCpfCnpj.setText(pf.getCpf());
-        String aux ="";
-        aux = (String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 1);
-        switch (aux){
-            case "Preventivo":
-                cmbTipoServico.setSelectedIndex(0);
-                break;
-            case "Corretivo":
-                cmbTipoServico.setSelectedIndex(1);
-                break;
-            case "Emergencial":
-                cmbTipoServico.setSelectedIndex(2);
-                break;
-        }
-        ArrayList<Object> lista2 = new ArrayList<>();
-        lista2 = DaoServico.funcionarioEmServico(s.getCodigoServico());
-        Funcionario f = new Funcionario();
-        f = (Funcionario) lista2.get(1);
-        int aux2 = 0;
-        aux2 = (int) lista2.get(0);
-        txtNomeFunc.setText(f.getPessoa().getNome());
-        txtCodFunc.setText(""+aux2);
-        JOptionPane.showMessageDialog(rootPane, aux);
         
+
+    }
+
+    public void popularExibicaoPessoaJuridica(PessoaJuridica pj) {
+        txtNomePessoaFicticio.setText(pj.getPessoa().getNome());
+        txtLogradouro.setText(pj.getPessoa().getEndereco().getLogradouro());
+        txtCidade.setText(pj.getPessoa().getEndereco().getCidade());
+        txtEstado.setText(pj.getPessoa().getEndereco().getEstado());
+        txtBairro.setText(pj.getPessoa().getEndereco().getBairro());
+        txtNumero.setText(pj.getPessoa().getComplementoLogradouro());
+        txtTelefone.setText("" + pj.getPessoa().getTelefone());
+        txtCelularRamal.setText("" + pj.getRamalCliente());
+        txtRazaoSocial.setText(pj.getRazaoSocial());
+
+    }
+
+    public void popularExibicaoPessoa(PessoaFisica pf) {
+        txtNomePessoaFicticio.setText(pf.getPessoa().getNome());
+        txtLogradouro.setText(pf.getPessoa().getEndereco().getLogradouro());
+        txtCidade.setText(pf.getPessoa().getEndereco().getCidade());
+        txtEstado.setText(pf.getPessoa().getEndereco().getEstado());
+        txtBairro.setText(pf.getPessoa().getEndereco().getBairro());
+        txtNumero.setText(pf.getPessoa().getComplementoLogradouro());
+        txtTelefone.setText("" + pf.getPessoa().getTelefone());
+        txtCelularRamal.setText("" + pf.getCelular());
+
+        if (pf.getSexo() == 0) {
+            rbtMasculino.setSelected(true);
+        } else {
+            rbtFeminino.setSelected(true);
+        }
+
+    }
+
+    public void limparExibicaoPessoaJuridica() {
+        txtNomePessoaFicticio.setText("");
+        txtLogradouro.setText("");
+        txtCidade.setText("");
+        txtEstado.setText("");
+        txtBairro.setText("");
+        txtNumero.setText("");
+        txtTelefone.setText("");
+        txtCelularRamal.setText("");
+        txtRazaoSocial.setText("");
+
+    }
+
+    public void limparExibicaoEndereco() {
+        txtLogradouro.setText("");
+        txtCidade.setText("");
+        txtBairro.setText("");
+        txtEstado.setText("");
+    }
+
+    public void popularExibicaoEndereco(Endereco end) {
+        txtLogradouro.setText(end.getLogradouro());
+        txtCidade.setText(end.getCidade());
+        txtBairro.setText(end.getBairro());
+        txtEstado.setText(end.getEstado());
+    }
+
+    public void limparExibicaoPessoa() {
+        txtNomePessoaFicticio.setText("");
+        txtLogradouro.setText("");
+        txtCidade.setText("");
+        txtEstado.setText("");
+        txtBairro.setText("");
+        txtNumero.setText("");
+        txtTelefone.setText("");
+        txtCelularRamal.setText("");
+
     }
 
     public void exibicaoJuridica() {
@@ -1203,7 +1487,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         ArrayList<Object> lista = new ArrayList<>();
 
         s.setCodigoServico(Integer.parseInt((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)));
-        
+
         try {
             lista = DaoServico.popularListaServicoDetalhada(s.getCodigoServico(), 0);
         } catch (ClassNotFoundException ex) {
@@ -1211,18 +1495,18 @@ public class FrmListagemServico extends javax.swing.JFrame {
         }
 
         pj = (PessoaJuridica) lista.get(1);
-        
+
         end = (Endereco) lista.get(2);
         flag = (Boolean) lista.get(3);
-        
+
         txtNomePessoaFicticio.setText(pj.getPessoa().getNome());
         txtLogradouro.setText(end.getLogradouro());
         txtCidade.setText(end.getCidade());
         txtEstado.setText(end.getEstado());
         txtBairro.setText(end.getBairro());
         txtNumero.setText(pj.getPessoa().getComplementoLogradouro());
-        txtTelefone.setText(""+pj.getPessoa().getTelefone());
-        txtCelularRamal.setText(""+pj.getRamalCliente());
+        txtTelefone.setText("" + pj.getPessoa().getTelefone());
+        txtCelularRamal.setText("" + pj.getRamalCliente());
         txtRazaoSocial.setText(pj.getRazaoSocial());
     }
 
@@ -1238,16 +1522,20 @@ public class FrmListagemServico extends javax.swing.JFrame {
     private javax.swing.JButton btnHoje;
     private javax.swing.JButton btnListarFunc;
     private javax.swing.JButton btnOrcamento;
+    private javax.swing.JButton btnRemoveLinhaFunc;
+    private javax.swing.JButton btnSelecionarfunc;
     private javax.swing.JButton btnTelaCadastro;
     private javax.swing.JComboBox<String> cmbFiltro;
     private javax.swing.JComboBox<String> cmbTipoServico;
+    private javax.swing.JFileChooser db;
     private javax.swing.ButtonGroup grupoTipoCliente;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblAtivo;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblBairro;
@@ -1261,7 +1549,6 @@ public class FrmListagemServico extends javax.swing.JFrame {
     private javax.swing.JLabel lblCpfCnpjExiste;
     private javax.swing.JLabel lblDescrever;
     private javax.swing.JLabel lblEstado;
-    private javax.swing.JLabel lblFuncExiste;
     private javax.swing.JLabel lblLogradouro;
     private javax.swing.JLabel lblNomeFicticio;
     private javax.swing.JLabel lblNumeroLog;
@@ -1269,14 +1556,18 @@ public class FrmListagemServico extends javax.swing.JFrame {
     private javax.swing.JLabel lblPesquisar;
     private javax.swing.JLabel lblPesquisarData;
     private javax.swing.JLabel lblPesquisarData1;
+    private javax.swing.JLabel lblPesquisarData2;
+    private javax.swing.JLabel lblPesquisarData3;
     private javax.swing.JLabel lblRazaoSocial;
     private javax.swing.JLabel lblRelatorio;
+    private javax.swing.JLabel lblSelecionarFunc;
     private javax.swing.JLabel lblSexo;
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JRadioButton rbtFeminino;
     private javax.swing.JRadioButton rbtFisica;
     private javax.swing.JRadioButton rbtJuridica;
     private javax.swing.JRadioButton rbtMasculino;
+    private javax.swing.JTable tblFuncionarioTrabalhando;
     private javax.swing.JTable tblListagemServico;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JTextField txtCelularRamal;

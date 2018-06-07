@@ -11,10 +11,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import model.Endereco;
 import model.Funcionario;
+import model.Pessoa;
 import model.PessoaFisica;
 import model.PessoaJuridica;
 import model.Servico;
@@ -385,6 +387,58 @@ Data Encerramento
         
         lista.add(aux);
         lista.add(f);
+        
+        return lista;
+    }
+    
+    public static void ativarDesativarServico (int codigoServico, boolean flag) throws SQLException, ClassNotFoundException {
+        Connection con = Conexao.conectar();
+        String sql = "UPDATE SYNCHROSOFT.TB_SERVICO "
+                + "SET ID_STATUS_SERVICO = ? "
+                + "WHERE CD_SERVICO = ?";
+        PreparedStatement st = con.prepareStatement(sql);
+        if (flag){
+            st.setInt(1, 1);
+        } else {
+            st.setInt(1, 0);
+            
+        }
+        
+        st.setInt(2, codigoServico);
+        st.executeUpdate();
+        st.close();
+        if(flag){
+            JOptionPane.showMessageDialog(null, "O Serviço foi ativado com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(null, "O Serviço foi desativado com sucesso!");
+        }
+        
+        
+        
+    }
+    
+    public static ArrayList listarFuncionariosEmServico (int codigoServico) throws SQLException, ClassNotFoundException{
+        ArrayList<Funcionario> lista = new ArrayList<>();
+        Connection con = Conexao.conectar();
+        String sql = "SELECT CD_FUNCIONARIO, NM_FUNCIONARIO FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE CD_FUNCIONARIO IN (SELECT CD_FUNCIONARIO FROM SYNCHROSOFT.TB_FUNC_SERVICO WHERE CD_SERVICO = ?)";
+        PreparedStatement st = con.prepareStatement(sql);
+        st.setInt(1, codigoServico);
+        ResultSet rs = st.executeQuery();
+        String servFunc = "";
+        while (rs.next()){
+            Pessoa p = new Pessoa();
+            Funcionario f = new Funcionario();
+            f.setCodigoFuncionario(rs.getInt("CD_FUNCIONARIO"));
+            p.setNome(rs.getString("NM_FUNCIONARIO"));
+            f.setPessoa(p);            
+            servFunc = listarServicosDoFuncionario(f.getCodigoFuncionario());
+            
+            servFunc = servFunc.substring(2);
+            f.setCargo(servFunc);
+            lista.add(f);
+        }
+        st.close();
+        rs.close();
         
         return lista;
     }
