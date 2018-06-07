@@ -299,14 +299,14 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         getContentPane().add(txtLimpar);
         txtLimpar.setBounds(630, 550, 110, 40);
 
-        txtCadastrar.setText("Ativar serviço");
+        txtCadastrar.setText("Criar e ativar serviço");
         txtCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCadastrarActionPerformed(evt);
             }
         });
         getContentPane().add(txtCadastrar);
-        txtCadastrar.setBounds(1000, 550, 110, 40);
+        txtCadastrar.setBounds(950, 550, 160, 40);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados da Pessoa"));
         jPanel2.setOpaque(false);
@@ -692,7 +692,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
             
             Servico serv = new Servico(Integer.parseInt(txtCodigoServico.getText()), cmbTipoServico.getSelectedItem().toString(),
-                    Date.valueOf(txtDataServico.getText()), rbtJuridica.isSelected(), txtCpfCnpj.getText(), txtCpfCnpj.getText(), f, lblRelatorio.getText(), true);
+                    Date.valueOf(txtDataServico.getText()), rbtFisica.isSelected(), txtCpfCnpj.getText(), txtCpfCnpj.getText(), f, lblRelatorio.getText(), true);
             DaoServico dao = new DaoServico();
             try {
                 dao.cadastrarServico(serv.getCnpjCliente(), lista, serv.getCodigoServico(), serv.getTipoServico(),

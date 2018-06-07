@@ -26,6 +26,18 @@ public class Servico {
     public Servico() {
     }
 
+    public Servico(int codigoServico, String tipoServico, Date dataServico, Date dataServicoFim, boolean tipoCliente, String cpfCliente, String cnpjCliente, String descricaoServicoFILE) {
+        this.codigoServico = codigoServico;
+        this.tipoServico = tipoServico;
+        this.dataServico = dataServico;
+        this.dataServicoFim = dataServicoFim;
+        this.tipoCliente = tipoCliente;
+        this.cpfCliente = cpfCliente;
+        this.cnpjCliente = cnpjCliente;
+        this.descricaoServicoFILE = descricaoServicoFILE;
+        
+    }
+
     public Servico(int codigoServico, String tipoServico, Date dataServico, boolean tipoCliente, String cpfCliente, String cnpjCliente, Funcionario funcionario, String descricaoServicoFILE, boolean statusServico) {
         this.codigoServico = codigoServico;
         this.tipoServico = tipoServico;
@@ -37,6 +49,8 @@ public class Servico {
         this.descricaoServicoFILE = descricaoServicoFILE;
         this.statusServico = statusServico;
     }
+
+    
 
     public int getCodigoServico() {
         return codigoServico;

@@ -20,13 +20,14 @@ import model.Pessoa;
 import model.PessoaFisica;
 import model.PessoaJuridica;
 import model.Servico;
+import view.FrmListagemServico;
 
 /**
  *
  * @author LuizV1
  */
 public class DaoServico {
-    
+
     public static ArrayList listarServico() {
         ArrayList<Servico> lista = new ArrayList<>();
         try {
@@ -37,7 +38,7 @@ public class DaoServico {
             while (rs.next()) {
                 Servico s = new Servico();
                 s.setCodigoServico(rs.getInt("CD_SERVICO"));
-                
+
                 switch (rs.getInt("DS_TIPO_SERVICO")) {
                     case 0:
                         s.setTipoServico("Preventivo");
@@ -49,21 +50,21 @@ public class DaoServico {
                         s.setTipoServico("Emergencial");
                         break;
                 }
-                
+
                 if (rs.getInt("DS_TIPO_CLIENTE") == 0) {
                     s.setTipoCliente(true);
                 } else {
                     s.setTipoCliente(false);
                 }
-                
+
                 s.setDescricaoServicoFILE(rs.getString("DS_SERVICO"));
-                
+
                 if (rs.getInt("ID_STATUS_SERVICO") == 0) {
                     s.setStatusServico(false);
                 } else {
                     s.setStatusServico(true);
                 }
-                
+
                 s.setDataServico(rs.getDate("DT_SERVICO_INICIO"));
                 s.setDataServicoFim(rs.getDate("DT_SERVICO_INICIO"));
                 lista.add(s);
@@ -75,7 +76,111 @@ public class DaoServico {
         }
         return lista;
     }
+
+    public static void alterarFuncionarioServico(ArrayList<Funcionario> lista, int codigoServico) throws SQLException, ClassNotFoundException {
+        Connection con = Conexao.conectar();
+        String sql = "DELETE FROM SYNCHROSOFT.TB_FUNC_SERVICO WHERE CD_SERVICO = ?";
+        PreparedStatement st = con.prepareStatement(sql);
+        st.setInt(1, codigoServico);
+        st.executeUpdate();
+        st.close();
+        sql = "INSERT INTO SYNCHROSOFT.TB_FUNC_SERVICO (CD_FUNCIONARIO, CD_SERVICO) VALUES (?,?)";
+        PreparedStatement st2 = con.prepareStatement(sql);
+        for (int i = 0; i < lista.size(); i++) {
+            st2.setInt(1, lista.get(i).getCodigoFuncionario());
+            st2.setInt(2, codigoServico);
+            st2.executeUpdate();
+        }
+        st2.close();
+        
+    }
     
+    public static void deletarServico(Servico s) throws SQLException, ClassNotFoundException {
+        Connection con = Conexao.conectar();
+        String sql = "DELETE FROM SYNCHROSOFT.TB_FUNC_SERVICO WHERE CD_SERVICO = ?";
+        PreparedStatement st = con.prepareStatement(sql);
+        st.setInt(1, s.getCodigoServico());
+        st.executeUpdate();
+        st.close();
+        
+        sql = "DELETE FROM SYNCHROSOFT.TB_PESSOAF_SERVICO WHERE CD_SERVICO = ?";
+        PreparedStatement st2 = con.prepareStatement(sql);
+        st2.setInt(1, s.getCodigoServico());
+        st2.executeUpdate();
+        st2.close();
+        
+        sql = "DELETE FROM SYNCHROSOFT.TB_PESSOAJ_SERVICO WHERE CD_SERVICO = ?";
+        PreparedStatement st3 = con.prepareStatement(sql);
+        st3.setInt(1, s.getCodigoServico());
+        st3.executeUpdate();
+        st3.close();
+        
+        sql = "DELETE FROM SYNCHROSOFT.TB_SERVICO WHERE CD_SERVICO = ?";
+        PreparedStatement st4 = con.prepareStatement(sql);
+        st4.setInt(1, s.getCodigoServico());
+        st4.executeUpdate();
+        st4.close();
+        JOptionPane.showMessageDialog(null, "O Serviço foi removido com sucesso, sem nenhum funcionário atribuído ao mesmo.");
+    }
+    
+    public static void alterarServico(Servico s, ArrayList<Funcionario> lista, boolean tipoPessoa, String cpfcnpj) throws SQLException, ClassNotFoundException {
+        Connection con = Conexao.conectar();
+        String sql = "UPDATE SYNCHROSOFT.TB_SERVICO "
+                + "SET DS_TIPO_SERVICO = ?, DS_TIPO_CLIENTE = ?, DS_SERVICO = ?, "
+                + "DT_SERVICO_INICIO = ?, DT_SERVICO_FIM = ?"
+                + "WHERE CD_SERVICO = ?";
+        PreparedStatement st = con.prepareStatement(sql);
+        switch (s.getTipoServico()){
+            case "Preventivo":
+                st.setInt(1, 0);
+                break;
+            case "Corretivo":
+                st.setInt(1, 1);
+                break;
+            case "Emergencial":
+                st.setInt(1, 2);
+                break;
+        }
+        if (s.isTipoCliente()){
+            st.setInt(2, 1);
+        } else {
+            st.setInt(2, 0);
+        }
+        
+        st.setString(3, s.getDescricaoServicoFILE());
+        st.setDate(4, s.getDataServico());
+        st.setDate(5, s.getDataServicoFim());
+        st.setInt(6, s.getCodigoServico());
+        st.executeUpdate();
+        st.close();
+        
+        alterarFuncionarioServico(lista, s.getCodigoServico());
+        
+        if (tipoPessoa) {
+            sql = "UPDATE SYNCHROSOFT.TB_PESSOAF_SERVICO "
+                    + "SET CD_CPF = ?"
+                    + "WHERE CD_SERVICO = ?";
+            PreparedStatement st2 = con.prepareStatement(sql);
+            st2.setString(1, cpfcnpj);
+            st2.setInt(2, s.getCodigoServico());
+            st2.executeUpdate();
+            st2.close();
+            
+        } else {
+            sql = "UPDATE SYNCHROSOFT.TB_PESSOAJ_SERVICO "
+                    + "SET CD_CNPJ = ?"
+                    + "WHERE CD_SERVICO = ?";
+            PreparedStatement st2 = con.prepareStatement(sql);
+            st2.setString(1, cpfcnpj);
+            st2.setInt(2, s.getCodigoServico());
+            st2.executeUpdate();
+            st2.close();
+        }
+        
+        JOptionPane.showMessageDialog(null, "Serviço alterado com sucesso!");
+        
+    }
+
     public static ArrayList popularListaServicoDetalhada(int codigoServico, int tipoCliente) throws ClassNotFoundException {
         Servico s = new Servico();
         PessoaJuridica pj = new PessoaJuridica();
@@ -90,7 +195,7 @@ public class DaoServico {
                 PreparedStatement st = con.prepareStatement(sql);
                 st.setInt(1, codigoServico);
                 ResultSet rs = st.executeQuery();
-                while (rs.next()){
+                while (rs.next()) {
                     s.setCnpjCliente(rs.getString("CD_CNPJ"));
                     pj = DaoPessoa.popularPessoaJuridicaSemCep(s.getCnpjCliente());
                     end = DaoEndereco.popularEndereco(pj.getPessoa().getEndereco().getCep());
@@ -98,13 +203,13 @@ public class DaoServico {
                 st.close();
                 rs.close();
                 flag = false;
-                
+
             } else {
                 String sql = "SELECT CD_CPF FROM SYNCHROSOFT.TB_PESSOAF_SERVICO WHERE CD_SERVICO = ?";
                 PreparedStatement st = con.prepareStatement(sql);
                 st.setInt(1, codigoServico);
                 ResultSet rs = st.executeQuery();
-                while (rs.next()){
+                while (rs.next()) {
                     s.setCpfCliente(rs.getString("CD_CPF"));
                     pf = DaoPessoa.popularPessoaFisicaSemCep(s.getCpfCliente());
                     end = DaoEndereco.popularEndereco(pf.getPessoa().getEndereco().getCep());
@@ -112,19 +217,19 @@ public class DaoServico {
                 st.close();
                 rs.close();
                 flag = true;
-                
+
             }
-        }catch (SQLException ex ){
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         lista.add(pf);
         lista.add(pj);
         lista.add(end);
         lista.add(flag);
-        
+
         return lista;
     }
-    
+
     public static ArrayList listarServicoFiltrada(String cmbFiltro, String txtPesquisa) {
         ArrayList<Servico> lista = new ArrayList<>();
         try {
@@ -165,7 +270,7 @@ Data Encerramento
             while (rs.next()) {
                 Servico s = new Servico();
                 s.setCodigoServico(rs.getInt("CD_SERVICO"));
-                
+
                 switch (rs.getInt("DS_TIPO_SERVICO")) {
                     case 0:
                         s.setTipoServico("Preventivo");
@@ -177,21 +282,21 @@ Data Encerramento
                         s.setTipoServico("Emergencial");
                         break;
                 }
-                
+
                 if (rs.getInt("DS_TIPO_CLIENTE") == 0) {
                     s.setTipoCliente(false);
                 } else {
                     s.setTipoCliente(true);
                 }
-                
+
                 s.setDescricaoServicoFILE(rs.getString("DS_SERVICO"));
-                
+
                 if (rs.getInt("ID_STATUS_SERVICO") == 0) {
                     s.setStatusServico(false);
                 } else {
                     s.setStatusServico(true);
                 }
-                
+
                 s.setDataServico(rs.getDate("DT_SERVICO_INICIO"));
                 s.setDataServicoFim(rs.getDate("DT_SERVICO_INICIO"));
                 lista.add(s);
@@ -203,8 +308,6 @@ Data Encerramento
         }
         return lista;
     }
-    
-    
 
     public static boolean verificarServicoAtivo(int codigoServico) throws SQLException, ClassNotFoundException {
         int aux = 0;
@@ -250,11 +353,11 @@ Data Encerramento
             }
             st.setInt(2, serv);
 
-            int tipo = 0;
+            int tipo;
             if (tipoCliente) {
-                tipo = 0;
-            } else {
                 tipo = 1;
+            } else {
+                tipo = 0;
             }
             st.setInt(3, tipo);
 
@@ -272,25 +375,24 @@ Data Encerramento
             st.setDate(7, dataServico);
 
             st.executeUpdate();
-            
+
             sql = "INSERT INTO SYNCHROSOFT.TB_FUNC_SERVICO (CD_FUNCIONARIO, CD_SERVICO) VALUES (?,?)";
-            PreparedStatement st2 = con.prepareStatement(sql);            
-            for (int i = 0; i < lista.size(); i++) {                
-            st2.setInt(1, lista.get(i).getCodigoFuncionario());
-            st2.setInt(2, codigoServico);
-            st2.executeUpdate();
+            PreparedStatement st2 = con.prepareStatement(sql);
+            for (int i = 0; i < lista.size(); i++) {
+                st2.setInt(1, lista.get(i).getCodigoFuncionario());
+                st2.setInt(2, codigoServico);
+                st2.executeUpdate();
             }
-            
 
             if (tipoCliente) {
-                sql = "INSERT INTO SYNCHROSOFT.TB_PESSOAJ_SERVICO (CD_CNPJ, CD_SERVICO) VALUES (?,?)";
+                sql = "INSERT INTO SYNCHROSOFT.TB_PESSOAF_SERVICO (CD_CPF, CD_SERVICO) VALUES (?,?)";
                 PreparedStatement st3 = con.prepareStatement(sql);
                 st3.setString(1, cpfcnpj);
                 st3.setInt(2, codigoServico);
                 st3.executeUpdate();
                 st3.close();
             } else {
-                sql = "INSERT INTO SYNCHROSOFT.TB_PESSOAF_SERVICO (CD_CPF, CD_SERVICO) VALUES (?,?)";
+                sql = "INSERT INTO SYNCHROSOFT.TB_PESSOAJ_SERVICO (CD_CNPJ, CD_SERVICO) VALUES (?,?)";
                 PreparedStatement st3 = con.prepareStatement(sql);
                 st3.setString(1, cpfcnpj);
                 st3.setInt(2, codigoServico);
@@ -354,23 +456,23 @@ Data Encerramento
 
         return flag;
     }
-    
-    public static String listarServicosDoFuncionario (int codigoServico) throws SQLException, ClassNotFoundException{
+
+    public static String listarServicosDoFuncionario(int codigoServico) throws SQLException, ClassNotFoundException {
         String codigos = "";
         Connection con = Conexao.conectar();
         String sql = "SELECT CD_SERVICO FROM SYNCHROSOFT.TB_FUNC_SERVICO WHERE CD_FUNCIONARIO = ?";
         PreparedStatement st = con.prepareStatement(sql);
         st.setInt(1, codigoServico);
         ResultSet rs = st.executeQuery();
-        while (rs.next()){
-            codigos = codigos +", "+rs.getInt("CD_SERVICO");
+        while (rs.next()) {
+            codigos = codigos + ", " + rs.getInt("CD_SERVICO");
         }
         st.close();
         rs.close();
         return codigos;
     }
-    
-    public static ArrayList funcionarioEmServico (int codigoServico) throws SQLException, ClassNotFoundException{
+
+    public static ArrayList funcionarioEmServico(int codigoServico) throws SQLException, ClassNotFoundException {
         ArrayList<Object> lista = new ArrayList<>();
         Connection con = Conexao.conectar();
         String sql = "SELECT CD_FUNCIONARIO FROM SYNCHROSOFT.TB_FUNC_SERVICO WHERE CD_SERVICO = ?";
@@ -384,40 +486,38 @@ Data Encerramento
         f = DaoFuncionario.popularFuncionario(aux);
         st.close();
         rs.close();
-        
+
         lista.add(aux);
         lista.add(f);
-        
+
         return lista;
     }
-    
-    public static void ativarDesativarServico (int codigoServico, boolean flag) throws SQLException, ClassNotFoundException {
+
+    public static void ativarDesativarServico(int codigoServico, boolean flag) throws SQLException, ClassNotFoundException {
         Connection con = Conexao.conectar();
         String sql = "UPDATE SYNCHROSOFT.TB_SERVICO "
                 + "SET ID_STATUS_SERVICO = ? "
                 + "WHERE CD_SERVICO = ?";
         PreparedStatement st = con.prepareStatement(sql);
-        if (flag){
+        if (flag) {
             st.setInt(1, 1);
         } else {
             st.setInt(1, 0);
-            
+
         }
-        
+
         st.setInt(2, codigoServico);
         st.executeUpdate();
         st.close();
-        if(flag){
+        if (flag) {
             JOptionPane.showMessageDialog(null, "O Serviço foi ativado com sucesso!");
         } else {
             JOptionPane.showMessageDialog(null, "O Serviço foi desativado com sucesso!");
         }
-        
-        
-        
+
     }
-    
-    public static ArrayList listarFuncionariosEmServico (int codigoServico) throws SQLException, ClassNotFoundException{
+
+    public static ArrayList listarFuncionariosEmServico(int codigoServico) throws SQLException, ClassNotFoundException {
         ArrayList<Funcionario> lista = new ArrayList<>();
         Connection con = Conexao.conectar();
         String sql = "SELECT CD_FUNCIONARIO, NM_FUNCIONARIO FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE CD_FUNCIONARIO IN (SELECT CD_FUNCIONARIO FROM SYNCHROSOFT.TB_FUNC_SERVICO WHERE CD_SERVICO = ?)";
@@ -425,21 +525,21 @@ Data Encerramento
         st.setInt(1, codigoServico);
         ResultSet rs = st.executeQuery();
         String servFunc = "";
-        while (rs.next()){
+        while (rs.next()) {
             Pessoa p = new Pessoa();
             Funcionario f = new Funcionario();
             f.setCodigoFuncionario(rs.getInt("CD_FUNCIONARIO"));
             p.setNome(rs.getString("NM_FUNCIONARIO"));
-            f.setPessoa(p);            
+            f.setPessoa(p);
             servFunc = listarServicosDoFuncionario(f.getCodigoFuncionario());
-            
+
             servFunc = servFunc.substring(2);
             f.setCargo(servFunc);
             lista.add(f);
         }
         st.close();
         rs.close();
-        
+
         return lista;
     }
 }

@@ -38,7 +38,6 @@ public class FrmListagemServico extends javax.swing.JFrame {
     boolean cpfCadastrado;
     boolean cnpjCadastrado;
     boolean servCadastrado;
-    boolean flagContrato = false;
     Endereco endExibicao;
     PessoaFisica pessoaFisicaExibicao;
     PessoaJuridica pessoaJuridicaExibicao;
@@ -53,7 +52,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         iniciarTabelaFuncionario();
         txtDataDepois.setText("" + new Date(Calendar.getInstance().getTimeInMillis()));
     }
-    DaoDespesa dp = new DaoDespesa();
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -159,7 +158,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtDataAntes);
-        txtDataAntes.setBounds(670, 20, 130, 40);
+        txtDataAntes.setBounds(700, 399, 130, 31);
 
         txtDataDepois.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtDataDepois.addActionListener(new java.awt.event.ActionListener() {
@@ -176,14 +175,14 @@ public class FrmListagemServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtDataDepois);
-        txtDataDepois.setBounds(870, 20, 130, 40);
+        txtDataDepois.setBounds(900, 400, 130, 30);
 
         lblPesquisarData1.setFont(new java.awt.Font("Malgun Gothic", 0, 10)); // NOI18N
         lblPesquisarData1.setText("Término:");
         getContentPane().add(lblPesquisarData1);
-        lblPesquisarData1.setBounds(810, 20, 70, 40);
+        lblPesquisarData1.setBounds(840, 390, 70, 40);
 
-        btnAtualizarTabela.setText("AtualizarTabela");
+        btnAtualizarTabela.setText("AtualizarTabelas");
         btnAtualizarTabela.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAtualizarTabelaActionPerformed(evt);
@@ -245,7 +244,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnHoje);
-        btnHoje.setBounds(1010, 20, 100, 40);
+        btnHoje.setBounds(1040, 400, 100, 30);
 
         cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código Serviço", "Status Serviço", "Tipo Serviço", "Descrição Serviço", "Data Início", "Data Encerramento" }));
@@ -255,12 +254,12 @@ public class FrmListagemServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(160, 30, 107, 33);
+        cmbFiltro.setBounds(160, 30, 240, 33);
 
         lblDescrever.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDescrever.setText("Descrição:");
         getContentPane().add(lblDescrever);
-        lblDescrever.setBounds(270, 20, 83, 40);
+        lblDescrever.setBounds(420, 30, 83, 40);
 
         txtPesquisa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -277,7 +276,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtPesquisa);
-        txtPesquisa.setBounds(370, 20, 221, 40);
+        txtPesquisa.setBounds(520, 30, 221, 40);
 
         jLabel3.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel3.setText("Tipo de serviço:");
@@ -589,7 +588,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         lblPesquisarData2.setFont(new java.awt.Font("Malgun Gothic", 0, 10)); // NOI18N
         lblPesquisarData2.setText("Data Início:");
         getContentPane().add(lblPesquisarData2);
-        lblPesquisarData2.setBounds(600, 20, 90, 40);
+        lblPesquisarData2.setBounds(630, 390, 90, 40);
 
         lblPesquisarData3.setFont(new java.awt.Font("Malgun Gothic", 0, 10)); // NOI18N
         lblPesquisarData3.setText("Funcionários atualmente executando esse serviço. Selecione uma linha para excluir um funcionário do serivço.");
@@ -678,41 +677,64 @@ public class FrmListagemServico extends javax.swing.JFrame {
 
     private void btnAtualizarTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarTabelaActionPerformed
         atualizarTabela();
+        iniciarTabelaFuncionario();
     }//GEN-LAST:event_btnAtualizarTabelaActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        if (cepCadastrado && verificarFuncVazio() && (cnpjCadastrado || cpfCadastrado)) {
+        
         try {
             tblListagemServico.getCellEditor().stopCellEditing();
+            tblFuncionarioTrabalhando.getCellEditor().stopCellEditing();
         } catch (Exception ex) {
 
         }
         try {
-            dp.alterarDespesa(tblListagemServico);
+            Servico s = new Servico (Integer.parseInt((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)), 
+                    (String) cmbTipoServico.getSelectedItem(), Date.valueOf(txtDataAntes.getText()), Date.valueOf(txtDataDepois.getText()), rbtFisica.isSelected(), txtCpfCnpj.getText(), txtCpfCnpj.getText(), lblRelatorio.getText());
+            ArrayList<Funcionario> lista = new ArrayList<>();
+            for (int i = 0; i < tblFuncionarioTrabalhando.getRowCount(); i++) {
+                Funcionario f = new Funcionario();
+                f.setCodigoFuncionario(Integer.parseInt((String) tblFuncionarioTrabalhando.getValueAt(i, 0)));
+                lista.add(f);
+            }
+            DaoServico.alterarServico(s, lista, rbtFisica.isSelected(), txtCpfCnpj.getText());
+            
         } catch (SQLException ex) {
             Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Dados inválidos ou incompletos.");
+        }
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-        Despesa despesa = new Despesa();
-        String aux;
-        aux = (String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0);
-        despesa.setCodigoDespesa(Integer.parseInt(aux));
-
+        int flag = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir o serviço selecionado?");
+        
+        
+        if (flag == 0) {
+            Servico s = new Servico();
+        s.setCodigoServico(Integer.parseInt((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)));
         try {
-            dp.deletarDespesa(despesa.getCodigoDespesa());
+            DaoServico.deletarServico(s);
             atualizarTabela();
-        } catch (SQLException | ClassNotFoundException ex) {
+            iniciarTabelaFuncionario();
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
         }
+        }
+        
+        
+        
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
-        FrmCadastroDespesa telaCadastroDesp = new FrmCadastroDespesa();
-        telaCadastroDesp.setVisible(true);
+        FrmCadastroServico telaCadastroServ = new FrmCadastroServico();
+        telaCadastroServ.setVisible(true);
     }//GEN-LAST:event_btnTelaCadastroActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
@@ -855,6 +877,9 @@ public class FrmListagemServico extends javax.swing.JFrame {
             lblAtivo.setText("Serviço concluído / não ativo.");
             flagAtivo = true;
         }
+        
+        txtDataAntes.setText((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 5));
+        txtDataDepois.setText((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 6));
     }//GEN-LAST:event_tblListagemServicoMouseClicked
 
     private void btnHojeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojeActionPerformed
@@ -1354,6 +1379,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         lblSexo.setVisible(true);
         rbtFeminino.setVisible(true);
         rbtMasculino.setVisible(true);
+        rbtFisica.setSelected(true);
     }
 
     public void modoJuridica() {
@@ -1365,6 +1391,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         lblSexo.setVisible(false);
         rbtFeminino.setVisible(false);
         rbtMasculino.setVisible(false);
+        rbtJuridica.setSelected(true);
     }
 
     public void exibicaoFisica() throws SQLException, ClassNotFoundException {
@@ -1477,6 +1504,14 @@ public class FrmListagemServico extends javax.swing.JFrame {
         txtTelefone.setText("");
         txtCelularRamal.setText("");
 
+    }
+    
+    public boolean verificarFuncVazio() {
+        if (tblFuncionarioTrabalhando.getRowCount() == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public void exibicaoJuridica() {

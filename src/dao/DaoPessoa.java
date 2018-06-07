@@ -488,9 +488,8 @@ Data Cadastro
                 String DT_CADASTRO = (String)tabela.getValueAt(row, 9);
                 pf.setDataCadastro(DT_CADASTRO);
                 String ID_CONTRATO = (String) tabela.getValueAt(row, 8);
-
                 int contrato;
-                if (ID_CONTRATO == "Não possui contrato") {
+                if (ID_CONTRATO.toLowerCase().substring(0,1).equals("s")) {
                     contrato = 1;
                 } else {
                     contrato = 0;

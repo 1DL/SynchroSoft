@@ -345,14 +345,14 @@
     </Component>
     <Component class="javax.swing.JButton" name="txtCadastrar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ativar servi&#xe7;o"/>
+        <Property name="text" type="java.lang.String" value="Criar e ativar servi&#xe7;o"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCadastrarActionPerformed"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="1000" y="550" width="110" height="40"/>
+          <AbsoluteConstraints x="950" y="550" width="160" height="40"/>
         </Constraint>
       </Constraints>
     </Component>
