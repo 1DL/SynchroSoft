@@ -35,6 +35,40 @@ public class DaoPeca {
         }
     }
     
+    public static boolean existePeca(int codigo) throws SQLException, ClassNotFoundException{
+        boolean flag;
+        Connection con = Conexao.conectar();
+        String sql = "SELECT CD_PECA FROM SYNCHROSOFT.TB_PECA WHERE CD_PECA = ?";
+        PreparedStatement st = con.prepareStatement(sql);
+        st.setInt(1, codigo);
+        ResultSet rs = st.executeQuery();
+        flag = rs.isBeforeFirst();
+        st.close();
+        rs.close();
+        return flag;
+    }
+    
+    public static Peca popularPeca(int codigo) throws SQLException, ClassNotFoundException{
+        Peca p = new Peca();
+        Connection con = Conexao.conectar();
+        String sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE CD_PECA = ?";
+        PreparedStatement st = con.prepareStatement(sql);
+        st.setInt(1, codigo);
+        ResultSet rs = st.executeQuery();
+        while (rs.next()) {
+            
+            p.setCodigoPeca(rs.getInt("CD_PECA"));
+            p.setNomePeca(rs.getString("NM_PECA"));
+            p.setCategoriaPeca(rs.getString("DS_CATEGORIA"));
+            p.setQuantidadePeca(rs.getInt("QT_PECA"));
+            p.setValorUnitario(rs.getFloat("VL_PECA"));
+        }
+        
+        st.close();
+        rs.close();
+        return p;
+    }
+    
     public void deletarPeca (int cod) throws SQLException, ClassNotFoundException {
         try {
             Connection con = Conexao.conectar();

@@ -57,7 +57,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         modoFisica();
         txtDataServico.setText("" + new Date(Calendar.getInstance().getTimeInMillis()));
         btnOrcamento.setEnabled(false);
-        reiniciarTabela();
+        iniciarTabela();
     }
 
     /**
@@ -697,7 +697,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             try {
                 dao.cadastrarServico(serv.getCnpjCliente(), lista, serv.getCodigoServico(), serv.getTipoServico(),
                         serv.isTipoCliente(), serv.getDescricaoServicoFILE(), serv.getDataServico(), serv.isStatusServico());
-                        reiniciarTabela();
+                        iniciarTabela();
             } catch (SQLException ex) {
                 Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
@@ -856,7 +856,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRemoveLinhaFuncActionPerformed
 
     private void btnLimpaFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpaFuncActionPerformed
-        reiniciarTabela();
+        iniciarTabela();
     }//GEN-LAST:event_btnLimpaFuncActionPerformed
 
     /**
@@ -986,7 +986,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
 
     }
 
-    public void reiniciarTabela() {
+    public void iniciarTabela() {
         String[] nomeColunas = {"Código", "Funcionário", "Cód. Serviços em execução"};
         try {
             DefaultTableModel model = new DefaultTableModel() {
