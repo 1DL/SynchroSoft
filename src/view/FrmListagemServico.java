@@ -108,9 +108,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         rbtFeminino = new javax.swing.JRadioButton();
         lblSexo = new javax.swing.JLabel();
         txtCpfCnpj = new javax.swing.JTextField();
-        lblCepExiste = new javax.swing.JLabel();
         lblCpfCnpjExiste = new javax.swing.JLabel();
-        btnCadastrarCep = new javax.swing.JButton();
         btnCadastrarPessoaJ = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListagemServico = new javax.swing.JTable();
@@ -298,7 +296,9 @@ public class FrmListagemServico extends javax.swing.JFrame {
         getContentPane().add(lblCep);
         lblCep.setBounds(20, 280, 60, 50);
 
+        txtCep.setEditable(false);
         txtCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtCep.setEnabled(false);
         txtCep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCepActionPerformed(evt);
@@ -457,22 +457,9 @@ public class FrmListagemServico extends javax.swing.JFrame {
         getContentPane().add(txtCpfCnpj);
         txtCpfCnpj.setBounds(700, 290, 250, 30);
 
-        lblCepExiste.setText("Cep inválido.");
-        getContentPane().add(lblCepExiste);
-        lblCepExiste.setBounds(60, 320, 180, 14);
-
         lblCpfCnpjExiste.setText("CPF Inválido");
         getContentPane().add(lblCpfCnpjExiste);
         lblCpfCnpjExiste.setBounds(700, 320, 190, 14);
-
-        btnCadastrarCep.setText("Cadastrar");
-        btnCadastrarCep.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarCepActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnCadastrarCep);
-        btnCadastrarCep.setBounds(200, 320, 100, 23);
 
         btnCadastrarPessoaJ.setText("Cadastrar");
         btnCadastrarPessoaJ.addActionListener(new java.awt.event.ActionListener() {
@@ -681,7 +668,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtualizarTabelaActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        if (cepCadastrado && verificarFuncVazio() && (cnpjCadastrado || cpfCadastrado)) {
+        if (verificarFuncVazio() && (cnpjCadastrado || cpfCadastrado)) {
         
         try {
             tblListagemServico.getCellEditor().stopCellEditing();
@@ -691,7 +678,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         }
         try {
             Servico s = new Servico (Integer.parseInt((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)), 
-                    (String) cmbTipoServico.getSelectedItem(), Date.valueOf(txtDataAntes.getText()), Date.valueOf(txtDataDepois.getText()), rbtFisica.isSelected(), txtCpfCnpj.getText(), txtCpfCnpj.getText(), lblRelatorio.getText());
+                    cmbTipoServico.getSelectedItem().toString(), Date.valueOf(txtDataAntes.getText()), Date.valueOf(txtDataDepois.getText()), rbtFisica.isSelected(), txtCpfCnpj.getText(), txtCpfCnpj.getText(), lblRelatorio.getText());
             ArrayList<Funcionario> lista = new ArrayList<>();
             for (int i = 0; i < tblFuncionarioTrabalhando.getRowCount(); i++) {
                 Funcionario f = new Funcionario();
@@ -901,32 +888,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCepActionPerformed
 
     private void txtCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyReleased
-        if ((txtCep.getText().length() < 8) || (txtCep.getText().length() > 8)) {
-            lblCepExiste.setText("Cep Inválido.");
-            limparExibicaoEndereco();
-        } else {
-            DaoEndereco de = new DaoEndereco();
-            try {
-                cepCadastrado = de.existeEndereco(txtCep.getText());
-                if (cepCadastrado) {
-                    lblCepExiste.setText("CEP Cadastrado.");
-                    endExibicao = de.popularEndereco(txtCep.getText());
-                    popularExibicaoEndereco(endExibicao);
-                    if (rbtFisica.isSelected()) {
-                        popularExibicaoPessoa(pessoaFisicaExibicao);
-                    } else if (rbtJuridica.isSelected()) {
-                        popularExibicaoPessoaJuridica(pessoaJuridicaExibicao);
-                    }
-                } else {
-                    lblCepExiste.setText("CEP Inexistente.");
-                    limparExibicaoEndereco();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(FrmCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(FrmCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        
     }//GEN-LAST:event_txtCepKeyReleased
 
     private void txtCpfCnpjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCpfCnpjActionPerformed
@@ -980,11 +942,6 @@ public class FrmListagemServico extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_txtCpfCnpjKeyReleased
-
-    private void btnCadastrarCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCepActionPerformed
-        FrmCadastroEndereco telaCep = new FrmCadastroEndereco();
-        telaCep.setVisible(true);
-    }//GEN-LAST:event_btnCadastrarCepActionPerformed
 
     private void btnCadastrarPessoaJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarPessoaJActionPerformed
         if (rbtFisica.isSelected()) {
@@ -1534,6 +1491,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         end = (Endereco) lista.get(2);
         flag = (Boolean) lista.get(3);
 
+        txtCpfCnpj.setText(pj.getCnpj());
         txtNomePessoaFicticio.setText(pj.getPessoa().getNome());
         txtLogradouro.setText(end.getLogradouro());
         txtCidade.setText(end.getCidade());
@@ -1550,7 +1508,6 @@ public class FrmListagemServico extends javax.swing.JFrame {
     private javax.swing.JButton btnArquivoRelatorio;
     private javax.swing.JButton btnAtivarDesativar;
     private javax.swing.JButton btnAtualizarTabela;
-    private javax.swing.JButton btnCadastrarCep;
     private javax.swing.JButton btnCadastrarPessoaJ;
     private javax.swing.JButton btnDeletar;
     private javax.swing.JButton btnFechar;
@@ -1579,7 +1536,6 @@ public class FrmListagemServico extends javax.swing.JFrame {
     private javax.swing.JLabel lblCep;
     private javax.swing.JLabel lblCep2;
     private javax.swing.JLabel lblCep3;
-    private javax.swing.JLabel lblCepExiste;
     private javax.swing.JLabel lblCidade;
     private javax.swing.JLabel lblCpfCnpjExiste;
     private javax.swing.JLabel lblDescrever;
