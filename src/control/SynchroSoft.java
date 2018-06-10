@@ -6,6 +6,7 @@
 package control;
 
 
+import dao.Conexao;
 import java.sql.*;
 import javax.swing.JFrame;
 import view.FrmCadastroPeca;
@@ -34,49 +35,16 @@ public class SynchroSoft {
     public static JFrame telaCadastroFuncionario;
     public static void main(String[] args) {
         System.out.println("Hello, World3! Welcome to SynchroSoft!!! ");
-        Connection conn = null;
+        
         try{
-            String driverName = "oracle.jdbc.driver.OracleDriver";
-            Class.forName(driverName);
-            String serverName = "localhost";
-            String serverPort = "1521";
-            String sid = "XE";
-            String url = "jdbc:oracle:thin:@"+ serverName + ":" + serverPort + ":" + sid;
-            String username = "system";
-            String password = "system";
-            conn = DriverManager.getConnection(url, username, password);
-            System.out.println("Conectado ao DB Oracle com sucesso!");
-        } catch(ClassNotFoundException e) {
-            System.out.println("Não foi possível achar o driver do banco de dados. "+e.getMessage());
-        } catch (SQLException e) {
-            System.err.println("Não foi possível conectar ao banco de dados. "+ e.getMessage());
+        Connection con = Conexao.conectar();
+        System.out.println("Conectado ao DB Oracle com sucesso!");
+        } catch (ClassNotFoundException | SQLException sqlex) {
+            System.out.println("Falha ao conectar no banco: "+sqlex);
         }
         
-//        try {
-//            Statement st = conn.createStatement();
-//            ResultSet rs = st.executeQuery("SELECT * FROM SYNCHROSOFT.TB_PECA");
-//            while (rs.next()){
-//                System.out.println(""+rs.getString("NM_PECA"));
-//            }
-//            rs.close();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        telaPrincipal = new FrmPrincipal();
-//        telaPrincipal.setVisible(true);
-//        telaListagemPeca = new FrmListagemPeca();
-//        telaListagemPeca.setVisible(true);
           telaLogin = new FrmLogin();
           telaLogin.setVisible(true);
-//            telaCadastroFuncionario = new FrmCadastroFuncionario();
-//            telaCadastroFuncionario.setVisible(true);
-//                FrmListagemPessoaF telaListagemPessoa = new FrmListagemPessoaF();
-//                telaListagemPessoa.setVisible(true);
-//        FrmCadastroPessoa telaCadastroPessoa = new FrmCadastroPessoa();
-//                telaCadastroPessoa.setVisible(true);
-        
-        DaoPeca d = new DaoPeca();
-        d.listarPeca();
         
         
         

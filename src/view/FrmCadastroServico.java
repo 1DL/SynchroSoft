@@ -130,6 +130,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         btnSelecionarfunc = new javax.swing.JButton();
         btnRemoveLinhaFunc = new javax.swing.JButton();
         btnLimpaFunc = new javax.swing.JButton();
+        btnFechar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -526,6 +527,15 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         getContentPane().add(btnLimpaFunc);
         btnLimpaFunc.setBounds(740, 480, 160, 30);
 
+        btnFechar.setText("Fechar");
+        btnFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnFechar);
+        btnFechar.setBounds(960, 610, 67, 23);
+
         jLabel1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         jLabel1.setMaximumSize(new java.awt.Dimension(1152, 648));
@@ -859,6 +869,10 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         iniciarTabela();
     }//GEN-LAST:event_btnLimpaFuncActionPerformed
 
+    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnFecharActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1018,6 +1032,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JButton btnArquivoRelatorio;
     private javax.swing.JButton btnCadastrarCep;
     private javax.swing.JButton btnCadastrarPessoaJ;
+    private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnLimpaFunc;
     private javax.swing.JButton btnListarFunc;
     private javax.swing.JButton btnListarServico;

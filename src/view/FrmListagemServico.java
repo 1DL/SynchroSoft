@@ -867,6 +867,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         
         txtDataAntes.setText((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 5));
         txtDataDepois.setText((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 6));
+        if (Dao)
     }//GEN-LAST:event_tblListagemServicoMouseClicked
 
     private void btnHojeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojeActionPerformed
