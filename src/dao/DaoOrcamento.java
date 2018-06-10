@@ -28,7 +28,7 @@ import view.FrmListagemServico;
  */
 public class DaoOrcamento {
 
-    public boolean existeOrcamento (int codigoServico) throws SQLException, ClassNotFoundException {
+    public static boolean existeOrcamento (int codigoServico) throws SQLException, ClassNotFoundException {
         boolean flag;
         Connection con = Conexao.conectar();
         String sql = "SELECT * FROM SYNCHROSOFT.TB_ORCAMENTO WHERE CD_SERVICO = ?";

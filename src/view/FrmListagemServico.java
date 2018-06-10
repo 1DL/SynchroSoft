@@ -8,6 +8,7 @@ package view;
 import dao.DaoDespesa;
 import dao.DaoEndereco;
 import dao.DaoFuncionario;
+import dao.DaoOrcamento;
 import dao.DaoPessoa;
 import dao.DaoServico;
 import java.sql.Date;
@@ -34,6 +35,7 @@ import model.Servico;
  */
 public class FrmListagemServico extends javax.swing.JFrame {
 
+    boolean flagOrcamento;
     boolean cepCadastrado;
     boolean cpfCadastrado;
     boolean cnpjCadastrado;
@@ -52,7 +54,6 @@ public class FrmListagemServico extends javax.swing.JFrame {
         iniciarTabelaFuncionario();
         txtDataDepois.setText("" + new Date(Calendar.getInstance().getTimeInMillis()));
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -318,6 +319,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         lblCampoCpfCnpj.setBounds(620, 280, 60, 50);
 
         btnOrcamento.setText("Criar orçamento");
+        btnOrcamento.setEnabled(false);
         btnOrcamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOrcamentoActionPerformed(evt);
@@ -669,29 +671,29 @@ public class FrmListagemServico extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         if (verificarFuncVazio() && (cnpjCadastrado || cpfCadastrado)) {
-        
-        try {
-            tblListagemServico.getCellEditor().stopCellEditing();
-            tblFuncionarioTrabalhando.getCellEditor().stopCellEditing();
-        } catch (Exception ex) {
 
-        }
-        try {
-            Servico s = new Servico (Integer.parseInt((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)), 
-                    cmbTipoServico.getSelectedItem().toString(), Date.valueOf(txtDataAntes.getText()), Date.valueOf(txtDataDepois.getText()), rbtFisica.isSelected(), txtCpfCnpj.getText(), txtCpfCnpj.getText(), lblRelatorio.getText());
-            ArrayList<Funcionario> lista = new ArrayList<>();
-            for (int i = 0; i < tblFuncionarioTrabalhando.getRowCount(); i++) {
-                Funcionario f = new Funcionario();
-                f.setCodigoFuncionario(Integer.parseInt((String) tblFuncionarioTrabalhando.getValueAt(i, 0)));
-                lista.add(f);
+            try {
+                tblListagemServico.getCellEditor().stopCellEditing();
+                tblFuncionarioTrabalhando.getCellEditor().stopCellEditing();
+            } catch (Exception ex) {
+
             }
-            DaoServico.alterarServico(s, lista, rbtFisica.isSelected(), txtCpfCnpj.getText());
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            try {
+                Servico s = new Servico(Integer.parseInt((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)),
+                        cmbTipoServico.getSelectedItem().toString(), Date.valueOf(txtDataAntes.getText()), Date.valueOf(txtDataDepois.getText()), rbtFisica.isSelected(), txtCpfCnpj.getText(), txtCpfCnpj.getText(), lblRelatorio.getText());
+                ArrayList<Funcionario> lista = new ArrayList<>();
+                for (int i = 0; i < tblFuncionarioTrabalhando.getRowCount(); i++) {
+                    Funcionario f = new Funcionario();
+                    f.setCodigoFuncionario(Integer.parseInt((String) tblFuncionarioTrabalhando.getValueAt(i, 0)));
+                    lista.add(f);
+                }
+                DaoServico.alterarServico(s, lista, rbtFisica.isSelected(), txtCpfCnpj.getText());
+
+            } catch (SQLException ex) {
+                Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Dados inválidos ou incompletos.");
         }
@@ -699,24 +701,22 @@ public class FrmListagemServico extends javax.swing.JFrame {
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
         int flag = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir o serviço selecionado?");
-        
-        
+
         if (flag == 0) {
             Servico s = new Servico();
-        s.setCodigoServico(Integer.parseInt((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)));
-        try {
-            DaoServico.deletarServico(s);
-            atualizarTabela();
-            iniciarTabelaFuncionario();
-        } catch (SQLException ex) {
-            Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
+            s.setCodigoServico(Integer.parseInt((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)));
+            try {
+                DaoServico.deletarServico(s);
+                atualizarTabela();
+                iniciarTabelaFuncionario();
+            } catch (SQLException ex) {
+                Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        }
-        
-        
-        
+
+
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
@@ -821,9 +821,9 @@ public class FrmListagemServico extends javax.swing.JFrame {
             modoJuridica();
             exibicaoJuridica();
         }
-        
+
         int cod = 0;
-                cod = Integer.parseInt((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0));
+        cod = Integer.parseInt((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0));
 
         try {
             popularTabelaFuncionario(cod);
@@ -832,7 +832,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         String aux = "";
         aux = (String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 1);
         switch (aux) {
@@ -864,10 +864,33 @@ public class FrmListagemServico extends javax.swing.JFrame {
             lblAtivo.setText("Serviço concluído / não ativo.");
             flagAtivo = true;
         }
-        
+
         txtDataAntes.setText((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 5));
         txtDataDepois.setText((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 6));
-        if (Dao)
+        if (aux.equals("Preventivo")) {
+            btnOrcamento.setEnabled(false);
+            lblOrcamento.setText("Preventivo não possui orçamento.");
+
+        } else {
+            try {
+                if (DaoOrcamento.existeOrcamento(cod)) {
+                    lblOrcamento.setText("Serviço com um orçamento ativo.");
+                    btnOrcamento.setText("Alterar Orçamento");
+                    btnOrcamento.setEnabled(true);
+
+                } else {
+                    lblOrcamento.setText("Serviço sem orçamento.");
+                    btnOrcamento.setText("Criar Orçamento");
+                    btnOrcamento.setEnabled(true);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+
     }//GEN-LAST:event_tblListagemServicoMouseClicked
 
     private void btnHojeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojeActionPerformed
@@ -889,7 +912,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCepActionPerformed
 
     private void txtCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyReleased
-        
+
     }//GEN-LAST:event_txtCepKeyReleased
 
     private void txtCpfCnpjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCpfCnpjActionPerformed
@@ -982,7 +1005,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         s.setCodigoServico(Integer.parseInt((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)));
         try {
             if (DaoServico.verificarServicoAtivo(s.getCodigoServico())) {
-                FrmCadastroOrcamento telaCadOrcamento = new FrmCadastroOrcamento();
+                FrmCadastroOrcamento telaCadOrcamento = new FrmCadastroOrcamento(s.getCodigoServico());
                 telaCadOrcamento.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Serviço ainda não está ativado. Ative-o para gerar um orçamento para o mesmo.");
@@ -1091,6 +1114,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
     private void btnAtivarDesativarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtivarDesativarActionPerformed
         try {
             DaoServico.ativarDesativarServico(Integer.parseInt((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)), flagAtivo);
+            atualizarTabela();
         } catch (SQLException ex) {
             Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -1390,7 +1414,6 @@ public class FrmListagemServico extends javax.swing.JFrame {
 
         txtCep.setText(end.getCep());
         txtCpfCnpj.setText(pf.getCpf());
-        
 
     }
 
@@ -1463,7 +1486,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         txtCelularRamal.setText("");
 
     }
-    
+
     public boolean verificarFuncVazio() {
         if (tblFuncionarioTrabalhando.getRowCount() == 0) {
             return false;

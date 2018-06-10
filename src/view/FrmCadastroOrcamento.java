@@ -28,11 +28,15 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     }
 
     public FrmCadastroOrcamento(int codigoServico) {
+        
+        initComponents();
+        iniciarTabela();
         txtCodServico.setText("" + codigoServico);
     }
 
     boolean flagPeca;
     int limitePeca = 0;
+    double valorTotal;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,7 +51,6 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        txtMaoDeObra = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         txtValorTotal = new javax.swing.JTextField();
         btnCadOrcamento = new javax.swing.JButton();
@@ -78,6 +81,8 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         lblCodExiste = new javax.swing.JLabel();
         btnExcluirTodasPecas = new javax.swing.JButton();
         btnRemoveLinhaPeca = new javax.swing.JButton();
+        btnFechar = new javax.swing.JButton();
+        txtMaoDeObra = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -100,21 +105,13 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         getContentPane().add(jLabel8);
         jLabel8.setBounds(20, 140, 190, 25);
 
-        txtMaoDeObra.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtMaoDeObra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMaoDeObraActionPerformed(evt);
-            }
-        });
-        getContentPane().add(txtMaoDeObra);
-        txtMaoDeObra.setBounds(220, 140, 150, 30);
-
         jLabel9.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel9.setText("Valor Total:");
         getContentPane().add(jLabel9);
         jLabel9.setBounds(20, 450, 190, 25);
 
         txtValorTotal.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtValorTotal.setFocusable(false);
         txtValorTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtValorTotalActionPerformed(evt);
@@ -351,6 +348,24 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         getContentPane().add(btnRemoveLinhaPeca);
         btnRemoveLinhaPeca.setBounds(1040, 110, 100, 20);
 
+        btnFechar.setText("Fechar");
+        btnFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnFechar);
+        btnFechar.setBounds(1060, 540, 67, 23);
+
+        txtMaoDeObra.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtMaoDeObra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMaoDeObraActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtMaoDeObra);
+        txtMaoDeObra.setBounds(220, 140, 150, 30);
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 1150, 650);
@@ -374,10 +389,6 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     private void txtNomePecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomePecaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomePecaActionPerformed
-
-    private void txtMaoDeObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaoDeObraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMaoDeObraActionPerformed
 
     private void txtValorTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorTotalActionPerformed
         // TODO add your handling code here:
@@ -497,6 +508,13 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
                 txtCodPeca.requestFocus();
             }
         }
+        valorTotal = Double.parseDouble(txtMaoDeObra.getText());
+        for (int i = 0; i < tblOrcamento.getRowCount(); i++){
+            valorTotal += Double.parseDouble((String) tblOrcamento.getValueAt(i, 5));
+        }
+       
+        
+        txtValorTotal.setText(""+valorTotal);
     }//GEN-LAST:event_btnAdicionarPecaActionPerformed
 
     private void btnExcluirTodasPecasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirTodasPecasActionPerformed
@@ -510,6 +528,14 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
             tblOrcamento.setModel(model);
         }
     }//GEN-LAST:event_btnRemoveLinhaPecaActionPerformed
+
+    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnFecharActionPerformed
+
+    private void txtMaoDeObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaoDeObraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMaoDeObraActionPerformed
 
     /**
      * @param args the command line arguments
@@ -589,6 +615,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     private javax.swing.JButton btnAdicionarPeca;
     private javax.swing.JButton btnCadOrcamento;
     private javax.swing.JButton btnExcluirTodasPecas;
+    private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnListarOrcamentos;
     private javax.swing.JButton btnListarPeca;

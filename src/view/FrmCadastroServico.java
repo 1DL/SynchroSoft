@@ -56,7 +56,6 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         initComponents();
         modoFisica();
         txtDataServico.setText("" + new Date(Calendar.getInstance().getTimeInMillis()));
-        btnOrcamento.setEnabled(false);
         iniciarTabela();
     }
 
@@ -93,7 +92,6 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtCodFunc = new javax.swing.JTextField();
         lblCep3 = new javax.swing.JLabel();
         txtNomeFunc = new javax.swing.JTextField();
-        btnOrcamento = new javax.swing.JButton();
         txtLimpar = new javax.swing.JButton();
         txtCadastrar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -286,15 +284,6 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtNomeFunc.setEnabled(false);
         getContentPane().add(txtNomeFunc);
         txtNomeFunc.setBounds(780, 360, 350, 30);
-
-        btnOrcamento.setText("Criar orçamento");
-        btnOrcamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOrcamentoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnOrcamento);
-        btnOrcamento.setBounds(800, 550, 130, 40);
 
         txtLimpar.setText("Limpar");
         getContentPane().add(txtLimpar);
@@ -534,7 +523,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnFechar);
-        btnFechar.setBounds(960, 610, 67, 23);
+        btnFechar.setBounds(1010, 450, 67, 23);
 
         jLabel1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
@@ -632,7 +621,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
                 DaoPessoa dp = new DaoPessoa();
                 try {
                     cpfCadastrado = dp.existePessoaFisica(txtCpfCnpj.getText());
-                    if (cpfCadastrado) {                        
+                    if (cpfCadastrado) {
                         pessoaFisicaExibicao = dp.popularPessoaFisica(txtCpfCnpj.getText(), txtCep.getText());
                         if (pessoaFisicaExibicao.getPessoa().getManterContrato() == 0) {
                             lblCpfCnpjExiste.setText("CPF Sem contrato!");
@@ -641,7 +630,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
                             lblCpfCnpjExiste.setText("CPF Cadastrado.");
                             flagContrato = true;
                         }
-                        
+
                         popularExibicaoPessoa(pessoaFisicaExibicao);
                     } else {
                         lblCpfCnpjExiste.setText("CPF Inexistente.");
@@ -663,8 +652,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
                 try {
                     cnpjCadastrado = dp.existePessoaJuridica(txtCpfCnpj.getText());
                     if (cnpjCadastrado) {
-                        
-                        
+
                         pessoaJuridicaExibicao = dp.popularPessoaJuridica(txtCpfCnpj.getText(), txtCep.getText());
                         if (pessoaJuridicaExibicao.getPessoa().getManterContrato() == 0) {
                             lblCpfCnpjExiste.setText("CNPJ Sem contrato!");
@@ -673,7 +661,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
                             lblCpfCnpjExiste.setText("CNPJ Cadastrado.");
                             flagContrato = true;
                         }
-                        
+
                         popularExibicaoPessoaJuridica(pessoaJuridicaExibicao);
                     } else {
                         lblCpfCnpjExiste.setText("CNPJ Inexistente.");
@@ -692,22 +680,30 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private void txtCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCadastrarActionPerformed
         if (flagContrato && cepCadastrado && verificarFuncVazio() && (cnpjCadastrado || cpfCadastrado)) {
             ArrayList<Funcionario> lista = new ArrayList<>();
-            
+
             DefaultTableModel model = (DefaultTableModel) tblFuncSelecionados.getModel();
             for (int i = 0; i < model.getRowCount(); i++) {
                 Funcionario f = new Funcionario();
                 f.setCodigoFuncionario(Integer.parseInt((String) model.getValueAt(i, 0)));
                 lista.add(f);
-                
+
             }
-            
+
             Servico serv = new Servico(Integer.parseInt(txtCodigoServico.getText()), cmbTipoServico.getSelectedItem().toString(),
                     Date.valueOf(txtDataServico.getText()), rbtFisica.isSelected(), txtCpfCnpj.getText(), txtCpfCnpj.getText(), f, lblRelatorio.getText(), true);
             DaoServico dao = new DaoServico();
             try {
                 dao.cadastrarServico(serv.getCnpjCliente(), lista, serv.getCodigoServico(), serv.getTipoServico(),
                         serv.isTipoCliente(), serv.getDescricaoServicoFILE(), serv.getDataServico(), serv.isStatusServico());
-                        iniciarTabela();
+                iniciarTabela();
+                if (!serv.getTipoServico().equals("Preventivo")) {
+                    int aux = 9;
+                    aux = JOptionPane.showConfirmDialog(rootPane, "Deseja criar um orçamento para o serviço?");
+                    if (aux == 0) {
+                        FrmCadastroOrcamento tela = new FrmCadastroOrcamento(serv.getCodigoServico());
+                        tela.setVisible(true);
+                    }
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
@@ -776,29 +772,8 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodigoServicoKeyReleased
 
     private void cmbTipoServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoServicoActionPerformed
-        if (cmbTipoServico.getSelectedIndex() == 0) {
-            btnOrcamento.setEnabled(false);
-        } else {
-            btnOrcamento.setEnabled(true);
-        }
+        
     }//GEN-LAST:event_cmbTipoServicoActionPerformed
-
-    private void btnOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrcamentoActionPerformed
-        Servico s = new Servico();
-        s.setCodigoServico(Integer.parseInt(txtCodigoServico.getText()));
-        try {
-            if (DaoServico.verificarServicoAtivo(s.getCodigoServico())) {
-                FrmCadastroOrcamento telaCadOrcamento = new FrmCadastroOrcamento();
-                telaCadOrcamento.setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(null, "Serviço ainda não está ativado. Ative-o para gerar um orçamento para o mesmo.");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnOrcamentoActionPerformed
 
     private void rbtMasculinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtMasculinoActionPerformed
 
@@ -1036,7 +1011,6 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpaFunc;
     private javax.swing.JButton btnListarFunc;
     private javax.swing.JButton btnListarServico;
-    private javax.swing.JButton btnOrcamento;
     private javax.swing.JButton btnRemoveLinhaFunc;
     private javax.swing.JButton btnSelecionarfunc;
     private javax.swing.ButtonGroup btngTipoCliente;
