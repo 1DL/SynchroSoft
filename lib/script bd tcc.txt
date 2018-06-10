@@ -276,3 +276,18 @@ ALTER TABLE tb_orcamento DROP COLUMN ID_PECA;
 
 ALTER TABLE tb_orcamento ADD VL_MAODEOBRA NUMERIC(10,2);
 -------------------------------------------------------------------------------------------------
+CREATE SEQUENCE SYNCHROSOFT.ORCAMENTO_SEQ
+START WITH 1
+INCREMENT BY 1
+NOCYCLE;
+
+
+CREATE OR REPLACE TRIGGER SYNCHROSOFT.AUTOINC_ORCAMENTO
+  BEFORE INSERT ON SYNCHROSOFT.TB_ORCAMENTO
+  FOR EACH ROW
+BEGIN
+  SELECT SYNCHROSOFT.ORCAMENTO_SEQ.nextval
+    INTO :new.CD_ORCAMENTO
+    FROM dual;
+END;
+---------------------------------------------------------------------------------------------------
