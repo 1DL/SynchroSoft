@@ -271,3 +271,8 @@ END;
 ALTER TABLE tb_func_servico MODIFY cd_funcionario NUMERIC(10);
 -------------------------------------------------------------------------------------------------
 ALTER TABLE tb_orcamento ADD vl_orcamento NUMERIC(10,2);
+-------------------------------------------------------------------------------------------------
+ALTER TABLE tb_orcamento DROP COLUMN ID_PECA;
+
+ALTER TABLE tb_orcamento ADD VL_MAODEOBRA NUMERIC(10,2);
+-------------------------------------------------------------------------------------------------
