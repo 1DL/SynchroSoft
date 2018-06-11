@@ -56,7 +56,8 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         tblListagemPessoaJ = new javax.swing.JTable();
         lblFundo = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Listar Pessoas Jurídicas");
         setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         setSize(new java.awt.Dimension(1152, 648));
@@ -79,7 +80,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CNPJ", "CEP", "Nome Fictício", "Razão Social", "Número Endereço", "Telefone", "Ramal", "Contrato", "Data Cadastro" }));
         getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(400, 100, 107, 31);
+        cmbFiltro.setBounds(400, 100, 107, 33);
 
         lblDescrever.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDescrever.setText("Descrição:");
@@ -122,7 +123,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAlterar);
-        btnAlterar.setBounds(450, 560, 100, 33);
+        btnAlterar.setBounds(450, 560, 100, 35);
 
         btnDeletar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnDeletar.setText("Deletar");
@@ -132,7 +133,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnDeletar);
-        btnDeletar.setBounds(590, 560, 110, 33);
+        btnDeletar.setBounds(590, 560, 110, 35);
 
         btnTelaCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnTelaCadastro.setText("Tela Cadastro");
@@ -142,7 +143,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnTelaCadastro);
-        btnTelaCadastro.setBounds(743, 560, 170, 33);
+        btnTelaCadastro.setBounds(743, 560, 170, 35);
 
         btnAtualizarTabela1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnAtualizarTabela1.setText("AtualizarTabela");
@@ -152,7 +153,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAtualizarTabela1);
-        btnAtualizarTabela1.setBounds(240, 560, 180, 33);
+        btnAtualizarTabela1.setBounds(240, 560, 180, 35);
 
         btnFisica.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnFisica.setText("Listar Pessoa Física");

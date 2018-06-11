@@ -54,7 +54,8 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         lblTipoDespesa = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de Despesa");
         setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
@@ -91,11 +92,11 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel6.setText("Valor da despesa:");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(630, 140, 150, 24);
+        jLabel6.setBounds(630, 140, 150, 25);
 
         txtValorDespesa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         getContentPane().add(txtValorDespesa);
-        txtValorDespesa.setBounds(810, 140, 120, 30);
+        txtValorDespesa.setBounds(810, 140, 120, 31);
 
         btnCadastrar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnCadastrar.setText("Cadastrar");
@@ -122,12 +123,12 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         lblDescrição.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDescrição.setText("Descrição:");
         getContentPane().add(lblDescrição);
-        lblDescrição.setBounds(240, 230, 90, 24);
+        lblDescrição.setBounds(240, 230, 90, 25);
 
         lblDataDespesa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDataDespesa.setText("Data da despesa:");
         getContentPane().add(lblDataDespesa);
-        lblDataDespesa.setBounds(230, 140, 141, 24);
+        lblDataDespesa.setBounds(230, 140, 140, 25);
 
         txtDataDespesa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtDataDespesa.addActionListener(new java.awt.event.ActionListener() {
@@ -136,17 +137,17 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtDataDespesa);
-        txtDataDespesa.setBounds(410, 140, 140, 30);
+        txtDataDespesa.setBounds(410, 140, 140, 31);
 
         cmbTipoDespesa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         cmbTipoDespesa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Serviço", "Obrigações", "Salarios a pagar" }));
         getContentPane().add(cmbTipoDespesa);
-        cmbTipoDespesa.setBounds(780, 70, 150, 30);
+        cmbTipoDespesa.setBounds(780, 70, 150, 33);
 
         lblTipoDespesa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblTipoDespesa.setText("Tipo de despesa:");
         getContentPane().add(lblTipoDespesa);
-        lblTipoDespesa.setBounds(630, 70, 150, 24);
+        lblTipoDespesa.setBounds(630, 70, 150, 25);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(jLabel1);

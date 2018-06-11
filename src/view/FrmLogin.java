@@ -41,6 +41,7 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Synchrosoft - Login");
         setIconImage(getIconImage());
         setSize(new java.awt.Dimension(1152, 648));
 

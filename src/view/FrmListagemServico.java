@@ -137,7 +137,8 @@ public class FrmListagemServico extends javax.swing.JFrame {
         txtNomeFunc = new javax.swing.JTextField();
         lblBackground = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Listar Serviços");
         setMinimumSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
 

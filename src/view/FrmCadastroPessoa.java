@@ -113,7 +113,8 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         txtEstado = new javax.swing.JTextField();
         btnMenuPrincipal = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de Pessoa");
         setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
 

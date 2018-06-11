@@ -55,7 +55,8 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         btnMenuPrincipal = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Listar Endereços");
         setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
@@ -74,7 +75,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblListagemEndereco);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(232, 119, 632, 402);
+        jScrollPane1.setBounds(232, 119, 632, 404);
 
         btnFechar.setText("Fechar");
         btnFechar.addActionListener(new java.awt.event.ActionListener() {
@@ -92,7 +93,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAlterar);
-        btnAlterar.setBounds(446, 552, 65, 23);
+        btnAlterar.setBounds(446, 552, 67, 23);
 
         btnAtualizarTabela.setText("AtualizarTabela");
         btnAtualizarTabela.addActionListener(new java.awt.event.ActionListener() {
@@ -101,7 +102,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAtualizarTabela);
-        btnAtualizarTabela.setBounds(321, 552, 107, 23);
+        btnAtualizarTabela.setBounds(321, 552, 109, 23);
 
         btnTelaCadastro.setText("Tela Cadastro");
         btnTelaCadastro.addActionListener(new java.awt.event.ActionListener() {
@@ -110,7 +111,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnTelaCadastro);
-        btnTelaCadastro.setBounds(644, 552, 99, 23);
+        btnTelaCadastro.setBounds(644, 552, 101, 23);
 
         btnDeletar.setText("Deletar");
         btnDeletar.addActionListener(new java.awt.event.ActionListener() {
@@ -119,7 +120,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnDeletar);
-        btnDeletar.setBounds(545, 552, 67, 23);
+        btnDeletar.setBounds(545, 552, 69, 23);
 
         lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblPesquisar.setText("Pesquisar por: ");
@@ -134,7 +135,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(360, 60, 107, 31);
+        cmbFiltro.setBounds(360, 60, 107, 33);
 
         txtPesquisa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {

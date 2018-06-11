@@ -53,7 +53,8 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         tblListagemPessoaF = new javax.swing.JTable();
         lblFundo = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Listar Pessoas Físicas");
         setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         setSize(new java.awt.Dimension(1152, 648));

@@ -57,7 +57,8 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnMenuPrincipal = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Listar Funcionários");
         setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         setSize(new java.awt.Dimension(1152, 648));

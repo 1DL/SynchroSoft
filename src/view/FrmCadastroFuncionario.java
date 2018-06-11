@@ -108,7 +108,8 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de Funcionário");
         setMinimumSize(new java.awt.Dimension(1152, 648));
         setSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
@@ -116,7 +117,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         lblTituloJanela.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblTituloJanela.setText("Cadastro de funcionário");
         getContentPane().add(lblTituloJanela);
-        lblTituloJanela.setBounds(550, 0, 191, 24);
+        lblTituloJanela.setBounds(550, 0, 194, 25);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setMaximumSize(new java.awt.Dimension(1152, 648));
