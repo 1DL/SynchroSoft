@@ -280,6 +280,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
         FrmPrincipal telaPrincipal = new FrmPrincipal();
         telaPrincipal.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
     private void btnListarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarUsuariosActionPerformed
@@ -288,7 +289,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarUsuariosActionPerformed
 
     private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
-        dispose();
+        this.dispose();
     }//GEN-LAST:event_btnFecharFrameActionPerformed
 
     private void txtCodFuncionarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodFuncionarioKeyReleased

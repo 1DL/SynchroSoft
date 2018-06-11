@@ -212,7 +212,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarEnderecoActionPerformed
 
     private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
-    dispose();
+    this.dispose();
     }//GEN-LAST:event_btnFecharFrameActionPerformed
 
     /**

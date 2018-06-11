@@ -160,6 +160,7 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
         FrmPrincipal telaPrincipal = new FrmPrincipal();
         telaPrincipal.setVisible(true);
+        this.dispose();
         //teste
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
