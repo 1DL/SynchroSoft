@@ -16,10 +16,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import model.Endereco;
 import model.Funcionario;
+import model.Orcamento;
 import model.Pessoa;
 import model.PessoaFisica;
 import model.PessoaJuridica;
 import model.Servico;
+import model.VendaPeca;
 import view.FrmListagemServico;
 
 /**
@@ -28,7 +30,7 @@ import view.FrmListagemServico;
  */
 public class DaoOrcamento {
 
-    public static boolean existeOrcamento (int codigoServico) throws SQLException, ClassNotFoundException {
+    public static boolean existeOrcamento(int codigoServico) throws SQLException, ClassNotFoundException {
         boolean flag;
         Connection con = Conexao.conectar();
         String sql = "SELECT * FROM SYNCHROSOFT.TB_ORCAMENTO WHERE CD_SERVICO = ?";
@@ -40,6 +42,66 @@ public class DaoOrcamento {
         rs.close();
         return flag;
     }
-    
-    
+
+    public static void criarOrcamento(Orcamento o, boolean flag) throws SQLException, ClassNotFoundException {
+        if (existeOrcamento(o.getServico().getCodigoServico())) {
+            JOptionPane.showMessageDialog(null, "Já existe um orçamento para esse serviço. \nAltere ou exclua-o na listagem de Orçamentos.");
+        } else {
+            Connection con = Conexao.conectar();
+            String sql = "INSERT INTO SYNCHROSOFT.TB_ORCAMENTO (CD_SERVICO, VL_MAODEOBRA, VL_ORCAMENTO, ID_STATUS_ORCAMENTO) VALUES (?,?,?,?)";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, o.getServico().getCodigoServico());
+            st.setDouble(2, o.getMaoDeObra());
+            st.setDouble(3, o.getValorTotal());
+            st.setInt(4, 0);
+            st.executeUpdate();
+            st.close();
+
+            if (flag) {
+                criarAlterarPecaOrcamento(o);
+            }
+            JOptionPane.showMessageDialog(null, "Orçamento criado com sucesso.");
+        }
+    }
+
+    public static int buscarOrcamento(int codigoServico) throws SQLException, ClassNotFoundException {
+        int codigoOrcamento = 0;
+        Connection con = Conexao.conectar();
+        String sql = "SELECT CD_ORCAMENTO FROM SYNCHROSOFT.TB_ORCAMENTO WHERE CD_SERVICO = ?";
+        PreparedStatement st = con.prepareStatement(sql);
+        st.setInt(1, codigoServico);
+        ResultSet rs = st.executeQuery();
+        while (rs.next()) {
+            codigoOrcamento = rs.getInt("CD_ORCAMENTO");
+        }
+        rs.close();
+        st.close();
+        return codigoOrcamento;
+    }
+
+    public static void criarAlterarPecaOrcamento(Orcamento o) throws SQLException, ClassNotFoundException {
+        int codigoOrcamento = buscarOrcamento(o.getServico().getCodigoServico());
+        Connection con = Conexao.conectar();
+        String sql = "DELETE FROM SYNCHROSOFT.TB_PECA_ORCAMENTO WHERE CD_ORCAMENTO = ?";
+        PreparedStatement st = con.prepareStatement(sql);
+        st.setInt(1, codigoOrcamento);
+        st.execute();
+        sql = "INSERT INTO SYNCHROSOFT.TB_PECA_ORCAMENTO (CD_PECA, CD_ORCAMENTO, QT_PECA_VENDIDA, VL_PECA_VENDIDA) VALUES (?,?,?,?)";
+
+        for (int i = 0; i < o.getPecas().size(); i++) {
+            PreparedStatement st2 = con.prepareStatement(sql);
+            st2.setInt(1, o.getPecas().get(i).getPeca().getCodigoPeca());
+            st2.setInt(2, codigoOrcamento);
+            st2.setInt(3, o.getPecas().get(i).getQuantidadeVendida());
+            st2.setFloat(4, o.getPecas().get(i).getPeca().getValorUnitario());
+            st2.executeUpdate();
+            st2.close();
+        }
+
+        st.close();
+
+        JOptionPane.showMessageDialog(null, "Peças do orçamento adicionadas/alteradas com sucesso.");
+
+    }
+
 }

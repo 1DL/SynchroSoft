@@ -13,12 +13,12 @@ import java.util.ArrayList;
  */
 public class Orcamento {
     private int codigoOrcamento;
-    private Servico codigoServico;
+    private Servico servico;
     private boolean possuiPeca;
     private ArrayList<VendaPeca> pecas = new ArrayList<>();
-    private float maoDeObra;
-    private float valorTotal;
-    private float statusOrcamento;
+    private Double maoDeObra;
+    private Double valorTotal;
+    private Double statusOrcamento;
 
     public int getCodigoOrcamento() {
         return codigoOrcamento;
@@ -28,12 +28,12 @@ public class Orcamento {
         this.codigoOrcamento = codigoOrcamento;
     }
 
-    public Servico getCodigoServico() {
-        return codigoServico;
+    public Servico getServico() {
+        return servico;
     }
 
-    public void setCodigoServico(Servico codigoServico) {
-        this.codigoServico = codigoServico;
+    public void setServico(Servico servico) {
+        this.servico = servico;
     }
 
     public boolean isPossuiPeca() {
@@ -52,27 +52,27 @@ public class Orcamento {
         this.pecas = pecas;
     }
 
-    public float getMaoDeObra() {
+    public Double getMaoDeObra() {
         return maoDeObra;
     }
 
-    public void setMaoDeObra(float maoDeObra) {
+    public void setMaoDeObra(Double maoDeObra) {
         this.maoDeObra = maoDeObra;
     }
 
-    public float getValorTotal() {
+    public Double getValorTotal() {
         return valorTotal;
     }
 
-    public void setValorTotal(float valorTotal) {
+    public void setValorTotal(Double valorTotal) {
         this.valorTotal = valorTotal;
     }
 
-    public float getStatusOrcamento() {
+    public Double getStatusOrcamento() {
         return statusOrcamento;
     }
 
-    public void setStatusOrcamento(float statusOrcamento) {
+    public void setStatusOrcamento(Double statusOrcamento) {
         this.statusOrcamento = statusOrcamento;
     }
 }

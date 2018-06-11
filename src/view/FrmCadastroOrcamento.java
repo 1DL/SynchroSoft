@@ -5,13 +5,18 @@
  */
 package view;
 
+import dao.DaoOrcamento;
 import dao.DaoPeca;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.Orcamento;
 import model.Peca;
+import model.Servico;
+import model.VendaPeca;
 
 /**
  *
@@ -32,11 +37,15 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         initComponents();
         iniciarTabela();
         txtCodServico.setText("" + codigoServico);
+        s.setCodigoServico(codigoServico);
     }
 
+    Servico s = new Servico();
     boolean flagPeca;
     int limitePeca = 0;
     double valorTotal;
+    double valorMaoDeObra;
+    double valorPecas;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,7 +57,6 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     private void initComponents() {
 
         btngPeca = new javax.swing.ButtonGroup();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -74,26 +82,20 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         btnListarPeca = new javax.swing.JButton();
         lblPecaExiste = new javax.swing.JLabel();
         txtCodServico = new javax.swing.JTextField();
-        txtCodOrcamento = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblOrcamento = new javax.swing.JTable();
         btnListarOrcamentos = new javax.swing.JButton();
-        lblCodExiste = new javax.swing.JLabel();
         btnExcluirTodasPecas = new javax.swing.JButton();
         btnRemoveLinhaPeca = new javax.swing.JButton();
         btnFechar = new javax.swing.JButton();
         txtMaoDeObra = new javax.swing.JTextField();
+        btnDebugCodigoServico = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
-
-        jLabel2.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        jLabel2.setText("Código do orçamento:");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(20, 60, 190, 25);
 
         jLabel3.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel3.setText("Código do serviço:");
@@ -132,6 +134,11 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
 
         btnLimpar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnLimpar);
         btnLimpar.setBounds(80, 510, 100, 80);
 
@@ -295,15 +302,6 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         getContentPane().add(txtCodServico);
         txtCodServico.setBounds(220, 100, 150, 30);
 
-        txtCodOrcamento.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtCodOrcamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodOrcamentoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(txtCodOrcamento);
-        txtCodOrcamento.setBounds(220, 60, 150, 30);
-
         tblOrcamento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -322,11 +320,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
 
         btnListarOrcamentos.setText("Listar Orçamentos");
         getContentPane().add(btnListarOrcamentos);
-        btnListarOrcamentos.setBounds(380, 100, 130, 30);
-
-        lblCodExiste.setText("Código Inválido");
-        getContentPane().add(lblCodExiste);
-        lblCodExiste.setBounds(380, 70, 190, 14);
+        btnListarOrcamentos.setBounds(20, 70, 130, 30);
 
         btnExcluirTodasPecas.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         btnExcluirTodasPecas.setText("Excluir todas");
@@ -358,6 +352,11 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         btnFechar.setBounds(1060, 540, 67, 23);
 
         txtMaoDeObra.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtMaoDeObra.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtMaoDeObraFocusLost(evt);
+            }
+        });
         txtMaoDeObra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMaoDeObraActionPerformed(evt);
@@ -365,6 +364,8 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         });
         getContentPane().add(txtMaoDeObra);
         txtMaoDeObra.setBounds(220, 140, 150, 30);
+        getContentPane().add(btnDebugCodigoServico);
+        btnDebugCodigoServico.setBounds(300, 60, 140, 20);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -373,10 +374,6 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtCodOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodOrcamentoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodOrcamentoActionPerformed
 
     private void txtCodServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodServicoActionPerformed
         // TODO add your handling code here:
@@ -395,7 +392,47 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtValorTotalActionPerformed
 
     private void btnCadOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadOrcamentoActionPerformed
-        // TODO add your handling code here:
+        if (valorTotal>0){
+            Orcamento o = new Orcamento();
+            s.setCodigoServico(Integer.parseInt(btnDebugCodigoServico.getText()));
+            o.setServico(s);
+            o.setMaoDeObra(Double.parseDouble(txtMaoDeObra.getText()));
+            ArrayList<VendaPeca> lista = new ArrayList<>();
+            for(int i = 0; i < tblOrcamento.getRowCount(); i++){
+                Peca p = new Peca();
+                p.setCodigoPeca(Integer.parseInt((String)tblOrcamento.getValueAt(i, 0)));
+                p.setNomePeca((String) tblOrcamento.getValueAt(i, 1));
+                p.setCategoriaPeca((String) tblOrcamento.getValueAt(i, 2));
+                p.setValorUnitario(Float.parseFloat((String) tblOrcamento.getValueAt(i, 3)));
+                p.setQuantidadePeca(Integer.parseInt((String) tblOrcamento.getValueAt(i, 4)));
+                VendaPeca vp = new VendaPeca();
+                vp.setPeca(p);
+                vp.setQuantidadeVendida(p.getQuantidadePeca());
+                lista.add(vp);
+            }
+            o.setPecas(lista);
+            o.setValorTotal(0.0);
+            for (int i = 0; i < lista.size(); i++){
+                o.setValorTotal(o.getValorTotal() + (lista.get(i).getPeca().getValorUnitario() * lista.get(i).getQuantidadeVendida()));
+            }
+            o.setValorTotal(o.getValorTotal() + o.getMaoDeObra());
+            try {
+                if (tblOrcamento.getRowCount() !=0) {
+                    DaoOrcamento.criarOrcamento(o, true); 
+                } else {
+                    DaoOrcamento.criarOrcamento(o, false); 
+                }
+               
+               
+            } catch (SQLException ex) {
+                Logger.getLogger(FrmCadastroOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(FrmCadastroOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Insira um valor de mão de obra e/ou peça.");
+        }
     }//GEN-LAST:event_btnCadOrcamentoActionPerformed
 
     private void txtQuantidadePecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidadePecaActionPerformed
@@ -508,17 +545,15 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
                 txtCodPeca.requestFocus();
             }
         }
-        valorTotal = Double.parseDouble(txtMaoDeObra.getText());
-        for (int i = 0; i < tblOrcamento.getRowCount(); i++){
-            valorTotal += Double.parseDouble((String) tblOrcamento.getValueAt(i, 5));
-        }
+        
        
         
-        txtValorTotal.setText(""+valorTotal);
+       atualizarValorTotal();
     }//GEN-LAST:event_btnAdicionarPecaActionPerformed
 
     private void btnExcluirTodasPecasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirTodasPecasActionPerformed
         iniciarTabela();
+        atualizarValorTotal();
     }//GEN-LAST:event_btnExcluirTodasPecasActionPerformed
 
     private void btnRemoveLinhaPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveLinhaPecaActionPerformed
@@ -527,6 +562,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
             model.removeRow(tblOrcamento.getSelectedRow());
             tblOrcamento.setModel(model);
         }
+        atualizarValorTotal();
     }//GEN-LAST:event_btnRemoveLinhaPecaActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
@@ -534,8 +570,22 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void txtMaoDeObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaoDeObraActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtMaoDeObraActionPerformed
+
+    private void txtMaoDeObraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMaoDeObraFocusLost
+        try {
+            valorMaoDeObra = Double.parseDouble(txtMaoDeObra.getText());
+        } catch (NumberFormatException nfe) {
+            txtMaoDeObra.setText("0");
+            valorMaoDeObra = 0;
+        }
+        atualizarValorTotal();
+    }//GEN-LAST:event_txtMaoDeObraFocusLost
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+       atualizarValorTotal();
+    }//GEN-LAST:event_btnLimparActionPerformed
 
     /**
      * @param args the command line arguments
@@ -614,6 +664,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarPeca;
     private javax.swing.JButton btnCadOrcamento;
+    private javax.swing.JTextField btnDebugCodigoServico;
     private javax.swing.JButton btnExcluirTodasPecas;
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnLimpar;
@@ -626,7 +677,6 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -634,12 +684,10 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblCodExiste;
     private javax.swing.JLabel lblPecaExiste;
     private javax.swing.JPanel pnlPeca;
     private javax.swing.JTable tblOrcamento;
     private javax.swing.JTextField txtCategoria;
-    private javax.swing.JTextField txtCodOrcamento;
     private javax.swing.JTextField txtCodPeca;
     private javax.swing.JTextField txtCodServico;
     private javax.swing.JTextField txtMaoDeObra;
@@ -650,4 +698,17 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     private javax.swing.JTextField txtValorUnitario;
     private javax.swing.JTextField txtValorXQtd;
     // End of variables declaration//GEN-END:variables
+
+    private void atualizarValorTotal() {
+        
+        valorPecas = 0;
+        for (int i = 0; i < tblOrcamento.getRowCount(); i++){
+            valorPecas += Double.parseDouble((String) tblOrcamento.getValueAt(i, 5));
+        }
+        
+        valorTotal = valorPecas + valorMaoDeObra;
+        txtValorTotal.setText(""+valorTotal);
+        
+        
+    }
 }
