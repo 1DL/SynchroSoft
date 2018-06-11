@@ -1005,8 +1005,13 @@ public class FrmListagemServico extends javax.swing.JFrame {
         s.setCodigoServico(Integer.parseInt((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)));
         try {
             if (DaoServico.verificarServicoAtivo(s.getCodigoServico())) {
-                FrmCadastroOrcamento telaCadOrcamento = new FrmCadastroOrcamento(s.getCodigoServico());
+                if (btnOrcamento.getText().equals("Criar Orçamento")) {
+                FrmCadastroOrcamento telaCadOrcamento = new FrmCadastroOrcamento(s.getCodigoServico(), true);
                 telaCadOrcamento.setVisible(true);
+                } else {
+                    FrmCadastroOrcamento telaCadOrcamento = new FrmCadastroOrcamento(s.getCodigoServico(), false);
+                telaCadOrcamento.setVisible(true);
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Serviço ainda não está ativado. Ative-o para gerar um orçamento para o mesmo.");
             }

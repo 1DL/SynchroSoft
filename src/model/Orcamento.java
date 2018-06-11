@@ -18,7 +18,7 @@ public class Orcamento {
     private ArrayList<VendaPeca> pecas = new ArrayList<>();
     private Double maoDeObra;
     private Double valorTotal;
-    private Double statusOrcamento;
+    private int statusOrcamento;
 
     public int getCodigoOrcamento() {
         return codigoOrcamento;
@@ -68,11 +68,11 @@ public class Orcamento {
         this.valorTotal = valorTotal;
     }
 
-    public Double getStatusOrcamento() {
+    public int getStatusOrcamento() {
         return statusOrcamento;
     }
 
-    public void setStatusOrcamento(Double statusOrcamento) {
+    public void setStatusOrcamento(int statusOrcamento) {
         this.statusOrcamento = statusOrcamento;
     }
 }

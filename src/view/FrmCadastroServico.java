@@ -700,7 +700,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
                     int aux = 9;
                     aux = JOptionPane.showConfirmDialog(rootPane, "Deseja criar um orçamento para o serviço?");
                     if (aux == 0) {
-                        FrmCadastroOrcamento tela = new FrmCadastroOrcamento(serv.getCodigoServico());
+                        FrmCadastroOrcamento tela = new FrmCadastroOrcamento(serv.getCodigoServico(), true);
                         tela.setVisible(true);
                     }
                 }

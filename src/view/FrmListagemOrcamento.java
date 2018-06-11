@@ -22,25 +22,22 @@ import model.VendaPeca;
  *
  * @author Luiz
  */
-public class FrmCadastroOrcamento extends javax.swing.JFrame {
+public class FrmListagemOrcamento extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmCadastroOrcamento
      */
-    public FrmCadastroOrcamento() {
+    public FrmListagemOrcamento() throws SQLException, ClassNotFoundException {
         initComponents();
-        iniciarTabela();
+        atualizarTabela();
+        iniciarTabelaPeca();
     }
 
     
     
-    public FrmCadastroOrcamento(int codigoServico, boolean flag) {
+    public FrmListagemOrcamento(int codigoServico, boolean flag) {
         
-        initComponents();
-        iniciarTabela();
-        txtCodServico.setText("" + codigoServico);
-        s.setCodigoServico(codigoServico);
-        flagCriarAlterar = flag;
+       
     }
 
     boolean flagCriarAlterar;
@@ -61,12 +58,10 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     private void initComponents() {
 
         btngPeca = new javax.swing.ButtonGroup();
-        jLabel3 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        txtPesquisa = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         txtValorTotal = new javax.swing.JTextField();
-        btnCadOrcamento = new javax.swing.JButton();
-        btnLimpar = new javax.swing.JButton();
         pnlPeca = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         txtCodPeca = new javax.swing.JTextField();
@@ -85,36 +80,53 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         btnAdicionarPeca = new javax.swing.JButton();
         btnListarPeca = new javax.swing.JButton();
         lblPecaExiste = new javax.swing.JLabel();
-        txtCodServico = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblOrcamento = new javax.swing.JTable();
-        btnListarOrcamentos = new javax.swing.JButton();
+        tblPecas = new javax.swing.JTable();
         btnExcluirTodasPecas = new javax.swing.JButton();
         btnRemoveLinhaPeca = new javax.swing.JButton();
         btnFechar = new javax.swing.JButton();
         txtMaoDeObra = new javax.swing.JTextField();
-        btnDebugCodigoServico = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblOrcamento = new javax.swing.JTable();
+        cmbFiltro = new javax.swing.JComboBox<>();
+        lblPesquisar = new javax.swing.JLabel();
+        lblDescrever = new javax.swing.JLabel();
+        btnAtualizar = new javax.swing.JButton();
+        btnDeletar = new javax.swing.JButton();
+        btnAlterar = new javax.swing.JToggleButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
-
-        jLabel3.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        jLabel3.setText("Código do serviço:");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(20, 100, 190, 25);
 
         jLabel8.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel8.setText("Mão de obra total:");
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(20, 140, 190, 25);
+        jLabel8.setBounds(660, 60, 190, 25);
+
+        txtPesquisa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPesquisaActionPerformed(evt);
+            }
+        });
+        txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPesquisaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPesquisaKeyTyped(evt);
+            }
+        });
+        getContentPane().add(txtPesquisa);
+        txtPesquisa.setBounds(380, 110, 190, 31);
 
         jLabel9.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel9.setText("Valor Total:");
         getContentPane().add(jLabel9);
-        jLabel9.setBounds(20, 450, 190, 25);
+        jLabel9.setBounds(650, 310, 190, 25);
 
         txtValorTotal.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtValorTotal.setFocusable(false);
@@ -124,27 +136,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtValorTotal);
-        txtValorTotal.setBounds(220, 450, 150, 30);
-
-        btnCadOrcamento.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        btnCadOrcamento.setText("Vincular Orçamento");
-        btnCadOrcamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadOrcamentoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnCadOrcamento);
-        btnCadOrcamento.setBounds(270, 510, 210, 80);
-
-        btnLimpar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        btnLimpar.setText("Limpar");
-        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimparActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnLimpar);
-        btnLimpar.setBounds(80, 510, 100, 80);
+        txtValorTotal.setBounds(850, 310, 150, 30);
 
         pnlPeca.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         pnlPeca.setOpaque(false);
@@ -292,21 +284,10 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         lblPecaExiste.setBounds(30, 40, 190, 14);
 
         getContentPane().add(pnlPeca);
-        pnlPeca.setBounds(20, 210, 490, 220);
+        pnlPeca.setBounds(650, 90, 490, 220);
         pnlPeca.getAccessibleContext().setAccessibleName("Venda de peça");
 
-        txtCodServico.setEditable(false);
-        txtCodServico.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtCodServico.setFocusable(false);
-        txtCodServico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodServicoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(txtCodServico);
-        txtCodServico.setBounds(220, 100, 150, 30);
-
-        tblOrcamento.setModel(new javax.swing.table.DefaultTableModel(
+        tblPecas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -317,14 +298,10 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblOrcamento);
+        jScrollPane1.setViewportView(tblPecas);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(520, 70, 500, 540);
-
-        btnListarOrcamentos.setText("Listar Orçamentos");
-        getContentPane().add(btnListarOrcamentos);
-        btnListarOrcamentos.setBounds(20, 70, 130, 30);
+        jScrollPane1.setBounds(720, 350, 410, 270);
 
         btnExcluirTodasPecas.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         btnExcluirTodasPecas.setText("Excluir todas");
@@ -334,7 +311,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnExcluirTodasPecas);
-        btnExcluirTodasPecas.setBounds(1040, 150, 100, 20);
+        btnExcluirTodasPecas.setBounds(600, 420, 100, 20);
 
         btnRemoveLinhaPeca.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         btnRemoveLinhaPeca.setText("Excluir Peça");
@@ -344,7 +321,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnRemoveLinhaPeca);
-        btnRemoveLinhaPeca.setBounds(1040, 110, 100, 20);
+        btnRemoveLinhaPeca.setBounds(600, 380, 100, 20);
 
         btnFechar.setText("Fechar");
         btnFechar.addActionListener(new java.awt.event.ActionListener() {
@@ -353,7 +330,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnFechar);
-        btnFechar.setBounds(1060, 540, 67, 23);
+        btnFechar.setBounds(597, 590, 100, 23);
 
         txtMaoDeObra.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtMaoDeObra.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -367,9 +344,65 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtMaoDeObra);
-        txtMaoDeObra.setBounds(220, 140, 150, 30);
-        getContentPane().add(btnDebugCodigoServico);
-        btnDebugCodigoServico.setBounds(300, 60, 140, 20);
+        txtMaoDeObra.setBounds(850, 60, 150, 30);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Adicionar Peças"));
+        jPanel1.setOpaque(false);
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(630, 50, 520, 300);
+
+        tblOrcamento.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tblOrcamento);
+
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(40, 160, 530, 420);
+
+        cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 10)); // NOI18N
+        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código Orçamento", "Código Serviço", "Status", "Valor Mão De Obra", "Valor Total" }));
+        getContentPane().add(cmbFiltro);
+        cmbFiltro.setBounds(150, 120, 130, 33);
+
+        lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblPesquisar.setText("Pesquisar por: ");
+        getContentPane().add(lblPesquisar);
+        lblPesquisar.setBounds(20, 120, 120, 25);
+
+        lblDescrever.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblDescrever.setText("Descrição:");
+        getContentPane().add(lblDescrever);
+        lblDescrever.setBounds(290, 110, 83, 25);
+
+        btnAtualizar.setText("Atualizar Tabela");
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAtualizar);
+        btnAtualizar.setBounds(40, 590, 120, 23);
+
+        btnDeletar.setText("Deletar");
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnDeletar);
+        btnDeletar.setBounds(180, 590, 69, 23);
+
+        btnAlterar.setText("Alterar");
+        getContentPane().add(btnAlterar);
+        btnAlterar.setBounds(380, 590, 180, 23);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -378,10 +411,6 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtCodServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodServicoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodServicoActionPerformed
 
     private void txtCodPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodPecaActionPerformed
         // TODO add your handling code here:
@@ -394,50 +423,6 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     private void txtValorTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorTotalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtValorTotalActionPerformed
-
-    private void btnCadOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadOrcamentoActionPerformed
-        if (valorTotal>0){
-            Orcamento o = new Orcamento();
-            s.setCodigoServico(Integer.parseInt(btnDebugCodigoServico.getText()));
-            o.setServico(s);
-            o.setMaoDeObra(Double.parseDouble(txtMaoDeObra.getText()));
-            ArrayList<VendaPeca> lista = new ArrayList<>();
-            for(int i = 0; i < tblOrcamento.getRowCount(); i++){
-                Peca p = new Peca();
-                p.setCodigoPeca(Integer.parseInt((String)tblOrcamento.getValueAt(i, 0)));
-                p.setNomePeca((String) tblOrcamento.getValueAt(i, 1));
-                p.setCategoriaPeca((String) tblOrcamento.getValueAt(i, 2));
-                p.setValorUnitario(Float.parseFloat((String) tblOrcamento.getValueAt(i, 3)));
-                p.setQuantidadePeca(Integer.parseInt((String) tblOrcamento.getValueAt(i, 4)));
-                VendaPeca vp = new VendaPeca();
-                vp.setPeca(p);
-                vp.setQuantidadeVendida(p.getQuantidadePeca());
-                lista.add(vp);
-            }
-            o.setPecas(lista);
-            o.setValorTotal(0.0);
-            for (int i = 0; i < lista.size(); i++){
-                o.setValorTotal(o.getValorTotal() + (lista.get(i).getPeca().getValorUnitario() * lista.get(i).getQuantidadeVendida()));
-            }
-            o.setValorTotal(o.getValorTotal() + o.getMaoDeObra());
-            try {
-                if (tblOrcamento.getRowCount() !=0) {
-                    DaoOrcamento.criarOrcamento(o, true, flagCriarAlterar); 
-                } else {
-                    DaoOrcamento.criarOrcamento(o, false, flagCriarAlterar); 
-                }
-               
-               
-            } catch (SQLException ex) {
-                Logger.getLogger(FrmCadastroOrcamento.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(FrmCadastroOrcamento.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Insira um valor de mão de obra e/ou peça.");
-        }
-    }//GEN-LAST:event_btnCadOrcamentoActionPerformed
 
     private void txtQuantidadePecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidadePecaActionPerformed
 
@@ -483,10 +468,10 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
                     btnAdicionarPeca.setEnabled(false);
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(FrmCadastroOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FrmListagemOrcamento.class.getName()).log(Level.SEVERE, null, ex);
                 limparPeca();
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(FrmCadastroOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FrmListagemOrcamento.class.getName()).log(Level.SEVERE, null, ex);
                 limparPeca();
             } catch (NumberFormatException nfe) {
                 lblPecaExiste.setText("Peça não encontrada.");
@@ -524,7 +509,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         if (flagQtd <= 0 || txtQtdEstoque.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Digite uma quantidade válida.");
         } else {
-            DefaultTableModel model = (DefaultTableModel) tblOrcamento.getModel();
+            DefaultTableModel model = (DefaultTableModel) tblPecas.getModel();
             Object rowData[] = new Object[6];
             rowData[0] = (String) txtCodPeca.getText();
             rowData[1] = (String) txtNomePeca.getText();
@@ -543,7 +528,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
             }
             if (flag) {
                 model.addRow(rowData);
-                tblOrcamento.setModel(model);
+                tblPecas.setModel(model);
                 txtCodPeca.setText("");
                 limparPeca();
                 txtCodPeca.requestFocus();
@@ -561,10 +546,10 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExcluirTodasPecasActionPerformed
 
     private void btnRemoveLinhaPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveLinhaPecaActionPerformed
-        DefaultTableModel model = (DefaultTableModel) tblOrcamento.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblPecas.getModel();
         if (model.getRowCount() != 0) {
-            model.removeRow(tblOrcamento.getSelectedRow());
-            tblOrcamento.setModel(model);
+            model.removeRow(tblPecas.getSelectedRow());
+            tblPecas.setModel(model);
         }
         atualizarValorTotal();
     }//GEN-LAST:event_btnRemoveLinhaPecaActionPerformed
@@ -587,9 +572,65 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         atualizarValorTotal();
     }//GEN-LAST:event_txtMaoDeObraFocusLost
 
-    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-       atualizarValorTotal();
-    }//GEN-LAST:event_btnLimparActionPerformed
+    private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
+
+    }//GEN-LAST:event_txtPesquisaActionPerformed
+
+    private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
+        // Chamando método de listagem com filtro, se txt preenchido
+        //        try {
+            //criando variável de controle
+            int controle = 0;
+
+            //Se campo de texto não estiver vazio
+            if (txtPesquisa.getText().trim() != "") {
+                controle = 1;
+                atualizarTabelaFiltrada();
+            }
+
+            //Se a variável de controle for 0, diz-se que o campo está vazio e, portanto, atualiza a JTable
+            if (controle == 0) {
+                try {
+                    atualizarTabela();
+                } catch (SQLException ex) {
+                    Logger.getLogger(FrmListagemOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(FrmListagemOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            //        } catch (Exception ex) {
+            //            System.out.println("Exceção: " + ex);
+            //        }
+    }//GEN-LAST:event_txtPesquisaKeyReleased
+
+    private void txtPesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyTyped
+
+    }//GEN-LAST:event_txtPesquisaKeyTyped
+
+    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
+        int aux = 9;
+        aux = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir o orçamento?");
+        if (aux == 0){
+            try {
+                DaoOrcamento.deletarOrcamento(Integer.parseInt((String)tblOrcamento.getValueAt(tblOrcamento.getSelectedRow(), 0)));
+                atualizarTabela();
+            } catch (SQLException ex) {
+                Logger.getLogger(FrmListagemOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(FrmListagemOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnDeletarActionPerformed
+
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+        try {
+            atualizarTabela();
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmListagemOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FrmListagemOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAtualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -608,20 +649,27 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmCadastroOrcamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListagemOrcamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmCadastroOrcamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListagemOrcamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmCadastroOrcamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListagemOrcamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmCadastroOrcamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListagemOrcamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmCadastroOrcamento().setVisible(true);
+                try {
+                    new FrmListagemOrcamento().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(FrmListagemOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(FrmListagemOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -647,8 +695,10 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
 
     }
 
-    public void iniciarTabela() {
-        String[] nomeColunas = {"Código", "Nome", "Categoria", "Valor Unitário", "Quantidade", "Valor Sub Total"};
+    public void atualizarTabela() throws SQLException, ClassNotFoundException {
+        ArrayList<Orcamento> lista = new ArrayList<>();
+        lista = DaoOrcamento.listarOrcamento();
+        String[] nomeColunas = {"Código Orçamento", "Código Serviço", "Status", "Valor Orçamento", "Valor Mão de Obra"};
         try {
             DefaultTableModel model = new DefaultTableModel() {
                 @Override
@@ -660,42 +710,79 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
             tblOrcamento.setModel(model);
             model.setColumnIdentifiers(nomeColunas);
             model.setRowCount(0);
+            
+             Object rowData[] = new Object[5];
+            for (int i = 0; i < lista.size(); i++) {
+                rowData[0] = Integer.toString(lista.get(i).getCodigoOrcamento());
+                rowData[1] = Integer.toString(lista.get(i).getServico().getCodigoServico());
+                if (lista.get(i).getStatusOrcamento() == 0) {
+                    rowData[2] = "Ativo";
+                } else {
+                    rowData[2] = "Pago";
+                }
+                rowData[3] = Double.toString(lista.get(i).getValorTotal());
+                rowData[4] = Double.toString(lista.get(i).getMaoDeObra());
+                
+                model.addRow(rowData);
+            }
         } catch (Exception ex) {
             System.out.println("Erro ao reiniciar tabela.\n\n" + ex.getMessage());
+        }
+    }
+    
+    private void iniciarTabelaPeca() {
+        String[] nomeColunas = {"Código", "Nome", "Categoria", "Valor Unitário", "Quantidade", "Valor Sub Total"};
+        try {
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+
+                    return false;
+                }
+            };
+            tblPecas.setModel(model);
+            model.setColumnIdentifiers(nomeColunas);
+            model.setRowCount(0);
+        } catch (Exception ex) {
+            System.out.println("Erro ao reiniciar tabela peças.\n\n" + ex.getMessage());
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarPeca;
-    private javax.swing.JButton btnCadOrcamento;
-    private javax.swing.JTextField btnDebugCodigoServico;
+    private javax.swing.JToggleButton btnAlterar;
+    private javax.swing.JButton btnAtualizar;
+    private javax.swing.JButton btnDeletar;
     private javax.swing.JButton btnExcluirTodasPecas;
     private javax.swing.JButton btnFechar;
-    private javax.swing.JButton btnLimpar;
-    private javax.swing.JButton btnListarOrcamentos;
     private javax.swing.JButton btnListarPeca;
     private javax.swing.JButton btnRemoveLinhaPeca;
     private javax.swing.ButtonGroup btngPeca;
+    private javax.swing.JComboBox<String> cmbFiltro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblDescrever;
     private javax.swing.JLabel lblPecaExiste;
+    private javax.swing.JLabel lblPesquisar;
     private javax.swing.JPanel pnlPeca;
     private javax.swing.JTable tblOrcamento;
+    private javax.swing.JTable tblPecas;
     private javax.swing.JTextField txtCategoria;
     private javax.swing.JTextField txtCodPeca;
-    private javax.swing.JTextField txtCodServico;
     private javax.swing.JTextField txtMaoDeObra;
     private javax.swing.JTextField txtNomePeca;
+    private javax.swing.JTextField txtPesquisa;
     private javax.swing.JTextField txtQtdEstoque;
     private javax.swing.JTextField txtQuantidadePeca;
     private javax.swing.JTextField txtValorTotal;
@@ -706,8 +793,8 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     private void atualizarValorTotal() {
         
         valorPecas = 0;
-        for (int i = 0; i < tblOrcamento.getRowCount(); i++){
-            valorPecas += Double.parseDouble((String) tblOrcamento.getValueAt(i, 5));
+        for (int i = 0; i < tblPecas.getRowCount(); i++){
+            valorPecas += Double.parseDouble((String) tblPecas.getValueAt(i, 5));
         }
         
         valorTotal = valorPecas + valorMaoDeObra;
