@@ -7,12 +7,14 @@ package view;
 
 import dao.DaoOrcamento;
 import dao.DaoPeca;
+import dao.DaoServico;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.Funcionario;
 import model.Orcamento;
 import model.Peca;
 import model.Servico;
@@ -94,7 +96,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
         lblDescrever = new javax.swing.JLabel();
         btnAtualizar = new javax.swing.JButton();
         btnDeletar = new javax.swing.JButton();
-        btnAlterar = new javax.swing.JToggleButton();
+        btnAlterar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -362,6 +364,11 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblOrcamento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblOrcamentoMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblOrcamento);
 
         getContentPane().add(jScrollPane2);
@@ -401,8 +408,13 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
         btnDeletar.setBounds(180, 590, 69, 23);
 
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnAlterar);
-        btnAlterar.setBounds(380, 590, 180, 23);
+        btnAlterar.setBounds(390, 590, 180, 23);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -541,7 +553,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdicionarPecaActionPerformed
 
     private void btnExcluirTodasPecasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirTodasPecasActionPerformed
-        iniciarTabela();
+        iniciarTabelaPeca();
         atualizarValorTotal();
     }//GEN-LAST:event_btnExcluirTodasPecasActionPerformed
 
@@ -563,13 +575,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtMaoDeObraActionPerformed
 
     private void txtMaoDeObraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMaoDeObraFocusLost
-        try {
-            valorMaoDeObra = Double.parseDouble(txtMaoDeObra.getText());
-        } catch (NumberFormatException nfe) {
-            txtMaoDeObra.setText("0");
-            valorMaoDeObra = 0;
-        }
-        atualizarValorTotal();
+        maoDeObraFocusLost();
     }//GEN-LAST:event_txtMaoDeObraFocusLost
 
     private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
@@ -586,12 +592,18 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
             if (txtPesquisa.getText().trim() != "") {
                 controle = 1;
                 atualizarTabelaFiltrada();
+                txtMaoDeObra.setText("0");
+                    iniciarTabelaPeca();
+                    atualizarValorTotal();
             }
 
             //Se a variável de controle for 0, diz-se que o campo está vazio e, portanto, atualiza a JTable
             if (controle == 0) {
                 try {
                     atualizarTabela();
+                    txtMaoDeObra.setText("0");
+                    iniciarTabelaPeca();
+                    atualizarValorTotal();
                 } catch (SQLException ex) {
                     Logger.getLogger(FrmListagemOrcamento.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
@@ -630,7 +642,71 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(FrmListagemOrcamento.class.getName()).log(Level.SEVERE, null, ex);
         }
+        txtMaoDeObra.setText("0");
+        iniciarTabelaPeca();
+        atualizarValorTotal();
     }//GEN-LAST:event_btnAtualizarActionPerformed
+
+    private void tblOrcamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOrcamentoMouseClicked
+    if (tblOrcamento.getRowCount()!=0){
+        popularTabelaPeca(Integer.parseInt((String)tblOrcamento.getValueAt(tblOrcamento.getSelectedRow(), 0)));
+        txtMaoDeObra.setText((String) tblOrcamento.getValueAt(tblOrcamento.getSelectedRow(), 4));
+        
+    } else {
+        
+    }
+    }//GEN-LAST:event_tblOrcamentoMouseClicked
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        
+        
+        if (valorTotal>0){
+            Orcamento o = new Orcamento();
+            s.setCodigoServico(Integer.parseInt((String) tblOrcamento.getValueAt(tblOrcamento.getSelectedRow(), 1)));
+            o.setServico(s);
+            o.setMaoDeObra(Double.parseDouble(txtMaoDeObra.getText()));
+            ArrayList<VendaPeca> lista = new ArrayList<>();
+            for(int i = 0; i < tblPecas.getRowCount(); i++){
+                Peca p = new Peca();
+                p.setCodigoPeca(Integer.parseInt((String)tblPecas.getValueAt(i, 0)));
+                p.setNomePeca((String) tblPecas.getValueAt(i, 1));
+                p.setCategoriaPeca((String) tblPecas.getValueAt(i, 2));
+                p.setValorUnitario(Float.parseFloat((String) tblPecas.getValueAt(i, 3)));
+                p.setQuantidadePeca(Integer.parseInt((String) tblPecas.getValueAt(i, 4)));
+                VendaPeca vp = new VendaPeca();
+                vp.setPeca(p);
+                vp.setQuantidadeVendida(p.getQuantidadePeca());
+                lista.add(vp);
+            }
+            o.setPecas(lista);
+            o.setValorTotal(0.0);
+            for (int i = 0; i < lista.size(); i++){
+                o.setValorTotal(o.getValorTotal() + (lista.get(i).getPeca().getValorUnitario() * lista.get(i).getQuantidadeVendida()));
+            }
+            o.setValorTotal(o.getValorTotal() + o.getMaoDeObra());
+            try {
+                if (tblPecas.getRowCount() !=0) {
+                    DaoOrcamento.criarOrcamento(o, true, false); 
+                } else {
+                    DaoOrcamento.criarOrcamento(o, false, false); 
+                }
+                atualizarTabela();
+                txtMaoDeObra.setText("0");
+                iniciarTabelaPeca();
+                atualizarValorTotal();
+               
+            } catch (SQLException ex) {
+                Logger.getLogger(FrmCadastroOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(FrmCadastroOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Insira um valor de mão de obra e/ou peça.");
+        }
+        
+        
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -694,10 +770,56 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
         limitePeca = 0;
 
     }
+    
+    public void maoDeObraFocusLost (){
+        try {
+            valorMaoDeObra = Double.parseDouble(txtMaoDeObra.getText());
+        } catch (NumberFormatException nfe) {
+            txtMaoDeObra.setText("0");
+            valorMaoDeObra = 0;
+            
+        }
+        atualizarValorTotal();
+    }
 
     public void atualizarTabela() throws SQLException, ClassNotFoundException {
         ArrayList<Orcamento> lista = new ArrayList<>();
         lista = DaoOrcamento.listarOrcamento();
+        String[] nomeColunas = {"Código Orçamento", "Código Serviço", "Status", "Valor Orçamento", "Valor Mão de Obra"};
+        try {
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+
+                    return false;
+                }
+            };
+            tblOrcamento.setModel(model);
+            model.setColumnIdentifiers(nomeColunas);
+            model.setRowCount(0);
+            
+             Object rowData[] = new Object[5];
+            for (int i = 0; i < lista.size(); i++) {
+                rowData[0] = Integer.toString(lista.get(i).getCodigoOrcamento());
+                rowData[1] = Integer.toString(lista.get(i).getServico().getCodigoServico());
+                if (lista.get(i).getStatusOrcamento() == 0) {
+                    rowData[2] = "Ativo";
+                } else {
+                    rowData[2] = "Pago";
+                }
+                rowData[3] = Double.toString(lista.get(i).getValorTotal());
+                rowData[4] = Double.toString(lista.get(i).getMaoDeObra());
+                
+                model.addRow(rowData);
+            }
+        } catch (Exception ex) {
+            System.out.println("Erro ao reiniciar tabela.\n\n" + ex.getMessage());
+        }
+    }
+    
+    public void atualizarTabelaFiltrada() {
+        ArrayList<Orcamento> lista = new ArrayList<>();
+        lista = DaoOrcamento.listarOrcamentoFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim().toLowerCase());
         String[] nomeColunas = {"Código Orçamento", "Código Serviço", "Status", "Valor Orçamento", "Valor Mão de Obra"};
         try {
             DefaultTableModel model = new DefaultTableModel() {
@@ -747,10 +869,43 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
             System.out.println("Erro ao reiniciar tabela peças.\n\n" + ex.getMessage());
         }
     }
+    
+    private void popularTabelaPeca(int codigoOrcamento){
+        ArrayList<Peca> lista = new ArrayList<>();
+        lista = DaoOrcamento.listarPecaOrcamento(codigoOrcamento);
+        String[] nomeColunas = {"Código", "Nome", "Categoria", "Valor Unitário", "Quantidade", "Valor x Quantidade"};
+        try {
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+
+                    return false;
+                }
+            };
+            tblPecas.setModel(model);
+            model.setColumnIdentifiers(nomeColunas);
+            model.setRowCount(0);
+            Object rowData[] = new Object[6];
+            for (int i = 0; i < lista.size(); i++) {
+                rowData[0] = Integer.toString(lista.get(i).getCodigoPeca());
+                rowData[1] = lista.get(i).getNomePeca();
+                rowData[2] = lista.get(i).getCategoriaPeca();
+                rowData[3] = Float.toString(lista.get(i).getValorUnitario());
+                rowData[4] = Integer.toString(lista.get(i).getQuantidadePeca());
+                Float aux;
+                aux = (lista.get(i).getValorUnitario() * lista.get(i).getQuantidadePeca());
+                rowData[5] = Float.toString(aux);
+                model.addRow(rowData);
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao iniciar tabela de Peças.\n\n" + ex.getMessage(),"Erro de Carregamento", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarPeca;
-    private javax.swing.JToggleButton btnAlterar;
+    private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnDeletar;
     private javax.swing.JButton btnExcluirTodasPecas;
@@ -802,4 +957,6 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
         
         
     }
+
+    
 }

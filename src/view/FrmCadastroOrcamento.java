@@ -93,7 +93,6 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         btnRemoveLinhaPeca = new javax.swing.JButton();
         btnFechar = new javax.swing.JButton();
         txtMaoDeObra = new javax.swing.JTextField();
-        btnDebugCodigoServico = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -368,8 +367,6 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         });
         getContentPane().add(txtMaoDeObra);
         txtMaoDeObra.setBounds(220, 140, 150, 30);
-        getContentPane().add(btnDebugCodigoServico);
-        btnDebugCodigoServico.setBounds(300, 60, 140, 20);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -398,7 +395,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     private void btnCadOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadOrcamentoActionPerformed
         if (valorTotal>0){
             Orcamento o = new Orcamento();
-            s.setCodigoServico(Integer.parseInt(btnDebugCodigoServico.getText()));
+            s.setCodigoServico(Integer.parseInt(txtCodServico.getText()));
             o.setServico(s);
             o.setMaoDeObra(Double.parseDouble(txtMaoDeObra.getText()));
             ArrayList<VendaPeca> lista = new ArrayList<>();
@@ -668,7 +665,6 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarPeca;
     private javax.swing.JButton btnCadOrcamento;
-    private javax.swing.JTextField btnDebugCodigoServico;
     private javax.swing.JButton btnExcluirTodasPecas;
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnLimpar;

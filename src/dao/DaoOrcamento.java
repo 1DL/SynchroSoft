@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import model.Endereco;
 import model.Funcionario;
 import model.Orcamento;
+import model.Peca;
 import model.Pessoa;
 import model.PessoaFisica;
 import model.PessoaJuridica;
@@ -73,6 +74,9 @@ public class DaoOrcamento {
             st.setDouble(3, o.getServico().getCodigoServico());
             st.executeUpdate();
             st.close();
+            if (flagTemPeca) {
+                criarAlterarPecaOrcamento(o);
+            }
         }
 
         JOptionPane.showMessageDialog(null, "Orçamento criado/Alterado com sucesso.");
@@ -92,14 +96,14 @@ public class DaoOrcamento {
         st.close();
         return codigoOrcamento;
     }
-    
+
     public static void pagarOrcamento(int codigoServico) throws SQLException, ClassNotFoundException {
         int codigoOrcamento = 0;
         codigoOrcamento = buscarOrcamento(codigoServico);
         Connection con = Conexao.conectar();
         String sql = "UPDATE SYNCHROSOFT.TB_ORCAMENTO "
-                    + "SET ID_STATUS_ORCAMENTO = ? "
-                    + "WHERE CD_ORCAMENTO = ?";
+                + "SET ID_STATUS_ORCAMENTO = ? "
+                + "WHERE CD_ORCAMENTO = ?";
         PreparedStatement st = con.prepareStatement(sql);
         st.setInt(1, 1);
         st.setInt(2, codigoOrcamento);
@@ -131,30 +135,125 @@ public class DaoOrcamento {
         JOptionPane.showMessageDialog(null, "Peças do orçamento adicionadas/alteradas com sucesso.");
 
     }
-    
-    public static ArrayList listarOrcamento () throws SQLException, ClassNotFoundException{
+
+    public static ArrayList listarOrcamento() {
         ArrayList<Orcamento> lista = new ArrayList<>();
-        Connection con = Conexao.conectar();
-        String sql = "SELECT * FROM SYNCHROSOFT.TB_ORCAMENTO";
-        PreparedStatement st = con.prepareStatement(sql);
-        ResultSet rs = st.executeQuery();
-        while (rs.next()){
-            Orcamento o = new Orcamento();
-            o.setCodigoOrcamento(rs.getInt("CD_ORCAMENTO"));
-            Servico s = new Servico();
-            s.setCodigoServico(rs.getInt("CD_SERVICO"));
-            o.setServico(s);
-            o.setStatusOrcamento(rs.getInt("ID_STATUS_ORCAMENTO"));
-            o.setValorTotal(rs.getDouble("VL_ORCAMENTO"));
-            o.setMaoDeObra(rs.getDouble("VL_MAODEOBRA"));
-            lista.add(o);
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "SELECT * FROM SYNCHROSOFT.TB_ORCAMENTO";
+            PreparedStatement st = con.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Orcamento o = new Orcamento();
+                o.setCodigoOrcamento(rs.getInt("CD_ORCAMENTO"));
+                Servico s = new Servico();
+                s.setCodigoServico(rs.getInt("CD_SERVICO"));
+                o.setServico(s);
+                o.setStatusOrcamento(rs.getInt("ID_STATUS_ORCAMENTO"));
+                o.setValorTotal(rs.getDouble("VL_ORCAMENTO"));
+                o.setMaoDeObra(rs.getDouble("VL_MAODEOBRA"));
+                lista.add(o);
+            }
+            st.close();
+            rs.close();
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao popular tabela de peças.\n" + ex.getMessage());
         }
-        st.close();
-        rs.close();
         return lista;
     }
-    
-    public static void deletarOrcamento (int codigoOrcamento) throws SQLException, ClassNotFoundException {
+
+    public static ArrayList listarOrcamentoFiltrada(String cmbFiltro, String txtPesquisa) {
+        ArrayList<Orcamento> lista = new ArrayList<>();
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "";
+            /*
+Código Orçamento
+Código Serviço
+Status
+Valor Mão De Obra
+Valor Total
+            
+             */
+            switch (cmbFiltro) {
+
+                case "Código Orçamento":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_ORCAMENTO WHERE LOWER(CD_ORCAMENTO) LIKE LOWER(?)";
+                    break;
+                case "Código Serviço":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_ORCAMENTO WHERE LOWER(CD_SERVICO) LIKE LOWER(?)";
+                    break;
+                case "Status":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_ORCAMENTO WHERE LOWER(ID_STATUS_ORCAMENTO) LIKE LOWER(?)";
+                    break;
+                case "Valor Mão De Obra":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_ORCAMENTO WHERE LOWER(VL_MAODEOBRA) LIKE LOWER(?)";
+                    break;
+                case "Valor Total":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_ORCAMENTO WHERE LOWER(VL_ORCAMENTO) LIKE LOWER(?)";
+                    break;
+
+            }
+
+            //realizando preparedStatement para tratamento de variáveis
+            PreparedStatement st = con.prepareStatement(sql);
+
+            //colocando valor da variável ? da query 
+            st.setString(1, "%" + txtPesquisa + "%");
+
+            //executando query selecionada pelo switch case
+            ResultSet rs = st.executeQuery();
+
+            //listando dados do banco em jtable
+            while (rs.next()) {
+                Orcamento o = new Orcamento();
+                o.setCodigoOrcamento(rs.getInt("CD_ORCAMENTO"));
+                Servico s = new Servico();
+                s.setCodigoServico(rs.getInt("CD_SERVICO"));
+                o.setServico(s);
+                o.setStatusOrcamento(rs.getInt("ID_STATUS_ORCAMENTO"));
+                o.setValorTotal(rs.getDouble("VL_ORCAMENTO"));
+                o.setMaoDeObra(rs.getDouble("VL_MAODEOBRA"));
+                lista.add(o);
+            }
+
+            //fechamento de preparedStatement e Conexão do banco
+            st.close();
+            rs.close();
+
+        } catch (Exception ex) { //Caso exista a possibilidade de retorno de erro
+            JOptionPane.showMessageDialog(null,"Erro no carregamento da lista de Orçamento filtrada.\n\n" + ex, "Erro Carregamento", JOptionPane.ERROR_MESSAGE);
+        }
+        //return lista;
+        return lista;
+    }
+
+    public static ArrayList listarPecaOrcamento(int codigoOrcamento) {
+        ArrayList<Peca> lista = new ArrayList<>();
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "SELECT * FROM SYNCHROSOFT.TB_PECA_ORCAMENTO WHERE CD_ORCAMENTO = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, codigoOrcamento);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Peca p = new Peca();
+                p = DaoPeca.popularPeca(rs.getInt("CD_PECA"));
+                p.setQuantidadePeca(rs.getInt("QT_PECA_VENDIDA"));
+                p.setValorUnitario(rs.getFloat("VL_PECA_VENDIDA"));
+                lista.add(p);
+            }
+            st.close();
+            rs.close();
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao popular tabela de peças.\n" + ex.getMessage());
+        }
+        return lista;
+    }
+
+    public static void deletarOrcamento(int codigoOrcamento) throws SQLException, ClassNotFoundException {
         Connection con = Conexao.conectar();
         String sql = "DELETE FROM SYNCHROSOFT.TB_ORCAMENTO WHERE CD_ORCAMENTO = ?";
         PreparedStatement st = con.prepareStatement(sql);
