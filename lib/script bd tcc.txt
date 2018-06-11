@@ -291,3 +291,17 @@ BEGIN
     FROM dual;
 END;
 ---------------------------------------------------------------------------------------------------
+CREATE SEQUENCE SYNCHROSOFT.PECA_ORCAMENTO_SEQ
+START WITH 1
+INCREMENT BY 1
+NOCYCLE;
+
+CREATE OR REPLACE TRIGGER SYNCHROSOFT.AUTOINC_PECA_ORCAMENTO
+  BEFORE INSERT ON SYNCHROSOFT.TB_PECA_ORCAMENTO
+  FOR EACH ROW
+BEGIN
+  SELECT SYNCHROSOFT.PECA_ORCAMENTO_SEQ.nextval
+    INTO :new.CD_PECA_ORCAMENTO
+    FROM dual;
+END;
+-----------------------------------------------------------------------------------------------------
