@@ -5,6 +5,7 @@
  */
 package view;
 
+import control.TextSize;
 import dao.DaoEndereco;
 import dao.DaoFuncionario;
 import dao.DaoPessoa;
@@ -287,6 +288,11 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtNomeFunc.setBounds(780, 360, 350, 30);
 
         txtLimpar.setText("Limpar");
+        txtLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLimparActionPerformed(evt);
+            }
+        });
         getContentPane().add(txtLimpar);
         txtLimpar.setBounds(630, 550, 110, 40);
 
@@ -400,7 +406,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         jPanel2.add(rbtMasculino);
-        rbtMasculino.setBounds(704, 157, 107, 17);
+        rbtMasculino.setBounds(700, 140, 107, 17);
 
         grupoSexo.add(rbtFeminino);
         rbtFeminino.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -556,6 +562,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCepActionPerformed
 
     private void txtCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyReleased
+        txtCep.setText(TextSize.maxLenghtCep(txtCep.getText()));
         if ((txtCep.getText().length() < 8) || (txtCep.getText().length() > 8)) {
             lblCepExiste.setText("Cep Inválido.");
             limparExibicaoEndereco();
@@ -614,6 +621,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCpfCnpjActionPerformed
 
     private void txtCpfCnpjKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfCnpjKeyReleased
+        txtCpfCnpj.setText(TextSize.maxLenghtCPFCNPJ(txtCpfCnpj.getText(), rbtFisica.isSelected()));
         if (rbtFisica.isSelected()) {
             if ((txtCpfCnpj.getText().length() < 11) || (txtCpfCnpj.getText().length() > 11)) {
                 lblCpfCnpjExiste.setText("CPF Inválido");
@@ -718,6 +726,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCadastrarActionPerformed
 
     private void txtCodFuncKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodFuncKeyReleased
+        txtCodFunc.setText(TextSize.maxLenghtFuncionario(txtCodFunc.getText()));
         try {
             flagFuncionario = DaoFuncionario.existeFuncionario(Integer.parseInt(txtCodFunc.getText()));
             if (flagFuncionario) {
@@ -750,6 +759,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarFuncActionPerformed
 
     private void txtCodigoServicoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoServicoKeyReleased
+        txtCodigoServico.setText(TextSize.maxLenghtServico(txtCodigoServico.getText()));
         DaoServico dao = new DaoServico();
         try {
             if (txtCodigoServico.getText().length() < 1) {
@@ -848,6 +858,10 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnFecharActionPerformed
+
+    private void txtLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLimparActionPerformed
+        
+    }//GEN-LAST:event_txtLimparActionPerformed
 
     /**
      * @param args the command line arguments

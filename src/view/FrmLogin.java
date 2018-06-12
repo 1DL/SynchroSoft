@@ -5,6 +5,7 @@
  */
 package view;
 
+import control.TextSize;
 import dao.DaoUsuario;
 import javax.swing.JOptionPane;
 
@@ -64,6 +65,11 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel3.setBounds(235, 155, 53, 25);
 
         txtLogin.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtLoginKeyReleased(evt);
+            }
+        });
         jpnLogin.add(txtLogin);
         txtLogin.setBounds(235, 106, 246, 31);
 
@@ -78,6 +84,11 @@ public class FrmLogin extends javax.swing.JFrame {
         BtnAcesso.setBounds(381, 246, 100, 66);
 
         txtPassword.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyReleased(evt);
+            }
+        });
         jpnLogin.add(txtPassword);
         txtPassword.setBounds(235, 209, 246, 31);
 
@@ -117,6 +128,14 @@ public class FrmLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "login e/ou senha não encontrados!");
         }
     }//GEN-LAST:event_BtnAcessoActionPerformed
+
+    private void txtLoginKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLoginKeyReleased
+        txtLogin.setText(TextSize.maxLenghtLogin(txtLogin.getText()));
+    }//GEN-LAST:event_txtLoginKeyReleased
+
+    private void txtPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyReleased
+        txtPassword.setText(TextSize.maxLenghtSenha(txtPassword.getText()));
+    }//GEN-LAST:event_txtPasswordKeyReleased
 
     /**
      * @param args the command line arguments

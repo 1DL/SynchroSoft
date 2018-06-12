@@ -5,6 +5,7 @@
  */
 package view;
 
+import control.TextSize;
 import dao.DaoFuncionario;
 import dao.DaoUsuario;
 import java.awt.Color;
@@ -92,6 +93,11 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblLogin.setBounds(670, 160, 60, 25);
 
         txtLogin.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtLoginKeyReleased(evt);
+            }
+        });
         getContentPane().add(txtLogin);
         txtLogin.setBounds(740, 160, 280, 30);
 
@@ -101,10 +107,20 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblSenha.setBounds(670, 240, 60, 25);
 
         txtSenha.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSenhaKeyReleased(evt);
+            }
+        });
         getContentPane().add(txtSenha);
         txtSenha.setBounds(770, 240, 250, 31);
 
         txtConfirma.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtConfirma.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtConfirmaKeyReleased(evt);
+            }
+        });
         getContentPane().add(txtConfirma);
         txtConfirma.setBounds(770, 320, 250, 31);
 
@@ -165,21 +181,25 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblNomeFuncionario.setText("Nome:");
 
         txtNomeFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtNomeFuncionario.setFocusable(false);
 
         lblCpf.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCpf.setText("CPF:");
 
         txtCpf.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtCpf.setFocusable(false);
 
         lblCargo.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCargo.setText("Cargo:");
 
         txtCargo.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtCargo.setFocusable(false);
 
         lblSalario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblSalario.setText("Salário:");
 
         txtSalario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtSalario.setFocusable(false);
 
         org.jdesktop.layout.GroupLayout pnlDadosFuncionarioLayout = new org.jdesktop.layout.GroupLayout(pnlDadosFuncionario);
         pnlDadosFuncionario.setLayout(pnlDadosFuncionarioLayout);
@@ -293,6 +313,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharFrameActionPerformed
 
     private void txtCodFuncionarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodFuncionarioKeyReleased
+         txtCodFuncionario.setText(TextSize.maxLenghtFuncionario(txtCodFuncionario.getText()));
         Funcionario f = new Funcionario();
         DaoFuncionario dao = new DaoFuncionario();
         try {
@@ -314,12 +335,25 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(FrmCadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
+       
     }//GEN-LAST:event_txtCodFuncionarioKeyReleased
 
     private void btnListarFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarFuncionariosActionPerformed
         FrmListagemFuncionario ListagemFunc = new FrmListagemFuncionario();
         ListagemFunc.setVisible(true);
     }//GEN-LAST:event_btnListarFuncionariosActionPerformed
+
+    private void txtLoginKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLoginKeyReleased
+        txtLogin.setText(TextSize.maxLenghtLogin(txtLogin.getText()));
+    }//GEN-LAST:event_txtLoginKeyReleased
+
+    private void txtSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyReleased
+        txtSenha.setText(TextSize.maxLenghtSenha(txtSenha.getText()));
+    }//GEN-LAST:event_txtSenhaKeyReleased
+
+    private void txtConfirmaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmaKeyReleased
+        txtConfirma.setText(TextSize.maxLenghtSenha(txtConfirma.getText()));
+    }//GEN-LAST:event_txtConfirmaKeyReleased
 
     /**
      * @param args the command line arguments
