@@ -97,7 +97,7 @@ public class DaoOrcamento {
         return codigoOrcamento;
     }
 
-    public static void pagarOrcamento(int codigoServico) throws SQLException, ClassNotFoundException {
+    public static void pagarOrcamento(int codigoServico, boolean flag) throws SQLException, ClassNotFoundException {
         int codigoOrcamento = 0;
         codigoOrcamento = buscarOrcamento(codigoServico);
         Connection con = Conexao.conectar();
@@ -105,7 +105,12 @@ public class DaoOrcamento {
                 + "SET ID_STATUS_ORCAMENTO = ? "
                 + "WHERE CD_ORCAMENTO = ?";
         PreparedStatement st = con.prepareStatement(sql);
-        st.setInt(1, 1);
+        if (flag) {
+         st.setInt(1, 1);   
+        } else {
+            st.setInt(1, 0);
+        }
+        
         st.setInt(2, codigoOrcamento);
         st.executeUpdate();
         st.close();

@@ -5,12 +5,14 @@
  */
 package dao;
 
+import java.awt.HeadlessException;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.Peca;
+import model.VendaPeca;
 
 /**
  *
@@ -32,6 +34,44 @@ public class DaoPeca {
             st.close();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar a peça.\n Erro:\n\n" + ex.getMessage());
+        }
+    }
+    
+    public static void atualizarEstoque(ArrayList<VendaPeca> lista) {
+        boolean estoqueInsuficiente = false;
+        ArrayList<Integer> estoque = new ArrayList<>();
+        
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "SELECT QT_PECA FROM SYNCHROSOFT.TB_PECA WHERE CD_PECA = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            for(int i = 0; i < lista.size(); i++){
+               
+                st.setInt(1, lista.get(i).getPeca().getCodigoPeca());
+                ResultSet rs = st.executeQuery();
+                rs.next();
+                estoque.add(rs.getInt("QT_PECA"));
+                if (estoque.get(i) < lista.get(i).getQuantidadeVendida()) {
+                    estoqueInsuficiente = true;
+                }
+            }
+            
+            if (estoqueInsuficiente){
+                JOptionPane.showMessageDialog(null, "Venda de peças não concluída. \n"
+                        + "Uma ou mais peças do orçamento excedem a quantidade em estoque.");
+            } else {
+                sql = "UPDATE SYNCHROSOFT.TB_PECA "
+                        + "SET QT_PECA = ? WHERE CD_PECA = ?";
+                PreparedStatement st2 = con.prepareStatement(sql);
+                for(int i = 0; i < lista.size(); i++){
+                    st2.setInt(1, (estoque.get(i) - lista.get(i).getQuantidadeVendida()));
+                    st2.setInt(2, lista.get(i).getPeca().getCodigoPeca());
+                    st2.executeUpdate();
+                }
+                JOptionPane.showMessageDialog(null, "Venda de peças concluída.");
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException ex){
+            JOptionPane.showMessageDialog(null, "Erro ao realizar venda de peça. \n"+ex.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
         }
     }
     

@@ -5,6 +5,9 @@
  */
 package view;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -34,11 +37,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         btnPeca = new javax.swing.JButton();
+        btnVenderPeças = new javax.swing.JButton();
+        btnListarOrcamento = new javax.swing.JButton();
         btnUsuario = new javax.swing.JButton();
         btnFuncionario = new javax.swing.JButton();
         btnDespesa = new javax.swing.JButton();
         btnServico = new javax.swing.JButton();
         btnCliente = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtAlerta = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -64,7 +71,27 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnPeca);
-        btnPeca.setBounds(800, 100, 290, 170);
+        btnPeca.setBounds(800, 100, 290, 80);
+
+        btnVenderPeças.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        btnVenderPeças.setText("Vender Peças");
+        btnVenderPeças.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVenderPeçasActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnVenderPeças);
+        btnVenderPeças.setBounds(430, 420, 290, 80);
+
+        btnListarOrcamento.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        btnListarOrcamento.setText("Listar Orçamentos");
+        btnListarOrcamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarOrcamentoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnListarOrcamento);
+        btnListarOrcamento.setBounds(60, 430, 290, 80);
 
         btnUsuario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnUsuario.setText("Cadastro de Usuários");
@@ -74,7 +101,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnUsuario);
-        btnUsuario.setBounds(430, 340, 290, 170);
+        btnUsuario.setBounds(440, 260, 280, 80);
 
         btnFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnFuncionario.setText("Cadastro de Funcionários");
@@ -84,7 +111,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnFuncionario);
-        btnFuncionario.setBounds(50, 100, 290, 170);
+        btnFuncionario.setBounds(50, 100, 290, 80);
 
         btnDespesa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnDespesa.setText("Relatório de Despesas");
@@ -94,7 +121,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnDespesa);
-        btnDespesa.setBounds(420, 100, 290, 170);
+        btnDespesa.setBounds(420, 100, 290, 80);
 
         btnServico.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnServico.setText("Cadastro de serviço");
@@ -104,7 +131,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnServico);
-        btnServico.setBounds(50, 330, 290, 170);
+        btnServico.setBounds(60, 260, 290, 80);
 
         btnCliente.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnCliente.setText("Cadastro de Clientes");
@@ -114,7 +141,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCliente);
-        btnCliente.setBounds(800, 340, 290, 170);
+        btnCliente.setBounds(810, 270, 290, 80);
+
+        jLabel2.setText("Mensagens de Alerta:");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(30, 560, 120, 30);
+
+        txtAlerta.setText("Alerta de Despesas para vencer: ");
+        getContentPane().add(txtAlerta);
+        txtAlerta.setBounds(190, 560, 920, 30);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -150,38 +185,56 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void btnPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPecaActionPerformed
         FrmListagemPeca telaListarPeca = new FrmListagemPeca();
         telaListarPeca.setVisible(true);
-        dispose();
+        
     }//GEN-LAST:event_btnPecaActionPerformed
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
         FrmCadastroPessoa cad = new FrmCadastroPessoa();
         cad.setVisible(true);
-        dispose();
+        
     }//GEN-LAST:event_btnClienteActionPerformed
 
     private void btnServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServicoActionPerformed
         FrmCadastroServico serv = new FrmCadastroServico();
         serv.setVisible(true);
-        this.dispose();
+        
     }//GEN-LAST:event_btnServicoActionPerformed
 
     private void btnDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDespesaActionPerformed
         FrmCadastroDespesa desp = new FrmCadastroDespesa();
         desp.setVisible(true);
-        dispose();
+        
     }//GEN-LAST:event_btnDespesaActionPerformed
 
     private void btnFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionarioActionPerformed
         FrmCadastroFuncionario func = new FrmCadastroFuncionario();
         func.setVisible(true);
-        dispose();
+        
     }//GEN-LAST:event_btnFuncionarioActionPerformed
 
     private void btnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarioActionPerformed
         FrmCadastroUsuario usuario = new FrmCadastroUsuario();
         usuario.setVisible(true);
-        dispose();
+        
     }//GEN-LAST:event_btnUsuarioActionPerformed
+
+    private void btnListarOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarOrcamentoActionPerformed
+        FrmListagemOrcamento listaOrcamento = null;
+        try {
+            listaOrcamento = new FrmListagemOrcamento();
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        listaOrcamento.setVisible(true);
+        
+    }//GEN-LAST:event_btnListarOrcamentoActionPerformed
+
+    private void btnVenderPeçasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderPeçasActionPerformed
+        FrmVendaPeca venderPeca = new FrmVendaPeca();
+        venderPeca.setVisible(true);
+    }//GEN-LAST:event_btnVenderPeçasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -223,10 +276,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnCliente;
     private javax.swing.JButton btnDespesa;
     private javax.swing.JButton btnFuncionario;
+    private javax.swing.JButton btnListarOrcamento;
     private javax.swing.JButton btnPeca;
     private javax.swing.JButton btnServico;
     private javax.swing.JButton btnUsuario;
+    private javax.swing.JButton btnVenderPeças;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -234,5 +290,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JTextField txtAlerta;
     // End of variables declaration//GEN-END:variables
 }

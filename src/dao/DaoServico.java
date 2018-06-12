@@ -500,20 +500,15 @@ Data Encerramento
                 + "WHERE CD_SERVICO = ?";
         PreparedStatement st = con.prepareStatement(sql);
         if (flag) {
-            st.setInt(1, 1);
-        } else {
             st.setInt(1, 0);
+        } else {
+            st.setInt(1, 1);
 
         }
 
         st.setInt(2, codigoServico);
         st.executeUpdate();
         st.close();
-        if (flag) {
-            JOptionPane.showMessageDialog(null, "O Serviço foi ativado com sucesso!");
-        } else {
-            JOptionPane.showMessageDialog(null, "O Serviço foi desativado com sucesso!");
-        }
 
     }
 

@@ -1120,6 +1120,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
     private void btnAtivarDesativarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtivarDesativarActionPerformed
         try {
             DaoServico.ativarDesativarServico(Integer.parseInt((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)), flagAtivo);
+            
             atualizarTabela();
         } catch (SQLException ex) {
             Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
