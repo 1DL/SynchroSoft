@@ -307,7 +307,7 @@ END;
 -----------------------------------------------------------------------------------------------------
 alter table "TB_USUARIO" modify
 ("CD_FUNCIONARIO" NUMBER(10,0));
----------------------------------------------------------------------------------------------------
+
 alter table "TB_PESSOA_FISICA" modify
 ("NM_PESSOA_FISICA" VARCHAR2(100));
 
@@ -316,4 +316,7 @@ alter table "TB_PESSOA_JURIDICA" modify
 
 alter table "TB_PESSOA_JURIDICA" modify
 ("NM_RAZAO_SOCIAL" VARCHAR2(100));
+
+alter table "TB_PESSOA_JURIDICA" modify
+("NR_LOGRADOURO" VARCHAR2(10));
 --------------------------------------------------------------------------------------------
