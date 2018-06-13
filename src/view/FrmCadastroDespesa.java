@@ -5,6 +5,7 @@
  */
 package view;
 
+import control.TextSize;
 import dao.DaoDespesa;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -95,6 +96,11 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         jLabel6.setBounds(630, 140, 150, 25);
 
         txtValorDespesa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtValorDespesa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtValorDespesaKeyReleased(evt);
+            }
+        });
         getContentPane().add(txtValorDespesa);
         txtValorDespesa.setBounds(810, 140, 120, 31);
 
@@ -115,6 +121,11 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
 
         txaDescricaoDespesa.setColumns(20);
         txaDescricaoDespesa.setRows(5);
+        txaDescricaoDespesa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txaDescricaoDespesaKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(txaDescricaoDespesa);
 
         getContentPane().add(jScrollPane1);
@@ -190,6 +201,14 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnFecharActionPerformed
+
+    private void txtValorDespesaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorDespesaKeyReleased
+        txtValorDespesa.setText(TextSize.maxLenghtValorDespesa(txtValorDespesa.getText()));
+    }//GEN-LAST:event_txtValorDespesaKeyReleased
+
+    private void txaDescricaoDespesaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txaDescricaoDespesaKeyReleased
+        txaDescricaoDespesa.setText(TextSize.maxLenghtDescricaoDespesa(txaDescricaoDespesa.getText()));
+    }//GEN-LAST:event_txaDescricaoDespesaKeyReleased
 
     /**
      * @param args the command line arguments

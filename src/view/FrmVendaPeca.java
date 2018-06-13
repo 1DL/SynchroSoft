@@ -5,6 +5,7 @@
  */
 package view;
 
+import control.TextSize;
 import dao.DaoOrcamento;
 import dao.DaoPeca;
 import java.sql.SQLException;
@@ -341,7 +342,7 @@ public class FrmVendaPeca extends javax.swing.JFrame {
                 p.setCodigoPeca(Integer.parseInt((String)tblPecas.getValueAt(i, 0)));
                 p.setNomePeca((String) tblPecas.getValueAt(i, 1));
                 p.setCategoriaPeca((String) tblPecas.getValueAt(i, 2));
-                p.setValorUnitario(Float.parseFloat((String) tblPecas.getValueAt(i, 3)));
+                p.setValorUnitario((String) tblPecas.getValueAt(i, 3));
                 p.setQuantidadePeca(Integer.parseInt((String) tblPecas.getValueAt(i, 4)));
                 VendaPeca vp = new VendaPeca();
                 vp.setPeca(p);
@@ -389,6 +390,7 @@ public class FrmVendaPeca extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarPecaActionPerformed
 
     private void txtCodPecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodPecaKeyReleased
+        txtCodPeca.setText(TextSize.maxLenghtCodigoPeca(txtCodPeca.getText()));
         if (txtCodPeca.getText().equals("")) {
             limparPeca();
             lblPecaExiste.setText("Digite um código de peça.");
@@ -421,6 +423,7 @@ public class FrmVendaPeca extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodPecaKeyReleased
 
     private void txtQuantidadePecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadePecaKeyReleased
+        txtQuantidadePeca.setText(TextSize.maxLenghtQuantidadePeca(txtQuantidadePeca.getText()));
         int qtd;
         float produto;
         float vlunit;

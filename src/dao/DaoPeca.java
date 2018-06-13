@@ -101,7 +101,7 @@ public class DaoPeca {
             p.setNomePeca(rs.getString("NM_PECA"));
             p.setCategoriaPeca(rs.getString("DS_CATEGORIA"));
             p.setQuantidadePeca(rs.getInt("QT_PECA"));
-            p.setValorUnitario(rs.getFloat("VL_PECA"));
+            p.setValorUnitario(Float.toString(rs.getFloat("VL_PECA")));
         }
         
         st.close();
@@ -133,7 +133,7 @@ public class DaoPeca {
             PreparedStatement st = con.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Peca pecas = new Peca(rs.getInt("CD_PECA"), rs.getString("NM_PECA"), rs.getString("DS_CATEGORIA"), rs.getInt("QT_PECA"), rs.getFloat("VL_PECA"));
+                Peca pecas = new Peca(rs.getInt("CD_PECA"), rs.getString("NM_PECA"), rs.getString("DS_CATEGORIA"), rs.getInt("QT_PECA"), Float.toString(rs.getFloat("VL_PECA")));
                 lista.add(pecas);
 
             }
@@ -194,7 +194,7 @@ public class DaoPeca {
             
             //listando dados do banco em jtable
             while (rs.next()) {
-                Peca pecas = new Peca(rs.getInt("CD_PECA"), rs.getString("NM_PECA"), rs.getString("DS_CATEGORIA"), rs.getInt("QT_PECA"), rs.getFloat("VL_PECA"));
+                Peca pecas = new Peca(rs.getInt("CD_PECA"), rs.getString("NM_PECA"), rs.getString("DS_CATEGORIA"), rs.getInt("QT_PECA"), Float.toString(rs.getFloat("VL_PECA")));
                 lista.add(pecas);
 
                 /*lista.add(new String[]{String.valueOf(rs.getInt("CD_PECA")),

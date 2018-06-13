@@ -155,8 +155,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCep">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCepKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtLogradouro">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtLogradouroKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblLogradouro">
           <Properties>
@@ -167,6 +173,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCidade">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCidadeKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblQuantidadePeca">
           <Properties>
@@ -267,6 +276,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtBairro">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtBairroKeyReleased"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

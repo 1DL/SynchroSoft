@@ -5,6 +5,7 @@
  */
 package view;
 
+import control.TextSize;
 import dao.DaoEndereco;
 import dao.DaoPeca;
 import java.sql.SQLException;
@@ -69,8 +70,26 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         lblCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCep.setText("CEP");
 
+        txtCep.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCepKeyReleased(evt);
+            }
+        });
+
+        txtLogradouro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtLogradouroKeyReleased(evt);
+            }
+        });
+
         lblLogradouro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblLogradouro.setText("Logradouro");
+
+        txtCidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCidadeKeyReleased(evt);
+            }
+        });
 
         lblQuantidadePeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblQuantidadePeca.setText("Cidade");
@@ -108,6 +127,12 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
 
         Bairro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         Bairro.setText("Bairro");
+
+        txtBairro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBairroKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -214,6 +239,22 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
     private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
     this.dispose();
     }//GEN-LAST:event_btnFecharFrameActionPerformed
+
+    private void txtCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyReleased
+        txtCep.setText(TextSize.maxLenghtCep(txtCep.getText()));
+    }//GEN-LAST:event_txtCepKeyReleased
+
+    private void txtLogradouroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLogradouroKeyReleased
+        txtLogradouro.setText(TextSize.maxLenghtLogradouro(txtLogradouro.getText()));
+    }//GEN-LAST:event_txtLogradouroKeyReleased
+
+    private void txtCidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCidadeKeyReleased
+        txtCidade.setText(TextSize.maxLenghtCidade(txtCidade.getText()));
+    }//GEN-LAST:event_txtCidadeKeyReleased
+
+    private void txtBairroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBairroKeyReleased
+       txtBairro.setText(TextSize.maxLenghtBairro(txtBairro.getText()));
+    }//GEN-LAST:event_txtBairroKeyReleased
 
     /**
      * @param args the command line arguments

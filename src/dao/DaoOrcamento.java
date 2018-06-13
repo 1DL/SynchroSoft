@@ -246,7 +246,7 @@ Valor Total
                 Peca p = new Peca();
                 p = DaoPeca.popularPeca(rs.getInt("CD_PECA"));
                 p.setQuantidadePeca(rs.getInt("QT_PECA_VENDIDA"));
-                p.setValorUnitario(rs.getFloat("VL_PECA_VENDIDA"));
+                p.setValorUnitario(Float.toString(rs.getFloat("VL_PECA_VENDIDA")));
                 lista.add(p);
             }
             st.close();

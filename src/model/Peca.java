@@ -8,6 +8,7 @@ package model;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import view.FrmCadastroPeca;
 
 /**
  *
@@ -23,12 +24,12 @@ public class Peca {
     public Peca() {
     }   
     
-    public Peca(int codigoPeca, String nomePeca, String categoriaPeca, int quantidadePeca, float valorUnitario) {
+    public Peca(int codigoPeca, String nomePeca, String categoriaPeca, int quantidadePeca, String valorUnitario) {
         this.codigoPeca = codigoPeca;
         this.nomePeca = nomePeca;
         this.categoriaPeca = categoriaPeca;
         this.quantidadePeca = quantidadePeca;
-        this.valorUnitario = valorUnitario;
+        setValorUnitario(valorUnitario);
     }
     
 //        private ArrayList<Peca> gerarArrayPeca (){
@@ -90,7 +91,12 @@ public class Peca {
         return valorUnitario;
     }
 
-    public void setValorUnitario(float valorUnitario) {
-        this.valorUnitario = valorUnitario;
+    public void setValorUnitario(String valorUnitario) {
+        valorUnitario = valorUnitario.replace(",", ".");
+        try {
+        this.valorUnitario = Float.parseFloat(valorUnitario);
+        } catch (NumberFormatException nfe) {
+            JOptionPane.showMessageDialog(null, "Valor unitário inválido. Use somente números inteiros e/ou decimais.", "Erro", 0);
+        }
     }
 }

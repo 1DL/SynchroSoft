@@ -688,7 +688,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
                 p.setCodigoPeca(Integer.parseInt((String) tblPecas.getValueAt(i, 0)));
                 p.setNomePeca((String) tblPecas.getValueAt(i, 1));
                 p.setCategoriaPeca((String) tblPecas.getValueAt(i, 2));
-                p.setValorUnitario(Float.parseFloat((String) tblPecas.getValueAt(i, 3)));
+                p.setValorUnitario((String) tblPecas.getValueAt(i, 3));
                 p.setQuantidadePeca(Integer.parseInt((String) tblPecas.getValueAt(i, 4)));
                 VendaPeca vp = new VendaPeca();
                 vp.setPeca(p);
@@ -733,7 +733,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
             p.setCodigoPeca(Integer.parseInt((String) tblPecas.getValueAt(i, 0)));
             p.setNomePeca((String) tblPecas.getValueAt(i, 1));
             p.setCategoriaPeca((String) tblPecas.getValueAt(i, 2));
-            p.setValorUnitario(Float.parseFloat((String) tblPecas.getValueAt(i, 3)));
+            p.setValorUnitario((String) tblPecas.getValueAt(i, 3));
             p.setQuantidadePeca(Integer.parseInt((String) tblPecas.getValueAt(i, 4)));
             VendaPeca vp = new VendaPeca();
             vp.setPeca(p);

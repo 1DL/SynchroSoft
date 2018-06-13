@@ -5,6 +5,7 @@
  */
 package view;
 
+import control.TextSize;
 import dao.DaoEndereco;
 import dao.DaoFuncionario;
 import dao.DaoPeca;
@@ -145,6 +146,12 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         lblCodigoFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCodigoFuncionario.setText("Código do Funcionário");
 
+        txtCodigoFuncionario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodigoFuncionarioKeyReleased(evt);
+            }
+        });
+
         lblCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCep.setText("CEP");
 
@@ -171,6 +178,11 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         txtSalario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSalarioActionPerformed(evt);
+            }
+        });
+        txtSalario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSalarioKeyReleased(evt);
             }
         });
 
@@ -207,8 +219,20 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         lblCargo.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCargo.setText("Cargo");
 
+        txtCargo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCargoKeyReleased(evt);
+            }
+        });
+
+        txtHorasTrabalhadas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtHorasTrabalhadasKeyReleased(evt);
+            }
+        });
+
         lblHorasTrabalhadas.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblHorasTrabalhadas.setText("Horas Trabalhadas");
+        lblHorasTrabalhadas.setText("Horas Mensais");
 
         lblNivelAdm.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblNivelAdm.setText("Nível Administrativo");
@@ -632,6 +656,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCepActionPerformed
 
     private void txtCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyReleased
+        txtCep.setText(TextSize.maxLenghtCep(txtCep.getText()));
         if ((txtCep.getText().length() < 8) || (txtCep.getText().length() > 8)) {
             lblCepExiste.setText("Cep Inválido.");
         } else {
@@ -673,6 +698,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtFemininoActionPerformed
 
     private void txtCpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyReleased
+        txtCpf.setText(TextSize.maxLenghtCPFCNPJ(txtCpf.getText(), true));
         if ((txtCpf.getText().length() < 11) || (txtCpf.getText().length() > 11)) {
             lblCpfExiste.setText("Cpf Inválido.");
             limparExibicaoPessoa();
@@ -709,6 +735,22 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
     private void txtNomePessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomePessoaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomePessoaActionPerformed
+
+    private void txtCodigoFuncionarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoFuncionarioKeyReleased
+        txtCodigoFuncionario.setText(TextSize.maxLenghtFuncionario(txtCodigoFuncionario.getText()));
+    }//GEN-LAST:event_txtCodigoFuncionarioKeyReleased
+
+    private void txtSalarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSalarioKeyReleased
+        txtSalario.setText(TextSize.maxLenghtSalario(txtSalario.getText()));
+    }//GEN-LAST:event_txtSalarioKeyReleased
+
+    private void txtCargoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCargoKeyReleased
+        txtCargo.setText(TextSize.maxLenghtCargo(txtCargo.getText()));
+    }//GEN-LAST:event_txtCargoKeyReleased
+
+    private void txtHorasTrabalhadasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHorasTrabalhadasKeyReleased
+        txtHorasTrabalhadas.setText(TextSize.maxLenghtHoraMensal(txtHorasTrabalhadas.getText()));
+    }//GEN-LAST:event_txtHorasTrabalhadasKeyReleased
 
     /**
      * @param args the command line arguments

@@ -5,6 +5,7 @@
  */
 package view;
 
+import control.TextSize;
 import dao.DaoOrcamento;
 import dao.DaoPeca;
 import java.sql.SQLException;
@@ -355,6 +356,11 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
                 txtMaoDeObraActionPerformed(evt);
             }
         });
+        txtMaoDeObra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtMaoDeObraKeyReleased(evt);
+            }
+        });
         getContentPane().add(txtMaoDeObra);
         txtMaoDeObra.setBounds(220, 140, 150, 30);
 
@@ -394,7 +400,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
                 p.setCodigoPeca(Integer.parseInt((String)tblOrcamento.getValueAt(i, 0)));
                 p.setNomePeca((String) tblOrcamento.getValueAt(i, 1));
                 p.setCategoriaPeca((String) tblOrcamento.getValueAt(i, 2));
-                p.setValorUnitario(Float.parseFloat((String) tblOrcamento.getValueAt(i, 3)));
+                p.setValorUnitario((String) tblOrcamento.getValueAt(i, 3));
                 p.setQuantidadePeca(Integer.parseInt((String) tblOrcamento.getValueAt(i, 4)));
                 VendaPeca vp = new VendaPeca();
                 vp.setPeca(p);
@@ -452,6 +458,8 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarPecaActionPerformed
 
     private void txtCodPecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodPecaKeyReleased
+        
+        txtCodPeca.setText(TextSize.maxLenghtCodigoPeca(txtCodPeca.getText()));
         if (txtCodPeca.getText().equals("")) {
             limparPeca();
             lblPecaExiste.setText("Digite um código de peça.");
@@ -484,6 +492,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodPecaKeyReleased
 
     private void txtQuantidadePecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadePecaKeyReleased
+        txtQuantidadePeca.setText(TextSize.maxLenghtQuantidadePeca(txtQuantidadePeca.getText()));
         int qtd;
         float produto;
         float vlunit;
@@ -561,7 +570,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void txtMaoDeObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaoDeObraActionPerformed
-        
+
     }//GEN-LAST:event_txtMaoDeObraActionPerformed
 
     private void txtMaoDeObraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMaoDeObraFocusLost
@@ -573,6 +582,10 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         }
         atualizarValorTotal();
     }//GEN-LAST:event_txtMaoDeObraFocusLost
+
+    private void txtMaoDeObraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaoDeObraKeyReleased
+        txtMaoDeObra.setText(TextSize.maxLenghtMaoDeObra(txtMaoDeObra.getText()));
+    }//GEN-LAST:event_txtMaoDeObraKeyReleased
 
     /**
      * @param args the command line arguments
