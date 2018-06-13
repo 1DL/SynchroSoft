@@ -172,7 +172,7 @@ CREATE TABLE tb_usuario
 );
 
 INSERT INTO tb_funcionario (cd_funcionario, cd_cep, nm_funcionario, cpf_funcionario, id_sexo, nr_telefone, nr_celular, nr_logradouro, vl_salario, ds_cargo, dt_admissao, dt_demissao, nr_horas_trabalho)
-  VALUES (0001, null, 'admin', null, null, null, null, null, null, null, null, null, null);
+  VALUES (0001, '03058010', 'admin', '46202476850', 0, 1, 1, 1, 1, 'a', '06-13-2018', '06-13-2018', 1);
 
 INSERT INTO tb_usuario (cd_usuario, cd_funcionario, ds_login, ds_senha) VALUES (0001, 0001, 'admin', 'admin');
 
