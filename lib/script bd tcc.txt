@@ -319,4 +319,12 @@ alter table "TB_PESSOA_JURIDICA" modify
 
 alter table "TB_PESSOA_JURIDICA" modify
 ("NR_LOGRADOURO" VARCHAR2(10));
---------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+alter table "TB_PECA" add
+("QT_PECAMIN" NUMBER(4,0));
+
+alter table "TB_PECA" add
+("QT_PECAMAX" NUMBER(4,0));
+--------------------------------------------------------
+
+
