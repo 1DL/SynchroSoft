@@ -76,7 +76,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblCodFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCodFuncionario.setText("Código do Funcionário:");
         getContentPane().add(lblCodFuncionario);
-        lblCodFuncionario.setBounds(50, 70, 200, 25);
+        lblCodFuncionario.setBounds(50, 70, 200, 22);
 
         txtCodFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtCodFuncionario.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -90,7 +90,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblLogin.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblLogin.setText("Login:");
         getContentPane().add(lblLogin);
-        lblLogin.setBounds(670, 160, 60, 25);
+        lblLogin.setBounds(670, 160, 60, 22);
 
         txtLogin.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtLogin.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -104,7 +104,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblSenha.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblSenha.setText("Senha:");
         getContentPane().add(lblSenha);
-        lblSenha.setBounds(670, 240, 60, 25);
+        lblSenha.setBounds(670, 240, 60, 22);
 
         txtSenha.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -113,7 +113,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtSenha);
-        txtSenha.setBounds(770, 240, 250, 31);
+        txtSenha.setBounds(770, 240, 250, 26);
 
         txtConfirma.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtConfirma.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -122,12 +122,12 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtConfirma);
-        txtConfirma.setBounds(770, 320, 250, 31);
+        txtConfirma.setBounds(770, 320, 250, 26);
 
         lblSenha1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblSenha1.setText("Confirmar:");
         getContentPane().add(lblSenha1);
-        lblSenha1.setBounds(670, 320, 90, 25);
+        lblSenha1.setBounds(670, 320, 90, 22);
 
         btnCadastrar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnCadastrar.setText("Cadastrar");
@@ -137,12 +137,12 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCadastrar);
-        btnCadastrar.setBounds(100, 470, 220, 35);
+        btnCadastrar.setBounds(100, 470, 220, 32);
 
         btnLimpar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnLimpar.setText("Limpar");
         getContentPane().add(btnLimpar);
-        btnLimpar.setBounds(100, 560, 220, 35);
+        btnLimpar.setBounds(100, 560, 220, 32);
 
         btnMenuPrincipal.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnMenuPrincipal.setText("Menu Principal");
@@ -172,7 +172,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnFecharFrame);
-        btnFecharFrame.setBounds(840, 550, 200, 35);
+        btnFecharFrame.setBounds(840, 550, 200, 32);
 
         pnlDadosFuncionario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         pnlDadosFuncionario.setOpaque(false);
@@ -257,7 +257,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblFuncionario.setForeground(new java.awt.Color(255, 0, 0));
         lblFuncionario.setText("Funcionário inexistente.");
         getContentPane().add(lblFuncionario);
-        lblFuncionario.setBounds(260, 100, 210, 14);
+        lblFuncionario.setBounds(260, 100, 210, 15);
 
         btnListarFuncionarios.setText("Listar Funcionários");
         btnListarFuncionarios.addActionListener(new java.awt.event.ActionListener() {
@@ -266,7 +266,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnListarFuncionarios);
-        btnListarFuncionarios.setBounds(450, 70, 150, 23);
+        btnListarFuncionarios.setBounds(450, 70, 150, 25);
 
         lblFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(lblFundo);

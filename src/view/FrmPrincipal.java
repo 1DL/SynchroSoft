@@ -5,7 +5,9 @@
  */
 package view;
 
+import java.awt.Frame;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JMenu;
@@ -24,6 +26,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
      */
     public FrmPrincipal() {
         initComponents();
+        
     }
     
 
@@ -46,14 +49,21 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnCliente = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtAlerta = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        menu = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        menu_cadastro = new javax.swing.JMenu();
+        menu_os = new javax.swing.JMenuItem();
+        menu_pessoa = new javax.swing.JMenuItem();
+        menu_produto = new javax.swing.JMenuItem();
+        menu_funcionario = new javax.swing.JMenuItem();
+        menu_despesa = new javax.swing.JMenuItem();
+        menu_usuario = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Principal");
@@ -151,6 +161,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
         getContentPane().add(txtAlerta);
         txtAlerta.setBounds(190, 560, 920, 30);
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(950, 440, 94, 25);
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 1150, 650);
@@ -160,23 +179,51 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenuItem1.setText("jMenuItem1");
         jMenu1.add(jMenuItem1);
 
-        jMenuBar1.add(jMenu1);
+        menu.add(jMenu1);
 
-        jMenu2.setText("Cadastro");
+        menu_cadastro.setText("Cadastro");
 
-        jMenu4.setText("jMenu4");
+        menu_os.setText("Ordem de Serviço");
+        menu_os.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_osActionPerformed(evt);
+            }
+        });
+        menu_cadastro.add(menu_os);
 
-        jMenuItem2.setText("jMenuItem2");
-        jMenu4.add(jMenuItem2);
+        menu_pessoa.setText("Pessoa");
+        menu_cadastro.add(menu_pessoa);
 
-        jMenu2.add(jMenu4);
+        menu_produto.setText("Produto");
+        menu_cadastro.add(menu_produto);
 
-        jMenuBar1.add(jMenu2);
+        menu_funcionario.setText("Funcionário");
+        menu_cadastro.add(menu_funcionario);
+
+        menu_despesa.setText("Despesa");
+        menu_cadastro.add(menu_despesa);
+
+        menu_usuario.setText("Usuário");
+        menu_cadastro.add(menu_usuario);
+
+        menu.add(menu_cadastro);
 
         jMenu3.setText("Listagem");
-        jMenuBar1.add(jMenu3);
+        menu.add(jMenu3);
 
-        setJMenuBar(jMenuBar1);
+        jMenu5.setText("Ajuda");
+
+        jMenuItem3.setText("Sobre");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem3);
+
+        menu.add(jMenu5);
+
+        setJMenuBar(menu);
 
         pack();
         setLocationRelativeTo(null);
@@ -236,6 +283,30 @@ public class FrmPrincipal extends javax.swing.JFrame {
         venderPeca.setVisible(true);
     }//GEN-LAST:event_btnVenderPeçasActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        FrmSobre sobre = new FrmSobre();
+        sobre.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void menu_osActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_osActionPerformed
+        
+    }//GEN-LAST:event_menu_osActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String teste = "";
+        Frame[] telas = Frame.getFrames();
+        for (Frame fr : telas) {
+             teste += fr.getClass().getName() + "\n";
+             if (fr.getClass().getName().equals("view.FrmVendaPeca")) {
+                 JOptionPane.showMessageDialog(null, "Existe!");
+                 
+             }
+        }
+        JOptionPane.showMessageDialog(null, teste);
+        teste = "";
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -281,15 +352,22 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnServico;
     private javax.swing.JButton btnUsuario;
     private javax.swing.JButton btnVenderPeças;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuBar menu;
+    private javax.swing.JMenu menu_cadastro;
+    private javax.swing.JMenuItem menu_despesa;
+    private javax.swing.JMenuItem menu_funcionario;
+    private javax.swing.JMenuItem menu_os;
+    private javax.swing.JMenuItem menu_pessoa;
+    private javax.swing.JMenuItem menu_produto;
+    private javax.swing.JMenuItem menu_usuario;
     private javax.swing.JTextField txtAlerta;
     // End of variables declaration//GEN-END:variables
 }

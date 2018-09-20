@@ -44,6 +44,7 @@ public class DaoUsuario {
     {
         //criando variável booleana de controle
         boolean existe = false;
+        int codFuncionario;
         
         //estrutura try/catch para tratamento de erro
         try
@@ -52,7 +53,7 @@ public class DaoUsuario {
             Connection con = Conexao.conectar();
             
             //Criando string de query para realizar verificação de existencia do login
-            String sql = "SELECT DS_LOGIN, DS_SENHA FROM SYNCHROSOFT.TB_USUARIO WHERE DS_LOGIN = ? AND DS_SENHA = ?";
+            String sql = "SELECT CD_FUNCIONARIO, DS_LOGIN, DS_SENHA FROM SYNCHROSOFT.TB_USUARIO WHERE DS_LOGIN = ? AND DS_SENHA = ?";
             
             //Criando estrutura do preparedStatement, evitar sql inject
             PreparedStatement st = con.prepareStatement(sql);
@@ -72,12 +73,15 @@ public class DaoUsuario {
                         if(senha.equals(rs.getString("DS_SENHA")))
                         {
                             existe = true;
+                            codFuncionario = rs.getInt("CD_FUNCIONARIO");
                         }
                 }
             }
             
             st.close();
             rs.close();
+            
+            
         }
         catch(Exception ex)
         {
@@ -85,6 +89,30 @@ public class DaoUsuario {
         }
         
         return existe;
+    }
+    
+    public void logarUsuario(boolean existe, int codigoFuncionario) {
+        if (existe) {
+            try {
+                Connection con = Conexao.conectar();
+                String sql = "SELECT cd_funcionario, nm_funcionario, id_administrativo FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE cd_funcionario = ?";
+                PreparedStatement st = con.prepareStatement(sql);
+                
+                st.setInt(1, codigoFuncionario);
+                        
+                ResultSet rs = st.executeQuery();
+                rs.next();
+                
+                control.SynchroSoft.setCodFunc(rs.getInt("cd_funcionario"));
+                control.SynchroSoft.setNomeUsuario(rs.getString("nm_funcionario"));
+                control.SynchroSoft.setNivelAdm(rs.getInt("id_administrativo"));
+                
+                st.close();
+                rs.close();
+            } catch (Exception ex) {
+                System.err.println("DaoUsuario Logon: " + ex.getMessage());
+            }
+        }        
     }
     
      public static ArrayList listarUsuario() {
