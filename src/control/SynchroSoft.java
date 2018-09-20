@@ -40,7 +40,6 @@ public class SynchroSoft {
     private static int codFunc = 0;
     private static int nivelAdm = 1;
     
-    public static ArrayList<JFrame> telasAbertas = new ArrayList<>();
     
     
     public static void main(String[] args) {
