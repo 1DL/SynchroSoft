@@ -326,5 +326,11 @@ alter table "TB_PECA" add
 alter table "TB_PECA" add
 ("QT_PECAMAX" NUMBER(4,0));
 --------------------------------------------------------
+alter table "TB_USUARIO" modify
+("CD_USUARIO" VARCHAR2(30));
+
+alter table "TB_USUARIO" drop column
+"DS_LOGIN";
+
 
 
