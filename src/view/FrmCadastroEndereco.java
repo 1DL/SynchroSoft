@@ -209,7 +209,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(28, 36, 1065, 601);
+        jPanel1.setBounds(28, 36, 1065, 598);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(jLabel1);

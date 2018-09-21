@@ -26,6 +26,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
      */
     public FrmPrincipal() {
         initComponents();
+        this.setTitle("Menu Principal - " + control.SynchroSoft.getNomeUsuario() + " - " + control.SynchroSoft.getCodFunc() + " - " + control.SynchroSoft.getNivelAdm());
         
     }
     
@@ -72,7 +73,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Menu Principal");
         setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         setPreferredSize(new java.awt.Dimension(1152, 648));
@@ -183,6 +183,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menu_sistema.setText("Sistema");
 
         menu_logoff.setText("Fazer Log-off");
+        menu_logoff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_logoffActionPerformed(evt);
+            }
+        });
         menu_sistema.add(menu_logoff);
 
         menu.add(menu_sistema);
@@ -327,9 +332,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         Frame[] telas = Frame.getFrames();
         for (Frame fr : telas) {
              teste += fr.getClass().getName() + "\n";
-             if (fr.getClass().getName().equals("view.FrmVendaPeca")) {
+             if (fr.getClass().getName().equals("view.FrmPrincipal")) {
                  JOptionPane.showMessageDialog(null, "Existe!");
-                 
+                 //fr.dispose();
              }
         }
         JOptionPane.showMessageDialog(null, teste);
@@ -340,6 +345,19 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void menu_listaPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_listaPessoaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menu_listaPessoaActionPerformed
+
+    private void menu_logoffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_logoffActionPerformed
+        int aux;
+        aux = JOptionPane.showConfirmDialog(null, "Deseja realmente fazer o log-off?", "Log-off", JOptionPane.YES_NO_OPTION);
+        if (aux == 0) {
+            this.dispose();
+            control.SynchroSoft.setCodFunc(0);
+            control.SynchroSoft.setNivelAdm(99);
+            control.SynchroSoft.setNomeUsuario("Deslogado");
+            FrmLogin login = new FrmLogin();
+            login.setVisible(true);
+        }
+    }//GEN-LAST:event_menu_logoffActionPerformed
 
     /**
      * @param args the command line arguments

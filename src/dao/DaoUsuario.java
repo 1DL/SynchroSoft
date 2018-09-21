@@ -74,6 +74,7 @@ public class DaoUsuario {
                         {
                             existe = true;
                             codFuncionario = rs.getInt("CD_FUNCIONARIO");
+                            logarUsuario(existe, codFuncionario);
                         }
                 }
             }
@@ -91,7 +92,7 @@ public class DaoUsuario {
         return existe;
     }
     
-    public void logarUsuario(boolean existe, int codigoFuncionario) {
+    public static void logarUsuario(boolean existe, int codigoFuncionario) {
         if (existe) {
             try {
                 Connection con = Conexao.conectar();
