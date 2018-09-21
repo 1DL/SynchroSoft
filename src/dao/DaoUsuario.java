@@ -106,7 +106,7 @@ public class DaoUsuario {
                 
                 control.SynchroSoft.setCodFunc(rs.getInt("cd_funcionario"));
                 control.SynchroSoft.setNomeUsuario(rs.getString("nm_funcionario"));
-                control.SynchroSoft.setNivelAdm(rs.getInt("id_administrativo"));
+                control.SynchroSoft.setNvlAdm(rs.getInt("id_administrativo"));
                 
                 st.close();
                 rs.close();

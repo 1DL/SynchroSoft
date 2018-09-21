@@ -28,9 +28,12 @@ public class FrmVendaPeca extends javax.swing.JFrame {
     /**
      * Creates new form FrmCadastroOrcamento
      */
-    public FrmVendaPeca() {
+    public FrmVendaPeca(int nvlAdm) {
         initComponents();
         iniciarTabela();
+        if (nvlAdm == 0) {
+            btnVender.setEnabled(false);
+        }
     }
 
     
@@ -385,8 +388,7 @@ public class FrmVendaPeca extends javax.swing.JFrame {
     }//GEN-LAST:event_txtValorXQtdActionPerformed
 
     private void btnListarPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarPecaActionPerformed
-        FrmListagemPeca TelaListaPeca = new FrmListagemPeca();
-        TelaListaPeca.setVisible(true);
+        control.SynchroSoft.abrirListagemProduto();
     }//GEN-LAST:event_btnListarPecaActionPerformed
 
     private void txtCodPecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodPecaKeyReleased
@@ -531,7 +533,7 @@ public class FrmVendaPeca extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmVendaPeca().setVisible(true);
+                new FrmVendaPeca(control.SynchroSoft.getNvlAdm()).setVisible(true);
             }
         });
     }

@@ -53,11 +53,17 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     boolean flagFuncionario;
     Funcionario f = new Funcionario();
 
-    public FrmCadastroServico() {
+    public FrmCadastroServico(int nivelAdm) {
         initComponents();
         modoFisica();
         txtDataServico.setText("" + new Date(Calendar.getInstance().getTimeInMillis()));
         iniciarTabela();
+        
+        //Programação de controle de nível de acesso
+        
+        if (nivelAdm == 0) {
+            btnCadastrar.setEnabled(false);
+        }
     }
 
     /**
@@ -93,8 +99,8 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtCodFunc = new javax.swing.JTextField();
         lblCep3 = new javax.swing.JLabel();
         txtNomeFunc = new javax.swing.JTextField();
-        txtLimpar = new javax.swing.JButton();
-        txtCadastrar = new javax.swing.JButton();
+        btnLimpar = new javax.swing.JButton();
+        btnCadastrar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         lblNomeFicticio = new javax.swing.JLabel();
         txtNomePessoaFicticio = new javax.swing.JTextField();
@@ -287,23 +293,23 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         getContentPane().add(txtNomeFunc);
         txtNomeFunc.setBounds(780, 360, 350, 30);
 
-        txtLimpar.setText("Limpar");
-        txtLimpar.addActionListener(new java.awt.event.ActionListener() {
+        btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtLimparActionPerformed(evt);
+                btnLimparActionPerformed(evt);
             }
         });
-        getContentPane().add(txtLimpar);
-        txtLimpar.setBounds(630, 550, 110, 40);
+        getContentPane().add(btnLimpar);
+        btnLimpar.setBounds(630, 550, 110, 40);
 
-        txtCadastrar.setText("Criar e ativar serviço");
-        txtCadastrar.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrar.setText("Criar e ativar serviço");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCadastrarActionPerformed(evt);
+                btnCadastrarActionPerformed(evt);
             }
         });
-        getContentPane().add(txtCadastrar);
-        txtCadastrar.setBounds(950, 550, 160, 40);
+        getContentPane().add(btnCadastrar);
+        btnCadastrar.setBounds(950, 550, 160, 40);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados da Pessoa"));
         jPanel2.setOpaque(false);
@@ -553,8 +559,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtJuridicaActionPerformed
 
     private void btnCadastrarCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCepActionPerformed
-        FrmCadastroEndereco telaCep = new FrmCadastroEndereco();
-        telaCep.setVisible(true);
+        control.SynchroSoft.abrirCadastroEndereco();
     }//GEN-LAST:event_btnCadastrarCepActionPerformed
 
     private void txtCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCepActionPerformed
@@ -601,7 +606,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         
     }//GEN-LAST:event_txtCpfCnpjKeyReleased
 
-    private void txtCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCadastrarActionPerformed
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         validarCEP();
         validarCPFCNPJ();
         if (flagContrato && cepCadastrado && verificarFuncVazio() && (cnpjCadastrado || cpfCadastrado)) {
@@ -640,7 +645,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         }
 
 
-    }//GEN-LAST:event_txtCadastrarActionPerformed
+    }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void txtCodFuncKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodFuncKeyReleased
         txtCodFunc.setText(TextSize.maxLenghtFuncionario(txtCodFunc.getText()));
@@ -671,8 +676,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodFuncKeyReleased
 
     private void btnListarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarFuncActionPerformed
-        FrmListagemFuncionario tela = new FrmListagemFuncionario();
-        tela.setVisible(true);
+        control.SynchroSoft.abrirListagemFuncionario();
     }//GEN-LAST:event_btnListarFuncActionPerformed
 
     private void txtCodigoServicoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoServicoKeyReleased
@@ -712,8 +716,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtFemininoActionPerformed
 
     private void btnListarServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarServicoActionPerformed
-        FrmListagemServico listaserv = new FrmListagemServico();
-        listaserv.setVisible(true);
+        control.SynchroSoft.abrirListagemServico();
     }//GEN-LAST:event_btnListarServicoActionPerformed
 
     private void btnSelecionarfuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarfuncActionPerformed
@@ -776,9 +779,9 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnFecharActionPerformed
 
-    private void txtLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLimparActionPerformed
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         
-    }//GEN-LAST:event_txtLimparActionPerformed
+    }//GEN-LAST:event_btnLimparActionPerformed
 
     /**
      * @param args the command line arguments
@@ -810,7 +813,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmCadastroServico().setVisible(true);
+                new FrmCadastroServico(control.SynchroSoft.getNvlAdm()).setVisible(true);
             }
         });
     }
@@ -1031,10 +1034,12 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JLabel Bairro;
     private javax.swing.JLabel Bairro1;
     private javax.swing.JButton btnArquivoRelatorio;
+    private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCadastrarCep;
     private javax.swing.JButton btnCadastrarPessoaJ;
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnLimpaFunc;
+    private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnListarFunc;
     private javax.swing.JButton btnListarServico;
     private javax.swing.JButton btnRemoveLinhaFunc;
@@ -1074,7 +1079,6 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtMasculino;
     private javax.swing.JTable tblFuncSelecionados;
     private javax.swing.JTextField txtBairro;
-    private javax.swing.JButton txtCadastrar;
     private javax.swing.JTextField txtCelularRamal;
     private javax.swing.JTextField txtCep;
     private javax.swing.JTextField txtCidade;
@@ -1083,7 +1087,6 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JTextField txtCpfCnpj;
     private javax.swing.JTextField txtDataServico;
     private javax.swing.JTextField txtEstado;
-    private javax.swing.JButton txtLimpar;
     private javax.swing.JTextField txtLogradouro;
     private javax.swing.JTextField txtNomeFunc;
     private javax.swing.JTextField txtNomePessoaFicticio;

@@ -27,7 +27,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     /**
      * Creates new form FrmListagemPessoa
      */
-    public FrmListagemPessoaJ() {
+    public FrmListagemPessoaJ(int nvlAdm) {
         initComponents();
         atualizarTabela();
     }
@@ -260,8 +260,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
-        FrmCadastroPessoa telaCadastro = new FrmCadastroPessoa();
-        telaCadastro.setVisible(true);
+        control.SynchroSoft.abrirCadastroPessoa();
     }//GEN-LAST:event_btnTelaCadastroActionPerformed
 
     private void btnAtualizarTabela1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarTabela1ActionPerformed
@@ -269,13 +268,12 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtualizarTabela1ActionPerformed
 
     private void btnFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFisicaActionPerformed
-        FrmListagemPessoaF f = new FrmListagemPessoaF();
-        f.setVisible(true);
+        control.SynchroSoft.abrirListagemPessoaFisica();
         this.dispose();
     }//GEN-LAST:event_btnFisicaActionPerformed
 
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
-        this.dispose();
+        control.SynchroSoft.abrirPrincipal();
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
@@ -315,7 +313,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmListagemPessoaJ().setVisible(true);
+                new FrmListagemPessoaJ(control.SynchroSoft.getNvlAdm()).setVisible(true);
             }
         });
     }  

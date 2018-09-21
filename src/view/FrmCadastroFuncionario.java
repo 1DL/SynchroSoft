@@ -42,11 +42,16 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
     /**
      * Creates new form FrmCadastroPeca
      */
-    public FrmCadastroFuncionario() {
+    public FrmCadastroFuncionario(int nvlAdm) {
         initComponents();
         this.endExibicao = new Endereco();
         this.pessoaFisicaExibicao = new PessoaFisica();
         this.pessoaExibicao = new Pessoa();
+        
+        if (nvlAdm == 0) {
+            btnCadastrar.setEnabled(false);
+        }
+        
     }
 
     /**
@@ -595,8 +600,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCepActionPerformed
-        FrmCadastroEndereco telaCep = new FrmCadastroEndereco();
-        telaCep.setVisible(true);
+        control.SynchroSoft.abrirCadastroEndereco();
     }//GEN-LAST:event_btnCadastrarCepActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
@@ -639,8 +643,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnListarFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarFuncionariosActionPerformed
-        FrmListagemFuncionario ListagemFunc = new FrmListagemFuncionario();
-        ListagemFunc.setVisible(true);
+        control.SynchroSoft.abrirListagemFuncionario();
     }//GEN-LAST:event_btnListarFuncionariosActionPerformed
 
     private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
@@ -685,7 +688,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtCompletoActionPerformed
 
     private void btnCadastrarPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarPessoaActionPerformed
-       FrmCadastroPessoa telaCadPessoa = new FrmCadastroPessoa();
+       FrmCadastroPessoa telaCadPessoa = new FrmCadastroPessoa(control.SynchroSoft.getNvlAdm());
        telaCadPessoa.setVisible(true);
     }//GEN-LAST:event_btnCadastrarPessoaActionPerformed
 
@@ -789,7 +792,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmCadastroFuncionario().setVisible(true);
+                new FrmCadastroFuncionario(control.SynchroSoft.getNvlAdm()).setVisible(true);
             }
         });
     }

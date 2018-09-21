@@ -22,7 +22,7 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
     /**
      * Creates new form FrmListagemUsuario
      */
-    public FrmListagemUsuario() {
+    public FrmListagemUsuario(int nvlAdm) {
         initComponents();
         atualizarTabela();
     }
@@ -238,8 +238,7 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
-        FrmCadastroDespesa telaCadastroDesp = new FrmCadastroDespesa();
-        telaCadastroDesp.setVisible(true);
+        control.SynchroSoft.abrirCadastroUsuario();
     }//GEN-LAST:event_btnTelaCadastroActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
@@ -276,7 +275,7 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmListagemUsuario().setVisible(true);
+                new FrmListagemUsuario(control.SynchroSoft.getNvlAdm()).setVisible(true);
             }
         });
     }

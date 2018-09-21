@@ -25,9 +25,12 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
     /**
      * Creates new form FrmCadastroDespesa
      */
-    public FrmCadastroDespesa() {
+    public FrmCadastroDespesa(int nvlAdm) {
         initComponents();
         txtDataDespesa.setText(""+ new Date(Calendar.getInstance().getTimeInMillis()));
+        if (nvlAdm == 0) {
+            btnCadastrar.setEnabled(false);
+        }
     }
 
     /**
@@ -194,8 +197,7 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDataDespesaActionPerformed
 
     private void btnListarDespesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarDespesasActionPerformed
-        FrmListagemDespesa telaListarDespesa = new FrmListagemDespesa();
-        telaListarDespesa.setVisible(true);
+        control.SynchroSoft.abrirListagemDespesa();
     }//GEN-LAST:event_btnListarDespesasActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
@@ -240,7 +242,7 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmCadastroDespesa().setVisible(true);
+                new FrmCadastroDespesa(control.SynchroSoft.getNvlAdm()).setVisible(true);
             }
         });
     }

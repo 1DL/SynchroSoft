@@ -38,10 +38,14 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     /**
      * Creates new form FrmCadastroPeca
      */
-    public FrmCadastroPessoa() {
+    public FrmCadastroPessoa(int nvlAdm) {
         this.endExibicao = new Endereco();
         initComponents();
         modoFisica();
+        
+        if (nvlAdm == 0) {
+            btnCadastrar.setEnabled(false);
+        }
 
     }
     
@@ -592,8 +596,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtFisicaActionPerformed
 
     private void btnCadastrarCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCepActionPerformed
-        FrmCadastroEndereco telaCep = new FrmCadastroEndereco();
-        telaCep.setVisible(true);
+        control.SynchroSoft.abrirCadastroEndereco();
     }//GEN-LAST:event_btnCadastrarCepActionPerformed
 
     private void rbtSimCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtSimCadastroActionPerformed
@@ -670,8 +673,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnListarPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarPessoaActionPerformed
-        FrmListagemPessoaF telaListP = new FrmListagemPessoaF();
-        telaListP.setVisible(true);
+        control.SynchroSoft.abrirListagemPessoaFisica();
     }//GEN-LAST:event_btnListarPessoaActionPerformed
 
     private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
@@ -783,7 +785,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmCadastroPessoa().setVisible(true);
+                new FrmCadastroPessoa(control.SynchroSoft.getNvlAdm()).setVisible(true);
             }
         });
     }

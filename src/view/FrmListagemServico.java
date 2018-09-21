@@ -48,7 +48,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
     Funcionario f = new Funcionario();
     boolean flagAtivo = false;
 
-    public FrmListagemServico() {
+    public FrmListagemServico(int nvlAdm) {
         initComponents();
         atualizarTabela();
         iniciarTabelaFuncionario();
@@ -721,8 +721,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
-        FrmCadastroServico telaCadastroServ = new FrmCadastroServico();
-        telaCadastroServ.setVisible(true);
+        control.SynchroSoft.abrirCadastroServico();
     }//GEN-LAST:event_btnTelaCadastroActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
@@ -1113,8 +1112,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSelecionarfuncActionPerformed
 
     private void btnListarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarFuncActionPerformed
-        FrmListagemFuncionario tela = new FrmListagemFuncionario();
-        tela.setVisible(true);
+        control.SynchroSoft.abrirListagemFuncionario();
     }//GEN-LAST:event_btnListarFuncActionPerformed
 
     private void btnAtivarDesativarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtivarDesativarActionPerformed
@@ -1162,7 +1160,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmListagemServico().setVisible(true);
+                new FrmListagemServico(control.SynchroSoft.getNvlAdm()).setVisible(true);
             }
         });
     }

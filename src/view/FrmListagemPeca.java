@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -27,7 +28,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
     /**
      * Creates new form FrmListagemPeca
      */
-    public FrmListagemPeca() {
+    public FrmListagemPeca(int nvlAdm) {
         initComponents();
         atualizarTabela();
 
@@ -213,11 +214,11 @@ public class FrmListagemPeca extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtualizarTabelaActionPerformed
 
     private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
-        FrmCadastroPeca telaCadastro = new FrmCadastroPeca();
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        telaCadastro.setLocation(dim.width / 2 - this.getPreferredSize().width / 2, dim.height / 2 - this.getPreferredSize().height / 2);
-        telaCadastro.setVisible(true);
-        telaCadastro.setSize(1152, 648);
+        control.SynchroSoft.abrirCadastroProduto();
+//        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+//        telaCadastro.setLocation(dim.width / 2 - this.getPreferredSize().width / 2, dim.height / 2 - this.getPreferredSize().height / 2);
+//        telaCadastro.setVisible(true);
+//        telaCadastro.setSize(1152, 648);
 
     }//GEN-LAST:event_btnTelaCadastroActionPerformed
 
@@ -263,9 +264,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
-        FrmPrincipal princ = new FrmPrincipal();
-        princ.setVisible(true);
-        this.dispose();
+        control.SynchroSoft.abrirPrincipal();
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
@@ -302,7 +301,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmListagemPeca().setVisible(true);
+                new FrmListagemPeca(control.SynchroSoft.getNvlAdm()).setVisible(true);
             }
         });
     }

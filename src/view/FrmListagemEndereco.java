@@ -27,7 +27,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
     /**
      * Creates new form FrmListagemPeca
      */
-    public FrmListagemEndereco() {
+    public FrmListagemEndereco(int nvlAdm) {
         initComponents();
         atualizarTabela();
     }
@@ -200,8 +200,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtualizarTabelaActionPerformed
 
     private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
-        FrmCadastroEndereco telaCadastroEnd = new FrmCadastroEndereco();
-        telaCadastroEnd.setVisible(true);
+        control.SynchroSoft.abrirCadastroEndereco();
     }//GEN-LAST:event_btnTelaCadastroActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
@@ -290,7 +289,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmListagemEndereco().setVisible(true);
+                new FrmListagemEndereco(control.SynchroSoft.getNvlAdm()).setVisible(true);
             }
         });
     }

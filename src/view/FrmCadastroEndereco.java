@@ -23,8 +23,11 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
     /**
      * Creates new form FrmCadastroPeca
      */
-    public FrmCadastroEndereco() {
+    public FrmCadastroEndereco(int nvlAdm) {
         initComponents();
+        if (nvlAdm == 0) {
+            btnCadastrar.setEnabled(false);
+        }
     }
 
     /**
@@ -209,7 +212,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(28, 36, 1065, 598);
+        jPanel1.setBounds(28, 36, 1065, 601);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -232,8 +235,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnListarEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarEnderecoActionPerformed
-        FrmListagemEndereco listend = new FrmListagemEndereco();
-        listend.setVisible(true);
+        control.SynchroSoft.abrirListagemEndereco();
     }//GEN-LAST:event_btnListarEnderecoActionPerformed
 
     private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
@@ -287,7 +289,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmCadastroEndereco().setVisible(true);
+                new FrmCadastroEndereco(control.SynchroSoft.getNvlAdm()).setVisible(true);
             }
         });
     }

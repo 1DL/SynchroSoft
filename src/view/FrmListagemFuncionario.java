@@ -29,7 +29,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     /**
      * Creates new form FrmListagemPeca
      */
-    public FrmListagemFuncionario() {
+    public FrmListagemFuncionario(int nvlAdm) {
         initComponents();
         atualizarTabela();
     }
@@ -203,8 +203,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtualizarTabelaActionPerformed
 
     private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
-        FrmCadastroFuncionario telaCadastroFunc = new FrmCadastroFuncionario();
-        telaCadastroFunc.setVisible(true);
+        control.SynchroSoft.abrirCadastroFuncionário();
     }//GEN-LAST:event_btnTelaCadastroActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
@@ -297,7 +296,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmListagemFuncionario().setVisible(true);
+                new FrmListagemFuncionario(control.SynchroSoft.getNvlAdm()).setVisible(true);
             }
         });
     }
