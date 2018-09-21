@@ -52,8 +52,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         menu = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        menu_sistema = new javax.swing.JMenu();
+        menu_logoff = new javax.swing.JMenuItem();
         menu_cadastro = new javax.swing.JMenu();
         menu_os = new javax.swing.JMenuItem();
         menu_pessoa = new javax.swing.JMenuItem();
@@ -61,7 +61,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menu_funcionario = new javax.swing.JMenuItem();
         menu_despesa = new javax.swing.JMenuItem();
         menu_usuario = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        menu_listagem = new javax.swing.JMenu();
+        menu_listaOrdemServico = new javax.swing.JMenuItem();
+        menu_listaPessoa = new javax.swing.JMenuItem();
+        menu_listaProduto = new javax.swing.JMenuItem();
+        menu_listaFuncionario = new javax.swing.JMenuItem();
+        menu_listaDespesa = new javax.swing.JMenuItem();
+        menu_listaUsuario = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
 
@@ -168,18 +174,18 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(950, 440, 94, 25);
+        jButton1.setBounds(950, 440, 75, 23);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 1150, 650);
 
-        jMenu1.setText("Arquivo");
+        menu_sistema.setText("Sistema");
 
-        jMenuItem1.setText("jMenuItem1");
-        jMenu1.add(jMenuItem1);
+        menu_logoff.setText("Fazer Log-off");
+        menu_sistema.add(menu_logoff);
 
-        menu.add(jMenu1);
+        menu.add(menu_sistema);
 
         menu_cadastro.setText("Cadastro");
 
@@ -208,8 +214,32 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menu.add(menu_cadastro);
 
-        jMenu3.setText("Listagem");
-        menu.add(jMenu3);
+        menu_listagem.setText("Listagem");
+
+        menu_listaOrdemServico.setText("Ordem de Serviço");
+        menu_listagem.add(menu_listaOrdemServico);
+
+        menu_listaPessoa.setText("Pessoa");
+        menu_listaPessoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_listaPessoaActionPerformed(evt);
+            }
+        });
+        menu_listagem.add(menu_listaPessoa);
+
+        menu_listaProduto.setText("Produto");
+        menu_listagem.add(menu_listaProduto);
+
+        menu_listaFuncionario.setText("Funcionário");
+        menu_listagem.add(menu_listaFuncionario);
+
+        menu_listaDespesa.setText("Despesa");
+        menu_listagem.add(menu_listaDespesa);
+
+        menu_listaUsuario.setText("Usuário");
+        menu_listagem.add(menu_listaUsuario);
+
+        menu.add(menu_listagem);
 
         jMenu5.setText("Ajuda");
 
@@ -307,6 +337,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void menu_listaPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_listaPessoaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menu_listaPessoaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -355,18 +389,24 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuBar menu;
     private javax.swing.JMenu menu_cadastro;
     private javax.swing.JMenuItem menu_despesa;
     private javax.swing.JMenuItem menu_funcionario;
+    private javax.swing.JMenuItem menu_listaDespesa;
+    private javax.swing.JMenuItem menu_listaFuncionario;
+    private javax.swing.JMenuItem menu_listaOrdemServico;
+    private javax.swing.JMenuItem menu_listaPessoa;
+    private javax.swing.JMenuItem menu_listaProduto;
+    private javax.swing.JMenuItem menu_listaUsuario;
+    private javax.swing.JMenu menu_listagem;
+    private javax.swing.JMenuItem menu_logoff;
     private javax.swing.JMenuItem menu_os;
     private javax.swing.JMenuItem menu_pessoa;
     private javax.swing.JMenuItem menu_produto;
+    private javax.swing.JMenu menu_sistema;
     private javax.swing.JMenuItem menu_usuario;
     private javax.swing.JTextField txtAlerta;
     // End of variables declaration//GEN-END:variables
