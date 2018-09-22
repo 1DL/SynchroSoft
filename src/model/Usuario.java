@@ -10,7 +10,7 @@ package model;
  * @author Luiz
  */
 public class Usuario {
-    private int codigoUsuario;
+    
     private int codigoFuncionario;
     private String login;
     private String senha;
@@ -26,13 +26,7 @@ public class Usuario {
         this.senha = senha;
     }
     
-    public int getCodigoUsuario() {
-        return codigoUsuario;
-    }
-
-    public void setCodigoUsuario(int codigoUsuario) {
-        this.codigoUsuario = codigoUsuario;
-    }
+   
 
     public int getCodigoFuncionario() {
         return codigoFuncionario;

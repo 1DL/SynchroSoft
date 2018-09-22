@@ -62,7 +62,7 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
         lblPesquisar.setBounds(30, 50, 160, 40);
 
         cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "Funcionário", "Login", "Senha" }));
+        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Funcionário", "Login", "Senha" }));
         cmbFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbFiltroActionPerformed(evt);
@@ -226,11 +226,11 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
         Usuario user = new Usuario();
         String aux;
-        aux = (String) tblListagemUsuario.getValueAt(tblListagemUsuario.getSelectedRow(), 0);
-        user.setCodigoUsuario(Integer.parseInt(aux));
+        aux = (String) tblListagemUsuario.getValueAt(tblListagemUsuario.getSelectedRow(), 1);
+        user.setLogin(aux);
 
         try {
-            duser.deletarUsuario(user.getCodigoUsuario());
+            duser.deletarUsuario(user.getLogin());
             atualizarTabela();
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(FrmListagemDespesa.class.getName()).log(Level.SEVERE, null, ex);
@@ -283,12 +283,12 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
     private void atualizarTabelaFiltrada() {
         ArrayList<Usuario> lista = new ArrayList<>();
         lista = DaoUsuario.listarUsuarioFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim().toLowerCase());
-        String[] nomeColunas = {"Código", "Funcionário", "Login", "Senha", "PK_REF"};
+        String[] nomeColunas = {"Funcionário", "Login", "Senha", "PK_REF"};
         try {
             DefaultTableModel model = new DefaultTableModel() {
                 @Override
                 public boolean isCellEditable(int row, int column) {
-                    if (column == 5) {
+                    if (column == 4) {
                         return false;
                     }
                     return true;
@@ -297,13 +297,13 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
             tblListagemUsuario.setModel(model);
             model.setColumnIdentifiers(nomeColunas);
             model.setRowCount(0);
-            Object rowData[] = new Object[5];
+            Object rowData[] = new Object[4];
             for (int i = 0; i < lista.size(); i++) {
-                rowData[0] = Integer.toString(lista.get(i).getCodigoUsuario());
-                rowData[1] = Integer.toString(lista.get(i).getCodigoFuncionario());
-                rowData[2] = lista.get(i).getLogin();
-                rowData[3] = lista.get(i).getSenha();             
-                rowData[4] = Integer.toString(lista.get(i).getCodigoUsuario());
+                //rowData[0] = Integer.toString(lista.get(i).getCodigoUsuario());
+                rowData[0] = Integer.toString(lista.get(i).getCodigoFuncionario());
+                rowData[1] = lista.get(i).getLogin();
+                rowData[2] = lista.get(i).getSenha();             
+                rowData[3] = lista.get(i).getLogin();
                 
                 model.addRow(rowData);
             }
@@ -312,20 +312,20 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
             System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
         }
         
-        tblListagemUsuario.getColumnModel().getColumn(4).setMinWidth(0);
-        tblListagemUsuario.getColumnModel().getColumn(4).setPreferredWidth(0);
-        tblListagemUsuario.getColumnModel().getColumn(4).setMaxWidth(0);
+        tblListagemUsuario.getColumnModel().getColumn(3).setMinWidth(0);
+        tblListagemUsuario.getColumnModel().getColumn(3).setPreferredWidth(0);
+        tblListagemUsuario.getColumnModel().getColumn(3).setMaxWidth(0);
     }
     
     private void atualizarTabela() {
         ArrayList<Usuario> lista = new ArrayList<>();
         lista = DaoUsuario.listarUsuario();
-        String[] nomeColunas = {"Código", "Funcionário", "Login", "Senha", "PK_REF"};
+        String[] nomeColunas = {"Funcionário", "Login", "Senha", "PK_REF"};
         try {
             DefaultTableModel model = new DefaultTableModel() {
                 @Override
                 public boolean isCellEditable(int row, int column) {
-                    if (column == 5) {
+                    if (column == 4) {
                         return false;
                     }
                     return true;
@@ -334,13 +334,13 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
             tblListagemUsuario.setModel(model);
             model.setColumnIdentifiers(nomeColunas);
             model.setRowCount(0);
-            Object rowData[] = new Object[5];
+            Object rowData[] = new Object[4];
             for (int i = 0; i < lista.size(); i++) {
-                rowData[0] = Integer.toString(lista.get(i).getCodigoUsuario());
-                rowData[1] = lista.get(i).getCodigoFuncionario();
-                rowData[2] = lista.get(i).getLogin();
-                rowData[3] = lista.get(i).getSenha();
-                rowData[4] = lista.get(i).getCodigoUsuario();
+                //rowData[0] = Integer.toString(lista.get(i).getCodigoUsuario());
+                rowData[0] = lista.get(i).getCodigoFuncionario();
+                rowData[1] = lista.get(i).getLogin();
+                rowData[2] = lista.get(i).getSenha();
+                rowData[3] = lista.get(i).getLogin();
                 model.addRow(rowData);
             }
 
@@ -348,9 +348,9 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
             System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
         }
         
-        tblListagemUsuario.getColumnModel().getColumn(4).setMinWidth(0);
-        tblListagemUsuario.getColumnModel().getColumn(4).setPreferredWidth(0);
-        tblListagemUsuario.getColumnModel().getColumn(4).setMaxWidth(0);
+        tblListagemUsuario.getColumnModel().getColumn(3).setMinWidth(0);
+        tblListagemUsuario.getColumnModel().getColumn(3).setPreferredWidth(0);
+        tblListagemUsuario.getColumnModel().getColumn(3).setMaxWidth(0);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

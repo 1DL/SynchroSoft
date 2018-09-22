@@ -51,11 +51,10 @@
           <Font name="Malgun Gothic" size="18" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="C&#xf3;digo"/>
-            <StringItem index="1" value="Funcion&#xe1;rio"/>
-            <StringItem index="2" value="Login"/>
-            <StringItem index="3" value="Senha"/>
+          <StringArray count="3">
+            <StringItem index="0" value="Funcion&#xe1;rio"/>
+            <StringItem index="1" value="Login"/>
+            <StringItem index="2" value="Senha"/>
           </StringArray>
         </Property>
       </Properties>

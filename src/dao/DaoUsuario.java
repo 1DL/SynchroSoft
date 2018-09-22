@@ -26,10 +26,10 @@ public class DaoUsuario {
     public void cadastrarUsuario(int CodFunc, String login, String senha) throws SQLException, ClassNotFoundException {
         try {
             Connection con = Conexao.conectar();
-            String sql = "INSERT INTO SYNCHROSOFT.TB_USUARIO (CD_FUNCIONARIO, DS_LOGIN, DS_SENHA) VALUES (?,?,?)";
+            String sql = "INSERT INTO SYNCHROSOFT.TB_USUARIO (CD_USUARIO, CD_FUNCIONARIO, DS_SENHA) VALUES (?,?,?)";
             PreparedStatement st = con.prepareStatement(sql);
-            st.setInt(1, CodFunc);
-            st.setString(2, login);
+            st.setString(1, login);
+            st.setInt(2, CodFunc);
             st.setString(3, senha);
             st.executeUpdate();
             st.close();
@@ -39,11 +39,20 @@ public class DaoUsuario {
             JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o login do usuário.\n Erro JAVA:\n\n" + e.getMessage());
         }
     }
-    
-    public static boolean ChecarLogin(String login, String senha)
+    /**
+     * Método de conexão do sistema com o Banco de dados.
+     * O funcionário deverá inserir seu login e senha.
+     * @param login String
+     * @param senha String
+     * @return 0 - caso a conexão seja bem sucedida.
+     * 1 - caso o login e/ou senha estão errados.
+     * 2 - caso os parâmetros do banco de dados estejam errados.
+     */
+    public static int ChecarLogin(String login, String senha)
     {
         //criando variável booleana de controle
         boolean existe = false;
+        int retorno = 1;
         int codFuncionario;
         
         //estrutura try/catch para tratamento de erro
@@ -53,7 +62,7 @@ public class DaoUsuario {
             Connection con = Conexao.conectar();
             
             //Criando string de query para realizar verificação de existencia do login
-            String sql = "SELECT CD_FUNCIONARIO, DS_LOGIN, DS_SENHA FROM SYNCHROSOFT.TB_USUARIO WHERE DS_LOGIN = ? AND DS_SENHA = ?";
+            String sql = "SELECT CD_FUNCIONARIO, CD_USUARIO, DS_SENHA FROM SYNCHROSOFT.TB_USUARIO WHERE CD_USUARIO = ? AND DS_SENHA = ?";
             
             //Criando estrutura do preparedStatement, evitar sql inject
             PreparedStatement st = con.prepareStatement(sql);
@@ -68,13 +77,14 @@ public class DaoUsuario {
             //Executando verificação de existencia de resultado da query
             while(rs.next())
             {
-                if (login.equals(rs.getString("DS_LOGIN")))
+                if (login.equals(rs.getString("CD_USUARIO")))
                 {
                         if(senha.equals(rs.getString("DS_SENHA")))
                         {
                             existe = true;
                             codFuncionario = rs.getInt("CD_FUNCIONARIO");
                             logarUsuario(existe, codFuncionario);
+                            retorno = 0;
                         }
                 }
             }
@@ -86,10 +96,11 @@ public class DaoUsuario {
         }
         catch(Exception ex)
         {
+            retorno = 2;
             System.out.println("Erro: " + ex.getMessage());
         }
         
-        return existe;
+        return retorno;
     }
     
     public static void logarUsuario(boolean existe, int codigoFuncionario) {
@@ -125,7 +136,7 @@ public class DaoUsuario {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Usuario user = new Usuario();
-                user.setCodigoUsuario(rs.getInt("CD_USUARIO"));
+                //user.setCodigoUsuario(rs.getInt("CD_USUARIO"));
                 user.setCodigoFuncionario(rs.getInt("CD_FUNCIONARIO"));
                 user.setLogin(rs.getString("DS_LOGIN"));
                 user.setSenha(rs.getString("DS_SENHA"));
@@ -139,12 +150,12 @@ public class DaoUsuario {
         return lista;
     }
      
-     public void deletarUsuario(int cod) throws SQLException, ClassNotFoundException {
+     public void deletarUsuario(String login) throws SQLException, ClassNotFoundException {
         try {
             Connection con = Conexao.conectar();
             String sql = "DELETE FROM SYNCHROSOFT.TB_USUARIO WHERE CD_USUARIO = ?";
             PreparedStatement st = con.prepareStatement(sql);
-            st.setInt(1, cod);
+            st.setString(1, login);
             st.executeUpdate();
             st.close();
             JOptionPane.showMessageDialog(null, "Usuário removido com sucesso.");
@@ -161,21 +172,21 @@ public class DaoUsuario {
             Connection con = Conexao.conectar();
             con.setAutoCommit(false);
             String sql = "UPDATE SYNCHROSOFT.TB_USUARIO "
-                    + "SET CD_USUARIO = ?, CD_FUNCIONARIO = ?, DS_LOGIN = ?, "
+                    + "SET CD_FUNCIONARIO = ?, DS_LOGIN = ?, "
                     + "DS_SENHA = ? WHERE CD_USUARIO = ?";
             PreparedStatement st = con.prepareStatement(sql);
             for (int row = 0; row < rows; row++) {
-                String cod_alterado = (String) tabela.getValueAt(row, 0);
-                String cod_func = tabela.getValueAt(row, 1).toString();
-                String login = (String) tabela.getValueAt(row, 2);
-                String senha = (String) tabela.getValueAt(row, 3);
-                String cod_ref = tabela.getValueAt(row, 4).toString();
+                //String cod_alterado = (String) tabela.getValueAt(row, 0);
+                String cod_func = tabela.getValueAt(row, 0).toString();
+                String login = (String) tabela.getValueAt(row, 1);
+                String senha = (String) tabela.getValueAt(row, 2);
+                String cod_ref = tabela.getValueAt(row, 3).toString();
 
-                st.setInt(1, Integer.parseInt(cod_alterado));
-                st.setInt(2, Integer.parseInt(cod_func));
-                st.setString(3, login);
-                st.setString(4, senha);
-                st.setLong(5, Integer.parseInt(cod_ref));
+                //st.setInt(1, Integer.parseInt(cod_alterado));
+                st.setInt(1, Integer.parseInt(cod_func));
+                st.setString(2, login);
+                st.setString(3, senha);
+                st.setLong(4, Integer.parseInt(cod_ref));
 
                 st.addBatch();
                 st.executeBatch();
@@ -199,9 +210,9 @@ Código", "Funcionário", "Login", "Senha
              */
 
             switch (cmbFiltro) {
-                case "Código":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_USUARIO WHERE LOWER(CD_USUARIO) LIKE LOWER(?)";
-                    break;
+//                case "Código":
+//                    sql = "SELECT * FROM SYNCHROSOFT.TB_USUARIO WHERE LOWER(CD_USUARIO) LIKE LOWER(?)";
+//                    break;
                 case "Funcionário":
                     sql = "SELECT * FROM SYNCHROSOFT.TB_USUARIO WHERE LOWER(CD_FUNCIONARIO) LIKE LOWER(?)";
                     break;
@@ -217,7 +228,7 @@ Código", "Funcionário", "Login", "Senha
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Usuario u = new Usuario();
-                u.setCodigoUsuario(rs.getInt("CD_USUARIO"));
+                //u.setCodigoUsuario(rs.getInt("CD_USUARIO"));
                 u.setCodigoFuncionario(rs.getInt("CD_FUNCIONARIO"));
                 u.setLogin(rs.getString("DS_LOGIN").toString());
                 u.setSenha(rs.getString("DS_SENHA"));

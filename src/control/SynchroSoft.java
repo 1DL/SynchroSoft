@@ -48,8 +48,18 @@ public class SynchroSoft {
     private static String nomeUsuario = "Teste";
     private static int codFunc = 0;
     private static int nvlAdm = 1;
+    
+    public static ArrayList<Integer> acessoTelas = new ArrayList<>();
+    
 
-    //Métodos para chamada de telas. Telas de Sistema
+   
+
+    public static void main(String[] args) {
+        LeitorArquivo.lerArquivo();
+        abrirLogin();
+    }
+    
+     //Métodos para chamada de telas. Telas de Sistema
 
     public static void abrirLogin() {
         FrmLogin telaLogin = new FrmLogin();
@@ -66,42 +76,46 @@ public class SynchroSoft {
     
 
     public static void abrirCadastroServico() {
-//        for (Frame fr : Frame.getFrames()) {
-//            if (fr.getClass().getName().equals("view.FrmCadastroServico")) {
-//                JOptionPane.showMessageDialog(null, "Já existe uma janela de Cadastro de Serviço aberta.");
-//                fr.setVisible(true);
-//                fr.toFront();
-//                
-//            }
-//        }
         FrmCadastroServico telaCadServ = new FrmCadastroServico(nvlAdm);
         telaCadServ.setVisible(true);
+        acessoTelas.set(0, acessoTelas.get(0) + 1);
+        LeitorArquivo.escreverArquivo();
     }
     
     public static void abrirCadastroPessoa() {
         FrmCadastroPessoa telaCadPessoa = new FrmCadastroPessoa(nvlAdm);
         telaCadPessoa.setVisible(true);
+        acessoTelas.set(1,acessoTelas.get(1) + 1);
+        LeitorArquivo.escreverArquivo();
     }
     
     public static void abrirCadastroProduto() {
         FrmCadastroPeca telaCadProduto = new FrmCadastroPeca(nvlAdm);
         telaCadProduto.setVisible(true);
+        acessoTelas.set(2,acessoTelas.get(2) + 1);
+        LeitorArquivo.escreverArquivo();
     }
     
     public static void abrirCadastroFuncionário() {
         FrmCadastroFuncionario telaCadFunc = new FrmCadastroFuncionario(nvlAdm);
         telaCadFunc.setVisible(true);
+        acessoTelas.set(3,acessoTelas.get(3) + 1);
+        LeitorArquivo.escreverArquivo();
     }
     
     
     public static void abrirCadastroDespesa() {
         FrmCadastroDespesa telaCadDesp = new FrmCadastroDespesa(nvlAdm);
         telaCadDesp.setVisible(true);
+        acessoTelas.set(4,acessoTelas.get(4) + 1);
+        LeitorArquivo.escreverArquivo();
     }
     
     public static void abrirCadastroUsuario() {
         FrmCadastroUsuario telaCadUsuario = new FrmCadastroUsuario(nvlAdm);
         telaCadUsuario.setVisible(true);
+        acessoTelas.set(5,acessoTelas.get(5) + 1);
+        LeitorArquivo.escreverArquivo();
     }
     
     public static void abrirCadastroOrçamento() {
@@ -112,6 +126,8 @@ public class SynchroSoft {
     public static void abrirCadastroEndereco() {
         FrmCadastroEndereco telaCadEnd = new FrmCadastroEndereco(nvlAdm);
         telaCadEnd.setVisible(true);
+        acessoTelas.set(6,acessoTelas.get(6) + 1);
+        LeitorArquivo.escreverArquivo();
     }
     
     //Telas de Listagem
@@ -119,37 +135,51 @@ public class SynchroSoft {
     public static void abrirListagemServico() {
         FrmListagemServico telaListaServ = new FrmListagemServico(nvlAdm);
         telaListaServ.setVisible(true);
+        acessoTelas.set(7,acessoTelas.get(7) + 1);
+        LeitorArquivo.escreverArquivo();
     }
     
     public static void abrirListagemPessoaFisica() {
         FrmListagemPessoaF telaListaPessoa = new FrmListagemPessoaF(nvlAdm);
         telaListaPessoa.setVisible(true);
+        acessoTelas.set(8,acessoTelas.get(8) + 1);
+        LeitorArquivo.escreverArquivo();
     }
     
     public static void abrirListagemPessoaJuridica() {
         FrmListagemPessoaJ telaListaPessoa = new FrmListagemPessoaJ(nvlAdm);
         telaListaPessoa.setVisible(true);
+        acessoTelas.set(9,acessoTelas.get(9) + 1);
+        LeitorArquivo.escreverArquivo();
     }
     
     public static void abrirListagemProduto() {
         FrmListagemPeca telaListaProduto = new FrmListagemPeca(nvlAdm);
         telaListaProduto.setVisible(true);
+        acessoTelas.set(10,acessoTelas.get(10) + 1);
+        LeitorArquivo.escreverArquivo();
     }
     
     public static void abrirListagemFuncionario() {
         FrmListagemFuncionario telaListaFunc = new FrmListagemFuncionario(nvlAdm);
         telaListaFunc.setVisible(true);
+        acessoTelas.set(11,acessoTelas.get(11) + 1);
+        LeitorArquivo.escreverArquivo();
     }
     
     
     public static void abrirListagemDespesa() {
         FrmListagemDespesa telaListaDesp = new FrmListagemDespesa(nvlAdm);
         telaListaDesp.setVisible(true);
+        acessoTelas.set(12,acessoTelas.get(12) + 1);
+        LeitorArquivo.escreverArquivo();
     }
     
     public static void abrirListagemUsuario() {
         FrmListagemUsuario telaListaUsuario = new FrmListagemUsuario(nvlAdm);
         telaListaUsuario.setVisible(true);
+        acessoTelas.set(13,acessoTelas.get(13) + 1);
+        LeitorArquivo.escreverArquivo();
     }
     
     public static void abrirListagemOrçamento() throws SQLException, ClassNotFoundException {
@@ -160,6 +190,8 @@ public class SynchroSoft {
     public static void abrirListagemEndereco() {
         FrmListagemEndereco telaListaEnd = new FrmListagemEndereco(nvlAdm);
         telaListaEnd.setVisible(true);
+        acessoTelas.set(14,acessoTelas.get(14) + 1);
+        LeitorArquivo.escreverArquivo();
     }
     
     //Telas de Vendas
@@ -167,6 +199,8 @@ public class SynchroSoft {
     public static void abrirVendaPeca(){
         FrmVendaPeca telaVendaPeca = new FrmVendaPeca(nvlAdm);
         telaVendaPeca.setVisible(true);
+        acessoTelas.set(15,acessoTelas.get(15) + 1);
+        LeitorArquivo.escreverArquivo();
     }
     
     //Telas de Ajuda
@@ -178,18 +212,6 @@ public class SynchroSoft {
     
     
     
-
-    public static void main(String[] args) {
-        System.out.println("Hello, World3! Welcome to SynchroSoft!!! ");
-
-        try {
-            Connection con = Conexao.conectar();
-            System.out.println("Conectado ao DB Oracle com sucesso!");
-        } catch (ClassNotFoundException | SQLException sqlex) {
-            System.out.println("Falha ao conectar no banco: " + sqlex);
-        }
-        abrirLogin();
-    }
 
     public static String getVersao() {
         return versao;
@@ -218,5 +240,9 @@ public class SynchroSoft {
     public static void setNvlAdm(int aNvlAdm) {
         nvlAdm = aNvlAdm;
     }
+
+    
+
+   
 
 }

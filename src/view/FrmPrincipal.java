@@ -8,6 +8,7 @@ package view;
 import java.awt.Frame;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -31,8 +32,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         if (control.SynchroSoft.getNvlAdm() == 0) {
             menu_cadastro.setEnabled(false);
         }
+
+        
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -300,16 +302,16 @@ public class FrmPrincipal extends javax.swing.JFrame {
         String teste = "";
         Frame[] telas = Frame.getFrames();
         for (Frame fr : telas) {
-             teste += fr.getClass().getName() + "\n";
-             if (fr.getClass().getName().equals("view.FrmPrincipal")) {
-                 JOptionPane.showMessageDialog(null, "Existe!");
-                 //fr.dispose();
-                 
-             }
+            teste += fr.getClass().getName() + "\n";
+            if (fr.getClass().getName().equals("view.FrmPrincipal")) {
+                JOptionPane.showMessageDialog(null, "Existe!");
+                //fr.dispose();
+
+            }
         }
         JOptionPane.showMessageDialog(null, teste);
         teste = "";
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void menu_listaPessoaFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_listaPessoaFActionPerformed
@@ -402,7 +404,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             for (Frame fr : Frame.getFrames()) {
                 fr.dispose();
             }
-            
+
             control.SynchroSoft.abrirPrincipal();
         }
     }//GEN-LAST:event_menu_fecharJanelasActionPerformed
