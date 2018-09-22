@@ -43,6 +43,7 @@ public class SynchroSoft {
 
     /**
      * @param args the command line arguments
+     * .
      */
     private static String versao = "1.0";
     private static String nomeUsuario = "Teste";
