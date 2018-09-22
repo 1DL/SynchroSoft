@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class LeitorArquivo {
     public static void lerArquivo() {
-
+//a
          // The name of the file to open.
         String fileName = "acessojanelas.txt";
 
