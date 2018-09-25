@@ -5,10 +5,12 @@
  */
 package view;
 
+import control.Janelas;
 import java.awt.Frame;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -26,13 +28,21 @@ public class FrmPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form TelaPrincipal
      */
+    
+            ArrayList<Janelas> maisAcessadas = new ArrayList<>(control.SynchroSoft.acessoTelas);
+
     public FrmPrincipal() {
+        definirMaisAcessadas();
         initComponents();
         this.setTitle("Menu Principal - " + control.SynchroSoft.getNomeUsuario() + " - " + control.SynchroSoft.getCodFunc() + " - " + control.SynchroSoft.getNvlAdm());
         if (control.SynchroSoft.getNvlAdm() == 0) {
             menu_cadastro.setEnabled(false);
+
         }
 
+
+        
+        
         
     }
 
@@ -48,14 +58,18 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtAlerta = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        btn_janMaisAcessada1 = new javax.swing.JButton();
+        btn_janMaisAcessada2 = new javax.swing.JButton();
+        btn_janMaisAcessada3 = new javax.swing.JButton();
+        btn_janMaisAcessada4 = new javax.swing.JButton();
+        btn_janMaisAcessada5 = new javax.swing.JButton();
+        btn_janMaisAcessada6 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         menu = new javax.swing.JMenuBar();
         menu_sistema = new javax.swing.JMenu();
         menu_logoff = new javax.swing.JMenuItem();
         menu_fecharJanelas = new javax.swing.JMenuItem();
         menu_sairSistema = new javax.swing.JMenuItem();
-        menu_vendas = new javax.swing.JMenu();
-        menu_vendaPeca = new javax.swing.JMenuItem();
         menu_cadastro = new javax.swing.JMenu();
         menu_os = new javax.swing.JMenuItem();
         menu_pessoa = new javax.swing.JMenuItem();
@@ -73,8 +87,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menu_listaDespesa = new javax.swing.JMenuItem();
         menu_listaUsuario = new javax.swing.JMenuItem();
         menu_listaEndereco = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        menu_vendas = new javax.swing.JMenu();
+        menu_vendaPeca = new javax.swing.JMenuItem();
+        menu_relatorio = new javax.swing.JMenu();
+        menu_relatorioOS = new javax.swing.JMenuItem();
+        menu_relatorioDespesa = new javax.swing.JMenuItem();
+        menu_ajuda = new javax.swing.JMenu();
+        menu_sobre = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1152, 648));
@@ -98,7 +117,67 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(950, 440, 75, 23);
+        jButton1.setBounds(950, 470, 75, 23);
+
+        btn_janMaisAcessada1.setText(control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(0).getNome(), false)
+        );
+        btn_janMaisAcessada1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_janMaisAcessada1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_janMaisAcessada1);
+        btn_janMaisAcessada1.setBounds(80, 350, 280, 40);
+
+        btn_janMaisAcessada2.setText(control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(1).getNome(), false)
+        );
+        btn_janMaisAcessada2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_janMaisAcessada2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_janMaisAcessada2);
+        btn_janMaisAcessada2.setBounds(410, 350, 280, 40);
+
+        btn_janMaisAcessada3.setText(control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(2).getNome(), false)
+        );
+        btn_janMaisAcessada3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_janMaisAcessada3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_janMaisAcessada3);
+        btn_janMaisAcessada3.setBounds(730, 350, 280, 40);
+
+        btn_janMaisAcessada4.setText(control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(3).getNome(), false)
+        );
+        btn_janMaisAcessada4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_janMaisAcessada4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_janMaisAcessada4);
+        btn_janMaisAcessada4.setBounds(80, 410, 280, 40);
+
+        btn_janMaisAcessada5.setText(control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(4).getNome(), false)
+        );
+        btn_janMaisAcessada5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_janMaisAcessada5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_janMaisAcessada5);
+        btn_janMaisAcessada5.setBounds(410, 410, 280, 40);
+
+        btn_janMaisAcessada6.setText(control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(5).getNome(), false)
+        );
+        btn_janMaisAcessada6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_janMaisAcessada6ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_janMaisAcessada6);
+        btn_janMaisAcessada6.setBounds(730, 410, 280, 40);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -131,18 +210,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menu_sistema.add(menu_sairSistema);
 
         menu.add(menu_sistema);
-
-        menu_vendas.setText("Vendas");
-
-        menu_vendaPeca.setText("Peças e Produtos");
-        menu_vendaPeca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menu_vendaPecaActionPerformed(evt);
-            }
-        });
-        menu_vendas.add(menu_vendaPeca);
-
-        menu.add(menu_vendas);
 
         menu_cadastro.setText("Cadastro");
 
@@ -272,17 +339,44 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menu.add(menu_listagem);
 
-        jMenu5.setText("Ajuda");
+        menu_vendas.setText("Vendas");
 
-        jMenuItem3.setText("Sobre");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        menu_vendaPeca.setText("Peças e Produtos");
+        menu_vendaPeca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                menu_vendaPecaActionPerformed(evt);
             }
         });
-        jMenu5.add(jMenuItem3);
+        menu_vendas.add(menu_vendaPeca);
 
-        menu.add(jMenu5);
+        menu.add(menu_vendas);
+
+        menu_relatorio.setText("Relatórios");
+
+        menu_relatorioOS.setText("Ordens de Serviço");
+        menu_relatorioOS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_relatorioOSActionPerformed(evt);
+            }
+        });
+        menu_relatorio.add(menu_relatorioOS);
+
+        menu_relatorioDespesa.setText("Despesas");
+        menu_relatorio.add(menu_relatorioDespesa);
+
+        menu.add(menu_relatorio);
+
+        menu_ajuda.setText("Ajuda");
+
+        menu_sobre.setText("Sobre");
+        menu_sobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_sobreActionPerformed(evt);
+            }
+        });
+        menu_ajuda.add(menu_sobre);
+
+        menu.add(menu_ajuda);
 
         setJMenuBar(menu);
 
@@ -290,9 +384,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void menu_sobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_sobreActionPerformed
         control.SynchroSoft.abrirSobre();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_menu_sobreActionPerformed
 
     private void menu_osActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_osActionPerformed
         control.SynchroSoft.abrirCadastroServico();
@@ -409,6 +503,50 @@ public class FrmPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menu_fecharJanelasActionPerformed
 
+    private void menu_relatorioOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_relatorioOSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menu_relatorioOSActionPerformed
+
+    private void btn_janMaisAcessada1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_janMaisAcessada1ActionPerformed
+        control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(0).getNome(), true);
+    }//GEN-LAST:event_btn_janMaisAcessada1ActionPerformed
+
+    private void btn_janMaisAcessada2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_janMaisAcessada2ActionPerformed
+        control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(1).getNome(), true);
+    }//GEN-LAST:event_btn_janMaisAcessada2ActionPerformed
+
+    private void btn_janMaisAcessada3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_janMaisAcessada3ActionPerformed
+        control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(2).getNome(), true);
+    }//GEN-LAST:event_btn_janMaisAcessada3ActionPerformed
+
+    private void btn_janMaisAcessada4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_janMaisAcessada4ActionPerformed
+        control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(3).getNome(), true);
+    }//GEN-LAST:event_btn_janMaisAcessada4ActionPerformed
+
+    private void btn_janMaisAcessada5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_janMaisAcessada5ActionPerformed
+        control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(4).getNome(), true);
+    }//GEN-LAST:event_btn_janMaisAcessada5ActionPerformed
+
+    private void btn_janMaisAcessada6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_janMaisAcessada6ActionPerformed
+        control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(5).getNome(), true);
+    }//GEN-LAST:event_btn_janMaisAcessada6ActionPerformed
+
+    private void definirMaisAcessadas(){
+        Collections.sort(maisAcessadas, new Comparator<Janelas>() {
+            @Override
+            public int compare(Janelas j1, Janelas j2) {
+                return j1.getAcesso() - j2.getAcesso(); // Ascending
+            }
+
+        });
+        
+        Collections.reverse(maisAcessadas);
+        System.out.println("Ordenação");
+        for (Janelas j : maisAcessadas){
+            System.out.println(j.getNome() + " " +j.getAcesso());
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -446,12 +584,17 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_janMaisAcessada1;
+    private javax.swing.JButton btn_janMaisAcessada2;
+    private javax.swing.JButton btn_janMaisAcessada3;
+    private javax.swing.JButton btn_janMaisAcessada4;
+    private javax.swing.JButton btn_janMaisAcessada5;
+    private javax.swing.JButton btn_janMaisAcessada6;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuBar menu;
+    private javax.swing.JMenu menu_ajuda;
     private javax.swing.JMenu menu_cadastro;
     private javax.swing.JMenuItem menu_despesa;
     private javax.swing.JMenuItem menu_endereco;
@@ -470,8 +613,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menu_os;
     private javax.swing.JMenuItem menu_pessoa;
     private javax.swing.JMenuItem menu_produto;
+    private javax.swing.JMenu menu_relatorio;
+    private javax.swing.JMenuItem menu_relatorioDespesa;
+    private javax.swing.JMenuItem menu_relatorioOS;
     private javax.swing.JMenuItem menu_sairSistema;
     private javax.swing.JMenu menu_sistema;
+    private javax.swing.JMenuItem menu_sobre;
     private javax.swing.JMenuItem menu_usuario;
     private javax.swing.JMenuItem menu_vendaPeca;
     private javax.swing.JMenu menu_vendas;
