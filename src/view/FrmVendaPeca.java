@@ -388,7 +388,7 @@ public class FrmVendaPeca extends javax.swing.JFrame {
     }//GEN-LAST:event_txtValorXQtdActionPerformed
 
     private void btnListarPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarPecaActionPerformed
-        control.SynchroSoft.abrirListagemProduto();
+        control.Janelas.abrirListagemProduto();
     }//GEN-LAST:event_btnListarPecaActionPerformed
 
     private void txtCodPecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodPecaKeyReleased

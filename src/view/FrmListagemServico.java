@@ -721,7 +721,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
-        control.SynchroSoft.abrirCadastroServico();
+        control.Janelas.abrirCadastroServico();
     }//GEN-LAST:event_btnTelaCadastroActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
@@ -1112,7 +1112,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSelecionarfuncActionPerformed
 
     private void btnListarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarFuncActionPerformed
-        control.SynchroSoft.abrirListagemFuncionario();
+        control.Janelas.abrirListagemFuncionario();
     }//GEN-LAST:event_btnListarFuncActionPerformed
 
     private void btnAtivarDesativarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtivarDesativarActionPerformed

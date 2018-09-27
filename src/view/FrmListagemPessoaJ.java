@@ -260,7 +260,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
-        control.SynchroSoft.abrirCadastroPessoa();
+        control.Janelas.abrirCadastroPessoa();
     }//GEN-LAST:event_btnTelaCadastroActionPerformed
 
     private void btnAtualizarTabela1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarTabela1ActionPerformed
@@ -268,12 +268,12 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtualizarTabela1ActionPerformed
 
     private void btnFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFisicaActionPerformed
-        control.SynchroSoft.abrirListagemPessoaFisica();
+        control.Janelas.abrirListagemPessoaFisica();
         this.dispose();
     }//GEN-LAST:event_btnFisicaActionPerformed
 
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
-        control.SynchroSoft.abrirPrincipal();
+        control.Janelas.abrirPrincipal();
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed

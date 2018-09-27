@@ -40,7 +40,7 @@ public class FrmLogin extends javax.swing.JFrame {
         if (aux == 0)
         {
             //Instanciando tela principal e chamando-a
-            control.SynchroSoft.abrirPrincipal();
+            control.Janelas.abrirPrincipal();
             
             //eliminando a tela de login da memória
             this.dispose();
@@ -302,7 +302,7 @@ public class FrmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_ipBancoActionPerformed
 
     private void btn_debugrunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_debugrunActionPerformed
-        control.SynchroSoft.abrirPrincipal();
+        control.Janelas.abrirPrincipal();
         dao.Conexao.setServerName(txt_ipBanco.getText());
         dao.Conexao.setServerPort(txt_portaBanco.getText());
         dao.Conexao.setUsername(txtp_usuarioDB.getText());

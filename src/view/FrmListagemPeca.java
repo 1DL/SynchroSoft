@@ -214,7 +214,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtualizarTabelaActionPerformed
 
     private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
-        control.SynchroSoft.abrirCadastroProduto();
+        control.Janelas.abrirCadastroProduto();
 //        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 //        telaCadastro.setLocation(dim.width / 2 - this.getPreferredSize().width / 2, dim.height / 2 - this.getPreferredSize().height / 2);
 //        telaCadastro.setVisible(true);
@@ -264,7 +264,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
-        control.SynchroSoft.abrirPrincipal();
+        control.Janelas.abrirPrincipal();
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed

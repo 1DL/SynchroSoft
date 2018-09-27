@@ -238,7 +238,7 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
-        control.SynchroSoft.abrirCadastroUsuario();
+        control.Janelas.abrirCadastroUsuario();
     }//GEN-LAST:event_btnTelaCadastroActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
