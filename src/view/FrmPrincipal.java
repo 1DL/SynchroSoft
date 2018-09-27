@@ -420,8 +420,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
             control.SynchroSoft.setCodFunc(0);
             control.SynchroSoft.setNvlAdm(99);
             control.SynchroSoft.setNomeUsuario("Deslogado");
-            FrmLogin login = new FrmLogin();
-            login.setVisible(true);
+            Janelas.fecharTodasJanelas();
+            control.SynchroSoft.abrirLogin();
         }
     }//GEN-LAST:event_menu_logoffActionPerformed
 
@@ -495,9 +495,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         aux = JOptionPane.showConfirmDialog(null, "Deseja realmente fechar todas as janelas?\n"
                 + "\nAviso! Todos os dados não salvos serão perdidos.", "Fechar Janelas", JOptionPane.YES_NO_OPTION);
         if (aux == 0) {
-            for (Frame fr : Frame.getFrames()) {
-                fr.dispose();
-            }
+            Janelas.fecharTodasJanelas();
 
             control.SynchroSoft.abrirPrincipal();
         }

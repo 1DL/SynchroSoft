@@ -5,6 +5,8 @@
  */
 package control;
 
+import java.awt.Frame;
+
 /**
  *
  * @author LuizV1
@@ -20,7 +22,11 @@ public class Janelas {
     private String nome;
     private int acesso;
     
-    
+    public static void fecharTodasJanelas(){
+        for (Frame fr : Frame.getFrames()) {
+                fr.dispose();
+            }
+    }
 
     public String getNome() {
         return nome;
