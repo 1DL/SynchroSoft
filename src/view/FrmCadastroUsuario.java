@@ -79,7 +79,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblCodFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCodFuncionario.setText("Código do Funcionário:");
         getContentPane().add(lblCodFuncionario);
-        lblCodFuncionario.setBounds(50, 70, 200, 25);
+        lblCodFuncionario.setBounds(50, 70, 200, 24);
 
         txtCodFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtCodFuncionario.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -93,7 +93,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblLogin.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblLogin.setText("Login:");
         getContentPane().add(lblLogin);
-        lblLogin.setBounds(670, 160, 60, 25);
+        lblLogin.setBounds(670, 160, 60, 24);
 
         txtLogin.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtLogin.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -107,7 +107,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblSenha.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblSenha.setText("Senha:");
         getContentPane().add(lblSenha);
-        lblSenha.setBounds(670, 240, 60, 25);
+        lblSenha.setBounds(670, 240, 60, 24);
 
         txtSenha.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -116,7 +116,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtSenha);
-        txtSenha.setBounds(770, 240, 250, 31);
+        txtSenha.setBounds(770, 240, 250, 30);
 
         txtConfirma.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtConfirma.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -125,12 +125,12 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtConfirma);
-        txtConfirma.setBounds(770, 320, 250, 31);
+        txtConfirma.setBounds(770, 320, 250, 30);
 
         lblSenha1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblSenha1.setText("Confirmar:");
         getContentPane().add(lblSenha1);
-        lblSenha1.setBounds(670, 320, 90, 25);
+        lblSenha1.setBounds(670, 320, 90, 24);
 
         btnCadastrar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnCadastrar.setText("Cadastrar");
@@ -140,12 +140,12 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCadastrar);
-        btnCadastrar.setBounds(100, 470, 220, 35);
+        btnCadastrar.setBounds(100, 470, 220, 33);
 
         btnLimpar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnLimpar.setText("Limpar");
         getContentPane().add(btnLimpar);
-        btnLimpar.setBounds(100, 560, 220, 35);
+        btnLimpar.setBounds(100, 560, 220, 33);
 
         btnMenuPrincipal.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnMenuPrincipal.setText("Menu Principal");
@@ -175,7 +175,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnFecharFrame);
-        btnFecharFrame.setBounds(840, 550, 200, 35);
+        btnFecharFrame.setBounds(840, 550, 200, 33);
 
         pnlDadosFuncionario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         pnlDadosFuncionario.setOpaque(false);
@@ -307,7 +307,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
     private void btnListarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarUsuariosActionPerformed
-        control.SynchroSoft.abrirListagemUsuario();
+        control.Janelas.abrirListagemUsuario();
     }//GEN-LAST:event_btnListarUsuariosActionPerformed
 
     private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
@@ -341,7 +341,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodFuncionarioKeyReleased
 
     private void btnListarFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarFuncionariosActionPerformed
-        control.SynchroSoft.abrirListagemFuncionario();
+        control.Janelas.abrirListagemFuncionario();
     }//GEN-LAST:event_btnListarFuncionariosActionPerformed
 
     private void txtLoginKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLoginKeyReleased

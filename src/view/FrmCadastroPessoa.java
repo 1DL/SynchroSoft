@@ -596,7 +596,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtFisicaActionPerformed
 
     private void btnCadastrarCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCepActionPerformed
-        control.SynchroSoft.abrirCadastroEndereco();
+        control.Janelas.abrirCadastroEndereco();
     }//GEN-LAST:event_btnCadastrarCepActionPerformed
 
     private void rbtSimCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtSimCadastroActionPerformed
@@ -673,7 +673,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnListarPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarPessoaActionPerformed
-        control.SynchroSoft.abrirListagemPessoaFisica();
+        control.Janelas.abrirListagemPessoaFisica();
     }//GEN-LAST:event_btnListarPessoaActionPerformed
 
     private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed

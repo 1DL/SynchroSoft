@@ -29,7 +29,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
      * Creates new form TelaPrincipal
      */
     
-            ArrayList<Janelas> maisAcessadas = new ArrayList<>(control.SynchroSoft.acessoTelas);
+            ArrayList<Janelas> maisAcessadas = new ArrayList<>(control.Janelas.acessoTelas);
 
     public FrmPrincipal() {
         definirMaisAcessadas();
@@ -119,7 +119,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         getContentPane().add(jButton1);
         jButton1.setBounds(950, 470, 75, 23);
 
-        btn_janMaisAcessada1.setText(control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(0).getNome(), false)
+        btn_janMaisAcessada1.setText(control.Janelas.abrirMaisAcessada(maisAcessadas.get(0).getNome(), false)
         );
         btn_janMaisAcessada1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,7 +129,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         getContentPane().add(btn_janMaisAcessada1);
         btn_janMaisAcessada1.setBounds(80, 350, 280, 40);
 
-        btn_janMaisAcessada2.setText(control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(1).getNome(), false)
+        btn_janMaisAcessada2.setText(control.Janelas.abrirMaisAcessada(maisAcessadas.get(1).getNome(), false)
         );
         btn_janMaisAcessada2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,7 +139,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         getContentPane().add(btn_janMaisAcessada2);
         btn_janMaisAcessada2.setBounds(410, 350, 280, 40);
 
-        btn_janMaisAcessada3.setText(control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(2).getNome(), false)
+        btn_janMaisAcessada3.setText(control.Janelas.abrirMaisAcessada(maisAcessadas.get(2).getNome(), false)
         );
         btn_janMaisAcessada3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,7 +149,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         getContentPane().add(btn_janMaisAcessada3);
         btn_janMaisAcessada3.setBounds(730, 350, 280, 40);
 
-        btn_janMaisAcessada4.setText(control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(3).getNome(), false)
+        btn_janMaisAcessada4.setText(control.Janelas.abrirMaisAcessada(maisAcessadas.get(3).getNome(), false)
         );
         btn_janMaisAcessada4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,7 +159,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         getContentPane().add(btn_janMaisAcessada4);
         btn_janMaisAcessada4.setBounds(80, 410, 280, 40);
 
-        btn_janMaisAcessada5.setText(control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(4).getNome(), false)
+        btn_janMaisAcessada5.setText(control.Janelas.abrirMaisAcessada(maisAcessadas.get(4).getNome(), false)
         );
         btn_janMaisAcessada5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,7 +169,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         getContentPane().add(btn_janMaisAcessada5);
         btn_janMaisAcessada5.setBounds(410, 410, 280, 40);
 
-        btn_janMaisAcessada6.setText(control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(5).getNome(), false)
+        btn_janMaisAcessada6.setText(control.Janelas.abrirMaisAcessada(maisAcessadas.get(5).getNome(), false)
         );
         btn_janMaisAcessada6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -385,11 +385,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menu_sobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_sobreActionPerformed
-        control.SynchroSoft.abrirSobre();
+        control.Janelas.abrirSobre();
     }//GEN-LAST:event_menu_sobreActionPerformed
 
     private void menu_osActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_osActionPerformed
-        control.SynchroSoft.abrirCadastroServico();
+        control.Janelas.abrirCadastroServico();
     }//GEN-LAST:event_menu_osActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -409,7 +409,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void menu_listaPessoaFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_listaPessoaFActionPerformed
-        control.SynchroSoft.abrirListagemPessoaFisica();
+        control.Janelas.abrirListagemPessoaFisica();
     }//GEN-LAST:event_menu_listaPessoaFActionPerformed
 
     private void menu_logoffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_logoffActionPerformed
@@ -421,64 +421,64 @@ public class FrmPrincipal extends javax.swing.JFrame {
             control.SynchroSoft.setNvlAdm(99);
             control.SynchroSoft.setNomeUsuario("Deslogado");
             Janelas.fecharTodasJanelas();
-            control.SynchroSoft.abrirLogin();
+            control.Janelas.abrirLogin();
         }
     }//GEN-LAST:event_menu_logoffActionPerformed
 
     private void menu_listaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_listaProdutoActionPerformed
-        control.SynchroSoft.abrirListagemProduto();
+        control.Janelas.abrirListagemProduto();
     }//GEN-LAST:event_menu_listaProdutoActionPerformed
 
     private void menu_pessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_pessoaActionPerformed
-        control.SynchroSoft.abrirCadastroPessoa();
+        control.Janelas.abrirCadastroPessoa();
     }//GEN-LAST:event_menu_pessoaActionPerformed
 
     private void menu_produtoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_produtoActionPerformed
-        control.SynchroSoft.abrirCadastroProduto();
+        control.Janelas.abrirCadastroProduto();
     }//GEN-LAST:event_menu_produtoActionPerformed
 
     private void menu_funcionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_funcionarioActionPerformed
-        control.SynchroSoft.abrirCadastroFuncionário();
+        control.Janelas.abrirCadastroFuncionário();
     }//GEN-LAST:event_menu_funcionarioActionPerformed
 
     private void menu_despesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_despesaActionPerformed
-        control.SynchroSoft.abrirCadastroDespesa();
+        control.Janelas.abrirCadastroDespesa();
     }//GEN-LAST:event_menu_despesaActionPerformed
 
     private void menu_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_usuarioActionPerformed
-        control.SynchroSoft.abrirCadastroUsuario();
+        control.Janelas.abrirCadastroUsuario();
     }//GEN-LAST:event_menu_usuarioActionPerformed
 
     private void menu_enderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_enderecoActionPerformed
-        control.SynchroSoft.abrirCadastroEndereco();
+        control.Janelas.abrirCadastroEndereco();
     }//GEN-LAST:event_menu_enderecoActionPerformed
 
     private void menu_listaOrdemServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_listaOrdemServicoActionPerformed
-        control.SynchroSoft.abrirListagemServico();
+        control.Janelas.abrirListagemServico();
     }//GEN-LAST:event_menu_listaOrdemServicoActionPerformed
 
     private void menu_listaPessoaJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_listaPessoaJActionPerformed
-        control.SynchroSoft.abrirListagemPessoaJuridica();
+        control.Janelas.abrirListagemPessoaJuridica();
     }//GEN-LAST:event_menu_listaPessoaJActionPerformed
 
     private void menu_listaFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_listaFuncionarioActionPerformed
-        control.SynchroSoft.abrirListagemFuncionario();
+        control.Janelas.abrirListagemFuncionario();
     }//GEN-LAST:event_menu_listaFuncionarioActionPerformed
 
     private void menu_listaDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_listaDespesaActionPerformed
-        control.SynchroSoft.abrirListagemDespesa();
+        control.Janelas.abrirListagemDespesa();
     }//GEN-LAST:event_menu_listaDespesaActionPerformed
 
     private void menu_listaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_listaUsuarioActionPerformed
-        control.SynchroSoft.abrirListagemUsuario();
+        control.Janelas.abrirListagemUsuario();
     }//GEN-LAST:event_menu_listaUsuarioActionPerformed
 
     private void menu_listaEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_listaEnderecoActionPerformed
-        control.SynchroSoft.abrirListagemEndereco();
+        control.Janelas.abrirListagemEndereco();
     }//GEN-LAST:event_menu_listaEnderecoActionPerformed
 
     private void menu_vendaPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_vendaPecaActionPerformed
-        control.SynchroSoft.abrirVendaPeca();
+        control.Janelas.abrirVendaPeca();
     }//GEN-LAST:event_menu_vendaPecaActionPerformed
 
     private void menu_sairSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_sairSistemaActionPerformed
@@ -497,7 +497,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         if (aux == 0) {
             Janelas.fecharTodasJanelas();
 
-            control.SynchroSoft.abrirPrincipal();
+            control.Janelas.abrirPrincipal();
         }
     }//GEN-LAST:event_menu_fecharJanelasActionPerformed
 
@@ -506,27 +506,27 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menu_relatorioOSActionPerformed
 
     private void btn_janMaisAcessada1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_janMaisAcessada1ActionPerformed
-        control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(0).getNome(), true);
+        control.Janelas.abrirMaisAcessada(maisAcessadas.get(0).getNome(), true);
     }//GEN-LAST:event_btn_janMaisAcessada1ActionPerformed
 
     private void btn_janMaisAcessada2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_janMaisAcessada2ActionPerformed
-        control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(1).getNome(), true);
+        control.Janelas.abrirMaisAcessada(maisAcessadas.get(1).getNome(), true);
     }//GEN-LAST:event_btn_janMaisAcessada2ActionPerformed
 
     private void btn_janMaisAcessada3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_janMaisAcessada3ActionPerformed
-        control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(2).getNome(), true);
+        control.Janelas.abrirMaisAcessada(maisAcessadas.get(2).getNome(), true);
     }//GEN-LAST:event_btn_janMaisAcessada3ActionPerformed
 
     private void btn_janMaisAcessada4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_janMaisAcessada4ActionPerformed
-        control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(3).getNome(), true);
+        control.Janelas.abrirMaisAcessada(maisAcessadas.get(3).getNome(), true);
     }//GEN-LAST:event_btn_janMaisAcessada4ActionPerformed
 
     private void btn_janMaisAcessada5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_janMaisAcessada5ActionPerformed
-        control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(4).getNome(), true);
+        control.Janelas.abrirMaisAcessada(maisAcessadas.get(4).getNome(), true);
     }//GEN-LAST:event_btn_janMaisAcessada5ActionPerformed
 
     private void btn_janMaisAcessada6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_janMaisAcessada6ActionPerformed
-        control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(5).getNome(), true);
+        control.Janelas.abrirMaisAcessada(maisAcessadas.get(5).getNome(), true);
     }//GEN-LAST:event_btn_janMaisAcessada6ActionPerformed
 
     private void definirMaisAcessadas(){

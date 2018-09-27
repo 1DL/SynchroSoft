@@ -214,12 +214,12 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(160, 60, 107, 33);
+        cmbFiltro.setBounds(160, 60, 107, 32);
 
         lblDescrever.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDescrever.setText("Descrição:");
         getContentPane().add(lblDescrever);
-        lblDescrever.setBounds(270, 50, 83, 40);
+        lblDescrever.setBounds(270, 50, 85, 40);
 
         txtPesquisa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -281,7 +281,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
-        control.SynchroSoft.abrirCadastroDespesa();
+        control.Janelas.abrirCadastroDespesa();
     }//GEN-LAST:event_btnTelaCadastroActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed

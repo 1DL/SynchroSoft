@@ -295,7 +295,7 @@
     <Component class="javax.swing.JButton" name="btn_janMaisAcessada1">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(0).getNome(), false)&#xd;&#xa;" type="code"/>
+          <Connection code="control.Janelas.abrirMaisAcessada(maisAcessadas.get(0).getNome(), false)&#xd;&#xa;" type="code"/>
         </Property>
       </Properties>
       <Events>
@@ -310,7 +310,7 @@
     <Component class="javax.swing.JButton" name="btn_janMaisAcessada2">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(1).getNome(), false)&#xd;&#xa;" type="code"/>
+          <Connection code="control.Janelas.abrirMaisAcessada(maisAcessadas.get(1).getNome(), false)&#xd;&#xa;" type="code"/>
         </Property>
       </Properties>
       <Events>
@@ -325,7 +325,7 @@
     <Component class="javax.swing.JButton" name="btn_janMaisAcessada3">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(2).getNome(), false)&#xd;&#xa;" type="code"/>
+          <Connection code="control.Janelas.abrirMaisAcessada(maisAcessadas.get(2).getNome(), false)&#xd;&#xa;" type="code"/>
         </Property>
       </Properties>
       <Events>
@@ -340,7 +340,7 @@
     <Component class="javax.swing.JButton" name="btn_janMaisAcessada4">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(3).getNome(), false)&#xd;&#xa;" type="code"/>
+          <Connection code="control.Janelas.abrirMaisAcessada(maisAcessadas.get(3).getNome(), false)&#xd;&#xa;" type="code"/>
         </Property>
       </Properties>
       <Events>
@@ -355,7 +355,7 @@
     <Component class="javax.swing.JButton" name="btn_janMaisAcessada5">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(4).getNome(), false)&#xd;&#xa;" type="code"/>
+          <Connection code="control.Janelas.abrirMaisAcessada(maisAcessadas.get(4).getNome(), false)&#xd;&#xa;" type="code"/>
         </Property>
       </Properties>
       <Events>
@@ -370,7 +370,7 @@
     <Component class="javax.swing.JButton" name="btn_janMaisAcessada6">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="control.SynchroSoft.abrirMaisAcessada(maisAcessadas.get(5).getNome(), false)&#xd;&#xa;" type="code"/>
+          <Connection code="control.Janelas.abrirMaisAcessada(maisAcessadas.get(5).getNome(), false)&#xd;&#xa;" type="code"/>
         </Property>
       </Properties>
       <Events>

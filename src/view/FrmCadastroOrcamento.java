@@ -107,17 +107,17 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel3.setText("Código do serviço:");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(20, 100, 190, 25);
+        jLabel3.setBounds(20, 100, 190, 24);
 
         jLabel8.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel8.setText("Mão de obra total:");
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(20, 140, 190, 25);
+        jLabel8.setBounds(20, 140, 190, 24);
 
         jLabel9.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel9.setText("Valor Total:");
         getContentPane().add(jLabel9);
-        jLabel9.setBounds(20, 450, 190, 25);
+        jLabel9.setBounds(20, 450, 190, 24);
 
         txtValorTotal.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtValorTotal.setFocusable(false);
@@ -456,7 +456,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtValorXQtdActionPerformed
 
     private void btnListarPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarPecaActionPerformed
-        control.SynchroSoft.abrirListagemProduto();
+        control.Janelas.abrirListagemProduto();
     }//GEN-LAST:event_btnListarPecaActionPerformed
 
     private void txtCodPecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodPecaKeyReleased

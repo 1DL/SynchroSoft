@@ -600,7 +600,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCepActionPerformed
-        control.SynchroSoft.abrirCadastroEndereco();
+        control.Janelas.abrirCadastroEndereco();
     }//GEN-LAST:event_btnCadastrarCepActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
@@ -643,7 +643,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnListarFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarFuncionariosActionPerformed
-        control.SynchroSoft.abrirListagemFuncionario();
+        control.Janelas.abrirListagemFuncionario();
     }//GEN-LAST:event_btnListarFuncionariosActionPerformed
 
     private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
@@ -688,8 +688,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtCompletoActionPerformed
 
     private void btnCadastrarPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarPessoaActionPerformed
-       FrmCadastroPessoa telaCadPessoa = new FrmCadastroPessoa(control.SynchroSoft.getNvlAdm());
-       telaCadPessoa.setVisible(true);
+       control.Janelas.abrirCadastroPessoa();
     }//GEN-LAST:event_btnCadastrarPessoaActionPerformed
 
     private void rbtMasculinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtMasculinoActionPerformed

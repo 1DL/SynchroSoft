@@ -42,8 +42,8 @@ public class LeitorArquivo {
             try {
                 while ((line = bufferedReader.readLine()) != null) {
                     Janelas jan = new Janelas(line.substring(0, 3), Integer.parseInt(line.substring(4)));
-                    SynchroSoft.acessoTelas.add(jan);
-                    System.out.println("" + SynchroSoft.acessoTelas.get(limiteJanelas).getNome() + " " + SynchroSoft.acessoTelas.get(limiteJanelas).getAcesso());
+                    Janelas.acessoTelas.add(jan);
+                    System.out.println("" + Janelas.acessoTelas.get(limiteJanelas).getNome() + " " + Janelas.acessoTelas.get(limiteJanelas).getAcesso());
                     limiteJanelas++;
                 }
             } catch (Exception ex) {
@@ -85,7 +85,7 @@ public class LeitorArquivo {
              */
             System.out.println("escrita");
             int limiteJanelas = 0;
-            for (Janelas jan : SynchroSoft.acessoTelas) {
+            for (Janelas jan : Janelas.acessoTelas) {
 
                 String linha = jan.getNome() + " " + jan.getAcesso();
                 bufferedWriter.write(linha);
@@ -116,7 +116,7 @@ public class LeitorArquivo {
         JOptionPane.showMessageDialog(null, "Arquivo 'acessojanelas.txt' corrompido. \n\n"
                 + "As janelas mais acessadas serão redefinidas para o padrão.");
         //Limpa o array controlador de acesso de telas.
-        SynchroSoft.acessoTelas.clear();
+        Janelas.acessoTelas.clear();
 
         /*
         Laço para re-construir o array controlador de acesso de telas.
@@ -129,10 +129,10 @@ public class LeitorArquivo {
         for (int i = 0; i < Janelas.qtdJanelas; i++) {
             if (i < 10) {
                 Janelas jan = new Janelas("J0" + i, 0);
-                SynchroSoft.acessoTelas.add(jan);
+                Janelas.acessoTelas.add(jan);
             } else {
                 Janelas jan = new Janelas("J" + i, 0);
-                SynchroSoft.acessoTelas.add(jan);
+                Janelas.acessoTelas.add(jan);
             }
         }
         escreverArquivo();
