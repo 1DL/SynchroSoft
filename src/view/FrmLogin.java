@@ -9,6 +9,7 @@ import control.TextSize;
 import dao.DaoUsuario;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 /**
  *
@@ -21,6 +22,18 @@ public class FrmLogin extends javax.swing.JFrame {
 //    FrmLogin telaLogin = new FrmLogin();
     
     public FrmLogin() {
+        try {
+            UIManager.setLookAndFeel(
+            UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         initComponents();
     }
     
@@ -308,6 +321,7 @@ public class FrmLogin extends javax.swing.JFrame {
         dao.Conexao.setUsername(txtp_usuarioDB.getText());
         dao.Conexao.setPassword(txtp_senhaDB.getText());
         dao.Conexao.setSid(txt_sid.getText());
+        this.dispose();
     }//GEN-LAST:event_btn_debugrunActionPerformed
 
     /**

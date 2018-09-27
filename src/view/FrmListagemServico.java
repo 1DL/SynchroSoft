@@ -139,7 +139,10 @@ public class FrmListagemServico extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Listar Serviços");
+        setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
+        setPreferredSize(new java.awt.Dimension(1152, 648));
+        setResizable(false);
         getContentPane().setLayout(null);
 
         txtDataAntes.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -254,7 +257,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(160, 30, 240, 33);
+        cmbFiltro.setBounds(160, 30, 240, 31);
 
         lblDescrever.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDescrever.setText("Descrição:");
@@ -291,7 +294,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cmbTipoServico);
-        cmbTipoServico.setBounds(180, 240, 170, 33);
+        cmbTipoServico.setBounds(180, 240, 170, 31);
 
         lblCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCep.setText("CEP:");
@@ -471,7 +474,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCadastrarPessoaJ);
-        btnCadastrarPessoaJ.setBounds(870, 320, 83, 23);
+        btnCadastrarPessoaJ.setBounds(870, 320, 81, 23);
 
         tblListagemServico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -659,9 +662,9 @@ public class FrmListagemServico extends javax.swing.JFrame {
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(lblBackground);
-        lblBackground.setBounds(0, 0, 1150, 650);
+        lblBackground.setBounds(0, 0, 1160, 650);
 
-        setSize(new java.awt.Dimension(1160, 675));
+        pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
