@@ -8,6 +8,9 @@ package view;
 import control.TextSize;
 import dao.DaoUsuario;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -22,6 +25,7 @@ public class FrmLogin extends javax.swing.JFrame {
 //    FrmLogin telaLogin = new FrmLogin();
     
     public FrmLogin() {
+        control.LeitorArquivo.lerArquivoConfiguracoes();
         try {
             UIManager.setLookAndFeel(
             UIManager.getSystemLookAndFeelClassName());
@@ -37,7 +41,7 @@ public class FrmLogin extends javax.swing.JFrame {
         initComponents();
     }
     
-    public void logar(){
+    public void logar() throws IOException{
         //Parametrizando dados do banco de dados ORACLE
         dao.Conexao.setServerName(txt_ipBanco.getText());
         dao.Conexao.setServerPort(txt_portaBanco.getText());
@@ -54,6 +58,15 @@ public class FrmLogin extends javax.swing.JFrame {
         {
             //Instanciando tela principal e chamando-a
             control.Janelas.abrirPrincipal();
+            //Salva os parâmetros de login
+            control.Opcoes.setLogin(txtLogin.getText());
+            control.Opcoes.setIp(txt_ipBanco.getText());
+            control.Opcoes.setPorta(txt_portaBanco.getText());
+            control.Opcoes.setSID(txt_sid.getText());
+            control.Opcoes.setUsuarioDB(txtp_usuarioDB.getText());
+            control.Opcoes.setSenhaDB(txtp_senhaDB.getText());
+            
+            control.LeitorArquivo.escreverArquivoConfiguracoes();
             
             //eliminando a tela de login da memória
             this.dispose();
@@ -120,6 +133,7 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel3.setBounds(230, 80, 53, 25);
 
         txtLogin.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtLogin.setText(control.Opcoes.getLogin());
         txtLogin.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtLoginKeyPressed(evt);
@@ -168,7 +182,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
         lbl_ip.setText("IP:");
 
-        txt_ipBanco.setText("127.0.0.1");
+        txt_ipBanco.setText(control.Opcoes.getIp());
         txt_ipBanco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_ipBancoActionPerformed(evt);
@@ -177,19 +191,19 @@ public class FrmLogin extends javax.swing.JFrame {
 
         lbl_porta.setText("Porta:");
 
-        txt_portaBanco.setText("1521");
+        txt_portaBanco.setText(control.Opcoes.getPorta());
 
         lbl_user.setText("Usuário:");
 
-        txtp_usuarioDB.setText("system");
+        txtp_usuarioDB.setText(control.Opcoes.getUsuarioDB());
 
         lbl_senhaDB.setText("Senha:");
 
-        txtp_senhaDB.setText("system");
+        txtp_senhaDB.setText(control.Opcoes.getSenhaDB());
 
         lbl_sid.setText("SID:");
 
-        txt_sid.setText("XE");
+        txt_sid.setText(control.Opcoes.getSID());
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -277,7 +291,11 @@ public class FrmLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnAcessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAcessoActionPerformed
-        logar();
+        try {
+            logar();
+        } catch (IOException ex) {
+            Logger.getLogger(FrmLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_BtnAcessoActionPerformed
 
     private void txtLoginKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLoginKeyReleased
@@ -290,19 +308,31 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private void txtLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLoginKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            logar();
+            try {
+                logar();
+            } catch (IOException ex) {
+                Logger.getLogger(FrmLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_txtLoginKeyPressed
 
     private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            logar();
+            try {
+                logar();
+            } catch (IOException ex) {
+                Logger.getLogger(FrmLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_txtPasswordKeyPressed
 
     private void BtnAcessoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnAcessoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            logar();
+            try {
+                logar();
+            } catch (IOException ex) {
+                Logger.getLogger(FrmLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_BtnAcessoKeyPressed
 

@@ -53,7 +53,7 @@ public class SynchroSoft {
 
     public static void main(String[] args) {
 
-        LeitorArquivo.lerArquivo();
+        LeitorArquivo.lerArquivoJanelas();
         Janelas.abrirLogin();
     }
 

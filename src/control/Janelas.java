@@ -71,42 +71,42 @@ public class Janelas {
         FrmCadastroServico telaCadServ = new FrmCadastroServico(SynchroSoft.getNvlAdm());
         telaCadServ.setVisible(true);
         acessoTelas.get(0).setAcesso(acessoTelas.get(0).getAcesso() + 1);
-        LeitorArquivo.escreverArquivo();
+        LeitorArquivo.escreverArquivoJanelas();
     }
 
     public static void abrirCadastroPessoa() {
         FrmCadastroPessoa telaCadPessoa = new FrmCadastroPessoa(SynchroSoft.getNvlAdm());
         telaCadPessoa.setVisible(true);
         acessoTelas.get(1).setAcesso(acessoTelas.get(1).getAcesso() + 1);
-        LeitorArquivo.escreverArquivo();
+        LeitorArquivo.escreverArquivoJanelas();
     }
 
     public static void abrirCadastroProduto() {
         FrmCadastroPeca telaCadProduto = new FrmCadastroPeca(SynchroSoft.getNvlAdm());
         telaCadProduto.setVisible(true);
         acessoTelas.get(2).setAcesso(acessoTelas.get(2).getAcesso() + 1);
-        LeitorArquivo.escreverArquivo();
+        LeitorArquivo.escreverArquivoJanelas();
     }
 
     public static void abrirCadastroFuncionário() {
         FrmCadastroFuncionario telaCadFunc = new FrmCadastroFuncionario(SynchroSoft.getNvlAdm());
         telaCadFunc.setVisible(true);
         acessoTelas.get(3).setAcesso(acessoTelas.get(3).getAcesso() + 1);
-        LeitorArquivo.escreverArquivo();
+        LeitorArquivo.escreverArquivoJanelas();
     }
 
     public static void abrirCadastroDespesa() {
         FrmCadastroDespesa telaCadDesp = new FrmCadastroDespesa(SynchroSoft.getNvlAdm());
         telaCadDesp.setVisible(true);
         acessoTelas.get(4).setAcesso(acessoTelas.get(4).getAcesso() + 1);
-        LeitorArquivo.escreverArquivo();
+        LeitorArquivo.escreverArquivoJanelas();
     }
 
     public static void abrirCadastroUsuario() {
         FrmCadastroUsuario telaCadUsuario = new FrmCadastroUsuario(SynchroSoft.getNvlAdm());
         telaCadUsuario.setVisible(true);
         acessoTelas.get(5).setAcesso(acessoTelas.get(5).getAcesso() + 1);
-        LeitorArquivo.escreverArquivo();
+        LeitorArquivo.escreverArquivoJanelas();
     }
 
     public static void abrirCadastroOrçamento() {
@@ -118,7 +118,7 @@ public class Janelas {
         FrmCadastroEndereco telaCadEnd = new FrmCadastroEndereco(SynchroSoft.getNvlAdm());
         telaCadEnd.setVisible(true);
         acessoTelas.get(6).setAcesso(acessoTelas.get(6).getAcesso() + 1);
-        LeitorArquivo.escreverArquivo();
+        LeitorArquivo.escreverArquivoJanelas();
     }
 
     //Telas de Listagem
@@ -126,49 +126,49 @@ public class Janelas {
         FrmListagemServico telaListaServ = new FrmListagemServico(SynchroSoft.getNvlAdm());
         telaListaServ.setVisible(true);
         acessoTelas.get(7).setAcesso(acessoTelas.get(7).getAcesso() + 1);
-        LeitorArquivo.escreverArquivo();
+        LeitorArquivo.escreverArquivoJanelas();
     }
 
     public static void abrirListagemPessoaFisica() {
         FrmListagemPessoaF telaListaPessoa = new FrmListagemPessoaF(SynchroSoft.getNvlAdm());
         telaListaPessoa.setVisible(true);
         acessoTelas.get(8).setAcesso(acessoTelas.get(8).getAcesso() + 1);
-        LeitorArquivo.escreverArquivo();
+        LeitorArquivo.escreverArquivoJanelas();
     }
 
     public static void abrirListagemPessoaJuridica() {
         FrmListagemPessoaJ telaListaPessoa = new FrmListagemPessoaJ(SynchroSoft.getNvlAdm());
         telaListaPessoa.setVisible(true);
         acessoTelas.get(9).setAcesso(acessoTelas.get(9).getAcesso() + 1);
-        LeitorArquivo.escreverArquivo();
+        LeitorArquivo.escreverArquivoJanelas();
     }
 
     public static void abrirListagemProduto() {
         FrmListagemPeca telaListaProduto = new FrmListagemPeca(SynchroSoft.getNvlAdm());
         telaListaProduto.setVisible(true);
         acessoTelas.get(10).setAcesso(acessoTelas.get(10).getAcesso() + 1);
-        LeitorArquivo.escreverArquivo();
+        LeitorArquivo.escreverArquivoJanelas();
     }
 
     public static void abrirListagemFuncionario() {
         FrmListagemFuncionario telaListaFunc = new FrmListagemFuncionario(SynchroSoft.getNvlAdm());
         telaListaFunc.setVisible(true);
         acessoTelas.get(11).setAcesso(acessoTelas.get(11).getAcesso() + 1);
-        LeitorArquivo.escreverArquivo();
+        LeitorArquivo.escreverArquivoJanelas();
     }
 
     public static void abrirListagemDespesa() {
         FrmListagemDespesa telaListaDesp = new FrmListagemDespesa(SynchroSoft.getNvlAdm());
         telaListaDesp.setVisible(true);
         acessoTelas.get(12).setAcesso(acessoTelas.get(12).getAcesso() + 1);
-        LeitorArquivo.escreverArquivo();
+        LeitorArquivo.escreverArquivoJanelas();
     }
 
     public static void abrirListagemUsuario() {
         FrmListagemUsuario telaListaUsuario = new FrmListagemUsuario(SynchroSoft.getNvlAdm());
         telaListaUsuario.setVisible(true);
         acessoTelas.get(13).setAcesso(acessoTelas.get(13).getAcesso() + 1);
-        LeitorArquivo.escreverArquivo();
+        LeitorArquivo.escreverArquivoJanelas();
     }
 
     public static void abrirListagemOrçamento() throws SQLException, ClassNotFoundException {
@@ -180,7 +180,7 @@ public class Janelas {
         FrmListagemEndereco telaListaEnd = new FrmListagemEndereco(SynchroSoft.getNvlAdm());
         telaListaEnd.setVisible(true);
         acessoTelas.get(14).setAcesso(acessoTelas.get(14).getAcesso() + 1);
-        LeitorArquivo.escreverArquivo();
+        LeitorArquivo.escreverArquivoJanelas();
     }
 
     //Telas de Vendas
@@ -188,20 +188,20 @@ public class Janelas {
         FrmVendaPeca telaVendaPeca = new FrmVendaPeca(SynchroSoft.getNvlAdm());
         telaVendaPeca.setVisible(true);
         acessoTelas.get(15).setAcesso(acessoTelas.get(15).getAcesso() + 1);
-        LeitorArquivo.escreverArquivo();
+        LeitorArquivo.escreverArquivoJanelas();
     }
 
     //Telas de Relatório
     public static void abrirRelatorioServico() {
         //Código pendente para relatorio
         acessoTelas.get(16).setAcesso(acessoTelas.get(16).getAcesso() + 1);
-        LeitorArquivo.escreverArquivo();
+        LeitorArquivo.escreverArquivoJanelas();
     }
 
     public static void abrirRelatorioDespesa() {
         //Código Pendente para relatório
         acessoTelas.get(17).setAcesso(acessoTelas.get(17).getAcesso() + 1);
-        LeitorArquivo.escreverArquivo();
+        LeitorArquivo.escreverArquivoJanelas();
     }
 
     //Telas de Ajuda

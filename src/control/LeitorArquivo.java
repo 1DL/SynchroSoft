@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class LeitorArquivo {
 
-    public static void lerArquivo() {
+    public static void lerArquivoJanelas() {
         //Nome do arquivo a ser acessado, presente na pasta raíz do projeto.
         String fileName = "acessojanelas.txt";
         //Variável que receberá os dados de uma linha inteira do arquivo de texto.
@@ -68,7 +68,100 @@ public class LeitorArquivo {
         }
     }
 
-    public static void escreverArquivo() {
+    public static void lerArquivoConfiguracoes() {
+        String fileName = "configuracoes.txt";
+        String line = null;
+        try {
+            FileReader fileReader = new FileReader(fileName);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            System.out.println("Leitura Configurações");
+
+            /*
+            Limite de Configuracao é uma variável flag para contar as linhas do arquivo de texto.
+            Ela representa quantas opções de configuração o sistema possui atualmente, por isso deve ser
+            igual a quantidade de dados de configuração que o sistema possui. Caso seja diferente,
+            chama o metodo que reseta o arquivo reconstruindo para as configurações padrão.
+            linha irá receber o conteudo atual da linha do arquivo sendo lido.
+            Opcao irá receber somente o texto que equivale a opcao da linha.
+             */
+            int limiteConfiguracao = 0;
+            String linha;
+            String opcao;
+
+            /*
+            Laço que percorre todas as linhas do arquivo de texto.
+            Enquanto a linha não for nula, continua avançando
+            das linhas de cima para baixo do arquivo de texto.
+             */
+            try {
+                while ((line = bufferedReader.readLine()) != null) {
+                    /*Switch Case para determinar qual é a opção para ser armazenada no sistema.
+                    É feito um processamento com substring para remover todo o texto da linha
+                    até encontrar um caractere "=". Também remove o sinal de igual.
+                    Logo em seguida, o trim é chamado para remover qualquer espaço em branco.
+                     */
+                    switch (limiteConfiguracao) {
+                        case 0:
+                            linha = line;
+                            opcao = linha.substring(linha.indexOf("=") + 1);
+                            opcao.trim();
+                            Opcoes.setLogin(opcao);
+                            break;
+                        case 1:
+                            linha = line;
+                            opcao = linha.substring(linha.indexOf("=") + 1);
+                            opcao.trim();
+                            Opcoes.setIp(opcao);
+                            break;
+                        case 2:
+                            linha = line;
+                            opcao = linha.substring(linha.indexOf("=") + 1);
+                            opcao.trim();
+                            Opcoes.setPorta(opcao);
+                            break;
+                        case 3:
+                            linha = line;
+                            opcao = linha.substring(linha.indexOf("=") + 1);
+                            opcao.trim();
+                            Opcoes.setSID(opcao);
+                            break;
+                        case 4:
+                            linha = line;
+                            opcao = linha.substring(linha.indexOf("=") + 1);
+                            opcao.trim();
+                            Opcoes.setUsuarioDB(opcao);
+                            break;
+                        case 5:
+                            linha = line;
+                            opcao = linha.substring(linha.indexOf("=") + 1);
+                            opcao.trim();
+                            Opcoes.setSenhaDB(opcao);
+                            break;                            
+                    }
+
+                    limiteConfiguracao++;
+                }
+            } catch (Exception ex) {
+                resetarConfiguracoes();
+            }
+            
+            if (limiteConfiguracao != Opcoes.qtdOpcoes) {
+                resetarConfiguracoes();
+            }
+            
+            bufferedReader.close();
+
+        } catch (FileNotFoundException ex) {
+            System.out.println("Não foi possível abrir o arquivo '" + fileName + "'");
+        } catch (IOException ex) {
+            System.out.println("Erro ao ler o arquivo '" + fileName + "'");
+            // Or we could just do this: 
+            // ex.printStackTrace();
+        }
+    }
+
+    public static void escreverArquivoJanelas() {
 
         String fileName = "acessojanelas.txt";
 
@@ -96,6 +189,63 @@ public class LeitorArquivo {
             }
             if (limiteJanelas != Janelas.qtdJanelas) {
                 resetarAcessoJanelas();
+            }
+
+            bufferedWriter.close();
+        } catch (IOException ex) {
+            System.out.println("Erro ao escrever no arquivo '" + fileName + "'");
+            // Or we could just do this:
+            // ex.printStackTrace();
+        }
+    }
+    
+    public static void escreverArquivoConfiguracoes() throws IOException {
+
+        String fileName = "configuracoes.txt";
+
+        try {
+
+            FileWriter fileWriter = new FileWriter(fileName);
+
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            System.out.println("escrita configuracoes");
+            int limiteConfiguracao = 0;
+            String linha;
+            
+
+                linha = "Login="+Opcoes.getLogin();
+                bufferedWriter.write(linha);
+                bufferedWriter.newLine();
+                limiteConfiguracao++;
+                linha = "IP="+Opcoes.getIp();
+                bufferedWriter.write(linha);
+                bufferedWriter.newLine();
+                limiteConfiguracao++;
+                linha = "Porta="+Opcoes.getPorta();
+                bufferedWriter.write(linha);
+                bufferedWriter.newLine();
+                limiteConfiguracao++;
+                linha = "SID="+Opcoes.getSID();
+                bufferedWriter.write(linha);
+                bufferedWriter.newLine();
+                limiteConfiguracao++;
+                linha = "UsuárioDB="+Opcoes.getUsuarioDB();
+                bufferedWriter.write(linha);
+                bufferedWriter.newLine();
+                limiteConfiguracao++;
+                linha = "SenhaDB="+Opcoes.getSenhaDB();
+                bufferedWriter.write(linha);
+                bufferedWriter.newLine();
+                limiteConfiguracao++;
+                
+                
+                
+                System.out.println(linha);
+                
+            
+            if (limiteConfiguracao != Opcoes.qtdOpcoes) {
+                resetarConfiguracoes();
             }
 
             bufferedWriter.close();
@@ -135,6 +285,16 @@ public class LeitorArquivo {
                 Janelas.acessoTelas.add(jan);
             }
         }
-        escreverArquivo();
+        escreverArquivoJanelas();
+    }
+    
+    public static void resetarConfiguracoes() throws IOException{
+        Opcoes.setLogin("");
+        Opcoes.setIp("127.0.0.1");
+        Opcoes.setPorta("1521");
+        Opcoes.setSID("XE");
+        Opcoes.setUsuarioDB("system");
+        Opcoes.setSenhaDB("system");
+        escreverArquivoConfiguracoes();
     }
 }
