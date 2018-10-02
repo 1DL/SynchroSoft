@@ -6,6 +6,7 @@
 package control;
 
 import java.awt.Frame;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -56,7 +57,7 @@ public class Janelas {
     
     
     //Métodos para chamada de telas. Telas de Sistema
-    public static void abrirLogin() {
+    public static void abrirLogin() throws IOException {
         FrmLogin telaLogin = new FrmLogin();
         telaLogin.setVisible(true);
     }

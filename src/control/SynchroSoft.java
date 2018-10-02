@@ -13,6 +13,7 @@ import view.FrmListagemPeca;
 import view.FrmPrincipal;
 import dao.DaoPeca;
 import java.awt.Frame;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import view.FrmCadastroDespesa;
@@ -51,7 +52,7 @@ public class SynchroSoft {
 
     
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         LeitorArquivo.lerArquivoJanelas();
         Janelas.abrirLogin();

@@ -61,6 +61,7 @@ public class LeitorArquivo {
 
         } catch (FileNotFoundException ex) {
             System.out.println("Não foi possível abrir o arquivo '" + fileName + "'");
+            escreverArquivoJanelas();
         } catch (IOException ex) {
             System.out.println("Erro ao ler o arquivo '" + fileName + "'");
             // Or we could just do this: 
@@ -68,7 +69,7 @@ public class LeitorArquivo {
         }
     }
 
-    public static void lerArquivoConfiguracoes() {
+    public static void lerArquivoConfiguracoes() throws IOException {
         String fileName = "configuracoes.txt";
         String line = null;
         try {
@@ -154,6 +155,7 @@ public class LeitorArquivo {
 
         } catch (FileNotFoundException ex) {
             System.out.println("Não foi possível abrir o arquivo '" + fileName + "'");
+            resetarConfiguracoes();
         } catch (IOException ex) {
             System.out.println("Erro ao ler o arquivo '" + fileName + "'");
             // Or we could just do this: 
@@ -263,7 +265,7 @@ public class LeitorArquivo {
      */
     public static void resetarAcessoJanelas() {
 
-        JOptionPane.showMessageDialog(null, "Arquivo 'acessojanelas.txt' corrompido. \n\n"
+        JOptionPane.showMessageDialog(null, "Arquivo 'acessojanelas.txt' corrompido ou não foi encontrado. \n\n"
                 + "As janelas mais acessadas serão redefinidas para o padrão.");
         //Limpa o array controlador de acesso de telas.
         Janelas.acessoTelas.clear();
@@ -289,6 +291,8 @@ public class LeitorArquivo {
     }
     
     public static void resetarConfiguracoes() throws IOException{
+        JOptionPane.showMessageDialog(null, "Arquivo 'configuracoes.txt' corrompido ou não foi encontrado. \n\n"
+                + "As configuracões serão redefinidas para o padrão.");
         Opcoes.setLogin("");
         Opcoes.setIp("127.0.0.1");
         Opcoes.setPorta("1521");

@@ -7,6 +7,7 @@ package view;
 
 import control.Janelas;
 import java.awt.Frame;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -423,7 +424,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
             control.SynchroSoft.setNvlAdm(99);
             control.SynchroSoft.setNomeUsuario("Deslogado");
             Janelas.fecharTodasJanelas();
-            control.Janelas.abrirLogin();
+            try {
+                control.Janelas.abrirLogin();
+            } catch (IOException ex) {
+                Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_menu_logoffActionPerformed
 

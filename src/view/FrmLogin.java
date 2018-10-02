@@ -24,7 +24,7 @@ public class FrmLogin extends javax.swing.JFrame {
 //    FrmPrincipal principal = new FrmPrincipal();
 //    FrmLogin telaLogin = new FrmLogin();
     
-    public FrmLogin() {
+    public FrmLogin() throws IOException {
         control.LeitorArquivo.lerArquivoConfiguracoes();
         try {
             UIManager.setLookAndFeel(
@@ -385,7 +385,11 @@ public class FrmLogin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmLogin().setVisible(true);
+                try {
+                    new FrmLogin().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(FrmLogin.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
