@@ -266,7 +266,7 @@ public class LeitorArquivo {
     public static void resetarAcessoJanelas() {
 
         JOptionPane.showMessageDialog(null, "Arquivo 'acessojanelas.txt' corrompido ou não foi encontrado. \n\n"
-                + "As janelas mais acessadas serão redefinidas para o padrão.");
+                + "O arquivo será reconstruído, e as janelas mais acessadas serão redefinidas para valores padrões.");
         //Limpa o array controlador de acesso de telas.
         Janelas.acessoTelas.clear();
 
@@ -292,7 +292,7 @@ public class LeitorArquivo {
     
     public static void resetarConfiguracoes() throws IOException{
         JOptionPane.showMessageDialog(null, "Arquivo 'configuracoes.txt' corrompido ou não foi encontrado. \n\n"
-                + "As configuracões serão redefinidas para o padrão.");
+                + "O arquivo será reconstruído, e as configuracões serão redefinidas para valores padrãoes.");
         Opcoes.setLogin("");
         Opcoes.setIp("127.0.0.1");
         Opcoes.setPorta("1521");
