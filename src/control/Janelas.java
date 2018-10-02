@@ -52,6 +52,16 @@ public class Janelas {
     public static void fecharTodasJanelas(){
         for (Frame fr : Frame.getFrames()) {
                 fr.dispose();
+                fr = null;
+            }
+    }
+    
+    public static void focarPrincipal(){
+        for (Frame fr : Frame.getFrames()) {
+                if (fr.getClass().getName().equals("view.FrmPrincipal")) {
+                    fr.setVisible(true);
+                    fr.requestFocus();
+                }
             }
     }
     

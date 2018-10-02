@@ -43,6 +43,9 @@
             <MenuItem class="javax.swing.JMenuItem" name="menu_os">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ordem de Servi&#xe7;o"/>
+                <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="control.SynchroSoft.isAcesso()" type="code"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menu_osActionPerformed"/>
@@ -51,6 +54,9 @@
             <MenuItem class="javax.swing.JMenuItem" name="menu_pessoa">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pessoa F&#xed;sica ou Jur&#xed;dica"/>
+                <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="control.SynchroSoft.isAcesso()" type="code"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menu_pessoaActionPerformed"/>
@@ -59,6 +65,9 @@
             <MenuItem class="javax.swing.JMenuItem" name="menu_produto">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Produto"/>
+                <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="control.SynchroSoft.isAcesso()" type="code"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menu_produtoActionPerformed"/>
@@ -67,6 +76,9 @@
             <MenuItem class="javax.swing.JMenuItem" name="menu_funcionario">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Funcion&#xe1;rio"/>
+                <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="control.SynchroSoft.isAcesso()" type="code"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menu_funcionarioActionPerformed"/>
@@ -75,6 +87,9 @@
             <MenuItem class="javax.swing.JMenuItem" name="menu_despesa">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Despesa"/>
+                <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="control.SynchroSoft.isAcesso()" type="code"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menu_despesaActionPerformed"/>
@@ -83,6 +98,9 @@
             <MenuItem class="javax.swing.JMenuItem" name="menu_usuario">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Usu&#xe1;rio"/>
+                <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="control.SynchroSoft.isAcesso()" type="code"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menu_usuarioActionPerformed"/>
@@ -91,6 +109,9 @@
             <MenuItem class="javax.swing.JMenuItem" name="menu_endereco">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Endere&#xe7;o"/>
+                <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="control.SynchroSoft.isAcesso()" type="code"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menu_enderecoActionPerformed"/>

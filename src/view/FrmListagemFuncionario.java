@@ -138,7 +138,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(360, 60, 107, 32);
+        cmbFiltro.setBounds(360, 60, 107, 33);
 
         txtPesquisa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -160,7 +160,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         lblDescrever.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDescrever.setText("Descrição:");
         getContentPane().add(lblDescrever);
-        lblDescrever.setBounds(520, 50, 85, 30);
+        lblDescrever.setBounds(520, 50, 83, 30);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(jLabel1);

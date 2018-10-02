@@ -37,15 +37,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         definirMaisAcessadas();
         initComponents();
         this.setTitle("Menu Principal - " + control.SynchroSoft.getNomeUsuario() + " - " + control.SynchroSoft.getCodFunc() + " - " + control.SynchroSoft.getNvlAdm());
-        if (control.SynchroSoft.getNvlAdm() == 0) {
-            menu_cadastro.setEnabled(false);
-
-        }
-
-
-        
-        
-        
     }
 
     /**
@@ -120,7 +111,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(950, 470, 73, 23);
+        jButton1.setBounds(950, 470, 75, 23);
 
         btn_janMaisAcessada1.setText(control.Janelas.abrirMaisAcessada(maisAcessadas.get(0).getNome(), false)
         );
@@ -217,6 +208,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menu_cadastro.setText("Cadastro");
 
         menu_os.setText("Ordem de Serviço");
+        menu_os.setEnabled(control.SynchroSoft.isAcesso());
         menu_os.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_osActionPerformed(evt);
@@ -225,6 +217,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menu_cadastro.add(menu_os);
 
         menu_pessoa.setText("Pessoa Física ou Jurídica");
+        menu_pessoa.setEnabled(control.SynchroSoft.isAcesso());
         menu_pessoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_pessoaActionPerformed(evt);
@@ -233,6 +226,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menu_cadastro.add(menu_pessoa);
 
         menu_produto.setText("Produto");
+        menu_produto.setEnabled(control.SynchroSoft.isAcesso());
         menu_produto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_produtoActionPerformed(evt);
@@ -241,6 +235,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menu_cadastro.add(menu_produto);
 
         menu_funcionario.setText("Funcionário");
+        menu_funcionario.setEnabled(control.SynchroSoft.isAcesso());
         menu_funcionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_funcionarioActionPerformed(evt);
@@ -249,6 +244,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menu_cadastro.add(menu_funcionario);
 
         menu_despesa.setText("Despesa");
+        menu_despesa.setEnabled(control.SynchroSoft.isAcesso());
         menu_despesa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_despesaActionPerformed(evt);
@@ -257,6 +253,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menu_cadastro.add(menu_despesa);
 
         menu_usuario.setText("Usuário");
+        menu_usuario.setEnabled(control.SynchroSoft.isAcesso());
         menu_usuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_usuarioActionPerformed(evt);
@@ -265,6 +262,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menu_cadastro.add(menu_usuario);
 
         menu_endereco.setText("Endereço");
+        menu_endereco.setEnabled(control.SynchroSoft.isAcesso());
         menu_endereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_enderecoActionPerformed(evt);
@@ -423,7 +421,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             control.SynchroSoft.setCodFunc(0);
             control.SynchroSoft.setNvlAdm(99);
             control.SynchroSoft.setNomeUsuario("Deslogado");
-            Janelas.fecharTodasJanelas();
+            control.Janelas.fecharTodasJanelas();
             try {
                 control.Janelas.abrirLogin();
             } catch (IOException ex) {
@@ -489,12 +487,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menu_vendaPecaActionPerformed
 
     private void menu_sairSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_sairSistemaActionPerformed
-        int aux;
-        aux = JOptionPane.showConfirmDialog(null, "Deseja realmente sair do sistema?\n"
-                + "\nAviso! Todas as janelas serão fechadas e os dados não salvos serão perdidos.", "Sair do Sistema", JOptionPane.YES_NO_OPTION);
-        if (aux == 0) {
-            System.exit(0);
-        }
+        control.SynchroSoft.sairDoSistema();
     }//GEN-LAST:event_menu_sairSistemaActionPerformed
 
     private void menu_fecharJanelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_fecharJanelasActionPerformed
@@ -502,7 +495,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         aux = JOptionPane.showConfirmDialog(null, "Deseja realmente fechar todas as janelas?\n"
                 + "\nAviso! Todos os dados não salvos serão perdidos.", "Fechar Janelas", JOptionPane.YES_NO_OPTION);
         if (aux == 0) {
-            Janelas.fecharTodasJanelas();
+            control.Janelas.fecharTodasJanelas();
 
             control.Janelas.abrirPrincipal();
         }
@@ -536,6 +529,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         control.Janelas.abrirMaisAcessada(maisAcessadas.get(5).getNome(), true);
     }//GEN-LAST:event_btn_janMaisAcessada6ActionPerformed
 
+    
+    
     private void definirMaisAcessadas(){
         Collections.sort(maisAcessadas, new Comparator<Janelas>() {
             @Override

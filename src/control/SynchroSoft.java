@@ -49,6 +49,7 @@ public class SynchroSoft {
     private static String nomeUsuario = "Teste";
     private static int codFunc = 0;
     private static int nvlAdm = 1;
+    private static boolean acesso = false;
 
     
 
@@ -56,6 +57,15 @@ public class SynchroSoft {
 
         LeitorArquivo.lerArquivoJanelas();
         Janelas.abrirLogin();
+    }
+    
+    public static void sairDoSistema(){
+        int aux;
+        aux = JOptionPane.showConfirmDialog(null, "Deseja realmente sair do sistema?\n"
+                + "\nAviso! Todas as janelas serão fechadas e os dados não salvos serão perdidos.", "Sair do Sistema", JOptionPane.YES_NO_OPTION);
+        if (aux == 0) {
+            System.exit(0);
+        }
     }
 
 
@@ -87,4 +97,17 @@ public class SynchroSoft {
         nvlAdm = aNvlAdm;
     }
 
+    public static boolean isAcesso() {
+        return acesso;
+    }
+
+    public static void setAcesso() {
+        if (nvlAdm == 0) {
+            acesso = false;
+        } else if (nvlAdm == 1) {
+            acesso = true;
+        }
+    }
+
+    
 }

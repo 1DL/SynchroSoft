@@ -5,9 +5,11 @@
  */
 package view;
 
+import control.Janelas;
 import control.TextSize;
 import dao.DaoEndereco;
 import dao.DaoPeca;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,8 +41,10 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblTituloJanela = new javax.swing.JLabel();
+        btnMenuPrincipal = new javax.swing.JButton();
+        btnFecharFrame = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
+        btnListarEndereco = new javax.swing.JButton();
         lblCep = new javax.swing.JLabel();
         txtCep = new javax.swing.JTextField();
         txtLogradouro = new javax.swing.JTextField();
@@ -50,25 +54,72 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         lblEstado = new javax.swing.JLabel();
         btnLimpar = new javax.swing.JButton();
         btnCadastrar = new javax.swing.JButton();
-        btnMenuPrincipal = new javax.swing.JButton();
-        btnListarEndereco = new javax.swing.JButton();
-        btnFecharFrame = new javax.swing.JButton();
         cmbEstado = new javax.swing.JComboBox<>();
         Bairro = new javax.swing.JLabel();
         txtBairro = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        menu = new javax.swing.JMenuBar();
+        menu_sistema = new javax.swing.JMenu();
+        menu_logoff = new javax.swing.JMenuItem();
+        menu_fecharJanelas = new javax.swing.JMenuItem();
+        menu_sairSistema = new javax.swing.JMenuItem();
+        menu_cadastro = new javax.swing.JMenu();
+        menu_os = new javax.swing.JMenuItem();
+        menu_pessoa = new javax.swing.JMenuItem();
+        menu_produto = new javax.swing.JMenuItem();
+        menu_funcionario = new javax.swing.JMenuItem();
+        menu_despesa = new javax.swing.JMenuItem();
+        menu_usuario = new javax.swing.JMenuItem();
+        menu_endereco = new javax.swing.JMenuItem();
+        menu_listagem = new javax.swing.JMenu();
+        menu_listaOrdemServico = new javax.swing.JMenuItem();
+        menu_listaPessoaF = new javax.swing.JMenuItem();
+        menu_listaPessoaJ = new javax.swing.JMenuItem();
+        menu_listaProduto = new javax.swing.JMenuItem();
+        menu_listaFuncionario = new javax.swing.JMenuItem();
+        menu_listaDespesa = new javax.swing.JMenuItem();
+        menu_listaUsuario = new javax.swing.JMenuItem();
+        menu_listaEndereco = new javax.swing.JMenuItem();
+        menu_vendas = new javax.swing.JMenu();
+        menu_vendaPeca = new javax.swing.JMenuItem();
+        menu_relatorio = new javax.swing.JMenu();
+        menu_relatorioOS = new javax.swing.JMenuItem();
+        menu_relatorioDespesa = new javax.swing.JMenuItem();
+        menu_ajuda = new javax.swing.JMenu();
+        menu_sobre = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Endereço");
-        setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
 
-        lblTituloJanela.setText("TITULO JANELA");
-        getContentPane().add(lblTituloJanela);
-        lblTituloJanela.setBounds(556, 11, 76, 14);
+        btnMenuPrincipal.setText("Menu Principal");
+        btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuPrincipalActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMenuPrincipal);
+        btnMenuPrincipal.setBounds(890, 540, 130, 30);
 
+        btnFecharFrame.setText("Fechar ");
+        btnFecharFrame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharFrameActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnFecharFrame);
+        btnFecharFrame.setBounds(1050, 540, 80, 30);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setOpaque(false);
+
+        btnListarEndereco.setText("Listar Endereços Cadastrados");
+        btnListarEndereco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarEnderecoActionPerformed(evt);
+            }
+        });
 
         lblCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCep.setText("CEP");
@@ -109,23 +160,6 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
             }
         });
 
-        btnMenuPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo pequeno.png"))); // NOI18N
-        btnMenuPrincipal.setText("Menu Principal");
-
-        btnListarEndereco.setText("Listar Endereços Cadastrados");
-        btnListarEndereco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListarEnderecoActionPerformed(evt);
-            }
-        });
-
-        btnFecharFrame.setText("Fechar ");
-        btnFecharFrame.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFecharFrameActionPerformed(evt);
-            }
-        });
-
         cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
 
         Bairro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -141,123 +175,437 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnLimpar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(122, 122, 122)
-                .addComponent(btnMenuPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(457, 457, 457))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(Bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblCep, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(Bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(62, 62, 62)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblQuantidadePeca, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnListarEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnFecharFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblQuantidadePeca, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblCep, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62)
+                        .addComponent(lblEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addComponent(btnListarEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCep)
-                    .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEstado)
-                    .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblLogradouro)
-                    .addComponent(txtLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblQuantidadePeca)
-                    .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Bairro)
-                    .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
-                        .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnListarEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52)
-                        .addComponent(btnFecharFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnMenuPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42))
+                    .addComponent(lblEstado)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnListarEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblCep)
+                            .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblLogradouro)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblQuantidadePeca)
+                        .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(txtLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(Bairro))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(85, 85, 85))
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(28, 36, 1065, 598);
+        jPanel1.setBounds(28, 36, 1100, 200);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 1150, 650);
 
+        menu_sistema.setText("Sistema");
+
+        menu_logoff.setText("Fazer Log-off");
+        menu_logoff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_logoffActionPerformed(evt);
+            }
+        });
+        menu_sistema.add(menu_logoff);
+
+        menu_fecharJanelas.setText("Fechar todas as janelas");
+        menu_fecharJanelas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_fecharJanelasActionPerformed(evt);
+            }
+        });
+        menu_sistema.add(menu_fecharJanelas);
+
+        menu_sairSistema.setText("Sair do sistema");
+        menu_sairSistema.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_sairSistemaActionPerformed(evt);
+            }
+        });
+        menu_sistema.add(menu_sairSistema);
+
+        menu.add(menu_sistema);
+
+        menu_cadastro.setText("Cadastro");
+
+        menu_os.setText("Ordem de Serviço");
+        menu_os.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_osActionPerformed(evt);
+            }
+        });
+        menu_cadastro.add(menu_os);
+
+        menu_pessoa.setText("Pessoa Física ou Jurídica");
+        menu_pessoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_pessoaActionPerformed(evt);
+            }
+        });
+        menu_cadastro.add(menu_pessoa);
+
+        menu_produto.setText("Produto");
+        menu_produto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_produtoActionPerformed(evt);
+            }
+        });
+        menu_cadastro.add(menu_produto);
+
+        menu_funcionario.setText("Funcionário");
+        menu_funcionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_funcionarioActionPerformed(evt);
+            }
+        });
+        menu_cadastro.add(menu_funcionario);
+
+        menu_despesa.setText("Despesa");
+        menu_despesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_despesaActionPerformed(evt);
+            }
+        });
+        menu_cadastro.add(menu_despesa);
+
+        menu_usuario.setText("Usuário");
+        menu_usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_usuarioActionPerformed(evt);
+            }
+        });
+        menu_cadastro.add(menu_usuario);
+
+        menu_endereco.setText("Endereço");
+        menu_endereco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_enderecoActionPerformed(evt);
+            }
+        });
+        menu_cadastro.add(menu_endereco);
+
+        menu.add(menu_cadastro);
+
+        menu_listagem.setText("Listagem");
+
+        menu_listaOrdemServico.setText("Ordem de Serviço");
+        menu_listaOrdemServico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_listaOrdemServicoActionPerformed(evt);
+            }
+        });
+        menu_listagem.add(menu_listaOrdemServico);
+
+        menu_listaPessoaF.setText("Pessoa Física");
+        menu_listaPessoaF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_listaPessoaFActionPerformed(evt);
+            }
+        });
+        menu_listagem.add(menu_listaPessoaF);
+
+        menu_listaPessoaJ.setText("Pessoa Jurídica");
+        menu_listaPessoaJ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_listaPessoaJActionPerformed(evt);
+            }
+        });
+        menu_listagem.add(menu_listaPessoaJ);
+
+        menu_listaProduto.setText("Produto");
+        menu_listaProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_listaProdutoActionPerformed(evt);
+            }
+        });
+        menu_listagem.add(menu_listaProduto);
+
+        menu_listaFuncionario.setText("Funcionário");
+        menu_listaFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_listaFuncionarioActionPerformed(evt);
+            }
+        });
+        menu_listagem.add(menu_listaFuncionario);
+
+        menu_listaDespesa.setText("Despesa");
+        menu_listaDespesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_listaDespesaActionPerformed(evt);
+            }
+        });
+        menu_listagem.add(menu_listaDespesa);
+
+        menu_listaUsuario.setText("Usuário");
+        menu_listaUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_listaUsuarioActionPerformed(evt);
+            }
+        });
+        menu_listagem.add(menu_listaUsuario);
+
+        menu_listaEndereco.setText("Endereço");
+        menu_listaEndereco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_listaEnderecoActionPerformed(evt);
+            }
+        });
+        menu_listagem.add(menu_listaEndereco);
+
+        menu.add(menu_listagem);
+
+        menu_vendas.setText("Vendas");
+
+        menu_vendaPeca.setText("Peças e Produtos");
+        menu_vendaPeca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_vendaPecaActionPerformed(evt);
+            }
+        });
+        menu_vendas.add(menu_vendaPeca);
+
+        menu.add(menu_vendas);
+
+        menu_relatorio.setText("Relatórios");
+
+        menu_relatorioOS.setText("Ordens de Serviço");
+        menu_relatorioOS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_relatorioOSActionPerformed(evt);
+            }
+        });
+        menu_relatorio.add(menu_relatorioOS);
+
+        menu_relatorioDespesa.setText("Despesas");
+        menu_relatorio.add(menu_relatorioDespesa);
+
+        menu.add(menu_relatorio);
+
+        menu_ajuda.setText("Ajuda");
+
+        menu_sobre.setText("Sobre");
+        menu_sobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_sobreActionPerformed(evt);
+            }
+        });
+        menu_ajuda.add(menu_sobre);
+
+        menu.add(menu_ajuda);
+
+        setJMenuBar(menu);
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        DaoEndereco dao = new DaoEndereco();
-        Endereco end = new Endereco (txtCep.getText(), txtLogradouro.getText(), txtBairro.getText(), txtCidade.getText(), (String) cmbEstado.getSelectedItem());
-        JOptionPane.showMessageDialog(null, "Valor CMB UF "+ end.getEstado());
-        try{
-        dao.cadastrarEndereco(end.getCep(), end.getLogradouro(), end.getBairro(), end.getCidade(), end.getEstado());
-        JOptionPane.showMessageDialog(rootPane, "Cadastrado!");
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Endereço. "+ex.getMessage());
-        }
-    }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnListarEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarEnderecoActionPerformed
         control.Janelas.abrirListagemEndereco();
     }//GEN-LAST:event_btnListarEnderecoActionPerformed
 
     private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
-    this.dispose();
+        this.dispose();
     }//GEN-LAST:event_btnFecharFrameActionPerformed
 
-    private void txtCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyReleased
-        txtCep.setText(TextSize.maxLenghtCep(txtCep.getText()));
-    }//GEN-LAST:event_txtCepKeyReleased
+    private void txtBairroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBairroKeyReleased
+        txtBairro.setText(TextSize.maxLenghtBairro(txtBairro.getText()));
+    }//GEN-LAST:event_txtBairroKeyReleased
 
-    private void txtLogradouroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLogradouroKeyReleased
-        txtLogradouro.setText(TextSize.maxLenghtLogradouro(txtLogradouro.getText()));
-    }//GEN-LAST:event_txtLogradouroKeyReleased
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        DaoEndereco dao = new DaoEndereco();
+        Endereco end = new Endereco (txtCep.getText(), txtLogradouro.getText(), txtBairro.getText(), txtCidade.getText(), (String) cmbEstado.getSelectedItem());
+        JOptionPane.showMessageDialog(null, "Valor CMB UF "+ end.getEstado());
+        try{
+            dao.cadastrarEndereco(end.getCep(), end.getLogradouro(), end.getBairro(), end.getCidade(), end.getEstado());
+            JOptionPane.showMessageDialog(rootPane, "Cadastrado!");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Endereço. "+ex.getMessage());
+        }
+    }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void txtCidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCidadeKeyReleased
         txtCidade.setText(TextSize.maxLenghtCidade(txtCidade.getText()));
     }//GEN-LAST:event_txtCidadeKeyReleased
 
-    private void txtBairroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBairroKeyReleased
-       txtBairro.setText(TextSize.maxLenghtBairro(txtBairro.getText()));
-    }//GEN-LAST:event_txtBairroKeyReleased
+    private void txtLogradouroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLogradouroKeyReleased
+        txtLogradouro.setText(TextSize.maxLenghtLogradouro(txtLogradouro.getText()));
+    }//GEN-LAST:event_txtLogradouroKeyReleased
 
+    private void txtCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyReleased
+        txtCep.setText(TextSize.maxLenghtCep(txtCep.getText()));
+    }//GEN-LAST:event_txtCepKeyReleased
+
+    private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
+        control.Janelas.focarPrincipal();
+    }//GEN-LAST:event_btnMenuPrincipalActionPerformed
+
+    private void menu_logoffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_logoffActionPerformed
+        int aux;
+        aux = JOptionPane.showConfirmDialog(null, "Deseja realmente fazer o log-off?", "Log-off", JOptionPane.YES_NO_OPTION);
+        if (aux == 0) {
+            this.dispose();
+            control.SynchroSoft.setCodFunc(0);
+            control.SynchroSoft.setNvlAdm(99);
+            control.SynchroSoft.setNomeUsuario("Deslogado");
+            control.Janelas.fecharTodasJanelas();
+            try {
+                control.Janelas.abrirLogin();
+            } catch (IOException ex) {
+                Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_menu_logoffActionPerformed
+
+    private void menu_fecharJanelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_fecharJanelasActionPerformed
+        int aux;
+        aux = JOptionPane.showConfirmDialog(null, "Deseja realmente fechar todas as janelas?\n"
+            + "\nAviso! Todos os dados não salvos serão perdidos.", "Fechar Janelas", JOptionPane.YES_NO_OPTION);
+        if (aux == 0) {
+            control.Janelas.fecharTodasJanelas();
+
+            control.Janelas.abrirPrincipal();
+        }
+    }//GEN-LAST:event_menu_fecharJanelasActionPerformed
+
+    private void menu_sairSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_sairSistemaActionPerformed
+        control.SynchroSoft.sairDoSistema();
+    }//GEN-LAST:event_menu_sairSistemaActionPerformed
+
+    private void menu_osActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_osActionPerformed
+        control.Janelas.abrirCadastroServico();
+    }//GEN-LAST:event_menu_osActionPerformed
+
+    private void menu_pessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_pessoaActionPerformed
+        control.Janelas.abrirCadastroPessoa();
+    }//GEN-LAST:event_menu_pessoaActionPerformed
+
+    private void menu_produtoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_produtoActionPerformed
+        control.Janelas.abrirCadastroProduto();
+    }//GEN-LAST:event_menu_produtoActionPerformed
+
+    private void menu_funcionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_funcionarioActionPerformed
+        control.Janelas.abrirCadastroFuncionário();
+    }//GEN-LAST:event_menu_funcionarioActionPerformed
+
+    private void menu_despesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_despesaActionPerformed
+        control.Janelas.abrirCadastroDespesa();
+    }//GEN-LAST:event_menu_despesaActionPerformed
+
+    private void menu_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_usuarioActionPerformed
+        control.Janelas.abrirCadastroUsuario();
+    }//GEN-LAST:event_menu_usuarioActionPerformed
+
+    private void menu_enderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_enderecoActionPerformed
+        control.Janelas.abrirCadastroEndereco();
+    }//GEN-LAST:event_menu_enderecoActionPerformed
+
+    private void menu_listaOrdemServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_listaOrdemServicoActionPerformed
+        control.Janelas.abrirListagemServico();
+    }//GEN-LAST:event_menu_listaOrdemServicoActionPerformed
+
+    private void menu_listaPessoaFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_listaPessoaFActionPerformed
+        control.Janelas.abrirListagemPessoaFisica();
+    }//GEN-LAST:event_menu_listaPessoaFActionPerformed
+
+    private void menu_listaPessoaJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_listaPessoaJActionPerformed
+        control.Janelas.abrirListagemPessoaJuridica();
+    }//GEN-LAST:event_menu_listaPessoaJActionPerformed
+
+    private void menu_listaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_listaProdutoActionPerformed
+        control.Janelas.abrirListagemProduto();
+    }//GEN-LAST:event_menu_listaProdutoActionPerformed
+
+    private void menu_listaFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_listaFuncionarioActionPerformed
+        control.Janelas.abrirListagemFuncionario();
+    }//GEN-LAST:event_menu_listaFuncionarioActionPerformed
+
+    private void menu_listaDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_listaDespesaActionPerformed
+        control.Janelas.abrirListagemDespesa();
+    }//GEN-LAST:event_menu_listaDespesaActionPerformed
+
+    private void menu_listaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_listaUsuarioActionPerformed
+        control.Janelas.abrirListagemUsuario();
+    }//GEN-LAST:event_menu_listaUsuarioActionPerformed
+
+    private void menu_listaEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_listaEnderecoActionPerformed
+        control.Janelas.abrirListagemEndereco();
+    }//GEN-LAST:event_menu_listaEnderecoActionPerformed
+
+    private void menu_vendaPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_vendaPecaActionPerformed
+        control.Janelas.abrirVendaPeca();
+    }//GEN-LAST:event_menu_vendaPecaActionPerformed
+
+    private void menu_relatorioOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_relatorioOSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menu_relatorioOSActionPerformed
+
+    private void menu_sobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_sobreActionPerformed
+        control.Janelas.abrirSobre();
+    }//GEN-LAST:event_menu_sobreActionPerformed
+    
+    private void limpar(){
+        txtBairro.setText("");
+        txtCep.setText("");
+        txtCidade.setText("");
+        txtLogradouro.setText("");
+        cmbEstado.setSelectedIndex(0);
+    }
     /**
      * @param args the command line arguments
      */
@@ -308,7 +656,35 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblLogradouro;
     private javax.swing.JLabel lblQuantidadePeca;
-    private javax.swing.JLabel lblTituloJanela;
+    private javax.swing.JMenuBar menu;
+    private javax.swing.JMenu menu_ajuda;
+    private javax.swing.JMenu menu_cadastro;
+    private javax.swing.JMenuItem menu_despesa;
+    private javax.swing.JMenuItem menu_endereco;
+    private javax.swing.JMenuItem menu_fecharJanelas;
+    private javax.swing.JMenuItem menu_funcionario;
+    private javax.swing.JMenuItem menu_listaDespesa;
+    private javax.swing.JMenuItem menu_listaEndereco;
+    private javax.swing.JMenuItem menu_listaFuncionario;
+    private javax.swing.JMenuItem menu_listaOrdemServico;
+    private javax.swing.JMenuItem menu_listaPessoaF;
+    private javax.swing.JMenuItem menu_listaPessoaJ;
+    private javax.swing.JMenuItem menu_listaProduto;
+    private javax.swing.JMenuItem menu_listaUsuario;
+    private javax.swing.JMenu menu_listagem;
+    private javax.swing.JMenuItem menu_logoff;
+    private javax.swing.JMenuItem menu_os;
+    private javax.swing.JMenuItem menu_pessoa;
+    private javax.swing.JMenuItem menu_produto;
+    private javax.swing.JMenu menu_relatorio;
+    private javax.swing.JMenuItem menu_relatorioDespesa;
+    private javax.swing.JMenuItem menu_relatorioOS;
+    private javax.swing.JMenuItem menu_sairSistema;
+    private javax.swing.JMenu menu_sistema;
+    private javax.swing.JMenuItem menu_sobre;
+    private javax.swing.JMenuItem menu_usuario;
+    private javax.swing.JMenuItem menu_vendaPeca;
+    private javax.swing.JMenu menu_vendas;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JTextField txtCep;
     private javax.swing.JTextField txtCidade;

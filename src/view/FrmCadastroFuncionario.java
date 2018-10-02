@@ -65,7 +65,6 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
 
         grupoNivelADM = new javax.swing.ButtonGroup();
         grupoSexoExib = new javax.swing.ButtonGroup();
-        lblTituloJanela = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lblCpf = new javax.swing.JLabel();
         txtCpf = new javax.swing.JTextField();
@@ -119,11 +118,6 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1152, 648));
         setSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
-
-        lblTituloJanela.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblTituloJanela.setText("Cadastro de funcionário");
-        getContentPane().add(lblTituloJanela);
-        lblTituloJanela.setBounds(550, 0, 194, 25);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setMaximumSize(new java.awt.Dimension(1152, 648));
@@ -863,7 +857,6 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel lblSalario;
     private javax.swing.JLabel lblSexo;
     private javax.swing.JLabel lblTelefone;
-    private javax.swing.JLabel lblTituloJanela;
     private javax.swing.JRadioButton rbtCompleto;
     private javax.swing.JRadioButton rbtFeminino;
     private javax.swing.JRadioButton rbtMasculino;
