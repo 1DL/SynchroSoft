@@ -14,6 +14,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import model.Endereco;
 
 /**
@@ -27,6 +29,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
      */
     public FrmCadastroEndereco(int nvlAdm) {
         initComponents();
+        inicializarTabela();
         if (nvlAdm == 0) {
             btnCadastrar.setEnabled(false);
         }
@@ -57,6 +60,9 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         cmbEstado = new javax.swing.JComboBox<>();
         Bairro = new javax.swing.JLabel();
         txtBairro = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblEnderecoRecente = new javax.swing.JTable();
+        lblCep1 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -138,6 +144,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         });
 
         btnCadastrar.setText("Cadastrar");
+        btnCadastrar.setNextFocusableComponent(txtCep);
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
@@ -145,10 +152,12 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         });
 
         cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SP", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
+        cmbEstado.setNextFocusableComponent(txtLogradouro);
 
         Bairro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         Bairro.setText("Bairro");
 
+        txtBairro.setNextFocusableComponent(btnCadastrar);
         txtBairro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBairroKeyReleased(evt);
@@ -233,6 +242,27 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         getContentPane().add(jPanel1);
         jPanel1.setBounds(28, 36, 1100, 200);
 
+        tblEnderecoRecente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblEnderecoRecente);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(30, 282, 1100, 230);
+
+        lblCep1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblCep1.setText("Endereços Cadastrados Recentemente:");
+        getContentPane().add(lblCep1);
+        lblCep1.setBounds(30, 250, 350, 25);
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 1150, 650);
@@ -257,8 +287,12 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         if (verificarCampos()) {
             DaoEndereco dao = new DaoEndereco();
             Endereco end = new Endereco(txtCep.getText(), txtLogradouro.getText(), txtBairro.getText(), txtCidade.getText(), (String) cmbEstado.getSelectedItem());
+            
             try {
-                dao.cadastrarEndereco(end.getCep(), end.getLogradouro(), end.getBairro(), end.getCidade(), end.getEstado());
+                boolean aux = dao.cadastrarEndereco(end.getCep(), end.getLogradouro(), end.getBairro(), end.getCidade(), end.getEstado());
+                if (aux) {
+                    atualizarTabela(end);
+                }                
             } catch (Exception ex) {
                 JOptionPane.showConfirmDialog(null, "Erro ao cadastrar Endereço.\n\n " + ex.getMessage(), "Erro de cadastro.", JOptionPane.ERROR_MESSAGE);
             }
@@ -323,6 +357,48 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         txtLogradouro.setText("");
         cmbEstado.setSelectedIndex(0);
     }
+    
+    
+    private void inicializarTabela(){
+        String[] nomeColunas = {"CEP", "Logradouro", "Bairro", "Cidade", "Estado", "PK_REF"};
+        try {
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    if (column == 6) {
+                        return false;
+                    }
+                    return true;
+                }
+            };
+            tblEnderecoRecente.setModel(model);
+            model.setColumnIdentifiers(nomeColunas);
+            model.setRowCount(0);
+            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,"Erro ao popular tabela de cadastros recentes.\n\n" + ex.getMessage(), "Erro ao popular tabela",0);
+        }
+        tblEnderecoRecente.getColumnModel().getColumn(0).setMaxWidth(300);
+        
+        tblEnderecoRecente.getColumnModel().getColumn(4).setMaxWidth(50);
+        tblEnderecoRecente.getColumnModel().getColumn(5).setMinWidth(0);
+        tblEnderecoRecente.getColumnModel().getColumn(5).setPreferredWidth(0);
+        tblEnderecoRecente.getColumnModel().getColumn(5).setMaxWidth(0);
+    }
+    
+    private void atualizarTabela(Endereco end){
+        Object rowData[] = new Object[6];
+      
+        rowData[0] = end.getCep();
+        rowData[1] = end.getLogradouro();
+        rowData[2] = end.getBairro();
+        rowData[3] = end.getCidade();
+        rowData[4] = end.getEstado();
+        rowData[5] = end.getCep();
+        DefaultTableModel model = new DefaultTableModel();
+        model = (DefaultTableModel) tblEnderecoRecente.getModel();
+        model.addRow(rowData); 
+    }
 
     /**
      * @param args the command line arguments
@@ -370,10 +446,13 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCep;
+    private javax.swing.JLabel lblCep1;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblLogradouro;
     private javax.swing.JLabel lblQuantidadePeca;
+    private javax.swing.JTable tblEnderecoRecente;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JTextField txtCep;
     private javax.swing.JTextField txtCidade;

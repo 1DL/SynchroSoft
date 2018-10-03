@@ -19,7 +19,7 @@ import model.Peca;
  */
 public class DaoEndereco {
     
-    public void cadastrarEndereco (String cep, String logradouro, String bairro, String cidade, String uf){
+    public boolean cadastrarEndereco (String cep, String logradouro, String bairro, String cidade, String uf){
     try {
             Connection con = Conexao.conectar();
             String sql = "INSERT INTO SYNCHROSOFT.TB_ENDERECO VALUES (?,?,?,?,?)";
@@ -32,8 +32,10 @@ public class DaoEndereco {
             st.executeUpdate();
             st.close();
             JOptionPane.showMessageDialog(null, "Endereço cadastrado com sucesso!", "Cadastro de Endereço", JOptionPane.INFORMATION_MESSAGE);
+            return true;
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o Endereço.\nErro:\n\n" + ex.getMessage(),"DaoEndereco Cadastro", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
     }
     

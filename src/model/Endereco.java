@@ -5,6 +5,8 @@
  */
 package model;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author LuizV1

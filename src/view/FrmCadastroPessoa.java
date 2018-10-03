@@ -79,14 +79,14 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         grupoSexo = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        lblLogradouro1 = new javax.swing.JLabel();
-        Bairro1 = new javax.swing.JLabel();
-        txtBairro1 = new javax.swing.JTextField();
-        txtLogradouro1 = new javax.swing.JTextField();
-        lblQuantidadePeca1 = new javax.swing.JLabel();
-        txtCidade1 = new javax.swing.JTextField();
-        lblEstado1 = new javax.swing.JLabel();
-        txtEstado1 = new javax.swing.JTextField();
+        lblLogradouro = new javax.swing.JLabel();
+        Bairro = new javax.swing.JLabel();
+        txtBairro = new javax.swing.JTextField();
+        txtLogradouro = new javax.swing.JTextField();
+        lblCidade = new javax.swing.JLabel();
+        txtCidade = new javax.swing.JTextField();
+        lblEstado = new javax.swing.JLabel();
+        txtEstado = new javax.swing.JTextField();
         lblCodigoPeca = new javax.swing.JLabel();
         txtTelefone = new javax.swing.JTextField();
         lblCategoriaPeca = new javax.swing.JLabel();
@@ -127,30 +127,32 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setOpaque(false);
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do CEP"));
         jPanel3.setOpaque(false);
 
-        lblLogradouro1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblLogradouro1.setText("Logradouro");
+        lblLogradouro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblLogradouro.setText("Logradouro");
 
-        Bairro1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        Bairro1.setText("Bairro");
+        Bairro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        Bairro.setText("Bairro");
 
-        txtBairro1.setFocusable(false);
+        txtBairro.setFocusable(false);
 
-        txtLogradouro1.setFocusable(false);
+        txtLogradouro.setFocusable(false);
 
-        lblQuantidadePeca1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblQuantidadePeca1.setText("Cidade");
+        lblCidade.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblCidade.setText("Cidade");
 
-        txtCidade1.setFocusable(false);
+        txtCidade.setFocusable(false);
 
-        lblEstado1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblEstado1.setText("Estado");
+        lblEstado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblEstado.setText("Estado");
 
-        txtEstado1.setFocusable(false);
+        txtEstado.setFocusable(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -160,21 +162,21 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(Bairro1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtBairro1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblEstado1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(lblLogradouro1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtLogradouro1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(62, 62, 62)
-                        .addComponent(lblQuantidadePeca1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCidade1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEstado1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(209, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -182,36 +184,43 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblLogradouro1)
-                    .addComponent(txtLogradouro1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblQuantidadePeca1)
-                    .addComponent(txtCidade1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblLogradouro)
+                    .addComponent(txtLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCidade)
+                    .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Bairro1)
-                    .addComponent(txtBairro1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEstado1)
-                    .addComponent(txtEstado1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Bairro)
+                    .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEstado)
+                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 19, Short.MAX_VALUE))
         );
 
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 223, -1, -1));
+
         lblCodigoPeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCodigoPeca.setText("Telefone");
+        jPanel1.add(lblCodigoPeca, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 89, 140, -1));
 
         txtTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtTelefoneKeyReleased(evt);
             }
         });
+        jPanel1.add(txtTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(171, 89, 316, 25));
 
         lblCategoriaPeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCategoriaPeca.setText("Nº");
+        jPanel1.add(lblCategoriaPeca, new org.netbeans.lib.awtextra.AbsoluteConstraints(563, 89, 82, -1));
 
         lblTipoPessoa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblTipoPessoa.setText("Tipo de Pessoa:");
+        jPanel1.add(lblTipoPessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 13, 140, -1));
 
         grupoTipoPessoa.add(rbtFisica);
         rbtFisica.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        rbtFisica.setSelected(true);
         rbtFisica.setText("Física");
         rbtFisica.setOpaque(false);
         rbtFisica.addActionListener(new java.awt.event.ActionListener() {
@@ -219,6 +228,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 rbtFisicaActionPerformed(evt);
             }
         });
+        jPanel1.add(rbtFisica, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 9, -1, -1));
 
         grupoTipoPessoa.add(rbtJuridica);
         rbtJuridica.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -229,31 +239,32 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 rbtJuridicaActionPerformed(evt);
             }
         });
+        jPanel1.add(rbtJuridica, new org.netbeans.lib.awtextra.AbsoluteConstraints(272, 9, -1, -1));
 
         lblNome.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblNome.setText("Nome");
+        jPanel1.add(lblNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 49, 140, -1));
 
         txtNomePessoaFicticio.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNomePessoaFicticioKeyReleased(evt);
             }
         });
+        jPanel1.add(txtNomePessoaFicticio, new org.netbeans.lib.awtextra.AbsoluteConstraints(171, 49, 316, 25));
 
         lblCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCep.setText("CEP");
+        jPanel1.add(lblCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(563, 49, 140, -1));
 
-        txtCep.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCepActionPerformed(evt);
-            }
-        });
         txtCep.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCepKeyReleased(evt);
             }
         });
+        jPanel1.add(txtCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(733, 51, 146, 25));
 
         lblCepExiste.setText("Cep inválido.");
+        jPanel1.add(lblCepExiste, new org.netbeans.lib.awtextra.AbsoluteConstraints(889, 56, -1, -1));
 
         btnCadastrarCep.setText("Cadastrar");
         btnCadastrarCep.addActionListener(new java.awt.event.ActionListener() {
@@ -261,6 +272,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 btnCadastrarCepActionPerformed(evt);
             }
         });
+        jPanel1.add(btnCadastrarCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(969, 49, -1, 29));
 
         txtNumero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -272,9 +284,11 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 txtNumeroKeyReleased(evt);
             }
         });
+        jPanel1.add(txtNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(733, 89, 145, 25));
 
         lblTipoPessoa1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblTipoPessoa1.setText("Possui Contrato:");
+        jPanel1.add(lblTipoPessoa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(563, 13, 140, -1));
 
         grupoCadastro.add(rbtSimCadastro);
         rbtSimCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -285,9 +299,11 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 rbtSimCadastroActionPerformed(evt);
             }
         });
+        jPanel1.add(rbtSimCadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(721, 9, -1, -1));
 
         grupoCadastro.add(rbtNaoCadastro);
         rbtNaoCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        rbtNaoCadastro.setSelected(true);
         rbtNaoCadastro.setText("Não");
         rbtNaoCadastro.setOpaque(false);
         rbtNaoCadastro.addActionListener(new java.awt.event.ActionListener() {
@@ -295,6 +311,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 rbtNaoCadastroActionPerformed(evt);
             }
         });
+        jPanel1.add(rbtNaoCadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(807, 9, -1, -1));
 
         btnLimpar.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
         btnLimpar.setText("Limpar");
@@ -303,6 +320,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 btnLimparActionPerformed(evt);
             }
         });
+        jPanel1.add(btnLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 478, 315, 60));
 
         btnCadastrar.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
         btnCadastrar.setText("Cadastrar");
@@ -311,6 +329,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 btnCadastrarActionPerformed(evt);
             }
         });
+        jPanel1.add(btnCadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 373, 315, 60));
 
         btnListarPessoa.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
         btnListarPessoa.setText("Listar Pessoas Cadastradas");
@@ -319,6 +338,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 btnListarPessoaActionPerformed(evt);
             }
         });
+        jPanel1.add(btnListarPessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(687, 371, 315, 60));
 
         btnFecharFrame.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
         btnFecharFrame.setText("Fechar ");
@@ -327,39 +347,48 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 btnFecharFrameActionPerformed(evt);
             }
         });
+        jPanel1.add(btnFecharFrame, new org.netbeans.lib.awtextra.AbsoluteConstraints(687, 471, 315, 60));
 
         lblCpfCnpj.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCpfCnpj.setText("CPF");
+        jPanel1.add(lblCpfCnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 125, 140, -1));
 
         txtCpfCnpj.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCpfCnpjKeyReleased(evt);
             }
         });
+        jPanel1.add(txtCpfCnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(171, 129, 316, 25));
 
         txtRazaoSocial.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtRazaoSocialKeyReleased(evt);
             }
         });
+        jPanel1.add(txtRazaoSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(733, 125, 316, 25));
 
         lblRazaoSocial.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblRazaoSocial.setText("Razão Social");
+        jPanel1.add(lblRazaoSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(563, 125, 140, -1));
 
         lblCelRamal.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCelRamal.setText("Celular");
+        jPanel1.add(lblCelRamal, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 172, 140, -1));
 
         txtCelRamal.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCelRamalKeyReleased(evt);
             }
         });
+        jPanel1.add(txtCelRamal, new org.netbeans.lib.awtextra.AbsoluteConstraints(171, 172, 316, 25));
 
         lblSexo.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblSexo.setText("Sexo");
+        jPanel1.add(lblSexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(563, 176, 140, -1));
 
         grupoSexo.add(rbtMasculino);
         rbtMasculino.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        rbtMasculino.setSelected(true);
         rbtMasculino.setText("Masculino");
         rbtMasculino.setOpaque(false);
         rbtMasculino.addActionListener(new java.awt.event.ActionListener() {
@@ -367,6 +396,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 rbtMasculinoActionPerformed(evt);
             }
         });
+        jPanel1.add(rbtMasculino, new org.netbeans.lib.awtextra.AbsoluteConstraints(721, 172, -1, -1));
 
         grupoSexo.add(rbtFeminino);
         rbtFeminino.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -377,6 +407,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 rbtFemininoActionPerformed(evt);
             }
         });
+        jPanel1.add(rbtFeminino, new org.netbeans.lib.awtextra.AbsoluteConstraints(838, 172, -1, -1));
 
         btnMenuPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo pequeno.png"))); // NOI18N
         btnMenuPrincipal.setText("Menu Principal");
@@ -385,153 +416,10 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 btnMenuPrincipalActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(lblTipoPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(rbtFisica)
-                        .addGap(18, 18, 18)
-                        .addComponent(rbtJuridica)
-                        .addGap(206, 206, 206)
-                        .addComponent(lblTipoPessoa1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(rbtSimCadastro)
-                        .addGap(31, 31, 31)
-                        .addComponent(rbtNaoCadastro))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addComponent(txtNomePessoaFicticio, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(76, 76, 76)
-                        .addComponent(lblCep, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(lblCepExiste)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCadastrarCep))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(lblCodigoPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(76, 76, 76)
-                        .addComponent(lblCategoriaPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(88, 88, 88)
-                        .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(lblCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addComponent(txtCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(76, 76, 76)
-                        .addComponent(lblRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(txtRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(lblCelRamal, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addComponent(txtCelRamal, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(76, 76, 76)
-                        .addComponent(lblSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(rbtMasculino)
-                        .addGap(10, 10, 10)
-                        .addComponent(rbtFeminino))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(95, 95, 95)
-                        .addComponent(btnMenuPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(101, 101, 101)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnListarPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnFecharFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(7, 7, 7)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rbtFisica)
-                    .addComponent(rbtJuridica)
-                    .addComponent(rbtSimCadastro)
-                    .addComponent(rbtNaoCadastro)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTipoPessoa)
-                            .addComponent(lblTipoPessoa1))))
-                .addGap(7, 7, 7)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNome)
-                    .addComponent(txtNomePessoaFicticio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCep)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(lblCepExiste))
-                    .addComponent(btnCadastrarCep, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCodigoPeca)
-                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCategoriaPeca)
-                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCpfCnpj)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(txtCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblRazaoSocial)
-                    .addComponent(txtRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCelRamal)
-                    .addComponent(txtCelRamal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(lblSexo))
-                    .addComponent(rbtMasculino)
-                    .addComponent(rbtFeminino))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnListarPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(btnFecharFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(45, 45, 45)
-                                .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnMenuPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-        );
+        jPanel1.add(btnMenuPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(425, 373, 161, 227));
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(69, 11, 1070, 598);
+        jPanel1.setBounds(69, 11, 1070, 602);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -689,10 +577,6 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtCepKeyReleased
 
-    private void txtCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCepActionPerformed
-
-    }//GEN-LAST:event_txtCepActionPerformed
-
     private void txtNomePessoaFicticioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomePessoaFicticioKeyReleased
         txtNomePessoaFicticio.setText(TextSize.maxLenghtNomeRazao(txtNomePessoaFicticio.getText()));
     }//GEN-LAST:event_txtNomePessoaFicticioKeyReleased
@@ -784,7 +668,6 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Bairro;
-    private javax.swing.JLabel Bairro1;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCadastrarCep;
     private javax.swing.JButton btnFecharFrame;
@@ -796,21 +679,17 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     private javax.swing.ButtonGroup grupoTipoPessoa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblCategoriaPeca;
     private javax.swing.JLabel lblCelRamal;
     private javax.swing.JLabel lblCep;
     private javax.swing.JLabel lblCepExiste;
+    private javax.swing.JLabel lblCidade;
     private javax.swing.JLabel lblCodigoPeca;
     private javax.swing.JLabel lblCpfCnpj;
     private javax.swing.JLabel lblEstado;
-    private javax.swing.JLabel lblEstado1;
     private javax.swing.JLabel lblLogradouro;
-    private javax.swing.JLabel lblLogradouro1;
     private javax.swing.JLabel lblNome;
-    private javax.swing.JLabel lblQuantidadePeca;
-    private javax.swing.JLabel lblQuantidadePeca1;
     private javax.swing.JLabel lblRazaoSocial;
     private javax.swing.JLabel lblSexo;
     private javax.swing.JLabel lblTipoPessoa;
@@ -822,16 +701,12 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtNaoCadastro;
     private javax.swing.JRadioButton rbtSimCadastro;
     private javax.swing.JTextField txtBairro;
-    private javax.swing.JTextField txtBairro1;
     private javax.swing.JTextField txtCelRamal;
     private javax.swing.JTextField txtCep;
     private javax.swing.JTextField txtCidade;
-    private javax.swing.JTextField txtCidade1;
     private javax.swing.JTextField txtCpfCnpj;
     private javax.swing.JTextField txtEstado;
-    private javax.swing.JTextField txtEstado1;
     private javax.swing.JTextField txtLogradouro;
-    private javax.swing.JTextField txtLogradouro1;
     private javax.swing.JTextField txtNomePessoaFicticio;
     private javax.swing.JTextField txtNumero;
     private javax.swing.JTextField txtRazaoSocial;
