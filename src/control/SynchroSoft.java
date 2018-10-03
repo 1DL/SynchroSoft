@@ -5,36 +5,8 @@
  */
 package control;
 
-import dao.Conexao;
-import java.sql.*;
-import javax.swing.JFrame;
-import view.FrmCadastroPeca;
-import view.FrmListagemPeca;
-import view.FrmPrincipal;
-import dao.DaoPeca;
-import java.awt.Frame;
 import java.io.IOException;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import view.FrmCadastroDespesa;
-import view.FrmCadastroEndereco;
-import view.FrmCadastroFuncionario;
-import view.FrmCadastroOrcamento;
-import view.reserva.FrmCadastroFuncionario_Tabs;
-import view.FrmCadastroPessoa;
-import view.FrmCadastroServico;
-import view.FrmCadastroUsuario;
-import view.FrmListagemDespesa;
-import view.FrmListagemEndereco;
-import view.FrmListagemFuncionario;
-import view.FrmListagemOrcamento;
-import view.FrmListagemPessoaF;
-import view.FrmListagemPessoaJ;
-import view.FrmListagemServico;
-import view.FrmListagemUsuario;
-import view.FrmLogin;
-import view.FrmSobre;
-import view.FrmVendaPeca;
 
 /**
  *
@@ -50,16 +22,15 @@ public class SynchroSoft {
     private static int codFunc = 0;
     private static int nvlAdm = 1;
     private static boolean acesso = false;
-
-    
+    private static String nvlAcessoSTR = "";
 
     public static void main(String[] args) throws IOException {
 
         LeitorArquivo.lerArquivoJanelas();
         Janelas.abrirLogin();
     }
-    
-    public static void sairDoSistema(){
+
+    public static void sairDoSistema() {
         int aux;
         aux = JOptionPane.showConfirmDialog(null, "Deseja realmente sair do sistema?\n"
                 + "\nAviso! Todas as janelas serão fechadas e os dados não salvos serão perdidos.", "Sair do Sistema", JOptionPane.YES_NO_OPTION);
@@ -67,7 +38,6 @@ public class SynchroSoft {
             System.exit(0);
         }
     }
-
 
     public static String getVersao() {
         return versao;
@@ -103,11 +73,17 @@ public class SynchroSoft {
         } else if (nvlAdm == 1) {
             acesso = true;
         }
-        
+
         return acesso;
     }
-
     
+    public static String getNvlAdmSTR(){
+        if (nvlAdm == 0) {
+            nvlAcessoSTR = "Visualização";
+        } else if (nvlAdm == 1) {
+            nvlAcessoSTR = "Administrador";
+        }
+        return nvlAcessoSTR;
+    }
 
-    
 }

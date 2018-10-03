@@ -57,7 +57,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btn_janMaisAcessada4 = new javax.swing.JButton();
         btn_janMaisAcessada5 = new javax.swing.JButton();
         btn_janMaisAcessada6 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lblBackground = new javax.swing.JLabel();
         menu = new javax.swing.JMenuBar();
         menu_sistema = new javax.swing.JMenu();
         menu_logoff = new javax.swing.JMenuItem();
@@ -89,6 +89,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menu_sobre = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menu Principal - " + control.SynchroSoft.getNomeUsuario() + 
+            " - Nível de Acesso: " + control.SynchroSoft.getNvlAdmSTR());
         setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         setPreferredSize(new java.awt.Dimension(1152, 648));
@@ -111,7 +113,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(950, 470, 73, 23);
+        jButton1.setBounds(950, 470, 75, 23);
 
         btn_janMaisAcessada1.setText(control.Janelas.abrirMaisAcessada(maisAcessadas.get(0).getNome(), false)
         );
@@ -173,9 +175,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         getContentPane().add(btn_janMaisAcessada6);
         btn_janMaisAcessada6.setBounds(730, 410, 280, 40);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, -20, 1150, 650);
+        lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
+        getContentPane().add(lblBackground);
+        lblBackground.setBounds(0, -20, 1150, 650);
 
         menu_sistema.setText("Sistema");
 
@@ -578,8 +580,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btn_janMaisAcessada5;
     private javax.swing.JButton btn_janMaisAcessada6;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lblBackground;
     private javax.swing.JMenuBar menu;
     private javax.swing.JMenu menu_ajuda;
     private javax.swing.JMenu menu_cadastro;
