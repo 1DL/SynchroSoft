@@ -42,30 +42,34 @@ public class Janelas {
         this.nome = nome;
         this.acesso = acesso;
     }
-    
+
     public static ArrayList<Janelas> acessoTelas = new ArrayList<>();
-    
+
     static int qtdJanelas = 18;
     private String nome;
     private int acesso;
-    
-    public static void fecharTodasJanelas(){
+
+    public static void fecharTodasJanelas() {
         for (Frame fr : Frame.getFrames()) {
+            if (fr.getClass().getName().equals("view.FrmPrincipal")) {
+                
+            } else {
                 fr.dispose();
                 fr = null;
             }
+        }
     }
-    
-    public static void focarPrincipal(){
+
+    public static void focarPrincipal() {
         for (Frame fr : Frame.getFrames()) {
-                if (fr.getClass().getName().equals("view.FrmPrincipal")) {
-                    fr.setVisible(true);
-                    fr.requestFocus();
-                }
+            if (fr.getClass().getName().equals("view.FrmPrincipal")) {
+                fr.setVisible(true);
+                fr.requestFocus();
+                break;
             }
+        }
     }
-    
-    
+
     //Métodos para chamada de telas. Telas de Sistema
     public static void abrirLogin() throws IOException {
         FrmLogin telaLogin = new FrmLogin();
@@ -239,65 +243,66 @@ public class Janelas {
                 }
                 return "Cadastrar Produto";
             case "J03":
-                if (flag){
-                abrirCadastroFuncionário();
+                if (flag) {
+                    abrirCadastroFuncionário();
                 }
                 return "Cadastrar Funcionário";
             case "J04":
                 if (flag) {
-                abrirCadastroDespesa();
+                    abrirCadastroDespesa();
                 }
                 return "Cadastrar Despesa";
             case "J05":
                 if (flag) {
-                abrirCadastroUsuario();
+                    abrirCadastroUsuario();
                 }
                 return "Cadastrar Usuario";
             case "J06":
                 if (flag) {
-                abrirCadastroEndereco();
+                    abrirCadastroEndereco();
                 }
                 return "Cadastrar Endereço";
             case "J07":
                 if (flag) {
-                abrirListagemServico();
+                    abrirListagemServico();
                 }
                 return "Listar Ordens de Serviço";
             case "J08":
                 if (flag) {
-                abrirListagemPessoaFisica();
+                    abrirListagemPessoaFisica();
                 }
                 return "Listar Pessoas Físicas";
             case "J09":
                 if (flag) {
-                abrirListagemPessoaJuridica();
-                } return "Listar Pessoas Jurídicas";
+                    abrirListagemPessoaJuridica();
+                }
+                return "Listar Pessoas Jurídicas";
             case "J10":
                 if (flag) {
-                abrirListagemProduto();
+                    abrirListagemProduto();
                 }
                 return "Listar Produtos";
             case "J11":
                 if (flag) {
                     abrirListagemFuncionario();
                 }
-                return "Listar Funcionários";                
+                return "Listar Funcionários";
             case "J12":
                 if (flag) {
                     abrirListagemDespesa();
                 }
-                return "Listar Despesas";                
+                return "Listar Despesas";
             case "J13":
                 if (flag) {
                     abrirListagemUsuario();
                 }
-                return "Listar Usuários";                
+                return "Listar Usuários";
             case "J14":
                 if (flag) {
                     abrirListagemEndereco();
                 }
-                return "Listar Endereços";                
-            case "J15": 
+                return "Listar Endereços";
+            case "J15":
                 if (flag) {
                     abrirVendaPeca();
                 }
@@ -306,14 +311,14 @@ public class Janelas {
                 if (flag) {
                     abrirRelatorioServico();
                 }
-                return "Gerar Relatório de OS";                
+                return "Gerar Relatório de OS";
             case "J17":
                 if (flag) {
                     abrirRelatorioDespesa();
                 }
-                return "Gerar Relatório de Despesas";                
+                return "Gerar Relatório de Despesas";
             default:
-                JOptionPane.showMessageDialog(null, "Erro - Código de Janela desconhecido.", "Código de Janela "+jan, JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro - Código de Janela desconhecido.", "Código de Janela " + jan, JOptionPane.ERROR_MESSAGE);
         }
         return "Erro";
     }
@@ -338,14 +343,4 @@ public class Janelas {
         return qtdJanelas;
     }
 
-    
-    
-    
-    
-
-    
-
-    
-
-    
 }

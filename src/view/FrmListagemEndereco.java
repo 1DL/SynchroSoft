@@ -75,7 +75,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblListagemEndereco);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(232, 119, 632, 404);
+        jScrollPane1.setBounds(232, 119, 632, 402);
 
         btnFechar.setText("Fechar");
         btnFechar.addActionListener(new java.awt.event.ActionListener() {
@@ -93,7 +93,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAlterar);
-        btnAlterar.setBounds(446, 552, 67, 23);
+        btnAlterar.setBounds(446, 552, 65, 23);
 
         btnAtualizarTabela.setText("AtualizarTabela");
         btnAtualizarTabela.addActionListener(new java.awt.event.ActionListener() {
@@ -102,7 +102,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAtualizarTabela);
-        btnAtualizarTabela.setBounds(321, 552, 109, 23);
+        btnAtualizarTabela.setBounds(321, 552, 107, 23);
 
         btnTelaCadastro.setText("Tela Cadastro");
         btnTelaCadastro.addActionListener(new java.awt.event.ActionListener() {
@@ -111,7 +111,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnTelaCadastro);
-        btnTelaCadastro.setBounds(644, 552, 101, 23);
+        btnTelaCadastro.setBounds(644, 552, 99, 23);
 
         btnDeletar.setText("Deletar");
         btnDeletar.addActionListener(new java.awt.event.ActionListener() {
@@ -120,7 +120,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnDeletar);
-        btnDeletar.setBounds(545, 552, 69, 23);
+        btnDeletar.setBounds(545, 552, 67, 23);
 
         lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblPesquisar.setText("Pesquisar por: ");
@@ -135,7 +135,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(360, 60, 107, 32);
+        cmbFiltro.setBounds(360, 60, 107, 31);
 
         txtPesquisa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -157,7 +157,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         lblDescrever.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDescrever.setText("Descrição:");
         getContentPane().add(lblDescrever);
-        lblDescrever.setBounds(520, 50, 85, 30);
+        lblDescrever.setBounds(520, 50, 83, 30);
 
         btnMenuPrincipal.setText("Menu Principal");
         btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {

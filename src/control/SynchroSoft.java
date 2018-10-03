@@ -98,16 +98,16 @@ public class SynchroSoft {
     }
 
     public static boolean isAcesso() {
-        return acesso;
-    }
-
-    public static void setAcesso() {
         if (nvlAdm == 0) {
             acesso = false;
         } else if (nvlAdm == 1) {
             acesso = true;
         }
+        
+        return acesso;
     }
+
+    
 
     
 }

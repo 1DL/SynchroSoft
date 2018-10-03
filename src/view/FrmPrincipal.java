@@ -111,7 +111,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(950, 470, 75, 23);
+        jButton1.setBounds(950, 470, 73, 23);
 
         btn_janMaisAcessada1.setText(control.Janelas.abrirMaisAcessada(maisAcessadas.get(0).getNome(), false)
         );
@@ -497,7 +497,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         if (aux == 0) {
             control.Janelas.fecharTodasJanelas();
 
-            control.Janelas.abrirPrincipal();
+            control.Janelas.focarPrincipal();
         }
     }//GEN-LAST:event_menu_fecharJanelasActionPerformed
 

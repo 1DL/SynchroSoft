@@ -31,8 +31,9 @@ public class DaoEndereco {
             st.setString(5, uf);
             st.executeUpdate();
             st.close();
+            JOptionPane.showMessageDialog(null, "Endereço cadastrado com sucesso!", "Cadastro de Endereço", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o Endereço.\n Erro:\n\n" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o Endereço.\nErro:\n\n" + ex.getMessage(),"DaoEndereco Cadastro", JOptionPane.ERROR_MESSAGE);
         }
     }
     

@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Usuario;
 
@@ -69,7 +70,7 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(160, 60, 150, 33);
+        cmbFiltro.setBounds(160, 60, 150, 31);
 
         lblDescrever.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDescrever.setText("Descrição:");
@@ -345,7 +346,7 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
             }
 
         } catch (Exception ex) {
-            System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
+            JOptionPane.showConfirmDialog(null, "Erro ao popular a tabela de usuários. \n\n"+ex.getMessage(), "Erro de população de tabela", JOptionPane.ERROR_MESSAGE);
         }
         
         tblListagemUsuario.getColumnModel().getColumn(3).setMinWidth(0);

@@ -118,12 +118,12 @@ public class DaoUsuario {
                 control.SynchroSoft.setCodFunc(rs.getInt("cd_funcionario"));
                 control.SynchroSoft.setNomeUsuario(rs.getString("nm_funcionario"));
                 control.SynchroSoft.setNvlAdm(rs.getInt("id_administrativo"));
-                control.SynchroSoft.setAcesso();
                 
                 st.close();
                 rs.close();
             } catch (Exception ex) {
-                System.err.println("DaoUsuario Logon: " + ex.getMessage());
+                JOptionPane.showConfirmDialog(null, "Erro ao acessar dados de usuário no banco de dados.\n\n"+ex.getMessage(),
+                        "Erro de Banco de Dados - DaoUsuario Listagem", JOptionPane.ERROR_MESSAGE);
             }
         }        
     }
@@ -146,7 +146,8 @@ public class DaoUsuario {
             st.close();
             rs.close();
         } catch (Exception ex) {
-            System.err.println("DaoUsuario Listagem Java: " + ex.getMessage());
+            JOptionPane.showConfirmDialog(null, "Erro ao acessar dados de usuário no banco de dados.\n\n"+ex.getMessage(),
+                        "Erro de Banco de Dados - DaoUsuario Listagem", JOptionPane.ERROR_MESSAGE);
         }
         return lista;
     }

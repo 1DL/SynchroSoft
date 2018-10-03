@@ -347,7 +347,6 @@ public class FrmLogin extends javax.swing.JFrame {
     private void btn_debugrunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_debugrunActionPerformed
         control.Janelas.abrirPrincipal();
         control.SynchroSoft.setNvlAdm(1);
-        control.SynchroSoft.setAcesso();
         dao.Conexao.setServerName(txt_ipBanco.getText());
         dao.Conexao.setServerPort(txt_portaBanco.getText());
         dao.Conexao.setUsername(txtp_usuarioDB.getText());
