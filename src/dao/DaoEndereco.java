@@ -9,9 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import model.Endereco;
-import model.Peca;
 
 /**
  *

@@ -6,7 +6,6 @@
 package view;
 
 import control.TextSize;
-import dao.DaoOrcamento;
 import dao.DaoPeca;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Orcamento;
 import model.Peca;
 import model.Servico;
 import model.VendaPeca;

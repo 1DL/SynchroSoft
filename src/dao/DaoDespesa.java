@@ -14,10 +14,6 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import model.Despesa;
-import model.Endereco;
-import model.Funcionario;
-import model.Pessoa;
-import model.PessoaFisica;
 
 /**
  *

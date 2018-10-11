@@ -6,8 +6,6 @@
 package model;
 
 import java.sql.Date;
-import model.Pessoa;
-import model.PessoaFisica;
 
 /**
  *

@@ -8,11 +8,7 @@ package view;
 import control.TextSize;
 import dao.DaoEndereco;
 import dao.DaoFuncionario;
-import dao.DaoPeca;
 import dao.DaoPessoa;
-import java.awt.Component;
-import java.awt.GridBagLayout;
-import java.awt.PopupMenu;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -21,10 +17,8 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Endereco;
 import model.Funcionario;
-import model.Peca;
 import model.Pessoa;
 import model.PessoaFisica;
-import model.PessoaJuridica;
 
 /**
  *

@@ -5,8 +5,6 @@
  */
 package view;
 
-import dao.DaoDespesa;
-import dao.DaoEndereco;
 import dao.DaoFuncionario;
 import dao.DaoOrcamento;
 import dao.DaoPessoa;
@@ -21,7 +19,6 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
-import model.Despesa;
 import model.Endereco;
 import model.Funcionario;
 import model.Pessoa;

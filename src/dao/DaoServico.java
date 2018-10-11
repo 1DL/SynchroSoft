@@ -11,16 +11,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import model.Endereco;
 import model.Funcionario;
 import model.Pessoa;
 import model.PessoaFisica;
 import model.PessoaJuridica;
 import model.Servico;
-import view.FrmListagemServico;
 
 /**
  *

@@ -70,7 +70,7 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(160, 60, 150, 31);
+        cmbFiltro.setBounds(160, 60, 150, 33);
 
         lblDescrever.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDescrever.setText("Descrição:");

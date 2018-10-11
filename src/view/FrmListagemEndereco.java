@@ -6,17 +6,12 @@
 package view;
 
 import dao.DaoEndereco;
-import dao.DaoPeca;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.Endereco;
-import model.Peca;
 
 /**
  *

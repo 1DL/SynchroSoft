@@ -6,14 +6,10 @@
 package dao;
 
 import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import model.Endereco;
-import model.Peca;
 import model.Pessoa;
 import model.PessoaFisica;
 import model.PessoaJuridica;

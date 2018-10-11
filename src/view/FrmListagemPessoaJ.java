@@ -5,17 +5,12 @@
  */
 package view;
 
-import view.*;
 import dao.DaoPessoa;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import model.Pessoa;
-import model.PessoaFisica;
-import model.PessoaFisica;
 import model.PessoaJuridica;
 
 /**
