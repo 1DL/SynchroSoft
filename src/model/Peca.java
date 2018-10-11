@@ -17,15 +17,19 @@ public class Peca {
     private String nomePeca;
     private int quantidadePeca;
     private float valorUnitario;
+    private int alertaQtdMin;
+    private int alertaQtdMax;
 
     public Peca() {
     }   
     
-    public Peca(String codigoPeca, String nomePeca, String categoriaPeca, int quantidadePeca, String valorUnitario) {
+    public Peca(String codigoPeca, String nomePeca, String categoriaPeca, int quantidadePeca, int alertaQtdMin, int alertaQtdMax, String valorUnitario) {
         this.codigoPeca = codigoPeca;
         this.nomePeca = nomePeca;
         this.categoriaPeca = categoriaPeca;
         this.quantidadePeca = quantidadePeca;
+        this.alertaQtdMin = alertaQtdMin;
+        this.alertaQtdMax = alertaQtdMax;
         setValorUnitario(valorUnitario);
     }
     
@@ -95,5 +99,21 @@ public class Peca {
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(null, "Valor unitário inválido. Use somente números inteiros e/ou decimais.", "Erro", 0);
         }
+    }
+
+    public int getAlertaQtdMin() {
+        return alertaQtdMin;
+    }
+
+    public void setAlertaQtdMin(int alertaQtdMin) {
+        this.alertaQtdMin = alertaQtdMin;
+    }
+
+    public int getAlertaQtdMax() {
+        return alertaQtdMax;
+    }
+
+    public void setAlertaQtdMax(int alertaQtdMax) {
+        this.alertaQtdMax = alertaQtdMax;
     }
 }

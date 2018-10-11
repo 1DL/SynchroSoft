@@ -123,8 +123,8 @@ public class TextSize {
 
     public static String maxLenghtCodigoPeca(String str) {
         String valor = "";
-        if (str.length() > 5) {
-            valor = str.substring(0, 5);
+        if (str.length() > 30) {
+            valor = str.substring(0, 30);
             str = valor;
         }
         return str;

@@ -19,7 +19,7 @@ import model.VendaPeca;
  */
 public class DaoPeca {
 
-    public void cadastrarPeca(String codigo, String nome, String categoria, int quantidade, float valor) throws SQLException, ClassNotFoundException {
+    public void cadastrarPeca(String codigo, String nome, String categoria, int quantidade, int qtmin, int qtmax, float valor) throws SQLException, ClassNotFoundException {
         try {
             Connection con = Conexao.conectar();
             String sql = "INSERT INTO SYNCHROSOFT.TB_PECA VALUES (?,?,?,?,?)";
@@ -28,7 +28,9 @@ public class DaoPeca {
             st.setString(2, nome);
             st.setString(3, categoria);
             st.setInt(4, quantidade);
-            st.setFloat(5, valor);
+            st.setInt(5, qtmin);
+            st.setInt(6, qtmax);
+            st.setFloat(7, valor);
             st.executeUpdate();
             st.close();
         } catch (Exception ex) {
@@ -132,7 +134,7 @@ public class DaoPeca {
             PreparedStatement st = con.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Peca pecas = new Peca(rs.getString("CD_PECA"), rs.getString("NM_PECA"), rs.getString("DS_CATEGORIA"), rs.getInt("QT_PECA"), Float.toString(rs.getFloat("VL_PECA")));
+                Peca pecas = new Peca(rs.getString("CD_PECA"), rs.getString("NM_PECA"), rs.getString("DS_CATEGORIA"), rs.getInt("QT_PECA"), rs.getInt("QT_PECAMIN"), rs.getInt("QT_PECAMAX"), Float.toString(rs.getFloat("VL_PECA")));
                 lista.add(pecas);
 
             }
@@ -193,7 +195,7 @@ public class DaoPeca {
             
             //listando dados do banco em jtable
             while (rs.next()) {
-                Peca pecas = new Peca(rs.getString("CD_PECA"), rs.getString("NM_PECA"), rs.getString("DS_CATEGORIA"), rs.getInt("QT_PECA"), Float.toString(rs.getFloat("VL_PECA")));
+                Peca pecas = new Peca(rs.getString("CD_PECA"), rs.getString("NM_PECA"), rs.getString("DS_CATEGORIA"), rs.getInt("QT_PECA"), rs.getInt("QT_PECAMIN"), rs.getInt("QT_PECAMAX"), Float.toString(rs.getFloat("VL_PECA")));
                 lista.add(pecas);
 
                 /*lista.add(new String[]{String.valueOf(rs.getInt("CD_PECA")),

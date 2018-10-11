@@ -92,7 +92,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAlterar);
-        btnAlterar.setBounds(440, 560, 87, 35);
+        btnAlterar.setBounds(440, 560, 85, 33);
 
         btnAtualizarTabela.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnAtualizarTabela.setText("AtualizarTabela");
@@ -102,7 +102,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAtualizarTabela);
-        btnAtualizarTabela.setBounds(230, 560, 155, 35);
+        btnAtualizarTabela.setBounds(230, 560, 153, 33);
 
         btnTelaCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnTelaCadastro.setText("Tela Cadastro");
@@ -112,7 +112,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnTelaCadastro);
-        btnTelaCadastro.setBounds(750, 560, 145, 35);
+        btnTelaCadastro.setBounds(750, 560, 143, 33);
 
         btnDeletar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnDeletar.setText("Deletar");
@@ -122,7 +122,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnDeletar);
-        btnDeletar.setBounds(590, 560, 93, 35);
+        btnDeletar.setBounds(590, 560, 91, 33);
 
         lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblPesquisar.setText("Pesquisar por: ");
@@ -132,7 +132,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "Nome", "Categoria", "Quantidade", "Valor" }));
         getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(370, 60, 107, 33);
+        cmbFiltro.setBounds(370, 60, 107, 31);
 
         txtPesquisa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -307,14 +307,14 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         //Chamando método para preenchimento de Jtable com dados da tabela de peça
         lista = DaoPeca.listarPeca();
         //Criando array com os nomes para cada coluna.
-        String[] nomeColunas = {"Código", "Nome", "Categoria", "Quantidade", "Valor Unitário", "PK Ref"};
+        String[] nomeColunas = {"Código", "Nome", "Categoria", "Quantidade", "Alerta Qtd Mínima", "Alerta Qtd Máxima", "Valor Unitário", "PK Ref"};
         try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPeca()
         {
             DefaultTableModel model = new DefaultTableModel() {
                 @Override
                 public boolean isCellEditable(int row, int column) {
-                    if (column == 5) {
-                        //Coluna 6 não poderá ser editada.
+                    if (column == 7) {
+                        //Coluna 8 não poderá ser editada.
                         return false;
                     }
                     return true;
@@ -327,14 +327,16 @@ public class FrmListagemPeca extends javax.swing.JFrame {
             //Remove as linhas da tabela.
             model.setRowCount(0);
             //declara um array de objetos para armazenar os valores.
-            Object rowData[] = new Object[6];
+            Object rowData[] = new Object[8];
             for (int i = 0; i < lista.size(); i++) {
                 rowData[0] = lista.get(i).getCodigoPeca();
                 rowData[1] = lista.get(i).getNomePeca();
                 rowData[2] = lista.get(i).getCategoriaPeca();
                 rowData[3] = Integer.toString(lista.get(i).getQuantidadePeca());
-                rowData[4] = Float.toString(lista.get(i).getValorUnitario());
-                rowData[5] = lista.get(i).getCodigoPeca();
+                rowData[4] = Integer.toString(lista.get(i).getAlertaQtdMin());
+                rowData[5] = Integer.toString(lista.get(i).getAlertaQtdMax());
+                rowData[6] = Float.toString(lista.get(i).getValorUnitario());
+                rowData[7] = lista.get(i).getCodigoPeca();
                 model.addRow(rowData);
 
             }
@@ -343,9 +345,9 @@ public class FrmListagemPeca extends javax.swing.JFrame {
             System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
         }
 
-        tblListagemPeca.getColumnModel().getColumn(5).setMinWidth(0);
-        tblListagemPeca.getColumnModel().getColumn(5).setPreferredWidth(0);
-        tblListagemPeca.getColumnModel().getColumn(5).setMaxWidth(0);
+        tblListagemPeca.getColumnModel().getColumn(7).setMinWidth(0);
+        tblListagemPeca.getColumnModel().getColumn(7).setPreferredWidth(0);
+        tblListagemPeca.getColumnModel().getColumn(7).setMaxWidth(0);
 
     }
 
@@ -354,14 +356,14 @@ public class FrmListagemPeca extends javax.swing.JFrame {
 
         ArrayList<Peca> lista = new ArrayList<>();
         lista = DaoPeca.listarPecaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim().toLowerCase()); //Filtrando 
-         String[] nomeColunas = {"Código", "Nome", "Categoria", "Quantidade", "Valor Unitário", "PK Ref"};
+         String[] nomeColunas = {"Código", "Nome", "Categoria", "Quantidade", "Alerta Qtd Mínima", "Alerta Qtd Máxima", "Valor Unitário", "PK Ref"};
         try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPeca()
         {
             DefaultTableModel model = new DefaultTableModel() {
                 @Override
                 public boolean isCellEditable(int row, int column) {
-                    if (column == 5) {
-                        //Coluna 6 não poderá ser editada.
+                    if (column == 7) {
+                        //Coluna 8 não poderá ser editada.
                         return false;
                     }
                     return true;
@@ -374,14 +376,16 @@ public class FrmListagemPeca extends javax.swing.JFrame {
             //Remove as linhas da tabela.
             model.setRowCount(0);
             //declara um array de objetos para armazenar os valores.
-            Object rowData[] = new Object[6];
+            Object rowData[] = new Object[8];
             for (int i = 0; i < lista.size(); i++) {
                 rowData[0] = lista.get(i).getCodigoPeca();
                 rowData[1] = lista.get(i).getNomePeca();
                 rowData[2] = lista.get(i).getCategoriaPeca();
                 rowData[3] = Integer.toString(lista.get(i).getQuantidadePeca());
-                rowData[4] = Float.toString(lista.get(i).getValorUnitario());
-                rowData[5] = lista.get(i).getCodigoPeca();
+                rowData[4] = Integer.toString(lista.get(i).getAlertaQtdMin());
+                rowData[5] = Integer.toString(lista.get(i).getAlertaQtdMax());
+                rowData[6] = Float.toString(lista.get(i).getValorUnitario());
+                rowData[7] = lista.get(i).getCodigoPeca();
                 model.addRow(rowData);
 
             }
@@ -390,9 +394,9 @@ public class FrmListagemPeca extends javax.swing.JFrame {
             System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
         }
 
-        tblListagemPeca.getColumnModel().getColumn(5).setMinWidth(0);
-        tblListagemPeca.getColumnModel().getColumn(5).setPreferredWidth(0);
-        tblListagemPeca.getColumnModel().getColumn(5).setMaxWidth(0);
+        tblListagemPeca.getColumnModel().getColumn(7).setMinWidth(0);
+        tblListagemPeca.getColumnModel().getColumn(7).setPreferredWidth(0);
+        tblListagemPeca.getColumnModel().getColumn(7).setMaxWidth(0);
 
     }
 

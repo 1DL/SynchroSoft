@@ -51,13 +51,13 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
         btnLimpar = new javax.swing.JButton();
         btnCadastrar = new javax.swing.JButton();
         btnListarPeca = new javax.swing.JButton();
-        txtCodigoPeca = new javax.swing.JFormattedTextField();
         txtQuantidadePeca = new javax.swing.JFormattedTextField();
         txtValorUnitario = new javax.swing.JFormattedTextField();
         lblQuantidadeMinima = new javax.swing.JLabel();
         txtQuantidadeMinima = new javax.swing.JFormattedTextField();
         lblQuantidadeMaxima = new javax.swing.JLabel();
         txtQuantidadeMaxima = new javax.swing.JFormattedTextField();
+        txtCodigoPeca = new javax.swing.JTextField();
         lblProdutoRecente = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProdutoRecente = new javax.swing.JTable();
@@ -135,18 +135,6 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
             }
         });
 
-        txtCodigoPeca.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#####"))));
-        txtCodigoPeca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodigoPecaActionPerformed(evt);
-            }
-        });
-        txtCodigoPeca.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCodigoPecaKeyReleased(evt);
-            }
-        });
-
         txtQuantidadePeca.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
         txtQuantidadePeca.setText("0");
         txtQuantidadePeca.addActionListener(new java.awt.event.ActionListener() {
@@ -205,6 +193,12 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
             }
         });
 
+        txtCodigoPeca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodigoPecaKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -213,11 +207,11 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblCodigoPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCodigoPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtCodigoPeca))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblNomePeca, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -262,10 +256,10 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCodigoPeca)
-                    .addComponent(txtCodigoPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCategoriaPeca)
                     .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnListarPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnListarPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCodigoPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNomePeca)
@@ -325,10 +319,12 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         DaoPeca dao = new DaoPeca();
         Peca peca = new Peca(txtCodigoPeca.getText(), txtNomePeca.getText(), 
-            cmbCategoria.getSelectedItem().toString(), Integer.parseInt(txtQuantidadePeca.getText()), 
+            cmbCategoria.getSelectedItem().toString(), Integer.parseInt(txtQuantidadePeca.getText()),
+            Integer.parseInt(txtQuantidadeMinima.getText()), Integer.parseInt(txtQuantidadeMaxima.getText()),
             txtValorUnitario.getText());
         try {
-            dao.cadastrarPeca(peca.getCodigoPeca(), peca.getNomePeca(), peca.getCategoriaPeca(), peca.getQuantidadePeca(), peca.getValorUnitario());
+            dao.cadastrarPeca(peca.getCodigoPeca(), peca.getNomePeca(), peca.getCategoriaPeca(), peca.getQuantidadePeca(),
+            peca.getAlertaQtdMin(), peca.getAlertaQtdMax(), peca.getValorUnitario());
             JOptionPane.showMessageDialog(rootPane, "Cadastrado!");
         } catch (SQLException ex) {
             Logger.getLogger(FrmCadastroPeca.class.getName()).log(Level.SEVERE, null, ex);
@@ -348,14 +344,6 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
         control.Janelas.focarPrincipal();
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
-
-    private void txtCodigoPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoPecaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodigoPecaActionPerformed
-
-    private void txtCodigoPecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoPecaKeyReleased
-        txtCodigoPeca.setText(TextSize.maxLenghtCodigoPeca(txtCodigoPeca.getText()));
-    }//GEN-LAST:event_txtCodigoPecaKeyReleased
 
     private void txtNomePecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomePecaKeyReleased
         txtNomePeca.setText(TextSize.maxLenghtNomePeca(txtNomePeca.getText()));
@@ -396,6 +384,10 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         limpar();
     }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void txtCodigoPecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoPecaKeyReleased
+        txtCodigoPeca.setText(TextSize.maxLenghtCodigoPeca(txtCodigoPeca.getText()));
+    }//GEN-LAST:event_txtCodigoPecaKeyReleased
 
     private void limpar(){
         txtCodigoPeca.setText("");
@@ -460,7 +452,7 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
     private javax.swing.JLabel lblQuantidadePeca;
     private javax.swing.JLabel lblValorUnitario;
     private javax.swing.JTable tblProdutoRecente;
-    private javax.swing.JFormattedTextField txtCodigoPeca;
+    private javax.swing.JTextField txtCodigoPeca;
     private javax.swing.JTextField txtNomePeca;
     private javax.swing.JFormattedTextField txtQuantidadeMaxima;
     private javax.swing.JFormattedTextField txtQuantidadeMinima;
