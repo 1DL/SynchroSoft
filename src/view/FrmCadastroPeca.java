@@ -324,7 +324,7 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         DaoPeca dao = new DaoPeca();
-        Peca peca = new Peca(Integer.parseInt(txtCodigoPeca.getText()), txtNomePeca.getText(), 
+        Peca peca = new Peca(txtCodigoPeca.getText(), txtNomePeca.getText(), 
             cmbCategoria.getSelectedItem().toString(), Integer.parseInt(txtQuantidadePeca.getText()), 
             txtValorUnitario.getText());
         try {

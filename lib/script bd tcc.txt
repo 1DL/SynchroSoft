@@ -61,7 +61,7 @@ CREATE TABLE tb_funcionario
 
 CREATE TABLE tb_peca
 (
- cd_peca numeric(5),
+ cd_peca varchar(30),
  nm_peca varchar2(40),
  ds_categoria varchar2(50),
  qt_peca numeric(4),
@@ -144,7 +144,7 @@ CREATE TABLE tb_despesa_servico
 CREATE TABLE tb_peca_orcamento
 (
  cd_peca_orcamento numeric(4),
- cd_peca numeric(5),
+ cd_peca varchar2(30),
  cd_orcamento numeric(4),
  constraint pk_peca_orcamento primary key(cd_peca_orcamento),
  constraint fk_peca_peca_orcamento foreign key(cd_peca) references tb_peca(cd_peca),

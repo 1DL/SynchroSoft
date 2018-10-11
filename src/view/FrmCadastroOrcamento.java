@@ -346,7 +346,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnFechar);
-        btnFechar.setBounds(1060, 540, 65, 23);
+        btnFechar.setBounds(1060, 540, 67, 23);
 
         txtMaoDeObra.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtMaoDeObra.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -400,7 +400,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
             ArrayList<VendaPeca> lista = new ArrayList<>();
             for(int i = 0; i < tblOrcamento.getRowCount(); i++){
                 Peca p = new Peca();
-                p.setCodigoPeca(Integer.parseInt((String)tblOrcamento.getValueAt(i, 0)));
+                p.setCodigoPeca((String)tblOrcamento.getValueAt(i, 0));
                 p.setNomePeca((String) tblOrcamento.getValueAt(i, 1));
                 p.setCategoriaPeca((String) tblOrcamento.getValueAt(i, 2));
                 p.setValorUnitario((String) tblOrcamento.getValueAt(i, 3));

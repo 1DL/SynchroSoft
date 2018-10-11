@@ -15,7 +15,7 @@ import view.FrmCadastroPeca;
  * @author LuizV1
  */
 public class Peca {
-    private int codigoPeca;
+    private String codigoPeca;
     private String categoriaPeca;
     private String nomePeca;
     private int quantidadePeca;
@@ -24,7 +24,7 @@ public class Peca {
     public Peca() {
     }   
     
-    public Peca(int codigoPeca, String nomePeca, String categoriaPeca, int quantidadePeca, String valorUnitario) {
+    public Peca(String codigoPeca, String nomePeca, String categoriaPeca, int quantidadePeca, String valorUnitario) {
         this.codigoPeca = codigoPeca;
         this.nomePeca = nomePeca;
         this.categoriaPeca = categoriaPeca;
@@ -55,11 +55,11 @@ public class Peca {
 //            return lista;
 //        }
 
-    public int getCodigoPeca() {
+    public String getCodigoPeca() {
         return codigoPeca;
     }
 
-    public void setCodigoPeca(int codigoPeca) {
+    public void setCodigoPeca(String codigoPeca) {
         this.codigoPeca = codigoPeca;
     }
 

@@ -20,12 +20,12 @@ import model.VendaPeca;
  */
 public class DaoPeca {
 
-    public void cadastrarPeca(int codigo, String nome, String categoria, int quantidade, float valor) throws SQLException, ClassNotFoundException {
+    public void cadastrarPeca(String codigo, String nome, String categoria, int quantidade, float valor) throws SQLException, ClassNotFoundException {
         try {
             Connection con = Conexao.conectar();
             String sql = "INSERT INTO SYNCHROSOFT.TB_PECA VALUES (?,?,?,?,?)";
             PreparedStatement st = con.prepareStatement(sql);
-            st.setInt(1, codigo);
+            st.setString(1, codigo);
             st.setString(2, nome);
             st.setString(3, categoria);
             st.setInt(4, quantidade);
@@ -47,7 +47,7 @@ public class DaoPeca {
             PreparedStatement st = con.prepareStatement(sql);
             for(int i = 0; i < lista.size(); i++){
                
-                st.setInt(1, lista.get(i).getPeca().getCodigoPeca());
+                st.setString(1, lista.get(i).getPeca().getCodigoPeca());
                 ResultSet rs = st.executeQuery();
                 rs.next();
                 estoque.add(rs.getInt("QT_PECA"));
@@ -65,7 +65,7 @@ public class DaoPeca {
                 PreparedStatement st2 = con.prepareStatement(sql);
                 for(int i = 0; i < lista.size(); i++){
                     st2.setInt(1, (estoque.get(i) - lista.get(i).getQuantidadeVendida()));
-                    st2.setInt(2, lista.get(i).getPeca().getCodigoPeca());
+                    st2.setString(2, lista.get(i).getPeca().getCodigoPeca());
                     st2.executeUpdate();
                 }
                 JOptionPane.showMessageDialog(null, "Venda de peças concluída.");
@@ -97,7 +97,7 @@ public class DaoPeca {
         ResultSet rs = st.executeQuery();
         while (rs.next()) {
             
-            p.setCodigoPeca(rs.getInt("CD_PECA"));
+            p.setCodigoPeca(rs.getString("CD_PECA"));
             p.setNomePeca(rs.getString("NM_PECA"));
             p.setCategoriaPeca(rs.getString("DS_CATEGORIA"));
             p.setQuantidadePeca(rs.getInt("QT_PECA"));
@@ -109,12 +109,12 @@ public class DaoPeca {
         return p;
     }
     
-    public void deletarPeca (int cod) throws SQLException, ClassNotFoundException {
+    public void deletarPeca (String cod) throws SQLException, ClassNotFoundException {
         try {
             Connection con = Conexao.conectar();
             String sql = "DELETE FROM SYNCHROSOFT.TB_PECA WHERE CD_PECA = ?";
             PreparedStatement st = con.prepareStatement(sql);
-            st.setInt(1, cod);
+            st.setString(1, cod);
             st.executeUpdate();
             st.close();
             JOptionPane.showMessageDialog(null, "Peça removida com sucesso.");
@@ -133,7 +133,7 @@ public class DaoPeca {
             PreparedStatement st = con.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Peca pecas = new Peca(rs.getInt("CD_PECA"), rs.getString("NM_PECA"), rs.getString("DS_CATEGORIA"), rs.getInt("QT_PECA"), Float.toString(rs.getFloat("VL_PECA")));
+                Peca pecas = new Peca(rs.getString("CD_PECA"), rs.getString("NM_PECA"), rs.getString("DS_CATEGORIA"), rs.getInt("QT_PECA"), Float.toString(rs.getFloat("VL_PECA")));
                 lista.add(pecas);
 
             }
@@ -194,7 +194,7 @@ public class DaoPeca {
             
             //listando dados do banco em jtable
             while (rs.next()) {
-                Peca pecas = new Peca(rs.getInt("CD_PECA"), rs.getString("NM_PECA"), rs.getString("DS_CATEGORIA"), rs.getInt("QT_PECA"), Float.toString(rs.getFloat("VL_PECA")));
+                Peca pecas = new Peca(rs.getString("CD_PECA"), rs.getString("NM_PECA"), rs.getString("DS_CATEGORIA"), rs.getInt("QT_PECA"), Float.toString(rs.getFloat("VL_PECA")));
                 lista.add(pecas);
 
                 /*lista.add(new String[]{String.valueOf(rs.getInt("CD_PECA")),

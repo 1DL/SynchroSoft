@@ -6,16 +6,12 @@
 package view;
 
 import dao.DaoPeca;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+
 import javax.swing.table.DefaultTableModel;
 import model.Peca;
 
@@ -225,7 +221,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
         Peca peca = new Peca();
         String aux = (String) tblListagemPeca.getValueAt(tblListagemPeca.getSelectedRow(), 0);
-        peca.setCodigoPeca(Integer.parseInt(aux));
+        peca.setCodigoPeca(aux);
         try {
             dp.deletarPeca(peca.getCodigoPeca());
             atualizarTabela();
@@ -335,12 +331,12 @@ public class FrmListagemPeca extends javax.swing.JFrame {
             //declara um array de objetos para armazenar os valores.
             Object rowData[] = new Object[6];
             for (int i = 0; i < lista.size(); i++) {
-                rowData[0] = Integer.toString(lista.get(i).getCodigoPeca());
+                rowData[0] = lista.get(i).getCodigoPeca();
                 rowData[1] = lista.get(i).getNomePeca();
                 rowData[2] = lista.get(i).getCategoriaPeca();
                 rowData[3] = Integer.toString(lista.get(i).getQuantidadePeca());
                 rowData[4] = Float.toString(lista.get(i).getValorUnitario());
-                rowData[5] = Integer.toString(lista.get(i).getCodigoPeca());
+                rowData[5] = lista.get(i).getCodigoPeca();
                 model.addRow(rowData);
 
             }
@@ -382,12 +378,12 @@ public class FrmListagemPeca extends javax.swing.JFrame {
             //declara um array de objetos para armazenar os valores.
             Object rowData[] = new Object[6];
             for (int i = 0; i < lista.size(); i++) {
-                rowData[0] = Integer.toString(lista.get(i).getCodigoPeca());
+                rowData[0] = lista.get(i).getCodigoPeca();
                 rowData[1] = lista.get(i).getNomePeca();
                 rowData[2] = lista.get(i).getCategoriaPeca();
                 rowData[3] = Integer.toString(lista.get(i).getQuantidadePeca());
                 rowData[4] = Float.toString(lista.get(i).getValorUnitario());
-                rowData[5] = Integer.toString(lista.get(i).getCodigoPeca());
+                rowData[5] = lista.get(i).getCodigoPeca();
                 model.addRow(rowData);
 
             }

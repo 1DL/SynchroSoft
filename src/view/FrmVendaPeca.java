@@ -342,7 +342,7 @@ public class FrmVendaPeca extends javax.swing.JFrame {
             ArrayList<VendaPeca> lista = new ArrayList<>();
             for(int i = 0; i < tblPecas.getRowCount(); i++){
                 Peca p = new Peca();
-                p.setCodigoPeca(Integer.parseInt((String)tblPecas.getValueAt(i, 0)));
+                p.setCodigoPeca((String)tblPecas.getValueAt(i, 0));
                 p.setNomePeca((String) tblPecas.getValueAt(i, 1));
                 p.setCategoriaPeca((String) tblPecas.getValueAt(i, 2));
                 p.setValorUnitario((String) tblPecas.getValueAt(i, 3));

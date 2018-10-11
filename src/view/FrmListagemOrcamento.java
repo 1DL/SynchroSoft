@@ -7,14 +7,12 @@ package view;
 
 import dao.DaoOrcamento;
 import dao.DaoPeca;
-import dao.DaoServico;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Funcionario;
 import model.Orcamento;
 import model.Peca;
 import model.Servico;
@@ -684,7 +682,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
             ArrayList<VendaPeca> lista = new ArrayList<>();
             for (int i = 0; i < tblPecas.getRowCount(); i++) {
                 Peca p = new Peca();
-                p.setCodigoPeca(Integer.parseInt((String) tblPecas.getValueAt(i, 0)));
+                p.setCodigoPeca((String) tblPecas.getValueAt(i, 0));
                 p.setNomePeca((String) tblPecas.getValueAt(i, 1));
                 p.setCategoriaPeca((String) tblPecas.getValueAt(i, 2));
                 p.setValorUnitario((String) tblPecas.getValueAt(i, 3));
@@ -729,7 +727,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
         ArrayList<VendaPeca> lista = new ArrayList<>();
         for (int i = 0; i < tblPecas.getRowCount(); i++) {
             Peca p = new Peca();
-            p.setCodigoPeca(Integer.parseInt((String) tblPecas.getValueAt(i, 0)));
+            p.setCodigoPeca((String) tblPecas.getValueAt(i, 0));
             p.setNomePeca((String) tblPecas.getValueAt(i, 1));
             p.setCategoriaPeca((String) tblPecas.getValueAt(i, 2));
             p.setValorUnitario((String) tblPecas.getValueAt(i, 3));
@@ -946,7 +944,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
             model.setRowCount(0);
             Object rowData[] = new Object[6];
             for (int i = 0; i < lista.size(); i++) {
-                rowData[0] = Integer.toString(lista.get(i).getCodigoPeca());
+                rowData[0] = lista.get(i).getCodigoPeca();
                 rowData[1] = lista.get(i).getNomePeca();
                 rowData[2] = lista.get(i).getCategoriaPeca();
                 rowData[3] = Float.toString(lista.get(i).getValorUnitario());

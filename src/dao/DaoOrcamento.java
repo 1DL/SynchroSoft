@@ -127,7 +127,7 @@ public class DaoOrcamento {
 
         for (int i = 0; i < o.getPecas().size(); i++) {
             PreparedStatement st2 = con.prepareStatement(sql);
-            st2.setInt(1, o.getPecas().get(i).getPeca().getCodigoPeca());
+            st2.setString(1, o.getPecas().get(i).getPeca().getCodigoPeca());
             st2.setInt(2, codigoOrcamento);
             st2.setInt(3, o.getPecas().get(i).getQuantidadeVendida());
             st2.setFloat(4, o.getPecas().get(i).getPeca().getValorUnitario());
