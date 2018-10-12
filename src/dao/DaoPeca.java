@@ -24,7 +24,8 @@ public class DaoPeca {
     public static void cadastrarPeca(Peca peca) {
         try {
             Connection con = Conexao.conectar();
-            String sql = "INSERT INTO SYNCHROSOFT.TB_PECA VALUES (?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO SYNCHROSOFT.TB_PECA "
+                    + "VALUES (?,?,?,?,?,?,?)";
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, peca.getCodigoPeca());
             st.setString(2, peca.getNomePeca());
@@ -38,8 +39,8 @@ public class DaoPeca {
             JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!",
                     "Cadastro realizado", 1);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar o produto. \n\n"
-                    + ex.getErrorCode() + "\n\n" + ex.getMessage(), "Erro: DaoPeca - Cadastrar Produto", 0);
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar o produto. \n\nErro Nº: "
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoPeca - Cadastrar Produto", 0);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DaoPeca.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -51,7 +52,8 @@ public class DaoPeca {
 
         try {
             Connection con = Conexao.conectar();
-            String sql = "SELECT QT_PECA FROM SYNCHROSOFT.TB_PECA WHERE CD_PECA = ?";
+            String sql = "SELECT QT_PECA FROM SYNCHROSOFT.TB_PECA "
+                    + "WHERE CD_PECA = ?";
             PreparedStatement st = con.prepareStatement(sql);
             for (int i = 0; i < lista.size(); i++) {
 
@@ -80,8 +82,8 @@ public class DaoPeca {
                 JOptionPane.showMessageDialog(null, "Venda de produtos concluída!", "Venda concluída", 1);
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao realizar venda de peça. \n"
-                    + ex.getErrorCode() + "\n\n" + ex.getMessage(), "Erro: DaoPeca - Atualizar Estoque", 0);
+            JOptionPane.showMessageDialog(null, "Erro ao realizar venda de peça. \n\n Erro Nº: "
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoPeca - Atualizar Estoque", 0);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DaoPeca.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -91,7 +93,8 @@ public class DaoPeca {
         boolean flag = false;
         try {
             Connection con = Conexao.conectar();
-            String sql = "SELECT CD_PECA FROM SYNCHROSOFT.TB_PECA WHERE CD_PECA = ?";
+            String sql = "SELECT CD_PECA FROM SYNCHROSOFT.TB_PECA "
+                    + "WHERE CD_PECA = ?";
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, codigo);
             ResultSet rs = st.executeQuery();
@@ -100,8 +103,8 @@ public class DaoPeca {
             rs.close();
             return flag;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao verificar a existência do produto. \n\n"
-                    + ex.getErrorCode() + "\n\n" + ex.getMessage(), "Erro: DaoPeca - Existe Produto", 0);
+            JOptionPane.showMessageDialog(null, "Erro ao verificar a existência do produto. \n\nErro Nº: "
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoPeca - Existe Produto", 0);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DaoPeca.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -113,7 +116,8 @@ public class DaoPeca {
         peca.setValidacao(false);
         try {
             Connection con = Conexao.conectar();
-            String sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE CD_PECA = ?";
+            String sql = "SELECT * FROM SYNCHROSOFT.TB_PECA "
+                    + "WHERE CD_PECA = ?";
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, codigo);
             ResultSet rs = st.executeQuery();
@@ -142,15 +146,16 @@ public class DaoPeca {
     public static void deletarPeca(String cod) {
         try {
             Connection con = Conexao.conectar();
-            String sql = "DELETE FROM SYNCHROSOFT.TB_PECA WHERE CD_PECA = ?";
+            String sql = "DELETE FROM SYNCHROSOFT.TB_PECA "
+                    + "WHERE CD_PECA = ?";
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, cod);
             st.executeUpdate();
             st.close();
             JOptionPane.showMessageDialog(null, "Produto removido com sucesso.", "Remoção concluída", 1);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível remover o produto.\n\n" + ex.getErrorCode()
-                    + "\n\n" + ex.getMessage(), "Erro: DaoPeca - Deletar Peca", 0);
+            JOptionPane.showMessageDialog(null, "Não foi possível remover o produto.\n\nErro Nº: " + ex.getErrorCode()
+                    + "\n" + ex.getMessage(), "Erro: DaoPeca - Deletar Peca", 0);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DaoPeca.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -178,8 +183,8 @@ public class DaoPeca {
             st.close();
             rs.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível criar uma lista de protudos.\n\n" + ex.getErrorCode()
-                    + "\n\n" + ex.getMessage(), "Erro: DaoPeca - Listar Produtos", 0);
+            JOptionPane.showMessageDialog(null, "Não foi possível criar uma lista de protudos.\n\nErro Nº: " + ex.getErrorCode()
+                    + "\n" + ex.getMessage(), "Erro: DaoPeca - Listar Produtos", 0);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DaoPeca.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -249,8 +254,8 @@ public class DaoPeca {
             rs.close();
 
         } catch (SQLException ex) { //Caso exista a possibilidade de retorno de erro
-            JOptionPane.showMessageDialog(null, "Não foi possível listar os produtos por pesquisa filtrada.\n\n" + ex.getErrorCode()
-                    + "\n\n" + ex.getMessage(), "Erro: DaoPeca - Listar Produtos Filtrados", 0);
+            JOptionPane.showMessageDialog(null, "Não foi possível listar os produtos por pesquisa filtrada.\n\nErro Nº: " + ex.getErrorCode()
+                    + "\n" + ex.getMessage(), "Erro: DaoPeca - Listar Produtos Filtrados", 0);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DaoPeca.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -269,7 +274,8 @@ public class DaoPeca {
             con.setAutoCommit(false);
             String sql = "UPDATE SYNCHROSOFT.TB_PECA "
                     + "SET CD_PECA = ?, NM_PECA = ?, DS_CATEGORIA = ?, "
-                    + "QT_PECA = ?, QT_PECAMIN = ?, QT_PECAMAX = ?, VL_PECA = ? WHERE CD_PECA = ?";
+                    + "QT_PECA = ?, QT_PECAMIN = ?, QT_PECAMAX = ?, VL_PECA = ? "
+                    + "WHERE CD_PECA = ?";
             PreparedStatement st = con.prepareStatement(sql);
             for (int row = 0; row < rows; row++) {
                 Peca peca = new Peca();
@@ -284,7 +290,7 @@ public class DaoPeca {
 
                 st.setString(1, peca.getCodigoPeca());
                 st.setString(2, peca.getNomePeca());
-                st.setString(3, peca.getCodigoPeca());
+                st.setString(3, peca.getCategoriaPeca());
                 st.setInt(4, peca.getQuantidadePeca());
                 st.setInt(5, peca.getAlertaQtdMin());
                 st.setInt(6, peca.getAlertaQtdMax());
@@ -294,14 +300,14 @@ public class DaoPeca {
                 st.addBatch();
                 st.executeBatch();
                 con.commit();
-
+                
             }
-
             JOptionPane.showMessageDialog(null, "A base de produtos foi alterada com sucesso!", "Atualização da base de Produtos", 1);
+            
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível alterar a base de produtos.\n\n" + ex.getErrorCode()
-                    + "\n\n" + ex.getMessage(), "Erro: DaoPeca - Alterar Produto via Tabela", 0);
+            JOptionPane.showMessageDialog(null, "Não foi possível alterar a base de produtos.\n\nErro Nº: " + ex.getErrorCode()
+                    + "\n" + ex.getMessage(), "Erro: DaoPeca - Alterar Produto via Tabela", 0);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DaoPeca.class.getName()).log(Level.SEVERE, null, ex);
         }

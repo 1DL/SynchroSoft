@@ -10,6 +10,15 @@ package control;
  * @author LuizV1
  */
 public class TextSize {
+    
+    public static String maxLenghtData(String str) {
+        String valor = "";
+        if (str.length() > 10) {
+            valor = str.substring(0, 10);
+            str = valor;
+        }
+        return str;
+    }
 
     public static String maxLenghtLogin(String str) {
         String valor = "";
@@ -141,8 +150,8 @@ public class TextSize {
     
     public static String maxLenghtQuantidadePeca(String str) {
          String valor = "";
-            if(str.length() > 4){
-	        valor = str.substring(0,4);
+            if(str.length() > 10){
+	        valor = str.substring(0,10);
                 str = valor;
             }
 	    return str;
@@ -150,8 +159,8 @@ public class TextSize {
     
     public static String maxLenghtValorPeca(String str) {
          String valor = "";
-            if(str.length() > 7){
-	        valor = str.substring(0,7);
+            if(str.length() > 13){
+	        valor = str.substring(0,13);
                 str = valor;
             }
 	    return str;
@@ -231,8 +240,8 @@ public class TextSize {
     
     public static String maxLenghtValorDespesa(String str) {
          String valor = "";
-            if(str.length() > 13){
-	        valor = str.substring(0,13);
+            if(str.length() > 8){
+	        valor = str.substring(0,8);
                 str = valor;
             }
 	    return str;
@@ -240,8 +249,8 @@ public class TextSize {
     
     public static String maxLenghtDescricaoDespesa(String str) {
          String valor = "";
-            if(str.length() > 500){
-	        valor = str.substring(0,500);
+            if(str.length() > 4000){
+	        valor = str.substring(0,4000);
                 str = valor;
             }
 	    return str;

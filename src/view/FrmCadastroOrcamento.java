@@ -346,7 +346,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnFechar);
-        btnFechar.setBounds(1060, 540, 67, 23);
+        btnFechar.setBounds(1060, 540, 65, 23);
 
         txtMaoDeObra.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtMaoDeObra.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -404,7 +404,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
                 p.setNomePeca((String) tblOrcamento.getValueAt(i, 1));
                 p.setCategoriaPeca((String) tblOrcamento.getValueAt(i, 2));
                 p.setValorUnitario((String) tblOrcamento.getValueAt(i, 3));
-                p.setQuantidadePeca(Integer.parseInt((String) tblOrcamento.getValueAt(i, 4)));
+                p.setQuantidadePeca(((String) tblOrcamento.getValueAt(i, 4)));
                 VendaPeca vp = new VendaPeca();
                 vp.setPeca(p);
                 vp.setQuantidadeVendida(p.getQuantidadePeca());
@@ -468,10 +468,10 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
             btnAdicionarPeca.setEnabled(false);
         } else {
             try {
-                flagPeca = DaoPeca.existePeca(Integer.parseInt(txtCodPeca.getText()));
+                flagPeca = DaoPeca.existePeca((txtCodPeca.getText()));
                 if (flagPeca) {
                     lblPecaExiste.setText("Peça encontrada.");
-                    popularPeca(Integer.parseInt(txtCodPeca.getText()));
+                    popularPeca((txtCodPeca.getText()));
                     btnAdicionarPeca.setEnabled(true);
 
                 } else {
@@ -624,7 +624,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         });
     }
 
-    public void popularPeca(int codigo) throws SQLException, ClassNotFoundException {
+    public void popularPeca(String codigo) throws SQLException, ClassNotFoundException {
         Peca p = new Peca();
         p = DaoPeca.popularPeca(codigo);
         limitePeca = p.getQuantidadePeca();

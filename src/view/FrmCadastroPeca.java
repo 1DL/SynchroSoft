@@ -67,6 +67,7 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
         setTitle("Cadastro de Peça");
         setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
+        setResizable(false);
         getContentPane().setLayout(null);
 
         btnMenuPrincipal.setText("Menu Principal");
@@ -128,7 +129,7 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
             }
         });
 
-        btnListarPeca.setText("Listar Peças");
+        btnListarPeca.setText("Listar produtos cadastrados");
         btnListarPeca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnListarPecaActionPerformed(evt);
@@ -317,7 +318,8 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        Peca peca = new Peca(txtCodigoPeca.getText(), txtNomePeca.getText(), cmbCategoria.getSelectedItem().toString(), 
+        Peca peca = new Peca(txtCodigoPeca.getText(), txtNomePeca.getText(), 
+                cmbCategoria.getSelectedItem().toString(), 
                 txtQuantidadePeca.getText() , txtQuantidadeMinima.getText(),
                 txtQuantidadeMaxima.getText(), txtValorUnitario.getText());
         if (peca.isValidacao()) {
@@ -363,7 +365,7 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
     }//GEN-LAST:event_txtQuantidadeMinimaActionPerformed
 
     private void txtQuantidadeMinimaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeMinimaKeyReleased
-        // TODO add your handling code here:
+        txtQuantidadeMinima.setText(TextSize.maxLenghtQuantidadePeca(txtQuantidadeMinima.getText()));
     }//GEN-LAST:event_txtQuantidadeMinimaKeyReleased
 
     private void txtQuantidadeMaximaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidadeMaximaActionPerformed
@@ -371,7 +373,7 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
     }//GEN-LAST:event_txtQuantidadeMaximaActionPerformed
 
     private void txtQuantidadeMaximaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeMaximaKeyReleased
-        // TODO add your handling code here:
+        txtQuantidadeMaxima.setText(TextSize.maxLenghtQuantidadePeca(txtQuantidadeMaxima.getText()));
     }//GEN-LAST:event_txtQuantidadeMaximaKeyReleased
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed

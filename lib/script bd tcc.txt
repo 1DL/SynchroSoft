@@ -335,3 +335,18 @@ alter table "TB_USUARIO" drop column
 drop TRIGGER "AUTOINC_USUARIO";
 
 drop SEQUENCE "USUARIO_SEQ";
+______________________________________________________
+alter table "TB_DESPESA" modify
+("DS_DESPESA" VARCHAR2(4000));
+
+alter table "TB_PECA" modify
+("VL_PECA" NUMBER(10,2));
+
+alter table "TB_PECA" modify
+("QT_PECA" NUMBER(10,0));
+
+alter table "TB_PECA" modify
+("QT_PECAMIN" NUMBER(10,0));
+
+alter table "TB_PECA" modify
+("QT_PECAMAX" NUMBER(10,0));

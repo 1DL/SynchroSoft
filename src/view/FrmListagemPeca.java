@@ -182,7 +182,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         } catch (Exception ex) {
 
         }
-        DaoPeca.alterarPeca(tblListagemPeca);
+        dao.DaoPeca.alterarPeca(tblListagemPeca);
 
 
     }//GEN-LAST:event_btnAlterarActionPerformed
@@ -205,7 +205,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         Peca peca = new Peca();
         String aux = (String) tblListagemPeca.getValueAt(tblListagemPeca.getSelectedRow(), 0);
         peca.setCodigoPeca(aux);
-        DaoPeca.deletarPeca(peca.getCodigoPeca());
+        dao.DaoPeca.deletarPeca(peca.getCodigoPeca());
         atualizarTabela();
 
     }//GEN-LAST:event_btnDeletarActionPerformed
@@ -287,7 +287,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         //Instanciando array de peças para preenchimento da tabela
         ArrayList<Peca> lista = new ArrayList<>();
         //Chamando método para preenchimento de Jtable com dados da tabela de peça
-        lista = DaoPeca.listarPeca();
+        lista = dao.DaoPeca.listarPeca();
         //Criando array com os nomes para cada coluna.
         String[] nomeColunas = {"Código", "Nome", "Categoria", "Quantidade", "Alerta Qtd Mínima", "Alerta Qtd Máxima", "Valor Unitário", "PK Ref"};
         try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPeca()
@@ -336,7 +336,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
     private void atualizarTabelaFiltrada() { //Igual método de ListarPeca, mas chama o método de ListarPecaFiltrada()
 
         ArrayList<Peca> lista = new ArrayList<>();
-        lista = DaoPeca.listarPecaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim().toLowerCase()); //Filtrando 
+        lista = dao.DaoPeca.listarPecaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim().toLowerCase()); //Filtrando 
         String[] nomeColunas = {"Código", "Nome", "Categoria", "Quantidade", "Alerta Qtd Mínima", "Alerta Qtd Máxima", "Valor Unitário", "PK Ref"};
         try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPeca()
         {

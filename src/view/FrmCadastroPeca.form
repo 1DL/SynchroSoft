@@ -10,6 +10,7 @@
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[1152, 648]"/>
     </Property>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -265,7 +266,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnListarPeca">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Listar Pe&#xe7;as"/>
+            <Property name="text" type="java.lang.String" value="Listar produtos cadastrados"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnListarPecaActionPerformed"/>

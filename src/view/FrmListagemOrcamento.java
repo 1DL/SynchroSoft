@@ -474,10 +474,10 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
             btnAdicionarPeca.setEnabled(false);
         } else {
             try {
-                flagPeca = DaoPeca.existePeca(Integer.parseInt(txtCodPeca.getText()));
+                flagPeca = DaoPeca.existePeca((txtCodPeca.getText()));
                 if (flagPeca) {
                     lblPecaExiste.setText("Peça encontrada.");
-                    popularPeca(Integer.parseInt(txtCodPeca.getText()));
+                    popularPeca((txtCodPeca.getText()));
                     btnAdicionarPeca.setEnabled(true);
 
                 } else {
@@ -686,7 +686,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
                 p.setNomePeca((String) tblPecas.getValueAt(i, 1));
                 p.setCategoriaPeca((String) tblPecas.getValueAt(i, 2));
                 p.setValorUnitario((String) tblPecas.getValueAt(i, 3));
-                p.setQuantidadePeca(Integer.parseInt((String) tblPecas.getValueAt(i, 4)));
+                p.setQuantidadePeca(((String) tblPecas.getValueAt(i, 4)));
                 VendaPeca vp = new VendaPeca();
                 vp.setPeca(p);
                 vp.setQuantidadeVendida(p.getQuantidadePeca());
@@ -731,7 +731,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
             p.setNomePeca((String) tblPecas.getValueAt(i, 1));
             p.setCategoriaPeca((String) tblPecas.getValueAt(i, 2));
             p.setValorUnitario((String) tblPecas.getValueAt(i, 3));
-            p.setQuantidadePeca(Integer.parseInt((String) tblPecas.getValueAt(i, 4)));
+            p.setQuantidadePeca((String) tblPecas.getValueAt(i, 4));
             VendaPeca vp = new VendaPeca();
             vp.setPeca(p);
             vp.setQuantidadeVendida(p.getQuantidadePeca());
@@ -807,7 +807,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
         });
     }
 
-    public void popularPeca(int codigo) throws SQLException, ClassNotFoundException {
+    public void popularPeca(String codigo) throws SQLException, ClassNotFoundException {
         Peca p = new Peca();
         p = DaoPeca.popularPeca(codigo);
         limitePeca = p.getQuantidadePeca();

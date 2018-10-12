@@ -6,6 +6,7 @@
 package model;
 
 import java.sql.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,12 +18,13 @@ public class Despesa {
     private String tipoDespesas;
     private String descricaoDespesa;
     private float valorDespesa;
+    private boolean validacao;
     
-    public Despesa(Date dataDespesa, String tipoDespesas, String descricaoDespesa, float valorDespesa) {
-        this.dataDespesa = dataDespesa;
+    public Despesa(String dataDespesa, String tipoDespesas, String descricaoDespesa, String valorDespesa) {
+        this.setDataDespesa(dataDespesa);
         this.tipoDespesas = tipoDespesas;
         this.descricaoDespesa = descricaoDespesa;
-        this.valorDespesa = valorDespesa;
+        this.setValorDespesa(valorDespesa);
     }
 
     public Despesa () {
@@ -37,11 +39,15 @@ public class Despesa {
         this.codigoDespesa = codigoDespesa;
     }
 
-    public Date getDataDespesa() {
-        return dataDespesa;
+    public String getDataDespesa() {
+        return control.Datas.converterParaBrasileira(dataDespesa.toString());
     }
 
     public void setDataDespesa(String dataDespesa) {
+        this.dataDespesa = Date.valueOf(control.Datas.converterParaAmericana(dataDespesa));
+    }
+    
+    public void setDataDespesaBanco(String dataDespesa) {
         this.dataDespesa = Date.valueOf(dataDespesa);
     }
 
@@ -65,7 +71,22 @@ public class Despesa {
         return valorDespesa;
     }
 
-    public void setValorDespesa(float valorDespesa) {
-        this.valorDespesa = valorDespesa;
+    public void setValorDespesa(String valorDespesa) {
+        valorDespesa = valorDespesa.replace(",", ".");
+        try {
+        this.valorDespesa = Float.parseFloat(valorDespesa);
+        validacao = true;
+        } catch (NumberFormatException nfe) {
+            JOptionPane.showMessageDialog(null, "Valor da despesa inválido. Use somente números inteiros e/ou decimais.", "Erro - Valor Despesa inválido", 0);
+            validacao = false;
+        }
+    }
+
+    public boolean isValidacao() {
+        return validacao;
+    }
+
+    public void setValidacao(boolean validacao) {
+        this.validacao = validacao;
     }
 }

@@ -27,9 +27,8 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
     public FrmListagemDespesa(int nvlAdm) {
         initComponents();
         atualizarTabela();
-        txtDataDepois.setText(""+ new Date(Calendar.getInstance().getTimeInMillis()));
+        txtDataDepois.setText("" + new Date(Calendar.getInstance().getTimeInMillis()));
     }
-    DaoDespesa dp = new DaoDespesa();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -212,12 +211,12 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(160, 60, 107, 32);
+        cmbFiltro.setBounds(160, 60, 107, 31);
 
         lblDescrever.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDescrever.setText("Descrição:");
         getContentPane().add(lblDescrever);
-        lblDescrever.setBounds(270, 50, 85, 40);
+        lblDescrever.setBounds(270, 50, 83, 40);
 
         txtPesquisa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -254,13 +253,9 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         } catch (Exception ex) {
 
         }
-        try {
-            dp.alterarDespesa(tblListagemDespesa);
-        } catch (SQLException ex) {
-            Logger.getLogger(FrmListagemDespesa.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrmListagemDespesa.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        dao.DaoDespesa.alterarDespesa(tblListagemDespesa);
+
 
     }//GEN-LAST:event_btnAlterarActionPerformed
 
@@ -270,12 +265,9 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         aux = (String) tblListagemDespesa.getValueAt(tblListagemDespesa.getSelectedRow(), 0);
         despesa.setCodigoDespesa(Integer.parseInt(aux));
 
-        try {
-            dp.deletarDespesa(despesa.getCodigoDespesa());
-            atualizarTabela();
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(FrmListagemDespesa.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        dao.DaoDespesa.deletarDespesa(despesa.getCodigoDespesa());
+        atualizarTabela();
+
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
@@ -358,7 +350,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
             }
         } catch (Exception ex) {
             System.out.println("Exceção: " + ex);
-        }        
+        }
     }//GEN-LAST:event_txtDataDepoisKeyReleased
 
     private void txtDataDepoisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDataDepoisKeyTyped
@@ -370,7 +362,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
     }//GEN-LAST:event_tblListagemDespesaMouseClicked
 
     private void btnHojeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojeActionPerformed
-        txtDataDepois.setText(""+new Date(Calendar.getInstance().getTimeInMillis()));
+        txtDataDepois.setText("" + new Date(Calendar.getInstance().getTimeInMillis()));
         atualizarTabelaFiltradaData();
     }//GEN-LAST:event_btnHojeActionPerformed
 
@@ -381,7 +373,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -409,7 +401,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private void atualizarTabelaFiltrada() {
         ArrayList<Despesa> lista = new ArrayList<>();
         lista = DaoDespesa.listarDespesaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim().toLowerCase());
@@ -432,22 +424,22 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
                 rowData[0] = Integer.toString(lista.get(i).getCodigoDespesa());
                 rowData[1] = lista.get(i).getTipoDespesas();
                 rowData[2] = lista.get(i).getDataDespesa().toString();
-                rowData[3] = lista.get(i).getDescricaoDespesa();             
+                rowData[3] = lista.get(i).getDescricaoDespesa();
                 rowData[4] = Float.toString(lista.get(i).getValorDespesa());
                 rowData[5] = Integer.toString(lista.get(i).getCodigoDespesa());
-                
+
                 model.addRow(rowData);
             }
 
         } catch (Exception ex) {
             System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
         }
-        
+
         tblListagemDespesa.getColumnModel().getColumn(5).setMinWidth(0);
         tblListagemDespesa.getColumnModel().getColumn(5).setPreferredWidth(0);
         tblListagemDespesa.getColumnModel().getColumn(5).setMaxWidth(0);
     }
-    
+
     private void atualizarTabelaFiltradaData() {
         ArrayList<Despesa> lista = new ArrayList<>();
         lista = DaoDespesa.listarDespesaFiltradaData(txtDataAntes.getText().trim(), txtDataDepois.getText().trim());
@@ -469,23 +461,23 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
             for (int i = 0; i < lista.size(); i++) {
                 rowData[0] = Integer.toString(lista.get(i).getCodigoDespesa());
                 rowData[1] = lista.get(i).getTipoDespesas();
-                rowData[2] = lista.get(i).getDataDespesa().toString();
-                rowData[3] = lista.get(i).getDescricaoDespesa();             
+                rowData[2] = lista.get(i).getDataDespesa();
+                rowData[3] = lista.get(i).getDescricaoDespesa();
                 rowData[4] = Float.toString(lista.get(i).getValorDespesa());
                 rowData[5] = Integer.toString(lista.get(i).getCodigoDespesa());
-                
+
                 model.addRow(rowData);
             }
 
         } catch (Exception ex) {
             System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
         }
-        
+
         tblListagemDespesa.getColumnModel().getColumn(5).setMinWidth(0);
         tblListagemDespesa.getColumnModel().getColumn(5).setPreferredWidth(0);
         tblListagemDespesa.getColumnModel().getColumn(5).setMaxWidth(0);
     }
-    
+
     private void atualizarTabela() {
         ArrayList<Despesa> lista = new ArrayList<>();
         lista = DaoDespesa.listarDespesa();
@@ -507,18 +499,18 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
             for (int i = 0; i < lista.size(); i++) {
                 rowData[0] = Integer.toString(lista.get(i).getCodigoDespesa());
                 rowData[1] = lista.get(i).getTipoDespesas();
-                rowData[2] = lista.get(i).getDataDespesa().toString();
-                rowData[3] = lista.get(i).getDescricaoDespesa();             
+                rowData[2] = lista.get(i).getDataDespesa();
+                rowData[3] = lista.get(i).getDescricaoDespesa();
                 rowData[4] = Float.toString(lista.get(i).getValorDespesa());
                 rowData[5] = Integer.toString(lista.get(i).getCodigoDespesa());
-                
+
                 model.addRow(rowData);
             }
 
         } catch (Exception ex) {
             System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
         }
-        
+
         tblListagemDespesa.getColumnModel().getColumn(5).setMinWidth(0);
         tblListagemDespesa.getColumnModel().getColumn(5).setPreferredWidth(0);
         tblListagemDespesa.getColumnModel().getColumn(5).setMaxWidth(0);
