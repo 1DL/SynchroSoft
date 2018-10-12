@@ -19,42 +19,23 @@ public class Peca {
     private float valorUnitario;
     private int alertaQtdMin;
     private int alertaQtdMax;
+    private boolean validacao = true;
 
     public Peca() {
     }   
     
-    public Peca(String codigoPeca, String nomePeca, String categoriaPeca, int quantidadePeca, int alertaQtdMin, int alertaQtdMax, String valorUnitario) {
+    public Peca(String codigoPeca, String nomePeca, String categoriaPeca,
+            String quantidadePeca, String alertaQtdMin, String alertaQtdMax,
+            String valorUnitario) {
         this.codigoPeca = codigoPeca;
         this.nomePeca = nomePeca;
         this.categoriaPeca = categoriaPeca;
-        this.quantidadePeca = quantidadePeca;
-        this.alertaQtdMin = alertaQtdMin;
-        this.alertaQtdMax = alertaQtdMax;
-        setValorUnitario(valorUnitario);
+        this.setQuantidadePeca(quantidadePeca);
+        this.setAlertaQtdMin(alertaQtdMin);
+        this.setAlertaQtdMax(alertaQtdMax);
+        this.setValorUnitario(valorUnitario);
     }
-    
-//        private ArrayList<Peca> gerarArrayPeca (){
-//
-//            ArrayList<Peca> lista = new ArrayList<>();
-//            Peca p = new Peca();
-//            System.out.println("GerarArrayPeca "+tblListagemPeca.getRowCount());
-//            
-//            for (int i = 0; i< tblListagemPeca.getRowCount(); i++) {
-//                p.setCodigoPeca((int)tblListagemPeca.getModel().getValueAt(i, 0));
-//                p.setNomePeca((String)tblListagemPeca.getModel().getValueAt(i, 1));
-//                p.setCategoriaPeca((String)tblListagemPeca.getModel().getValueAt(i, 2));
-//                p.setQuantidadePeca((int)tblListagemPeca.getModel().getValueAt(i, 3));
-//                p.setValorUnitario((Float)tblListagemPeca.getModel().getValueAt(i, 4));
-//                lista.add(i, p);
-//                JOptionPane.showMessageDialog(null,"gerarArrayPeca\n"+lista.get(i).getCodigoPeca());
-//                System.out.println(lista.get(i).getNomePeca());
-//                System.out.println(lista.get(i).getCategoriaPeca());
-//                System.out.println(lista.get(i).getQuantidadePeca());
-//                System.out.println(lista.get(i).getValorUnitario()+"\n\n");
-//            }
-//            System.out.println("Tamanho array"+lista.size());
-//            return lista;
-//        }
+
 
     public String getCodigoPeca() {
         return codigoPeca;
@@ -84,8 +65,14 @@ public class Peca {
         return quantidadePeca;
     }
 
-    public void setQuantidadePeca(int quantidadePeca) {
-        this.quantidadePeca = quantidadePeca;
+    public void setQuantidadePeca(String quantidadePeca) {
+        try{
+            this.quantidadePeca = Integer.parseInt(quantidadePeca);
+            validacao = true;
+        } catch (NumberFormatException nfe) {
+            JOptionPane.showMessageDialog(null, "Erro ao definir a quantidade de produtos. \n\nUse somente valores inteiros.", "Erro - Quantidade inválida", 0);
+            validacao = false;
+        }
     }
 
     public float getValorUnitario() {
@@ -96,8 +83,10 @@ public class Peca {
         valorUnitario = valorUnitario.replace(",", ".");
         try {
         this.valorUnitario = Float.parseFloat(valorUnitario);
+        validacao = true;
         } catch (NumberFormatException nfe) {
-            JOptionPane.showMessageDialog(null, "Valor unitário inválido. Use somente números inteiros e/ou decimais.", "Erro", 0);
+            JOptionPane.showMessageDialog(null, "Valor unitário inválido. Use somente números inteiros e/ou decimais.", "Erro - Valor Unitário inválido", 0);
+            validacao = false;
         }
     }
 
@@ -105,15 +94,35 @@ public class Peca {
         return alertaQtdMin;
     }
 
-    public void setAlertaQtdMin(int alertaQtdMin) {
-        this.alertaQtdMin = alertaQtdMin;
+    public void setAlertaQtdMin(String alertaQtdMin) {
+        try{
+            this.alertaQtdMin = Integer.parseInt(alertaQtdMin);
+            validacao = true;
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao definir a o alerta de quantidade mínima. \n\nUse somente valores inteiros.", "Erro - Alerta mínimo inválido", 0);
+            validacao = false;
+        }
     }
 
     public int getAlertaQtdMax() {
         return alertaQtdMax;
     }
 
-    public void setAlertaQtdMax(int alertaQtdMax) {
-        this.alertaQtdMax = alertaQtdMax;
+    public void setAlertaQtdMax(String alertaQtdMax) {
+        try{
+            this.alertaQtdMax = Integer.parseInt(alertaQtdMax);
+            validacao = true;
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao definir a o alerta de quantidade máxima. \n\nUse somente valores inteiros.", "Erro - Alerta máxima inválido", 0);
+            validacao = false;
+        }
+    }
+
+    public boolean isValidacao() {
+        return validacao;
+    }
+
+    public void setValidacao(boolean validacao) {
+        this.validacao = validacao;
     }
 }

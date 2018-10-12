@@ -7,10 +7,9 @@ package view;
 
 import control.TextSize;
 import dao.DaoPeca;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Endereco;
 import model.Peca;
 
 /**
@@ -24,6 +23,7 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
      */
     public FrmCadastroPeca(int nvlAdm) {
         initComponents();
+        inicializarTabela();
         if (nvlAdm == 0) {
             btnCadastrar.setEnabled(false);
         }
@@ -317,19 +317,12 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        DaoPeca dao = new DaoPeca();
-        Peca peca = new Peca(txtCodigoPeca.getText(), txtNomePeca.getText(), 
-            cmbCategoria.getSelectedItem().toString(), Integer.parseInt(txtQuantidadePeca.getText()),
-            Integer.parseInt(txtQuantidadeMinima.getText()), Integer.parseInt(txtQuantidadeMaxima.getText()),
-            txtValorUnitario.getText());
-        try {
-            dao.cadastrarPeca(peca.getCodigoPeca(), peca.getNomePeca(), peca.getCategoriaPeca(), peca.getQuantidadePeca(),
-            peca.getAlertaQtdMin(), peca.getAlertaQtdMax(), peca.getValorUnitario());
-            JOptionPane.showMessageDialog(rootPane, "Cadastrado!");
-        } catch (SQLException ex) {
-            Logger.getLogger(FrmCadastroPeca.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrmCadastroPeca.class.getName()).log(Level.SEVERE, null, ex);
+        Peca peca = new Peca(txtCodigoPeca.getText(), txtNomePeca.getText(), cmbCategoria.getSelectedItem().toString(), 
+                txtQuantidadePeca.getText() , txtQuantidadeMinima.getText(),
+                txtQuantidadeMaxima.getText(), txtValorUnitario.getText());
+        if (peca.isValidacao()) {
+            DaoPeca.cadastrarPeca(peca);
+            atualizarTabela(peca);
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
@@ -397,6 +390,35 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
         txtQuantidadeMinima.setText("0");
         txtQuantidadeMaxima.setText("0");
         cmbCategoria.setSelectedIndex(0);
+    }
+    
+    private void inicializarTabela() {
+        String[] nomeColunas = {"Código", "Nome", "Categoria", "Quantidade", "Alerta Qtd Mínima", "Alerta Qtd Máxima", "Valor Unitário"};
+        try {
+            DefaultTableModel model = new DefaultTableModel();
+            tblProdutoRecente.setModel(model);
+            model.setColumnIdentifiers(nomeColunas);
+            model.setRowCount(0);
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao popular tabela de cadastros recentes.\n\n" + ex.getMessage(), "Erro ao popular tabela", 0);
+        }
+        // tblProdutoRecente.getColumnModel().getColumn(0).setMaxWidth(0);
+    }
+
+    private void atualizarTabela(Peca peca) {
+        Object rowData[] = new Object[7];
+
+        rowData[0] = peca.getCodigoPeca();
+        rowData[1] = peca.getNomePeca();
+        rowData[2] = peca.getCategoriaPeca();
+        rowData[3] = peca.getQuantidadePeca();
+        rowData[4] = peca.getAlertaQtdMin();
+        rowData[5] = peca.getAlertaQtdMax();
+        rowData[6] = peca.getValorUnitario();
+        DefaultTableModel model = new DefaultTableModel();
+        model = (DefaultTableModel) tblProdutoRecente.getModel();
+        model.addRow(rowData);
     }
     /**
      * @param args the command line arguments

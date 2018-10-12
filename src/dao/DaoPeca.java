@@ -8,6 +8,8 @@ package dao;
 import java.awt.HeadlessException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import model.Peca;
@@ -19,35 +21,40 @@ import model.VendaPeca;
  */
 public class DaoPeca {
 
-    public void cadastrarPeca(String codigo, String nome, String categoria, int quantidade, int qtmin, int qtmax, float valor) throws SQLException, ClassNotFoundException {
+    public static void cadastrarPeca(Peca peca) {
         try {
             Connection con = Conexao.conectar();
-            String sql = "INSERT INTO SYNCHROSOFT.TB_PECA VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO SYNCHROSOFT.TB_PECA VALUES (?,?,?,?,?,?,?)";
             PreparedStatement st = con.prepareStatement(sql);
-            st.setString(1, codigo);
-            st.setString(2, nome);
-            st.setString(3, categoria);
-            st.setInt(4, quantidade);
-            st.setInt(5, qtmin);
-            st.setInt(6, qtmax);
-            st.setFloat(7, valor);
+            st.setString(1, peca.getCodigoPeca());
+            st.setString(2, peca.getNomePeca());
+            st.setString(3, peca.getCategoriaPeca());
+            st.setInt(4, peca.getQuantidadePeca());
+            st.setFloat(5, peca.getValorUnitario());
+            st.setInt(6, peca.getAlertaQtdMin());
+            st.setFloat(7, peca.getAlertaQtdMax());
             st.executeUpdate();
             st.close();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar a peça.\n Erro:\n\n" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!",
+                    "Cadastro realizado", 1);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar o produto. \n\n"
+                    + ex.getErrorCode() + "\n\n" + ex.getMessage(), "Erro: DaoPeca - Cadastrar Produto", 0);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoPeca.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public static void atualizarEstoque(ArrayList<VendaPeca> lista) {
         boolean estoqueInsuficiente = false;
         ArrayList<Integer> estoque = new ArrayList<>();
-        
+
         try {
             Connection con = Conexao.conectar();
             String sql = "SELECT QT_PECA FROM SYNCHROSOFT.TB_PECA WHERE CD_PECA = ?";
             PreparedStatement st = con.prepareStatement(sql);
-            for(int i = 0; i < lista.size(); i++){
-               
+            for (int i = 0; i < lista.size(); i++) {
+
                 st.setString(1, lista.get(i).getPeca().getCodigoPeca());
                 ResultSet rs = st.executeQuery();
                 rs.next();
@@ -56,61 +63,83 @@ public class DaoPeca {
                     estoqueInsuficiente = true;
                 }
             }
-            
-            if (estoqueInsuficiente){
-                JOptionPane.showMessageDialog(null, "Venda de peças não concluída. \n"
-                        + "Uma ou mais peças do orçamento excedem a quantidade em estoque.");
+
+            if (estoqueInsuficiente) {
+                JOptionPane.showMessageDialog(null, "A venda de produtos não foi concluída. \n"
+                        + "Uma ou mais produtos do orçamento excedem a quantidade disponível em estoque.",
+                        "DaoPeca - Atualizar Estoque", 0);
             } else {
                 sql = "UPDATE SYNCHROSOFT.TB_PECA "
                         + "SET QT_PECA = ? WHERE CD_PECA = ?";
                 PreparedStatement st2 = con.prepareStatement(sql);
-                for(int i = 0; i < lista.size(); i++){
+                for (int i = 0; i < lista.size(); i++) {
                     st2.setInt(1, (estoque.get(i) - lista.get(i).getQuantidadeVendida()));
                     st2.setString(2, lista.get(i).getPeca().getCodigoPeca());
                     st2.executeUpdate();
                 }
-                JOptionPane.showMessageDialog(null, "Venda de peças concluída.");
+                JOptionPane.showMessageDialog(null, "Venda de produtos concluída!", "Venda concluída", 1);
             }
-        } catch (HeadlessException | ClassNotFoundException | SQLException ex){
-            JOptionPane.showMessageDialog(null, "Erro ao realizar venda de peça. \n"+ex.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao realizar venda de peça. \n"
+                    + ex.getErrorCode() + "\n\n" + ex.getMessage(), "Erro: DaoPeca - Atualizar Estoque", 0);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoPeca.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public static boolean existePeca(int codigo) throws SQLException, ClassNotFoundException{
-        boolean flag;
-        Connection con = Conexao.conectar();
-        String sql = "SELECT CD_PECA FROM SYNCHROSOFT.TB_PECA WHERE CD_PECA = ?";
-        PreparedStatement st = con.prepareStatement(sql);
-        st.setInt(1, codigo);
-        ResultSet rs = st.executeQuery();
-        flag = rs.isBeforeFirst();
-        st.close();
-        rs.close();
+
+    public static boolean existePeca(String codigo) {
+        boolean flag = false;
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "SELECT CD_PECA FROM SYNCHROSOFT.TB_PECA WHERE CD_PECA = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, codigo);
+            ResultSet rs = st.executeQuery();
+            flag = rs.isBeforeFirst();
+            st.close();
+            rs.close();
+            return flag;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao verificar a existência do produto. \n\n"
+                    + ex.getErrorCode() + "\n\n" + ex.getMessage(), "Erro: DaoPeca - Existe Produto", 0);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoPeca.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return flag;
     }
-    
-    public static Peca popularPeca(int codigo) throws SQLException, ClassNotFoundException{
-        Peca p = new Peca();
-        Connection con = Conexao.conectar();
-        String sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE CD_PECA = ?";
-        PreparedStatement st = con.prepareStatement(sql);
-        st.setInt(1, codigo);
-        ResultSet rs = st.executeQuery();
-        while (rs.next()) {
-            
-            p.setCodigoPeca(rs.getString("CD_PECA"));
-            p.setNomePeca(rs.getString("NM_PECA"));
-            p.setCategoriaPeca(rs.getString("DS_CATEGORIA"));
-            p.setQuantidadePeca(rs.getInt("QT_PECA"));
-            p.setValorUnitario(Float.toString(rs.getFloat("VL_PECA")));
+
+    public static Peca popularPeca(String codigo) {
+        Peca peca = new Peca();
+        peca.setValidacao(false);
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE CD_PECA = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, codigo);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+
+                peca.setCodigoPeca(rs.getString("CD_PECA"));
+                peca.setNomePeca(rs.getString("NM_PECA"));
+                peca.setCategoriaPeca(rs.getString("DS_CATEGORIA"));
+                peca.setQuantidadePeca(rs.getString("QT_PECA"));
+                peca.setAlertaQtdMin(rs.getString("QT_PECAMIN"));
+                peca.setAlertaQtdMax(rs.getString("QT_PECAMAX"));
+                peca.setValorUnitario(rs.getString("VL_PECA"));
+            }
+            st.close();
+            rs.close();
+            peca.setValidacao(true);
+            return peca;
+        } catch (SQLException ex) {
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoPeca.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        st.close();
-        rs.close();
-        return p;
+        return peca;
     }
-    
-    public void deletarPeca (String cod) throws SQLException, ClassNotFoundException {
+
+    public static void deletarPeca(String cod) {
         try {
             Connection con = Conexao.conectar();
             String sql = "DELETE FROM SYNCHROSOFT.TB_PECA WHERE CD_PECA = ?";
@@ -118,9 +147,12 @@ public class DaoPeca {
             st.setString(1, cod);
             st.executeUpdate();
             st.close();
-            JOptionPane.showMessageDialog(null, "Peça removida com sucesso.");
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível remover a peça.\nErro:\n\n" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Produto removido com sucesso.", "Remoção concluída", 1);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível remover o produto.\n\n" + ex.getErrorCode()
+                    + "\n\n" + ex.getMessage(), "Erro: DaoPeca - Deletar Peca", 0);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoPeca.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -128,100 +160,107 @@ public class DaoPeca {
         ArrayList<Peca> lista = new ArrayList<>();
         try {
             Connection con = Conexao.conectar();
-//            DatabaseMetaData teste = con.getMetaData();
-//            System.out.println(teste.supportsBatchUpdates());
             String sql = "SELECT * FROM SYNCHROSOFT.TB_PECA";
             PreparedStatement st = con.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Peca pecas = new Peca(rs.getString("CD_PECA"), rs.getString("NM_PECA"), rs.getString("DS_CATEGORIA"), rs.getInt("QT_PECA"), rs.getInt("QT_PECAMIN"), rs.getInt("QT_PECAMAX"), Float.toString(rs.getFloat("VL_PECA")));
-                lista.add(pecas);
-
+                Peca peca = new Peca();
+                peca.setCodigoPeca(rs.getString("CD_PECA"));
+                peca.setNomePeca(rs.getString("NM_PECA"));
+                peca.setCategoriaPeca(rs.getString("DS_CATEGORIA"));
+                peca.setQuantidadePeca(rs.getString("QT_PECA"));
+                peca.setAlertaQtdMin(rs.getString("QT_PECAMIN"));
+                peca.setAlertaQtdMax(rs.getString("QT_PECAMAX"));
+                peca.setValorUnitario(rs.getString("VL_PECA"));
+                lista.add(peca);
             }
-            
+
             st.close();
             rs.close();
-        } catch (Exception ex) {
-            System.err.println("DAOPECA Instanciamento: " + ex);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível criar uma lista de protudos.\n\n" + ex.getErrorCode()
+                    + "\n\n" + ex.getMessage(), "Erro: DaoPeca - Listar Produtos", 0);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoPeca.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //return lista;
         return lista;
     }
-    
+
     public static ArrayList listarPecaFiltrada(String cmbFiltro, String txtPesquisa) {
         ArrayList<Peca> lista = new ArrayList<>();
         try {
             //Chamando método de conexão ao banco
             Connection con = Conexao.conectar();
-            
             //Declarando variável de String de conexão
             String sql = "";
-            
-//            DatabaseMetaData teste = con.getMetaData();
-//            System.out.println(teste.supportsBatchUpdates());
-
             //Criando estrutura switch case para identificar o tipo de filtro de pesquisa
-            switch(cmbFiltro)
-            {
-                //preparando sql de acordo com código
-                case "Código":  sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE LOWER(CD_PECA) LIKE LOWER(?)";
-                break;
-                
-                //preparando tratamento de acordo com nome
-                case "Nome": sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE LOWER(NM_PECA) LIKE LOWER(?)";
-                break;
-                
-                //preparando tratamento de acordo com categoria
-                case "Categoria": sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE LOWER(DS_CATEGORIA) LIKE LOWER(?)";
-                break;
-                
-                //preparando tratamento de acordo com quantidade em estoque
-                case "Quantidade": sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE LOWER(QT_PEC)A LIKE LOWER(?)";
-                break;
-                
-                //preparando tratamento de acordo com valor da peça
-                case "Valor": sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE LOWER(VL_PECA) LIKE LOWER(?)";
-                break;
+            switch (cmbFiltro) {
+                case "Código":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE LOWER(CD_PECA) LIKE LOWER(?)";
+                    break;
+
+                case "Nome":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE LOWER(NM_PECA) LIKE LOWER(?)";
+                    break;
+
+                case "Categoria":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE LOWER(DS_CATEGORIA) LIKE LOWER(?)";
+                    break;
+
+                case "Quantidade":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE LOWER(QT_PECA)A LIKE LOWER(?)";
+                    break;
+                case "Alerta Qtd Min":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE LOWER(QT_PECAMIN)A LIKE LOWER(?)";
+                    break;
+
+                case "Alerta Qtd Max":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE LOWER(QT_PECMAX)A LIKE LOWER(?)";
+                    break;
+
+                case "Valor":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE LOWER(VL_PECA) LIKE LOWER(?)";
+                    break;
             }
-            
+
             //realizando preparedStatement para tratamento de variáveis
             PreparedStatement st = con.prepareStatement(sql);
-            
+
             //colocando valor da variável ? da query 
-            st.setString(1, "%"+txtPesquisa+"%");
-            
+            st.setString(1, "%" + txtPesquisa + "%");
+
             //executando query selecionada pelo switch case
             ResultSet rs = st.executeQuery();
-            
+
             //listando dados do banco em jtable
             while (rs.next()) {
-                Peca pecas = new Peca(rs.getString("CD_PECA"), rs.getString("NM_PECA"), rs.getString("DS_CATEGORIA"), rs.getInt("QT_PECA"), rs.getInt("QT_PECAMIN"), rs.getInt("QT_PECAMAX"), Float.toString(rs.getFloat("VL_PECA")));
-                lista.add(pecas);
-
-                /*lista.add(new String[]{String.valueOf(rs.getInt("CD_PECA")),
-                (rs.getString("NM_PECA")),(rs.getString("DS_CATEGORIA")),
-                String.valueOf(rs.getInt("QT_PECA")),String.valueOf(rs.getFloat("VL_PECA"))});                
-                System.out.println(lista.get(0));*/
+                Peca peca = new Peca();
+                peca.setCodigoPeca(rs.getString("CD_PECA"));
+                peca.setNomePeca(rs.getString("NM_PECA"));
+                peca.setCategoriaPeca(rs.getString("DS_CATEGORIA"));
+                peca.setQuantidadePeca(rs.getString("QT_PECA"));
+                peca.setAlertaQtdMin(rs.getString("QT_PECAMIN"));
+                peca.setAlertaQtdMax(rs.getString("QT_PECAMAX"));
+                peca.setValorUnitario(rs.getString("VL_PECA"));
+                lista.add(peca);
             }
-            
-            //teste de funcionamento do método
-            System.out.println(lista.get(0).getNomePeca());
-            
             //fechamento de preparedStatement e Conexão do banco
             st.close();
             rs.close();
-            
-        } catch (Exception ex) { //Caso exista a possibilidade de retorno de erro
-            System.err.println("DAOPECA Instanciamento: " + ex);
+
+        } catch (SQLException ex) { //Caso exista a possibilidade de retorno de erro
+            JOptionPane.showMessageDialog(null, "Não foi possível listar os produtos por pesquisa filtrada.\n\n" + ex.getErrorCode()
+                    + "\n\n" + ex.getMessage(), "Erro: DaoPeca - Listar Produtos Filtrados", 0);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoPeca.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //return lista;
         return lista;
     }
 
-    public void alterarPeca(JTable tabela) throws SQLException, ClassNotFoundException {
+    public static void alterarPeca(JTable tabela){
 
-        try{
-            
+        try {
+
             int rows = tabela.getRowCount();
             String log = "";
             JOptionPane.showConfirmDialog(null, "Deseja realizar a alteração?");
@@ -230,37 +269,43 @@ public class DaoPeca {
             con.setAutoCommit(false);
             String sql = "UPDATE SYNCHROSOFT.TB_PECA "
                     + "SET CD_PECA = ?, NM_PECA = ?, DS_CATEGORIA = ?, "
-                    + "QT_PECA = ?, VL_PECA = ? WHERE CD_PECA = ?";
+                    + "QT_PECA = ?, QT_PECAMIN = ?, QT_PECAMAX = ?, VL_PECA = ? WHERE CD_PECA = ?";
             PreparedStatement st = con.prepareStatement(sql);
             for (int row = 0; row < rows; row++) {
-                
-                String CD_PECA_ALTERADA = (String) tabela.getValueAt(row, 0);
-                String NM_PECA = (String) tabela.getValueAt(row, 1);
-                String DS_CATEGORIA = (String) tabela.getValueAt(row, 2);
-                String QT_PECA = (String) tabela.getValueAt(row, 3);
-                String VL_PECA = (String) tabela.getValueAt(row, 4);
-                String CD_PECA_REFERENCIA = (String) tabela.getValueAt(row, 5);
+                Peca peca = new Peca();
+                peca.setCodigoPeca((String) tabela.getValueAt(row, 0));
+                peca.setNomePeca((String) tabela.getValueAt(row, 1));
+                peca.setCategoriaPeca((String) tabela.getValueAt(row, 2));
+                peca.setQuantidadePeca((String) tabela.getValueAt(row, 3));
+                peca.setAlertaQtdMin((String) tabela.getValueAt(row, 4));
+                peca.setAlertaQtdMax((String) tabela.getValueAt(row, 5));
+                peca.setValorUnitario((String) tabela.getValueAt(row, 6));
+                String CD_PECA_REFERENCIA = ((String) tabela.getValueAt(row, 7));
 
-                st.setInt(1, Integer.parseInt(CD_PECA_ALTERADA));                
-                st.setString(2, NM_PECA);
-                st.setString(3, DS_CATEGORIA);
-                st.setInt(4, Integer.parseInt(QT_PECA));
-                st.setFloat(5, Float.parseFloat(VL_PECA));
-                st.setInt(6, Integer.parseInt(CD_PECA_REFERENCIA));
+                st.setString(1, peca.getCodigoPeca());
+                st.setString(2, peca.getNomePeca());
+                st.setString(3, peca.getCodigoPeca());
+                st.setInt(4, peca.getQuantidadePeca());
+                st.setInt(5, peca.getAlertaQtdMin());
+                st.setInt(6, peca.getAlertaQtdMax());
+                st.setFloat(7, peca.getValorUnitario());
+                st.setString(8, CD_PECA_REFERENCIA);
 
                 st.addBatch();
                 st.executeBatch();
                 con.commit();
-               
+
             }
-            
-             JOptionPane.showMessageDialog(null, "A base de peças foi alterada com sucesso!");
+
+            JOptionPane.showMessageDialog(null, "A base de produtos foi alterada com sucesso!", "Atualização da base de Produtos", 1);
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao alterar a base de Peças. \n\n"+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Não foi possível alterar a base de produtos.\n\n" + ex.getErrorCode()
+                    + "\n\n" + ex.getMessage(), "Erro: DaoPeca - Alterar Produto via Tabela", 0);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoPeca.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
-
 
 }

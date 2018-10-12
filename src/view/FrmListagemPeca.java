@@ -130,7 +130,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         lblPesquisar.setBounds(230, 60, 120, 25);
 
         cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "Nome", "Categoria", "Quantidade", "Valor" }));
+        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "Nome", "Categoria", "Quantidade", "Alerta Qtd Min", "Alerta Qtd Max", "Valor" }));
         getContentPane().add(cmbFiltro);
         cmbFiltro.setBounds(370, 60, 107, 31);
 
@@ -174,30 +174,15 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    DaoPeca dp = new DaoPeca();
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        /*ArrayList<Peca> pecaAlterar = new ArrayList<>();
-        JOptionPane.showMessageDialog(null,""+tblListagemPeca.getRowCount());
-        JOptionPane.showMessageDialog(null,""+tblListagemPeca.getColumnCount());
-        
-        
-        
-        for (int i = 0; i <= tblListagemPeca.getRowCount();i++){
-            
-        }*/
+
         try {
             tblListagemPeca.getCellEditor().stopCellEditing();
         } catch (Exception ex) {
 
         }
-        try {
-            dp.alterarPeca(tblListagemPeca);
-        } catch (SQLException ex) {
-            Logger.getLogger(FrmListagemPeca.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrmListagemPeca.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        DaoPeca.alterarPeca(tblListagemPeca);
 
 
     }//GEN-LAST:event_btnAlterarActionPerformed
@@ -220,12 +205,9 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         Peca peca = new Peca();
         String aux = (String) tblListagemPeca.getValueAt(tblListagemPeca.getSelectedRow(), 0);
         peca.setCodigoPeca(aux);
-        try {
-            dp.deletarPeca(peca.getCodigoPeca());
-            atualizarTabela();
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(FrmListagemPeca.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        DaoPeca.deletarPeca(peca.getCodigoPeca());
+        atualizarTabela();
+
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
@@ -239,19 +221,19 @@ public class FrmListagemPeca extends javax.swing.JFrame {
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
         // Chamando método de listagem com filtro, se txt preenchido
 //        try {
-            //criando variável de controle
-            int controle = 0;
+        //criando variável de controle
+        int controle = 0;
 
-            //Se campo de texto não estiver vazio
-            if (txtPesquisa.getText().trim() != "") {
-                controle = 1;
-                atualizarTabelaFiltrada();
-            }
+        //Se campo de texto não estiver vazio
+        if (txtPesquisa.getText().trim() != "") {
+            controle = 1;
+            atualizarTabelaFiltrada();
+        }
 
-            //Se a variável de controle for 0, diz-se que o campo está vazio e, portanto, atualiza a JTable
-            if (controle == 0) {
-                atualizarTabela();
-            }
+        //Se a variável de controle for 0, diz-se que o campo está vazio e, portanto, atualiza a JTable
+        if (controle == 0) {
+            atualizarTabela();
+        }
 //        } catch (Exception ex) {
 //            System.out.println("Exceção: " + ex);
 //        }
@@ -353,10 +335,9 @@ public class FrmListagemPeca extends javax.swing.JFrame {
 
     private void atualizarTabelaFiltrada() { //Igual método de ListarPeca, mas chama o método de ListarPecaFiltrada()
 
-
         ArrayList<Peca> lista = new ArrayList<>();
         lista = DaoPeca.listarPecaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim().toLowerCase()); //Filtrando 
-         String[] nomeColunas = {"Código", "Nome", "Categoria", "Quantidade", "Alerta Qtd Mínima", "Alerta Qtd Máxima", "Valor Unitário", "PK Ref"};
+        String[] nomeColunas = {"Código", "Nome", "Categoria", "Quantidade", "Alerta Qtd Mínima", "Alerta Qtd Máxima", "Valor Unitário", "PK Ref"};
         try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPeca()
         {
             DefaultTableModel model = new DefaultTableModel() {
