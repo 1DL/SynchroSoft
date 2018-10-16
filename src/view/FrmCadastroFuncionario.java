@@ -12,6 +12,8 @@ import dao.DaoFuncionario;
 import dao.DaoPessoa;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -20,6 +22,7 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 import model.Endereco;
@@ -47,7 +50,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         this.endExibicao = new Endereco();
         this.pessoaFisicaExibicao = new PessoaFisica();
         this.pessoaExibicao = new Pessoa();
-        
+
         MaskFormatter dateMask;
         try {
             dateMask = new MaskFormatter("##/##/####");
@@ -56,12 +59,14 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         } catch (ParseException ex) {
             Logger.getLogger(FrmCadastroDespesa.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         txtfDataAdmissao.setText(Datas.getDiaHoje());
         iniciarlizarTabela();
         if (nvlAdm == 0) {
             btnCadastrar.setEnabled(false);
         }
+        
+        selecionarAoFocar();
 
     }
 
@@ -436,6 +441,11 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
 
         txtfSalario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         txtfSalario.setText("0,00");
+        txtfSalario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtfSalarioMouseClicked(evt);
+            }
+        });
         txtfSalario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtfSalarioKeyReleased(evt);
@@ -455,11 +465,6 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
 
         txtfDataAdmissao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
         txtfDataAdmissao.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtfDataAdmissao.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtfDataAdmissaoFocusLost(evt);
-            }
-        });
 
         btnHoje.setText("Hoje");
         btnHoje.addActionListener(new java.awt.event.ActionListener() {
@@ -767,9 +772,9 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         txtfDataAdmissao.setText(control.Datas.getDiaHoje());
     }//GEN-LAST:event_btnHojeActionPerformed
 
-    private void txtfDataAdmissaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfDataAdmissaoFocusLost
-        
-    }//GEN-LAST:event_txtfDataAdmissaoFocusLost
+    private void txtfSalarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtfSalarioMouseClicked
+        txtfDataAdmissao.selectAll();
+    }//GEN-LAST:event_txtfSalarioMouseClicked
 
     /**
      * @param args the command line arguments
@@ -803,6 +808,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                 new FrmCadastroFuncionario(control.SynchroSoft.getNvlAdm()).setVisible(true);
             }
         });
+
     }
 
     void limpar() {
@@ -821,8 +827,6 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         codCadastrado = false;
         cpfCadastrado = false;
     }
-    
-    
 
     public void popularExibicaoPessoa(PessoaFisica pf) {
         txtCep.setText(pf.getPessoa().getEndereco().getCep());
@@ -895,6 +899,42 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel();
         model = (DefaultTableModel) tblFuncionarioRecente.getModel();
         model.addRow(rowData);
+    }
+    
+    private void selecionarAoFocar() {
+        //Código para selecionar o texto todo ao ganhar foco
+        txtfSalario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfSalario.selectAll();
+                    }
+                });
+            }
+        });
+        
+        txtfDataAdmissao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfDataAdmissao.selectAll();
+                    }
+                });
+            }
+        });
+        
+        txtfHoras.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfHoras.selectAll();
+                    }
+                });
+            }
+        });
     }
 
 

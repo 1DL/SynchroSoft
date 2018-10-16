@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.text.MaskFormatter;
 import model.Despesa;
 
@@ -35,6 +36,10 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         }
 
         txtfDataVencimento.setText(Datas.getDiaHoje());
+        
+        selecionarAoFocar();
+        
+        
 
         if (nvlAdm == 0) {
             btnCadastrar.setEnabled(false);
@@ -279,6 +284,30 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         cmbTipoDespesa.setSelectedIndex(0);
         txtfValorDespesa.setText("0,00");
         txaDescricaoDespesa.setText("");
+    }
+    
+    private void selecionarAoFocar(){
+        txtfDataVencimento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfDataVencimento.selectAll();
+                    }
+                });
+            }
+        });
+        
+        txtfValorDespesa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfValorDespesa.selectAll();
+                    }
+                });
+            }
+        });
     }
 
     /**

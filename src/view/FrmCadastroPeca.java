@@ -9,6 +9,7 @@ import control.TextSize;
 import dao.DaoPeca;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import model.Peca;
 
@@ -27,6 +28,7 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
         if (nvlAdm == 0) {
             btnCadastrar.setEnabled(false);
         }
+        selecionarAoFocar();
     }
 
     /**
@@ -124,6 +126,7 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
         });
 
         btnCadastrar.setText("Cadastrar");
+        btnCadastrar.setNextFocusableComponent(txtCodigoPeca);
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
@@ -425,6 +428,52 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel();
         model = (DefaultTableModel) tblProdutoRecente.getModel();
         model.addRow(rowData);
+    }
+    
+    private void selecionarAoFocar(){
+        txtValorUnitario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtValorUnitario.selectAll();
+                    }
+                });
+            }
+        });
+        
+        txtQuantidadePeca.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtQuantidadePeca.selectAll();
+                    }
+                });
+            }
+        });
+        
+        txtQuantidadeMinima.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtQuantidadeMinima.selectAll();
+                    }
+                });
+            }
+        });
+        
+        txtQuantidadeMaxima.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtQuantidadeMaxima.selectAll();
+                    }
+                });
+            }
+        });
     }
     /**
      * @param args the command line arguments
