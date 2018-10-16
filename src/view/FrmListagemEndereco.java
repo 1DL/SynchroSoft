@@ -6,6 +6,7 @@
 package view;
 
 import dao.DaoEndereco;
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -52,8 +53,10 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Listar Endereços");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logopng32.png")));
         setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
+        setResizable(false);
         getContentPane().setLayout(null);
 
         tblListagemEndereco.setModel(new javax.swing.table.DefaultTableModel(

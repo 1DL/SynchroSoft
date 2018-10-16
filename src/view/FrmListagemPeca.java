@@ -5,11 +5,8 @@
  */
 package view;
 
-import dao.DaoPeca;
-import java.sql.SQLException;
+import java.awt.Toolkit;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import model.Peca;
 
@@ -53,9 +50,11 @@ public class FrmListagemPeca extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Listar Peças Cadastradas");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logopng32.png")));
         setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         setPreferredSize(new java.awt.Dimension(1152, 648));
+        setResizable(false);
         getContentPane().setLayout(null);
 
         tblListagemPeca.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N

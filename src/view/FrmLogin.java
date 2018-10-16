@@ -7,6 +7,7 @@ package view;
 
 import control.TextSize;
 import dao.DaoUsuario;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -111,7 +112,8 @@ public class FrmLogin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Synchrosoft - Login");
-        setIconImage(getIconImage());
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logopng32.png")));
+        setResizable(false);
         setSize(new java.awt.Dimension(1152, 648));
 
         jpnLogin.setAutoscrolls(true);
@@ -233,9 +235,9 @@ public class FrmLogin extends javax.swing.JFrame {
                         .add(lbl_sid)
                         .add(13, 13, 13)))
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(txt_portaBanco, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                    .add(txt_portaBanco)
                     .add(txt_sid))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)

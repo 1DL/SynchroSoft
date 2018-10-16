@@ -5,7 +5,6 @@
  */
 package dao;
 
-import java.awt.HeadlessException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;

@@ -7,6 +7,7 @@ package view;
 
 import control.TextSize;
 import dao.DaoEndereco;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Endereco;
@@ -60,6 +61,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Endereço");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logopng32.png")));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         setResizable(false);
         getContentPane().setLayout(null);

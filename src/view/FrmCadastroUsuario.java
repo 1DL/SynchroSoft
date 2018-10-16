@@ -9,6 +9,7 @@ import control.TextSize;
 import dao.DaoFuncionario;
 import dao.DaoUsuario;
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -71,15 +72,17 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Usuário");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logopng32.png")));
         setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         setPreferredSize(new java.awt.Dimension(1152, 648));
+        setResizable(false);
         getContentPane().setLayout(null);
 
         lblCodFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCodFuncionario.setText("Código do Funcionário:");
         getContentPane().add(lblCodFuncionario);
-        lblCodFuncionario.setBounds(50, 70, 200, 24);
+        lblCodFuncionario.setBounds(50, 70, 200, 25);
 
         txtCodFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtCodFuncionario.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -93,7 +96,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblLogin.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblLogin.setText("Login:");
         getContentPane().add(lblLogin);
-        lblLogin.setBounds(670, 160, 60, 24);
+        lblLogin.setBounds(670, 160, 60, 25);
 
         txtLogin.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtLogin.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -107,7 +110,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblSenha.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblSenha.setText("Senha:");
         getContentPane().add(lblSenha);
-        lblSenha.setBounds(670, 240, 60, 24);
+        lblSenha.setBounds(670, 240, 60, 25);
 
         txtSenha.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -116,7 +119,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtSenha);
-        txtSenha.setBounds(770, 240, 250, 30);
+        txtSenha.setBounds(770, 240, 250, 31);
 
         txtConfirma.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtConfirma.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -125,12 +128,12 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtConfirma);
-        txtConfirma.setBounds(770, 320, 250, 30);
+        txtConfirma.setBounds(770, 320, 250, 31);
 
         lblSenha1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblSenha1.setText("Confirmar:");
         getContentPane().add(lblSenha1);
-        lblSenha1.setBounds(670, 320, 90, 24);
+        lblSenha1.setBounds(670, 320, 90, 25);
 
         btnCadastrar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnCadastrar.setText("Cadastrar");

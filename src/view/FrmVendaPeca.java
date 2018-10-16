@@ -7,6 +7,7 @@ package view;
 
 import control.TextSize;
 import dao.DaoPeca;
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -92,7 +93,9 @@ public class FrmVendaPeca extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Venda de Peças");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logopng32.png")));
         setMinimumSize(new java.awt.Dimension(1152, 648));
+        setResizable(false);
         getContentPane().setLayout(null);
 
         jLabel9.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -312,7 +315,7 @@ public class FrmVendaPeca extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnFechar);
-        btnFechar.setBounds(1060, 540, 67, 23);
+        btnFechar.setBounds(1060, 540, 65, 23);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(jLabel1);

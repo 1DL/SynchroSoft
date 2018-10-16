@@ -7,6 +7,7 @@ package view;
 
 import control.Janelas;
 import java.awt.Frame;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,8 +25,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form TelaPrincipal
      */
-    
-            ArrayList<Janelas> maisAcessadas = new ArrayList<>(control.Janelas.acessoTelas);
+    ArrayList<Janelas> maisAcessadas = new ArrayList<>(control.Janelas.acessoTelas);
 
     public FrmPrincipal() {
         definirMaisAcessadas();
@@ -85,6 +85,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Principal - " + control.SynchroSoft.getNomeUsuario() + 
             " - Nível de Acesso: " + control.SynchroSoft.getNvlAdmSTR());
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logopng32.png")));
         setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         setPreferredSize(new java.awt.Dimension(1152, 648));
@@ -525,9 +526,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         control.Janelas.abrirMaisAcessada(maisAcessadas.get(5).getNome(), true);
     }//GEN-LAST:event_btn_janMaisAcessada6ActionPerformed
 
-    
-    
-    private void definirMaisAcessadas(){
+    private void definirMaisAcessadas() {
         Collections.sort(maisAcessadas, new Comparator<Janelas>() {
             @Override
             public int compare(Janelas j1, Janelas j2) {
@@ -535,14 +534,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
 
         });
-        
+
         Collections.reverse(maisAcessadas);
         System.out.println("Ordenação");
-        for (Janelas j : maisAcessadas){
-            System.out.println(j.getNome() + " " +j.getAcesso());
+        for (Janelas j : maisAcessadas) {
+            System.out.println(j.getNome() + " " + j.getAcesso());
         }
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -552,9 +551,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        
-        
-        
+
         //</editor-fold>
         //</editor-fold>
 

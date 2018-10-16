@@ -7,6 +7,7 @@ package view;
 
 import dao.DaoOrcamento;
 import dao.DaoPeca;
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -97,7 +98,9 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Listar Orçamentos");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logopng32.png")));
         setMinimumSize(new java.awt.Dimension(1152, 648));
+        setResizable(false);
         getContentPane().setLayout(null);
 
         jLabel8.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -402,7 +405,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnDeletar);
-        btnDeletar.setBounds(180, 590, 69, 23);
+        btnDeletar.setBounds(180, 590, 67, 23);
 
         btnAlterar.setText("Alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {

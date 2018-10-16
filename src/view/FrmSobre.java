@@ -5,6 +5,8 @@
  */
 package view;
 
+import java.awt.Toolkit;
+
 /**
  *
  * @author aluno
@@ -46,6 +48,8 @@ public class FrmSobre extends javax.swing.JFrame {
         lblLogo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logopng32.png")));
+        setResizable(false);
 
         lbl_sobre.setText("Sobre");
 

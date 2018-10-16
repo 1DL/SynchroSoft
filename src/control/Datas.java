@@ -5,8 +5,6 @@
  */
 package control;
 
-import java.sql.Date;
-
 /**
  *
  * @author LuizV1

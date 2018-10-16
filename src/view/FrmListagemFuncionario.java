@@ -6,6 +6,7 @@
 package view;
 
 import dao.DaoFuncionario;
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -53,8 +54,10 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Listar Funcionários");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logopng32.png")));
         setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
+        setResizable(false);
         setSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
 
@@ -72,7 +75,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblListagemFuncionario);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(14, 119, 1090, 404);
+        jScrollPane1.setBounds(14, 119, 1090, 402);
 
         btnFechar.setText("Fechar");
         btnFechar.addActionListener(new java.awt.event.ActionListener() {
@@ -132,7 +135,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(360, 60, 107, 33);
+        cmbFiltro.setBounds(360, 60, 107, 31);
 
         txtPesquisa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {

@@ -6,6 +6,7 @@
 package view;
 
 import dao.DaoPessoa;
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -53,8 +54,10 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Listar Pessoas Físicas");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logopng32.png")));
         setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
+        setResizable(false);
         setSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
 
@@ -75,7 +78,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome", "CPF", "Sexo", "CEP", "Endereço", "Número Endereço", "Telefone", "Celular", "Contrato", "Data de Cadastro" }));
         getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(400, 100, 107, 33);
+        cmbFiltro.setBounds(400, 100, 107, 31);
 
         lblDescrever.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDescrever.setText("Descrição:");
@@ -118,7 +121,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAlterar);
-        btnAlterar.setBounds(450, 560, 100, 35);
+        btnAlterar.setBounds(450, 560, 100, 33);
 
         btnDeletar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnDeletar.setText("Deletar");
@@ -128,7 +131,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnDeletar);
-        btnDeletar.setBounds(590, 560, 110, 35);
+        btnDeletar.setBounds(590, 560, 110, 33);
 
         btnTelaCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnTelaCadastro.setText("Tela Cadastro");
@@ -138,7 +141,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnTelaCadastro);
-        btnTelaCadastro.setBounds(743, 560, 170, 35);
+        btnTelaCadastro.setBounds(743, 560, 170, 33);
 
         btnAtualizarTabela1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnAtualizarTabela1.setText("AtualizarTabela");
@@ -148,7 +151,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAtualizarTabela1);
-        btnAtualizarTabela1.setBounds(240, 560, 180, 35);
+        btnAtualizarTabela1.setBounds(240, 560, 180, 33);
 
         btnJuridica.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnJuridica.setText("Listar Pessoa Jurídica");

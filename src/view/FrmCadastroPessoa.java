@@ -8,6 +8,7 @@ package view;
 import control.TextSize;
 import dao.DaoEndereco;
 import dao.DaoPessoa;
+import java.awt.Toolkit;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -115,9 +116,11 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Pessoa");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logopng32.png")));
         setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         setPreferredSize(new java.awt.Dimension(1152, 648));
+        setResizable(false);
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -413,7 +416,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         jPanel1.add(btnMenuPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(425, 373, 161, 227));
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(69, 11, 1070, 602);
+        jPanel1.setBounds(69, 11, 1058, 600);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         jLabel1.setText("jLabel1");

@@ -9,6 +9,7 @@ import control.TextSize;
 import dao.DaoEndereco;
 import dao.DaoFuncionario;
 import dao.DaoPessoa;
+import java.awt.Toolkit;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -109,7 +110,9 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Funcionário");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logopng32.png")));
         setMinimumSize(new java.awt.Dimension(1152, 648));
+        setResizable(false);
         setSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
 

@@ -7,9 +7,8 @@ package view;
 
 import control.Datas;
 import control.TextSize;
-import dao.DaoDespesa;
+import java.awt.Toolkit;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.logging.Level;
@@ -70,6 +69,7 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Despesa");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logopng32.png")));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         setResizable(false);
         getContentPane().setLayout(null);
