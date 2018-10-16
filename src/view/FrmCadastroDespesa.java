@@ -28,7 +28,7 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         MaskFormatter dateMask;
         try {
             dateMask = new MaskFormatter("##/##/####");
-            dateMask.setPlaceholderCharacter('/');
+            dateMask.setPlaceholderCharacter('*');
             dateMask.install(txtfDataVencimento);
         } catch (ParseException ex) {
             Logger.getLogger(FrmCadastroDespesa.class.getName()).log(Level.SEVERE, null, ex);

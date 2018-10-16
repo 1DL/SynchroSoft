@@ -363,18 +363,9 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
             }
             
             //Se o sexo for 0, masculino; senão, feminino
-            if(lista.get(i).getSexo() == 0)
-            {
-                sexo = "Masculino";
-            }
-            else
-            {
-                sexo = "Feminino";
-            }
-            
             rowData[0] = lista.get(i).getPessoa().getNome();
             rowData[1] = lista.get(i).getCpf();
-            rowData[2] = sexo;            
+            rowData[2] = lista.get(i).getSexo();            
             rowData[3] = lista.get(i).getPessoa().getEndereco().getCep();
             rowData[4] = lista.get(i).getPessoa().getEndereco().getLogradouro();
             rowData[5] = lista.get(i).getPessoa().getComplementoLogradouro();
@@ -441,18 +432,10 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
             }
             
             //Se o sexo for 0, masculino; senão, feminino
-            if(lista.get(i).getSexo() == 0)
-            {
-                sexo = "Masculino";
-            }
-            else
-            {
-                sexo = "Feminino";
-            }
             
             rowData[0] = lista.get(i).getPessoa().getNome();
             rowData[1] = lista.get(i).getCpf();
-            rowData[2] = sexo;            
+            rowData[2] = lista.get(i).getSexo();
             rowData[3] = lista.get(i).getPessoa().getEndereco().getCep();
             rowData[4] = lista.get(i).getPessoa().getEndereco().getLogradouro();
             rowData[5] = lista.get(i).getPessoa().getComplementoLogradouro();

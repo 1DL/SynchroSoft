@@ -6,6 +6,7 @@
 package model;
 
 import java.sql.Date;
+import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,7 +20,7 @@ public class Funcionario{
     private String codigoFuncionario;
     private Pessoa pessoa;
     private PessoaFisica fisica;
-    private float Salario;
+    private float salario;
     private String cargo;
     private Date dataContrato;
     private Date dataDemissao;
@@ -37,12 +38,12 @@ public class Funcionario{
     }
 
     public Funcionario(String codigoFuncionario, Pessoa pessoa, PessoaFisica fisica, 
-            String Salario, String cargo, String dataContrato, String dataDemissao, 
+            String salario, String cargo, String dataContrato, String dataDemissao, 
             String horasTrabalhadas, boolean nivelAdministrativo) {
         this.codigoFuncionario = codigoFuncionario;
         this.pessoa = pessoa;
         this.fisica = fisica;
-        this.setSalario(Salario);
+        this.setSalario(salario);
         this.cargo = cargo;
         this.setDataContrato(dataContrato);
         this.setDataDemissao(dataDemissao);
@@ -51,12 +52,12 @@ public class Funcionario{
     }
     
     public Funcionario(String codigoFuncionario, Pessoa pessoa, PessoaFisica fisica, 
-            String Salario, String cargo, String dataContrato, String dataDemissao, 
+            String salario, String cargo, String dataContrato, String dataDemissao, 
             String horasTrabalhadas, int nivelAdministrativo) {
         this.codigoFuncionario = codigoFuncionario;
         this.pessoa = pessoa;
         this.fisica = fisica;
-        this.setSalario(Salario);
+        this.setSalario(salario);
         this.cargo = cargo;
         this.setDataContrato(dataContrato);
         this.setDataDemissao(dataDemissao);
@@ -84,14 +85,21 @@ public class Funcionario{
         this.fisica = fisica;
     }
 
-    public float getSalario() {
-        return Salario;
+    public float getSalarioBanco() {
+        return salario;
+    }
+    
+    public String getSalarioSTR() {
+        String salarioSTR;
+        salarioSTR = (new DecimalFormat("#0.00").format(salario));
+        salarioSTR = salarioSTR.replace(".", ",");
+        return salarioSTR;
     }
 
-    public void setSalario(String Salario) {
-        Salario = Salario.replace(",", ".");
+    public void setSalario(String salario) {
+        salario = salario.replace(",", ".");
         try {
-        this.Salario = Float.parseFloat(Salario);
+        this.salario = Float.parseFloat(salario);
         validacao = true;
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(null, "Valor do salário inválido. Use somente números inteiros e/ou decimais.", "Erro - Valor do Salário inválido", 0);
@@ -147,7 +155,15 @@ public class Funcionario{
         }
     }
 
-    public int getNivelAdministrativo() {
+    public String getNivelAdministrativo() {
+        if (nivelAdministrativo == 0) {
+            return "Visualização";
+        } else {
+            return "Completo";
+        }
+    }
+    
+    public int getNivelAdministrativoBanco(){
         return nivelAdministrativo;
     }
 

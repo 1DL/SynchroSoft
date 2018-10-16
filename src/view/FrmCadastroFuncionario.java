@@ -15,10 +15,12 @@ import java.awt.Toolkit;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 import model.Endereco;
 import model.Funcionario;
@@ -45,17 +47,18 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         this.endExibicao = new Endereco();
         this.pessoaFisicaExibicao = new PessoaFisica();
         this.pessoaExibicao = new Pessoa();
+        
         MaskFormatter dateMask;
         try {
             dateMask = new MaskFormatter("##/##/####");
-            dateMask.setPlaceholderCharacter('/');
+            dateMask.setPlaceholderCharacter('*');
             dateMask.install(txtfDataAdmissao);
         } catch (ParseException ex) {
             Logger.getLogger(FrmCadastroDespesa.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         txtfDataAdmissao.setText(Datas.getDiaHoje());
-
+        iniciarlizarTabela();
         if (nvlAdm == 0) {
             btnCadastrar.setEnabled(false);
         }
@@ -447,6 +450,11 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
 
         txtfDataAdmissao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
         txtfDataAdmissao.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtfDataAdmissao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtfDataAdmissaoFocusLost(evt);
+            }
+        });
 
         btnHoje.setText("Hoje");
         btnHoje.addActionListener(new java.awt.event.ActionListener() {
@@ -681,22 +689,21 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         PessoaFisica pf = new PessoaFisica();
-        Pessoa p = new Pessoa();
-        int nivelAdm = 0;
-
         if (cpfCadastrado && cpfCadastrado) {
-
             pf = DaoPessoa.popularPessoaFisica(txtCpf.getText());
             Funcionario func = new Funcionario(txtCodigoFuncionario.getText(),
-                pf.getPessoa(), pf, txtfSalario.getText(), txtCargo.getText(),
-                txtfDataAdmissao.getText(), txtfDataAdmissao.getText(), txtfHoras.getText(),
-                rbtVisualizacao.isSelected());
-            if (func.isValidacao()){
-                dao.DaoFuncionario.cadastrarFuncionario(func);
+                    pf.getPessoa(), pf, txtfSalario.getText(), txtCargo.getText(),
+                    txtfDataAdmissao.getText(), txtfDataAdmissao.getText(), txtfHoras.getText(),
+                    rbtVisualizacao.isSelected());
+            if (func.isValidacao()) {
+                boolean aux = dao.DaoFuncionario.cadastrarFuncionario(func);
+                if (aux) {
+                    atualizarTabela(func);
+                }
             }
-
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos corretamente.", "Erro - Campo em branco ou inválido", 0);
         }
-
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
@@ -751,6 +758,10 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         txtfDataAdmissao.setText(control.Datas.getDiaHoje());
     }//GEN-LAST:event_btnHojeActionPerformed
 
+    private void txtfDataAdmissaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfDataAdmissaoFocusLost
+        
+    }//GEN-LAST:event_txtfDataAdmissaoFocusLost
+
     /**
      * @param args the command line arguments
      */
@@ -801,6 +812,8 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         codCadastrado = false;
         cpfCadastrado = false;
     }
+    
+    
 
     public void popularExibicaoPessoa(PessoaFisica pf) {
         txtCep.setText(pf.getPessoa().getEndereco().getCep());
@@ -812,7 +825,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         txtNumero.setText(pf.getPessoa().getComplementoLogradouro());
         txtTelefone.setText("" + pf.getPessoa().getTelefone());
         txtCelular.setText("" + pf.getCelular());
-        if (pf.getSexo() == 0) {
+        if (pf.getSexoBanco() == 0) {
             rbtMasculino.setSelected(true);
             rbtFeminino.setSelected(false);
         } else {
@@ -835,6 +848,44 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         rbtMasculino.setSelected(false);
         rbtFeminino.setSelected(false);
 
+    }
+
+    void iniciarlizarTabela() {
+        ArrayList<Funcionario> lista = new ArrayList<>();
+        lista = DaoFuncionario.listarFuncionario();
+        String[] nomeColunas = {"Código", "CEP", "Nome", "CPF", "Sexo", "Telefone", "Celular", "Número",
+            "Salário", "Cargo", "Admissão", "Horas Trabalhadas", "Nível Administrativo"};
+        try {
+            DefaultTableModel model = new DefaultTableModel();
+            tblFuncionarioRecente.setModel(model);
+            model.setColumnIdentifiers(nomeColunas);
+            model.setRowCount(0);
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao popular tabela.\n\n" + ex.getMessage(), "Erro de população de tabela", 0);
+        }
+
+    }
+
+    private void atualizarTabela(Funcionario func) {
+        Object rowData[] = new Object[13];
+
+        rowData[0] = func.getCodigoFuncionario();
+        rowData[1] = func.getPessoa().getEndereco().getCep();
+        rowData[2] = func.getPessoa().getNome();
+        rowData[3] = func.getFisica().getCpf();
+        rowData[4] = func.getFisica().getSexo();
+        rowData[5] = func.getPessoa().getTelefone();
+        rowData[6] = func.getFisica().getCelular();
+        rowData[7] = func.getPessoa().getComplementoLogradouro();
+        rowData[8] = func.getSalarioSTR();
+        rowData[9] = func.getCargo();
+        rowData[10] = func.getDataContrato();
+        rowData[11] = func.getHorasTrabalhadas();
+        rowData[12] = func.getNivelAdministrativo();
+        DefaultTableModel model = new DefaultTableModel();
+        model = (DefaultTableModel) tblFuncionarioRecente.getModel();
+        model.addRow(rowData);
     }
 
 

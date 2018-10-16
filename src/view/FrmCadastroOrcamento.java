@@ -416,7 +416,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
             o.setPecas(lista);
             o.setValorTotal(0.0);
             for (int i = 0; i < lista.size(); i++){
-                o.setValorTotal(o.getValorTotal() + (lista.get(i).getPeca().getValorUnitario() * lista.get(i).getQuantidadeVendida()));
+                o.setValorTotal(o.getValorTotal() + (lista.get(i).getPeca().getValorUnitarioBanco() * lista.get(i).getQuantidadeVendida()));
             }
             o.setValorTotal(o.getValorTotal() + o.getMaoDeObra());
             try {
@@ -632,7 +632,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         p = DaoPeca.popularPeca(codigo);
         limitePeca = p.getQuantidadePeca();
         txtNomePeca.setText("" + p.getNomePeca());
-        txtValorUnitario.setText("" + p.getValorUnitario());
+        txtValorUnitario.setText("" + p.getValorUnitarioSTR());
         txtQtdEstoque.setText("" + p.getQuantidadePeca());
         txtCategoria.setText("" + p.getCategoriaPeca());
     }

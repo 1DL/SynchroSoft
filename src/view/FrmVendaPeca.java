@@ -544,7 +544,7 @@ public class FrmVendaPeca extends javax.swing.JFrame {
         p = DaoPeca.popularPeca(codigo);
         limitePeca = p.getQuantidadePeca();
         txtNomePeca.setText("" + p.getNomePeca());
-        txtValorUnitario.setText("" + p.getValorUnitario());
+        txtValorUnitario.setText("" + p.getValorUnitarioSTR());
         txtQtdEstoque.setText("" + p.getQuantidadePeca());
         txtCategoria.setText("" + p.getCategoriaPeca());
     }

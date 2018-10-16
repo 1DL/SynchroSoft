@@ -687,7 +687,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
                 ArrayList<Funcionario> lista = new ArrayList<>();
                 for (int i = 0; i < tblFuncionarioTrabalhando.getRowCount(); i++) {
                     Funcionario f = new Funcionario();
-                    f.setCodigoFuncionario(Integer.parseInt((String) tblFuncionarioTrabalhando.getValueAt(i, 0)));
+                    f.setCodigoFuncionario(((String) tblFuncionarioTrabalhando.getValueAt(i, 0)));
                     lista.add(f);
                 }
                 DaoServico.alterarServico(s, lista, rbtFisica.isSelected(), txtCpfCnpj.getText());
@@ -928,20 +928,14 @@ public class FrmListagemServico extends javax.swing.JFrame {
                 limparExibicaoPessoa();
             } else {
                 DaoPessoa dp = new DaoPessoa();
-                try {
-                    cpfCadastrado = dp.existePessoaFisica(txtCpfCnpj.getText());
-                    if (cpfCadastrado) {
-                        lblCpfCnpjExiste.setText("CPF Cadastrado");
-                        pessoaFisicaExibicao = dp.popularPessoaFisica(txtCpfCnpj.getText(), txtCep.getText());
-                        popularExibicaoPessoa(pessoaFisicaExibicao);
-                    } else {
-                        lblCpfCnpjExiste.setText("CPF Inexistente");
-                        limparExibicaoPessoa();
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(FrmCadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(FrmCadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+                cpfCadastrado = dp.existePessoaFisica(txtCpfCnpj.getText());
+                if (cpfCadastrado) {
+                    lblCpfCnpjExiste.setText("CPF Cadastrado");
+                    pessoaFisicaExibicao = dp.popularPessoaFisica(txtCpfCnpj.getText());
+                    popularExibicaoPessoa(pessoaFisicaExibicao);
+                } else {
+                    lblCpfCnpjExiste.setText("CPF Inexistente");
+                    limparExibicaoPessoa();
                 }
             }
         } else if (rbtJuridica.isSelected()) {
@@ -1050,9 +1044,9 @@ public class FrmListagemServico extends javax.swing.JFrame {
 
     private void txtCodFuncKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodFuncKeyReleased
         try {
-            flagFuncionario = DaoFuncionario.existeFuncionario(Integer.parseInt(txtCodFunc.getText()));
+            flagFuncionario = DaoFuncionario.existeFuncionario(txtCodFunc.getText());
             if (flagFuncionario) {
-                f = DaoFuncionario.popularFuncionario(Integer.parseInt(txtCodFunc.getText()));
+                f = DaoFuncionario.popularFuncionario(txtCodFunc.getText());
                 txtNomeFunc.setText(f.getPessoa().getNome());
                 lblSelecionarFunc.setText("Funcionário Livre");
                 flagFuncionario = true;
@@ -1084,7 +1078,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
             rowData[1] = (String) txtNomeFunc.getText();
             String codigos = "";
             try {
-                codigos = DaoServico.listarServicosDoFuncionario(Integer.parseInt(txtCodFunc.getText()));
+                codigos = DaoServico.listarServicosDoFuncionario(txtCodFunc.getText());
             } catch (SQLException ex) {
                 Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
@@ -1298,7 +1292,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
             model.setRowCount(0);
             Object rowData[] = new Object[3];
             for (int i = 0; i < lista.size(); i++) {
-                rowData[0] = Integer.toString(lista.get(i).getCodigoFuncionario());
+                rowData[0] = lista.get(i).getCodigoFuncionario();
                 rowData[1] = lista.get(i).getPessoa().getNome();
                 rowData[2] = lista.get(i).getCargo();
 
@@ -1413,7 +1407,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         txtTelefone.setText("" + pf.getPessoa().getTelefone());
         txtCelularRamal.setText("" + pf.getCelular());
         lblRelatorio.setText(s.getDescricaoServicoFILE());
-        if (pf.getSexo() == 0) {
+        if (pf.getSexoBanco() == 0) {
             rbtMasculino.setSelected(true);
         } else {
             rbtFeminino.setSelected(true);
@@ -1447,7 +1441,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         txtTelefone.setText("" + pf.getPessoa().getTelefone());
         txtCelularRamal.setText("" + pf.getCelular());
 
-        if (pf.getSexo() == 0) {
+        if (pf.getSexoBanco() == 0) {
             rbtMasculino.setSelected(true);
         } else {
             rbtFeminino.setSelected(true);

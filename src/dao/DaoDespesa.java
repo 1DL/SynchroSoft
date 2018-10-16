@@ -33,7 +33,7 @@ public class DaoDespesa {
             st.setString(1, desp.getTipoDespesas());
             st.setDate(2, Date.valueOf(control.Datas.converterParaAmericana(desp.getDataDespesa())));
             st.setString(3, desp.getDescricaoDespesa());
-            st.setFloat(4, desp.getValorDespesa());
+            st.setFloat(4, desp.getValorDespesaBanco());
             st.executeUpdate();
             st.close();
             JOptionPane.showMessageDialog(null, "Despesa cadastrada com sucesso!",
@@ -204,7 +204,7 @@ Valor
                 st.setString(2, desp.getTipoDespesas());
                 st.setDate(3, Date.valueOf(control.Datas.converterParaAmericana(desp.getDataDespesa())));
                 st.setString(4, desp.getDescricaoDespesa());
-                st.setFloat(5, desp.getValorDespesa());
+                st.setFloat(5, desp.getValorDespesaBanco());
                 st.setLong(6, Long.parseLong(cod_ref));
 
                 st.addBatch();

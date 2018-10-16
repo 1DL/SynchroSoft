@@ -6,6 +6,7 @@
 package model;
 
 import java.sql.Date;
+import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 
 /**
@@ -67,8 +68,15 @@ public class Despesa {
         this.descricaoDespesa = descricaoDespesa;
     }
 
-    public float getValorDespesa() {
+    public float getValorDespesaBanco() {
         return valorDespesa;
+    }
+    
+    public String getValorDespesaSTR(){
+        String valorSTR;
+        valorSTR = (new DecimalFormat("#0.00").format(valorDespesa));
+        valorSTR = valorSTR.replace(".", ",");
+        return valorSTR;
     }
 
     public void setValorDespesa(String valorDespesa) {

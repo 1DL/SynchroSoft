@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 
 /**
@@ -75,8 +76,14 @@ public class Peca {
         }
     }
 
-    public float getValorUnitario() {
+    public float getValorUnitarioBanco() {
         return valorUnitario;
+    }
+    public String getValorUnitarioSTR(){
+        String valorSTR;
+        valorSTR = (new DecimalFormat("#0.00").format(valorUnitario));
+        valorSTR = valorSTR.replace(".", ",");
+        return valorSTR;
     }
 
     public void setValorUnitario(String valorUnitario) {

@@ -84,7 +84,7 @@ public class DaoServico {
         sql = "INSERT INTO SYNCHROSOFT.TB_FUNC_SERVICO (CD_FUNCIONARIO, CD_SERVICO) VALUES (?,?)";
         PreparedStatement st2 = con.prepareStatement(sql);
         for (int i = 0; i < lista.size(); i++) {
-            st2.setInt(1, lista.get(i).getCodigoFuncionario());
+            st2.setString(1, lista.get(i).getCodigoFuncionario());
             st2.setInt(2, codigoServico);
             st2.executeUpdate();
         }
@@ -376,7 +376,7 @@ Data Encerramento
             sql = "INSERT INTO SYNCHROSOFT.TB_FUNC_SERVICO (CD_FUNCIONARIO, CD_SERVICO) VALUES (?,?)";
             PreparedStatement st2 = con.prepareStatement(sql);
             for (int i = 0; i < lista.size(); i++) {
-                st2.setInt(1, lista.get(i).getCodigoFuncionario());
+                st2.setString(1, lista.get(i).getCodigoFuncionario());
                 st2.setInt(2, codigoServico);
                 st2.executeUpdate();
             }
@@ -454,12 +454,12 @@ Data Encerramento
         return flag;
     }
 
-    public static String listarServicosDoFuncionario(int codigoServico) throws SQLException, ClassNotFoundException {
+    public static String listarServicosDoFuncionario(String codFunc) throws SQLException, ClassNotFoundException {
         String codigos = "";
         Connection con = Conexao.conectar();
         String sql = "SELECT CD_SERVICO FROM SYNCHROSOFT.TB_FUNC_SERVICO WHERE CD_FUNCIONARIO = ?";
         PreparedStatement st = con.prepareStatement(sql);
-        st.setInt(1, codigoServico);
+        st.setString(1, codFunc);
         ResultSet rs = st.executeQuery();
         while (rs.next()) {
             codigos = codigos + ", " + rs.getInt("CD_SERVICO");
@@ -477,8 +477,8 @@ Data Encerramento
         st.setInt(1, codigoServico);
         ResultSet rs = st.executeQuery();
         rs.next();
-        int aux = 0;
-        aux = rs.getInt("CD_FUNCIONARIO");
+        String aux = "";
+        aux = rs.getString("CD_FUNCIONARIO");
         Funcionario f = new Funcionario();
         f = DaoFuncionario.popularFuncionario(aux);
         st.close();
@@ -520,7 +520,7 @@ Data Encerramento
         while (rs.next()) {
             Pessoa p = new Pessoa();
             Funcionario f = new Funcionario();
-            f.setCodigoFuncionario(rs.getInt("CD_FUNCIONARIO"));
+            f.setCodigoFuncionario(rs.getString("CD_FUNCIONARIO"));
             p.setNome(rs.getString("NM_FUNCIONARIO"));
             f.setPessoa(p);
             servFunc = listarServicosDoFuncionario(f.getCodigoFuncionario());

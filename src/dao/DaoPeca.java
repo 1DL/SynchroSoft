@@ -30,7 +30,7 @@ public class DaoPeca {
             st.setString(2, peca.getNomePeca());
             st.setString(3, peca.getCategoriaPeca());
             st.setInt(4, peca.getQuantidadePeca());
-            st.setFloat(5, peca.getValorUnitario());
+            st.setFloat(5, peca.getValorUnitarioBanco());
             st.setInt(6, peca.getAlertaQtdMin());
             st.setFloat(7, peca.getAlertaQtdMax());
             st.executeUpdate();
@@ -293,7 +293,7 @@ public class DaoPeca {
                 st.setInt(4, peca.getQuantidadePeca());
                 st.setInt(5, peca.getAlertaQtdMin());
                 st.setInt(6, peca.getAlertaQtdMax());
-                st.setFloat(7, peca.getValorUnitario());
+                st.setFloat(7, peca.getValorUnitarioBanco());
                 st.setString(8, CD_PECA_REFERENCIA);
 
                 st.addBatch();

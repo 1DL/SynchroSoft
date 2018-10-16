@@ -65,7 +65,15 @@ public class PessoaFisica {
         this.celular = celular;
     }
 
-    public int getSexo() {
+    public String getSexo() {
+        if (sexo == 0) {
+            return "Masculino";
+        } else {
+            return "Feminino";
+        }
+    }
+    
+    public int getSexoBanco() {
         return sexo;
     }
 

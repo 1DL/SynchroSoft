@@ -698,7 +698,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
             o.setPecas(lista);
             o.setValorTotal(0.0);
             for (int i = 0; i < lista.size(); i++) {
-                o.setValorTotal(o.getValorTotal() + (lista.get(i).getPeca().getValorUnitario() * lista.get(i).getQuantidadeVendida()));
+                o.setValorTotal(o.getValorTotal() + (lista.get(i).getPeca().getValorUnitarioBanco() * lista.get(i).getQuantidadeVendida()));
             }
             o.setValorTotal(o.getValorTotal() + o.getMaoDeObra());
             try {
@@ -815,7 +815,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
         p = DaoPeca.popularPeca(codigo);
         limitePeca = p.getQuantidadePeca();
         txtNomePeca.setText("" + p.getNomePeca());
-        txtValorUnitario.setText("" + p.getValorUnitario());
+        txtValorUnitario.setText("" + p.getValorUnitarioSTR());
         txtQtdEstoque.setText("" + p.getQuantidadePeca());
         txtCategoria.setText("" + p.getCategoriaPeca());
     }
@@ -950,10 +950,10 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
                 rowData[0] = lista.get(i).getCodigoPeca();
                 rowData[1] = lista.get(i).getNomePeca();
                 rowData[2] = lista.get(i).getCategoriaPeca();
-                rowData[3] = Float.toString(lista.get(i).getValorUnitario());
+                rowData[3] = lista.get(i).getValorUnitarioSTR();
                 rowData[4] = Integer.toString(lista.get(i).getQuantidadePeca());
                 Float aux;
-                aux = (lista.get(i).getValorUnitario() * lista.get(i).getQuantidadePeca());
+                aux = (lista.get(i).getValorUnitarioBanco() * lista.get(i).getQuantidadePeca());
                 rowData[5] = Float.toString(aux);
                 model.addRow(rowData);
             }

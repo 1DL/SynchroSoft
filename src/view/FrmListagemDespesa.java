@@ -425,7 +425,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
                 rowData[1] = lista.get(i).getTipoDespesas();
                 rowData[2] = lista.get(i).getDataDespesa().toString();
                 rowData[3] = lista.get(i).getDescricaoDespesa();
-                rowData[4] = Float.toString(lista.get(i).getValorDespesa());
+                rowData[4] = lista.get(i).getValorDespesaSTR();
                 rowData[5] = Integer.toString(lista.get(i).getCodigoDespesa());
 
                 model.addRow(rowData);
@@ -463,7 +463,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
                 rowData[1] = lista.get(i).getTipoDespesas();
                 rowData[2] = lista.get(i).getDataDespesa();
                 rowData[3] = lista.get(i).getDescricaoDespesa();
-                rowData[4] = Float.toString(lista.get(i).getValorDespesa());
+                rowData[4] = lista.get(i).getValorDespesaSTR();
                 rowData[5] = Integer.toString(lista.get(i).getCodigoDespesa());
 
                 model.addRow(rowData);
@@ -501,7 +501,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
                 rowData[1] = lista.get(i).getTipoDespesas();
                 rowData[2] = lista.get(i).getDataDespesa();
                 rowData[3] = lista.get(i).getDescricaoDespesa();
-                rowData[4] = Float.toString(lista.get(i).getValorDespesa());
+                rowData[4] = lista.get(i).getValorDespesaSTR();
                 rowData[5] = Integer.toString(lista.get(i).getCodigoDespesa());
 
                 model.addRow(rowData);

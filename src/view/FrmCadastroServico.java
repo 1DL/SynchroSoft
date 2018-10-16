@@ -611,7 +611,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) tblFuncSelecionados.getModel();
             for (int i = 0; i < model.getRowCount(); i++) {
                 Funcionario f = new Funcionario();
-                f.setCodigoFuncionario(Integer.parseInt((String) model.getValueAt(i, 0)));
+                f.setCodigoFuncionario(((String) model.getValueAt(i, 0)));
                 lista.add(f);
 
             }
@@ -646,9 +646,9 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private void txtCodFuncKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodFuncKeyReleased
         txtCodFunc.setText(TextSize.maxLenghtFuncionario(txtCodFunc.getText()));
         try {
-            flagFuncionario = DaoFuncionario.existeFuncionario(Integer.parseInt(txtCodFunc.getText()));
+            flagFuncionario = DaoFuncionario.existeFuncionario(txtCodFunc.getText());
             if (flagFuncionario) {
-                f = DaoFuncionario.popularFuncionario(Integer.parseInt(txtCodFunc.getText()));
+                f = DaoFuncionario.popularFuncionario(txtCodFunc.getText());
                 txtNomeFunc.setText(f.getPessoa().getNome());
                 lblSelecionarFunc.setText("Funcionário Livre");
                 flagFuncionario = true;
@@ -724,7 +724,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             rowData[1] = (String) txtNomeFunc.getText();
             String codigos = "";
             try {
-                codigos = DaoServico.listarServicosDoFuncionario(Integer.parseInt(txtCodFunc.getText()));
+                codigos = DaoServico.listarServicosDoFuncionario(txtCodFunc.getText());
             } catch (SQLException ex) {
                 Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
@@ -843,28 +843,22 @@ public class FrmCadastroServico extends javax.swing.JFrame {
                 limparExibicaoPessoa();
             } else {
                 DaoPessoa dp = new DaoPessoa();
-                try {
-                    cpfCadastrado = dp.existePessoaFisica(txtCpfCnpj.getText());
-                    if (cpfCadastrado) {
-                        pessoaFisicaExibicao = dp.popularPessoaFisica(txtCpfCnpj.getText(), txtCep.getText());
-                        if (pessoaFisicaExibicao.getPessoa().getManterContrato() == 0) {
-                            lblCpfCnpjExiste.setText("CPF Sem contrato!");
-                            flagContrato = false;
-                        } else {
-                            lblCpfCnpjExiste.setText("CPF Cadastrado.");
-                            flagContrato = true;
-                        }
-
-                        popularExibicaoPessoa(pessoaFisicaExibicao);
-                    } else {
-                        lblCpfCnpjExiste.setText("CPF Inexistente.");
+                cpfCadastrado = dp.existePessoaFisica(txtCpfCnpj.getText());
+                if (cpfCadastrado) {
+                    pessoaFisicaExibicao = dp.popularPessoaFisica(txtCpfCnpj.getText());
+                    if (pessoaFisicaExibicao.getPessoa().getManterContrato() == 0) {
+                        lblCpfCnpjExiste.setText("CPF Sem contrato!");
                         flagContrato = false;
-                        limparExibicaoPessoa();
+                    } else {
+                        lblCpfCnpjExiste.setText("CPF Cadastrado.");
+                        flagContrato = true;
                     }
-                } catch (SQLException ex) {
-                    Logger.getLogger(FrmCadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(FrmCadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+                    
+                    popularExibicaoPessoa(pessoaFisicaExibicao);
+                } else {
+                    lblCpfCnpjExiste.setText("CPF Inexistente.");
+                    flagContrato = false;
+                    limparExibicaoPessoa();
                 }
             }
         } else if (rbtJuridica.isSelected()) {
@@ -954,7 +948,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtTelefone.setText("" + pf.getPessoa().getTelefone());
         txtCelularRamal.setText("" + pf.getCelular());
 
-        if (pf.getSexo() == 0) {
+        if (pf.getSexoBanco() == 0) {
             rbtMasculino.setSelected(true);
         } else {
             rbtFeminino.setSelected(true);

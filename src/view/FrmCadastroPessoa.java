@@ -486,7 +486,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 PessoaFisica fisica = new PessoaFisica(pessoa,txtCpfCnpj.getText(), dataCadastro, Long.parseLong (txtCelRamal.getText()), sexo);
 
                 dao.cadastrarPessoaFisica(fisica.getCpf(), fisica.getPessoa().getEndereco().getCep(), fisica.getPessoa().getNome(),
-                    fisica.getSexo(), fisica.getPessoa().getTelefone(), fisica.getCelular(), fisica.getPessoa().getComplementoLogradouro(),
+                    fisica.getSexoBanco(), fisica.getPessoa().getTelefone(), fisica.getCelular(), fisica.getPessoa().getComplementoLogradouro(),
                     fisica.getDataCadastro(), fisica.getPessoa().getManterContrato());
                 JOptionPane.showMessageDialog(rootPane, "Cadastrado!");
             } catch (SQLException ex) {

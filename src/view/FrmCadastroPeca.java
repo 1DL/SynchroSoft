@@ -326,6 +326,9 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
         if (peca.isValidacao()) {
             DaoPeca.cadastrarPeca(peca);
             atualizarTabela(peca);
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos corretamente.", 
+                    "Erro - Campo em branco ou inválido.",0);
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
@@ -418,7 +421,7 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
         rowData[3] = peca.getQuantidadePeca();
         rowData[4] = peca.getAlertaQtdMin();
         rowData[5] = peca.getAlertaQtdMax();
-        rowData[6] = peca.getValorUnitario();
+        rowData[6] = peca.getValorUnitarioSTR();
         DefaultTableModel model = new DefaultTableModel();
         model = (DefaultTableModel) tblProdutoRecente.getModel();
         model.addRow(rowData);

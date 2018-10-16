@@ -26,7 +26,7 @@ import model.PessoaFisica;
  */
 public class DaoFuncionario {
 
-    public static void cadastrarFuncionario(Funcionario func) {
+    public static boolean cadastrarFuncionario(Funcionario func) {
         try {
             Connection con = Conexao.conectar();
             String sql = "INSERT INTO SYNCHROSOFT.TB_FUNCIONARIO VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -35,25 +35,28 @@ public class DaoFuncionario {
             st.setString(2, func.getPessoa().getEndereco().getCep());
             st.setString(3, func.getPessoa().getNome());
             st.setString(4, func.getFisica().getCpf());
-            st.setInt(5, func.getFisica().getSexo());
+            st.setInt(5, func.getFisica().getSexoBanco());
             st.setLong(6, func.getPessoa().getTelefone());
             st.setLong(7, func.getFisica().getCelular());
             st.setString(8, func.getPessoa().getComplementoLogradouro());
-            st.setFloat(9, func.getSalario());
+            st.setFloat(9, func.getSalarioBanco());
             st.setString(10, func.getCargo());
             st.setDate(11, Date.valueOf(control.Datas.converterParaAmericana(func.getDataContrato())));
             st.setDate(12, null);
             st.setInt(13, func.getHorasTrabalhadas());
-            st.setInt(14, func.getNivelAdministrativo());
+            st.setInt(14, func.getNivelAdministrativoBanco());
             st.executeUpdate();
             st.close();
             JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!", "Cadastro de Funcionário", 1);
+            return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o funcionário.\n\nErro Nº:"
                     + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoFuncionario - Cadastro Funcionario", 0);
+            return false;
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro ao popular atributos do funcionário. \n\nExceção JAVA:\n"
                     + ex.getMessage(), "Erro ao cadastrar funcionário", 0);
+            return false;
         }
     }
 
@@ -207,15 +210,22 @@ public class DaoFuncionario {
                 func.setSalario(rs.getString("VL_SALARIO"));
                 func.setCargo(rs.getString("DS_CARGO"));
                 func.setDataContratoBanco(rs.getDate("DT_ADMISSAO").toString());
+                try{
                 func.setDataDemissaoBanco(rs.getDate("DT_DEMISSAO").toString());
+                } catch (NullPointerException npe) {
+                    func.setDataDemissao(func.getDataContrato());
+                }
                 func.setHorasTrabalhadas(Integer.toString(rs.getInt("NR_HORAS_TRABALHO")));
                 func.setNivelAdministrativoBanco(rs.getInt("ID_ADMINISTRATIVO"));
                 lista.add(func);
             }
             st.close();
             rs.close();
-        } catch (Exception ex) {
-            System.err.println("DaoFuncionario Instanciamento: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi criar a lista de funcionários.\n\nErro Nº:"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoFuncionario - Listar Funcionários", 0);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lista;
     }

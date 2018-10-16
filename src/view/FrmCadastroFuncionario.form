@@ -727,6 +727,9 @@
               <Font name="Malgun Gothic" size="18" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtfDataAdmissaoFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnHoje">
           <Properties>

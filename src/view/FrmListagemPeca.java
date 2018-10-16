@@ -316,7 +316,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
                 rowData[3] = Integer.toString(lista.get(i).getQuantidadePeca());
                 rowData[4] = Integer.toString(lista.get(i).getAlertaQtdMin());
                 rowData[5] = Integer.toString(lista.get(i).getAlertaQtdMax());
-                rowData[6] = Float.toString(lista.get(i).getValorUnitario());
+                rowData[6] = lista.get(i).getValorUnitarioSTR();
                 rowData[7] = lista.get(i).getCodigoPeca();
                 model.addRow(rowData);
 
@@ -364,7 +364,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
                 rowData[3] = Integer.toString(lista.get(i).getQuantidadePeca());
                 rowData[4] = Integer.toString(lista.get(i).getAlertaQtdMin());
                 rowData[5] = Integer.toString(lista.get(i).getAlertaQtdMax());
-                rowData[6] = Float.toString(lista.get(i).getValorUnitario());
+                rowData[6] = lista.get(i).getValorUnitarioSTR();
                 rowData[7] = lista.get(i).getCodigoPeca();
                 model.addRow(rowData);
 

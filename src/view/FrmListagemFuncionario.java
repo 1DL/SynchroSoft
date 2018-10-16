@@ -207,10 +207,10 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         Funcionario func = new Funcionario();
         String aux;
         aux = (String) tblListagemFuncionario.getValueAt(tblListagemFuncionario.getSelectedRow(), 0);
-        func.setCodigoFuncionario(Integer.parseInt(aux));
-        
+        func.setCodigoFuncionario(aux);
+
         try {
-            df.deletarFuncionario(func.getCodigoFuncionario());
+            DaoFuncionario.deletarFuncionario(func.getCodigoFuncionario());
             atualizarTabela();
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(FrmListagemFuncionario.class.getName()).log(Level.SEVERE, null, ex);
@@ -302,8 +302,8 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     private void atualizarTabela() {
         ArrayList<Funcionario> lista = new ArrayList<>();
         lista = DaoFuncionario.listarFuncionario();
-        String[] nomeColunas = {"Código", "CEP", "Nome", "CPF", "Sexo", "Telefone", "Celular", "Número", 
-            "Salário", "Cargo", "Admissão", "Demissão", "Horas Trabalhadas", "Nível Administrativo", "PK_REF" };
+        String[] nomeColunas = {"Código", "CEP", "Nome", "CPF", "Sexo", "Telefone", "Celular", "Número",
+            "Salário", "Cargo", "Admissão", "Demissão", "Horas Trabalhadas", "Nível Administrativo", "PK_REF"};
         try {
             DefaultTableModel model = new DefaultTableModel() {
                 @Override
@@ -319,39 +319,30 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
             model.setRowCount(0);
             Object rowData[] = new Object[15];
             for (int i = 0; i < lista.size(); i++) {
-                rowData[0] = Integer.toString(lista.get(i).getCodigoFuncionario());
+                rowData[0] = lista.get(i).getCodigoFuncionario();
                 rowData[1] = lista.get(i).getPessoa().getEndereco().getCep();
                 rowData[2] = lista.get(i).getPessoa().getNome();
                 rowData[3] = lista.get(i).getFisica().getCpf();
-                if (lista.get(i).getFisica().getSexo() == 0) {
-                    rowData[4] = "Masculino";
-                } else {
-                    rowData[4] = "Feminino";
-                }
-                
+                rowData[4] = lista.get(i).getFisica().getSexo();
                 rowData[5] = Long.toString(lista.get(i).getPessoa().getTelefone());
                 rowData[6] = Long.toString(lista.get(i).getFisica().getCelular());
                 rowData[7] = lista.get(i).getPessoa().getComplementoLogradouro();
-                rowData[8] = Float.toString(lista.get(i).getSalario());
+                rowData[8] = lista.get(i).getSalarioSTR();
                 rowData[9] = lista.get(i).getCargo();
-                rowData[10] = lista.get(i).getDataContrato().toString();
-                rowData[11] = lista.get(i).getDataDemissao().toString();
+                rowData[10] = lista.get(i).getDataContrato();
+                rowData[11] = lista.get(i).getDataDemissao();
                 rowData[12] = Integer.toString(lista.get(i).getHorasTrabalhadas());
-                if (lista.get(i).getNivelAdministrativo()== 0) {
-                    rowData[13] = "Visualização";
-                } else {
-                    rowData[13] = "Administrador";
-                }
-                rowData[14] = Integer.toString(lista.get(i).getCodigoFuncionario());
-                
+                rowData[13] = lista.get(i).getNivelAdministrativo();
+                rowData[14] = lista.get(i).getCodigoFuncionario();
+
                 model.addRow(rowData);
 
             }
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null,"Erro ao popular tabela.\n\n" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao popular tabela.\n\n" + ex.getMessage());
         }
-        
+
         tblListagemFuncionario.getColumnModel().getColumn(14).setMinWidth(0);
         tblListagemFuncionario.getColumnModel().getColumn(14).setPreferredWidth(0);
         tblListagemFuncionario.getColumnModel().getColumn(14).setMaxWidth(0);
@@ -360,8 +351,8 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     private void atualizarTabelaFiltrada() {
         ArrayList<Funcionario> lista = new ArrayList<>();
         lista = DaoFuncionario.listarFuncionarioFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().toLowerCase().trim()); //Filtrando dados que aparecem na pesquisa
-        String[] nomeColunas = {"Código", "CEP", "Nome", "CPF", "Sexo", "Telefone", "Celular", "Número", 
-            "Salário", "Cargo", "Admissão", "Demissão", "Horas Trabalhadas", "Nível Administrativo", "PK_REF" };
+        String[] nomeColunas = {"Código", "CEP", "Nome", "CPF", "Sexo", "Telefone", "Celular", "Número",
+            "Salário", "Cargo", "Admissão", "Demissão", "Horas Trabalhadas", "Nível Administrativo", "PK_REF"};
         try {
             DefaultTableModel model = new DefaultTableModel() {
                 @Override
@@ -377,31 +368,22 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
             model.setRowCount(0);
             Object rowData[] = new Object[15];
             for (int i = 0; i < lista.size(); i++) {
-                rowData[0] = Integer.toString(lista.get(i).getCodigoFuncionario());
+                rowData[0] = lista.get(i).getCodigoFuncionario();
                 rowData[1] = lista.get(i).getPessoa().getEndereco().getCep();
                 rowData[2] = lista.get(i).getPessoa().getNome();
                 rowData[3] = lista.get(i).getFisica().getCpf();
-                if (lista.get(i).getFisica().getSexo() == 0) {
-                    rowData[4] = "Masculino";
-                } else {
-                    rowData[4] = "Feminino";
-                }
-                
+                rowData[4] = lista.get(i).getFisica().getSexo();
                 rowData[5] = Long.toString(lista.get(i).getPessoa().getTelefone());
                 rowData[6] = Long.toString(lista.get(i).getFisica().getCelular());
                 rowData[7] = lista.get(i).getPessoa().getComplementoLogradouro();
-                rowData[8] = Float.toString(lista.get(i).getSalario());
+                rowData[8] = lista.get(i).getSalarioSTR();
                 rowData[9] = lista.get(i).getCargo();
                 rowData[10] = lista.get(i).getDataContrato().toString();
                 rowData[11] = lista.get(i).getDataDemissao().toString();
                 rowData[12] = Integer.toString(lista.get(i).getHorasTrabalhadas());
-                if (lista.get(i).getNivelAdministrativo()== 0) {
-                    rowData[13] = "Visualização";
-                } else {
-                    rowData[13] = "Administrador";
-                }
-                rowData[14] = Integer.toString(lista.get(i).getCodigoFuncionario());
-                
+                rowData[13] = lista.get(i).getNivelAdministrativo();
+                rowData[14] = lista.get(i).getCodigoFuncionario();
+
                 model.addRow(rowData);
 
             }
@@ -409,7 +391,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         } catch (Exception ex) {
             System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
         }
-        
+
         tblListagemFuncionario.getColumnModel().getColumn(14).setMinWidth(0);
         tblListagemFuncionario.getColumnModel().getColumn(14).setPreferredWidth(0);
         tblListagemFuncionario.getColumnModel().getColumn(14).setMaxWidth(0);

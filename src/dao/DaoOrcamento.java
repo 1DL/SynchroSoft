@@ -120,7 +120,7 @@ public class DaoOrcamento {
             st2.setString(1, o.getPecas().get(i).getPeca().getCodigoPeca());
             st2.setInt(2, codigoOrcamento);
             st2.setInt(3, o.getPecas().get(i).getQuantidadeVendida());
-            st2.setFloat(4, o.getPecas().get(i).getPeca().getValorUnitario());
+            st2.setFloat(4, o.getPecas().get(i).getPeca().getValorUnitarioBanco());
             st2.executeUpdate();
             st2.close();
         }

@@ -330,7 +330,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
                 txtNomeFuncionario.setText(f.getPessoa().getNome());
                 txtCpf.setText(f.getFisica().getCpf());
                 txtCargo.setText(f.getCargo());
-                txtSalario.setText("" + f.getSalario());
+                txtSalario.setText("" + f.getSalarioSTR());
             } else {
                 limparCampoFuncionario();
                 flagFuncionario = false;
