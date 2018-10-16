@@ -34,7 +34,7 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
             Logger.getLogger(FrmCadastroDespesa.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        txtfDataVencimento.setText(Datas.converterParaBrasileira("" + new Date(Calendar.getInstance().getTimeInMillis())));
+        txtfDataVencimento.setText(Datas.getDiaHoje());
 
         if (nvlAdm == 0) {
             btnCadastrar.setEnabled(false);

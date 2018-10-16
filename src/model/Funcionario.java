@@ -6,6 +6,7 @@
 package model;
 
 import java.sql.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,6 +25,7 @@ public class Funcionario{
     private Date dataDemissao;
     private int horasTrabalhadas;
     private int nivelAdministrativo;
+    private boolean validacao;
 
     public Funcionario() {
     }
@@ -35,17 +37,31 @@ public class Funcionario{
     }
 
     public Funcionario(String codigoFuncionario, Pessoa pessoa, PessoaFisica fisica, 
-            float Salario, String cargo, Date dataContrato, Date dataDemissao, 
-            int horasTrabalhadas, int nivelAdministrativo) {
+            String Salario, String cargo, String dataContrato, String dataDemissao, 
+            String horasTrabalhadas, boolean nivelAdministrativo) {
         this.codigoFuncionario = codigoFuncionario;
         this.pessoa = pessoa;
         this.fisica = fisica;
-        this.Salario = Salario;
+        this.setSalario(Salario);
         this.cargo = cargo;
-        this.dataContrato = dataContrato;
-        this.dataDemissao = dataDemissao;
-        this.horasTrabalhadas = horasTrabalhadas;
-        this.nivelAdministrativo = nivelAdministrativo;
+        this.setDataContrato(dataContrato);
+        this.setDataDemissao(dataDemissao);
+        this.setHorasTrabalhadas(horasTrabalhadas);
+        this.setNivelAdministrativo(nivelAdministrativo);
+    }
+    
+    public Funcionario(String codigoFuncionario, Pessoa pessoa, PessoaFisica fisica, 
+            String Salario, String cargo, String dataContrato, String dataDemissao, 
+            String horasTrabalhadas, int nivelAdministrativo) {
+        this.codigoFuncionario = codigoFuncionario;
+        this.pessoa = pessoa;
+        this.fisica = fisica;
+        this.setSalario(Salario);
+        this.cargo = cargo;
+        this.setDataContrato(dataContrato);
+        this.setDataDemissao(dataDemissao);
+        this.setHorasTrabalhadas(horasTrabalhadas);
+        this.setNivelAdministrativoBanco(nivelAdministrativo);
     }
 
     public void setCodigoFuncionario(String codigoFuncionario) {
@@ -72,8 +88,15 @@ public class Funcionario{
         return Salario;
     }
 
-    public void setSalario(float Salario) {
-        this.Salario = Salario;
+    public void setSalario(String Salario) {
+        Salario = Salario.replace(",", ".");
+        try {
+        this.Salario = Float.parseFloat(Salario);
+        validacao = true;
+        } catch (NumberFormatException nfe) {
+            JOptionPane.showMessageDialog(null, "Valor do salário inválido. Use somente números inteiros e/ou decimais.", "Erro - Valor do Salário inválido", 0);
+            validacao = false;
+        }
     }
 
     public String getCargo() {
@@ -83,36 +106,76 @@ public class Funcionario{
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
+    
+    
 
-    public Date getDataContrato() {
-        return dataContrato;
+    public String getDataContrato() {
+        return control.Datas.converterParaBrasileira(dataContrato.toString());
+    }
+    
+    public void setDataContrato(String dataContrato) {
+        this.dataContrato = Date.valueOf(control.Datas.converterParaAmericana(dataContrato));
     }
 
-    public void setDataContrato(String dataContrato) {
+    public void setDataContratoBanco(String dataContrato) {
         this.dataContrato = Date.valueOf(dataContrato);
     }
 
-    public Date getDataDemissao() {
-        return dataDemissao;
+    public String getDataDemissao() {
+        return control.Datas.converterParaBrasileira(dataDemissao.toString());
     }
 
-    public void setDataDemissao(String dataDemissao) {
+    public void setDataDemissaoBanco(String dataDemissao) {
         this.dataDemissao = Date.valueOf(dataDemissao);
+    }
+    
+    public void setDataDemissao(String dataDemissao) {
+        this.dataDemissao = Date.valueOf(control.Datas.converterParaAmericana(dataDemissao));
     }
 
     public int getHorasTrabalhadas() {
         return horasTrabalhadas;
     }
 
-    public void setHorasTrabalhadas(int horasTrabalhadas) {
-        this.horasTrabalhadas = horasTrabalhadas;
+    public void setHorasTrabalhadas(String horasTrabalhadas) {
+        try{
+            this.horasTrabalhadas = Integer.parseInt(horasTrabalhadas);
+            validacao = true;
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao definir as horas mensais. \n\nUse somente valores inteiros.", "Erro - Horas mensais inválida", 0);
+            validacao = false;
+        }
     }
 
     public int getNivelAdministrativo() {
         return nivelAdministrativo;
     }
 
-    public void setNivelAdministrativo(int nivelAdministrativo) {
+    public void setNivelAdministrativo(boolean nivelAdministrativo) {
+        if (nivelAdministrativo) {
+            this.nivelAdministrativo = 0;
+        } else {
+            this.nivelAdministrativo = 1;
+        }
+    }
+    
+    public void setNivelAdministrativoBanco(int nivelAdministrativo) {
         this.nivelAdministrativo = nivelAdministrativo;
+    }
+
+    public boolean isValidacao() {
+        return validacao;
+    }
+
+    public void setValidacao(boolean validacao) {
+        this.validacao = validacao;
+    }
+
+    public void setDataContrato(Date dataContrato) {
+        this.dataContrato = dataContrato;
+    }
+
+    public void setDataDemissao(Date dataDemissao) {
+        this.dataDemissao = dataDemissao;
     }
 }

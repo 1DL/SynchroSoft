@@ -5,6 +5,9 @@
  */
 package control;
 
+import java.sql.Date;
+import java.util.Calendar;
+
 /**
  *
  * @author LuizV1
@@ -26,6 +29,10 @@ public class Datas {
         mes = Byte.parseByte(data.substring(3, 5));
         ano = Integer.parseInt(data.substring(6,10));
         return ano+"-"+mes+"-"+dia;
+    }
+    
+    public static String getDiaHoje(){
+        return converterParaBrasileira("" + new Date(Calendar.getInstance().getTimeInMillis()));
     }
 
         

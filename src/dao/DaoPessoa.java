@@ -7,6 +7,8 @@ package dao;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import model.Endereco;
@@ -20,7 +22,7 @@ import model.PessoaJuridica;
  */
 public class DaoPessoa {
 
-    public void cadastrarPessoaFisica(String cpf, String cep, String nomeFisica, int sexo, long telefone, long celular, String complemento, Date dataCadastro, int isContratado) {
+    public static void cadastrarPessoaFisica(String cpf, String cep, String nomeFisica, int sexo, long telefone, long celular, String complemento, Date dataCadastro, int isContratado) {
         try {
             Connection con = Conexao.conectar();
             String sql = "INSERT INTO SYNCHROSOFT.TB_PESSOA_FISICA VALUES (?,?,?,?,?,?,?,?,?)";
@@ -41,23 +43,35 @@ public class DaoPessoa {
         }
     }
 
-    public static PessoaFisica popularPessoaFisica(String cpf, String cep) throws SQLException, ClassNotFoundException {
-        boolean flag;
-        Connection con = Conexao.conectar();
-        String sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA WHERE CD_CPF = ?";
-        PreparedStatement st = con.prepareStatement(sql);
-        st.setString(1, cpf);
-        ResultSet rs = st.executeQuery();
-        rs.next();
-        Endereco end = new Endereco();
-        end = DaoEndereco.popularEndereco(cep);
-        Pessoa p = new Pessoa(rs.getString("NM_PESSOA_FISICA"), end, rs.getLong("NR_TELEFONE"), rs.getString("NR_COMPLEMENTO_LOGRADOURO"), rs.getInt("ID_CONTRATO"));
-        PessoaFisica pf = new PessoaFisica(p, rs.getString("CD_CPF"), rs.getDate("DT_CADASTRO"), rs.getLong("NR_CELULAR"), rs.getInt("ID_SEXO"));
-        st.close();
-        rs.close();
-        return pf;
+    public static PessoaFisica popularPessoaFisica(String cpf) {
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA WHERE CD_CPF = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, cpf);
+            ResultSet rs = st.executeQuery();
+            rs.next();
+            Endereco end = new Endereco();
+            end = DaoEndereco.popularEndereco(rs.getString("CD_CEP"));
+            Pessoa p = new Pessoa(rs.getString("NM_PESSOA_FISICA"), end, rs.getLong("NR_TELEFONE"), 
+                    rs.getString("NR_COMPLEMENTO_LOGRADOURO"), rs.getInt("ID_CONTRATO"));
+            PessoaFisica pf = new PessoaFisica(p, rs.getString("CD_CPF"), rs.getDate("DT_CADASTRO"), 
+                    rs.getLong("NR_CELULAR"), rs.getInt("ID_SEXO"));
+            st.close();
+            rs.close();
+            return pf;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível popular os dados da pessoa física.\n\nErro Nº:"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoPessoa - Popular pessoa física", 0);
+            return null;
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
     }
-    
+
     public static PessoaFisica popularPessoaFisicaSemCep(String cpf) throws SQLException, ClassNotFoundException {
         boolean flag;
         Connection con = Conexao.conectar();
@@ -74,7 +88,7 @@ public class DaoPessoa {
         rs.close();
         return pf;
     }
-    
+
     public static PessoaJuridica popularPessoaJuridica(String cnpj, String cep) throws SQLException, ClassNotFoundException {
         boolean flag;
         Connection con = Conexao.conectar();
@@ -91,7 +105,7 @@ public class DaoPessoa {
         rs.close();
         return pj;
     }
-    
+
     public static PessoaJuridica popularPessoaJuridicaSemCep(String cnpj) throws SQLException, ClassNotFoundException {
         boolean flag;
         Connection con = Conexao.conectar();
@@ -109,19 +123,29 @@ public class DaoPessoa {
         return pj;
     }
 
-    public static boolean existePessoaFisica(String cpf) throws SQLException, ClassNotFoundException {
-        boolean flag;
-        Connection con = Conexao.conectar();
-        String sql = "SELECT CD_CPF FROM SYNCHROSOFT.TB_PESSOA_FISICA WHERE CD_CPF = ?";
-        PreparedStatement st = con.prepareStatement(sql);
-        st.setString(1, cpf);
-        ResultSet rs = st.executeQuery();
-        flag = rs.isBeforeFirst();
-        st.close();
-        rs.close();
-        return flag;
+    public static boolean existePessoaFisica(String cpf) {
+        boolean flag = false;
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "SELECT CD_CPF FROM SYNCHROSOFT.TB_PESSOA_FISICA WHERE CD_CPF = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, cpf);
+            ResultSet rs = st.executeQuery();
+            flag = rs.isBeforeFirst();
+            st.close();
+            rs.close();
+            return flag;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível pesquisar se a pessoa existe.\n\nErro Nº:"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoPessoa - Existe Pessoa Fisica", 0);
+            return flag;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            return flag;
+        }
+
     }
-    
+
     public static boolean existePessoaJuridica(String cnpj) throws SQLException, ClassNotFoundException {
         boolean flag;
         Connection con = Conexao.conectar();
@@ -135,7 +159,7 @@ public class DaoPessoa {
         return flag;
     }
 
-    public void cadastrarPessoaJuridica(String cnpj, String cep, String nomeFicticio, String razaoSocial, String logradouro, long telefone, long ramal, int isContratado, Date dataCadastro) {
+    public static void cadastrarPessoaJuridica(String cnpj, String cep, String nomeFicticio, String razaoSocial, String logradouro, long telefone, long ramal, int isContratado, Date dataCadastro) {
         try {
             Connection con = Conexao.conectar();
             String sql = "INSERT INTO SYNCHROSOFT.TB_PESSOA_JURIDICA VALUES (?,?,?,?,?,?,?,?,?)";
@@ -155,10 +179,8 @@ public class DaoPessoa {
             JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar a Pessoa Juridica.\n Erro:\n\n" + ex.getMessage());
         }
     }
-    
-    
 
-    public void deletarPessoaFisica(String cpf) throws SQLException, ClassNotFoundException {
+    public static void deletarPessoaFisica(String cpf) throws SQLException, ClassNotFoundException {
         try {
             Connection con = Conexao.conectar();
             String sql = "DELETE FROM SYNCHROSOFT.TB_PESSOA_FISICA WHERE CD_CPF = ?";
@@ -172,7 +194,7 @@ public class DaoPessoa {
         }
     }
 
-    public void deletarPessoaJuridica(String cnpj) throws SQLException, ClassNotFoundException {
+    public static void deletarPessoaJuridica(String cnpj) throws SQLException, ClassNotFoundException {
         try {
             Connection con = Conexao.conectar();
             String sql = "DELETE FROM SYNCHROSOFT.TB_PESSOA_JURIDICA WHERE CD_CNPJ = ?";
@@ -450,7 +472,7 @@ Data Cadastro
         return lista;
     }
 
-    public void alterarPessoaFisica(JTable tabela) throws SQLException, ClassNotFoundException {
+    public static void alterarPessoaFisica(JTable tabela) throws SQLException, ClassNotFoundException {
 //      
         try {
 
@@ -471,7 +493,7 @@ Data Cadastro
                 String NM_PESSOA_FISICA = (String) tabela.getValueAt(row, 0);
                 String ID_SEXO = (String) tabela.getValueAt(row, 2);
                 int sexo;
-                if (ID_SEXO.toLowerCase().substring(0,1).equals("m")) {
+                if (ID_SEXO.toLowerCase().substring(0, 1).equals("m")) {
                     sexo = 0;
                 } else {
                     sexo = 1;
@@ -481,16 +503,16 @@ Data Cadastro
                 String NR_CELULAR = (String) tabela.getValueAt(row, 7);
                 String NR_COMPLEMENTO_LOGRADOURO = (String) tabela.getValueAt(row, 5);
                 PessoaFisica pf = new PessoaFisica();
-                String DT_CADASTRO = (String)tabela.getValueAt(row, 9);
+                String DT_CADASTRO = (String) tabela.getValueAt(row, 9);
                 pf.setDataCadastro(DT_CADASTRO);
                 String ID_CONTRATO = (String) tabela.getValueAt(row, 8);
                 int contrato;
-                if (ID_CONTRATO.toLowerCase().substring(0,1).equals("s")) {
+                if (ID_CONTRATO.toLowerCase().substring(0, 1).equals("s")) {
                     contrato = 1;
                 } else {
                     contrato = 0;
                 }
-                String CD_CPF_REFERENCIA = (String) tabela.getValueAt(row, 10); 
+                String CD_CPF_REFERENCIA = (String) tabela.getValueAt(row, 10);
 
                 st.setString(1, CD_CPF_ALTERADO);
                 st.setString(2, CD_CEP);
@@ -516,7 +538,7 @@ Data Cadastro
 
     }
 
-    public void alterarPessoaJuridica(JTable tabela) throws SQLException, ClassNotFoundException {
+    public static void alterarPessoaJuridica(JTable tabela) throws SQLException, ClassNotFoundException {
 //      
         try {
 
@@ -541,8 +563,7 @@ Data Cadastro
                 String telefone = (String) tabela.getValueAt(row, 5);
                 String ramal = (String) tabela.getValueAt(row, 6);
                 String contrato = (String) tabela.getValueAt(row, 7);
-               
-                
+
                 String dataCadastro = (String) tabela.getValueAt(row, 8);
                 PessoaJuridica pj = new PessoaJuridica();
                 pj.setDataCadastro(dataCadastro);

@@ -322,9 +322,9 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         Funcionario f = new Funcionario();
         DaoFuncionario dao = new DaoFuncionario();
         try {
-            flagFuncionario = DaoFuncionario.existeFuncionario(Integer.parseInt(txtCodFuncionario.getText()));
+            flagFuncionario = DaoFuncionario.existeFuncionario(txtCodFuncionario.getText());
             if (flagFuncionario) {
-                f = DaoFuncionario.popularFuncionario(Integer.parseInt(txtCodFuncionario.getText()));
+                f = DaoFuncionario.popularFuncionario(txtCodFuncionario.getText());
                 lblFuncionario.setText("Funcionário encontrado.");
                 lblFuncionario.setForeground(Color.BLACK);
                 txtNomeFuncionario.setText(f.getPessoa().getNome());

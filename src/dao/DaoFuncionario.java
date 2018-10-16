@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import model.Endereco;
@@ -24,38 +26,38 @@ import model.PessoaFisica;
  */
 public class DaoFuncionario {
 
-    public void cadastrarFuncionario(int codigoFuncionario, String cepFuncionario, String nome, String cpf, int sexo, long telefone,
-            long celular, String numeroCasa, float salario, String cargo, Date dataContrato, int horasTrabalhadas,
-            int nivelAdministrativo) throws SQLException, ClassNotFoundException {
+    public static void cadastrarFuncionario(Funcionario func) {
         try {
-        Connection con = Conexao.conectar();
-        String sql = "INSERT INTO SYNCHROSOFT.TB_FUNCIONARIO VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        PreparedStatement st = con.prepareStatement(sql);
-        st.setInt(1, codigoFuncionario);
-        st.setString(2, cepFuncionario);
-        st.setString(3, nome);
-        st.setString(4, cpf);
-        st.setInt(5, sexo);
-        st.setLong(6, telefone);
-        st.setLong(7, celular);
-        st.setString(8, numeroCasa);
-        st.setFloat(9, salario);
-        st.setString(10, cargo);
-        st.setDate(11, dataContrato);
-        st.setDate(12, dataContrato);
-        st.setInt(13, horasTrabalhadas);
-        st.setInt(14, nivelAdministrativo);
-        st.executeUpdate();
-        st.close();
+            Connection con = Conexao.conectar();
+            String sql = "INSERT INTO SYNCHROSOFT.TB_FUNCIONARIO VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, func.getCodigoFuncionario());
+            st.setString(2, func.getPessoa().getEndereco().getCep());
+            st.setString(3, func.getPessoa().getNome());
+            st.setString(4, func.getFisica().getCpf());
+            st.setInt(5, func.getFisica().getSexo());
+            st.setLong(6, func.getPessoa().getTelefone());
+            st.setLong(7, func.getFisica().getCelular());
+            st.setString(8, func.getPessoa().getComplementoLogradouro());
+            st.setFloat(9, func.getSalario());
+            st.setString(10, func.getCargo());
+            st.setDate(11, Date.valueOf(control.Datas.converterParaAmericana(func.getDataContrato())));
+            st.setDate(12, null);
+            st.setInt(13, func.getHorasTrabalhadas());
+            st.setInt(14, func.getNivelAdministrativo());
+            st.executeUpdate();
+            st.close();
+            JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!", "Cadastro de Funcionário", 1);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o Funcionário.\n Erro:\n\n" + ex.getMessage());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o Funcionário.\n Erro:\n\n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o funcionário.\n\nErro Nº:"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoFuncionario - Cadastro Funcionario", 0);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao popular atributos do funcionário. \n\nExceção JAVA:\n"
+                    + ex.getMessage(), "Erro ao cadastrar funcionário", 0);
         }
     }
-    
-    
-    public void alterarFuncionario(JTable tabela) throws SQLException, ClassNotFoundException {
+
+    public static void alterarFuncionario(JTable tabela) throws SQLException, ClassNotFoundException {
 //      
         try {
 
@@ -68,8 +70,9 @@ public class DaoFuncionario {
             String sql = "UPDATE SYNCHROSOFT.TB_FUNCIONARIO "
                     + "SET CD_FUNCIONARIO = ?, CD_CEP = ?, NM_FUNCIONARIO = ?, "
                     + "CPF_FUNCIONARIO = ?, ID_SEXO = ?, NR_TELEFONE = ?, NR_CELULAR = ?,"
-                    + "NR_LOGRADOURO = ?, VL_SALARIO = ?, DS_CARGO = ?, NR_HORAS_TRABALHO = ?, ID_ADMINISTRATIVO =?"
-                    + " WHERE CD_FUNCIONARIO = ?";
+                    + "NR_LOGRADOURO = ?, VL_SALARIO = ?, DS_CARGO = ?, "
+                    + "NR_HORAS_TRABALHO = ?, ID_ADMINISTRATIVO =? "
+                    + "WHERE CD_FUNCIONARIO = ?";
             PreparedStatement st = con.prepareStatement(sql);
             for (int row = 0; row < rows; row++) {
                 String cod_alterado = (String) tabela.getValueAt(row, 0);
@@ -78,7 +81,7 @@ public class DaoFuncionario {
                 String cpf = (String) tabela.getValueAt(row, 3);
                 String idsexo = (String) tabela.getValueAt(row, 4);
                 int sexo;
-                if (idsexo.toLowerCase().substring(0,1).equals("m")) {
+                if (idsexo.toLowerCase().substring(0, 1).equals("m")) {
                     sexo = 0;
                 } else {
                     sexo = 1;
@@ -94,7 +97,7 @@ public class DaoFuncionario {
                 Funcionario func = new Funcionario();
                 func.setDataContrato(admissao);
                 func.setDataDemissao(demissao);
-                String horatrab =  (String) tabela.getValueAt(row, 12);
+                String horatrab = (String) tabela.getValueAt(row, 12);
                 String nvladm = (String) tabela.getValueAt(row, 13);
 
                 int nivel = 0;
@@ -104,8 +107,8 @@ public class DaoFuncionario {
                     nivel = 1;
                 }
                 String cod_ref = (String) tabela.getValueAt(row, 14);
-                        
-                st.setInt(1,Integer.parseInt(cod_alterado));
+
+                st.setInt(1, Integer.parseInt(cod_alterado));
                 st.setString(2, cep);
                 st.setString(3, nome);
                 st.setString(4, cpf);
@@ -115,8 +118,8 @@ public class DaoFuncionario {
                 st.setString(8, nrend);
                 st.setFloat(9, Float.parseFloat(salario));
                 st.setString(10, cargo);
-                st.setDate(10, func.getDataContrato());
-                st.setDate(11, func.getDataDemissao());
+                st.setDate(10, Date.valueOf(control.Datas.converterParaAmericana(func.getDataContrato())));
+                st.setDate(11, Date.valueOf(control.Datas.converterParaAmericana(func.getDataDemissao())));
                 st.setInt(11, Integer.parseInt(horatrab));
                 st.setInt(12, nivel);
                 st.setInt(13, Integer.parseInt(cod_ref));
@@ -130,25 +133,25 @@ public class DaoFuncionario {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao alterar a base de Funcionários. \n\n" + ex.getMessage());
         }
-        
+
     }
-    
-    public static Funcionario popularFuncionario(int codigo) throws SQLException, ClassNotFoundException {
+
+    public static Funcionario popularFuncionario(String codigo) throws SQLException, ClassNotFoundException {
         boolean flag;
         Connection con = Conexao.conectar();
         String sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE CD_FUNCIONARIO = ?";
         PreparedStatement st = con.prepareStatement(sql);
-        st.setInt(1, codigo);
+        st.setString(1, codigo);
         ResultSet rs = st.executeQuery();
         rs.next();
         Funcionario func = new Funcionario();
-        func.setCodigoFuncionario(rs.getInt("CD_FUNCIONARIO"));
+        func.setCodigoFuncionario(rs.getString("CD_FUNCIONARIO"));
         Pessoa p = new Pessoa();
         PessoaFisica pf = new PessoaFisica();
         p.setNome(rs.getString("NM_FUNCIONARIO"));
         pf.setPessoa(p);
         pf.setCpf(rs.getString("CPF_FUNCIONARIO"));
-        func.setSalario(rs.getFloat("VL_SALARIO"));
+        func.setSalario(rs.getString("VL_SALARIO"));
         func.setPessoa(p);
         func.setFisica(pf);
         func.setCargo(rs.getString("DS_CARGO"));
@@ -156,18 +159,29 @@ public class DaoFuncionario {
         rs.close();
         return func;
     }
-    
-    public static boolean existeFuncionario(int codigo) throws SQLException, ClassNotFoundException {
-        boolean flag;
-        Connection con = Conexao.conectar();
-        String sql = "SELECT CD_FUNCIONARIO FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE CD_FUNCIONARIO = ?";
-        PreparedStatement st = con.prepareStatement(sql);
-        st.setInt(1, codigo);
-        ResultSet rs = st.executeQuery();
-        flag = rs.isBeforeFirst();
-        st.close();
-        rs.close();
-        return flag;
+
+    public static boolean existeFuncionario(String codigo) {
+        boolean flag = false;
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "SELECT CD_FUNCIONARIO FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE CD_FUNCIONARIO = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, codigo);
+            ResultSet rs = st.executeQuery();
+            flag = rs.isBeforeFirst();
+            st.close();
+            rs.close();
+            return flag;
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível pesquisar se o funcionário existe.\n\nErro Nº:"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoFuncionario - Existe Funcionario", 0);
+            return flag;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            return flag;
+        }
+        
     }
 
     public static ArrayList listarFuncionario() {
@@ -186,9 +200,16 @@ public class DaoFuncionario {
                 pf.setSexo(rs.getInt("ID_SEXO"));
                 pf.setCpf(rs.getString("CPF_FUNCIONARIO"));
 
-                Funcionario func = new Funcionario(rs.getInt("CD_FUNCIONARIO"), p, pf, rs.getFloat("VL_SALARIO"),
-                        rs.getString("DS_CARGO"), rs.getDate("DT_ADMISSAO"), rs.getDate("DT_DEMISSAO"), rs.getInt("NR_HORAS_TRABALHO"),
-                        rs.getInt("ID_ADMINISTRATIVO"));
+                Funcionario func = new Funcionario();
+                func.setCodigoFuncionario(rs.getString("CD_FUNCIONARIO"));
+                func.setPessoa(p);
+                func.setFisica(pf);
+                func.setSalario(rs.getString("VL_SALARIO"));
+                func.setCargo(rs.getString("DS_CARGO"));
+                func.setDataContratoBanco(rs.getDate("DT_ADMISSAO").toString());
+                func.setDataDemissaoBanco(rs.getDate("DT_DEMISSAO").toString());
+                func.setHorasTrabalhadas(Integer.toString(rs.getInt("NR_HORAS_TRABALHO")));
+                func.setNivelAdministrativoBanco(rs.getInt("ID_ADMINISTRATIVO"));
                 lista.add(func);
             }
             st.close();
@@ -198,13 +219,13 @@ public class DaoFuncionario {
         }
         return lista;
     }
-    
-    public void deletarFuncionario(int codigo) throws SQLException, ClassNotFoundException {
+
+    public static void deletarFuncionario(String codigo) throws SQLException, ClassNotFoundException {
         try {
             Connection con = Conexao.conectar();
             String sql = "DELETE FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE CD_FUNCIONARIO = ?";
             PreparedStatement st = con.prepareStatement(sql);
-            st.setInt(1, codigo);
+            st.setString(1, codigo);
             st.executeUpdate();
             st.close();
             JOptionPane.showMessageDialog(null, "Funcionário(a) removido com sucesso.");
@@ -221,7 +242,6 @@ public class DaoFuncionario {
 
             //Declarando variável de String de conexão
             String sql = "";
-                    
 
             //            DatabaseMetaData teste = con.getMetaData();
             //            System.out.println(teste.supportsBatchUpdates());
@@ -285,7 +305,7 @@ public class DaoFuncionario {
             ResultSet rs = st.executeQuery();
 
             //listando dados do banco em jtable
-           while (rs.next()) {
+            while (rs.next()) {
                 Endereco end = new Endereco();
                 end.setCep(rs.getString("CD_CEP"));
                 Pessoa p = new Pessoa(rs.getString("NM_FUNCIONARIO"), end, rs.getLong("NR_TELEFONE"), rs.getString("NR_LOGRADOURO"), 0);
@@ -294,9 +314,16 @@ public class DaoFuncionario {
                 pf.setSexo(rs.getInt("ID_SEXO"));
                 pf.setCpf(rs.getString("CPF_FUNCIONARIO"));
 
-                Funcionario func = new Funcionario(rs.getInt("CD_FUNCIONARIO"), p, pf, rs.getFloat("VL_SALARIO"),
-                        rs.getString("DS_CARGO"), rs.getDate("DT_ADMISSAO"), rs.getDate("DT_DEMISSAO"), rs.getInt("NR_HORAS_TRABALHO"),
-                        rs.getInt("ID_ADMINISTRATIVO"));
+                Funcionario func = new Funcionario();
+                func.setCodigoFuncionario(rs.getString("CD_FUNCIONARIO"));
+                func.setPessoa(p);
+                func.setFisica(pf);
+                func.setSalario(rs.getString("VL_SALARIO"));
+                func.setCargo(rs.getString("DS_CARGO"));
+                func.setDataContratoBanco(rs.getDate("DT_ADMISSAO").toString());
+                func.setDataDemissaoBanco(rs.getDate("DT_DEMISSAO").toString());
+                func.setHorasTrabalhadas(Integer.toString(rs.getInt("NR_HORAS_TRABALHO")));
+                func.setNivelAdministrativoBanco(rs.getInt("ID_ADMINISTRATIVO"));
                 lista.add(func);
             }
 
@@ -310,7 +337,5 @@ public class DaoFuncionario {
         //return lista;
         return lista;
     }
-
-    
 
 }
