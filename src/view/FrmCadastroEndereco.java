@@ -288,7 +288,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
             Endereco end = new Endereco(txtCep.getText(), txtLogradouro.getText(), txtBairro.getText(), txtCidade.getText(), (String) cmbEstado.getSelectedItem());
 
             try {
-                boolean aux = dao.cadastrarEndereco(end.getCep(), end.getLogradouro(), end.getBairro(), end.getCidade(), end.getEstado());
+                boolean aux = dao.cadastrarEndereco(end);
                 if (aux) {
                     atualizarTabela(end);
                 }

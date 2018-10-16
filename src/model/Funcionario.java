@@ -15,7 +15,7 @@ public class Funcionario{
     
     
     
-    private int codigoFuncionario;
+    private String codigoFuncionario;
     private Pessoa pessoa;
     private PessoaFisica fisica;
     private float Salario;
@@ -30,11 +30,13 @@ public class Funcionario{
 
     
 
-    public int getCodigoFuncionario() {
+    public String getCodigoFuncionario() {
         return codigoFuncionario;
     }
 
-    public Funcionario(int codigoFuncionario, Pessoa pessoa, PessoaFisica fisica, float Salario, String cargo, Date dataContrato, Date dataDemissao, int horasTrabalhadas, int nivelAdministrativo) {
+    public Funcionario(String codigoFuncionario, Pessoa pessoa, PessoaFisica fisica, 
+            float Salario, String cargo, Date dataContrato, Date dataDemissao, 
+            int horasTrabalhadas, int nivelAdministrativo) {
         this.codigoFuncionario = codigoFuncionario;
         this.pessoa = pessoa;
         this.fisica = fisica;
@@ -46,7 +48,7 @@ public class Funcionario{
         this.nivelAdministrativo = nivelAdministrativo;
     }
 
-    public void setCodigoFuncionario(int codigoFuncionario) {
+    public void setCodigoFuncionario(String codigoFuncionario) {
         this.codigoFuncionario = codigoFuncionario;
     }
 

@@ -7,6 +7,8 @@ package dao;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import model.Endereco;
@@ -16,28 +18,36 @@ import model.Endereco;
  * @author LuizV1
  */
 public class DaoEndereco {
-    
-    public boolean cadastrarEndereco (String cep, String logradouro, String bairro, String cidade, String uf){
-    try {
+
+    public boolean cadastrarEndereco(Endereco end) {
+        boolean aux = false;
+        try {
             Connection con = Conexao.conectar();
             String sql = "INSERT INTO SYNCHROSOFT.TB_ENDERECO VALUES (?,?,?,?,?)";
             PreparedStatement st = con.prepareStatement(sql);
-            st.setString(1, cep);
-            st.setString(2, logradouro);
-            st.setString(3, bairro);
-            st.setString(4, cidade);
-            st.setString(5, uf);
+            st.setString(1, end.getCep());
+            st.setString(2, end.getLogradouro());
+            st.setString(3, end.getBairro());
+            st.setString(4, end.getCidade());
+            st.setString(5, end.getEstado());
             st.executeUpdate();
             st.close();
             JOptionPane.showMessageDialog(null, "Endereço cadastrado com sucesso!", "Cadastro de Endereço", JOptionPane.INFORMATION_MESSAGE);
-            return true;
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o Endereço.\nErro:\n\n" + ex.getMessage(),"DaoEndereco Cadastro", JOptionPane.ERROR_MESSAGE);
-            return false;
+            aux = true;
+            return aux;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o Endereço.\n\nNº Erro: "
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "DaoEndereco Cadastro", JOptionPane.ERROR_MESSAGE);
+            aux = false;
+            return aux;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoEndereco.class.getName()).log(Level.SEVERE, null, ex);
+            aux = false;
+            return aux;
         }
     }
-    
-    public void deletarEndereco (String cep) throws SQLException, ClassNotFoundException {
+
+    public void deletarEndereco(String cep) throws SQLException, ClassNotFoundException {
         try {
             Connection con = Conexao.conectar();
             String sql = "DELETE FROM SYNCHROSOFT.TB_ENDERECO WHERE CD_CEP = ?";
@@ -50,7 +60,7 @@ public class DaoEndereco {
             JOptionPane.showMessageDialog(null, "Não foi possível remover o endereço.\nErro:\n\n" + ex.getMessage());
         }
     }
-    
+
     public static ArrayList listarEndereco() {
         ArrayList<Endereco> lista = new ArrayList<>();
         try {
@@ -59,8 +69,8 @@ public class DaoEndereco {
             PreparedStatement st = con.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Endereco end = new Endereco(rs.getString("CD_CEP"), rs.getString("DS_LOGRADOURO"), 
-                rs.getString("NM_BAIRRO"), rs.getString("NM_CIDADE"), rs.getString("SG_ESTADO"));
+                Endereco end = new Endereco(rs.getString("CD_CEP"), rs.getString("DS_LOGRADOURO"),
+                        rs.getString("NM_BAIRRO"), rs.getString("NM_CIDADE"), rs.getString("SG_ESTADO"));
                 lista.add(end);
             }
             st.close();
@@ -70,37 +80,37 @@ public class DaoEndereco {
         }
         return lista;
     }
-    
-    public static boolean existeEndereco(String cep) throws SQLException, ClassNotFoundException{
+
+    public static boolean existeEndereco(String cep) throws SQLException, ClassNotFoundException {
         boolean flag;
         Connection con = Conexao.conectar();
         String sql = "SELECT CD_CEP FROM SYNCHROSOFT.TB_ENDERECO WHERE CD_CEP = ?";
         PreparedStatement st = con.prepareStatement(sql);
         st.setString(1, cep);
         ResultSet rs = st.executeQuery();
-        flag = rs.isBeforeFirst(); 
+        flag = rs.isBeforeFirst();
         st.close();
         rs.close();
         return flag;
     }
-    
-    public static Endereco popularEndereco (String cep) throws SQLException, ClassNotFoundException {
+
+    public static Endereco popularEndereco(String cep) throws SQLException, ClassNotFoundException {
         Connection con = Conexao.conectar();
         String sql = "SELECT * FROM SYNCHROSOFT.TB_ENDERECO WHERE CD_CEP = ?";
         PreparedStatement st = con.prepareStatement(sql);
         st.setString(1, cep);
         ResultSet rs = st.executeQuery();
         rs.next();
-        Endereco end = new Endereco(rs.getString("CD_CEP"), rs.getString("DS_LOGRADOURO"), 
-        rs.getString("NM_BAIRRO"), rs.getString("NM_CIDADE"), rs.getString("SG_ESTADO"));
+        Endereco end = new Endereco(rs.getString("CD_CEP"), rs.getString("DS_LOGRADOURO"),
+                rs.getString("NM_BAIRRO"), rs.getString("NM_CIDADE"), rs.getString("SG_ESTADO"));
         st.close();
         rs.close();
         return end;
-        
+
     }
-    
+
     public void alterarEndereco(JTable tabela) throws SQLException, ClassNotFoundException {
-        try{
+        try {
             int rows = tabela.getRowCount();
             JOptionPane.showConfirmDialog(null, "Deseja realizar a alteração?");
 
@@ -111,7 +121,7 @@ public class DaoEndereco {
                     + "NM_CIDADE= ?, SG_ESTADO= ? WHERE CD_CEP = ?";
             PreparedStatement st = con.prepareStatement(sql);
             for (int row = 0; row < rows; row++) {
-                
+
                 String cep_alterado = (String) tabela.getValueAt(row, 0);
                 String logradouro = (String) tabela.getValueAt(row, 1);
                 String bairro = (String) tabela.getValueAt(row, 2);
@@ -119,12 +129,12 @@ public class DaoEndereco {
                 String uf = (String) tabela.getValueAt(row, 4);
                 String cep_ref = (String) tabela.getValueAt(row, 5);
 
-                st.setString(1, cep_alterado);                
+                st.setString(1, cep_alterado);
                 st.setString(2, logradouro);
                 st.setString(3, bairro);
                 st.setString(4, cidade);
                 st.setString(5, uf);
-                st.setString(6, cep_ref);  
+                st.setString(6, cep_ref);
                 st.addBatch();
                 st.executeBatch();
                 con.commit();
@@ -132,10 +142,10 @@ public class DaoEndereco {
             }
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao alterar a base de endereços. \n\n"+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao alterar a base de endereços. \n\n" + ex.getMessage());
         }
     }
-    
+
     public static ArrayList listarEnderecoFiltrada(String cmbFiltro, String txtPesquisa) {
         ArrayList<Endereco> lista = new ArrayList<>();
         try {
@@ -144,57 +154,61 @@ public class DaoEndereco {
             //Declarando variável de String de conexão
             String sql = "";
             //Criando estrutura switch case para identificar o tipo de filtro de pesquisa
-            switch(cmbFiltro)
-            {
+            switch (cmbFiltro) {
                 //preparando sql de acordo com cep
-                case "CEP":  sql = "SELECT * FROM SYNCHROSOFT.TB_ENDERECO WHERE LOWER(CD_CEP) LIKE LOWER(?)";
-                break;
-                
+                case "CEP":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_ENDERECO WHERE LOWER(CD_CEP) LIKE LOWER(?)";
+                    break;
+
                 //preparando tratamento de acordo com o logradouro
-                case "Logradouro": sql = "SELECT * FROM SYNCHROSOFT.TB_ENDERECO WHERE LOWER(DS_LOGRADOURO) LIKE LOWER(?)";
-                break;
-                
+                case "Logradouro":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_ENDERECO WHERE LOWER(DS_LOGRADOURO) LIKE LOWER(?)";
+                    break;
+
                 //preparando tratamento de acordo com o bairro
-                case "Bairro": sql = "SELECT * FROM SYNCHROSOFT.TB_ENDERECO WHERE LOWER(NM_BAIRRO) LIKE LOWER(?)";
-                break;
-                
+                case "Bairro":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_ENDERECO WHERE LOWER(NM_BAIRRO) LIKE LOWER(?)";
+                    break;
+
                 //preparando tratamento de acordo com a cidade
-                case "Cidade": sql = "SELECT * FROM SYNCHROSOFT.TB_ENDERECO WHERE LOWER(NM_CIDADE) LIKE LOWER(?)";
-                break;
-                
+                case "Cidade":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_ENDERECO WHERE LOWER(NM_CIDADE) LIKE LOWER(?)";
+                    break;
+
                 //preparando tratamento de acordo com valor do estado
-                case "Estado": sql = "SELECT * FROM SYNCHROSOFT.TB_ENDERECO WHERE LOWER(SG_ESTADO) LIKE LOWER(?)";
-                break;
+                case "Estado":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_ENDERECO WHERE LOWER(SG_ESTADO) LIKE LOWER(?)";
+                    break;
             }
-            
+
             //realizando preparedStatement para tratamento de variáveis
             PreparedStatement st = con.prepareStatement(sql);
-            
+
             //colocando valor da variável ? da query 
-            st.setString(1, "%"+txtPesquisa+"%");
-            
+            st.setString(1, "%" + txtPesquisa + "%");
+
             //executando query selecionada pelo switch case
             ResultSet rs = st.executeQuery();
-            
+
             //listando dados do banco em jtable
             while (rs.next()) {
-                Endereco end = new Endereco(rs.getString("CD_CEP"), rs.getString("DS_LOGRADOURO"), 
-                rs.getString("NM_BAIRRO"), rs.getString("NM_CIDADE"), rs.getString("SG_ESTADO"));
+                Endereco end = new Endereco(rs.getString("CD_CEP"), rs.getString("DS_LOGRADOURO"),
+                        rs.getString("NM_BAIRRO"), rs.getString("NM_CIDADE"), rs.getString("SG_ESTADO"));
                 lista.add(end);
             }
-            
+
             //teste de funcionamento do método
             System.out.println(lista.get(0).getCidade());
-            
+
             //fechamento de preparedStatement e Conexão do banco
             st.close();
             rs.close();
-            
+
         } catch (Exception ex) { //Caso exista a possibilidade de retorno de erro
             System.err.println("DaoEndereco Instanciamento: " + ex.getMessage());
         }
         //return lista;
         return lista;
     }
-    
+
 }

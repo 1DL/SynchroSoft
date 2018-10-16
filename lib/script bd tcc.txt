@@ -42,7 +42,7 @@ CREATE TABLE tb_pessoa_juridica
 
 CREATE TABLE tb_funcionario
 (
- cd_funcionario numeric(4),
+ cd_funcionario varchar2(10),
  cd_CEP varchar2(8),
  nm_funcionario varchar2(80),
  cpf_funcionario varchar2(11),
@@ -92,7 +92,7 @@ CREATE TABLE tb_orcamento
 CREATE TABLE tb_func_servico
 (
  cd_funcionario_servico numeric(5),
- cd_funcionario numeric(10),
+ cd_funcionario varchar2(10),
  cd_servico numeric(10),
  constraint pk_funcionario_servico primary key(cd_funcionario_servico),
  constraint fk_funcionario_func_servico foreign key(cd_funcionario) references tb_funcionario(cd_funcionario),
@@ -164,17 +164,12 @@ CREATE TABLE tb_endereco_servico
 CREATE TABLE tb_usuario
 (
  cd_usuario NUMERIC(4),
- cd_funcionario NUMERIC(4),
+ cd_funcionario varchar2(10),
  ds_login VARCHAR2(100),
  ds_senha VARCHAR2(8),
  CONSTRAINT pk_usuario PRIMARY KEY(cd_usuario),
  CONSTRAINT fk_funcionario_usuario FOREIGN KEY(cd_funcionario) REFERENCES tb_funcionario(cd_funcionario)
 );
-
-INSERT INTO tb_funcionario (cd_funcionario, cd_cep, nm_funcionario, cpf_funcionario, id_sexo, nr_telefone, nr_celular, nr_logradouro, vl_salario, ds_cargo, dt_admissao, dt_demissao, nr_horas_trabalho)
-  VALUES (0001, '03058010', 'admin', '46202476850', 0, 1, 1, 1, 1, 'a', '06-13-2018', '06-13-2018', 1);
-
-INSERT INTO tb_usuario (cd_usuario, cd_funcionario, ds_login, ds_senha) VALUES (0001, 0001, 'admin', 'admin');
 
 ALTER TABLE tb_funcionario ADD id_administrativo NUMERIC(1) CHECK (id_administrativo IN(1,0));
 -----------------------------------------------------------------------------------------------------------------
@@ -305,8 +300,6 @@ BEGIN
     FROM dual;
 END;
 -----------------------------------------------------------------------------------------------------
-alter table "TB_USUARIO" modify
-("CD_FUNCIONARIO" NUMBER(10,0));
 
 alter table "TB_PESSOA_FISICA" modify
 ("NM_PESSOA_FISICA" VARCHAR2(100));
