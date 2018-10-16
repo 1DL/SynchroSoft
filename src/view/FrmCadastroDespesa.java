@@ -135,11 +135,6 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         txtfValorDespesa.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         txtfValorDespesa.setText("0,00");
         txtfValorDespesa.setNextFocusableComponent(txaDescricaoDespesa);
-        txtfValorDespesa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfValorDespesaActionPerformed(evt);
-            }
-        });
         txtfValorDespesa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtfValorDespesaKeyReleased(evt);
@@ -267,10 +262,6 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
     private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnFecharFrameActionPerformed
-
-    private void txtfValorDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfValorDespesaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtfValorDespesaActionPerformed
 
     private void txtfValorDespesaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfValorDespesaKeyReleased
         txtfValorDespesa.setText(control.TextSize.maxLenghtValorDespesa(txtfValorDespesa.getText()));

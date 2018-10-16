@@ -168,8 +168,8 @@ public class TextSize {
     
     public static String maxLenghtMaoDeObra(String str) {
          String valor = "";
-            if(str.length() > 13){
-	        valor = str.substring(0,13);
+            if(str.length() > 8){
+	        valor = str.substring(0,8);
                 str = valor;
             }
 	    return str;
