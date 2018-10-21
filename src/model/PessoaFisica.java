@@ -63,7 +63,11 @@ public class PessoaFisica {
     }
 
     public void setCelular(String celular) {
-        this.celular = Long.parseLong(celular);
+        try {
+            this.celular = Long.parseLong(celular);
+        } catch (NumberFormatException nfe) {
+            this.celular = 0;
+        }
     }
     
     public int getSexo() {

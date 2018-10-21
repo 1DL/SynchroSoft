@@ -16,7 +16,7 @@ public class PessoaJuridica {
     private String razaoSocial;
     private Date dataCadastro;
     private Pessoa pessoa;
-    private long ramalCliente;
+    private int ramalCliente;
 
     public PessoaJuridica() {
     }
@@ -70,6 +70,10 @@ public class PessoaJuridica {
     }
 
     public void setRamalCliente(String ramalCliente) {
-        this.ramalCliente = Long.parseLong(ramalCliente);
+        try {
+            this.ramalCliente = Integer.parseInt(ramalCliente);
+        } catch (NumberFormatException nfe) {
+            this.ramalCliente = 0;
+        }
     }
 }

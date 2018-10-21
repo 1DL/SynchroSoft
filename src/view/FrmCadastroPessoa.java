@@ -126,7 +126,6 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         rbtNaoCadastro = new javax.swing.JRadioButton();
         btnLimpar = new javax.swing.JButton();
         btnCadastrar = new javax.swing.JButton();
-        btnListarPessoa = new javax.swing.JButton();
         lblCpfCnpj = new javax.swing.JLabel();
         txtRazaoSocial = new javax.swing.JTextField();
         lblRazaoSocial = new javax.swing.JLabel();
@@ -140,6 +139,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         btnHoje = new javax.swing.JButton();
         txtfCpfCnpj = new javax.swing.JFormattedTextField();
         lblCpfExiste = new javax.swing.JLabel();
+        btnListarPessoa1 = new javax.swing.JButton();
         btnMenuPrincipal = new javax.swing.JButton();
         btnFecharFrame = new javax.swing.JButton();
         lblPessoaRecente = new javax.swing.JLabel();
@@ -299,6 +299,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         lblCep.setText("CEP");
         jPanel1.add(lblCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 140, -1));
 
+        txtCep.setNextFocusableComponent(lblNumeroLogradouro);
         txtCep.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCepKeyReleased(evt);
@@ -373,14 +374,6 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnCadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 170, 130, 30));
-
-        btnListarPessoa.setText("Listar Pessoas Cadastradas");
-        btnListarPessoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListarPessoaActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnListarPessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 170, 180, 30));
 
         lblCpfCnpj.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCpfCnpj.setText("CPF");
@@ -463,6 +456,14 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         lblCpfExiste.setText("CPF Inválido.");
         jPanel1.add(lblCpfExiste, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 57, 190, -1));
 
+        btnListarPessoa1.setText("Listar Pessoas Cadastradas");
+        btnListarPessoa1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarPessoa1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnListarPessoa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 170, 180, 30));
+
         getContentPane().add(jPanel1);
         jPanel1.setBounds(30, 30, 1100, 320);
 
@@ -528,10 +529,6 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     private void txtRazaoSocialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazaoSocialKeyReleased
         txtRazaoSocial.setText(TextSize.maxLenghtNomeRazao(txtRazaoSocial.getText()));
     }//GEN-LAST:event_txtRazaoSocialKeyReleased
-
-    private void btnListarPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarPessoaActionPerformed
-        control.Janelas.abrirListagemPessoaFisica();
-    }//GEN-LAST:event_btnListarPessoaActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         if (rbtFisica.isSelected()) {
@@ -639,6 +636,10 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         textSizeCPFJCNPJ();
         verificarCpfCnpjEmUso();
     }//GEN-LAST:event_txtfCpfCnpjKeyReleased
+
+    private void btnListarPessoa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarPessoa1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnListarPessoa1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -826,7 +827,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     private javax.swing.JButton btnFecharFrame;
     private javax.swing.JButton btnHoje;
     private javax.swing.JButton btnLimpar;
-    private javax.swing.JButton btnListarPessoa;
+    private javax.swing.JButton btnListarPessoa1;
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.ButtonGroup grupoCadastro;
     private javax.swing.ButtonGroup grupoSexo;

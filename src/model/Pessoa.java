@@ -48,7 +48,12 @@ public class Pessoa {
     }
 
     public void setTelefone(String telefone) {
-        this.telefone = Long.parseLong(telefone);
+        try {
+            this.telefone = Long.parseLong(telefone);
+        } catch (NumberFormatException nfe) {
+            this.telefone = 0;
+        }
+        
     }
 
     public String getComplementoLogradouro() {
