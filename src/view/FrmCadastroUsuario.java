@@ -44,31 +44,32 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblCodFuncionario = new javax.swing.JLabel();
-        txtCodFuncionario = new javax.swing.JTextField();
-        lblLogin = new javax.swing.JLabel();
-        txtLogin = new javax.swing.JTextField();
-        lblSenha = new javax.swing.JLabel();
-        txtSenha = new javax.swing.JPasswordField();
-        txtConfirma = new javax.swing.JPasswordField();
-        lblSenha1 = new javax.swing.JLabel();
+        pnlDadosFuncionario = new javax.swing.JPanel();
         btnCadastrar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
-        btnMenuPrincipal = new javax.swing.JButton();
-        btnListarUsuarios = new javax.swing.JButton();
-        btnFecharFrame = new javax.swing.JButton();
-        pnlDadosFuncionario = new javax.swing.JPanel();
-        lblNomeFuncionario = new javax.swing.JLabel();
-        txtNomeFuncionario = new javax.swing.JTextField();
-        lblCpf = new javax.swing.JLabel();
-        txtCpf = new javax.swing.JTextField();
-        lblCargo = new javax.swing.JLabel();
-        txtCargo = new javax.swing.JTextField();
-        lblSalario = new javax.swing.JLabel();
-        txtSalario = new javax.swing.JTextField();
         lblFuncionario = new javax.swing.JLabel();
         btnListarFuncionarios = new javax.swing.JButton();
-        lblFundo = new javax.swing.JLabel();
+        panDadosFunc = new javax.swing.JPanel();
+        txtNomeFuncionario = new javax.swing.JTextField();
+        lblNomeFuncionario = new javax.swing.JLabel();
+        lblCpf = new javax.swing.JLabel();
+        txtCpf = new javax.swing.JTextField();
+        txtCargo = new javax.swing.JTextField();
+        lblCargo = new javax.swing.JLabel();
+        lblSalario = new javax.swing.JLabel();
+        txtSalario = new javax.swing.JTextField();
+        lblLogin = new javax.swing.JLabel();
+        txtLogin = new javax.swing.JTextField();
+        lblCodFuncionario = new javax.swing.JLabel();
+        txtCodFuncionario = new javax.swing.JTextField();
+        lblSenha = new javax.swing.JLabel();
+        txtSenha = new javax.swing.JPasswordField();
+        lblSenha1 = new javax.swing.JLabel();
+        txtConfirma = new javax.swing.JPasswordField();
+        btnListarUsuarios = new javax.swing.JButton();
+        btnMenuPrincipal = new javax.swing.JButton();
+        btnFecharFrame = new javax.swing.JButton();
+        lblBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Usuário");
@@ -79,191 +80,27 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(null);
 
-        lblCodFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCodFuncionario.setText("Código do Funcionário:");
-        getContentPane().add(lblCodFuncionario);
-        lblCodFuncionario.setBounds(50, 70, 200, 25);
+        pnlDadosFuncionario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlDadosFuncionario.setOpaque(false);
+        pnlDadosFuncionario.setLayout(null);
 
-        txtCodFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtCodFuncionario.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCodFuncionarioKeyReleased(evt);
-            }
-        });
-        getContentPane().add(txtCodFuncionario);
-        txtCodFuncionario.setBounds(260, 70, 170, 30);
-
-        lblLogin.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblLogin.setText("Login:");
-        getContentPane().add(lblLogin);
-        lblLogin.setBounds(670, 160, 60, 25);
-
-        txtLogin.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtLogin.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtLoginKeyReleased(evt);
-            }
-        });
-        getContentPane().add(txtLogin);
-        txtLogin.setBounds(740, 160, 280, 30);
-
-        lblSenha.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblSenha.setText("Senha:");
-        getContentPane().add(lblSenha);
-        lblSenha.setBounds(670, 240, 60, 25);
-
-        txtSenha.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtSenhaKeyReleased(evt);
-            }
-        });
-        getContentPane().add(txtSenha);
-        txtSenha.setBounds(770, 240, 250, 31);
-
-        txtConfirma.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtConfirma.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtConfirmaKeyReleased(evt);
-            }
-        });
-        getContentPane().add(txtConfirma);
-        txtConfirma.setBounds(770, 320, 250, 31);
-
-        lblSenha1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblSenha1.setText("Confirmar:");
-        getContentPane().add(lblSenha1);
-        lblSenha1.setBounds(670, 320, 90, 25);
-
-        btnCadastrar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCadastrar);
-        btnCadastrar.setBounds(100, 470, 220, 33);
+        pnlDadosFuncionario.add(btnCadastrar);
+        btnCadastrar.setBounds(690, 150, 130, 30);
 
-        btnLimpar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         btnLimpar.setText("Limpar");
-        getContentPane().add(btnLimpar);
-        btnLimpar.setBounds(100, 560, 220, 33);
-
-        btnMenuPrincipal.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        btnMenuPrincipal.setText("Menu Principal");
-        btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuPrincipalActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnMenuPrincipal);
-        btnMenuPrincipal.setBounds(490, 420, 170, 210);
-
-        btnListarUsuarios.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        btnListarUsuarios.setText("Listar Usuários");
-        btnListarUsuarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListarUsuariosActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnListarUsuarios);
-        btnListarUsuarios.setBounds(840, 460, 200, 30);
-
-        btnFecharFrame.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        btnFecharFrame.setText("Fechar ");
-        btnFecharFrame.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFecharFrameActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnFecharFrame);
-        btnFecharFrame.setBounds(840, 550, 200, 33);
-
-        pnlDadosFuncionario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        pnlDadosFuncionario.setOpaque(false);
-
-        lblNomeFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblNomeFuncionario.setText("Nome:");
-
-        txtNomeFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtNomeFuncionario.setFocusable(false);
-
-        lblCpf.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCpf.setText("CPF:");
-
-        txtCpf.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtCpf.setFocusable(false);
-
-        lblCargo.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCargo.setText("Cargo:");
-
-        txtCargo.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtCargo.setFocusable(false);
-
-        lblSalario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblSalario.setText("Salário:");
-
-        txtSalario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtSalario.setFocusable(false);
-
-        org.jdesktop.layout.GroupLayout pnlDadosFuncionarioLayout = new org.jdesktop.layout.GroupLayout(pnlDadosFuncionario);
-        pnlDadosFuncionario.setLayout(pnlDadosFuncionarioLayout);
-        pnlDadosFuncionarioLayout.setHorizontalGroup(
-            pnlDadosFuncionarioLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(pnlDadosFuncionarioLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(pnlDadosFuncionarioLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(pnlDadosFuncionarioLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                        .add(pnlDadosFuncionarioLayout.createSequentialGroup()
-                            .add(pnlDadosFuncionarioLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(lblNomeFuncionario, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(lblCpf, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(18, 18, 18)
-                            .add(pnlDadosFuncionarioLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(txtNomeFuncionario, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 256, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(txtCpf, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 214, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                        .add(pnlDadosFuncionarioLayout.createSequentialGroup()
-                            .add(lblCargo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(18, 18, 18)
-                            .add(txtCargo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 193, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(63, 63, 63)))
-                    .add(pnlDadosFuncionarioLayout.createSequentialGroup()
-                        .add(lblSalario, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(18, 18, 18)
-                        .add(txtSalario, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 170, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
-        );
-        pnlDadosFuncionarioLayout.setVerticalGroup(
-            pnlDadosFuncionarioLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(pnlDadosFuncionarioLayout.createSequentialGroup()
-                .add(21, 21, 21)
-                .add(pnlDadosFuncionarioLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(lblNomeFuncionario)
-                    .add(txtNomeFuncionario, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(32, 32, 32)
-                .add(pnlDadosFuncionarioLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(lblCpf)
-                    .add(txtCpf, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(18, 18, 18)
-                .add(pnlDadosFuncionarioLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(lblCargo)
-                    .add(txtCargo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(18, 18, 18)
-                .add(pnlDadosFuncionarioLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(lblSalario)
-                    .add(txtSalario, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(pnlDadosFuncionario);
-        pnlDadosFuncionario.setBounds(50, 160, 380, 230);
-        pnlDadosFuncionario.getAccessibleContext().setAccessibleName("Dados do funcionário");
+        pnlDadosFuncionario.add(btnLimpar);
+        btnLimpar.setBounds(560, 150, 100, 30);
 
         lblFuncionario.setForeground(new java.awt.Color(255, 0, 0));
         lblFuncionario.setText("Funcionário inexistente.");
-        getContentPane().add(lblFuncionario);
-        lblFuncionario.setBounds(260, 100, 210, 14);
+        pnlDadosFuncionario.add(lblFuncionario);
+        lblFuncionario.setBounds(410, 20, 210, 14);
 
         btnListarFuncionarios.setText("Listar Funcionários");
         btnListarFuncionarios.addActionListener(new java.awt.event.ActionListener() {
@@ -271,12 +108,146 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
                 btnListarFuncionariosActionPerformed(evt);
             }
         });
-        getContentPane().add(btnListarFuncionarios);
-        btnListarFuncionarios.setBounds(450, 70, 150, 23);
+        pnlDadosFuncionario.add(btnListarFuncionarios);
+        btnListarFuncionarios.setBounds(620, 10, 150, 30);
 
-        lblFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
-        getContentPane().add(lblFundo);
-        lblFundo.setBounds(0, 0, 1150, 650);
+        panDadosFunc.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Funcionário"), "Dados do funcionário")));
+        panDadosFunc.setOpaque(false);
+        panDadosFunc.setLayout(null);
+
+        txtNomeFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtNomeFuncionario.setFocusable(false);
+        panDadosFunc.add(txtNomeFuncionario);
+        txtNomeFuncionario.setBounds(150, 20, 256, 30);
+
+        lblNomeFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblNomeFuncionario.setText("Nome:");
+        panDadosFunc.add(lblNomeFuncionario);
+        lblNomeFuncionario.setBounds(60, 20, 70, 25);
+
+        lblCpf.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblCpf.setText("CPF:");
+        panDadosFunc.add(lblCpf);
+        lblCpf.setBounds(60, 80, 40, 25);
+
+        txtCpf.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtCpf.setFocusable(false);
+        panDadosFunc.add(txtCpf);
+        txtCpf.setBounds(150, 80, 214, 30);
+
+        txtCargo.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtCargo.setFocusable(false);
+        panDadosFunc.add(txtCargo);
+        txtCargo.setBounds(150, 130, 193, 30);
+
+        lblCargo.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblCargo.setText("Cargo:");
+        panDadosFunc.add(lblCargo);
+        lblCargo.setBounds(60, 130, 70, 25);
+
+        lblSalario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblSalario.setText("Salário:");
+        panDadosFunc.add(lblSalario);
+        lblSalario.setBounds(500, 50, 70, 25);
+
+        txtSalario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtSalario.setFocusable(false);
+        panDadosFunc.add(txtSalario);
+        txtSalario.setBounds(590, 40, 170, 30);
+
+        pnlDadosFuncionario.add(panDadosFunc);
+        panDadosFunc.setBounds(30, 190, 1010, 200);
+
+        lblLogin.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblLogin.setText("Login:");
+        pnlDadosFuncionario.add(lblLogin);
+        lblLogin.setBounds(20, 60, 60, 25);
+
+        txtLogin.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtLoginKeyReleased(evt);
+            }
+        });
+        pnlDadosFuncionario.add(txtLogin);
+        txtLogin.setBounds(90, 60, 280, 30);
+
+        lblCodFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblCodFuncionario.setText("Código do Funcionário:");
+        pnlDadosFuncionario.add(lblCodFuncionario);
+        lblCodFuncionario.setBounds(20, 10, 200, 25);
+
+        txtCodFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtCodFuncionario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodFuncionarioKeyReleased(evt);
+            }
+        });
+        pnlDadosFuncionario.add(txtCodFuncionario);
+        txtCodFuncionario.setBounds(230, 10, 170, 30);
+
+        lblSenha.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblSenha.setText("Senha:");
+        pnlDadosFuncionario.add(lblSenha);
+        lblSenha.setBounds(470, 60, 60, 25);
+
+        txtSenha.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSenhaKeyReleased(evt);
+            }
+        });
+        pnlDadosFuncionario.add(txtSenha);
+        txtSenha.setBounds(570, 60, 250, 31);
+
+        lblSenha1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblSenha1.setText("Confirmar:");
+        pnlDadosFuncionario.add(lblSenha1);
+        lblSenha1.setBounds(470, 110, 90, 25);
+
+        txtConfirma.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtConfirma.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtConfirmaKeyReleased(evt);
+            }
+        });
+        pnlDadosFuncionario.add(txtConfirma);
+        txtConfirma.setBounds(570, 110, 250, 31);
+
+        btnListarUsuarios.setText("Listar Usuários");
+        btnListarUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarUsuariosActionPerformed(evt);
+            }
+        });
+        pnlDadosFuncionario.add(btnListarUsuarios);
+        btnListarUsuarios.setBounds(80, 110, 200, 30);
+
+        getContentPane().add(pnlDadosFuncionario);
+        pnlDadosFuncionario.setBounds(30, 30, 1100, 490);
+        pnlDadosFuncionario.getAccessibleContext().setAccessibleName("Dados do funcionário");
+
+        btnMenuPrincipal.setText("Menu Principal");
+        btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuPrincipalActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMenuPrincipal);
+        btnMenuPrincipal.setBounds(900, 550, 130, 30);
+
+        btnFecharFrame.setText("Fechar ");
+        btnFecharFrame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharFrameActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnFecharFrame);
+        btnFecharFrame.setBounds(1050, 550, 80, 30);
+
+        lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
+        getContentPane().add(lblBackground);
+        lblBackground.setBounds(0, -20, 1150, 650);
 
         pack();
         setLocationRelativeTo(null);
@@ -303,19 +274,9 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
-    private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
-        FrmPrincipal telaPrincipal = new FrmPrincipal();
-        telaPrincipal.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnMenuPrincipalActionPerformed
-
     private void btnListarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarUsuariosActionPerformed
         control.Janelas.abrirListagemUsuario();
     }//GEN-LAST:event_btnListarUsuariosActionPerformed
-
-    private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnFecharFrameActionPerformed
 
     private void txtCodFuncionarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodFuncionarioKeyReleased
          txtCodFuncionario.setText(TextSize.maxLenghtFuncionario(txtCodFuncionario.getText()));
@@ -358,6 +319,14 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
     private void txtConfirmaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmaKeyReleased
         txtConfirma.setText(TextSize.maxLenghtSenha(txtConfirma.getText()));
     }//GEN-LAST:event_txtConfirmaKeyReleased
+
+    private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
+        control.Janelas.focarPrincipal();
+    }//GEN-LAST:event_btnMenuPrincipalActionPerformed
+
+    private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnFecharFrameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -410,16 +379,17 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnListarFuncionarios;
     private javax.swing.JButton btnListarUsuarios;
     private javax.swing.JButton btnMenuPrincipal;
+    private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblCodFuncionario;
     private javax.swing.JLabel lblCpf;
     private javax.swing.JLabel lblFuncionario;
-    private javax.swing.JLabel lblFundo;
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblNomeFuncionario;
     private javax.swing.JLabel lblSalario;
     private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblSenha1;
+    private javax.swing.JPanel panDadosFunc;
     private javax.swing.JPanel pnlDadosFuncionario;
     private javax.swing.JTextField txtCargo;
     private javax.swing.JTextField txtCodFuncionario;
