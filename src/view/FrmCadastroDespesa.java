@@ -98,8 +98,7 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         cmbTipoDespesa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         cmbTipoDespesa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Serviço", "Obrigações", "Salarios a pagar" }));
 
-        btnListarDespesas.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
-        btnListarDespesas.setText("Listar Despesas");
+        btnListarDespesas.setText("Listar Despesas Cadastradas");
         btnListarDespesas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnListarDespesasActionPerformed(evt);
@@ -149,6 +148,8 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
+                        .add(btnListarDespesas, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(39, 39, 39)
                         .add(btnLimpar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(31, 31, 31)
                         .add(btnCadastrar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 130, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -173,8 +174,7 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
                                     .add(txtfValorDespesa, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 125, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                 .add(jPanel1Layout.createSequentialGroup()
                                     .add(lblDescrição, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 343, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .add(btnListarDespesas, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))))
+                                    .add(0, 0, Short.MAX_VALUE))))))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -189,19 +189,15 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
                         .add(lblVencimento))
                     .add(org.jdesktop.layout.GroupLayout.LEADING, txtfDataVencimento)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, txtfValorDespesa))
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(18, 18, 18)
-                        .add(lblDescrição))
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(btnListarDespesas, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .add(18, 18, 18)
+                .add(lblDescrição)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 260, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(18, 18, 18)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(btnCadastrar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(btnLimpar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(btnLimpar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(btnListarDespesas, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 

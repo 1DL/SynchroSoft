@@ -51,6 +51,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btn_janMaisAcessada4 = new javax.swing.JButton();
         btn_janMaisAcessada5 = new javax.swing.JButton();
         btn_janMaisAcessada6 = new javax.swing.JButton();
+        btnMenuPrincipal = new javax.swing.JButton();
+        btnFecharFrame = new javax.swing.JButton();
         lblBackground = new javax.swing.JLabel();
         menu = new javax.swing.JMenuBar();
         menu_sistema = new javax.swing.JMenu();
@@ -169,6 +171,24 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         getContentPane().add(btn_janMaisAcessada6);
         btn_janMaisAcessada6.setBounds(730, 410, 280, 40);
+
+        btnMenuPrincipal.setText("Menu Principal");
+        btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuPrincipalActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMenuPrincipal);
+        btnMenuPrincipal.setBounds(900, 550, 130, 30);
+
+        btnFecharFrame.setText("Fechar ");
+        btnFecharFrame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharFrameActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnFecharFrame);
+        btnFecharFrame.setBounds(1050, 550, 80, 30);
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(lblBackground);
@@ -415,7 +435,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         aux = JOptionPane.showConfirmDialog(null, "Deseja realmente fazer o log-off?", "Log-off", JOptionPane.YES_NO_OPTION);
         if (aux == 0) {
             this.dispose();
-            control.SynchroSoft.setCodFunc(0);
+            control.SynchroSoft.setCodFunc("Codigo Func");
             control.SynchroSoft.setNvlAdm(99);
             control.SynchroSoft.setNomeUsuario("Deslogado");
             control.Janelas.fecharTodasJanelas();
@@ -526,6 +546,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
         control.Janelas.abrirMaisAcessada(maisAcessadas.get(5).getNome(), true);
     }//GEN-LAST:event_btn_janMaisAcessada6ActionPerformed
 
+    private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
+        control.Janelas.focarPrincipal();
+    }//GEN-LAST:event_btnMenuPrincipalActionPerformed
+
+    private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnFecharFrameActionPerformed
+
     private void definirMaisAcessadas() {
         Collections.sort(maisAcessadas, new Comparator<Janelas>() {
             @Override
@@ -564,6 +592,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFecharFrame;
+    private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JButton btn_janMaisAcessada1;
     private javax.swing.JButton btn_janMaisAcessada2;
     private javax.swing.JButton btn_janMaisAcessada3;

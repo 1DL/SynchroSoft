@@ -66,17 +66,20 @@ public class TextSize {
     }
 
     public static String maxLenghtCPFCNPJ(String str, boolean cpfOuCnpj) {
+        str = str.replace("-", "");
         if (cpfOuCnpj) {
             String valor = "";
             if (str.length() > 11) {
                 valor = str.substring(0, 11);
                 str = valor;
             }
+            
             return str;
         } else {
             String valor = "";
             if (str.length() > 14) {
                 valor = str.substring(0, 14);
+                valor = valor.replace("-", "");
                 str = valor;
             }
             return str;

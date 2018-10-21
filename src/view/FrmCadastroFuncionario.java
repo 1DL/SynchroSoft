@@ -239,7 +239,8 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
             }
         });
 
-        lblCpfExiste.setText("Cpf inválido.");
+        lblCpfExiste.setForeground(java.awt.Color.red);
+        lblCpfExiste.setText("CPF Inválido.");
 
         btnCadastrarPessoa.setText("Cadastrar CPF");
         btnCadastrarPessoa.addActionListener(new java.awt.event.ActionListener() {
@@ -743,25 +744,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
 
     private void txtCpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyReleased
         txtCpf.setText(TextSize.maxLenghtCPFCNPJ(txtCpf.getText(), true));
-        if ((txtCpf.getText().length() < 11) || (txtCpf.getText().length() > 11)) {
-            lblCpfExiste.setText("Cpf Inválido.");
-            lblCpfExiste.setForeground(Color.red);
-            cpfCadastrado = false;
-            limparExibicaoPessoa();
-        } else {
-            cpfCadastrado = dao.DaoPessoa.existePessoaFisica(txtCpf.getText());
-            if (cpfCadastrado) {
-                lblCpfExiste.setText("CPF Cadastrado.");
-                lblCpfExiste.setForeground(Color.black);
-                pessoaFisicaExibicao = dao.DaoPessoa.popularPessoaFisica(txtCpf.getText());
-                popularExibicaoPessoa(pessoaFisicaExibicao);
-            } else {
-                lblCpfExiste.setText("CPF Inexistente.");
-                lblCpfExiste.setForeground(Color.red);
-                limparExibicaoPessoa();
-            }
-
-        }
+        verificarCpfExiste();
     }//GEN-LAST:event_txtCpfKeyReleased
 
     private void txtCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCpfActionPerformed
@@ -863,9 +846,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
 
     }
 
-    void iniciarlizarTabela() {
-        ArrayList<Funcionario> lista = new ArrayList<>();
-        lista = DaoFuncionario.listarFuncionario();
+    private void iniciarlizarTabela() {
         String[] nomeColunas = {"Código", "CEP", "Nome", "CPF", "Sexo", "Telefone", "Celular", "Nº Logradouro",
             "Salário", "Cargo", "Admissão", "Horas Trabalhadas", "Nível Administrativo"};
         try {
@@ -993,4 +974,25 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtfHoras;
     private javax.swing.JFormattedTextField txtfSalario;
     // End of variables declaration//GEN-END:variables
+
+    private void verificarCpfExiste() {
+        if ((txtCpf.getText().length() < 11) || (txtCpf.getText().length() > 11)) {
+            lblCpfExiste.setText("CPF Inválido.");
+            lblCpfExiste.setForeground(Color.red);
+            cpfCadastrado = false;
+            limparExibicaoPessoa();
+        } else {
+            cpfCadastrado = dao.DaoPessoa.existePessoaFisica(txtCpf.getText());
+            if (cpfCadastrado) {
+                lblCpfExiste.setText("CPF Cadastrado.");
+                lblCpfExiste.setForeground(Color.black);
+                pessoaFisicaExibicao = dao.DaoPessoa.popularPessoaFisica(txtCpf.getText());
+                popularExibicaoPessoa(pessoaFisicaExibicao);
+            } else {
+                lblCpfExiste.setText("CPF Inexistente.");
+                lblCpfExiste.setForeground(Color.red);
+                limparExibicaoPessoa();
+            }
+        }
+    }
 }

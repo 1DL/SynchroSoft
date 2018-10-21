@@ -74,7 +74,7 @@ public class FrmLogin extends javax.swing.JFrame {
         }
         else if (aux == 1)
         {
-            JOptionPane.showMessageDialog(null, "login e/ou senha não encontrados!");
+            JOptionPane.showMessageDialog(null, "Login e/ou Senha incorretos.\nTente novamente.", "Erro - não foi possível logar",0);
         } else {
             
         }

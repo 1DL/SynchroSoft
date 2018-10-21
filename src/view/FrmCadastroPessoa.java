@@ -7,15 +7,23 @@ package view;
 
 import control.TextSize;
 import dao.DaoEndereco;
+import dao.DaoFuncionario;
 import dao.DaoPessoa;
+import java.awt.Color;
 import java.awt.Toolkit;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 import model.Endereco;
+import model.Funcionario;
 import model.Pessoa;
 import model.PessoaFisica;
 import model.PessoaJuridica;
@@ -27,25 +35,34 @@ import model.PessoaJuridica;
 public class FrmCadastroPessoa extends javax.swing.JFrame {
 
     boolean cepCadastrado;
-    boolean mantemContrato;
-    Endereco endExibicao;
+    boolean existeCPFCNPJ = false;
 
     /**
      * Creates new form FrmCadastroPeca
      */
     public FrmCadastroPessoa(int nvlAdm) {
-        this.endExibicao = new Endereco();
         initComponents();
         modoFisica();
-        
+
         if (nvlAdm == 0) {
             btnCadastrar.setEnabled(false);
         }
 
+        MaskFormatter dateMask;
+        try {
+            dateMask = new MaskFormatter("##/##/####");
+            dateMask.setPlaceholderCharacter('*');
+            dateMask.install(txtfDataCadastro);
+        } catch (ParseException ex) {
+            Logger.getLogger(FrmCadastroDespesa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        txtfDataCadastro.setText(control.Datas.getDiaHoje());
+        selecionarAoFocar();
+        inicializarTabela();
     }
-    
+
     public FrmCadastroPessoa(boolean flagTipo) {
-        this.endExibicao = new Endereco();
         initComponents();
         if (flagTipo) {
             rbtJuridica.setSelected(true);
@@ -56,9 +73,18 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
             rbtJuridica.setSelected(false);
             modoFisica();
         }
+        MaskFormatter dateMask;
+        try {
+            dateMask = new MaskFormatter("##/##/####");
+            dateMask.setPlaceholderCharacter('*');
+            dateMask.install(txtfDataCadastro);
+        } catch (ParseException ex) {
+            Logger.getLogger(FrmCadastroDespesa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        txtfDataCadastro.setText(control.Datas.getDiaHoje());
+        selecionarAoFocar();
+        inicializarTabela();
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -82,9 +108,9 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         txtCidade = new javax.swing.JTextField();
         lblEstado = new javax.swing.JLabel();
         txtEstado = new javax.swing.JTextField();
-        lblCodigoPeca = new javax.swing.JLabel();
+        lblTelefone = new javax.swing.JLabel();
         txtTelefone = new javax.swing.JTextField();
-        lblCategoriaPeca = new javax.swing.JLabel();
+        lblNumeroLogradouro = new javax.swing.JLabel();
         lblTipoPessoa = new javax.swing.JLabel();
         rbtFisica = new javax.swing.JRadioButton();
         rbtJuridica = new javax.swing.JRadioButton();
@@ -94,16 +120,14 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         txtCep = new javax.swing.JTextField();
         lblCepExiste = new javax.swing.JLabel();
         btnCadastrarCep = new javax.swing.JButton();
-        txtNumero = new javax.swing.JTextField();
+        txtNumeroLogradouro = new javax.swing.JTextField();
         lblTipoPessoa1 = new javax.swing.JLabel();
         rbtSimCadastro = new javax.swing.JRadioButton();
         rbtNaoCadastro = new javax.swing.JRadioButton();
         btnLimpar = new javax.swing.JButton();
         btnCadastrar = new javax.swing.JButton();
         btnListarPessoa = new javax.swing.JButton();
-        btnFecharFrame = new javax.swing.JButton();
         lblCpfCnpj = new javax.swing.JLabel();
-        txtCpfCnpj = new javax.swing.JTextField();
         txtRazaoSocial = new javax.swing.JTextField();
         lblRazaoSocial = new javax.swing.JLabel();
         lblCelRamal = new javax.swing.JLabel();
@@ -111,8 +135,17 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         lblSexo = new javax.swing.JLabel();
         rbtMasculino = new javax.swing.JRadioButton();
         rbtFeminino = new javax.swing.JRadioButton();
+        lblDataCadastro = new javax.swing.JLabel();
+        txtfDataCadastro = new javax.swing.JFormattedTextField();
+        btnHoje = new javax.swing.JButton();
+        txtfCpfCnpj = new javax.swing.JFormattedTextField();
+        lblCpfExiste = new javax.swing.JLabel();
         btnMenuPrincipal = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        btnFecharFrame = new javax.swing.JButton();
+        lblPessoaRecente = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblPessoaRecente = new javax.swing.JTable();
+        lblBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Pessoa");
@@ -121,6 +154,13 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1152, 648));
         setPreferredSize(new java.awt.Dimension(1152, 648));
         setResizable(false);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -150,6 +190,11 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         lblEstado.setText("Estado");
 
         txtEstado.setFocusable(false);
+        txtEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEstadoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -159,61 +204,62 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(Bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(Bairro)
+                        .addGap(94, 94, 94)
                         .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(lblLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(lblLogradouro)
+                        .addGap(46, 46, 46)
                         .addComponent(txtLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62)
+                        .addGap(72, 72, 72)
                         .addComponent(lblCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(27, 27, 27)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(209, Short.MAX_VALUE))
+                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblLogradouro)
                     .addComponent(txtLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCidade)
                     .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Bairro)
-                    .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEstado)
-                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 19, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(Bairro)
+                        .addComponent(lblEstado)
+                        .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 8, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 223, -1, -1));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 200, 1030, 100));
 
-        lblCodigoPeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCodigoPeca.setText("Telefone");
-        jPanel1.add(lblCodigoPeca, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 89, 140, -1));
+        lblTelefone.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblTelefone.setText("Telefone");
+        jPanel1.add(lblTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 140, -1));
 
         txtTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtTelefoneKeyReleased(evt);
             }
         });
-        jPanel1.add(txtTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(171, 89, 316, 25));
+        jPanel1.add(txtTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, 316, 25));
 
-        lblCategoriaPeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCategoriaPeca.setText("Nº");
-        jPanel1.add(lblCategoriaPeca, new org.netbeans.lib.awtextra.AbsoluteConstraints(563, 89, 82, -1));
+        lblNumeroLogradouro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblNumeroLogradouro.setText("Nº Logradouro");
+        jPanel1.add(lblNumeroLogradouro, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 90, 150, -1));
 
         lblTipoPessoa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblTipoPessoa.setText("Tipo de Pessoa:");
-        jPanel1.add(lblTipoPessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 13, 140, -1));
+        jPanel1.add(lblTipoPessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 140, -1));
 
         grupoTipoPessoa.add(rbtFisica);
         rbtFisica.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -225,7 +271,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 rbtFisicaActionPerformed(evt);
             }
         });
-        jPanel1.add(rbtFisica, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 9, -1, -1));
+        jPanel1.add(rbtFisica, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 7, -1, -1));
 
         grupoTipoPessoa.add(rbtJuridica);
         rbtJuridica.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -236,32 +282,33 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 rbtJuridicaActionPerformed(evt);
             }
         });
-        jPanel1.add(rbtJuridica, new org.netbeans.lib.awtextra.AbsoluteConstraints(272, 9, -1, -1));
+        jPanel1.add(rbtJuridica, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 7, -1, -1));
 
         lblNome.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblNome.setText("Nome");
-        jPanel1.add(lblNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 49, 140, -1));
+        jPanel1.add(lblNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 140, -1));
 
         txtNomePessoaFicticio.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNomePessoaFicticioKeyReleased(evt);
             }
         });
-        jPanel1.add(txtNomePessoaFicticio, new org.netbeans.lib.awtextra.AbsoluteConstraints(171, 49, 316, 25));
+        jPanel1.add(txtNomePessoaFicticio, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 316, 25));
 
         lblCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCep.setText("CEP");
-        jPanel1.add(lblCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(563, 49, 140, -1));
+        jPanel1.add(lblCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 140, -1));
 
         txtCep.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCepKeyReleased(evt);
             }
         });
-        jPanel1.add(txtCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(733, 51, 146, 25));
+        jPanel1.add(txtCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 146, 25));
 
-        lblCepExiste.setText("Cep inválido.");
-        jPanel1.add(lblCepExiste, new org.netbeans.lib.awtextra.AbsoluteConstraints(889, 56, -1, -1));
+        lblCepExiste.setForeground(java.awt.Color.red);
+        lblCepExiste.setText("Cep Inválido.");
+        jPanel1.add(lblCepExiste, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 97, 90, -1));
 
         btnCadastrarCep.setText("Cadastrar");
         btnCadastrarCep.addActionListener(new java.awt.event.ActionListener() {
@@ -269,23 +316,23 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 btnCadastrarCepActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCadastrarCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(969, 49, -1, 29));
+        jPanel1.add(btnCadastrarCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 87, 80, 29));
 
-        txtNumero.addActionListener(new java.awt.event.ActionListener() {
+        txtNumeroLogradouro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNumeroActionPerformed(evt);
+                txtNumeroLogradouroActionPerformed(evt);
             }
         });
-        txtNumero.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtNumeroLogradouro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtNumeroKeyReleased(evt);
+                txtNumeroLogradouroKeyReleased(evt);
             }
         });
-        jPanel1.add(txtNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(733, 89, 145, 25));
+        jPanel1.add(txtNumeroLogradouro, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 90, 120, 25));
 
         lblTipoPessoa1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblTipoPessoa1.setText("Possui Contrato:");
-        jPanel1.add(lblTipoPessoa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(563, 13, 140, -1));
+        jPanel1.add(lblTipoPessoa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 140, -1));
 
         grupoCadastro.add(rbtSimCadastro);
         rbtSimCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -296,7 +343,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 rbtSimCadastroActionPerformed(evt);
             }
         });
-        jPanel1.add(rbtSimCadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(721, 9, -1, -1));
+        jPanel1.add(rbtSimCadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 7, -1, -1));
 
         grupoCadastro.add(rbtNaoCadastro);
         rbtNaoCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -308,129 +355,163 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 rbtNaoCadastroActionPerformed(evt);
             }
         });
-        jPanel1.add(rbtNaoCadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(807, 9, -1, -1));
+        jPanel1.add(rbtNaoCadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 7, -1, -1));
 
-        btnLimpar.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
         btnLimpar.setText("Limpar");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimparActionPerformed(evt);
             }
         });
-        jPanel1.add(btnLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 478, 315, 60));
+        jPanel1.add(btnLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 170, 100, 30));
 
-        btnCadastrar.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
         btnCadastrar.setText("Cadastrar");
+        btnCadastrar.setNextFocusableComponent(rbtFisica);
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 373, 315, 60));
+        jPanel1.add(btnCadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 170, 130, 30));
 
-        btnListarPessoa.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
         btnListarPessoa.setText("Listar Pessoas Cadastradas");
         btnListarPessoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnListarPessoaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnListarPessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(687, 371, 315, 60));
-
-        btnFecharFrame.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
-        btnFecharFrame.setText("Fechar ");
-        btnFecharFrame.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFecharFrameActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnFecharFrame, new org.netbeans.lib.awtextra.AbsoluteConstraints(687, 471, 315, 60));
+        jPanel1.add(btnListarPessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 170, 180, 30));
 
         lblCpfCnpj.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCpfCnpj.setText("CPF");
-        jPanel1.add(lblCpfCnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 125, 140, -1));
+        jPanel1.add(lblCpfCnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 50, 140, -1));
 
-        txtCpfCnpj.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCpfCnpjKeyReleased(evt);
-            }
-        });
-        jPanel1.add(txtCpfCnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(171, 129, 316, 25));
-
+        txtRazaoSocial.setNextFocusableComponent(btnCadastrar);
         txtRazaoSocial.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtRazaoSocialKeyReleased(evt);
             }
         });
-        jPanel1.add(txtRazaoSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(733, 125, 316, 25));
+        jPanel1.add(txtRazaoSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 316, 25));
 
         lblRazaoSocial.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblRazaoSocial.setText("Razão Social");
-        jPanel1.add(lblRazaoSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(563, 125, 140, -1));
+        jPanel1.add(lblRazaoSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 140, -1));
 
         lblCelRamal.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCelRamal.setText("Celular");
-        jPanel1.add(lblCelRamal, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 172, 140, -1));
+        jPanel1.add(lblCelRamal, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 130, 140, -1));
 
         txtCelRamal.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCelRamalKeyReleased(evt);
             }
         });
-        jPanel1.add(txtCelRamal, new org.netbeans.lib.awtextra.AbsoluteConstraints(171, 172, 316, 25));
+        jPanel1.add(txtCelRamal, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 130, 316, 25));
 
         lblSexo.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblSexo.setText("Sexo");
-        jPanel1.add(lblSexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(563, 176, 140, -1));
+        jPanel1.add(lblSexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 90, 40, -1));
 
         grupoSexo.add(rbtMasculino);
         rbtMasculino.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         rbtMasculino.setSelected(true);
-        rbtMasculino.setText("Masculino");
+        rbtMasculino.setText("Masc.");
         rbtMasculino.setOpaque(false);
         rbtMasculino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtMasculinoActionPerformed(evt);
             }
         });
-        jPanel1.add(rbtMasculino, new org.netbeans.lib.awtextra.AbsoluteConstraints(721, 172, -1, -1));
+        jPanel1.add(rbtMasculino, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 92, -1, 20));
 
         grupoSexo.add(rbtFeminino);
         rbtFeminino.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        rbtFeminino.setText("Feminino");
+        rbtFeminino.setText("Fem.");
         rbtFeminino.setOpaque(false);
         rbtFeminino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtFemininoActionPerformed(evt);
             }
         });
-        jPanel1.add(rbtFeminino, new org.netbeans.lib.awtextra.AbsoluteConstraints(838, 172, -1, -1));
+        jPanel1.add(rbtFeminino, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 92, -1, 20));
 
-        btnMenuPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo pequeno.png"))); // NOI18N
+        lblDataCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblDataCadastro.setText("Data Cadastro");
+        jPanel1.add(lblDataCadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 10, -1, -1));
+
+        txtfDataCadastro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        jPanel1.add(txtfDataCadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 10, 120, 25));
+
+        btnHoje.setText("Hoje");
+        btnHoje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHojeActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnHoje, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 10, -1, 25));
+
+        txtfCpfCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        txtfCpfCnpj.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfCpfCnpjKeyReleased(evt);
+            }
+        });
+        jPanel1.add(txtfCpfCnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 50, 120, 25));
+
+        lblCpfExiste.setForeground(java.awt.Color.red);
+        lblCpfExiste.setText("CPF Inválido.");
+        jPanel1.add(lblCpfExiste, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 57, 190, -1));
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(30, 30, 1100, 320);
+
         btnMenuPrincipal.setText("Menu Principal");
         btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMenuPrincipalActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMenuPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(425, 373, 161, 227));
+        getContentPane().add(btnMenuPrincipal);
+        btnMenuPrincipal.setBounds(900, 550, 130, 30);
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(69, 11, 1058, 600);
+        btnFecharFrame.setText("Fechar ");
+        btnFecharFrame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharFrameActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnFecharFrame);
+        btnFecharFrame.setBounds(1050, 550, 80, 30);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(-1, -2, 1160, 660);
+        lblPessoaRecente.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblPessoaRecente.setText("Funcionários Cadastrados Recentemente:");
+        getContentPane().add(lblPessoaRecente);
+        lblPessoaRecente.setBounds(30, 350, 350, 25);
+
+        tblPessoaRecente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblPessoaRecente);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(30, 380, 1100, 160);
+
+        lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
+        getContentPane().add(lblBackground);
+        lblBackground.setBounds(0, -20, 1150, 650);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
-        FrmPrincipal princ = new FrmPrincipal();
-        princ.setVisible(true);
-    }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
     private void rbtFemininoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtFemininoActionPerformed
 
@@ -441,92 +522,56 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtMasculinoActionPerformed
 
     private void txtCelRamalKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCelRamalKeyReleased
-        txtCelRamal.setText(TextSize.maxLenghtCelularRamal(txtCelRamal.getText(), rbtFisica.isSelected()));
+        textSizeCelRamal();
     }//GEN-LAST:event_txtCelRamalKeyReleased
 
     private void txtRazaoSocialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazaoSocialKeyReleased
         txtRazaoSocial.setText(TextSize.maxLenghtNomeRazao(txtRazaoSocial.getText()));
     }//GEN-LAST:event_txtRazaoSocialKeyReleased
 
-    private void txtCpfCnpjKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfCnpjKeyReleased
-        txtCpfCnpj.setText(TextSize.maxLenghtCPFCNPJ(txtCpfCnpj.getText(), rbtFisica.isSelected()));
-    }//GEN-LAST:event_txtCpfCnpjKeyReleased
-
-    private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnFecharFrameActionPerformed
-
     private void btnListarPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarPessoaActionPerformed
         control.Janelas.abrirListagemPessoaFisica();
     }//GEN-LAST:event_btnListarPessoaActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        DaoPessoa dao = new DaoPessoa();
-        Endereco end = new Endereco();
-        Date dataCadastro = new Date(Calendar.getInstance().getTimeInMillis());
-        int sexo = 0;
-        int contrato = 0;
-        mantemContrato = rbtSimCadastro.isSelected();
-        if (mantemContrato) {
-            contrato = 1;
-        } else {
-            contrato = 0;
-        }
+        if (rbtFisica.isSelected()) {
+            if (validarFisica()) {
+                Endereco end = new Endereco();
+                end = DaoEndereco.popularEndereco(txtCep.getText());
 
-        if (rbtFisica.isSelected() && cepCadastrado) {
-            try {
-                if (rbtMasculino.isSelected()) {
-                    sexo = 0;
-                } else {
-                    sexo = 1;
+                Pessoa pessoa = new Pessoa(txtNomePessoaFicticio.getText(), end, txtTelefone.getText(), txtNumeroLogradouro.getText(), rbtSimCadastro.isSelected());
+                PessoaFisica fisica = new PessoaFisica(pessoa, txtfCpfCnpj.getText(), txtfDataCadastro.getText(), txtCelRamal.getText(), rbtMasculino.isSelected());
+                boolean cadastroSucedido = dao.DaoPessoa.cadastrarPessoaFisica(fisica);
+                if (cadastroSucedido) {
+                    atualizarTabela(fisica, null, rbtFisica.isSelected());
+                    verificarCpfCnpjEmUso();
                 }
-                end = DaoEndereco.popularEndereco(txtCep.getText());
-
-                Pessoa pessoa = new Pessoa(txtNomePessoaFicticio.getText(), end, Long.parseLong(txtTelefone.getText()), txtNumero.getText(), contrato);
-                PessoaFisica fisica = new PessoaFisica(pessoa,txtCpfCnpj.getText(), dataCadastro, Long.parseLong (txtCelRamal.getText()), sexo);
-
-                dao.cadastrarPessoaFisica(fisica.getCpf(), fisica.getPessoa().getEndereco().getCep(), fisica.getPessoa().getNome(),
-                    fisica.getSexoBanco(), fisica.getPessoa().getTelefone(), fisica.getCelular(), fisica.getPessoa().getComplementoLogradouro(),
-                    fisica.getDataCadastro(), fisica.getPessoa().getManterContrato());
-                JOptionPane.showMessageDialog(rootPane, "Cadastrado!");
-            } catch (SQLException ex) {
-                Logger.getLogger(FrmCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(FrmCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        } else if (rbtJuridica.isSelected() && cepCadastrado) {
-            try {
+        } else if (rbtJuridica.isSelected()) {
+
+            if (validarJuridica()) {
+                Endereco end = new Endereco();
                 end = DaoEndereco.popularEndereco(txtCep.getText());
 
-                Pessoa pessoa = new Pessoa(txtNomePessoaFicticio.getText(), end, Long.parseLong(txtTelefone.getText()), txtNumero.getText(), contrato);
-                PessoaJuridica juridica = new PessoaJuridica(pessoa,txtCpfCnpj.getText(), txtRazaoSocial.getText(), dataCadastro, Long.parseLong(txtCelRamal.getText()));
+                Pessoa pessoa = new Pessoa(txtNomePessoaFicticio.getText(), end, txtTelefone.getText(), txtNumeroLogradouro.getText(), rbtSimCadastro.isSelected());
+                PessoaJuridica juridica = new PessoaJuridica(pessoa, txtfCpfCnpj.getText(), txtRazaoSocial.getText(), txtfDataCadastro.getText(), txtCelRamal.getText());
 
-                dao.cadastrarPessoaJuridica(juridica.getCnpj(), juridica.getPessoa().getEndereco().getCep(), juridica.getPessoa().getNome(),
-                    juridica.getRazaoSocial(), juridica.getPessoa().getComplementoLogradouro(), juridica.getPessoa().getTelefone(),
-                    juridica.getRamalCliente(), juridica.getPessoa().getManterContrato(), dataCadastro);
-                JOptionPane.showMessageDialog(rootPane, "Cadastrado!");
-
-            } catch (SQLException ex) {
-                Logger.getLogger(FrmCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(FrmCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
+                boolean cadastroSucedido = dao.DaoPessoa.cadastrarPessoaJuridica(juridica);
+                verificarCpfCnpjEmUso();
+                if (cadastroSucedido) {
+                    atualizarTabela(null, juridica, rbtFisica.isSelected());
+                    verificarCpfCnpjEmUso();
+                }
             }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha os dados corretamente.", "Erro - dados incompletos", 0);
         }
-
-        //        DaoEndereco dao = new DaoEndereco();
-        //        Endereco end = new Endereco (txtCep.getText(), txtLogradouro.getText(), txtBairro.getText(), txtCidade.getText(), (String) cmbEstado.getSelectedItem());
-        //        JOptionPane.showMessageDialog(null, "Valor CMB UF "+ end.getEstado());
-        //        try{
-            //            dao.cadastrarEndereco(end.getCep(), end.getLogradouro(), end.getBairro(), end.getCidade(), end.getEstado());
-            //            JOptionPane.showMessageDialog(rootPane, "Cadastrado!");
-            //        } catch (Exception ex) {
-            //            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Endereço. "+ex.getMessage());
-            //        }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        // TODO add your handling code here:
+        limpar();
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void rbtNaoCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtNaoCadastroActionPerformed
@@ -537,13 +582,13 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
 
     }//GEN-LAST:event_rbtSimCadastroActionPerformed
 
-    private void txtNumeroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroKeyReleased
-        txtNumero.setText(TextSize.maxLenghtNrLogradouro(txtNumero.getText()));
-    }//GEN-LAST:event_txtNumeroKeyReleased
+    private void txtNumeroLogradouroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroLogradouroKeyReleased
+        txtNumeroLogradouro.setText(TextSize.maxLenghtNrLogradouro(txtNumeroLogradouro.getText()));
+    }//GEN-LAST:event_txtNumeroLogradouroKeyReleased
 
-    private void txtNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroActionPerformed
+    private void txtNumeroLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroLogradouroActionPerformed
 
-    }//GEN-LAST:event_txtNumeroActionPerformed
+    }//GEN-LAST:event_txtNumeroLogradouroActionPerformed
 
     private void btnCadastrarCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCepActionPerformed
         control.Janelas.abrirCadastroEndereco();
@@ -551,27 +596,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
 
     private void txtCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyReleased
         txtCep.setText(TextSize.maxLenghtCep(txtCep.getText()));
-        if ((txtCep.getText().length() < 8) || (txtCep.getText().length() > 8)) {
-            lblCepExiste.setText("Cep Inválido.");
-            limparExibicaoEndereco();
-        } else {
-            DaoEndereco de = new DaoEndereco();
-            try {
-                cepCadastrado = de.existeEndereco(txtCep.getText());
-                if (cepCadastrado) {
-                    lblCepExiste.setText("CEP Cadastrado.");
-                    endExibicao = de.popularEndereco(txtCep.getText());
-                    popularExibicaoEndereco(endExibicao);
-                } else {
-                    lblCepExiste.setText("CEP Inexistente.");
-                    limparExibicaoEndereco();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(FrmCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(FrmCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        popularDadosCep();
     }//GEN-LAST:event_txtCepKeyReleased
 
     private void txtNomePessoaFicticioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomePessoaFicticioKeyReleased
@@ -589,6 +614,31 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     private void txtTelefoneKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyReleased
         txtTelefone.setText(TextSize.maxLenghtTelefone(txtTelefone.getText()));
     }//GEN-LAST:event_txtTelefoneKeyReleased
+
+    private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
+        control.Janelas.focarPrincipal();
+    }//GEN-LAST:event_btnMenuPrincipalActionPerformed
+
+    private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnFecharFrameActionPerformed
+
+    private void txtEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEstadoActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        popularDadosCep();
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    private void btnHojeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojeActionPerformed
+        txtfDataCadastro.setText(control.Datas.getDiaHoje());
+    }//GEN-LAST:event_btnHojeActionPerformed
+
+    private void txtfCpfCnpjKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfCpfCnpjKeyReleased
+        textSizeCPFJCNPJ();
+        verificarCpfCnpjEmUso();
+    }//GEN-LAST:event_txtfCpfCnpjKeyReleased
 
     /**
      * @param args the command line arguments
@@ -635,6 +685,9 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         rbtMasculino.setVisible(true);
         lblRazaoSocial.setVisible(false);
         txtRazaoSocial.setVisible(false);
+        textSizeCPFJCNPJ();
+        textSizeCelRamal();
+        verificarCpfCnpjEmUso();
     }
 
     public void modoJuridica() {
@@ -646,49 +699,157 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         rbtMasculino.setVisible(false);
         lblRazaoSocial.setVisible(true);
         txtRazaoSocial.setVisible(true);
+        textSizeCPFJCNPJ();
+        textSizeCelRamal();
+        verificarCpfCnpjEmUso();
     }
-    
-    public void popularExibicaoEndereco (Endereco end){
+
+    public void popularExibicaoEndereco(Endereco end) {
         txtLogradouro.setText(end.getLogradouro());
         txtCidade.setText(end.getCidade());
         txtBairro.setText(end.getBairro());
         txtEstado.setText(end.getEstado());
     }
-    
-    public void limparExibicaoEndereco (){
+
+    public void limparExibicaoEndereco() {
         txtLogradouro.setText("");
         txtCidade.setText("");
         txtBairro.setText("");
         txtEstado.setText("");
     }
-    
+
+    private void limpar() {
+        txtBairro.setText("");
+        txtCelRamal.setText("");
+        txtCep.setText("");
+        txtCidade.setText("");
+        txtfCpfCnpj.setText("");
+        txtEstado.setText("");
+        txtLogradouro.setText("");
+        txtNomePessoaFicticio.setText("");
+        txtNumeroLogradouro.setText("");
+        txtRazaoSocial.setText("");
+        txtTelefone.setText("");
+        cepCadastrado = false;
+        lblCepExiste.setText("CEP Inválido.");
+        lblCepExiste.setForeground(Color.red);
+        limparExibicaoEndereco();
+    }
+
+    private void popularDadosCep() {
+        if ((txtCep.getText().length() < 8) || (txtCep.getText().length() > 8)) {
+            lblCepExiste.setText("Cep Inválido.");
+            lblCepExiste.setForeground(Color.red);
+            limparExibicaoEndereco();
+        } else {
+
+            this.cepCadastrado = dao.DaoEndereco.existeEndereco(txtCep.getText());
+            if (cepCadastrado) {
+                lblCepExiste.setText("CEP Cadastrado.");
+                lblCepExiste.setForeground(Color.black);
+                Endereco end = new Endereco();
+                end = dao.DaoEndereco.popularEndereco(txtCep.getText());
+                popularExibicaoEndereco(end);
+            } else {
+                lblCepExiste.setText("CEP Inexistente.");
+                lblCepExiste.setForeground(Color.red);
+                limparExibicaoEndereco();
+            }
+        }
+    }
+
+    private void textSizeCPFJCNPJ() {
+        txtfCpfCnpj.setText(TextSize.maxLenghtCPFCNPJ(txtfCpfCnpj.getText(), rbtFisica.isSelected()));
+    }
+
+    private boolean validarFisica() {
+        if (txtfCpfCnpj.getText().length() < 11) {
+            JOptionPane.showMessageDialog(null, "CPF Inválido. Digite 11 dígitos, sem pontos ou hífens.", "Erro - CPF Inválido", 0);
+            txtfCpfCnpj.requestFocus();
+            return false;
+        } else if (txtNomePessoaFicticio.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Nome em branco. \nDigite um nome para a pessoa física.", "Erro - Nome Inválido", 0);
+            txtNomePessoaFicticio.requestFocus();
+            return false;
+        } else if (txtNumeroLogradouro.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Número do logradouro em branco. \nDigite o número e/ou complemento do logradouro.", "Erro - Nº Logradouro Inválido", 0);
+            txtNumeroLogradouro.requestFocus();
+            return false;
+        } else if (existeCPFCNPJ) {
+            JOptionPane.showMessageDialog(null, "CPF inválido. Verifique se o CPF está correto e se já não existe um mesmo CPF cadastrado.", "Erro - CNPJ Inválido", 0);
+            txtfCpfCnpj.requestFocus();
+            return false;
+        } else if (!cepCadastrado) {
+            JOptionPane.showMessageDialog(null, "CEP inválido. Verifique se o CEP informado está correto ou se ele já está cadastrado.", "Erro - CNPJ Inválido", 0);
+            txtfCpfCnpj.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private boolean validarJuridica() {
+        if (txtfCpfCnpj.getText().length() < 14) {
+            JOptionPane.showMessageDialog(null, "CNPJ Inválido. Digite 14 dígitos, sem pontos ou hífens.", "Erro - CNPJ Inválido", 0);
+            txtfCpfCnpj.requestFocus();
+            return false;
+        } else if (txtNomePessoaFicticio.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Nome Fictício em branco. \nDigite um nome para a pessoa jurídica.", "Erro - Nome Fictício Inválido", 0);
+            txtNomePessoaFicticio.requestFocus();
+            return false;
+        } else if (txtNumeroLogradouro.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Número do logradouro em branco. \nDigite o número e/ou complemento do logradouro.", "Erro - Nº Logradouro Inválido", 0);
+            txtNumeroLogradouro.requestFocus();
+            return false;
+        } else if (txtRazaoSocial.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Razão social em branco. \nDigite a razão social para a pessoa jurídica.", "Erro - Razão Social Inválido", 0);
+            txtRazaoSocial.requestFocus();
+            return false;
+        } else if (existeCPFCNPJ) {
+            JOptionPane.showMessageDialog(null, "CNPJ inválido. Verifique se o CNPJ está correto e se já não existe um mesmo CNPJ cadastrado.", "Erro - CNPJ Inválido", 0);
+            txtfCpfCnpj.requestFocus();
+            return false;
+        } else if (!cepCadastrado) {
+            JOptionPane.showMessageDialog(null, "CEP inválido. Verifique se o CEP informado está correto ou se ele já está cadastrado.", "Erro - CNPJ Inválido", 0);
+            txtfCpfCnpj.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Bairro;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCadastrarCep;
     private javax.swing.JButton btnFecharFrame;
+    private javax.swing.JButton btnHoje;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnListarPessoa;
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.ButtonGroup grupoCadastro;
     private javax.swing.ButtonGroup grupoSexo;
     private javax.swing.ButtonGroup grupoTipoPessoa;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JLabel lblCategoriaPeca;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblCelRamal;
     private javax.swing.JLabel lblCep;
     private javax.swing.JLabel lblCepExiste;
     private javax.swing.JLabel lblCidade;
-    private javax.swing.JLabel lblCodigoPeca;
     private javax.swing.JLabel lblCpfCnpj;
+    private javax.swing.JLabel lblCpfExiste;
+    private javax.swing.JLabel lblDataCadastro;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblLogradouro;
     private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblNumeroLogradouro;
+    private javax.swing.JLabel lblPessoaRecente;
     private javax.swing.JLabel lblRazaoSocial;
     private javax.swing.JLabel lblSexo;
+    private javax.swing.JLabel lblTelefone;
     private javax.swing.JLabel lblTipoPessoa;
     private javax.swing.JLabel lblTipoPessoa1;
     private javax.swing.JRadioButton rbtFeminino;
@@ -697,16 +858,131 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtMasculino;
     private javax.swing.JRadioButton rbtNaoCadastro;
     private javax.swing.JRadioButton rbtSimCadastro;
+    private javax.swing.JTable tblPessoaRecente;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JTextField txtCelRamal;
     private javax.swing.JTextField txtCep;
     private javax.swing.JTextField txtCidade;
-    private javax.swing.JTextField txtCpfCnpj;
     private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtLogradouro;
     private javax.swing.JTextField txtNomePessoaFicticio;
-    private javax.swing.JTextField txtNumero;
+    private javax.swing.JTextField txtNumeroLogradouro;
     private javax.swing.JTextField txtRazaoSocial;
     private javax.swing.JTextField txtTelefone;
+    private javax.swing.JFormattedTextField txtfCpfCnpj;
+    private javax.swing.JFormattedTextField txtfDataCadastro;
     // End of variables declaration//GEN-END:variables
+
+    private void selecionarAoFocar() {
+        //Código para selecionar o texto todo ao ganhar foco
+        txtfDataCadastro.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfDataCadastro.selectAll();
+                    }
+                });
+            }
+        });
+
+        txtfCpfCnpj.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfCpfCnpj.selectAll();
+                    }
+                });
+            }
+        });
+    }
+
+    private void textSizeCelRamal() {
+        txtCelRamal.setText(TextSize.maxLenghtCelularRamal(txtCelRamal.getText(), rbtFisica.isSelected()));
+    }
+
+    private void verificarCpfCnpjEmUso() {
+        if (rbtFisica.isSelected()) {
+            if ((txtfCpfCnpj.getText().length() < 11) || (txtfCpfCnpj.getText().length() > 11)) {
+                lblCpfExiste.setText("CPF Inválido.");
+                lblCpfExiste.setForeground(Color.red);
+            } else {
+                this.existeCPFCNPJ = dao.DaoPessoa.existePessoaFisica(txtfCpfCnpj.getText());
+                if (existeCPFCNPJ) {
+                    lblCpfExiste.setText("CPF já Cadastrado.");
+                    lblCpfExiste.setForeground(Color.red);
+                } else {
+                    lblCpfExiste.setText("CPF livre.");
+                    lblCpfExiste.setForeground(Color.black);
+                }
+            }
+        } else {
+            if ((txtfCpfCnpj.getText().length() < 14)) {
+                lblCpfExiste.setText("CNPJ Inválido.");
+                lblCpfExiste.setForeground(Color.red);
+            } else {
+                this.existeCPFCNPJ = dao.DaoPessoa.existePessoaJuridica(txtfCpfCnpj.getText());
+                if (existeCPFCNPJ) {
+                    lblCpfExiste.setText("CNPJ já Cadastrado.");
+                    lblCpfExiste.setForeground(Color.red);
+                } else {
+                    lblCpfExiste.setText("CNPJ livre.");
+                    lblCpfExiste.setForeground(Color.black);
+                }
+            }
+        }
+    }
+    
+    private void inicializarTabela(){
+        String[] nomeColunas = {"Tipo", "Contratado?","Data Cadastro", "Nome/Fictício", 
+            "CPF/CNPJ", "CEP", "Nº Logradouro", "Sexo", "Telefone", "Celular/Ramal", 
+            "Razão Social"};
+        try {
+            DefaultTableModel model = new DefaultTableModel();
+            tblPessoaRecente.setModel(model);
+            model.setColumnIdentifiers(nomeColunas);
+            model.setRowCount(0);
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao popular tabela.\n\n" + ex.getMessage(), "Erro de população de tabela", 0);
+        }
+    }
+    
+    private void atualizarTabela(PessoaFisica fisica, PessoaJuridica juridica, boolean tipoPessoa){
+        Object rowData[] = new Object[11];
+        
+        if (tipoPessoa) {
+            rowData[0] = "Física";
+            rowData[1] = fisica.getPessoa().getManterContratoSTR();
+            rowData[2] = fisica.getDataCadastro();
+            rowData[3] = fisica.getPessoa().getNome();
+            rowData[4] = fisica.getCpf();
+            rowData[5] = fisica.getPessoa().getEndereco().getCep();
+            rowData[6] = fisica.getPessoa().getComplementoLogradouro();
+            rowData[7] = fisica.getSexoSTR();
+            rowData[8] = fisica.getPessoa().getTelefone();
+            rowData[9] = fisica.getCelular();
+            rowData[10] = "-";
+        } else {
+            rowData[0] = "Jurídica";
+            rowData[1] = juridica.getPessoa().getManterContratoSTR();
+            rowData[2] = juridica.getDataCadastro();
+            rowData[3] = juridica.getPessoa().getNome();
+            rowData[4] = juridica.getCnpj();
+            rowData[5] = juridica.getPessoa().getEndereco().getCep();
+            rowData[6] = juridica.getPessoa().getComplementoLogradouro();
+            rowData[7] = "-";
+            rowData[8] = juridica.getPessoa().getTelefone();
+            rowData[9] = juridica.getRamalCliente();
+            rowData[10] = juridica.getRazaoSocial();
+        }
+        
+        
+        DefaultTableModel model = new DefaultTableModel();
+        model = (DefaultTableModel) tblPessoaRecente.getModel();
+        model.addRow(rowData);
+        
+    }
+
 }

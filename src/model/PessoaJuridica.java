@@ -21,12 +21,12 @@ public class PessoaJuridica {
     public PessoaJuridica() {
     }
 
-    public PessoaJuridica(Pessoa pessoa, String cnpj, String razaoSocial, Date dataCadastro, long ramalCliente) {
+    public PessoaJuridica(Pessoa pessoa, String cnpj, String razaoSocial, String dataCadastro, String ramalCliente) {
         this.pessoa = pessoa;
         this.cnpj = cnpj;
         this.razaoSocial = razaoSocial;
-        this.dataCadastro = dataCadastro;
-        this.ramalCliente = ramalCliente;
+        this.setDataCadastro(dataCadastro);
+        this.setRamalCliente(ramalCliente);
     }
 
     public String getCnpj() {
@@ -45,11 +45,15 @@ public class PessoaJuridica {
         this.razaoSocial = razaoSocial;
     }
 
-    public Date getDataCadastro() {
-        return dataCadastro;
+    public String getDataCadastro() {
+        return control.Datas.converterParaBrasileira(dataCadastro.toString());
     }
 
     public void setDataCadastro(String dataCadastro) {
+        this.dataCadastro = Date.valueOf(control.Datas.converterParaAmericana(dataCadastro));
+    }
+    
+    public void setDataCadastroBanco(String dataCadastro) {
         this.dataCadastro = Date.valueOf(dataCadastro);
     }
 
@@ -65,7 +69,7 @@ public class PessoaJuridica {
         return ramalCliente;
     }
 
-    public void setRamalCliente(long ramalCliente) {
-        this.ramalCliente = ramalCliente;
+    public void setRamalCliente(String ramalCliente) {
+        this.ramalCliente = Long.parseLong(ramalCliente);
     }
 }

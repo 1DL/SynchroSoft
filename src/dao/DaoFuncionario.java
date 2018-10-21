@@ -197,16 +197,21 @@ public class DaoFuncionario {
             while (rs.next()) {
                 Endereco end = new Endereco();
                 end.setCep(rs.getString("CD_CEP"));
-                Pessoa p = new Pessoa(rs.getString("NM_FUNCIONARIO"), end, rs.getLong("NR_TELEFONE"), rs.getString("NR_LOGRADOURO"), 0);
-                PessoaFisica pf = new PessoaFisica();
-                pf.setPessoa(p);
-                pf.setSexo(rs.getInt("ID_SEXO"));
-                pf.setCpf(rs.getString("CPF_FUNCIONARIO"));
+                Pessoa pessoa = new Pessoa();
+                pessoa.setNome("NM_FUNCIONARIO");
+                pessoa.setEndereco(end);
+                pessoa.setTelefone(rs.getString("NR_TELEFONE"));
+                pessoa.setComplementoLogradouro(rs.getString("NR_LOGRADOURO"));
+                
+                PessoaFisica pessoaFisica = new PessoaFisica();
+                pessoaFisica.setPessoa(pessoa);
+                pessoaFisica.setSexoBanco(rs.getInt("ID_SEXO"));
+                pessoaFisica.setCpf(rs.getString("CPF_FUNCIONARIO"));
 
                 Funcionario func = new Funcionario();
                 func.setCodigoFuncionario(rs.getString("CD_FUNCIONARIO"));
-                func.setPessoa(p);
-                func.setFisica(pf);
+                func.setPessoa(pessoa);
+                func.setFisica(pessoaFisica);
                 func.setSalario(rs.getString("VL_SALARIO"));
                 func.setCargo(rs.getString("DS_CARGO"));
                 func.setDataContratoBanco(rs.getDate("DT_ADMISSAO").toString());
@@ -318,20 +323,29 @@ public class DaoFuncionario {
             while (rs.next()) {
                 Endereco end = new Endereco();
                 end.setCep(rs.getString("CD_CEP"));
-                Pessoa p = new Pessoa(rs.getString("NM_FUNCIONARIO"), end, rs.getLong("NR_TELEFONE"), rs.getString("NR_LOGRADOURO"), 0);
-                PessoaFisica pf = new PessoaFisica();
-                pf.setPessoa(p);
-                pf.setSexo(rs.getInt("ID_SEXO"));
-                pf.setCpf(rs.getString("CPF_FUNCIONARIO"));
+                Pessoa pessoa = new Pessoa();
+                pessoa.setNome("NM_FUNCIONARIO");
+                pessoa.setEndereco(end);
+                pessoa.setTelefone(rs.getString("NR_TELEFONE"));
+                pessoa.setComplementoLogradouro(rs.getString("NR_LOGRADOURO"));
+                
+                PessoaFisica pessoaFisica = new PessoaFisica();
+                pessoaFisica.setPessoa(pessoa);
+                pessoaFisica.setSexoBanco(rs.getInt("ID_SEXO"));
+                pessoaFisica.setCpf(rs.getString("CPF_FUNCIONARIO"));
 
                 Funcionario func = new Funcionario();
                 func.setCodigoFuncionario(rs.getString("CD_FUNCIONARIO"));
-                func.setPessoa(p);
-                func.setFisica(pf);
+                func.setPessoa(pessoa);
+                func.setFisica(pessoaFisica);
                 func.setSalario(rs.getString("VL_SALARIO"));
                 func.setCargo(rs.getString("DS_CARGO"));
                 func.setDataContratoBanco(rs.getDate("DT_ADMISSAO").toString());
+                try{
                 func.setDataDemissaoBanco(rs.getDate("DT_DEMISSAO").toString());
+                } catch (NullPointerException npe) {
+                    func.setDataDemissao(func.getDataContrato());
+                }
                 func.setHorasTrabalhadas(Integer.toString(rs.getInt("NR_HORAS_TRABALHO")));
                 func.setNivelAdministrativoBanco(rs.getInt("ID_ADMINISTRATIVO"));
                 lista.add(func);

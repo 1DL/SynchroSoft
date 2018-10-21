@@ -19,7 +19,7 @@ import model.Endereco;
  */
 public class DaoEndereco {
 
-    public boolean cadastrarEndereco(Endereco end) {
+    public static boolean cadastrarEndereco(Endereco end) {
         boolean aux = false;
         try {
             Connection con = Conexao.conectar();
@@ -47,7 +47,7 @@ public class DaoEndereco {
         }
     }
 
-    public void deletarEndereco(String cep) throws SQLException, ClassNotFoundException {
+    public static void deletarEndereco(String cep) throws SQLException, ClassNotFoundException {
         try {
             Connection con = Conexao.conectar();
             String sql = "DELETE FROM SYNCHROSOFT.TB_ENDERECO WHERE CD_CEP = ?";
@@ -81,35 +81,55 @@ public class DaoEndereco {
         return lista;
     }
 
-    public static boolean existeEndereco(String cep) throws SQLException, ClassNotFoundException {
-        boolean flag;
-        Connection con = Conexao.conectar();
-        String sql = "SELECT CD_CEP FROM SYNCHROSOFT.TB_ENDERECO WHERE CD_CEP = ?";
-        PreparedStatement st = con.prepareStatement(sql);
-        st.setString(1, cep);
-        ResultSet rs = st.executeQuery();
-        flag = rs.isBeforeFirst();
-        st.close();
-        rs.close();
-        return flag;
-    }
+    public static boolean existeEndereco(String cep) {
+        boolean flag = false;
+        try {
 
-    public static Endereco popularEndereco(String cep) throws SQLException, ClassNotFoundException {
-        Connection con = Conexao.conectar();
-        String sql = "SELECT * FROM SYNCHROSOFT.TB_ENDERECO WHERE CD_CEP = ?";
-        PreparedStatement st = con.prepareStatement(sql);
-        st.setString(1, cep);
-        ResultSet rs = st.executeQuery();
-        rs.next();
-        Endereco end = new Endereco(rs.getString("CD_CEP"), rs.getString("DS_LOGRADOURO"),
-                rs.getString("NM_BAIRRO"), rs.getString("NM_CIDADE"), rs.getString("SG_ESTADO"));
-        st.close();
-        rs.close();
-        return end;
+            Connection con = Conexao.conectar();
+            String sql = "SELECT CD_CEP FROM SYNCHROSOFT.TB_ENDERECO WHERE CD_CEP = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, cep);
+            ResultSet rs = st.executeQuery();
+            flag = rs.isBeforeFirst();
+            st.close();
+            rs.close();
+            return flag;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível verificar a existência  do Endereço.\n\nErro Nº:"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoEndereco - Existe Endereco", 0);
+            return false;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoEndereco.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
 
     }
 
-    public void alterarEndereco(JTable tabela) throws SQLException, ClassNotFoundException {
+    public static Endereco popularEndereco(String cep) {
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "SELECT * FROM SYNCHROSOFT.TB_ENDERECO WHERE CD_CEP = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, cep);
+            ResultSet rs = st.executeQuery();
+            rs.next();
+            Endereco end = new Endereco(rs.getString("CD_CEP"), rs.getString("DS_LOGRADOURO"),
+                    rs.getString("NM_BAIRRO"), rs.getString("NM_CIDADE"), rs.getString("SG_ESTADO"));
+            st.close();
+            rs.close();
+            return end;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível popular o Endereço.\n\nErro Nº:"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoEndereco - Popular Endereco", 0);
+            return null;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoEndereco.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
+    }
+
+    public static void alterarEndereco(JTable tabela) throws SQLException, ClassNotFoundException {
         try {
             int rows = tabela.getRowCount();
             JOptionPane.showConfirmDialog(null, "Deseja realizar a alteração?");

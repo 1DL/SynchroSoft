@@ -22,24 +22,31 @@ import model.PessoaJuridica;
  */
 public class DaoPessoa {
 
-    public static void cadastrarPessoaFisica(String cpf, String cep, String nomeFisica, int sexo, long telefone, long celular, String complemento, Date dataCadastro, int isContratado) {
+    public static boolean cadastrarPessoaFisica(PessoaFisica fisica) {
         try {
             Connection con = Conexao.conectar();
             String sql = "INSERT INTO SYNCHROSOFT.TB_PESSOA_FISICA VALUES (?,?,?,?,?,?,?,?,?)";
             PreparedStatement st = con.prepareStatement(sql);
-            st.setString(1, cpf);
-            st.setString(2, cep);
-            st.setString(3, nomeFisica);
-            st.setInt(4, sexo);
-            st.setLong(5, telefone);
-            st.setLong(6, celular);
-            st.setString(7, complemento);
-            st.setDate(8, dataCadastro);
-            st.setInt(9, isContratado);
+            st.setString(1, fisica.getCpf());
+            st.setString(2, fisica.getPessoa().getEndereco().getCep());
+            st.setString(3, fisica.getPessoa().getNome());
+            st.setInt(4, fisica.getSexoBanco());
+            st.setLong(5, fisica.getPessoa().getTelefone());
+            st.setLong(6, fisica.getCelular());
+            st.setString(7, fisica.getPessoa().getComplementoLogradouro());
+            st.setDate(8, Date.valueOf(control.Datas.converterParaAmericana(fisica.getDataCadastro())));
+            st.setInt(9, fisica.getPessoa().getManterContrato());
             st.executeUpdate();
             st.close();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar a Pessoa Física.\n Erro:\n\n" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "A pessoa física foi cadastrada com sucesso!", "Cadastro de pessoa física", 1);
+            return true;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar a pessoa física.\n\nErro Nº:"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoPessoa - Cadastrar pessoa física", 0);
+            return false;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
     }
 
@@ -51,20 +58,34 @@ public class DaoPessoa {
             st.setString(1, cpf);
             ResultSet rs = st.executeQuery();
             rs.next();
+
             Endereco end = new Endereco();
             end = DaoEndereco.popularEndereco(rs.getString("CD_CEP"));
-            Pessoa p = new Pessoa(rs.getString("NM_PESSOA_FISICA"), end, rs.getLong("NR_TELEFONE"), 
-                    rs.getString("NR_COMPLEMENTO_LOGRADOURO"), rs.getInt("ID_CONTRATO"));
-            PessoaFisica pf = new PessoaFisica(p, rs.getString("CD_CPF"), rs.getDate("DT_CADASTRO"), 
-                    rs.getLong("NR_CELULAR"), rs.getInt("ID_SEXO"));
+            end.setCep(rs.getString("CD_CEP"));
+
+            Pessoa pessoa = new Pessoa();
+            pessoa.setNome("NM_PESSOA_FISICA");
+            pessoa.setEndereco(end);
+            pessoa.setTelefone(rs.getString("NR_TELEFONE"));
+            pessoa.setComplementoLogradouro(rs.getString("NR_COMPLEMENTO_LOGRADOURO"));
+            pessoa.setManterContratoBanco(rs.getInt("ID_CONTRATO"));
+
+            PessoaFisica pessoaFisica = new PessoaFisica();
+            pessoaFisica.setPessoa(pessoa);
+            pessoaFisica.setCpf(rs.getString("CD_CPF"));
+            pessoaFisica.setSexoBanco(rs.getInt("ID_SEXO"));
+            pessoaFisica.setCelular(String.valueOf(rs.getLong("NR_CELULAR")));
+            pessoaFisica.setDataCadastroBanco((control.Datas.converterParaBrasileira(String.valueOf(rs.getDate("DT_CADASTRO")))));
+
             st.close();
             rs.close();
-            return pf;
+
+            return pessoaFisica;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não  foi possível popular os dados da pessoa física.\n\nErro Nº:"
                     + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoPessoa - Popular pessoa física", 0);
             return null;
-            
+
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DaoPessoa.class.getName()).log(Level.SEVERE, null, ex);
             return null;
@@ -80,13 +101,29 @@ public class DaoPessoa {
         st.setString(1, cpf);
         ResultSet rs = st.executeQuery();
         rs.next();
+
         Endereco end = new Endereco();
-        end = DaoEndereco.popularEndereco(rs.getString(("CD_CEP")));
-        Pessoa p = new Pessoa(rs.getString("NM_PESSOA_FISICA"), end, rs.getLong("NR_TELEFONE"), rs.getString("NR_COMPLEMENTO_LOGRADOURO"), rs.getInt("ID_CONTRATO"));
-        PessoaFisica pf = new PessoaFisica(p, rs.getString("CD_CPF"), rs.getDate("DT_CADASTRO"), rs.getLong("NR_CELULAR"), rs.getInt("ID_SEXO"));
+        end = DaoEndereco.popularEndereco(rs.getString("CD_CEP"));
+        end.setCep(rs.getString("CD_CEP"));
+
+        Pessoa pessoa = new Pessoa();
+        pessoa.setNome("NM_PESSOA_FISICA");
+        pessoa.setEndereco(end);
+        pessoa.setTelefone(rs.getString("NR_TELEFONE"));
+        pessoa.setComplementoLogradouro(rs.getString("NR_COMPLEMENTO_LOGRADOURO"));
+        pessoa.setManterContratoBanco(rs.getInt("ID_CONTRATO"));
+
+        PessoaFisica pessoaFisica = new PessoaFisica();
+        pessoaFisica.setPessoa(pessoa);
+        pessoaFisica.setCpf(rs.getString("CD_CPF"));
+        pessoaFisica.setSexoBanco(rs.getInt("ID_SEXO"));
+        pessoaFisica.setCelular(String.valueOf(rs.getLong("NR_CELULAR")));
+        pessoaFisica.setDataCadastroBanco((control.Datas.converterParaBrasileira(String.valueOf(rs.getDate("DT_CADASTRO")))));
+
         st.close();
         rs.close();
-        return pf;
+
+        return pessoaFisica;
     }
 
     public static PessoaJuridica popularPessoaJuridica(String cnpj, String cep) throws SQLException, ClassNotFoundException {
@@ -97,13 +134,28 @@ public class DaoPessoa {
         st.setString(1, cnpj);
         ResultSet rs = st.executeQuery();
         rs.next();
+
         Endereco end = new Endereco();
         end = DaoEndereco.popularEndereco(cep);
-        Pessoa p = new Pessoa(rs.getString("NM_RAZAO_SOCIAL"), end, rs.getLong("NR_TELEFONE"), rs.getString("NR_LOGRADOURO"), rs.getInt("ID_CONTRATO"));
-        PessoaJuridica pj = new PessoaJuridica(p, rs.getString("CD_CNPJ"), rs.getString("NM_RAZAO_SOCIAL"), rs.getDate("DT_CADASTRO"), rs.getLong("NR_RAMAL"));
+
+        Pessoa pessoa = new Pessoa();
+        pessoa.setNome(rs.getString("NM_RAZAO_SOCIAL"));
+        pessoa.setEndereco(end);
+        pessoa.setTelefone(String.valueOf(rs.getLong("NR_TELEFONE")));
+        pessoa.setComplementoLogradouro(rs.getString("NR_LOGRADOURO"));
+        pessoa.setManterContratoBanco(rs.getInt("ID_CONTRATO"));
+
+        PessoaJuridica pessoaJuridica = new PessoaJuridica();
+        pessoaJuridica.setPessoa(pessoa);
+        pessoaJuridica.setCnpj(rs.getString("CD_CNPJ"));
+        pessoaJuridica.setRazaoSocial(rs.getString("NM_RAZAO_SOCIAL"));
+        pessoaJuridica.setDataCadastroBanco(control.Datas.converterParaBrasileira(String.valueOf(rs.getDate("DT_CADASTRO"))));
+        pessoaJuridica.setRamalCliente(String.valueOf(rs.getInt("NR_RAMAL")));
+
         st.close();
         rs.close();
-        return pj;
+
+        return pessoaJuridica;
     }
 
     public static PessoaJuridica popularPessoaJuridicaSemCep(String cnpj) throws SQLException, ClassNotFoundException {
@@ -116,11 +168,24 @@ public class DaoPessoa {
         rs.next();
         Endereco end = new Endereco();
         end = DaoEndereco.popularEndereco(rs.getString("CD_CEP"));
-        Pessoa p = new Pessoa(rs.getString("NM_RAZAO_SOCIAL"), end, rs.getLong("NR_TELEFONE"), rs.getString("NR_LOGRADOURO"), rs.getInt("ID_CONTRATO"));
-        PessoaJuridica pj = new PessoaJuridica(p, rs.getString("CD_CNPJ"), rs.getString("NM_RAZAO_SOCIAL"), rs.getDate("DT_CADASTRO"), rs.getLong("NR_RAMAL"));
+
+        Pessoa pessoa = new Pessoa();
+        pessoa.setNome(rs.getString("NM_RAZAO_SOCIAL"));
+        pessoa.setEndereco(end);
+        pessoa.setTelefone(String.valueOf(rs.getLong("NR_TELEFONE")));
+        pessoa.setComplementoLogradouro(rs.getString("NR_LOGRADOURO"));
+        pessoa.setManterContratoBanco(rs.getInt("ID_CONTRATO"));
+
+        PessoaJuridica pessoaJuridica = new PessoaJuridica();
+        pessoaJuridica.setPessoa(pessoa);
+        pessoaJuridica.setCnpj(rs.getString("CD_CNPJ"));
+        pessoaJuridica.setRazaoSocial(rs.getString("NM_RAZAO_SOCIAL"));
+        pessoaJuridica.setDataCadastroBanco(control.Datas.converterParaBrasileira(String.valueOf(rs.getDate("DT_CADASTRO"))));
+        pessoaJuridica.setRamalCliente(String.valueOf(rs.getInt("NR_RAMAL")));
+
         st.close();
         rs.close();
-        return pj;
+        return pessoaJuridica;
     }
 
     public static boolean existePessoaFisica(String cpf) {
@@ -136,7 +201,7 @@ public class DaoPessoa {
             rs.close();
             return flag;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não  foi possível pesquisar se a pessoa existe.\n\nErro Nº:"
+            JOptionPane.showMessageDialog(null, "Não  foi possível pesquisar se a pessoa física existe.\n\nErro Nº:"
                     + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoPessoa - Existe Pessoa Fisica", 0);
             return flag;
         } catch (ClassNotFoundException ex) {
@@ -146,37 +211,53 @@ public class DaoPessoa {
 
     }
 
-    public static boolean existePessoaJuridica(String cnpj) throws SQLException, ClassNotFoundException {
-        boolean flag;
-        Connection con = Conexao.conectar();
-        String sql = "SELECT CD_CNPJ FROM SYNCHROSOFT.TB_PESSOA_JURIDICA WHERE CD_CNPJ = ?";
-        PreparedStatement st = con.prepareStatement(sql);
-        st.setString(1, cnpj);
-        ResultSet rs = st.executeQuery();
-        flag = rs.isBeforeFirst();
-        st.close();
-        rs.close();
-        return flag;
+    public static boolean existePessoaJuridica(String cnpj) {
+        boolean flag = false;
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "SELECT CD_CNPJ FROM SYNCHROSOFT.TB_PESSOA_JURIDICA WHERE CD_CNPJ = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, cnpj);
+            ResultSet rs = st.executeQuery();
+            flag = rs.isBeforeFirst();
+            st.close();
+            rs.close();
+            return flag;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível pesquisar se a pessoa jurídica existe.\n\nErro Nº:"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoPessoa - Existe Pessoa Jurídica", 0);
+            return flag;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            return flag;
+        }
     }
 
-    public static void cadastrarPessoaJuridica(String cnpj, String cep, String nomeFicticio, String razaoSocial, String logradouro, long telefone, long ramal, int isContratado, Date dataCadastro) {
+    public static boolean cadastrarPessoaJuridica(PessoaJuridica juridica) {
         try {
             Connection con = Conexao.conectar();
             String sql = "INSERT INTO SYNCHROSOFT.TB_PESSOA_JURIDICA VALUES (?,?,?,?,?,?,?,?,?)";
             PreparedStatement st = con.prepareStatement(sql);
-            st.setString(1, cnpj);
-            st.setString(2, cep);
-            st.setString(3, nomeFicticio);
-            st.setString(4, razaoSocial);
-            st.setString(5, logradouro);
-            st.setLong(6, telefone);
-            st.setLong(7, ramal);
-            st.setInt(8, isContratado);
-            st.setDate(9, dataCadastro);
+            st.setString(1, juridica.getCnpj());
+            st.setString(2, juridica.getPessoa().getEndereco().getCep());
+            st.setString(3, juridica.getPessoa().getNome());
+            st.setString(4, juridica.getRazaoSocial());
+            st.setString(5, juridica.getPessoa().getComplementoLogradouro());
+            st.setLong(6, juridica.getPessoa().getTelefone());
+            st.setLong(7, juridica.getRamalCliente());
+            st.setInt(8, juridica.getPessoa().getManterContrato());
+            st.setDate(9, Date.valueOf(control.Datas.converterParaAmericana(juridica.getDataCadastro())));
             st.executeUpdate();
             st.close();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar a Pessoa Juridica.\n Erro:\n\n" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "A pessoa jurídica foi cadastrada com sucesso!", "Cadastro de pessoa jurídica", 1);
+            return true;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar a pessoa jurídica.\n\nErro Nº:"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoPessoa - Cadastrar pessoa jurídica", 0);
+            return false;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
     }
 
@@ -212,40 +293,42 @@ public class DaoPessoa {
         ArrayList<PessoaFisica> lista = new ArrayList<>();
         try {
             Connection con = Conexao.conectar();
-//            DatabaseMetaData teste = con.getMetaData();
-//            System.out.println(teste.supportsBatchUpdates());
-            String sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP)";
+            String sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA "
+                    + "INNER JOIN SYNCHROSOFT.TB_ENDERECO "
+                    + "ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP)";
             PreparedStatement st = con.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Endereco end = new Endereco();
                 end.setCep(rs.getString("CD_CEP"));
                 end.setLogradouro(rs.getString("DS_LOGRADOURO"));
-                Pessoa p = new Pessoa(rs.getString("NM_PESSOA_FISICA"),
-                        end,
-                        rs.getLong("NR_TELEFONE"),
-                        rs.getString("NR_COMPLEMENTO_LOGRADOURO"),
-                        rs.getInt("ID_CONTRATO"));
-                PessoaFisica pessoaF = new PessoaFisica(p,
-                        rs.getString("CD_CPF"),
-                        rs.getDate("DT_CADASTRO"),
-                        rs.getLong("NR_CELULAR"),
-                        rs.getInt("ID_SEXO"));
 
-                lista.add(pessoaF);
+                Pessoa pessoa = new Pessoa();
+                pessoa.setNome("NM_PESSOA_FISICA");
+                pessoa.setEndereco(end);
+                pessoa.setTelefone(rs.getString("NR_TELEFONE"));
+                pessoa.setComplementoLogradouro(rs.getString("NR_COMPLEMENTO_LOGRADOURO"));
+                pessoa.setManterContratoBanco(rs.getInt("ID_CONTRATO"));
 
-                /*lista.add(new String[]{String.valueOf(rs.getInt("CD_PECA")),
-                (rs.getString("NM_PECA")),(rs.getString("DS_CATEGORIA")),
-                String.valueOf(rs.getInt("QT_PECA")),String.valueOf(rs.getFloat("VL_PECA"))});                
-                System.out.println(lista.get(0));*/
+                PessoaFisica pessoaFisica = new PessoaFisica();
+                pessoaFisica.setPessoa(pessoa);
+                pessoaFisica.setCpf(rs.getString("CD_CPF"));
+                pessoaFisica.setSexoBanco(rs.getInt("ID_SEXO"));
+                pessoaFisica.setCelular(String.valueOf(rs.getLong("NR_CELULAR")));
+                pessoaFisica.setDataCadastroBanco((control.Datas.converterParaBrasileira(String.valueOf(rs.getDate("DT_CADASTRO")))));
+
+                lista.add(pessoaFisica);
             }
 
             st.close();
             rs.close();
-        } catch (Exception ex) {
-            System.err.println("DaoPessoa Instanciamento: " + ex);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar Pessoas Físicas.\n\nErro Nº "+ex.getErrorCode()+
+                    "\n"+ex.getMessage(),"Erro: DaoPessoa - Listar Pessoa Física",0);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoPessoa.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //return lista;
+        
         return lista;
     }
 
@@ -253,8 +336,6 @@ public class DaoPessoa {
         ArrayList<PessoaJuridica> lista = new ArrayList<>();
         try {
             Connection con = Conexao.conectar();
-//            DatabaseMetaData teste = con.getMetaData();
-//            System.out.println(teste.supportsBatchUpdates());
             String sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_JURIDICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP)";
             PreparedStatement st = con.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -262,31 +343,32 @@ public class DaoPessoa {
                 Endereco end = new Endereco();
                 end.setCep(rs.getString("CD_CEP"));
                 end.setLogradouro("DS_LOGRADOURO");
-                Pessoa p = new Pessoa(rs.getString("NM_FICTICIO"),
-                        end,
-                        rs.getLong("NR_TELEFONE"),
-                        rs.getString("NR_LOGRADOURO"),
-                        rs.getInt("ID_CONTRATO"));
-                PessoaJuridica pessoaJ = new PessoaJuridica(p,
-                        rs.getString("CD_CNPJ"),
-                        rs.getString("NM_RAZAO_SOCIAL"),
-                        rs.getDate("DT_CADASTRO"),
-                        rs.getInt("NR_RAMAL"));
+                
+                Pessoa pessoa = new Pessoa();
+                pessoa.setNome(rs.getString("NM_RAZAO_SOCIAL"));
+                pessoa.setEndereco(end);
+                pessoa.setTelefone(String.valueOf(rs.getLong("NR_TELEFONE")));
+                pessoa.setComplementoLogradouro(rs.getString("NR_LOGRADOURO"));
+                pessoa.setManterContratoBanco(rs.getInt("ID_CONTRATO"));
 
-                lista.add(pessoaJ);
+                PessoaJuridica pessoaJuridica = new PessoaJuridica();
+                pessoaJuridica.setPessoa(pessoa);
+                pessoaJuridica.setCnpj(rs.getString("CD_CNPJ"));
+                pessoaJuridica.setRazaoSocial(rs.getString("NM_RAZAO_SOCIAL"));
+                pessoaJuridica.setDataCadastroBanco(control.Datas.converterParaBrasileira(String.valueOf(rs.getDate("DT_CADASTRO"))));
+                pessoaJuridica.setRamalCliente(String.valueOf(rs.getInt("NR_RAMAL")));
 
-                /*lista.add(new String[]{String.valueOf(rs.getInt("CD_PECA")),
-                (rs.getString("NM_PECA")),(rs.getString("DS_CATEGORIA")),
-                String.valueOf(rs.getInt("QT_PECA")),String.valueOf(rs.getFloat("VL_PECA"))});                
-                System.out.println(lista.get(0));*/
+                lista.add(pessoaJuridica);
             }
 
             st.close();
             rs.close();
-        } catch (Exception ex) {
-            System.err.println("DAOPESSOA Instanciamento: " + ex);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar Pessoas Jurídicas.\n\nErro Nº "+ex.getErrorCode()+
+                    "\n"+ex.getMessage(),"Erro: DaoPessoa - Listar Pessoa Jurídica",0);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoPessoa.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //return lista;
         return lista;
     }
 
@@ -357,18 +439,22 @@ Data de Cadastro
                 Endereco end = new Endereco();
                 end.setCep(rs.getString("CD_CEP"));
                 end.setLogradouro(rs.getString("DS_LOGRADOURO"));
-                Pessoa p = new Pessoa(rs.getString("NM_PESSOA_FISICA"),
-                        end,
-                        rs.getLong("NR_TELEFONE"),
-                        rs.getString("NR_COMPLEMENTO_LOGRADOURO"),
-                        rs.getInt("ID_CONTRATO"));
-                PessoaFisica pessoaF = new PessoaFisica(p,
-                        rs.getString("CD_CPF"),
-                        rs.getDate("DT_CADASTRO"),
-                        rs.getLong("NR_CELULAR"),
-                        rs.getInt("ID_SEXO"));
+                
+                Pessoa pessoa = new Pessoa();
+                pessoa.setNome("NM_PESSOA_FISICA");
+                pessoa.setEndereco(end);
+                pessoa.setTelefone(rs.getString("NR_TELEFONE"));
+                pessoa.setComplementoLogradouro(rs.getString("NR_COMPLEMENTO_LOGRADOURO"));
+                pessoa.setManterContratoBanco(rs.getInt("ID_CONTRATO"));
 
-                lista.add(pessoaF);
+                PessoaFisica pessoaFisica = new PessoaFisica();
+                pessoaFisica.setPessoa(pessoa);
+                pessoaFisica.setCpf(rs.getString("CD_CPF"));
+                pessoaFisica.setSexoBanco(rs.getInt("ID_SEXO"));
+                pessoaFisica.setCelular(String.valueOf(rs.getLong("NR_CELULAR")));
+                pessoaFisica.setDataCadastroBanco((control.Datas.converterParaBrasileira(String.valueOf(rs.getDate("DT_CADASTRO")))));
+
+                lista.add(pessoaFisica);
 
             }
 
@@ -376,8 +462,11 @@ Data de Cadastro
             st.close();
             rs.close();
 
-        } catch (Exception ex) { //Caso exista a possibilidade de retorno de erro
-            System.err.println("DAOPessoa Instanciamento: " + ex);
+        } catch (SQLException ex) { //Caso exista a possibilidade de retorno de erro
+            JOptionPane.showMessageDialog(null, "Erro ao listar Pessoas Físicas via filtro.\n\nErro Nº "+ex.getErrorCode()+
+                    "\n"+ex.getMessage(),"Erro: DaoPessoa - Listar Pessoa Física Filtrada",0);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoPessoa.class.getName()).log(Level.SEVERE, null, ex);
         }
         //return lista;
         return lista;
@@ -446,18 +535,22 @@ Data Cadastro
                 Endereco end = new Endereco();
                 end.setCep(rs.getString("CD_CEP"));
                 end.setLogradouro("DS_LOGRADOURO");
-                Pessoa p = new Pessoa(rs.getString("NM_FICTICIO"),
-                        end,
-                        rs.getLong("NR_TELEFONE"),
-                        rs.getString("NR_LOGRADOURO"),
-                        rs.getInt("ID_CONTRATO"));
-                PessoaJuridica pessoaJ = new PessoaJuridica(p,
-                        rs.getString("CD_CNPJ"),
-                        rs.getString("NM_RAZAO_SOCIAL"),
-                        rs.getDate("DT_CADASTRO"),
-                        rs.getInt("NR_RAMAL"));
+                
+                Pessoa pessoa = new Pessoa();
+                pessoa.setNome(rs.getString("NM_RAZAO_SOCIAL"));
+                pessoa.setEndereco(end);
+                pessoa.setTelefone(String.valueOf(rs.getLong("NR_TELEFONE")));
+                pessoa.setComplementoLogradouro(rs.getString("NR_LOGRADOURO"));
+                pessoa.setManterContratoBanco(rs.getInt("ID_CONTRATO"));
 
-                lista.add(pessoaJ);
+                PessoaJuridica pessoaJuridica = new PessoaJuridica();
+                pessoaJuridica.setPessoa(pessoa);
+                pessoaJuridica.setCnpj(rs.getString("CD_CNPJ"));
+                pessoaJuridica.setRazaoSocial(rs.getString("NM_RAZAO_SOCIAL"));
+                pessoaJuridica.setDataCadastroBanco(control.Datas.converterParaBrasileira(String.valueOf(rs.getDate("DT_CADASTRO"))));
+                pessoaJuridica.setRamalCliente(String.valueOf(rs.getInt("NR_RAMAL")));
+
+                lista.add(pessoaJuridica);
 
             }
 
@@ -465,14 +558,17 @@ Data Cadastro
             st.close();
             rs.close();
 
-        } catch (Exception ex) { //Caso exista a possibilidade de retorno de erro
-            System.err.println("DAOPessoa Instanciamento: " + ex);
+        } catch (SQLException ex) { //Caso exista a possibilidade de retorno de erro
+            JOptionPane.showMessageDialog(null, "Erro ao listar Pessoas Jurídicas via filtro.\n\nErro Nº "+ex.getErrorCode()+
+                    "\n"+ex.getMessage(),"Erro: DaoPessoa - Listar Pessoa Jurídica Filtrada",0);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoPessoa.class.getName()).log(Level.SEVERE, null, ex);
         }
         //return lista;
         return lista;
     }
 
-    public static void alterarPessoaFisica(JTable tabela) throws SQLException, ClassNotFoundException {
+    public static void alterarPessoaFisica(JTable tabela){
 //      
         try {
 
@@ -485,7 +581,8 @@ Data Cadastro
             String sql = "UPDATE SYNCHROSOFT.TB_PESSOA_FISICA "
                     + "SET CD_CPF = ?, CD_CEP = ?, NM_PESSOA_FISICA = ?, "
                     + "ID_SEXO = ?, NR_TELEFONE = ?, NR_CELULAR = ?, NR_COMPLEMENTO_LOGRADOURO = ?,"
-                    + "DT_CADASTRO = ?, ID_CONTRATO = ? WHERE CD_CPF = ?";
+                    + "DT_CADASTRO = ?, ID_CONTRATO = ? "
+                    + "WHERE CD_CPF = ?";
             PreparedStatement st = con.prepareStatement(sql);
             for (int row = 0; row < rows; row++) {
                 String CD_CPF_ALTERADO = (String) tabela.getValueAt(row, 1);
@@ -522,7 +619,7 @@ Data Cadastro
                 st.setLong(6, Long.parseLong(NR_CELULAR));
                 st.setInt(7, Integer.parseInt(NR_COMPLEMENTO_LOGRADOURO));
 
-                st.setDate(8, pf.getDataCadastro());
+                st.setDate(8, Date.valueOf(control.Datas.converterParaAmericana(pf.getDataCadastro())));
                 st.setInt(9, contrato);
                 st.setString(10, CD_CPF_REFERENCIA);
 
@@ -530,15 +627,18 @@ Data Cadastro
                 st.executeBatch();
                 con.commit();
             }
-            JOptionPane.showMessageDialog(null, "A base de pessoas físicas foi alterada com sucesso!");
+            JOptionPane.showMessageDialog(null, "A base de pessoas físicas foi alterada com sucesso!", "Alteração concluída", 1);
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao alterar a base de pessoas físicas. \n\n" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao alterar a base de Pessoas Físicas.\n\nErro Nº "+ex.getErrorCode()+
+                    "\n"+ex.getMessage(),"Erro: DaoPessoa - Alterar Pessoa Fisica",0);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoPessoa.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
-    public static void alterarPessoaJuridica(JTable tabela) throws SQLException, ClassNotFoundException {
+    public static void alterarPessoaJuridica(JTable tabela) {
 //      
         try {
 
@@ -582,16 +682,19 @@ Data Cadastro
                 st.setLong(6, Long.parseLong(telefone));
                 st.setLong(7, Long.parseLong(ramal));
                 st.setInt(8, Integer.parseInt(contrato));
-                st.setDate(9, pj.getDataCadastro());
+                st.setDate(9, Date.valueOf(control.Datas.converterParaAmericana(pj.getDataCadastro())));
                 st.setString(10, cnpj_ref);
                 st.addBatch();
                 st.executeBatch();
                 con.commit();
             }
-            JOptionPane.showMessageDialog(null, "A base de pessoas Jurídicas foi alterada com sucesso!");
+            JOptionPane.showMessageDialog(null, "A base de pessoas Jurídicas foi alterada com sucesso!", "Alteração concluída", 1);
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao alterar a base de pessoas Jurídicas. \n\n" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao alterar a base de Pessoas Jurídicas.\n\nErro Nº "+ex.getErrorCode()+
+                    "\n"+ex.getMessage(),"Erro: DaoPessoa - Alterar Pessoa Jurídica",0);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoPessoa.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

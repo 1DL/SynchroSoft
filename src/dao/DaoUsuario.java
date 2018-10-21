@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import model.Usuario;
@@ -50,7 +52,7 @@ public class DaoUsuario {
         //criando variável booleana de controle
         boolean existe = false;
         int retorno = 1;
-        int codFuncionario;
+        String codFuncionario;
         
         //estrutura try/catch para tratamento de erro
         try
@@ -79,7 +81,7 @@ public class DaoUsuario {
                         if(senha.equals(rs.getString("DS_SENHA")))
                         {
                             existe = true;
-                            codFuncionario = rs.getInt("CD_FUNCIONARIO");
+                            codFuncionario = rs.getString("CD_FUNCIONARIO");
                             logarUsuario(existe, codFuncionario);
                             retorno = 0;
                         }
@@ -100,27 +102,30 @@ public class DaoUsuario {
         return retorno;
     }
     
-    public static void logarUsuario(boolean existe, int codigoFuncionario) {
+    public static void logarUsuario(boolean existe, String codigoFuncionario) {
         if (existe) {
             try {
                 Connection con = Conexao.conectar();
                 String sql = "SELECT cd_funcionario, nm_funcionario, id_administrativo FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE cd_funcionario = ?";
                 PreparedStatement st = con.prepareStatement(sql);
                 
-                st.setInt(1, codigoFuncionario);
+                st.setString(1, codigoFuncionario);
                         
                 ResultSet rs = st.executeQuery();
                 rs.next();
                 
-                control.SynchroSoft.setCodFunc(rs.getInt("cd_funcionario"));
+                control.SynchroSoft.setCodFunc(rs.getString("cd_funcionario"));
                 control.SynchroSoft.setNomeUsuario(rs.getString("nm_funcionario"));
                 control.SynchroSoft.setNvlAdm(rs.getInt("id_administrativo"));
                 
                 st.close();
                 rs.close();
-            } catch (Exception ex) {
-                JOptionPane.showConfirmDialog(null, "Erro ao acessar dados de usuário no banco de dados.\n\n"+ex.getMessage(),
-                        "Erro de Banco de Dados - DaoUsuario Listagem", JOptionPane.ERROR_MESSAGE);
+            } catch (SQLException ex) {
+                JOptionPane.showConfirmDialog(null, "Erro ao acessar dados de usuário no banco de dados.\n\nErro Nº"+ex.getErrorCode()+""
+                        + "\n"+ex.getMessage(),
+                        "Erro de Banco de Dados - DaoUsuario Logar Usuario", 0);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
         }        
     }

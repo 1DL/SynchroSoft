@@ -235,13 +235,8 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         } catch (Exception ex) {
 
         }
-        try{
             pessoa.alterarPessoaFisica(tblListagemPessoaF);
-        } catch (SQLException ex) {
-            Logger.getLogger(FrmListagemPeca.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrmListagemPeca.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
 
     }//GEN-LAST:event_btnAlterarActionPerformed
 

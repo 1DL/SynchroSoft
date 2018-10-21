@@ -21,12 +21,12 @@ public class PessoaFisica {
     public PessoaFisica() {
     }
 
-    public PessoaFisica(Pessoa pessoa, String cpf, Date dataCadastro, long celular, int sexo) {
+    public PessoaFisica(Pessoa pessoa, String cpf, String dataCadastro, String celular, boolean sexo) {
         this.pessoa = pessoa;
         this.cpf = cpf;
-        this.dataCadastro = dataCadastro;
-        this.celular = celular;
-        this.sexo = sexo;
+        this.setDataCadastro(dataCadastro);
+        this.setCelular(celular);
+        this.setSexo(sexo);
     }
 
     public String getCpf() {
@@ -45,27 +45,32 @@ public class PessoaFisica {
         this.pessoa = pessoa;
     }
 
-    public Date getDataCadastro() {
-        return dataCadastro;
+    public String getDataCadastro() {
+        return control.Datas.converterParaBrasileira(dataCadastro.toString());
     }
 
     public void setDataCadastro(String dataCadastro) {
-//        int dd,mm,aa;
-//        aa = Integer.parseInt(dataCadastro.substring(0, 4));
-//        mm = Integer.parseInt(dataCadastro.substring(5, 2));
-//        dd = Integer.parseInt(dataCadastro.substring(8, 4));
+        this.dataCadastro = Date.valueOf(control.Datas.converterParaAmericana(dataCadastro));
+    }
+    
+    public void setDataCadastroBanco(String dataCadastro) {
         this.dataCadastro = Date.valueOf(dataCadastro);
     }
+    
 
     public long getCelular() {
         return celular;
     }
 
-    public void setCelular(long celular) {
-        this.celular = celular;
+    public void setCelular(String celular) {
+        this.celular = Long.parseLong(celular);
+    }
+    
+    public int getSexo() {
+        return sexo;
     }
 
-    public String getSexo() {
+    public String getSexoSTR() {
         if (sexo == 0) {
             return "Masculino";
         } else {
@@ -77,7 +82,15 @@ public class PessoaFisica {
         return sexo;
     }
 
-    public void setSexo(int sexo) {
+    public void setSexo(boolean sexo) {
+        if (sexo) {
+            this.sexo = 0;
+        } else {
+            this.sexo = 1;
+        }
+    }
+    
+    public void setSexoBanco(int sexo){
         this.sexo = sexo;
     }
 }

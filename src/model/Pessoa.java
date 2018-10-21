@@ -19,12 +19,12 @@ public class Pessoa {
     public Pessoa() {
     }
 
-    public Pessoa(String nome, Endereco endereco, long telefone, String complementoLogradouro, int manterContrato) {
+    public Pessoa(String nome, Endereco endereco, String telefone, String complementoLogradouro, boolean manterContrato) {
         this.nome = nome;
         this.endereco = endereco;
-        this.telefone = telefone;
+        this.setTelefone(telefone);
         this.complementoLogradouro = complementoLogradouro;
-        this.manterContrato = manterContrato;
+        this.setManterContrato(manterContrato);
     }
 
     public String getNome() {
@@ -47,8 +47,8 @@ public class Pessoa {
         return telefone;
     }
 
-    public void setTelefone(long telefone) {
-        this.telefone = telefone;
+    public void setTelefone(String telefone) {
+        this.telefone = Long.parseLong(telefone);
     }
 
     public String getComplementoLogradouro() {
@@ -62,8 +62,24 @@ public class Pessoa {
     public int getManterContrato() {
         return manterContrato;
     }
+    
+    public String getManterContratoSTR(){
+        if (manterContrato == 1){
+            return "Sim";
+        } else {
+            return "Não";
+        }
+    }
 
-    public void setManterContrato(int manterContrato) {
+    public void setManterContrato(boolean manterContrato) {
+        if (manterContrato){
+            this.manterContrato = 1;
+        } else {
+            this.manterContrato = 0;
+        }
+    }
+    
+    public void setManterContratoBanco(int manterContrato) {
         this.manterContrato = manterContrato;
     }
 }

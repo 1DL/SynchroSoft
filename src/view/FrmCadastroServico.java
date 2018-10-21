@@ -52,9 +52,8 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         modoFisica();
         txtDataServico.setText("" + new Date(Calendar.getInstance().getTimeInMillis()));
         iniciarTabela();
-        
+
         //Programação de controle de nível de acesso
-        
         if (nivelAdm == 0) {
             btnCadastrar.setEnabled(false);
         }
@@ -599,7 +598,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private void txtCpfCnpjKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfCnpjKeyReleased
         txtCpfCnpj.setText(TextSize.maxLenghtCPFCNPJ(txtCpfCnpj.getText(), rbtFisica.isSelected()));
         validarCPFCNPJ();
-        
+
     }//GEN-LAST:event_txtCpfCnpjKeyReleased
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
@@ -700,7 +699,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodigoServicoKeyReleased
 
     private void cmbTipoServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoServicoActionPerformed
-        
+
     }//GEN-LAST:event_cmbTipoServicoActionPerformed
 
     private void rbtMasculinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtMasculinoActionPerformed
@@ -776,7 +775,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        
+
     }//GEN-LAST:event_btnLimparActionPerformed
 
     /**
@@ -835,8 +834,8 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         rbtFeminino.setVisible(false);
         rbtMasculino.setVisible(false);
     }
-    
-    public void validarCPFCNPJ () {
+
+    public void validarCPFCNPJ() {
         if (rbtFisica.isSelected()) {
             if ((txtCpfCnpj.getText().length() < 11) || (txtCpfCnpj.getText().length() > 11)) {
                 lblCpfCnpjExiste.setText("CPF Inválido");
@@ -853,7 +852,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
                         lblCpfCnpjExiste.setText("CPF Cadastrado.");
                         flagContrato = true;
                     }
-                    
+
                     popularExibicaoPessoa(pessoaFisicaExibicao);
                 } else {
                     lblCpfCnpjExiste.setText("CPF Inexistente.");
@@ -894,33 +893,29 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         }
     }
-    
-    public void validarCEP () {
+
+    public void validarCEP() {
         if ((txtCep.getText().length() < 8) || (txtCep.getText().length() > 8)) {
             lblCepExiste.setText("Cep Inválido.");
             limparExibicaoEndereco();
         } else {
             DaoEndereco de = new DaoEndereco();
-            try {
-                cepCadastrado = de.existeEndereco(txtCep.getText());
-                if (cepCadastrado) {
-                    lblCepExiste.setText("CEP Cadastrado.");
-                    endExibicao = de.popularEndereco(txtCep.getText());
-                    popularExibicaoEndereco(endExibicao);
-                    if (rbtFisica.isSelected()) {
-                        popularExibicaoPessoa(pessoaFisicaExibicao);
-                    } else if (rbtJuridica.isSelected()) {
-                        popularExibicaoPessoaJuridica(pessoaJuridicaExibicao);
-                    }
-                } else {
-                    lblCepExiste.setText("CEP Inexistente.");
-                    limparExibicaoEndereco();
+
+            cepCadastrado = de.existeEndereco(txtCep.getText());
+            if (cepCadastrado) {
+                lblCepExiste.setText("CEP Cadastrado.");
+                endExibicao = de.popularEndereco(txtCep.getText());
+                popularExibicaoEndereco(endExibicao);
+                if (rbtFisica.isSelected()) {
+                    popularExibicaoPessoa(pessoaFisicaExibicao);
+                } else if (rbtJuridica.isSelected()) {
+                    popularExibicaoPessoaJuridica(pessoaJuridicaExibicao);
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(FrmCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(FrmCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                lblCepExiste.setText("CEP Inexistente.");
+                limparExibicaoEndereco();
             }
+
         }
     }
 

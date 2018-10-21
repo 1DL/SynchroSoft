@@ -19,7 +19,7 @@ public class SynchroSoft {
      */
     private static String versao = "1.0";
     private static String nomeUsuario = "Teste";
-    private static int codFunc = 0;
+    private static String codFunc = "Código Func";
     private static int nvlAdm = 1;
     private static boolean acesso = false;
     private static String nvlAcessoSTR = "";
@@ -51,11 +51,11 @@ public class SynchroSoft {
         nomeUsuario = aNomeUsuario;
     }
 
-    public static int getCodFunc() {
+    public static String getCodFunc() {
         return codFunc;
     }
 
-    public static void setCodFunc(int aCodFunc) {
+    public static void setCodFunc(String aCodFunc) {
         codFunc = aCodFunc;
     }
 
