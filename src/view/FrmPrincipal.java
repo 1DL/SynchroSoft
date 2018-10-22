@@ -101,7 +101,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         txtAlerta.setText("Alerta de Despesas para vencer: ");
         getContentPane().add(txtAlerta);
-        txtAlerta.setBounds(190, 560, 920, 30);
+        txtAlerta.setBounds(190, 560, 530, 30);
 
         jButton1.setText("jButton1");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -112,6 +112,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         getContentPane().add(jButton1);
         jButton1.setBounds(950, 470, 73, 23);
 
+        btn_janMaisAcessada1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logopng32.png"))); // NOI18N
         btn_janMaisAcessada1.setText(control.Janelas.abrirMaisAcessada(maisAcessadas.get(0).getNome(), false)
         );
         btn_janMaisAcessada1.addActionListener(new java.awt.event.ActionListener() {
@@ -172,6 +173,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         getContentPane().add(btn_janMaisAcessada6);
         btn_janMaisAcessada6.setBounds(730, 410, 280, 40);
 
+        btnMenuPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logopng32.png"))); // NOI18N
         btnMenuPrincipal.setText("Menu Principal");
         btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,6 +183,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         getContentPane().add(btnMenuPrincipal);
         btnMenuPrincipal.setBounds(900, 550, 130, 30);
 
+        btnFecharFrame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logopng16.png"))); // NOI18N
         btnFecharFrame.setText("Fechar ");
         btnFecharFrame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -224,6 +227,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menu_cadastro.setText("Cadastro");
 
+        menu_os.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logopng16.png"))); // NOI18N
         menu_os.setText("Ordem de Serviço");
         menu_os.setEnabled(control.SynchroSoft.isAcesso());
         menu_os.addActionListener(new java.awt.event.ActionListener() {
@@ -233,6 +237,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menu_cadastro.add(menu_os);
 
+        menu_pessoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logopng64.png"))); // NOI18N
         menu_pessoa.setText("Pessoa Física ou Jurídica");
         menu_pessoa.setEnabled(control.SynchroSoft.isAcesso());
         menu_pessoa.addActionListener(new java.awt.event.ActionListener() {
@@ -242,6 +247,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menu_cadastro.add(menu_pessoa);
 
+        menu_produto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logopng32.png"))); // NOI18N
         menu_produto.setText("Produto");
         menu_produto.setEnabled(control.SynchroSoft.isAcesso());
         menu_produto.addActionListener(new java.awt.event.ActionListener() {

@@ -42,6 +42,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menu_os">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/img/logopng16.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Ordem de Servi&#xe7;o"/>
                 <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="control.SynchroSoft.isAcesso()" type="code"/>
@@ -53,6 +56,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menu_pessoa">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/img/logopng64.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Pessoa F&#xed;sica ou Jur&#xed;dica"/>
                 <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="control.SynchroSoft.isAcesso()" type="code"/>
@@ -64,6 +70,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menu_produto">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/img/logopng32.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Produto"/>
                 <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="control.SynchroSoft.isAcesso()" type="code"/>
@@ -303,7 +312,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="190" y="560" width="920" height="30"/>
+          <AbsoluteConstraints x="190" y="560" width="530" height="30"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -322,6 +331,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btn_janMaisAcessada1">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/img/logopng32.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="control.Janelas.abrirMaisAcessada(maisAcessadas.get(0).getNome(), false)&#xd;&#xa;" type="code"/>
         </Property>
@@ -412,6 +424,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnMenuPrincipal">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/img/logopng32.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Menu Principal"/>
       </Properties>
       <Events>
@@ -425,6 +440,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnFecharFrame">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/img/logopng16.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Fechar "/>
       </Properties>
       <Events>
