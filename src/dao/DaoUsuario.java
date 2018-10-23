@@ -22,21 +22,26 @@ import model.Usuario;
  */
 public class DaoUsuario {
     
-    public void cadastrarUsuario(int CodFunc, String login, String senha) throws SQLException, ClassNotFoundException {
+    public static boolean cadastrarUsuario(Usuario usuario) {
         try {
             Connection con = Conexao.conectar();
             String sql = "INSERT INTO SYNCHROSOFT.TB_USUARIO (CD_USUARIO, CD_FUNCIONARIO, DS_SENHA) VALUES (?,?,?)";
             PreparedStatement st = con.prepareStatement(sql);
-            st.setString(1, login);
-            st.setInt(2, CodFunc);
-            st.setString(3, senha);
+            st.setString(1, usuario.getLogin());
+            st.setString(2, usuario.getCodigoFuncionario());
+            st.setString(3, usuario.getSenha());
             st.executeUpdate();
             st.close();
+            JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!", "Cadastro de Usuário", 1);
+            return true;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o login do usuário.\n Erro SQL:\n\n" + ex.getMessage());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o login do usuário.\n Erro JAVA:\n\n" + e.getMessage());
-        }
+            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o Usuário.\n\nErro Nº:"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoUsuario - Cadastrar Usuário", 0);
+            return false;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } 
     }
     /**
      * Método de conexão do sistema com o Banco de dados.
@@ -140,7 +145,7 @@ public class DaoUsuario {
             while (rs.next()) {
                 Usuario user = new Usuario();
                 //user.setCodigoUsuario(rs.getInt("CD_USUARIO"));
-                user.setCodigoFuncionario(rs.getInt("CD_FUNCIONARIO"));
+                user.setCodigoFuncionario(rs.getString("CD_FUNCIONARIO"));
                 user.setLogin(rs.getString("DS_LOGIN"));
                 user.setSenha(rs.getString("DS_SENHA"));
                 lista.add(user);
@@ -154,7 +159,7 @@ public class DaoUsuario {
         return lista;
     }
      
-     public void deletarUsuario(String login) throws SQLException, ClassNotFoundException {
+     public static void deletarUsuario(String login) throws SQLException, ClassNotFoundException {
         try {
             Connection con = Conexao.conectar();
             String sql = "DELETE FROM SYNCHROSOFT.TB_USUARIO WHERE CD_USUARIO = ?";
@@ -168,7 +173,7 @@ public class DaoUsuario {
         }
     }
      
-      public void alterarUsuario(JTable tabela) throws SQLException, ClassNotFoundException {
+      public static void alterarUsuario(JTable tabela) throws SQLException, ClassNotFoundException {
         try {
             int rows = tabela.getRowCount();
             String log = "";
@@ -233,7 +238,7 @@ Código", "Funcionário", "Login", "Senha
             while (rs.next()) {
                 Usuario u = new Usuario();
                 //u.setCodigoUsuario(rs.getInt("CD_USUARIO"));
-                u.setCodigoFuncionario(rs.getInt("CD_FUNCIONARIO"));
+                u.setCodigoFuncionario(rs.getString("CD_FUNCIONARIO"));
                 u.setLogin(rs.getString("DS_LOGIN").toString());
                 u.setSenha(rs.getString("DS_SENHA"));
                 lista.add(u);

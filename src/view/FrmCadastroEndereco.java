@@ -7,8 +7,10 @@ package view;
 
 import control.TextSize;
 import dao.DaoEndereco;
+import java.awt.Color;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import model.Endereco;
 
@@ -17,6 +19,8 @@ import model.Endereco;
  * @author Luiz
  */
 public class FrmCadastroEndereco extends javax.swing.JFrame {
+
+    boolean cepExiste;
 
     /**
      * Creates new form FrmCadastroPeca
@@ -27,6 +31,17 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         if (nvlAdm == 0) {
             btnCadastrar.setEnabled(false);
         }
+        selecionarAoFocar();
+    }
+    
+    public FrmCadastroEndereco(int nvlAdm, String cep) {
+        initComponents();
+        inicializarTabela();
+        if (nvlAdm == 0) {
+            btnCadastrar.setEnabled(false);
+        }
+        selecionarAoFocar();
+        txtfCep.setText(cep);
     }
 
     /**
@@ -43,7 +58,6 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnListarEndereco = new javax.swing.JButton();
         lblCep = new javax.swing.JLabel();
-        txtCep = new javax.swing.JTextField();
         txtLogradouro = new javax.swing.JTextField();
         lblLogradouro = new javax.swing.JLabel();
         txtCidade = new javax.swing.JTextField();
@@ -54,6 +68,8 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         cmbEstado = new javax.swing.JComboBox<>();
         Bairro = new javax.swing.JLabel();
         txtBairro = new javax.swing.JTextField();
+        lblCepExiste = new javax.swing.JLabel();
+        txtfCep = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEnderecoRecente = new javax.swing.JTable();
         lblEnderecoRecente = new javax.swing.JLabel();
@@ -64,6 +80,11 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logopng32.png")));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         setResizable(false);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         btnMenuPrincipal.setText("Menu Principal");
@@ -87,7 +108,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setOpaque(false);
 
-        btnListarEndereco.setText("Listar Endereços Cadastrados");
+        btnListarEndereco.setText("Listar Endereços");
         btnListarEndereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnListarEnderecoActionPerformed(evt);
@@ -96,20 +117,6 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
 
         lblCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCep.setText("CEP");
-
-        txtCep.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtCepFocusLost(evt);
-            }
-        });
-        txtCep.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtCepKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCepKeyReleased(evt);
-            }
-        });
 
         txtLogradouro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -140,7 +147,6 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         });
 
         btnCadastrar.setText("Cadastrar");
-        btnCadastrar.setNextFocusableComponent(txtCep);
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
@@ -160,40 +166,61 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
             }
         });
 
+        lblCepExiste.setForeground(new java.awt.Color(255, 0, 0));
+        lblCepExiste.setText("CEP Inválido.");
+
+        try {
+            txtfCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtfCep.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtfCepFocusLost(evt);
+            }
+        });
+        txtfCep.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfCepKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtLogradouro))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(Bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtBairro))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblCep, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(62, 62, 62)
+                        .addComponent(txtfCep, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblCepExiste, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnListarEndereco)))
+                .addGap(49, 49, 49)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                                .addGap(44, 44, 44)
                                 .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                        .addComponent(btnListarEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(lblQuantidadePeca, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -204,26 +231,24 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCep)
+                    .addComponent(lblEstado)
+                    .addComponent(lblCepExiste)
                     .addComponent(btnListarEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblCep)
-                            .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblEstado))))
-                .addGap(30, 30, 30)
+                    .addComponent(txtfCep, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblLogradouro)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblQuantidadePeca)
-                        .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblLogradouro)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblQuantidadePeca)
+                                .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
                         .addComponent(txtLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -255,7 +280,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblEnderecoRecente);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(30, 282, 1100, 230);
+        jScrollPane1.setBounds(30, 282, 1100, 260);
 
         lblEnderecoRecente.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblEnderecoRecente.setText("Endereços Cadastrados Recentemente:");
@@ -283,14 +308,15 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBairroKeyReleased
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        if (verificarCampos()) {
-            DaoEndereco dao = new DaoEndereco();
-            Endereco end = new Endereco(txtCep.getText(), txtLogradouro.getText(), txtBairro.getText(), txtCidade.getText(), (String) cmbEstado.getSelectedItem());
-
+        if (validarCampos()) {
+            Endereco end = new Endereco(txtfCep.getText().replace("-", ""),
+                    txtLogradouro.getText(), txtBairro.getText(), txtCidade.getText(),
+                    (String) cmbEstado.getSelectedItem());
             try {
-                boolean aux = dao.cadastrarEndereco(end);
+                boolean aux = DaoEndereco.cadastrarEndereco(end);
                 if (aux) {
                     atualizarTabela(end);
+                    verificarCepExistente();
                 }
             } catch (Exception ex) {
                 JOptionPane.showConfirmDialog(null, "Erro ao cadastrar Endereço.\n\n " + ex.getMessage(), "Erro de cadastro.", JOptionPane.ERROR_MESSAGE);
@@ -307,10 +333,6 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         txtLogradouro.setText(TextSize.maxLenghtLogradouro(txtLogradouro.getText()));
     }//GEN-LAST:event_txtLogradouroKeyReleased
 
-    private void txtCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyReleased
-        txtCep.setText(TextSize.maxLenghtCep(txtCep.getText()));
-    }//GEN-LAST:event_txtCepKeyReleased
-
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
         control.Janelas.focarPrincipal();
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
@@ -319,84 +341,17 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         limpar();
     }//GEN-LAST:event_btnLimparActionPerformed
 
-    private void txtCepKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyPressed
-        validarCep();
-    }//GEN-LAST:event_txtCepKeyPressed
+    private void txtfCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfCepKeyReleased
+        verificarCepExistente();
+    }//GEN-LAST:event_txtfCepKeyReleased
 
-    private void txtCepFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCepFocusLost
-        validarCep();
-    }//GEN-LAST:event_txtCepFocusLost
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        verificarCepExistente();
+    }//GEN-LAST:event_formFocusGained
 
-    private void validarCep() {
-        if (txtCep.getText().length() != 0) {
-            try {
-                int aux = Integer.parseInt(txtCep.getText());
-            } catch (NumberFormatException ex) {
-                txtCep.setText(txtCep.getText().replaceAll("[^0-9]", ""));
-            }
-        }
-    }
-
-    private boolean verificarCampos() {
-        if (txtCep.getText().equals("") || txtBairro.getText().equals("") || txtCidade.getText().equals("") || txtLogradouro.equals("")) {
-            JOptionPane.showMessageDialog(null, "Campos em branco detectado.\nPreencha todos os campos para cadastrar um endereço.", "Erro - Campos em branco", 0);
-            return false;
-        } else if (txtCep.getText().length() < 8) {
-            JOptionPane.showMessageDialog(null, "CEP inválido - CEP informado é menor que 8 dígitos.", "Erro - CEP inválido", 0);
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    private void limpar() {
-        txtBairro.setText("");
-        txtCep.setText("");
-        txtCidade.setText("");
-        txtLogradouro.setText("");
-        cmbEstado.setSelectedIndex(0);
-    }
-
-    private void inicializarTabela() {
-        String[] nomeColunas = {"CEP", "Logradouro", "Bairro", "Cidade", "Estado", "PK_REF"};
-        try {
-            DefaultTableModel model = new DefaultTableModel() {
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    if (column == 6) {
-                        return false;
-                    }
-                    return true;
-                }
-            };
-            tblEnderecoRecente.setModel(model);
-            model.setColumnIdentifiers(nomeColunas);
-            model.setRowCount(0);
-
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao popular tabela de cadastros recentes.\n\n" + ex.getMessage(), "Erro ao popular tabela", 0);
-        }
-        tblEnderecoRecente.getColumnModel().getColumn(0).setMaxWidth(300);
-
-        tblEnderecoRecente.getColumnModel().getColumn(4).setMaxWidth(50);
-        tblEnderecoRecente.getColumnModel().getColumn(5).setMinWidth(0);
-        tblEnderecoRecente.getColumnModel().getColumn(5).setPreferredWidth(0);
-        tblEnderecoRecente.getColumnModel().getColumn(5).setMaxWidth(0);
-    }
-
-    private void atualizarTabela(Endereco end) {
-        Object rowData[] = new Object[6];
-
-        rowData[0] = end.getCep();
-        rowData[1] = end.getLogradouro();
-        rowData[2] = end.getBairro();
-        rowData[3] = end.getCidade();
-        rowData[4] = end.getEstado();
-        rowData[5] = end.getCep();
-        DefaultTableModel model = new DefaultTableModel();
-        model = (DefaultTableModel) tblEnderecoRecente.getModel();
-        model.addRow(rowData);
-    }
+    private void txtfCepFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfCepFocusLost
+        verificarCepExistente();
+    }//GEN-LAST:event_txtfCepFocusLost
 
     /**
      * @param args the command line arguments
@@ -446,14 +401,124 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblCep;
+    private javax.swing.JLabel lblCepExiste;
     private javax.swing.JLabel lblEnderecoRecente;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblLogradouro;
     private javax.swing.JLabel lblQuantidadePeca;
     private javax.swing.JTable tblEnderecoRecente;
     private javax.swing.JTextField txtBairro;
-    private javax.swing.JTextField txtCep;
     private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtLogradouro;
+    private javax.swing.JFormattedTextField txtfCep;
     // End of variables declaration//GEN-END:variables
+
+    private void verificarCepExistente() {
+        String aux = txtfCep.getText();
+        aux = aux.replace("-", "");
+        aux = aux.trim();
+        cepExiste = dao.DaoEndereco.existeEndereco(aux);
+        if (cepExiste) {
+            lblCepExiste.setText("CEP já cadastrado.");
+            lblCepExiste.setForeground(Color.red);
+        } else if (aux.length() == 8) {
+            lblCepExiste.setText("CEP Disponível.");
+            lblCepExiste.setForeground(Color.black);
+        } else {
+            lblCepExiste.setText("CEP Inválido.");
+            lblCepExiste.setForeground(Color.red);
+        }
+    }
+
+    private boolean validarCampos() {
+        if (txtfCep.getText().length() < 9) {
+            JOptionPane.showMessageDialog(null, "CEP Inválido. \n\bPreencha o campo de CEP corretamente, com 8 números.", "Erro - CPF Inválido", 0);
+            txtfCep.requestFocus();
+            return false;
+        } else if (txtfCep.getText().trim().length() < 9) {
+            JOptionPane.showMessageDialog(null, "CEP Inválido. \n\nPreencha o campo de CEP corretamente, com 8 dígitos.", "Erro - CPF Inválido", 0);
+            txtfCep.requestFocus();
+            return false;
+        } else if (cepExiste) {
+            JOptionPane.showMessageDialog(null, "CEP Inválido. \n\nO CEP informado já está cadastrado.", "Erro - CPF Inválido", 0);
+            txtfCep.requestFocus();
+            return false;
+        } else if (txtBairro.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Bairro em branco. \n\nInforme o nome do bairro.", "Erro - Bairro Inválido", 0);
+            txtBairro.requestFocus();
+            return false;
+        } else if (txtCidade.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Cidade em branco. \n\nInforme o nome da Cidade.", "Erro - Cidade Inválida", 0);
+            txtCidade.requestFocus();
+            return false;
+        } else if (txtLogradouro.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Logradouro em branco. \n\nInforme o nome da rua/avenida corretamente.", "Erro - Logradouro Inválido", 0);
+            txtBairro.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private void limpar() {
+        txtBairro.setText("");
+        txtfCep.setText("");
+        txtCidade.setText("");
+        txtLogradouro.setText("");
+        cmbEstado.setSelectedIndex(0);
+    }
+
+    private void inicializarTabela() {
+        String[] nomeColunas = {"CEP", "Logradouro", "Bairro", "Cidade", "Estado", "PK_REF"};
+        try {
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    if (column == 6) {
+                        return false;
+                    }
+                    return true;
+                }
+            };
+            tblEnderecoRecente.setModel(model);
+            model.setColumnIdentifiers(nomeColunas);
+            model.setRowCount(0);
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao popular tabela de cadastros recentes.\n\n" + ex.getMessage(), "Erro ao popular tabela", 0);
+        }
+        tblEnderecoRecente.getColumnModel().getColumn(0).setMaxWidth(300);
+
+        tblEnderecoRecente.getColumnModel().getColumn(4).setMaxWidth(50);
+        tblEnderecoRecente.getColumnModel().getColumn(5).setMinWidth(0);
+        tblEnderecoRecente.getColumnModel().getColumn(5).setPreferredWidth(0);
+        tblEnderecoRecente.getColumnModel().getColumn(5).setMaxWidth(0);
+    }
+
+    private void atualizarTabela(Endereco end) {
+        Object rowData[] = new Object[6];
+
+        rowData[0] = end.getCep();
+        rowData[1] = end.getLogradouro();
+        rowData[2] = end.getBairro();
+        rowData[3] = end.getCidade();
+        rowData[4] = end.getEstado();
+        rowData[5] = end.getCep();
+        DefaultTableModel model = new DefaultTableModel();
+        model = (DefaultTableModel) tblEnderecoRecente.getModel();
+        model.addRow(rowData);
+    }
+    private void selecionarAoFocar() {
+        //Código para selecionar o texto todo ao ganhar foco
+        txtfCep.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfCep.selectAll();
+                    }
+                });
+            }
+        });
+    }
 }

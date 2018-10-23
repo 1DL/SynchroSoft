@@ -245,8 +245,7 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
                                 .addGap(78, 78, 78)
                                 .addComponent(lblQuantidadeMinima, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtQuantidadeMinima, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(296, 296, 296))))
+                                .addComponent(txtQuantidadeMinima, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(114, 114, 114)
                         .addComponent(btnListarPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -312,7 +311,7 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblProdutoRecente);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(30, 320, 1100, 210);
+        jScrollPane1.setBounds(30, 320, 1100, 220);
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(lblBackground);

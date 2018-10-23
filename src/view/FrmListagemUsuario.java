@@ -303,8 +303,7 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
             model.setRowCount(0);
             Object rowData[] = new Object[4];
             for (int i = 0; i < lista.size(); i++) {
-                //rowData[0] = Integer.toString(lista.get(i).getCodigoUsuario());
-                rowData[0] = Integer.toString(lista.get(i).getCodigoFuncionario());
+                rowData[0] = lista.get(i).getCodigoFuncionario();
                 rowData[1] = lista.get(i).getLogin();
                 rowData[2] = lista.get(i).getSenha();             
                 rowData[3] = lista.get(i).getLogin();

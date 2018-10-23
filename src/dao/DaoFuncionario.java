@@ -139,28 +139,41 @@ public class DaoFuncionario {
 
     }
 
-    public static Funcionario popularFuncionario(String codigo) throws SQLException, ClassNotFoundException {
-        boolean flag;
-        Connection con = Conexao.conectar();
-        String sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE CD_FUNCIONARIO = ?";
-        PreparedStatement st = con.prepareStatement(sql);
-        st.setString(1, codigo);
-        ResultSet rs = st.executeQuery();
-        rs.next();
-        Funcionario func = new Funcionario();
-        func.setCodigoFuncionario(rs.getString("CD_FUNCIONARIO"));
-        Pessoa p = new Pessoa();
-        PessoaFisica pf = new PessoaFisica();
-        p.setNome(rs.getString("NM_FUNCIONARIO"));
-        pf.setPessoa(p);
-        pf.setCpf(rs.getString("CPF_FUNCIONARIO"));
-        func.setSalario(rs.getString("VL_SALARIO"));
-        func.setPessoa(p);
-        func.setFisica(pf);
-        func.setCargo(rs.getString("DS_CARGO"));
-        st.close();
-        rs.close();
-        return func;
+    public static Funcionario popularFuncionario(String codigo) {
+        try {
+            boolean flag;
+            Connection con = Conexao.conectar();
+            String sql = "SELECT * FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE CD_FUNCIONARIO = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, codigo);
+            ResultSet rs = st.executeQuery();
+            rs.next();
+            Funcionario func = new Funcionario();
+            func.setCodigoFuncionario(rs.getString("CD_FUNCIONARIO"));
+            Pessoa p = new Pessoa();
+            PessoaFisica pf = new PessoaFisica();
+            p.setNome(rs.getString("NM_FUNCIONARIO"));
+            pf.setPessoa(p);
+            pf.setCpf(rs.getString("CPF_FUNCIONARIO"));
+            pf.setSexoBanco(rs.getInt("ID_SEXO"));
+            func.setSalario(rs.getString("VL_SALARIO"));
+            func.setHorasTrabalhadas(rs.getString("NR_HORAS_TRABALHO"));
+            func.setNivelAdministrativoBanco(rs.getInt("ID_ADMINISTRATIVO"));
+            func.setPessoa(p);
+            func.setFisica(pf);
+            func.setCargo(rs.getString("DS_CARGO"));
+            st.close();
+            rs.close();
+            return func;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível popular o Funcionário.\n\nErro Nº:"
+                + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoFuncionario - Popular Funcionario", 0);
+            return null;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
     }
 
     public static boolean existeFuncionario(String codigo) {
@@ -184,7 +197,7 @@ public class DaoFuncionario {
             Logger.getLogger(DaoFuncionario.class.getName()).log(Level.SEVERE, null, ex);
             return flag;
         }
-        
+
     }
 
     public static ArrayList listarFuncionario() {
@@ -202,7 +215,7 @@ public class DaoFuncionario {
                 pessoa.setEndereco(end);
                 pessoa.setTelefone(rs.getString("NR_TELEFONE"));
                 pessoa.setComplementoLogradouro(rs.getString("NR_LOGRADOURO"));
-                
+
                 PessoaFisica pessoaFisica = new PessoaFisica();
                 pessoaFisica.setPessoa(pessoa);
                 pessoaFisica.setSexoBanco(rs.getInt("ID_SEXO"));
@@ -215,8 +228,8 @@ public class DaoFuncionario {
                 func.setSalario(rs.getString("VL_SALARIO"));
                 func.setCargo(rs.getString("DS_CARGO"));
                 func.setDataContratoBanco(rs.getDate("DT_ADMISSAO").toString());
-                try{
-                func.setDataDemissaoBanco(rs.getDate("DT_DEMISSAO").toString());
+                try {
+                    func.setDataDemissaoBanco(rs.getDate("DT_DEMISSAO").toString());
                 } catch (NullPointerException npe) {
                     func.setDataDemissao(func.getDataContrato());
                 }
@@ -328,7 +341,7 @@ public class DaoFuncionario {
                 pessoa.setEndereco(end);
                 pessoa.setTelefone(rs.getString("NR_TELEFONE"));
                 pessoa.setComplementoLogradouro(rs.getString("NR_LOGRADOURO"));
-                
+
                 PessoaFisica pessoaFisica = new PessoaFisica();
                 pessoaFisica.setPessoa(pessoa);
                 pessoaFisica.setSexoBanco(rs.getInt("ID_SEXO"));
@@ -341,8 +354,8 @@ public class DaoFuncionario {
                 func.setSalario(rs.getString("VL_SALARIO"));
                 func.setCargo(rs.getString("DS_CARGO"));
                 func.setDataContratoBanco(rs.getDate("DT_ADMISSAO").toString());
-                try{
-                func.setDataDemissaoBanco(rs.getDate("DT_DEMISSAO").toString());
+                try {
+                    func.setDataDemissaoBanco(rs.getDate("DT_DEMISSAO").toString());
                 } catch (NullPointerException npe) {
                     func.setDataDemissao(func.getDataContrato());
                 }

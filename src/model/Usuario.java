@@ -11,7 +11,7 @@ package model;
  */
 public class Usuario {
     
-    private int codigoFuncionario;
+    private String codigoFuncionario;
     private String login;
     private String senha;
     
@@ -20,7 +20,7 @@ public class Usuario {
         
     }
 
-    public Usuario(int codigoFuncionario, String login, String senha) {
+    public Usuario(String codigoFuncionario, String login, String senha) {
         this.codigoFuncionario = codigoFuncionario;
         this.login = login;
         this.senha = senha;
@@ -28,11 +28,11 @@ public class Usuario {
     
    
 
-    public int getCodigoFuncionario() {
+    public String getCodigoFuncionario() {
         return codigoFuncionario;
     }
 
-    public void setCodigoFuncionario(int codigoFuncionario) {
+    public void setCodigoFuncionario(String codigoFuncionario) {
         this.codigoFuncionario = codigoFuncionario;
     }
 

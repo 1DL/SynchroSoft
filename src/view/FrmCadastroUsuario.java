@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.Funcionario;
 import model.Usuario;
 
@@ -23,7 +24,7 @@ import model.Usuario;
  */
 public class FrmCadastroUsuario extends javax.swing.JFrame {
 
-    boolean flagFuncionario;
+    boolean funcionarioExiste;
 
     /**
      * Creates new form FrmCadastroUsuario
@@ -33,6 +34,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         if (nvlAdm == 0) {
             btnCadastrar.setEnabled(false);
         }
+        iniciarlizarTabela();
     }
 
     /**
@@ -44,10 +46,11 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        grupoSexoExib = new javax.swing.ButtonGroup();
         pnlDadosFuncionario = new javax.swing.JPanel();
         btnCadastrar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
-        lblFuncionario = new javax.swing.JLabel();
+        lblExisteFuncionario = new javax.swing.JLabel();
         btnListarFuncionarios = new javax.swing.JButton();
         panDadosFunc = new javax.swing.JPanel();
         txtNomeFuncionario = new javax.swing.JTextField();
@@ -58,17 +61,28 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblCargo = new javax.swing.JLabel();
         lblSalario = new javax.swing.JLabel();
         txtSalario = new javax.swing.JTextField();
+        lblSexo = new javax.swing.JLabel();
+        rbtMasculino = new javax.swing.JRadioButton();
+        rbtFeminino = new javax.swing.JRadioButton();
+        lblHorasMensais = new javax.swing.JLabel();
+        txtHorasMensais = new javax.swing.JTextField();
+        lblNivelAdm = new javax.swing.JLabel();
+        lblDescAdm = new javax.swing.JLabel();
         lblLogin = new javax.swing.JLabel();
         txtLogin = new javax.swing.JTextField();
         lblCodFuncionario = new javax.swing.JLabel();
         txtCodFuncionario = new javax.swing.JTextField();
         lblSenha = new javax.swing.JLabel();
         txtSenha = new javax.swing.JPasswordField();
-        lblSenha1 = new javax.swing.JLabel();
+        lblConfirmarSenha = new javax.swing.JLabel();
         txtConfirma = new javax.swing.JPasswordField();
         btnListarUsuarios = new javax.swing.JButton();
+        lblExisteLogin = new javax.swing.JLabel();
         btnMenuPrincipal = new javax.swing.JButton();
         btnFecharFrame = new javax.swing.JButton();
+        lblUsuarioRecente = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblUsuarioRecente = new javax.swing.JTable();
         lblBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -85,146 +99,207 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         pnlDadosFuncionario.setLayout(null);
 
         btnCadastrar.setText("Cadastrar");
+        btnCadastrar.setNextFocusableComponent(txtCodFuncionario);
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
             }
         });
         pnlDadosFuncionario.add(btnCadastrar);
-        btnCadastrar.setBounds(690, 150, 130, 30);
+        btnCadastrar.setBounds(690, 125, 130, 30);
 
         btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
         pnlDadosFuncionario.add(btnLimpar);
-        btnLimpar.setBounds(560, 150, 100, 30);
+        btnLimpar.setBounds(560, 125, 100, 30);
 
-        lblFuncionario.setForeground(new java.awt.Color(255, 0, 0));
-        lblFuncionario.setText("Funcionário inexistente.");
-        pnlDadosFuncionario.add(lblFuncionario);
-        lblFuncionario.setBounds(410, 20, 210, 14);
+        lblExisteFuncionario.setForeground(new java.awt.Color(255, 0, 0));
+        lblExisteFuncionario.setText("Funcionário inexistente.");
+        pnlDadosFuncionario.add(lblExisteFuncionario);
+        lblExisteFuncionario.setBounds(330, 16, 130, 14);
 
-        btnListarFuncionarios.setText("Listar Funcionários");
+        btnListarFuncionarios.setText("Listar Funcionários Cadastrados");
         btnListarFuncionarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnListarFuncionariosActionPerformed(evt);
             }
         });
         pnlDadosFuncionario.add(btnListarFuncionarios);
-        btnListarFuncionarios.setBounds(620, 10, 150, 30);
+        btnListarFuncionarios.setBounds(500, 7, 200, 30);
 
         panDadosFunc.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Funcionário"), "Dados do funcionário")));
         panDadosFunc.setOpaque(false);
         panDadosFunc.setLayout(null);
 
-        txtNomeFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtNomeFuncionario.setEditable(false);
         txtNomeFuncionario.setFocusable(false);
         panDadosFunc.add(txtNomeFuncionario);
-        txtNomeFuncionario.setBounds(150, 20, 256, 30);
+        txtNomeFuncionario.setBounds(180, 20, 316, 25);
 
         lblNomeFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblNomeFuncionario.setText("Nome:");
+        lblNomeFuncionario.setText("Nome");
         panDadosFunc.add(lblNomeFuncionario);
-        lblNomeFuncionario.setBounds(60, 20, 70, 25);
+        lblNomeFuncionario.setBounds(20, 20, 70, 25);
 
         lblCpf.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCpf.setText("CPF:");
+        lblCpf.setText("CPF");
         panDadosFunc.add(lblCpf);
-        lblCpf.setBounds(60, 80, 40, 25);
+        lblCpf.setBounds(550, 20, 40, 25);
 
-        txtCpf.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtCpf.setEditable(false);
         txtCpf.setFocusable(false);
         panDadosFunc.add(txtCpf);
-        txtCpf.setBounds(150, 80, 214, 30);
+        txtCpf.setBounds(630, 20, 130, 25);
 
-        txtCargo.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtCargo.setEditable(false);
         txtCargo.setFocusable(false);
         panDadosFunc.add(txtCargo);
-        txtCargo.setBounds(150, 130, 193, 30);
+        txtCargo.setBounds(180, 60, 316, 25);
 
         lblCargo.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCargo.setText("Cargo:");
+        lblCargo.setText("Cargo");
         panDadosFunc.add(lblCargo);
-        lblCargo.setBounds(60, 130, 70, 25);
+        lblCargo.setBounds(20, 60, 70, 25);
 
         lblSalario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblSalario.setText("Salário:");
+        lblSalario.setText("Salário");
         panDadosFunc.add(lblSalario);
-        lblSalario.setBounds(500, 50, 70, 25);
+        lblSalario.setBounds(790, 20, 70, 25);
 
-        txtSalario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtSalario.setEditable(false);
         txtSalario.setFocusable(false);
         panDadosFunc.add(txtSalario);
-        txtSalario.setBounds(590, 40, 170, 30);
+        txtSalario.setBounds(870, 20, 120, 25);
+
+        lblSexo.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblSexo.setText("Sexo");
+        panDadosFunc.add(lblSexo);
+        lblSexo.setBounds(550, 60, 39, 25);
+
+        grupoSexoExib.add(rbtMasculino);
+        rbtMasculino.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        rbtMasculino.setText("Masculino");
+        rbtMasculino.setEnabled(false);
+        rbtMasculino.setOpaque(false);
+        rbtMasculino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtMasculinoActionPerformed(evt);
+            }
+        });
+        panDadosFunc.add(rbtMasculino);
+        rbtMasculino.setBounds(610, 57, 107, 33);
+
+        grupoSexoExib.add(rbtFeminino);
+        rbtFeminino.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        rbtFeminino.setText("Feminino");
+        rbtFeminino.setEnabled(false);
+        rbtFeminino.setOpaque(false);
+        rbtFeminino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtFemininoActionPerformed(evt);
+            }
+        });
+        panDadosFunc.add(rbtFeminino);
+        rbtFeminino.setBounds(720, 57, 99, 33);
+
+        lblHorasMensais.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblHorasMensais.setText("Horas Mensais");
+        panDadosFunc.add(lblHorasMensais);
+        lblHorasMensais.setBounds(20, 100, 119, 25);
+
+        txtHorasMensais.setEditable(false);
+        panDadosFunc.add(txtHorasMensais);
+        txtHorasMensais.setBounds(180, 100, 140, 25);
+
+        lblNivelAdm.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblNivelAdm.setText("Nível Administrativo do Sistema:");
+        panDadosFunc.add(lblNivelAdm);
+        lblNivelAdm.setBounds(550, 100, 264, 25);
+
+        lblDescAdm.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblDescAdm.setText("-");
+        panDadosFunc.add(lblDescAdm);
+        lblDescAdm.setBounds(850, 100, 180, 25);
 
         pnlDadosFuncionario.add(panDadosFunc);
-        panDadosFunc.setBounds(30, 190, 1010, 200);
+        panDadosFunc.setBounds(10, 160, 1060, 140);
 
         lblLogin.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblLogin.setText("Login:");
+        lblLogin.setText("Login");
         pnlDadosFuncionario.add(lblLogin);
-        lblLogin.setBounds(20, 60, 60, 25);
+        lblLogin.setBounds(20, 50, 60, 25);
 
-        txtLogin.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtLogin.setNextFocusableComponent(txtSenha);
         txtLogin.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtLoginKeyReleased(evt);
             }
         });
         pnlDadosFuncionario.add(txtLogin);
-        txtLogin.setBounds(90, 60, 280, 30);
+        txtLogin.setBounds(190, 50, 316, 25);
 
         lblCodFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCodFuncionario.setText("Código do Funcionário:");
+        lblCodFuncionario.setText("Cód. do Funcionário");
         pnlDadosFuncionario.add(lblCodFuncionario);
-        lblCodFuncionario.setBounds(20, 10, 200, 25);
+        lblCodFuncionario.setBounds(20, 10, 170, 25);
 
-        txtCodFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtCodFuncionario.setNextFocusableComponent(txtLogin);
         txtCodFuncionario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCodFuncionarioKeyReleased(evt);
             }
         });
         pnlDadosFuncionario.add(txtCodFuncionario);
-        txtCodFuncionario.setBounds(230, 10, 170, 30);
+        txtCodFuncionario.setBounds(190, 10, 140, 25);
 
         lblSenha.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblSenha.setText("Senha:");
+        lblSenha.setText("Senha");
         pnlDadosFuncionario.add(lblSenha);
-        lblSenha.setBounds(470, 60, 60, 25);
+        lblSenha.setBounds(20, 90, 60, 25);
 
-        txtSenha.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtSenha.setNextFocusableComponent(txtConfirma);
         txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtSenhaKeyReleased(evt);
             }
         });
         pnlDadosFuncionario.add(txtSenha);
-        txtSenha.setBounds(570, 60, 250, 31);
+        txtSenha.setBounds(190, 90, 316, 25);
 
-        lblSenha1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblSenha1.setText("Confirmar:");
-        pnlDadosFuncionario.add(lblSenha1);
-        lblSenha1.setBounds(470, 110, 90, 25);
+        lblConfirmarSenha.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblConfirmarSenha.setText("Confirmar Senha");
+        pnlDadosFuncionario.add(lblConfirmarSenha);
+        lblConfirmarSenha.setBounds(560, 90, 140, 25);
 
-        txtConfirma.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        txtConfirma.setNextFocusableComponent(btnCadastrar);
         txtConfirma.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtConfirmaKeyReleased(evt);
             }
         });
         pnlDadosFuncionario.add(txtConfirma);
-        txtConfirma.setBounds(570, 110, 250, 31);
+        txtConfirma.setBounds(730, 90, 316, 25);
 
-        btnListarUsuarios.setText("Listar Usuários");
+        btnListarUsuarios.setText("Listar Usuários Cadastrados");
         btnListarUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnListarUsuariosActionPerformed(evt);
             }
         });
         pnlDadosFuncionario.add(btnListarUsuarios);
-        btnListarUsuarios.setBounds(80, 110, 200, 30);
+        btnListarUsuarios.setBounds(730, 47, 200, 30);
+
+        lblExisteLogin.setForeground(new java.awt.Color(255, 0, 0));
+        lblExisteLogin.setText("Login Inválido.");
+        pnlDadosFuncionario.add(lblExisteLogin);
+        lblExisteLogin.setBounds(510, 56, 130, 14);
 
         getContentPane().add(pnlDadosFuncionario);
-        pnlDadosFuncionario.setBounds(30, 30, 1100, 490);
+        pnlDadosFuncionario.setBounds(30, 30, 1100, 310);
         pnlDadosFuncionario.getAccessibleContext().setAccessibleName("Dados do funcionário");
 
         btnMenuPrincipal.setText("Menu Principal");
@@ -245,6 +320,27 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         getContentPane().add(btnFecharFrame);
         btnFecharFrame.setBounds(1050, 550, 80, 30);
 
+        lblUsuarioRecente.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblUsuarioRecente.setText("Usuários Cadastrados Recentemente:");
+        getContentPane().add(lblUsuarioRecente);
+        lblUsuarioRecente.setBounds(30, 340, 350, 25);
+
+        tblUsuarioRecente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblUsuarioRecente);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(30, 370, 1100, 170);
+
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(lblBackground);
         lblBackground.setBounds(0, -20, 1150, 650);
@@ -254,24 +350,15 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        try {
-            if (txtSenha.getText().trim().equals(txtConfirma.getText().trim())) {
-                DaoUsuario dao = new DaoUsuario();
-                Usuario user = new Usuario(Integer.parseInt(txtCodFuncionario.getText()), txtLogin.getText(), txtSenha.getText());
-                try {
-                    dao.cadastrarUsuario(user.getCodigoFuncionario(), user.getLogin(), user.getSenha());
-                    JOptionPane.showMessageDialog(null, "Cadastrado!");
-                } catch (SQLException ex) {
-                    Logger.getLogger(FrmCadastroDespesa.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(FrmCadastroDespesa.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Senha não corresponde à confirmação de senha!");
+       if (validarCampos()) {
+            Usuario usuario = new Usuario(txtCodFuncionario.getText(), txtLogin.getText(), 
+                txtSenha.getText());
+            boolean cadastroSucedido = dao.DaoUsuario.cadastrarUsuario(usuario);
+            if (cadastroSucedido) {
+                atualizarTabela(usuario, txtCodFuncionario.getText(), txtNomeFuncionario.getText());
+                popularDadosFuncionario();
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
-        }
+       }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnListarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarUsuariosActionPerformed
@@ -279,29 +366,8 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarUsuariosActionPerformed
 
     private void txtCodFuncionarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodFuncionarioKeyReleased
-         txtCodFuncionario.setText(TextSize.maxLenghtFuncionario(txtCodFuncionario.getText()));
-        Funcionario f = new Funcionario();
-        DaoFuncionario dao = new DaoFuncionario();
-        try {
-            flagFuncionario = DaoFuncionario.existeFuncionario(txtCodFuncionario.getText());
-            if (flagFuncionario) {
-                f = DaoFuncionario.popularFuncionario(txtCodFuncionario.getText());
-                lblFuncionario.setText("Funcionário encontrado.");
-                lblFuncionario.setForeground(Color.BLACK);
-                txtNomeFuncionario.setText(f.getPessoa().getNome());
-                txtCpf.setText(f.getFisica().getCpf());
-                txtCargo.setText(f.getCargo());
-                txtSalario.setText("" + f.getSalarioSTR());
-            } else {
-                limparCampoFuncionario();
-                flagFuncionario = false;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(FrmCadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrmCadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       
+        txtCodFuncionario.setText(TextSize.maxLenghtFuncionario(txtCodFuncionario.getText()));
+        popularDadosFuncionario();
     }//GEN-LAST:event_txtCodFuncionarioKeyReleased
 
     private void btnListarFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarFuncionariosActionPerformed
@@ -327,6 +393,18 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
     private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnFecharFrameActionPerformed
+
+    private void rbtMasculinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtMasculinoActionPerformed
+
+    }//GEN-LAST:event_rbtMasculinoActionPerformed
+
+    private void rbtFemininoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtFemininoActionPerformed
+
+    }//GEN-LAST:event_rbtFemininoActionPerformed
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        limpar();
+    }//GEN-LAST:event_btnLimparActionPerformed
 
     /**
      * @param args the command line arguments
@@ -363,14 +441,6 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         });
     }
 
-    private void limparCampoFuncionario() {
-        lblFuncionario.setText("Funcionário Inexistente.");
-        lblFuncionario.setForeground(Color.red);
-        txtNomeFuncionario.setText("");
-        txtCpf.setText("");
-        txtCargo.setText("");
-        txtSalario.setText("");
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
@@ -379,25 +449,149 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnListarFuncionarios;
     private javax.swing.JButton btnListarUsuarios;
     private javax.swing.JButton btnMenuPrincipal;
+    private javax.swing.ButtonGroup grupoSexoExib;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblCodFuncionario;
+    private javax.swing.JLabel lblConfirmarSenha;
     private javax.swing.JLabel lblCpf;
-    private javax.swing.JLabel lblFuncionario;
+    private javax.swing.JLabel lblDescAdm;
+    private javax.swing.JLabel lblExisteFuncionario;
+    private javax.swing.JLabel lblExisteLogin;
+    private javax.swing.JLabel lblHorasMensais;
     private javax.swing.JLabel lblLogin;
+    private javax.swing.JLabel lblNivelAdm;
     private javax.swing.JLabel lblNomeFuncionario;
     private javax.swing.JLabel lblSalario;
     private javax.swing.JLabel lblSenha;
-    private javax.swing.JLabel lblSenha1;
+    private javax.swing.JLabel lblSexo;
+    private javax.swing.JLabel lblUsuarioRecente;
     private javax.swing.JPanel panDadosFunc;
     private javax.swing.JPanel pnlDadosFuncionario;
+    private javax.swing.JRadioButton rbtFeminino;
+    private javax.swing.JRadioButton rbtMasculino;
+    private javax.swing.JTable tblUsuarioRecente;
     private javax.swing.JTextField txtCargo;
     private javax.swing.JTextField txtCodFuncionario;
     private javax.swing.JPasswordField txtConfirma;
     private javax.swing.JTextField txtCpf;
+    private javax.swing.JTextField txtHorasMensais;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JTextField txtNomeFuncionario;
     private javax.swing.JTextField txtSalario;
     private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
+
+    private void limparCampoFuncionario() {
+        lblExisteFuncionario.setText("Funcionário Inexistente.");
+        lblExisteFuncionario.setForeground(Color.red);
+        txtNomeFuncionario.setText("");
+        txtCpf.setText("");
+        txtCargo.setText("");
+        txtSalario.setText("");
+        txtHorasMensais.setText("");
+        rbtFeminino.setSelected(false);
+        rbtMasculino.setSelected(false);
+        lblDescAdm.setText("-");
+    }
+
+    private void iniciarlizarTabela() {
+        String[] nomeColunas = {"Código Funcionario", "Nome", "Login"};
+        try {
+            DefaultTableModel model = new DefaultTableModel();
+            tblUsuarioRecente.setModel(model);
+            model.setColumnIdentifiers(nomeColunas);
+            model.setRowCount(0);
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao popular tabela.\n\n" + ex.getMessage(), "Erro de população de tabela", 0);
+        }
+
+    }
+
+    private void atualizarTabela(Usuario usuario, String codigo, String nome) {
+        Object rowData[] = new Object[4];
+
+        rowData[0] = codigo;
+        rowData[1] = nome;
+        rowData[2] = usuario.getLogin();
+
+        DefaultTableModel model = new DefaultTableModel();
+        model = (DefaultTableModel) tblUsuarioRecente.getModel();
+        model.addRow(rowData);
+    }
+
+    private void limpar() {
+        txtCodFuncionario.setText("");
+        limparCampoFuncionario();
+        lblExisteFuncionario.setText("Código Inválido.");
+        lblExisteFuncionario.setForeground(Color.red);
+        txtLogin.setText("");
+        txtSenha.setText("");
+        txtConfirma.setText("");
+    }
+
+    private void popularDadosFuncionario() {
+        Funcionario func = new Funcionario();
+
+        this.funcionarioExiste = DaoFuncionario.existeFuncionario(txtCodFuncionario.getText());
+        if (this.funcionarioExiste) {
+            func = DaoFuncionario.popularFuncionario(txtCodFuncionario.getText());
+            lblExisteFuncionario.setText("Funcionário encontrado.");
+            lblExisteFuncionario.setForeground(Color.BLACK);
+            txtNomeFuncionario.setText(func.getPessoa().getNome());
+            txtCpf.setText(func.getFisica().getCpf());
+            txtCargo.setText(func.getCargo());
+            txtSalario.setText("" + func.getSalarioSTR());
+            txtHorasMensais.setText("" + func.getHorasTrabalhadas());
+            if (func.getFisica().getSexoBanco() == 0) {
+                rbtMasculino.setSelected(true);
+                rbtFeminino.setSelected(false);
+            } else {
+                rbtFeminino.setSelected(true);
+                rbtMasculino.setSelected(false);
+            }
+            lblDescAdm.setText(func.getNivelAdministrativo());
+        } else {
+            limparCampoFuncionario();
+            this.funcionarioExiste = false;
+        }
+    }
+    
+    private boolean validarCampos(){
+        if (txtLogin.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Login em branco. "
+                    + "\n\nInforme o Login a ser utilizado pelo Usuário.", 
+                    "Erro - Login Inválido", 0);
+            txtLogin.requestFocus();
+            return false;
+        } else if (txtSenha.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Senha em branco. "
+                    + "\n\nInforme a Senha a ser utilizada pelo Usuário.", 
+                    "Erro - Senha Inválida", 0);
+            txtSenha.requestFocus();
+            return false;
+        } else if (txtConfirma.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Confirmação da senha em branco. "
+                    + "\n\nInforme a confirmação da Senha igual ao campo de Senha informado.", 
+                    "Erro - Confirmação de Senha Inválida", 0);
+            txtConfirma.requestFocus();
+            return false;
+        } else if (!funcionarioExiste) {
+            JOptionPane.showMessageDialog(null, "Funcionário inválido. "
+                    + "\n\nInforme o Código de Funcionário existente", "Erro - Código de Funcionário inválido", 0);
+            txtConfirma.requestFocus();
+            return false;
+        } else if (!txtConfirma.getText().equals(txtSenha.getText())) {
+            JOptionPane.showMessageDialog(null, "A Confirmação da Senha está diferente da Senha informada. "
+                    + "\n\nInforme a confirmação da Senha igual ao campo de Senha informado.", 
+                    "Erro - Razão Social Inválido", 0);
+            txtSenha.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }

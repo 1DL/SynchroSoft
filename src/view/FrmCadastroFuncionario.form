@@ -98,7 +98,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="lblCodigoFuncionario" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                  <Component id="txtCodigoFuncionario" min="-2" pref="99" max="-2" attributes="0"/>
+                                  <Component id="txtCodigoFuncionario" min="-2" pref="100" max="-2" attributes="0"/>
                                   <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                                   <Component id="lblCodigoExiste" min="-2" pref="151" max="-2" attributes="0"/>
                                   <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
@@ -706,6 +706,9 @@
         </Container>
         <Component class="javax.swing.JLabel" name="lblCodigoExiste">
           <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" id="red" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="C&#xf3;digo inv&#xe1;lido."/>
           </Properties>
         </Component>

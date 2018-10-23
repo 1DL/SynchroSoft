@@ -117,7 +117,6 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         lblNome = new javax.swing.JLabel();
         txtNomePessoaFicticio = new javax.swing.JTextField();
         lblCep = new javax.swing.JLabel();
-        txtCep = new javax.swing.JTextField();
         lblCepExiste = new javax.swing.JLabel();
         btnCadastrarCep = new javax.swing.JButton();
         txtNumeroLogradouro = new javax.swing.JTextField();
@@ -140,6 +139,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         txtfCpfCnpj = new javax.swing.JFormattedTextField();
         lblCpfExiste = new javax.swing.JLabel();
         btnListarPessoa1 = new javax.swing.JButton();
+        txtfCep = new javax.swing.JFormattedTextField();
         btnMenuPrincipal = new javax.swing.JButton();
         btnFecharFrame = new javax.swing.JButton();
         lblPessoaRecente = new javax.swing.JLabel();
@@ -299,17 +299,9 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         lblCep.setText("CEP");
         jPanel1.add(lblCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 140, -1));
 
-        txtCep.setNextFocusableComponent(lblNumeroLogradouro);
-        txtCep.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCepKeyReleased(evt);
-            }
-        });
-        jPanel1.add(txtCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 146, 25));
-
         lblCepExiste.setForeground(java.awt.Color.red);
         lblCepExiste.setText("Cep Inválido.");
-        jPanel1.add(lblCepExiste, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 97, 90, -1));
+        jPanel1.add(lblCepExiste, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 97, 90, -1));
 
         btnCadastrarCep.setText("Cadastrar");
         btnCadastrarCep.addActionListener(new java.awt.event.ActionListener() {
@@ -464,6 +456,23 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         });
         jPanel1.add(btnListarPessoa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 170, 180, 30));
 
+        try {
+            txtfCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtfCep.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtfCepFocusLost(evt);
+            }
+        });
+        txtfCep.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfCepKeyReleased(evt);
+            }
+        });
+        jPanel1.add(txtfCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 127, 25));
+
         getContentPane().add(jPanel1);
         jPanel1.setBounds(30, 30, 1100, 320);
 
@@ -534,7 +543,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         if (rbtFisica.isSelected()) {
             if (validarFisica()) {
                 Endereco end = new Endereco();
-                end = DaoEndereco.popularEndereco(txtCep.getText());
+                end = DaoEndereco.popularEndereco(txtfCep.getText());
 
                 Pessoa pessoa = new Pessoa(txtNomePessoaFicticio.getText(), end, txtTelefone.getText(), txtNumeroLogradouro.getText(), rbtSimCadastro.isSelected());
                 PessoaFisica fisica = new PessoaFisica(pessoa, txtfCpfCnpj.getText(), txtfDataCadastro.getText(), txtCelRamal.getText(), rbtMasculino.isSelected());
@@ -549,7 +558,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
 
             if (validarJuridica()) {
                 Endereco end = new Endereco();
-                end = DaoEndereco.popularEndereco(txtCep.getText());
+                end = DaoEndereco.popularEndereco(txtfCep.getText());
 
                 Pessoa pessoa = new Pessoa(txtNomePessoaFicticio.getText(), end, txtTelefone.getText(), txtNumeroLogradouro.getText(), rbtSimCadastro.isSelected());
                 PessoaJuridica juridica = new PessoaJuridica(pessoa, txtfCpfCnpj.getText(), txtRazaoSocial.getText(), txtfDataCadastro.getText(), txtCelRamal.getText());
@@ -588,13 +597,8 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumeroLogradouroActionPerformed
 
     private void btnCadastrarCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCepActionPerformed
-        control.Janelas.abrirCadastroEndereco();
+        control.Janelas.abrirCadastroEnderecoParametrizada(txtfCep.getText().replace("-", ""));
     }//GEN-LAST:event_btnCadastrarCepActionPerformed
-
-    private void txtCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyReleased
-        txtCep.setText(TextSize.maxLenghtCep(txtCep.getText()));
-        popularDadosCep();
-    }//GEN-LAST:event_txtCepKeyReleased
 
     private void txtNomePessoaFicticioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomePessoaFicticioKeyReleased
         txtNomePessoaFicticio.setText(TextSize.maxLenghtNomeRazao(txtNomePessoaFicticio.getText()));
@@ -641,6 +645,14 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnListarPessoa1ActionPerformed
 
+    private void txtfCepFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfCepFocusLost
+        popularDadosCep();
+    }//GEN-LAST:event_txtfCepFocusLost
+
+    private void txtfCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfCepKeyReleased
+        popularDadosCep();
+    }//GEN-LAST:event_txtfCepKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -676,6 +688,63 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
             }
         });
     }
+
+    
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Bairro;
+    private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnCadastrarCep;
+    private javax.swing.JButton btnFecharFrame;
+    private javax.swing.JButton btnHoje;
+    private javax.swing.JButton btnLimpar;
+    private javax.swing.JButton btnListarPessoa1;
+    private javax.swing.JButton btnMenuPrincipal;
+    private javax.swing.ButtonGroup grupoCadastro;
+    private javax.swing.ButtonGroup grupoSexo;
+    private javax.swing.ButtonGroup grupoTipoPessoa;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblBackground;
+    private javax.swing.JLabel lblCelRamal;
+    private javax.swing.JLabel lblCep;
+    private javax.swing.JLabel lblCepExiste;
+    private javax.swing.JLabel lblCidade;
+    private javax.swing.JLabel lblCpfCnpj;
+    private javax.swing.JLabel lblCpfExiste;
+    private javax.swing.JLabel lblDataCadastro;
+    private javax.swing.JLabel lblEstado;
+    private javax.swing.JLabel lblLogradouro;
+    private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblNumeroLogradouro;
+    private javax.swing.JLabel lblPessoaRecente;
+    private javax.swing.JLabel lblRazaoSocial;
+    private javax.swing.JLabel lblSexo;
+    private javax.swing.JLabel lblTelefone;
+    private javax.swing.JLabel lblTipoPessoa;
+    private javax.swing.JLabel lblTipoPessoa1;
+    private javax.swing.JRadioButton rbtFeminino;
+    private javax.swing.JRadioButton rbtFisica;
+    private javax.swing.JRadioButton rbtJuridica;
+    private javax.swing.JRadioButton rbtMasculino;
+    private javax.swing.JRadioButton rbtNaoCadastro;
+    private javax.swing.JRadioButton rbtSimCadastro;
+    private javax.swing.JTable tblPessoaRecente;
+    private javax.swing.JTextField txtBairro;
+    private javax.swing.JTextField txtCelRamal;
+    private javax.swing.JTextField txtCidade;
+    private javax.swing.JTextField txtEstado;
+    private javax.swing.JTextField txtLogradouro;
+    private javax.swing.JTextField txtNomePessoaFicticio;
+    private javax.swing.JTextField txtNumeroLogradouro;
+    private javax.swing.JTextField txtRazaoSocial;
+    private javax.swing.JTextField txtTelefone;
+    private javax.swing.JFormattedTextField txtfCep;
+    private javax.swing.JFormattedTextField txtfCpfCnpj;
+    private javax.swing.JFormattedTextField txtfDataCadastro;
+    // End of variables declaration//GEN-END:variables
 
     public void modoFisica() {
         lblCpfCnpj.setText("CPF");
@@ -722,7 +791,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     private void limpar() {
         txtBairro.setText("");
         txtCelRamal.setText("");
-        txtCep.setText("");
+        txtfCep.setText("");
         txtCidade.setText("");
         txtfCpfCnpj.setText("");
         txtEstado.setText("");
@@ -738,18 +807,18 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     }
 
     private void popularDadosCep() {
-        if ((txtCep.getText().length() < 8) || (txtCep.getText().length() > 8)) {
+        if ((txtfCep.getText().length() < 9) || (txtfCep.getText().length() > 9)) {
             lblCepExiste.setText("Cep Inválido.");
             lblCepExiste.setForeground(Color.red);
             limparExibicaoEndereco();
         } else {
-
-            this.cepCadastrado = dao.DaoEndereco.existeEndereco(txtCep.getText());
+            String cep = txtfCep.getText().replace("-", "");
+            this.cepCadastrado = dao.DaoEndereco.existeEndereco(cep);
             if (cepCadastrado) {
                 lblCepExiste.setText("CEP Cadastrado.");
                 lblCepExiste.setForeground(Color.black);
                 Endereco end = new Endereco();
-                end = dao.DaoEndereco.popularEndereco(txtCep.getText());
+                end = dao.DaoEndereco.popularEndereco(txtfCep.getText());
                 popularExibicaoEndereco(end);
             } else {
                 lblCepExiste.setText("CEP Inexistente.");
@@ -818,62 +887,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
             return true;
         }
     }
-
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Bairro;
-    private javax.swing.JButton btnCadastrar;
-    private javax.swing.JButton btnCadastrarCep;
-    private javax.swing.JButton btnFecharFrame;
-    private javax.swing.JButton btnHoje;
-    private javax.swing.JButton btnLimpar;
-    private javax.swing.JButton btnListarPessoa1;
-    private javax.swing.JButton btnMenuPrincipal;
-    private javax.swing.ButtonGroup grupoCadastro;
-    private javax.swing.ButtonGroup grupoSexo;
-    private javax.swing.ButtonGroup grupoTipoPessoa;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblBackground;
-    private javax.swing.JLabel lblCelRamal;
-    private javax.swing.JLabel lblCep;
-    private javax.swing.JLabel lblCepExiste;
-    private javax.swing.JLabel lblCidade;
-    private javax.swing.JLabel lblCpfCnpj;
-    private javax.swing.JLabel lblCpfExiste;
-    private javax.swing.JLabel lblDataCadastro;
-    private javax.swing.JLabel lblEstado;
-    private javax.swing.JLabel lblLogradouro;
-    private javax.swing.JLabel lblNome;
-    private javax.swing.JLabel lblNumeroLogradouro;
-    private javax.swing.JLabel lblPessoaRecente;
-    private javax.swing.JLabel lblRazaoSocial;
-    private javax.swing.JLabel lblSexo;
-    private javax.swing.JLabel lblTelefone;
-    private javax.swing.JLabel lblTipoPessoa;
-    private javax.swing.JLabel lblTipoPessoa1;
-    private javax.swing.JRadioButton rbtFeminino;
-    private javax.swing.JRadioButton rbtFisica;
-    private javax.swing.JRadioButton rbtJuridica;
-    private javax.swing.JRadioButton rbtMasculino;
-    private javax.swing.JRadioButton rbtNaoCadastro;
-    private javax.swing.JRadioButton rbtSimCadastro;
-    private javax.swing.JTable tblPessoaRecente;
-    private javax.swing.JTextField txtBairro;
-    private javax.swing.JTextField txtCelRamal;
-    private javax.swing.JTextField txtCep;
-    private javax.swing.JTextField txtCidade;
-    private javax.swing.JTextField txtEstado;
-    private javax.swing.JTextField txtLogradouro;
-    private javax.swing.JTextField txtNomePessoaFicticio;
-    private javax.swing.JTextField txtNumeroLogradouro;
-    private javax.swing.JTextField txtRazaoSocial;
-    private javax.swing.JTextField txtTelefone;
-    private javax.swing.JFormattedTextField txtfCpfCnpj;
-    private javax.swing.JFormattedTextField txtfDataCadastro;
-    // End of variables declaration//GEN-END:variables
-
+    
     private void selecionarAoFocar() {
         //Código para selecionar o texto todo ao ganhar foco
         txtfDataCadastro.addFocusListener(new java.awt.event.FocusAdapter() {

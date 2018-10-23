@@ -438,6 +438,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        lblCodigoExiste.setForeground(java.awt.Color.red);
         lblCodigoExiste.setText("Código inválido.");
 
         txtfSalario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
@@ -501,7 +502,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                                 .addContainerGap()
                                 .addComponent(lblCodigoFuncionario)
                                 .addGap(10, 10, 10)
-                                .addComponent(txtCodigoFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCodigoFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(10, 10, 10)
                                 .addComponent(lblCodigoExiste, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(4, 4, 4)
@@ -794,7 +795,66 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
 
     }
 
-    void limpar() {
+    
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Bairro;
+    private javax.swing.JLabel Bairro1;
+    private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnCadastrarPessoa;
+    private javax.swing.JButton btnFecharFrame1;
+    private javax.swing.JButton btnHoje;
+    private javax.swing.JButton btnLimpar;
+    private javax.swing.JButton btnListarFuncionarios;
+    private javax.swing.JButton btnMenuPrincipal1;
+    private javax.swing.ButtonGroup grupoNivelADM;
+    private javax.swing.ButtonGroup grupoSexoExib;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblBackground;
+    private javax.swing.JLabel lblCargo;
+    private javax.swing.JLabel lblCelular;
+    private javax.swing.JLabel lblCep;
+    private javax.swing.JLabel lblCidade;
+    private javax.swing.JLabel lblCodigoExiste;
+    private javax.swing.JLabel lblCodigoFuncionario;
+    private javax.swing.JLabel lblCpf;
+    private javax.swing.JLabel lblCpfExiste;
+    private javax.swing.JLabel lblDataAdmissao;
+    private javax.swing.JLabel lblEstado;
+    private javax.swing.JLabel lblFuncionarioRecente;
+    private javax.swing.JLabel lblHorasTrabalhadas;
+    private javax.swing.JLabel lblLogradouro;
+    private javax.swing.JLabel lblNivelAdm;
+    private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblSalario;
+    private javax.swing.JLabel lblSexo;
+    private javax.swing.JLabel lblTelefone;
+    private javax.swing.JPanel panDadosPessoa;
+    private javax.swing.JPanel panPrincipal;
+    private javax.swing.JRadioButton rbtCompleto;
+    private javax.swing.JRadioButton rbtFeminino;
+    private javax.swing.JRadioButton rbtMasculino;
+    private javax.swing.JRadioButton rbtVisualizacao;
+    private javax.swing.JTable tblFuncionarioRecente;
+    private javax.swing.JTextField txtBairro;
+    private javax.swing.JTextField txtCargo;
+    private javax.swing.JTextField txtCelular;
+    private javax.swing.JTextField txtCep;
+    private javax.swing.JTextField txtCidade;
+    private javax.swing.JTextField txtCodigoFuncionario;
+    private javax.swing.JTextField txtCpf;
+    private javax.swing.JTextField txtEstado;
+    private javax.swing.JTextField txtLogradouro;
+    private javax.swing.JTextField txtNomePessoa;
+    private javax.swing.JTextField txtNumero;
+    private javax.swing.JTextField txtTelefone;
+    private javax.swing.JFormattedTextField txtfDataAdmissao;
+    private javax.swing.JFormattedTextField txtfHoras;
+    private javax.swing.JFormattedTextField txtfSalario;
+    // End of variables declaration//GEN-END:variables
+
+    private void limpar() {
         txtCodigoFuncionario.setText("");
         txtCpf.setText("");
         txtCargo.setText("");
@@ -917,64 +977,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
             }
         });
     }
-
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Bairro;
-    private javax.swing.JLabel Bairro1;
-    private javax.swing.JButton btnCadastrar;
-    private javax.swing.JButton btnCadastrarPessoa;
-    private javax.swing.JButton btnFecharFrame1;
-    private javax.swing.JButton btnHoje;
-    private javax.swing.JButton btnLimpar;
-    private javax.swing.JButton btnListarFuncionarios;
-    private javax.swing.JButton btnMenuPrincipal1;
-    private javax.swing.ButtonGroup grupoNivelADM;
-    private javax.swing.ButtonGroup grupoSexoExib;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblBackground;
-    private javax.swing.JLabel lblCargo;
-    private javax.swing.JLabel lblCelular;
-    private javax.swing.JLabel lblCep;
-    private javax.swing.JLabel lblCidade;
-    private javax.swing.JLabel lblCodigoExiste;
-    private javax.swing.JLabel lblCodigoFuncionario;
-    private javax.swing.JLabel lblCpf;
-    private javax.swing.JLabel lblCpfExiste;
-    private javax.swing.JLabel lblDataAdmissao;
-    private javax.swing.JLabel lblEstado;
-    private javax.swing.JLabel lblFuncionarioRecente;
-    private javax.swing.JLabel lblHorasTrabalhadas;
-    private javax.swing.JLabel lblLogradouro;
-    private javax.swing.JLabel lblNivelAdm;
-    private javax.swing.JLabel lblNome;
-    private javax.swing.JLabel lblSalario;
-    private javax.swing.JLabel lblSexo;
-    private javax.swing.JLabel lblTelefone;
-    private javax.swing.JPanel panDadosPessoa;
-    private javax.swing.JPanel panPrincipal;
-    private javax.swing.JRadioButton rbtCompleto;
-    private javax.swing.JRadioButton rbtFeminino;
-    private javax.swing.JRadioButton rbtMasculino;
-    private javax.swing.JRadioButton rbtVisualizacao;
-    private javax.swing.JTable tblFuncionarioRecente;
-    private javax.swing.JTextField txtBairro;
-    private javax.swing.JTextField txtCargo;
-    private javax.swing.JTextField txtCelular;
-    private javax.swing.JTextField txtCep;
-    private javax.swing.JTextField txtCidade;
-    private javax.swing.JTextField txtCodigoFuncionario;
-    private javax.swing.JTextField txtCpf;
-    private javax.swing.JTextField txtEstado;
-    private javax.swing.JTextField txtLogradouro;
-    private javax.swing.JTextField txtNomePessoa;
-    private javax.swing.JTextField txtNumero;
-    private javax.swing.JTextField txtTelefone;
-    private javax.swing.JFormattedTextField txtfDataAdmissao;
-    private javax.swing.JFormattedTextField txtfHoras;
-    private javax.swing.JFormattedTextField txtfSalario;
-    // End of variables declaration//GEN-END:variables
-
+    
     private void verificarCpfExiste() {
         if ((txtCpf.getText().length() < 11) || (txtCpf.getText().length() > 11)) {
             lblCpfExiste.setText("CPF Inválido.");
@@ -995,4 +998,6 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
             }
         }
     }
+    
+    
 }

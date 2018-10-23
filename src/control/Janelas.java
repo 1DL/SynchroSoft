@@ -135,6 +135,13 @@ public class Janelas {
         acessoTelas.get(6).setAcesso(acessoTelas.get(6).getAcesso() + 1);
         LeitorArquivo.escreverArquivoJanelas();
     }
+    
+    public static void abrirCadastroEnderecoParametrizada(String cep) {
+        FrmCadastroEndereco telaCadEnd = new FrmCadastroEndereco(SynchroSoft.getNvlAdm(), cep);
+        telaCadEnd.setVisible(true);
+        acessoTelas.get(6).setAcesso(acessoTelas.get(6).getAcesso() + 1);
+        LeitorArquivo.escreverArquivoJanelas();
+    }
 
     //Telas de Listagem
     public static void abrirListagemServico() {
