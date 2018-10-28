@@ -84,6 +84,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menu_funcionario">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/img/25x25.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Funcion&#xe1;rio"/>
                 <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="control.SynchroSoft.isAcesso()" type="code"/>

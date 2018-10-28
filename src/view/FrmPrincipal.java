@@ -257,6 +257,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menu_cadastro.add(menu_produto);
 
+        menu_funcionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/25x25.png"))); // NOI18N
         menu_funcionario.setText("Funcionário");
         menu_funcionario.setEnabled(control.SynchroSoft.isAcesso());
         menu_funcionario.addActionListener(new java.awt.event.ActionListener() {
