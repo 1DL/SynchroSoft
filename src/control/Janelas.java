@@ -6,9 +6,12 @@
 package control;
 
 import java.awt.Frame;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import view.FrmCadastroDespesa;
 import view.FrmCadastroEndereco;
@@ -52,7 +55,7 @@ public class Janelas {
     public static void fecharTodasJanelas() {
         for (Frame fr : Frame.getFrames()) {
             if (fr.getClass().getName().equals("view.FrmPrincipal")) {
-                
+
             } else {
                 fr.dispose();
                 fr = null;
@@ -135,7 +138,7 @@ public class Janelas {
         acessoTelas.get(6).setAcesso(acessoTelas.get(6).getAcesso() + 1);
         LeitorArquivo.escreverArquivoJanelas();
     }
-    
+
     public static void abrirCadastroEnderecoParametrizada(String cep) {
         FrmCadastroEndereco telaCadEnd = new FrmCadastroEndereco(SynchroSoft.getNvlAdm(), cep);
         telaCadEnd.setVisible(true);
@@ -230,6 +233,49 @@ public class Janelas {
     public static void abrirSobre() {
         FrmSobre telaSobre = new FrmSobre();
         telaSobre.setVisible(true);
+    }
+
+    public static String setIconeMaisAcessada(String jan) {
+        switch (jan) {
+            case "J00":
+                return "/icone/cadastro_ordemdeservico.png";
+            case "J01":
+                return "/icone/cadastro_pessoa.png";
+            case "J02":
+                return "/icone/cadastro_produto.png";
+            case "J03":
+                return "/icone/cadastro_funcionario.png";
+            case "J04":
+                return "/icone/cadastro_despesa.png";
+            case "J05":
+                return "/icone/cadastro_usuario.png";
+            case "J06":
+                return "/icone/cadastro_endereco.png";
+            case "J07":
+                return "/icone/listagem_ordemdeservico.png";
+            case "J08":
+                return "/icone/listagem_pessoafisica.png";
+            case "J09":
+                return "/icone/listagem_pessoajuridica.png";
+            case "J10":
+                return "/icone/listagem_produto.png";
+            case "J11":
+                return "/icone/listagem_funcionario.png";
+            case "J12":
+                return "/icone/listagem_despesa.png";
+            case "J13":
+                return "/icone/listagem_usuario.png";
+            case "J14":
+                return "/icone/listagem_endereco.png";
+            case "J15":
+                return "/icone/venda_produto.png";
+            case "J16":
+                return "/icone/relatorio_ordemdeservico.png";
+            case "J17":
+                return "/icone/relatorio_despesa.png";
+            default:
+                return "/icone/ajuda_sobre.png";
+        }
     }
 
     public static String abrirMaisAcessada(String jan, boolean flag) {

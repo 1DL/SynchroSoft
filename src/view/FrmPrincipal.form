@@ -11,6 +11,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menu_logoff">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icone/sistema_logoff.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Fazer Log-off"/>
               </Properties>
               <Events>
@@ -19,6 +22,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menu_fecharJanelas">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icone/sistema_fecharjanelas.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Fechar todas as janelas"/>
               </Properties>
               <Events>
@@ -27,6 +33,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menu_sairSistema">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icone/sistema_sairdosistema.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Sair do sistema"/>
               </Properties>
               <Events>
@@ -43,7 +52,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="menu_os">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/img/logopng16.png"/>
+                  <Image iconType="3" name="/icone/cadastro_ordemdeservico.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Ordem de Servi&#xe7;o"/>
                 <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -57,7 +66,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="menu_pessoa">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/img/logopng64.png"/>
+                  <Image iconType="3" name="/icone/cadastro_pessoa.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Pessoa F&#xed;sica ou Jur&#xed;dica"/>
                 <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -71,7 +80,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="menu_produto">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/img/logopng32.png"/>
+                  <Image iconType="3" name="/icone/cadastro_produto.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Produto"/>
                 <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -85,7 +94,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="menu_funcionario">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/img/25x25.png"/>
+                  <Image iconType="3" name="/icone/cadastro_funcionario.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Funcion&#xe1;rio"/>
                 <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -98,6 +107,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menu_despesa">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icone/cadastro_despesa.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Despesa"/>
                 <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="control.SynchroSoft.isAcesso()" type="code"/>
@@ -109,6 +121,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menu_usuario">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icone/cadastro_usuario.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Usu&#xe1;rio"/>
                 <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="control.SynchroSoft.isAcesso()" type="code"/>
@@ -120,6 +135,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menu_endereco">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icone/cadastro_endereco.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Endere&#xe7;o"/>
                 <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="control.SynchroSoft.isAcesso()" type="code"/>
@@ -138,6 +156,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menu_listaOrdemServico">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icone/listagem_ordemdeservico.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Ordem de Servi&#xe7;o"/>
               </Properties>
               <Events>
@@ -146,6 +167,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menu_listaPessoaF">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icone/listagem_pessoafisica.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Pessoa F&#xed;sica"/>
               </Properties>
               <Events>
@@ -154,6 +178,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menu_listaPessoaJ">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icone/listagem_pessoajuridica.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Pessoa Jur&#xed;dica"/>
               </Properties>
               <Events>
@@ -162,6 +189,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menu_listaProduto">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icone/listagem_produto.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Produto"/>
               </Properties>
               <Events>
@@ -170,6 +200,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menu_listaFuncionario">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icone/listagem_funcionario.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Funcion&#xe1;rio"/>
               </Properties>
               <Events>
@@ -178,6 +211,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menu_listaDespesa">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icone/listagem_despesa.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Despesa"/>
               </Properties>
               <Events>
@@ -186,6 +222,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menu_listaUsuario">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icone/listagem_usuario.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Usu&#xe1;rio"/>
               </Properties>
               <Events>
@@ -194,6 +233,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menu_listaEndereco">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icone/listagem_endereco.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Endere&#xe7;o"/>
               </Properties>
               <Events>
@@ -209,6 +251,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menu_vendaPeca">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icone/venda_produto.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Pe&#xe7;as e Produtos"/>
               </Properties>
               <Events>
@@ -224,6 +269,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menu_relatorioOS">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icone/relatorio_ordemdeservico.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Ordens de Servi&#xe7;o"/>
               </Properties>
               <Events>
@@ -232,6 +280,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menu_relatorioDespesa">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icone/relatorio_despesa.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Despesas"/>
               </Properties>
             </MenuItem>
@@ -244,6 +295,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menu_sobre">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icone/ajuda_sobre.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Sobre"/>
               </Properties>
               <Events>
@@ -334,8 +388,8 @@
     </Component>
     <Component class="javax.swing.JButton" name="btn_janMaisAcessada1">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/img/logopng32.png"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.ImageIcon(getClass().getResource(control.Janelas.setIconeMaisAcessada(maisAcessadas.get(0).getNome())))" type="code"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="control.Janelas.abrirMaisAcessada(maisAcessadas.get(0).getNome(), false)&#xd;&#xa;" type="code"/>
@@ -352,6 +406,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btn_janMaisAcessada2">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.ImageIcon(getClass().getResource(control.Janelas.setIconeMaisAcessada(maisAcessadas.get(1).getNome())))" type="code"/>
+        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="control.Janelas.abrirMaisAcessada(maisAcessadas.get(1).getNome(), false)&#xd;&#xa;" type="code"/>
         </Property>
@@ -367,6 +424,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btn_janMaisAcessada3">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.ImageIcon(getClass().getResource(control.Janelas.setIconeMaisAcessada(maisAcessadas.get(2).getNome())))" type="code"/>
+        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="control.Janelas.abrirMaisAcessada(maisAcessadas.get(2).getNome(), false)&#xd;&#xa;" type="code"/>
         </Property>
@@ -382,6 +442,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btn_janMaisAcessada4">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.ImageIcon(getClass().getResource(control.Janelas.setIconeMaisAcessada(maisAcessadas.get(3).getNome())))" type="code"/>
+        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="control.Janelas.abrirMaisAcessada(maisAcessadas.get(3).getNome(), false)&#xd;&#xa;" type="code"/>
         </Property>
@@ -397,6 +460,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btn_janMaisAcessada5">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.ImageIcon(getClass().getResource(control.Janelas.setIconeMaisAcessada(maisAcessadas.get(4).getNome())))" type="code"/>
+        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="control.Janelas.abrirMaisAcessada(maisAcessadas.get(4).getNome(), false)&#xd;&#xa;" type="code"/>
         </Property>
@@ -412,6 +478,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btn_janMaisAcessada6">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.ImageIcon(getClass().getResource(control.Janelas.setIconeMaisAcessada(maisAcessadas.get(5).getNome())))" type="code"/>
+        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="control.Janelas.abrirMaisAcessada(maisAcessadas.get(5).getNome(), false)&#xd;&#xa;" type="code"/>
         </Property>
