@@ -137,7 +137,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         txtfDataCadastro = new javax.swing.JFormattedTextField();
         btnHoje = new javax.swing.JButton();
         txtfCpfCnpj = new javax.swing.JFormattedTextField();
-        lblCpfExiste = new javax.swing.JLabel();
+        lblCpfCnpjExiste = new javax.swing.JLabel();
         btnListarPessoa1 = new javax.swing.JButton();
         txtfCep = new javax.swing.JFormattedTextField();
         btnMenuPrincipal = new javax.swing.JButton();
@@ -444,17 +444,17 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         });
         jPanel1.add(txtfCpfCnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 50, 120, 25));
 
-        lblCpfExiste.setForeground(java.awt.Color.red);
-        lblCpfExiste.setText("CPF Inválido.");
-        jPanel1.add(lblCpfExiste, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 57, 190, -1));
+        lblCpfCnpjExiste.setForeground(java.awt.Color.red);
+        lblCpfCnpjExiste.setText("CPF Inválido.");
+        jPanel1.add(lblCpfCnpjExiste, new org.netbeans.lib.awtextra.AbsoluteConstraints(852, 57, 190, -1));
 
-        btnListarPessoa1.setText("Listar Pessoas Cadastradas");
+        btnListarPessoa1.setText("Listar Pessoas");
         btnListarPessoa1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnListarPessoa1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnListarPessoa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 170, 180, 30));
+        jPanel1.add(btnListarPessoa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 47, 110, 30));
 
         try {
             txtfCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
@@ -543,7 +543,10 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         if (rbtFisica.isSelected()) {
             if (validarFisica()) {
                 Endereco end = new Endereco();
-                end = DaoEndereco.popularEndereco(txtfCep.getText());
+                String cep = txtfCep.getText();
+                cep = cep.replace("-", "");
+                cep = cep.trim();
+                end = DaoEndereco.popularEndereco(cep);
 
                 Pessoa pessoa = new Pessoa(txtNomePessoaFicticio.getText(), end, txtTelefone.getText(), txtNumeroLogradouro.getText(), rbtSimCadastro.isSelected());
                 PessoaFisica fisica = new PessoaFisica(pessoa, txtfCpfCnpj.getText(), txtfDataCadastro.getText(), txtCelRamal.getText(), rbtMasculino.isSelected());
@@ -642,7 +645,11 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_txtfCpfCnpjKeyReleased
 
     private void btnListarPessoa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarPessoa1ActionPerformed
-        // TODO add your handling code here:
+        if (rbtFisica.isSelected()) {
+            control.Janelas.abrirListagemPessoaFisica();
+        } else {
+            control.Janelas.abrirListagemPessoaJuridica();
+        }
     }//GEN-LAST:event_btnListarPessoa1ActionPerformed
 
     private void txtfCepFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfCepFocusLost
@@ -689,8 +696,6 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         });
     }
 
-    
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Bairro;
@@ -713,7 +718,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     private javax.swing.JLabel lblCepExiste;
     private javax.swing.JLabel lblCidade;
     private javax.swing.JLabel lblCpfCnpj;
-    private javax.swing.JLabel lblCpfExiste;
+    private javax.swing.JLabel lblCpfCnpjExiste;
     private javax.swing.JLabel lblDataCadastro;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblLogradouro;
@@ -800,6 +805,13 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         txtNumeroLogradouro.setText("");
         txtRazaoSocial.setText("");
         txtTelefone.setText("");
+        existeCPFCNPJ = false;
+        if (rbtFisica.isSelected()) {
+            lblCpfCnpjExiste.setText("CPF Inválido.");
+        } else {
+            lblCpfCnpjExiste.setText("CNPJ Inválido.");
+        }
+        lblCpfCnpjExiste.setForeground(Color.red);
         cepCadastrado = false;
         lblCepExiste.setText("CEP Inválido.");
         lblCepExiste.setForeground(Color.red);
@@ -807,18 +819,20 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     }
 
     private void popularDadosCep() {
-        if ((txtfCep.getText().length() < 9) || (txtfCep.getText().length() > 9)) {
+        String cep = txtfCep.getText();
+        cep = cep.replace("-", "");
+        cep = cep.trim();
+        if ((cep.length() < 8) || (cep.length() > 8)) {
             lblCepExiste.setText("Cep Inválido.");
             lblCepExiste.setForeground(Color.red);
             limparExibicaoEndereco();
         } else {
-            String cep = txtfCep.getText().replace("-", "");
             this.cepCadastrado = dao.DaoEndereco.existeEndereco(cep);
             if (cepCadastrado) {
                 lblCepExiste.setText("CEP Cadastrado.");
                 lblCepExiste.setForeground(Color.black);
                 Endereco end = new Endereco();
-                end = dao.DaoEndereco.popularEndereco(txtfCep.getText());
+                end = dao.DaoEndereco.popularEndereco(cep);
                 popularExibicaoEndereco(end);
             } else {
                 lblCepExiste.setText("CEP Inexistente.");
@@ -833,25 +847,25 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     }
 
     private boolean validarFisica() {
-        if (txtfCpfCnpj.getText().length() < 11) {
+        if (txtNomePessoaFicticio.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Nome em branco. \nDigite um nome para a pessoa física.", "Erro - Nome Inválido", 0);
+            txtNomePessoaFicticio.requestFocus();
+            return false;
+        } else if (txtfCpfCnpj.getText().length() < 11) {
             JOptionPane.showMessageDialog(null, "CPF Inválido. Digite 11 dígitos, sem pontos ou hífens.", "Erro - CPF Inválido", 0);
             txtfCpfCnpj.requestFocus();
             return false;
-        } else if (txtNomePessoaFicticio.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Nome em branco. \nDigite um nome para a pessoa física.", "Erro - Nome Inválido", 0);
-            txtNomePessoaFicticio.requestFocus();
+        } else if (existeCPFCNPJ) {
+            JOptionPane.showMessageDialog(null, "CPF inválido. Verifique se o CPF está correto e se já não existe um mesmo CPF cadastrado.", "Erro - CPF Inválido", 0);
+            txtfCpfCnpj.requestFocus();
+            return false;
+        } else if (!cepCadastrado) {
+            JOptionPane.showMessageDialog(null, "CEP inválido. Verifique se o CEP informado está correto ou se ele já está cadastrado.", "Erro - CEP Inválido", 0);
+            txtfCpfCnpj.requestFocus();
             return false;
         } else if (txtNumeroLogradouro.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Número do logradouro em branco. \nDigite o número e/ou complemento do logradouro.", "Erro - Nº Logradouro Inválido", 0);
             txtNumeroLogradouro.requestFocus();
-            return false;
-        } else if (existeCPFCNPJ) {
-            JOptionPane.showMessageDialog(null, "CPF inválido. Verifique se o CPF está correto e se já não existe um mesmo CPF cadastrado.", "Erro - CNPJ Inválido", 0);
-            txtfCpfCnpj.requestFocus();
-            return false;
-        } else if (!cepCadastrado) {
-            JOptionPane.showMessageDialog(null, "CEP inválido. Verifique se o CEP informado está correto ou se ele já está cadastrado.", "Erro - CNPJ Inválido", 0);
-            txtfCpfCnpj.requestFocus();
             return false;
         } else {
             return true;
@@ -859,21 +873,13 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     }
 
     private boolean validarJuridica() {
-        if (txtfCpfCnpj.getText().length() < 14) {
-            JOptionPane.showMessageDialog(null, "CNPJ Inválido. Digite 14 dígitos, sem pontos ou hífens.", "Erro - CNPJ Inválido", 0);
-            txtfCpfCnpj.requestFocus();
-            return false;
-        } else if (txtNomePessoaFicticio.getText().equals("")) {
+        if (txtNomePessoaFicticio.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Nome Fictício em branco. \nDigite um nome para a pessoa jurídica.", "Erro - Nome Fictício Inválido", 0);
             txtNomePessoaFicticio.requestFocus();
             return false;
-        } else if (txtNumeroLogradouro.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Número do logradouro em branco. \nDigite o número e/ou complemento do logradouro.", "Erro - Nº Logradouro Inválido", 0);
-            txtNumeroLogradouro.requestFocus();
-            return false;
-        } else if (txtRazaoSocial.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Razão social em branco. \nDigite a razão social para a pessoa jurídica.", "Erro - Razão Social Inválido", 0);
-            txtRazaoSocial.requestFocus();
+        } else if (txtfCpfCnpj.getText().length() < 14) {
+            JOptionPane.showMessageDialog(null, "CNPJ Inválido. Digite 14 dígitos, sem pontos ou hífens.", "Erro - CNPJ Inválido", 0);
+            txtfCpfCnpj.requestFocus();
             return false;
         } else if (existeCPFCNPJ) {
             JOptionPane.showMessageDialog(null, "CNPJ inválido. Verifique se o CNPJ está correto e se já não existe um mesmo CNPJ cadastrado.", "Erro - CNPJ Inválido", 0);
@@ -883,11 +889,19 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "CEP inválido. Verifique se o CEP informado está correto ou se ele já está cadastrado.", "Erro - CNPJ Inválido", 0);
             txtfCpfCnpj.requestFocus();
             return false;
+        } else if (txtNumeroLogradouro.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Número do logradouro em branco. \nDigite o número e/ou complemento do logradouro.", "Erro - Nº Logradouro Inválido", 0);
+            txtNumeroLogradouro.requestFocus();
+            return false;
+        } else if (txtRazaoSocial.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Razão social em branco. \nDigite a razão social para a pessoa jurídica.", "Erro - Razão Social Inválido", 0);
+            txtRazaoSocial.requestFocus();
+            return false;
         } else {
             return true;
         }
     }
-    
+
     private void selecionarAoFocar() {
         //Código para selecionar o texto todo ao ganhar foco
         txtfDataCadastro.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -920,38 +934,38 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     private void verificarCpfCnpjEmUso() {
         if (rbtFisica.isSelected()) {
             if ((txtfCpfCnpj.getText().length() < 11) || (txtfCpfCnpj.getText().length() > 11)) {
-                lblCpfExiste.setText("CPF Inválido.");
-                lblCpfExiste.setForeground(Color.red);
+                lblCpfCnpjExiste.setText("CPF Inválido.");
+                lblCpfCnpjExiste.setForeground(Color.red);
             } else {
                 this.existeCPFCNPJ = dao.DaoPessoa.existePessoaFisica(txtfCpfCnpj.getText());
                 if (existeCPFCNPJ) {
-                    lblCpfExiste.setText("CPF já Cadastrado.");
-                    lblCpfExiste.setForeground(Color.red);
+                    lblCpfCnpjExiste.setText("CPF já Cadastrado.");
+                    lblCpfCnpjExiste.setForeground(Color.red);
                 } else {
-                    lblCpfExiste.setText("CPF livre.");
-                    lblCpfExiste.setForeground(Color.black);
+                    lblCpfCnpjExiste.setText("CPF livre.");
+                    lblCpfCnpjExiste.setForeground(Color.black);
                 }
             }
         } else {
             if ((txtfCpfCnpj.getText().length() < 14)) {
-                lblCpfExiste.setText("CNPJ Inválido.");
-                lblCpfExiste.setForeground(Color.red);
+                lblCpfCnpjExiste.setText("CNPJ Inválido.");
+                lblCpfCnpjExiste.setForeground(Color.red);
             } else {
                 this.existeCPFCNPJ = dao.DaoPessoa.existePessoaJuridica(txtfCpfCnpj.getText());
                 if (existeCPFCNPJ) {
-                    lblCpfExiste.setText("CNPJ já Cadastrado.");
-                    lblCpfExiste.setForeground(Color.red);
+                    lblCpfCnpjExiste.setText("CNPJ já Cadastrado.");
+                    lblCpfCnpjExiste.setForeground(Color.red);
                 } else {
-                    lblCpfExiste.setText("CNPJ livre.");
-                    lblCpfExiste.setForeground(Color.black);
+                    lblCpfCnpjExiste.setText("CNPJ livre.");
+                    lblCpfCnpjExiste.setForeground(Color.black);
                 }
             }
         }
     }
-    
-    private void inicializarTabela(){
-        String[] nomeColunas = {"Tipo", "Contratado?","Data Cadastro", "Nome/Fictício", 
-            "CPF/CNPJ", "CEP", "Nº Logradouro", "Sexo", "Telefone", "Celular/Ramal", 
+
+    private void inicializarTabela() {
+        String[] nomeColunas = {"Tipo", "Contratado?", "Data Cadastro", "Nome/Fictício",
+            "CPF/CNPJ", "CEP", "Nº Logradouro", "Sexo", "Telefone", "Celular/Ramal",
             "Razão Social"};
         try {
             DefaultTableModel model = new DefaultTableModel();
@@ -963,10 +977,10 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao popular tabela.\n\n" + ex.getMessage(), "Erro de população de tabela", 0);
         }
     }
-    
-    private void atualizarTabela(PessoaFisica fisica, PessoaJuridica juridica, boolean tipoPessoa){
+
+    private void atualizarTabela(PessoaFisica fisica, PessoaJuridica juridica, boolean tipoPessoa) {
         Object rowData[] = new Object[11];
-        
+
         if (tipoPessoa) {
             rowData[0] = "Física";
             rowData[1] = fisica.getPessoa().getManterContratoSTR();
@@ -992,12 +1006,11 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
             rowData[9] = juridica.getRamalCliente();
             rowData[10] = juridica.getRazaoSocial();
         }
-        
-        
+
         DefaultTableModel model = new DefaultTableModel();
         model = (DefaultTableModel) tblPessoaRecente.getModel();
         model.addRow(rowData);
-        
+
     }
 
 }

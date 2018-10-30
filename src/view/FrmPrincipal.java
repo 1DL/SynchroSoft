@@ -56,8 +56,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         lblBackground = new javax.swing.JLabel();
         menu = new javax.swing.JMenuBar();
         menu_sistema = new javax.swing.JMenu();
-        menu_logoff = new javax.swing.JMenuItem();
         menu_fecharJanelas = new javax.swing.JMenuItem();
+        menu_logoff = new javax.swing.JMenuItem();
         menu_sairSistema = new javax.swing.JMenuItem();
         menu_cadastro = new javax.swing.JMenu();
         menu_os = new javax.swing.JMenuItem();
@@ -204,15 +204,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menu_sistema.setText("Sistema");
 
-        menu_logoff.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/sistema_logoff.png"))); // NOI18N
-        menu_logoff.setText("Fazer Log-off");
-        menu_logoff.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menu_logoffActionPerformed(evt);
-            }
-        });
-        menu_sistema.add(menu_logoff);
-
         menu_fecharJanelas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/sistema_fecharjanelas.png"))); // NOI18N
         menu_fecharJanelas.setText("Fechar todas as janelas");
         menu_fecharJanelas.addActionListener(new java.awt.event.ActionListener() {
@@ -221,6 +212,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         menu_sistema.add(menu_fecharJanelas);
+
+        menu_logoff.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/sistema_logoff.png"))); // NOI18N
+        menu_logoff.setText("Fazer Log-off");
+        menu_logoff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_logoffActionPerformed(evt);
+            }
+        });
+        menu_sistema.add(menu_logoff);
 
         menu_sairSistema.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/sistema_sairdosistema.png"))); // NOI18N
         menu_sairSistema.setText("Sair do sistema");
@@ -383,6 +383,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menu.add(menu_listagem);
 
+        menu_vendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/menu_venda.png"))); // NOI18N
         menu_vendas.setText("Vendas");
 
         menu_vendaPeca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/venda_produto.png"))); // NOI18N
@@ -396,6 +397,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menu.add(menu_vendas);
 
+        menu_relatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/menu_relatorio.png"))); // NOI18N
         menu_relatorio.setText("Relatórios");
 
         menu_relatorioOS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/relatorio_ordemdeservico.png"))); // NOI18N
@@ -413,6 +415,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menu.add(menu_relatorio);
 
+        menu_ajuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/menu_ajuda.png"))); // NOI18N
         menu_ajuda.setText("Ajuda");
 
         menu_sobre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/ajuda_sobre.png"))); // NOI18N

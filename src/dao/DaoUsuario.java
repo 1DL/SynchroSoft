@@ -21,7 +21,7 @@ import model.Usuario;
  * @author Luiz
  */
 public class DaoUsuario {
-    
+
     public static boolean cadastrarUsuario(Usuario usuario) {
         try {
             Connection con = Conexao.conectar();
@@ -41,105 +41,127 @@ public class DaoUsuario {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-        } 
+        }
     }
+
     /**
-     * Método de conexão do sistema com o Banco de dados.
-     * O funcionário deverá inserir seu login e senha.
+     * Método de conexão do sistema com o Banco de dados. O funcionário deverá
+     * inserir seu login e senha.
+     *
      * @param login String
      * @param senha String
-     * @return 0 - caso a conexão seja bem sucedida.
-     * 1 - caso o login e/ou senha estão errados.
-     * 2 - caso os parâmetros do banco de dados estejam errados.
+     * @return 0 - caso a conexão seja bem sucedida. 1 - caso o login e/ou senha
+     * estão errados. 2 - caso os parâmetros do banco de dados estejam errados.
      */
-    public static int ChecarLogin(String login, String senha)
-    {
+    public static int ChecarLogin(String login, String senha) {
         //criando variável booleana de controle
         boolean existe = false;
         int retorno = 1;
         String codFuncionario;
-        
+
         //estrutura try/catch para tratamento de erro
-        try
-        {
+        try {
             //chamada de conexão com o banco
             Connection con = Conexao.conectar();
-            
+
             //Criando string de query para realizar verificação de existencia do login
             String sql = "SELECT CD_FUNCIONARIO, CD_USUARIO, DS_SENHA FROM SYNCHROSOFT.TB_USUARIO WHERE CD_USUARIO = ? AND DS_SENHA = ?";
-            
+
             //Criando estrutura do preparedStatement, evitar sql inject
             PreparedStatement st = con.prepareStatement(sql);
-            
+
             //Realizando passagem por parâmetro da condicional da query
             st.setString(1, login);
             st.setString(2, senha);
-            
+
             //Executando linha de comando
             ResultSet rs = st.executeQuery();
-            
+
             //Executando verificação de existencia de resultado da query
-            while(rs.next())
-            {
-                if (login.equals(rs.getString("CD_USUARIO")))
-                {
-                        if(senha.equals(rs.getString("DS_SENHA")))
-                        {
-                            existe = true;
-                            codFuncionario = rs.getString("CD_FUNCIONARIO");
-                            logarUsuario(existe, codFuncionario);
-                            retorno = 0;
-                        }
+            while (rs.next()) {
+                if (login.equals(rs.getString("CD_USUARIO"))) {
+                    if (senha.equals(rs.getString("DS_SENHA"))) {
+                        existe = true;
+                        codFuncionario = rs.getString("CD_FUNCIONARIO");
+                        logarUsuario(existe, codFuncionario);
+                        retorno = 0;
+                    }
                 }
             }
-            
+
             st.close();
             rs.close();
-            
-            
-        }
-        catch(Exception ex)
-        {
+
+        } catch (Exception ex) {
             retorno = 2;
             System.out.println("Erro: " + ex.getMessage());
         }
-        
+
         return retorno;
     }
-    
+
     public static void logarUsuario(boolean existe, String codigoFuncionario) {
         if (existe) {
             try {
                 Connection con = Conexao.conectar();
-                String sql = "SELECT cd_funcionario, nm_funcionario, id_administrativo FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE cd_funcionario = ?";
+                String sql = "SELECT cd_funcionario, nm_funcionario, id_administrativo "
+                        + "FROM SYNCHROSOFT.TB_FUNCIONARIO "
+                        + "WHERE cd_funcionario = ?";
                 PreparedStatement st = con.prepareStatement(sql);
-                
+
                 st.setString(1, codigoFuncionario);
-                        
+
                 ResultSet rs = st.executeQuery();
                 rs.next();
-                
+
                 control.SynchroSoft.setCodFunc(rs.getString("cd_funcionario"));
                 control.SynchroSoft.setNomeUsuario(rs.getString("nm_funcionario"));
                 control.SynchroSoft.setNvlAdm(rs.getInt("id_administrativo"));
-                
+
                 st.close();
                 rs.close();
             } catch (SQLException ex) {
-                JOptionPane.showConfirmDialog(null, "Erro ao acessar dados de usuário no banco de dados.\n\nErro Nº"+ex.getErrorCode()+""
-                        + "\n"+ex.getMessage(),
+                JOptionPane.showConfirmDialog(null, "Erro ao acessar dados de usuário no banco de dados.\n\nErro Nº" + ex.getErrorCode() + ""
+                        + "\n" + ex.getMessage(),
                         "Erro de Banco de Dados - DaoUsuario Logar Usuario", 0);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }        
+        }
     }
-    
-     public static ArrayList listarUsuario() {
+
+    public static boolean existeLogin(String login) {
+        boolean flag;
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "SELECT CD_USUARIO "
+                    + "FROM SYNCHROSOFT.TB_USUARIO "
+                    + "WHERE CD_USUARIO = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, login);            
+            ResultSet rs = st.executeQuery();
+            flag = rs.isBeforeFirst();
+            st.close();
+            rs.close();
+            return flag;
+        } catch (SQLException ex) {
+            JOptionPane.showConfirmDialog(null, "Erro ao verificar se o Login já existe.\n\nErro Nº" + ex.getErrorCode() + ""
+                        + "\n" + ex.getMessage(),
+                        "Erro: DaoUsuario - Existe Login", 0);
+            return false;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    public static ArrayList listarUsuario() {
         ArrayList<Usuario> lista = new ArrayList<>();
         try {
             Connection con = Conexao.conectar();
-            String sql = "SELECT * FROM SYNCHROSOFT.TB_USUARIO ORDER BY CD_USUARIO";
+            String sql = "SELECT * "
+                    + "FROM SYNCHROSOFT.TB_USUARIO "
+                    + "ORDER BY CD_USUARIO";
             PreparedStatement st = con.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -153,16 +175,17 @@ public class DaoUsuario {
             st.close();
             rs.close();
         } catch (Exception ex) {
-            JOptionPane.showConfirmDialog(null, "Erro ao acessar dados de usuário no banco de dados.\n\n"+ex.getMessage(),
-                        "Erro de Banco de Dados - DaoUsuario Listagem", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showConfirmDialog(null, "Erro ao acessar dados de usuário no banco de dados.\n\n" + ex.getMessage(),
+                    "Erro de Banco de Dados - DaoUsuario Listagem", JOptionPane.ERROR_MESSAGE);
         }
         return lista;
     }
-     
-     public static void deletarUsuario(String login) throws SQLException, ClassNotFoundException {
+
+    public static void deletarUsuario(String login) throws SQLException, ClassNotFoundException {
         try {
             Connection con = Conexao.conectar();
-            String sql = "DELETE FROM SYNCHROSOFT.TB_USUARIO WHERE CD_USUARIO = ?";
+            String sql = "DELETE FROM SYNCHROSOFT.TB_USUARIO "
+                    + "WHERE CD_USUARIO = ?";
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, login);
             st.executeUpdate();
@@ -172,8 +195,8 @@ public class DaoUsuario {
             JOptionPane.showMessageDialog(null, "Não foi possível remover usuário.\nErro:\n\n" + ex.getMessage());
         }
     }
-     
-      public static void alterarUsuario(JTable tabela) throws SQLException, ClassNotFoundException {
+
+    public static void alterarUsuario(JTable tabela) throws SQLException, ClassNotFoundException {
         try {
             int rows = tabela.getRowCount();
             String log = "";
@@ -208,8 +231,8 @@ public class DaoUsuario {
         }
 
     }
-      
-      public static ArrayList listarUsuarioFiltrada(String cmbFiltro, String txtPesquisa) {
+
+    public static ArrayList listarUsuarioFiltrada(String cmbFiltro, String txtPesquisa) {
         ArrayList<Usuario> lista = new ArrayList<>();
         try {
             Connection con = Conexao.conectar();
@@ -250,5 +273,5 @@ Código", "Funcionário", "Login", "Senha
         }
         return lista;
     }
-    
+
 }

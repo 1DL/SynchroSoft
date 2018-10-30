@@ -9,17 +9,6 @@
             <Property name="text" type="java.lang.String" value="Sistema"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="menu_logoff">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/icone/sistema_logoff.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Fazer Log-off"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menu_logoffActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menu_fecharJanelas">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -29,6 +18,17 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menu_fecharJanelasActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menu_logoff">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icone/sistema_logoff.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Fazer Log-off"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menu_logoffActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menu_sairSistema">
@@ -246,6 +246,9 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menu_vendas">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/icone/menu_venda.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Vendas"/>
           </Properties>
           <SubComponents>
@@ -264,6 +267,9 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menu_relatorio">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/icone/menu_relatorio.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Relat&#xf3;rios"/>
           </Properties>
           <SubComponents>
@@ -290,6 +296,9 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menu_ajuda">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/icone/menu_ajuda.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Ajuda"/>
           </Properties>
           <SubComponents>

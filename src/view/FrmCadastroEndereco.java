@@ -33,7 +33,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         }
         selecionarAoFocar();
     }
-    
+
     public FrmCadastroEndereco(int nvlAdm, String cep) {
         initComponents();
         inicializarTabela();
@@ -443,16 +443,16 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "CEP Inválido. \n\nO CEP informado já está cadastrado.", "Erro - CPF Inválido", 0);
             txtfCep.requestFocus();
             return false;
-        } else if (txtBairro.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Bairro em branco. \n\nInforme o nome do bairro.", "Erro - Bairro Inválido", 0);
-            txtBairro.requestFocus();
+        } else if (txtLogradouro.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Logradouro em branco. \n\nInforme o nome da rua/avenida corretamente.", "Erro - Logradouro Inválido", 0);
+            txtLogradouro.requestFocus();
             return false;
         } else if (txtCidade.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Cidade em branco. \n\nInforme o nome da Cidade.", "Erro - Cidade Inválida", 0);
             txtCidade.requestFocus();
             return false;
-        } else if (txtLogradouro.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Logradouro em branco. \n\nInforme o nome da rua/avenida corretamente.", "Erro - Logradouro Inválido", 0);
+        } else if (txtBairro.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Bairro em branco. \n\nInforme o nome do bairro.", "Erro - Bairro Inválido", 0);
             txtBairro.requestFocus();
             return false;
         } else {
@@ -466,6 +466,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         txtCidade.setText("");
         txtLogradouro.setText("");
         cmbEstado.setSelectedIndex(0);
+        verificarCepExistente();
     }
 
     private void inicializarTabela() {
@@ -508,6 +509,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         model = (DefaultTableModel) tblEnderecoRecente.getModel();
         model.addRow(rowData);
     }
+
     private void selecionarAoFocar() {
         //Código para selecionar o texto todo ao ganhar foco
         txtfCep.addFocusListener(new java.awt.event.FocusAdapter() {
