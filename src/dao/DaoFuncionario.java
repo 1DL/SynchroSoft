@@ -211,7 +211,7 @@ public class DaoFuncionario {
                 Endereco end = new Endereco();
                 end.setCep(rs.getString("CD_CEP"));
                 Pessoa pessoa = new Pessoa();
-                pessoa.setNome("NM_FUNCIONARIO");
+                pessoa.setNome(rs.getString("NM_FUNCIONARIO"));
                 pessoa.setEndereco(end);
                 pessoa.setTelefone(rs.getString("NR_TELEFONE"));
                 pessoa.setComplementoLogradouro(rs.getString("NR_LOGRADOURO"));

@@ -65,7 +65,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         if (nvlAdm == 0) {
             btnCadastrar.setEnabled(false);
         }
-        
+
         selecionarAoFocar();
 
     }
@@ -115,11 +115,10 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         Bairro1 = new javax.swing.JLabel();
         txtNumero = new javax.swing.JTextField();
         txtCelular = new javax.swing.JTextField();
-        rbtFeminino = new javax.swing.JRadioButton();
-        rbtMasculino = new javax.swing.JRadioButton();
-        lblSexo = new javax.swing.JLabel();
+        lblSexoDesc = new javax.swing.JLabel();
         lblCep = new javax.swing.JLabel();
         txtCep = new javax.swing.JTextField();
+        lblSexoValor = new javax.swing.JLabel();
         lblCodigoExiste = new javax.swing.JLabel();
         txtfSalario = new javax.swing.JFormattedTextField();
         txtfHoras = new javax.swing.JFormattedTextField();
@@ -152,11 +151,6 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         lblCpf.setText("CPF");
 
         txtCpf.setNextFocusableComponent(txtCargo);
-        txtCpf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCpfActionPerformed(evt);
-            }
-        });
         txtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCpfKeyReleased(evt);
@@ -297,35 +291,16 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
 
         txtCelular.setEditable(false);
 
-        grupoSexoExib.add(rbtFeminino);
-        rbtFeminino.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        rbtFeminino.setText("Feminino");
-        rbtFeminino.setEnabled(false);
-        rbtFeminino.setOpaque(false);
-        rbtFeminino.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtFemininoActionPerformed(evt);
-            }
-        });
-
-        grupoSexoExib.add(rbtMasculino);
-        rbtMasculino.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        rbtMasculino.setText("Masculino");
-        rbtMasculino.setEnabled(false);
-        rbtMasculino.setOpaque(false);
-        rbtMasculino.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtMasculinoActionPerformed(evt);
-            }
-        });
-
-        lblSexo.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblSexo.setText("Sexo");
+        lblSexoDesc.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblSexoDesc.setText("Sexo:");
 
         lblCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCep.setText("CEP");
 
         txtCep.setEditable(false);
+
+        lblSexoValor.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblSexoValor.setText("-");
 
         javax.swing.GroupLayout panDadosPessoaLayout = new javax.swing.GroupLayout(panDadosPessoa);
         panDadosPessoa.setLayout(panDadosPessoaLayout);
@@ -383,13 +358,10 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                                 .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(panDadosPessoaLayout.createSequentialGroup()
-                                        .addComponent(rbtMasculino)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(rbtFeminino)))))
+                                    .addComponent(lblSexoValor, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(24, Short.MAX_VALUE))
                     .addGroup(panDadosPessoaLayout.createSequentialGroup()
-                        .addComponent(lblSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblSexoDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         panDadosPessoaLayout.setVerticalGroup(
@@ -410,9 +382,8 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                             .addComponent(txtLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblSexo)
-                            .addComponent(rbtMasculino)
-                            .addComponent(rbtFeminino))
+                            .addComponent(lblSexoDesc)
+                            .addComponent(lblSexoValor))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblCelular)
@@ -667,14 +638,6 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         txtfSalario.setText(control.TextSize.maxLenghtSalario(txtfSalario.getText()));
     }//GEN-LAST:event_txtfSalarioKeyReleased
 
-    private void rbtMasculinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtMasculinoActionPerformed
-
-    }//GEN-LAST:event_rbtMasculinoActionPerformed
-
-    private void rbtFemininoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtFemininoActionPerformed
-
-    }//GEN-LAST:event_rbtFemininoActionPerformed
-
     private void txtNomePessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomePessoaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomePessoaActionPerformed
@@ -705,21 +668,18 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         PessoaFisica pf = new PessoaFisica();
-        if (cpfCadastrado && cpfCadastrado) {
+        if (validarCampos()) {
             pf = DaoPessoa.popularPessoaFisica(txtCpf.getText());
             Funcionario func = new Funcionario(txtCodigoFuncionario.getText(),
                     pf.getPessoa(), pf, txtfSalario.getText(), txtCargo.getText(),
                     txtfDataAdmissao.getText(), txtfDataAdmissao.getText(), txtfHoras.getText(),
                     rbtVisualizacao.isSelected());
-            if (func.isValidacao()) {
-                boolean aux = dao.DaoFuncionario.cadastrarFuncionario(func);
-                if (aux) {
-                    atualizarTabela(func);
-                }
+            boolean cadastroSucedido = dao.DaoFuncionario.cadastrarFuncionario(func);
+            if (cadastroSucedido) {
+                atualizarTabela(func);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos corretamente.", "Erro - Campo em branco ou inválido", 0);
         }
+
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
@@ -728,29 +688,13 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
 
     private void txtCodigoFuncionarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoFuncionarioKeyReleased
         txtCodigoFuncionario.setText(TextSize.maxLenghtFuncionario(txtCodigoFuncionario.getText()));
-        if (txtCodigoFuncionario.getText().length() < 1) {
-            lblCodigoExiste.setText("Código inválido.");
-            lblCodigoExiste.setForeground(Color.red);
-            codCadastrado = false;
-        } else if (dao.DaoFuncionario.existeFuncionario(txtCodigoFuncionario.getText())) {
-            lblCodigoExiste.setText("Funcionário já cadastrado.");
-            lblCodigoExiste.setForeground(Color.red);
-            codCadastrado = false;
-        } else {
-            lblCodigoExiste.setText("Código de Funcionário livre.");
-            lblCodigoExiste.setForeground(Color.black);
-            codCadastrado = true;
-        }
+        verificarCodigoFuncionario();
     }//GEN-LAST:event_txtCodigoFuncionarioKeyReleased
 
     private void txtCpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyReleased
         txtCpf.setText(TextSize.maxLenghtCPFCNPJ(txtCpf.getText(), true));
         verificarCpfExiste();
     }//GEN-LAST:event_txtCpfKeyReleased
-
-    private void txtCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCpfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCpfActionPerformed
 
     private void btnHojeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojeActionPerformed
         txtfDataAdmissao.setText(control.Datas.getDiaHoje());
@@ -795,8 +739,6 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
 
     }
 
-    
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Bairro;
@@ -828,13 +770,12 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel lblNivelAdm;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblSalario;
-    private javax.swing.JLabel lblSexo;
+    private javax.swing.JLabel lblSexoDesc;
+    private javax.swing.JLabel lblSexoValor;
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JPanel panDadosPessoa;
     private javax.swing.JPanel panPrincipal;
     private javax.swing.JRadioButton rbtCompleto;
-    private javax.swing.JRadioButton rbtFeminino;
-    private javax.swing.JRadioButton rbtMasculino;
     private javax.swing.JRadioButton rbtVisualizacao;
     private javax.swing.JTable tblFuncionarioRecente;
     private javax.swing.JTextField txtBairro;
@@ -882,11 +823,9 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         txtTelefone.setText("" + pf.getPessoa().getTelefone());
         txtCelular.setText("" + pf.getCelular());
         if (pf.getSexoBanco() == 0) {
-            rbtMasculino.setSelected(true);
-            rbtFeminino.setSelected(false);
+            lblSexoValor.setText("Masculino");
         } else {
-            rbtFeminino.setSelected(true);
-            rbtMasculino.setSelected(false);
+            lblSexoValor.setText("Feminino");
         }
 
     }
@@ -901,8 +840,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         txtNumero.setText("");
         txtTelefone.setText("");
         txtCelular.setText("");
-        rbtMasculino.setSelected(false);
-        rbtFeminino.setSelected(false);
+        lblSexoValor.setText("-");
 
     }
 
@@ -928,7 +866,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         rowData[1] = func.getPessoa().getEndereco().getCep();
         rowData[2] = func.getPessoa().getNome();
         rowData[3] = func.getFisica().getCpf();
-        rowData[4] = func.getFisica().getSexo();
+        rowData[4] = func.getFisica().getSexoSTR();
         rowData[5] = func.getPessoa().getTelefone();
         rowData[6] = func.getFisica().getCelular();
         rowData[7] = func.getPessoa().getComplementoLogradouro();
@@ -941,7 +879,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         model = (DefaultTableModel) tblFuncionarioRecente.getModel();
         model.addRow(rowData);
     }
-    
+
     private void selecionarAoFocar() {
         //Código para selecionar o texto todo ao ganhar foco
         txtfSalario.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -954,7 +892,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                 });
             }
         });
-        
+
         txtfDataAdmissao.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 SwingUtilities.invokeLater(new Runnable() {
@@ -965,7 +903,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                 });
             }
         });
-        
+
         txtfHoras.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 SwingUtilities.invokeLater(new Runnable() {
@@ -977,7 +915,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private void verificarCpfExiste() {
         if ((txtCpf.getText().length() < 11) || (txtCpf.getText().length() > 11)) {
             lblCpfExiste.setText("CPF Inválido.");
@@ -998,6 +936,72 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
             }
         }
     }
-    
-    
+
+    private boolean validarCampos() {
+        if (txtCodigoFuncionario.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Código de Funcionário em branco.\n\n"
+                    + "Digite o Código de Funcionário corretamente.", "Erro - Código de Funcionário inválido", 0);
+            txtCodigoFuncionario.requestFocus();
+            return false;
+        } else if (!codCadastrado) {
+            JOptionPane.showMessageDialog(null, "Código de Funcionário inválido.\n\n"
+                    + "O Código informado já está cadastrado. Informe um código diferente.", "Erro - Código de Funcionário inválido", 0);
+            txtCodigoFuncionario.requestFocus();
+            return false;
+        } else if (txtCpf.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "CPF em branco.\n\n"
+                    + "Digite o CPF corretamente, com 11 dígitos, sem hífens ou pontos.", "Erro - CPF inválido", 0);
+            txtCpf.requestFocus();
+            return false;
+        } else if (txtCpf.getText().length() < 11) {
+            JOptionPane.showMessageDialog(null, "CPF em Inválido.\n\n"
+                    + "Digite o CPF corretamente, com 11 dígitos, sem hífens ou pontos.", "Erro - CPF inválido", 0);
+            txtCpf.requestFocus();
+            return false;
+        } else if (!cpfCadastrado) {
+            JOptionPane.showMessageDialog(null, "CPF em Inválido.\n\n"
+                    + "O CPF informado não está cadastrado. Digite um CPF diferente, com 11 dígitos, sem hífens ou pontos.", "Erro - CPF inválido", 0);
+            txtCpf.requestFocus();
+            return false;
+        } else if (txtCargo.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Cargo em branco.\n\n"
+                    + "Digite o Cargo a ser exercido pelo funcionário(a)", "Erro - Cargo Inválido", 0);
+            txtCargo.requestFocus();
+            return false;
+        } else if (txtfDataAdmissao.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Data de Admissão em branco.\n\n"
+                    + "Informe a data de Admissão corretamente. Clique em 'Hoje' para definir como a data atual.", "Erro - Data Inválida", 0);
+            txtfDataAdmissao.requestFocus();
+            return false;
+        } else if (txtfSalario.getText().equals("0,00")) {
+            JOptionPane.showMessageDialog(null, "Salário zerado.\n\n"
+                    + "Digite o Salário corretamente.", "Erro - Salário inválido", 0);
+            txtfSalario.requestFocus();
+            return false;
+        } else if (txtfHoras.getText().equals("0")) {
+            JOptionPane.showMessageDialog(null, "Horas mensais zerada.\n\n"
+                    + "Digite as Horas Mensais corretamente.", "Erro - Horas Mensais inválida", 0);
+            txtfHoras.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private void verificarCodigoFuncionario() {
+        if (txtCodigoFuncionario.getText().length() < 1) {
+            lblCodigoExiste.setText("Código inválido.");
+            lblCodigoExiste.setForeground(Color.red);
+            codCadastrado = false;
+        } else if (dao.DaoFuncionario.existeFuncionario(txtCodigoFuncionario.getText())) {
+            lblCodigoExiste.setText("Funcionário já cadastrado.");
+            lblCodigoExiste.setForeground(Color.red);
+            codCadastrado = false;
+        } else {
+            lblCodigoExiste.setText("Código de Funcionário livre.");
+            lblCodigoExiste.setForeground(Color.black);
+            codCadastrado = true;
+        }
+    }
+
 }

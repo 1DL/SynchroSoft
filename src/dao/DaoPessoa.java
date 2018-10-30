@@ -64,7 +64,7 @@ public class DaoPessoa {
             end.setCep(rs.getString("CD_CEP"));
 
             Pessoa pessoa = new Pessoa();
-            pessoa.setNome("NM_PESSOA_FISICA");
+            pessoa.setNome(rs.getString("NM_PESSOA_FISICA"));
             pessoa.setEndereco(end);
             pessoa.setTelefone(rs.getString("NR_TELEFONE"));
             pessoa.setComplementoLogradouro(rs.getString("NR_COMPLEMENTO_LOGRADOURO"));
@@ -75,7 +75,7 @@ public class DaoPessoa {
             pessoaFisica.setCpf(rs.getString("CD_CPF"));
             pessoaFisica.setSexoBanco(rs.getInt("ID_SEXO"));
             pessoaFisica.setCelular(String.valueOf(rs.getLong("NR_CELULAR")));
-            pessoaFisica.setDataCadastroBanco((control.Datas.converterParaBrasileira(String.valueOf(rs.getDate("DT_CADASTRO")))));
+            pessoaFisica.setDataCadastroBanco(rs.getDate("DT_CADASTRO").toString());
 
             st.close();
             rs.close();
