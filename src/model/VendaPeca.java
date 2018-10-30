@@ -10,14 +10,14 @@ package model;
  * @author LuizV1
  */
 public class VendaPeca {
-    private Peca peca;
+    private Produto peca;
     private int quantidadeVendida;
 
-    public Peca getPeca() {
+    public Produto getPeca() {
         return peca;
     }
 
-    public void setPeca(Peca peca) {
+    public void setPeca(Produto peca) {
         this.peca = peca;
     }
 

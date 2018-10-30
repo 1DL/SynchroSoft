@@ -7,7 +7,7 @@ package view;
 
 import control.TextSize;
 import dao.DaoOrcamento;
-import dao.DaoPeca;
+import dao.DaoProduto;
 import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import model.Orcamento;
-import model.Peca;
+import model.Produto;
 import model.Servico;
 import model.VendaPeca;
 
@@ -407,7 +407,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
             o.setMaoDeObra(Double.parseDouble(txtfMaoDeObra.getText()));
             ArrayList<VendaPeca> lista = new ArrayList<>();
             for(int i = 0; i < tblOrcamento.getRowCount(); i++){
-                Peca p = new Peca();
+                Produto p = new Produto();
                 p.setCodigoPeca((String)tblOrcamento.getValueAt(i, 0));
                 p.setNomePeca((String) tblOrcamento.getValueAt(i, 1));
                 p.setCategoriaPeca((String) tblOrcamento.getValueAt(i, 2));
@@ -476,7 +476,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
             btnAdicionarPeca.setEnabled(false);
         } else {
             try {
-                flagPeca = DaoPeca.existePeca((txtCodPeca.getText()));
+                flagPeca = DaoProduto.existePeca((txtCodPeca.getText()));
                 if (flagPeca) {
                     lblPecaExiste.setText("Peça encontrada.");
                     popularPeca((txtCodPeca.getText()));
@@ -639,8 +639,8 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     }
 
     public void popularPeca(String codigo) throws SQLException, ClassNotFoundException {
-        Peca p = new Peca();
-        p = DaoPeca.popularPeca(codigo);
+        Produto p = new Produto();
+        p = DaoProduto.popularPeca(codigo);
         limitePeca = p.getQuantidadePeca();
         txtNomePeca.setText("" + p.getNomePeca());
         txtValorUnitario.setText("" + p.getValorUnitarioSTR());

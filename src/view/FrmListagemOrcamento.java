@@ -6,7 +6,7 @@
 package view;
 
 import dao.DaoOrcamento;
-import dao.DaoPeca;
+import dao.DaoProduto;
 import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Orcamento;
-import model.Peca;
+import model.Produto;
 import model.Servico;
 import model.VendaPeca;
 
@@ -477,7 +477,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
             btnAdicionarPeca.setEnabled(false);
         } else {
             try {
-                flagPeca = DaoPeca.existePeca((txtCodPeca.getText()));
+                flagPeca = DaoProduto.existePeca((txtCodPeca.getText()));
                 if (flagPeca) {
                     lblPecaExiste.setText("Peça encontrada.");
                     popularPeca((txtCodPeca.getText()));
@@ -684,7 +684,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
             o.setMaoDeObra(Double.parseDouble(txtMaoDeObra.getText()));
             ArrayList<VendaPeca> lista = new ArrayList<>();
             for (int i = 0; i < tblPecas.getRowCount(); i++) {
-                Peca p = new Peca();
+                Produto p = new Produto();
                 p.setCodigoPeca((String) tblPecas.getValueAt(i, 0));
                 p.setNomePeca((String) tblPecas.getValueAt(i, 1));
                 p.setCategoriaPeca((String) tblPecas.getValueAt(i, 2));
@@ -729,7 +729,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
 
         ArrayList<VendaPeca> lista = new ArrayList<>();
         for (int i = 0; i < tblPecas.getRowCount(); i++) {
-            Peca p = new Peca();
+            Produto p = new Produto();
             p.setCodigoPeca((String) tblPecas.getValueAt(i, 0));
             p.setNomePeca((String) tblPecas.getValueAt(i, 1));
             p.setCategoriaPeca((String) tblPecas.getValueAt(i, 2));
@@ -742,7 +742,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
         }
 
         if (tblPecas.getRowCount() != 0) {
-            DaoPeca.atualizarEstoque(lista);
+            DaoProduto.atualizarEstoque(lista);
             try {
                 DaoOrcamento.pagarOrcamento(Integer.parseInt((String) tblOrcamento.getValueAt(tblOrcamento.getSelectedRow(), 1)), true);
             } catch (SQLException | ClassNotFoundException ex) {
@@ -811,8 +811,8 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
     }
 
     public void popularPeca(String codigo) throws SQLException, ClassNotFoundException {
-        Peca p = new Peca();
-        p = DaoPeca.popularPeca(codigo);
+        Produto p = new Produto();
+        p = DaoProduto.popularPeca(codigo);
         limitePeca = p.getQuantidadePeca();
         txtNomePeca.setText("" + p.getNomePeca());
         txtValorUnitario.setText("" + p.getValorUnitarioSTR());
@@ -931,7 +931,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
     }
 
     private void popularTabelaPeca(int codigoOrcamento) {
-        ArrayList<Peca> lista = new ArrayList<>();
+        ArrayList<Produto> lista = new ArrayList<>();
         lista = DaoOrcamento.listarPecaOrcamento(codigoOrcamento);
         String[] nomeColunas = {"Código", "Nome", "Categoria", "Valor Unitário", "Quantidade", "Valor x Quantidade"};
         try {

@@ -8,7 +8,7 @@ package view;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-import model.Peca;
+import model.Produto;
 
 /**
  *
@@ -181,7 +181,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         } catch (Exception ex) {
 
         }
-        dao.DaoPeca.alterarPeca(tblListagemPeca);
+        dao.DaoProduto.alterarPeca(tblListagemPeca);
 
 
     }//GEN-LAST:event_btnAlterarActionPerformed
@@ -201,10 +201,10 @@ public class FrmListagemPeca extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTelaCadastroActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-        Peca peca = new Peca();
+        Produto peca = new Produto();
         String aux = (String) tblListagemPeca.getValueAt(tblListagemPeca.getSelectedRow(), 0);
         peca.setCodigoPeca(aux);
-        dao.DaoPeca.deletarPeca(peca.getCodigoPeca());
+        dao.DaoProduto.deletarPeca(peca.getCodigoPeca());
         atualizarTabela();
 
     }//GEN-LAST:event_btnDeletarActionPerformed
@@ -284,9 +284,9 @@ public class FrmListagemPeca extends javax.swing.JFrame {
     //Criando método de preenchimento/atualização de tabela com dados do banco
     private void atualizarTabela() {
         //Instanciando array de peças para preenchimento da tabela
-        ArrayList<Peca> lista = new ArrayList<>();
+        ArrayList<Produto> lista = new ArrayList<>();
         //Chamando método para preenchimento de Jtable com dados da tabela de peça
-        lista = dao.DaoPeca.listarPeca();
+        lista = dao.DaoProduto.listarPeca();
         //Criando array com os nomes para cada coluna.
         String[] nomeColunas = {"Código", "Nome", "Categoria", "Quantidade", "Alerta Qtd Mínima", "Alerta Qtd Máxima", "Valor Unitário", "PK Ref"};
         try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPeca()
@@ -334,8 +334,8 @@ public class FrmListagemPeca extends javax.swing.JFrame {
 
     private void atualizarTabelaFiltrada() { //Igual método de ListarPeca, mas chama o método de ListarPecaFiltrada()
 
-        ArrayList<Peca> lista = new ArrayList<>();
-        lista = dao.DaoPeca.listarPecaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim().toLowerCase()); //Filtrando 
+        ArrayList<Produto> lista = new ArrayList<>();
+        lista = dao.DaoProduto.listarPecaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim().toLowerCase()); //Filtrando 
         String[] nomeColunas = {"Código", "Nome", "Categoria", "Quantidade", "Alerta Qtd Mínima", "Alerta Qtd Máxima", "Valor Unitário", "PK Ref"};
         try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPeca()
         {

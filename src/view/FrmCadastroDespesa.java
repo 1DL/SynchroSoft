@@ -231,16 +231,7 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        try {
-        Despesa desp = new Despesa(txtfDataVencimento.getText(), cmbTipoDespesa.getSelectedItem().toString(), 
-                txaDescricaoDespesa.getText(), txtfValorDespesa.getText());
-        
-        dao.DaoDespesa.cadastrarDespesa(desp);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao popular atributos de despesa. \n\nExceção JAVA:\n" +
-                    ex.getMessage(), "Erro ao cadastrar despesas", 0);
-        }
-        
+        cadastrarDespesa();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnListarDespesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarDespesasActionPerformed
@@ -267,35 +258,7 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         limpar();
     }//GEN-LAST:event_btnLimparActionPerformed
 
-    private void limpar() {
-        cmbTipoDespesa.setSelectedIndex(0);
-        txtfValorDespesa.setText("0,00");
-        txaDescricaoDespesa.setText("");
-    }
     
-    private void selecionarAoFocar(){
-        txtfDataVencimento.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        txtfDataVencimento.selectAll();
-                    }
-                });
-            }
-        });
-        
-        txtfValorDespesa.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        txtfValorDespesa.selectAll();
-                    }
-                });
-            }
-        });
-    }
 
     /**
      * @param args the command line arguments
@@ -350,4 +313,46 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtfDataVencimento;
     private javax.swing.JFormattedTextField txtfValorDespesa;
     // End of variables declaration//GEN-END:variables
+
+    private void cadastrarDespesa() {
+        try {
+        Despesa desp = new Despesa(txtfDataVencimento.getText(), cmbTipoDespesa.getSelectedItem().toString(), 
+                txaDescricaoDespesa.getText(), txtfValorDespesa.getText());
+        
+        dao.DaoDespesa.cadastrarDespesa(desp);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao popular atributos de despesa. \n\nExceção JAVA:\n" +
+                    ex.getMessage(), "Erro ao cadastrar despesas", 0);
+        }
+    }
+    
+    private void limpar() {
+        cmbTipoDespesa.setSelectedIndex(0);
+        txtfValorDespesa.setText("0,00");
+        txaDescricaoDespesa.setText("");
+    }
+    
+    private void selecionarAoFocar(){
+        txtfDataVencimento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfDataVencimento.selectAll();
+                    }
+                });
+            }
+        });
+        
+        txtfValorDespesa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfValorDespesa.selectAll();
+                    }
+                });
+            }
+        });
+    }
 }

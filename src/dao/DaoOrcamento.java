@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import model.Orcamento;
-import model.Peca;
+import model.Produto;
 import model.Servico;
 
 /**
@@ -225,7 +225,7 @@ Valor Total
     }
 
     public static ArrayList listarPecaOrcamento(int codigoOrcamento) {
-        ArrayList<Peca> lista = new ArrayList<>();
+        ArrayList<Produto> lista = new ArrayList<>();
         try {
             Connection con = Conexao.conectar();
             String sql = "SELECT * FROM SYNCHROSOFT.TB_PECA_ORCAMENTO WHERE CD_ORCAMENTO = ?";
@@ -233,8 +233,8 @@ Valor Total
             st.setInt(1, codigoOrcamento);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Peca p = new Peca();
-                p = DaoPeca.popularPeca(rs.getString("CD_PECA"));
+                Produto p = new Produto();
+                p = DaoProduto.popularPeca(rs.getString("CD_PECA"));
                 p.setQuantidadePeca(rs.getString("QT_PECA_VENDIDA"));
                 p.setValorUnitario(Float.toString(rs.getFloat("VL_PECA_VENDIDA")));
                 lista.add(p);

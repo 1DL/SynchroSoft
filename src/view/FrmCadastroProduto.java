@@ -6,23 +6,26 @@
 package view;
 
 import control.TextSize;
-import dao.DaoPeca;
+import dao.DaoProduto;
+import java.awt.Color;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-import model.Peca;
+import model.Produto;
 
 /**
  *
  * @author Luiz
  */
-public class FrmCadastroPeca extends javax.swing.JFrame {
+public class FrmCadastroProduto extends javax.swing.JFrame {
+
+    private boolean existeProduto = false;
 
     /**
      * Creates new form FrmCadastroPeca
      */
-    public FrmCadastroPeca(int nvlAdm) {
+    public FrmCadastroProduto(int nvlAdm) {
         initComponents();
         inicializarTabela();
         if (nvlAdm == 0) {
@@ -54,12 +57,13 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
         btnCadastrar = new javax.swing.JButton();
         btnListarPeca = new javax.swing.JButton();
         txtQuantidadePeca = new javax.swing.JFormattedTextField();
-        txtValorUnitario = new javax.swing.JFormattedTextField();
+        txtfValorUnitario = new javax.swing.JFormattedTextField();
         lblQuantidadeMinima = new javax.swing.JLabel();
         txtQuantidadeMinima = new javax.swing.JFormattedTextField();
         lblQuantidadeMaxima = new javax.swing.JLabel();
         txtQuantidadeMaxima = new javax.swing.JFormattedTextField();
         txtCodigoPeca = new javax.swing.JTextField();
+        lblCodigoExiste = new javax.swing.JLabel();
         lblProdutoRecente = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProdutoRecente = new javax.swing.JTable();
@@ -68,7 +72,6 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Peça");
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logopng32.png")));
-        setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         setResizable(false);
         getContentPane().setLayout(null);
@@ -153,16 +156,16 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
             }
         });
 
-        txtValorUnitario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####0.00"))));
-        txtValorUnitario.setText("0,00");
-        txtValorUnitario.addActionListener(new java.awt.event.ActionListener() {
+        txtfValorUnitario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####0.00"))));
+        txtfValorUnitario.setText("0,00");
+        txtfValorUnitario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtValorUnitarioActionPerformed(evt);
+                txtfValorUnitarioActionPerformed(evt);
             }
         });
-        txtValorUnitario.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtfValorUnitario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtValorUnitarioKeyReleased(evt);
+                txtfValorUnitarioKeyReleased(evt);
             }
         });
 
@@ -204,6 +207,9 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
             }
         });
 
+        lblCodigoExiste.setForeground(java.awt.Color.red);
+        lblCodigoExiste.setText("Código inválido.");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -223,21 +229,23 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
                                         .addComponent(lblNomePeca, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(txtNomePeca, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(90, 90, 90)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(lblCategoriaPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(120, 120, 120)
-                                        .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(lblQuantidadeMaxima, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(txtQuantidadeMaxima, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(205, 205, 205)
+                                        .addComponent(lblQuantidadeMaxima, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtQuantidadeMaxima, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblCodigoExiste, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(lblValorUnitario)
-                                            .addGap(102, 102, 102)
-                                            .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                            .addComponent(lblCategoriaPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtfValorUnitario, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                                            .addComponent(cmbCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblQuantidadePeca, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -263,7 +271,8 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
                     .addComponent(lblCodigoPeca)
                     .addComponent(lblCategoriaPeca)
                     .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCodigoPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCodigoPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCodigoExiste))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNomePeca)
@@ -272,7 +281,7 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtNomePeca, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblValorUnitario)
-                            .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtfValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblQuantidadePeca)
@@ -322,17 +331,7 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        Peca peca = new Peca(txtCodigoPeca.getText(), txtNomePeca.getText(), 
-                cmbCategoria.getSelectedItem().toString(), 
-                txtQuantidadePeca.getText() , txtQuantidadeMinima.getText(),
-                txtQuantidadeMaxima.getText(), txtValorUnitario.getText());
-        if (peca.isValidacao()) {
-            DaoPeca.cadastrarPeca(peca);
-            atualizarTabela(peca);
-        } else {
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos corretamente.", 
-                    "Erro - Campo em branco ou inválido.",0);
-        }
+        cadastrarProduto();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnListarPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarPecaActionPerformed
@@ -359,13 +358,13 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
         txtQuantidadePeca.setText(TextSize.maxLenghtQuantidadePeca(txtQuantidadePeca.getText()));
     }//GEN-LAST:event_txtQuantidadePecaKeyReleased
 
-    private void txtValorUnitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorUnitarioActionPerformed
+    private void txtfValorUnitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfValorUnitarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtValorUnitarioActionPerformed
+    }//GEN-LAST:event_txtfValorUnitarioActionPerformed
 
-    private void txtValorUnitarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorUnitarioKeyReleased
-        txtValorUnitario.setText(TextSize.maxLenghtValorPeca(txtValorUnitario.getText()));
-    }//GEN-LAST:event_txtValorUnitarioKeyReleased
+    private void txtfValorUnitarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfValorUnitarioKeyReleased
+        txtfValorUnitario.setText(TextSize.maxLenghtValorPeca(txtfValorUnitario.getText()));
+    }//GEN-LAST:event_txtfValorUnitarioKeyReleased
 
     private void txtQuantidadeMinimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidadeMinimaActionPerformed
         // TODO add your handling code here:
@@ -389,92 +388,9 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
 
     private void txtCodigoPecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoPecaKeyReleased
         txtCodigoPeca.setText(TextSize.maxLenghtCodigoPeca(txtCodigoPeca.getText()));
+        verificarCodigoProduto();
     }//GEN-LAST:event_txtCodigoPecaKeyReleased
 
-    private void limpar(){
-        txtCodigoPeca.setText("");
-        txtNomePeca.setText("");
-        txtValorUnitario.setText("0,00");
-        txtQuantidadePeca.setText("0");
-        txtQuantidadeMinima.setText("0");
-        txtQuantidadeMaxima.setText("0");
-        cmbCategoria.setSelectedIndex(0);
-    }
-    
-    private void inicializarTabela() {
-        String[] nomeColunas = {"Código", "Nome", "Categoria", "Quantidade", "Alerta Qtd Mínima", "Alerta Qtd Máxima", "Valor Unitário"};
-        try {
-            DefaultTableModel model = new DefaultTableModel();
-            tblProdutoRecente.setModel(model);
-            model.setColumnIdentifiers(nomeColunas);
-            model.setRowCount(0);
-
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao popular tabela de cadastros recentes.\n\n" + ex.getMessage(), "Erro ao popular tabela", 0);
-        }
-        // tblProdutoRecente.getColumnModel().getColumn(0).setMaxWidth(0);
-    }
-
-    private void atualizarTabela(Peca peca) {
-        Object rowData[] = new Object[7];
-
-        rowData[0] = peca.getCodigoPeca();
-        rowData[1] = peca.getNomePeca();
-        rowData[2] = peca.getCategoriaPeca();
-        rowData[3] = peca.getQuantidadePeca();
-        rowData[4] = peca.getAlertaQtdMin();
-        rowData[5] = peca.getAlertaQtdMax();
-        rowData[6] = peca.getValorUnitarioSTR();
-        DefaultTableModel model = new DefaultTableModel();
-        model = (DefaultTableModel) tblProdutoRecente.getModel();
-        model.addRow(rowData);
-    }
-    
-    private void selecionarAoFocar(){
-        txtValorUnitario.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        txtValorUnitario.selectAll();
-                    }
-                });
-            }
-        });
-        
-        txtQuantidadePeca.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        txtQuantidadePeca.selectAll();
-                    }
-                });
-            }
-        });
-        
-        txtQuantidadeMinima.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        txtQuantidadeMinima.selectAll();
-                    }
-                });
-            }
-        });
-        
-        txtQuantidadeMaxima.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        txtQuantidadeMaxima.selectAll();
-                    }
-                });
-            }
-        });
-    }
     /**
      * @param args the command line arguments
      */
@@ -492,20 +408,21 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmCadastroPeca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadastroProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmCadastroPeca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadastroProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmCadastroPeca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadastroProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmCadastroPeca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadastroProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmCadastroPeca(control.SynchroSoft.getNvlAdm()).setVisible(true);
+                new FrmCadastroProduto(control.SynchroSoft.getNvlAdm()).setVisible(true);
             }
         });
     }
@@ -521,6 +438,7 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblCategoriaPeca;
+    private javax.swing.JLabel lblCodigoExiste;
     private javax.swing.JLabel lblCodigoPeca;
     private javax.swing.JLabel lblNomePeca;
     private javax.swing.JLabel lblProdutoRecente;
@@ -534,6 +452,152 @@ public class FrmCadastroPeca extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtQuantidadeMaxima;
     private javax.swing.JFormattedTextField txtQuantidadeMinima;
     private javax.swing.JFormattedTextField txtQuantidadePeca;
-    private javax.swing.JFormattedTextField txtValorUnitario;
+    private javax.swing.JFormattedTextField txtfValorUnitario;
     // End of variables declaration//GEN-END:variables
+
+    private void limpar() {
+        txtCodigoPeca.setText("");
+        txtNomePeca.setText("");
+        txtfValorUnitario.setText("0,00");
+        txtQuantidadePeca.setText("0");
+        txtQuantidadeMinima.setText("0");
+        txtQuantidadeMaxima.setText("0");
+        cmbCategoria.setSelectedIndex(0);
+    }
+
+    private void inicializarTabela() {
+        String[] nomeColunas = {"Código", "Nome", "Categoria", "Quantidade", "Alerta Qtd Mínima", "Alerta Qtd Máxima", "Valor Unitário"};
+        try {
+            DefaultTableModel model = new DefaultTableModel();
+            tblProdutoRecente.setModel(model);
+            model.setColumnIdentifiers(nomeColunas);
+            model.setRowCount(0);
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao popular tabela de cadastros recentes.\n\n" + ex.getMessage(), "Erro ao popular tabela", 0);
+        }
+        // tblProdutoRecente.getColumnModel().getColumn(0).setMaxWidth(0);
+    }
+
+    private void atualizarTabela(Produto peca) {
+        Object rowData[] = new Object[7];
+
+        rowData[0] = peca.getCodigoPeca();
+        rowData[1] = peca.getNomePeca();
+        rowData[2] = peca.getCategoriaPeca();
+        rowData[3] = peca.getQuantidadePeca();
+        rowData[4] = peca.getAlertaQtdMin();
+        rowData[5] = peca.getAlertaQtdMax();
+        rowData[6] = peca.getValorUnitarioSTR();
+        DefaultTableModel model = new DefaultTableModel();
+        model = (DefaultTableModel) tblProdutoRecente.getModel();
+        model.addRow(rowData);
+    }
+
+    private void selecionarAoFocar() {
+        txtfValorUnitario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfValorUnitario.selectAll();
+                    }
+                });
+            }
+        });
+
+        txtQuantidadePeca.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtQuantidadePeca.selectAll();
+                    }
+                });
+            }
+        });
+
+        txtQuantidadeMinima.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtQuantidadeMinima.selectAll();
+                    }
+                });
+            }
+        });
+
+        txtQuantidadeMaxima.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtQuantidadeMaxima.selectAll();
+                    }
+                });
+            }
+        });
+    }
+
+    private void verificarCodigoProduto() {
+        if (txtCodigoPeca.getText().equals("")) {
+            lblCodigoExiste.setText("Código Inválido.");
+            lblCodigoExiste.setForeground(Color.red);
+        } else {
+            this.existeProduto = dao.DaoProduto.existePeca(txtCodigoPeca.getText());
+            if (this.existeProduto) {
+                lblCodigoExiste.setText("Produto já cadastrado.");
+                lblCodigoExiste.setForeground(Color.red);
+            } else {
+                lblCodigoExiste.setText("Código Disponível.");
+                lblCodigoExiste.setForeground(Color.black);
+            }
+        }
+    }
+
+    private void cadastrarProduto() {
+        if (validarCampos()) {
+            Produto prod = new Produto(txtCodigoPeca.getText(), txtNomePeca.getText(),
+                cmbCategoria.getSelectedItem().toString(), txtQuantidadePeca.getText(),
+                txtQuantidadeMinima.getText(), txtQuantidadeMaxima.getText(),
+                txtfValorUnitario.getText());
+            boolean cadastroSucedido = DaoProduto.cadastrarPeca(prod);
+            if (cadastroSucedido) {
+                atualizarTabela(prod);
+                verificarCodigoProduto();
+            }
+        }        
+    }
+
+    private boolean validarCampos() {
+        if (txtCodigoPeca.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Código do Produto em branco.\n\n"
+                    + "Informe corretamente o Código do Produto a ser cadastrado.", "Erro - Código do Produto Inválido", 0);
+            txtCodigoPeca.requestFocus();
+            return false;
+        } else if (this.existeProduto) {
+            JOptionPane.showMessageDialog(null, "Código do Produto já cadastrado.\n\n"
+                    + "Informe um código do produto diferente.", "Erro - Código do Produto Inválido", 0);
+            txtCodigoPeca.requestFocus();
+            return false;
+        } else if (txtNomePeca.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Nome do Produto em branco.\n\n"
+                    + "Informe corretamente o Nome do Produto a ser cadastrado.", "Erro - Nome do Produto Inválido", 0);
+            txtNomePeca.requestFocus();
+            return false;
+        } else if (txtfValorUnitario.getText().equals("0,00")) {
+            JOptionPane.showMessageDialog(null, "Valor unitário do Produto zerado.\n\n"
+                    + "Informe corretamente o valor unitário do Produto a ser cadastrado.", "Erro - Valor Unitário Inválido", 0);
+            txtfValorUnitario.requestFocus();
+            return false;
+        } else if (txtQuantidadePeca.getText().equals("0")) {
+            JOptionPane.showMessageDialog(null, "Quantidade do Produto zerado.\n\n"
+                    + "Informe corretamente a quantidade do Produto a ser cadastrado.", "Erro - Quantidade Inválida", 0);
+            txtQuantidadePeca.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

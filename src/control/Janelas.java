@@ -17,7 +17,7 @@ import view.FrmCadastroDespesa;
 import view.FrmCadastroEndereco;
 import view.FrmCadastroFuncionario;
 import view.FrmCadastroOrcamento;
-import view.FrmCadastroPeca;
+import view.FrmCadastroProduto;
 import view.FrmCadastroPessoa;
 import view.FrmCadastroServico;
 import view.FrmCadastroUsuario;
@@ -100,7 +100,7 @@ public class Janelas {
     }
 
     public static void abrirCadastroProduto() {
-        FrmCadastroPeca telaCadProduto = new FrmCadastroPeca(SynchroSoft.getNvlAdm());
+        FrmCadastroProduto telaCadProduto = new FrmCadastroProduto(SynchroSoft.getNvlAdm());
         telaCadProduto.setVisible(true);
         acessoTelas.get(2).setAcesso(acessoTelas.get(2).getAcesso() + 1);
         LeitorArquivo.escreverArquivoJanelas();

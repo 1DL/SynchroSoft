@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  *
  * @author LuizV1
  */
-public class Peca {
+public class Produto {
     private String codigoPeca;
     private String categoriaPeca;
     private String nomePeca;
@@ -22,10 +22,10 @@ public class Peca {
     private int alertaQtdMax;
     private boolean validacao = true;
 
-    public Peca() {
+    public Produto() {
     }   
     
-    public Peca(String codigoPeca, String nomePeca, String categoriaPeca,
+    public Produto(String codigoPeca, String nomePeca, String categoriaPeca,
             String quantidadePeca, String alertaQtdMin, String alertaQtdMax,
             String valorUnitario) {
         this.codigoPeca = codigoPeca;
