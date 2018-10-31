@@ -147,6 +147,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         });
 
         btnCadastrar.setText("Cadastrar");
+        btnCadastrar.setNextFocusableComponent(txtfCep);
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
@@ -174,6 +175,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtfCep.setNextFocusableComponent(cmbEstado);
         txtfCep.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtfCepFocusLost(evt);
@@ -214,7 +216,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -238,7 +240,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
                     .addComponent(lblCepExiste)
                     .addComponent(btnListarEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtfCep, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
@@ -308,21 +310,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBairroKeyReleased
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        if (validarCampos()) {
-            Endereco end = new Endereco(txtfCep.getText().replace("-", ""),
-                    txtLogradouro.getText(), txtBairro.getText(), txtCidade.getText(),
-                    (String) cmbEstado.getSelectedItem());
-            try {
-                boolean aux = DaoEndereco.cadastrarEndereco(end);
-                if (aux) {
-                    atualizarTabela(end);
-                    verificarCepExistente();
-                }
-            } catch (Exception ex) {
-                JOptionPane.showConfirmDialog(null, "Erro ao cadastrar Endereço.\n\n " + ex.getMessage(), "Erro de cadastro.", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-
+        cadastrarEndereco();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void txtCidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCidadeKeyReleased
@@ -522,5 +510,23 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
                 });
             }
         });
+    }
+
+    private void cadastrarEndereco() {
+        if (validarCampos()) {
+            Endereco end = new Endereco(txtfCep.getText().replace("-", ""),
+                    txtLogradouro.getText(), txtBairro.getText(), txtCidade.getText(),
+                    (String) cmbEstado.getSelectedItem());
+            try {
+                boolean aux = DaoEndereco.cadastrarEndereco(end);
+                if (aux) {
+                    atualizarTabela(end);
+                    verificarCepExistente();
+                }
+                txtfCep.requestFocus();
+            } catch (Exception ex) {
+                JOptionPane.showConfirmDialog(null, "Erro ao cadastrar Endereço.\n\n " + ex.getMessage(), "Erro de cadastro.", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 }

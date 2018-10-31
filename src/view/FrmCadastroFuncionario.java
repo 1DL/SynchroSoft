@@ -945,7 +945,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
             return false;
         } else if (!codCadastrado) {
             JOptionPane.showMessageDialog(null, "Código de Funcionário inválido.\n\n"
-                    + "O Código informado já está cadastrado. Informe um código diferente.", "Erro - Código de Funcionário inválido", 0);
+                    + "O Código não existe ou já está cadastrado. Informe um código diferente.", "Erro - Código de Funcionário inválido", 0);
             txtCodigoFuncionario.requestFocus();
             return false;
         } else if (txtCpf.getText().equals("")) {

@@ -60,22 +60,22 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menu_logoff = new javax.swing.JMenuItem();
         menu_sairSistema = new javax.swing.JMenuItem();
         menu_cadastro = new javax.swing.JMenu();
-        menu_os = new javax.swing.JMenuItem();
-        menu_pessoa = new javax.swing.JMenuItem();
-        menu_produto = new javax.swing.JMenuItem();
-        menu_funcionario = new javax.swing.JMenuItem();
-        menu_despesa = new javax.swing.JMenuItem();
-        menu_usuario = new javax.swing.JMenuItem();
         menu_endereco = new javax.swing.JMenuItem();
+        menu_pessoa = new javax.swing.JMenuItem();
+        menu_funcionario = new javax.swing.JMenuItem();
+        menu_usuario = new javax.swing.JMenuItem();
+        menu_os = new javax.swing.JMenuItem();
+        menu_produto = new javax.swing.JMenuItem();
+        menu_despesa = new javax.swing.JMenuItem();
         menu_listagem = new javax.swing.JMenu();
-        menu_listaOrdemServico = new javax.swing.JMenuItem();
+        menu_listaEndereco = new javax.swing.JMenuItem();
         menu_listaPessoaF = new javax.swing.JMenuItem();
         menu_listaPessoaJ = new javax.swing.JMenuItem();
-        menu_listaProduto = new javax.swing.JMenuItem();
         menu_listaFuncionario = new javax.swing.JMenuItem();
-        menu_listaDespesa = new javax.swing.JMenuItem();
         menu_listaUsuario = new javax.swing.JMenuItem();
-        menu_listaEndereco = new javax.swing.JMenuItem();
+        menu_listaOrdemServico = new javax.swing.JMenuItem();
+        menu_listaProduto = new javax.swing.JMenuItem();
+        menu_listaDespesa = new javax.swing.JMenuItem();
         menu_vendas = new javax.swing.JMenu();
         menu_vendaPeca = new javax.swing.JMenuItem();
         menu_relatorio = new javax.swing.JMenu();
@@ -235,15 +235,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menu_cadastro.setText("Cadastro");
 
-        menu_os.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/cadastro_ordemdeservico.png"))); // NOI18N
-        menu_os.setText("Ordem de Serviço");
-        menu_os.setEnabled(control.SynchroSoft.isAcesso());
-        menu_os.addActionListener(new java.awt.event.ActionListener() {
+        menu_endereco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/cadastro_endereco.png"))); // NOI18N
+        menu_endereco.setText("Endereço");
+        menu_endereco.setEnabled(control.SynchroSoft.isAcesso());
+        menu_endereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menu_osActionPerformed(evt);
+                menu_enderecoActionPerformed(evt);
             }
         });
-        menu_cadastro.add(menu_os);
+        menu_cadastro.add(menu_endereco);
 
         menu_pessoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/cadastro_pessoa.png"))); // NOI18N
         menu_pessoa.setText("Pessoa Física ou Jurídica");
@@ -255,16 +255,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menu_cadastro.add(menu_pessoa);
 
-        menu_produto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/cadastro_produto.png"))); // NOI18N
-        menu_produto.setText("Produto");
-        menu_produto.setEnabled(control.SynchroSoft.isAcesso());
-        menu_produto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menu_produtoActionPerformed(evt);
-            }
-        });
-        menu_cadastro.add(menu_produto);
-
         menu_funcionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/cadastro_funcionario.png"))); // NOI18N
         menu_funcionario.setText("Funcionário");
         menu_funcionario.setEnabled(control.SynchroSoft.isAcesso());
@@ -274,16 +264,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         menu_cadastro.add(menu_funcionario);
-
-        menu_despesa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/cadastro_despesa.png"))); // NOI18N
-        menu_despesa.setText("Despesa");
-        menu_despesa.setEnabled(control.SynchroSoft.isAcesso());
-        menu_despesa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menu_despesaActionPerformed(evt);
-            }
-        });
-        menu_cadastro.add(menu_despesa);
 
         menu_usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/cadastro_usuario.png"))); // NOI18N
         menu_usuario.setText("Usuário");
@@ -295,28 +275,48 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menu_cadastro.add(menu_usuario);
 
-        menu_endereco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/cadastro_endereco.png"))); // NOI18N
-        menu_endereco.setText("Endereço");
-        menu_endereco.setEnabled(control.SynchroSoft.isAcesso());
-        menu_endereco.addActionListener(new java.awt.event.ActionListener() {
+        menu_os.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/cadastro_ordemdeservico.png"))); // NOI18N
+        menu_os.setText("Ordem de Serviço");
+        menu_os.setEnabled(control.SynchroSoft.isAcesso());
+        menu_os.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menu_enderecoActionPerformed(evt);
+                menu_osActionPerformed(evt);
             }
         });
-        menu_cadastro.add(menu_endereco);
+        menu_cadastro.add(menu_os);
+
+        menu_produto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/cadastro_produto.png"))); // NOI18N
+        menu_produto.setText("Produto");
+        menu_produto.setEnabled(control.SynchroSoft.isAcesso());
+        menu_produto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_produtoActionPerformed(evt);
+            }
+        });
+        menu_cadastro.add(menu_produto);
+
+        menu_despesa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/cadastro_despesa.png"))); // NOI18N
+        menu_despesa.setText("Despesa");
+        menu_despesa.setEnabled(control.SynchroSoft.isAcesso());
+        menu_despesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_despesaActionPerformed(evt);
+            }
+        });
+        menu_cadastro.add(menu_despesa);
 
         menu.add(menu_cadastro);
 
         menu_listagem.setText("Listagem");
 
-        menu_listaOrdemServico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/listagem_ordemdeservico.png"))); // NOI18N
-        menu_listaOrdemServico.setText("Ordem de Serviço");
-        menu_listaOrdemServico.addActionListener(new java.awt.event.ActionListener() {
+        menu_listaEndereco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/listagem_endereco.png"))); // NOI18N
+        menu_listaEndereco.setText("Endereço");
+        menu_listaEndereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menu_listaOrdemServicoActionPerformed(evt);
+                menu_listaEnderecoActionPerformed(evt);
             }
         });
-        menu_listagem.add(menu_listaOrdemServico);
+        menu_listagem.add(menu_listaEndereco);
 
         menu_listaPessoaF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/listagem_pessoafisica.png"))); // NOI18N
         menu_listaPessoaF.setText("Pessoa Física");
@@ -336,15 +336,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menu_listagem.add(menu_listaPessoaJ);
 
-        menu_listaProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/listagem_produto.png"))); // NOI18N
-        menu_listaProduto.setText("Produto");
-        menu_listaProduto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menu_listaProdutoActionPerformed(evt);
-            }
-        });
-        menu_listagem.add(menu_listaProduto);
-
         menu_listaFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/listagem_funcionario.png"))); // NOI18N
         menu_listaFuncionario.setText("Funcionário");
         menu_listaFuncionario.addActionListener(new java.awt.event.ActionListener() {
@@ -353,15 +344,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         menu_listagem.add(menu_listaFuncionario);
-
-        menu_listaDespesa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/listagem_despesa.png"))); // NOI18N
-        menu_listaDespesa.setText("Despesa");
-        menu_listaDespesa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menu_listaDespesaActionPerformed(evt);
-            }
-        });
-        menu_listagem.add(menu_listaDespesa);
 
         menu_listaUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/listagem_usuario.png"))); // NOI18N
         menu_listaUsuario.setText("Usuário");
@@ -372,14 +354,32 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menu_listagem.add(menu_listaUsuario);
 
-        menu_listaEndereco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/listagem_endereco.png"))); // NOI18N
-        menu_listaEndereco.setText("Endereço");
-        menu_listaEndereco.addActionListener(new java.awt.event.ActionListener() {
+        menu_listaOrdemServico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/listagem_ordemdeservico.png"))); // NOI18N
+        menu_listaOrdemServico.setText("Ordem de Serviço");
+        menu_listaOrdemServico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menu_listaEnderecoActionPerformed(evt);
+                menu_listaOrdemServicoActionPerformed(evt);
             }
         });
-        menu_listagem.add(menu_listaEndereco);
+        menu_listagem.add(menu_listaOrdemServico);
+
+        menu_listaProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/listagem_produto.png"))); // NOI18N
+        menu_listaProduto.setText("Produto");
+        menu_listaProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_listaProdutoActionPerformed(evt);
+            }
+        });
+        menu_listagem.add(menu_listaProduto);
+
+        menu_listaDespesa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/listagem_despesa.png"))); // NOI18N
+        menu_listaDespesa.setText("Despesa");
+        menu_listaDespesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_listaDespesaActionPerformed(evt);
+            }
+        });
+        menu_listagem.add(menu_listaDespesa);
 
         menu.add(menu_listagem);
 

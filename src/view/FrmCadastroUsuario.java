@@ -329,15 +329,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        if (validarCampos()) {
-            Usuario usuario = new Usuario(txtCodFuncionario.getText(), txtLogin.getText(),
-                    txtSenha.getText());
-            boolean cadastroSucedido = dao.DaoUsuario.cadastrarUsuario(usuario);
-            if (cadastroSucedido) {
-                atualizarTabela(usuario, txtCodFuncionario.getText(), txtNomeFuncionario.getText());
-                popularDadosFuncionario();
-            }
-        }
+        cadastrarUsuario();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnListarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarUsuariosActionPerformed
@@ -346,7 +338,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
 
     private void txtCodFuncionarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodFuncionarioKeyReleased
         txtCodFuncionario.setText(TextSize.maxLenghtFuncionario(txtCodFuncionario.getText()));
-        popularDadosFuncionario();
+        verificarFuncionario();
     }//GEN-LAST:event_txtCodFuncionarioKeyReleased
 
     private void btnListarFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarFuncionariosActionPerformed
@@ -500,9 +492,10 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         txtLogin.setText("");
         txtSenha.setText("");
         txtConfirma.setText("");
+        verificarLogin();
     }
 
-    private void popularDadosFuncionario() {
+    private void verificarFuncionario() {
         Funcionario func = new Funcionario();
 
         this.funcionarioExiste = DaoFuncionario.existeFuncionario(txtCodFuncionario.getText());
@@ -593,6 +586,19 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
             return false;
         } else {
             return true;
+        }
+    }
+
+    private void cadastrarUsuario() {
+        if (validarCampos()) {
+            Usuario usuario = new Usuario(txtCodFuncionario.getText(), txtLogin.getText(),
+                    txtSenha.getText());
+            boolean cadastroSucedido = dao.DaoUsuario.cadastrarUsuario(usuario);
+            if (cadastroSucedido) {
+                atualizarTabela(usuario, txtCodFuncionario.getText(), txtNomeFuncionario.getText());
+                verificarFuncionario();
+                verificarLogin();
+            }
         }
     }
 

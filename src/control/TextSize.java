@@ -22,8 +22,8 @@ public class TextSize {
 
     public static String maxLenghtLogin(String str) {
         String valor = "";
-        if (str.length() > 100) {
-            valor = str.substring(0, 100);
+        if (str.length() > 30) {
+            valor = str.substring(0, 30);
             str = valor;
         }
         return str;
@@ -66,7 +66,7 @@ public class TextSize {
     }
 
     public static String maxLenghtCPFCNPJ(String str, boolean cpfOuCnpj) {
-        str = str.replace("-", "");
+        str = str.replaceAll("[^0-9]", "");
         if (cpfOuCnpj) {
             String valor = "";
             if (str.length() > 11) {
@@ -97,6 +97,7 @@ public class TextSize {
     }
 
     public static String maxLenghtTelefone(String str) {
+        str = str.replaceAll("[^0-9]", "");
         String valor = "";
         if (str.length() > 10) {
             valor = str.substring(0, 10);
@@ -115,6 +116,7 @@ public class TextSize {
     }
 
     public static String maxLenghtCelularRamal(String str, boolean celOuRamal) {
+        str = str.replaceAll("[^0-9]", "");
         if (celOuRamal) {
             String valor = "";
             if (str.length() > 11) {

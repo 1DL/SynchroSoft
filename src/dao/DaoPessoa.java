@@ -315,7 +315,7 @@ public class DaoPessoa {
                 pessoaFisica.setCpf(rs.getString("CD_CPF"));
                 pessoaFisica.setSexoBanco(rs.getInt("ID_SEXO"));
                 pessoaFisica.setCelular(String.valueOf(rs.getLong("NR_CELULAR")));
-                pessoaFisica.setDataCadastroBanco((control.Datas.converterParaBrasileira(String.valueOf(rs.getDate("DT_CADASTRO")))));
+                pessoaFisica.setDataCadastroBanco(rs.getDate("DT_CADASTRO").toString());
 
                 lista.add(pessoaFisica);
             }
@@ -355,7 +355,7 @@ public class DaoPessoa {
                 pessoaJuridica.setPessoa(pessoa);
                 pessoaJuridica.setCnpj(rs.getString("CD_CNPJ"));
                 pessoaJuridica.setRazaoSocial(rs.getString("NM_RAZAO_SOCIAL"));
-                pessoaJuridica.setDataCadastroBanco(control.Datas.converterParaBrasileira(String.valueOf(rs.getDate("DT_CADASTRO"))));
+                pessoaJuridica.setDataCadastroBanco(rs.getDate("DT_CADASTRO").toString());
                 pessoaJuridica.setRamalCliente(String.valueOf(rs.getInt("NR_RAMAL")));
 
                 lista.add(pessoaJuridica);

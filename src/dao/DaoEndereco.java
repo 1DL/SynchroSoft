@@ -108,7 +108,9 @@ public class DaoEndereco {
     public static Endereco popularEndereco(String cep) {
         try {
             Connection con = Conexao.conectar();
-            String sql = "SELECT * FROM SYNCHROSOFT.TB_ENDERECO WHERE CD_CEP = ?";
+            String sql = "SELECT * "
+                    + "FROM SYNCHROSOFT.TB_ENDERECO "
+                    + "WHERE CD_CEP = ?";
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, cep);
             ResultSet rs = st.executeQuery();

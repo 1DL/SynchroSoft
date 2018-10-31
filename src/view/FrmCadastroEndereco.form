@@ -109,7 +109,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="lblEstado" min="-2" pref="140" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="cmbEstado" min="-2" pref="95" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
@@ -141,7 +141,7 @@
                       <Component id="lblCepExiste" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnListarEndereco" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="txtfCep" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="cmbEstado" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="cmbEstado" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
@@ -240,6 +240,9 @@
         <Component class="javax.swing.JButton" name="btnCadastrar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cadastrar"/>
+            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="txtfCep"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCadastrarActionPerformed"/>
@@ -316,6 +319,9 @@
           <Properties>
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
               <Format format="#####-###" subtype="-1" type="5"/>
+            </Property>
+            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="cmbEstado"/>
             </Property>
           </Properties>
           <Events>
