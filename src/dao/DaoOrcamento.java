@@ -21,12 +21,12 @@ import model.Servico;
  */
 public class DaoOrcamento {
 
-    public static boolean existeOrcamento(int codigoServico) throws SQLException, ClassNotFoundException {
+    public static boolean existeOrcamento(String codigoServico) throws SQLException, ClassNotFoundException {
         boolean flag;
         Connection con = Conexao.conectar();
         String sql = "SELECT * FROM SYNCHROSOFT.TB_ORCAMENTO WHERE CD_SERVICO = ?";
         PreparedStatement st = con.prepareStatement(sql);
-        st.setInt(1, codigoServico);
+        st.setString(1, codigoServico);
         ResultSet rs = st.executeQuery();
         flag = rs.isBeforeFirst();
         st.close();
@@ -43,7 +43,7 @@ public class DaoOrcamento {
                 Connection con = Conexao.conectar();
                 String sql = "INSERT INTO SYNCHROSOFT.TB_ORCAMENTO (CD_SERVICO, VL_MAODEOBRA, VL_ORCAMENTO, ID_STATUS_ORCAMENTO) VALUES (?,?,?,?)";
                 PreparedStatement st = con.prepareStatement(sql);
-                st.setInt(1, o.getServico().getCodigoServico());
+                st.setString(1, o.getServico().getCodigoServico());
                 st.setDouble(2, o.getMaoDeObra());
                 st.setDouble(3, o.getValorTotal());
                 st.setInt(4, 0);
@@ -61,7 +61,7 @@ public class DaoOrcamento {
             PreparedStatement st = con.prepareStatement(sql);
             st.setDouble(1, o.getMaoDeObra());
             st.setDouble(2, o.getValorTotal());
-            st.setDouble(3, o.getServico().getCodigoServico());
+            st.setString(3, o.getServico().getCodigoServico());
             st.executeUpdate();
             st.close();
             if (flagTemPeca) {
@@ -72,12 +72,12 @@ public class DaoOrcamento {
         JOptionPane.showMessageDialog(null, "Orçamento criado/Alterado com sucesso.");
     }
 
-    public static int buscarOrcamento(int codigoServico) throws SQLException, ClassNotFoundException {
+    public static int buscarOrcamento(String codigoServico) throws SQLException, ClassNotFoundException {
         int codigoOrcamento = 0;
         Connection con = Conexao.conectar();
         String sql = "SELECT CD_ORCAMENTO FROM SYNCHROSOFT.TB_ORCAMENTO WHERE CD_SERVICO = ?";
         PreparedStatement st = con.prepareStatement(sql);
-        st.setInt(1, codigoServico);
+        st.setString(1, codigoServico);
         ResultSet rs = st.executeQuery();
         while (rs.next()) {
             codigoOrcamento = rs.getInt("CD_ORCAMENTO");
@@ -87,7 +87,7 @@ public class DaoOrcamento {
         return codigoOrcamento;
     }
 
-    public static void pagarOrcamento(int codigoServico, boolean flag) throws SQLException, ClassNotFoundException {
+    public static void pagarOrcamento(String codigoServico, boolean flag) throws SQLException, ClassNotFoundException {
         int codigoOrcamento = 0;
         codigoOrcamento = buscarOrcamento(codigoServico);
         Connection con = Conexao.conectar();
@@ -205,7 +205,7 @@ Valor Total
                 Orcamento o = new Orcamento();
                 o.setCodigoOrcamento(rs.getInt("CD_ORCAMENTO"));
                 Servico s = new Servico();
-                s.setCodigoServico(rs.getInt("CD_SERVICO"));
+                s.setCodigoServico(rs.getString("CD_SERVICO"));
                 o.setServico(s);
                 o.setStatusOrcamento(rs.getInt("ID_STATUS_ORCAMENTO"));
                 o.setValorTotal(rs.getDouble("VL_ORCAMENTO"));

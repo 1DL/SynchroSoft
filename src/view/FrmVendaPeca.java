@@ -37,7 +37,7 @@ public class FrmVendaPeca extends javax.swing.JFrame {
 
     
     
-    public FrmVendaPeca(int codigoServico, boolean flag) {
+    public FrmVendaPeca(String codigoServico, boolean flag) {
         
         initComponents();
         iniciarTabela();

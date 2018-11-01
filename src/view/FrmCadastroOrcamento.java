@@ -42,7 +42,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
 
     
     
-    public FrmCadastroOrcamento(int codigoServico, boolean flag) {
+    public FrmCadastroOrcamento(String codigoServico, boolean flag) {
         
         initComponents();
         iniciarTabela();
@@ -402,7 +402,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     private void btnCadOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadOrcamentoActionPerformed
         if (valorTotal>0){
             Orcamento o = new Orcamento();
-            s.setCodigoServico(Integer.parseInt(txtCodServico.getText()));
+            s.setCodigoServico(txtCodServico.getText());
             o.setServico(s);
             o.setMaoDeObra(Double.parseDouble(txtfMaoDeObra.getText()));
             ArrayList<VendaPeca> lista = new ArrayList<>();

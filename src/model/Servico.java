@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class Servico {
 
-    private int codigoServico;
+    private String codigoServico;
     private String tipoServico;
     private Date dataServico;
     private Date dataServicoFim;
@@ -55,17 +55,12 @@ public class Servico {
         this.setStatusServico(statusServico);
     }
 
-    public int getCodigoServico() {
+    public String getCodigoServico() {
         return codigoServico;
     }
 
     public void setCodigoServico(String codigoServico) {
-        try {
-            this.codigoServico = Integer.parseInt(codigoServico);
-        } catch (NumberFormatException nfe) {
-            JOptionPane.showMessageDialog(null, "Não foi possível popular o código do Serviço.\n\n"
-                    + "Digite somente números!\n", "Erro - Código de Serviço não é um número", 0);
-        }
+        this.codigoServico = codigoServico;
     }
 
     public String getTipoServico() {

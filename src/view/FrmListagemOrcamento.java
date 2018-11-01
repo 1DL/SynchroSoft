@@ -679,7 +679,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
 
         if (valorTotal > 0) {
             Orcamento o = new Orcamento();
-            s.setCodigoServico(Integer.parseInt((String) tblOrcamento.getValueAt(tblOrcamento.getSelectedRow(), 1)));
+            s.setCodigoServico(((String) tblOrcamento.getValueAt(tblOrcamento.getSelectedRow(), 1)));
             o.setServico(s);
             o.setMaoDeObra(Double.parseDouble(txtMaoDeObra.getText()));
             ArrayList<VendaPeca> lista = new ArrayList<>();
@@ -744,7 +744,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
         if (tblPecas.getRowCount() != 0) {
             DaoProduto.atualizarEstoque(lista);
             try {
-                DaoOrcamento.pagarOrcamento(Integer.parseInt((String) tblOrcamento.getValueAt(tblOrcamento.getSelectedRow(), 1)), true);
+                DaoOrcamento.pagarOrcamento(((String) tblOrcamento.getValueAt(tblOrcamento.getSelectedRow(), 1)), true);
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(FrmListagemOrcamento.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -758,7 +758,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
             txtCodPeca.requestFocus();
         } else {
             try {
-                DaoOrcamento.pagarOrcamento(Integer.parseInt((String) tblOrcamento.getValueAt(tblOrcamento.getSelectedRow(), 1)), true);
+                DaoOrcamento.pagarOrcamento(((String) tblOrcamento.getValueAt(tblOrcamento.getSelectedRow(), 1)), true);
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(FrmListagemOrcamento.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -861,7 +861,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
             Object rowData[] = new Object[5];
             for (int i = 0; i < lista.size(); i++) {
                 rowData[0] = Integer.toString(lista.get(i).getCodigoOrcamento());
-                rowData[1] = Integer.toString(lista.get(i).getServico().getCodigoServico());
+                rowData[1] = lista.get(i).getServico().getCodigoServico();
                 if (lista.get(i).getStatusOrcamento() == 0) {
                     rowData[2] = "Ativo";
                 } else {
@@ -896,7 +896,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
             Object rowData[] = new Object[5];
             for (int i = 0; i < lista.size(); i++) {
                 rowData[0] = Integer.toString(lista.get(i).getCodigoOrcamento());
-                rowData[1] = Integer.toString(lista.get(i).getServico().getCodigoServico());
+                rowData[1] = lista.get(i).getServico().getCodigoServico();
                 if (lista.get(i).getStatusOrcamento() == 0) {
                     rowData[2] = "Ativo";
                 } else {

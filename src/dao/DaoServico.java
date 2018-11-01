@@ -36,7 +36,7 @@ public class DaoServico {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Servico s = new Servico();
-                s.setCodigoServico(String.valueOf(rs.getInt("CD_SERVICO")));
+                s.setCodigoServico(rs.getString("CD_SERVICO"));
 
                 switch (rs.getInt("DS_TIPO_SERVICO")) {
                     case 0:
@@ -76,18 +76,18 @@ public class DaoServico {
         return lista;
     }
 
-    public static void alterarFuncionarioServico(ArrayList<Funcionario> lista, int codigoServico) throws SQLException, ClassNotFoundException {
+    public static void alterarFuncionarioServico(ArrayList<Funcionario> lista, String codigoServico) throws SQLException, ClassNotFoundException {
         Connection con = Conexao.conectar();
         String sql = "DELETE FROM SYNCHROSOFT.TB_FUNC_SERVICO WHERE CD_SERVICO = ?";
         PreparedStatement st = con.prepareStatement(sql);
-        st.setInt(1, codigoServico);
+        st.setString(1, codigoServico);
         st.executeUpdate();
         st.close();
         sql = "INSERT INTO SYNCHROSOFT.TB_FUNC_SERVICO (CD_FUNCIONARIO, CD_SERVICO) VALUES (?,?)";
         PreparedStatement st2 = con.prepareStatement(sql);
         for (int i = 0; i < lista.size(); i++) {
             st2.setString(1, lista.get(i).getCodigoFuncionario());
-            st2.setInt(2, codigoServico);
+            st2.setString(2, codigoServico);
             st2.executeUpdate();
         }
         st2.close();
@@ -98,25 +98,25 @@ public class DaoServico {
         Connection con = Conexao.conectar();
         String sql = "DELETE FROM SYNCHROSOFT.TB_FUNC_SERVICO WHERE CD_SERVICO = ?";
         PreparedStatement st = con.prepareStatement(sql);
-        st.setInt(1, s.getCodigoServico());
+        st.setString(1, s.getCodigoServico());
         st.executeUpdate();
         st.close();
 
         sql = "DELETE FROM SYNCHROSOFT.TB_PESSOAF_SERVICO WHERE CD_SERVICO = ?";
         PreparedStatement st2 = con.prepareStatement(sql);
-        st2.setInt(1, s.getCodigoServico());
+        st2.setString(1, s.getCodigoServico());
         st2.executeUpdate();
         st2.close();
 
         sql = "DELETE FROM SYNCHROSOFT.TB_PESSOAJ_SERVICO WHERE CD_SERVICO = ?";
         PreparedStatement st3 = con.prepareStatement(sql);
-        st3.setInt(1, s.getCodigoServico());
+        st3.setString(1, s.getCodigoServico());
         st3.executeUpdate();
         st3.close();
 
         sql = "DELETE FROM SYNCHROSOFT.TB_SERVICO WHERE CD_SERVICO = ?";
         PreparedStatement st4 = con.prepareStatement(sql);
-        st4.setInt(1, s.getCodigoServico());
+        st4.setString(1, s.getCodigoServico());
         st4.executeUpdate();
         st4.close();
         JOptionPane.showMessageDialog(null, "O Serviço foi removido com sucesso, sem nenhum funcionário atribuído ao mesmo.");
@@ -145,7 +145,7 @@ public class DaoServico {
         st.setString(3, s.getDescricaoServicoFILE());
         st.setDate(4, Date.valueOf(control.Datas.converterParaAmericana(s.getDataServico())));
         st.setDate(5, s.getDataServicoFim());
-        st.setInt(6, s.getCodigoServico());
+        st.setString(6, s.getCodigoServico());
         st.executeUpdate();
         st.close();
 
@@ -157,7 +157,7 @@ public class DaoServico {
                     + "WHERE CD_SERVICO = ?";
             PreparedStatement st2 = con.prepareStatement(sql);
             st2.setString(1, cpfcnpj);
-            st2.setInt(2, s.getCodigoServico());
+            st2.setString(2, s.getCodigoServico());
             st2.executeUpdate();
             st2.close();
 
@@ -167,7 +167,7 @@ public class DaoServico {
                     + "WHERE CD_SERVICO = ?";
             PreparedStatement st2 = con.prepareStatement(sql);
             st2.setString(1, cpfcnpj);
-            st2.setInt(2, s.getCodigoServico());
+            st2.setString(2, s.getCodigoServico());
             st2.executeUpdate();
             st2.close();
         }
@@ -264,7 +264,7 @@ Data Encerramento
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Servico s = new Servico();
-                s.setCodigoServico(String.valueOf(rs.getInt("CD_SERVICO")));
+                s.setCodigoServico(rs.getString("CD_SERVICO"));
 
                 switch (rs.getInt("DS_TIPO_SERVICO")) {
                     case 0:
