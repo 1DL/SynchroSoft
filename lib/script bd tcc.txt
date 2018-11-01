@@ -71,7 +71,7 @@ CREATE TABLE tb_peca
 
 CREATE TABLE tb_servico
 (
- cd_servico numeric(10),
+ cd_servico varchar2(10),
  ds_tipo_servico numeric(1) check(ds_tipo_servico in(0,1,2)),
  ds_tipo_cliente numeric(1) check(ds_tipo_cliente in (1,0)),
  ds_servico varchar2(100),
@@ -83,7 +83,7 @@ CREATE TABLE tb_servico
 CREATE TABLE tb_orcamento
 (
  cd_orcamento numeric(4),
- cd_servico numeric(10),
+ cd_servico varchar2(10),
  id_peca numeric(1) check(id_peca in (1,0)),
  constraint pk_orcamento primary key(cd_orcamento),
  constraint fk_servico_orcamento foreign key(cd_servico) references tb_servico(cd_servico)
@@ -93,7 +93,7 @@ CREATE TABLE tb_func_servico
 (
  cd_funcionario_servico numeric(5),
  cd_funcionario varchar2(10),
- cd_servico numeric(10),
+ cd_servico varchar2(10),
  constraint pk_funcionario_servico primary key(cd_funcionario_servico),
  constraint fk_funcionario_func_servico foreign key(cd_funcionario) references tb_funcionario(cd_funcionario),
  constraint fk_servico_func_servico foreign key(cd_servico) references tb_servico(cd_servico)
@@ -103,7 +103,7 @@ CREATE TABLE tb_pessoaF_servico
 (
  cd_pessoaF_servico numeric(4),
  cd_CPF varchar2(11),
- cd_servico numeric(10),
+ cd_servico varchar2(10),
  dt_servico date,
  constraint pk_pessoaF_servico primary key(cd_pessoaF_servico),
  constraint fk_cpf_pessoaF_servico foreign key(cd_CPF) references tb_pessoa_fisica(cd_CPF),
@@ -114,7 +114,7 @@ CREATE TABLE tb_pessoaJ_servico
 (
  cd_pessoaJ_servico numeric(4),
  cd_CNPJ varchar2(14),
- cd_servico numeric(10),
+ cd_servico varchar2(10),
  dt_servico date,
  constraint pk_pessoaJ_servico primary key(cd_pessoaJ_servico),
  constraint fk_cnpj_pessoaJ_servico foreign key(cd_CNPJ) references tb_pessoa_juridica(cd_CNPJ),
@@ -135,7 +135,7 @@ CREATE TABLE tb_despesa_servico
 (
  cd_despesa_servico numeric(4),
  cd_despesa numeric(10),
- cd_servico numeric(10),
+ cd_servico varchar2(10),
  constraint pk_despesa_servico primary key(cd_despesa_servico),
  constraint fk_despesa_despesa_servico foreign key(cd_despesa) references tb_despesa(cd_despesa),
  constraint fk_servico_despesa_servico foreign key(cd_servico) references tb_servico(cd_servico)
@@ -155,7 +155,7 @@ CREATE TABLE tb_endereco_servico
 (
  cd_endereco_servico numeric(4),
  cd_CEP varchar(8),
- cd_servico numeric(10),
+ cd_servico varchar2(10),
  constraint pk_endereco_servico primary key(cd_endereco_servico),
  constraint fk_endereco_endereco_servico foreign key(cd_CEP) references tb_endereco(cd_CEP),
  constraint fk_servico_endereco_servico foreign key(cd_servico) references tb_servico(cd_servico)

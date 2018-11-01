@@ -142,7 +142,7 @@ public class DaoOrcamento {
                 Orcamento o = new Orcamento();
                 o.setCodigoOrcamento(rs.getInt("CD_ORCAMENTO"));
                 Servico s = new Servico();
-                s.setCodigoServico(rs.getInt("CD_SERVICO"));
+                s.setCodigoServico(String.valueOf(rs.getInt("CD_SERVICO")));
                 o.setServico(s);
                 o.setStatusOrcamento(rs.getInt("ID_STATUS_ORCAMENTO"));
                 o.setValorTotal(rs.getDouble("VL_ORCAMENTO"));

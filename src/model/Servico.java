@@ -6,58 +6,66 @@
 package model;
 
 import java.sql.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author LuizV1
  */
 public class Servico {
+
     private int codigoServico;
     private String tipoServico;
     private Date dataServico;
     private Date dataServicoFim;
-    private boolean tipoCliente;
+    private int tipoCliente;
     private String cpfCliente;
     private String cnpjCliente;
     private Funcionario funcionario;
     private String descricaoServicoFILE;
-    private boolean statusServico;
+    private int statusServico;
 
     public Servico() {
     }
 
-    public Servico(int codigoServico, String tipoServico, Date dataServico, Date dataServicoFim, boolean tipoCliente, String cpfCliente, String cnpjCliente, String descricaoServicoFILE) {
-        this.codigoServico = codigoServico;
+    public Servico(String codigoServico, String tipoServico, String dataServico, 
+            boolean tipoCliente, String cpfCliente, 
+            String cnpjCliente, String descricaoServicoFILE) {
+        this.setCodigoServico(codigoServico);
         this.tipoServico = tipoServico;
-        this.dataServico = dataServico;
-        this.dataServicoFim = dataServicoFim;
-        this.tipoCliente = tipoCliente;
+        this.setDataServico(dataServico);
+        this.setTipoCliente(tipoCliente);
         this.cpfCliente = cpfCliente;
         this.cnpjCliente = cnpjCliente;
         this.descricaoServicoFILE = descricaoServicoFILE;
-        
+
     }
 
-    public Servico(int codigoServico, String tipoServico, Date dataServico, boolean tipoCliente, String cpfCliente, String cnpjCliente, Funcionario funcionario, String descricaoServicoFILE, boolean statusServico) {
-        this.codigoServico = codigoServico;
+    public Servico(String codigoServico, String tipoServico, Date dataServico, 
+            boolean tipoCliente, String cpfCliente, String cnpjCliente, 
+            Funcionario funcionario, String descricaoServicoFILE, boolean statusServico) {
+        this.setCodigoServico(codigoServico);
         this.tipoServico = tipoServico;
         this.dataServico = dataServico;
-        this.tipoCliente = tipoCliente;
+        this.setTipoCliente(tipoCliente);
         this.cpfCliente = cpfCliente;
         this.cnpjCliente = cnpjCliente;
         this.funcionario = funcionario;
         this.descricaoServicoFILE = descricaoServicoFILE;
-        this.statusServico = statusServico;
+        this.setStatusServico(statusServico);
     }
-
-    
 
     public int getCodigoServico() {
         return codigoServico;
     }
 
-    public void setCodigoServico(int codigoServico) {
-        this.codigoServico = codigoServico;
+    public void setCodigoServico(String codigoServico) {
+        try {
+            this.codigoServico = Integer.parseInt(codigoServico);
+        } catch (NumberFormatException nfe) {
+            JOptionPane.showMessageDialog(null, "Não foi possível popular o código do Serviço.\n\n"
+                    + "Digite somente números!\n", "Erro - Código de Serviço não é um número", 0);
+        }
     }
 
     public String getTipoServico() {
@@ -68,20 +76,26 @@ public class Servico {
         this.tipoServico = tipoServico;
     }
 
-    public Date getDataServico() {
-        return dataServico;
+    public String getDataServico() {
+        return control.Datas.converterParaBrasileira(this.dataServico.toString());
     }
 
-    public void setDataServico(Date dataServico) {
-        this.dataServico = dataServico;
+    public void setDataServico(String dataServico) {
+        this.dataServico = Date.valueOf(control.Datas.converterParaAmericana(dataServico));
+    }
+    
+    public void setDataServicoBanco (String dataServico) {
+        this.dataServico = Date.valueOf(dataServico);
     }
 
-    public boolean isTipoCliente() {
-        return tipoCliente;
-    }
+   
 
     public void setTipoCliente(boolean tipoCliente) {
-        this.tipoCliente = tipoCliente;
+        if (tipoCliente) {
+            this.tipoCliente = 0;
+        } else {
+            this.tipoCliente = 1;
+        }
     }
 
     public String getCpfCliente() {
@@ -116,12 +130,24 @@ public class Servico {
         this.descricaoServicoFILE = descricaoServicoFILE;
     }
 
-    public boolean isStatusServico() {
+    public int getStatusServico() {
         return statusServico;
+    }
+    
+    public String getStatusServicoSTR() {
+        if(this.statusServico == 0) {
+            return "Inativo";
+        } else {
+            return "Ativo";
+        }
     }
 
     public void setStatusServico(boolean statusServico) {
-        this.statusServico = statusServico;
+        if (statusServico) {
+            this.statusServico = 1;
+        } else {
+            this.statusServico = 0;
+        }
     }
 
     public Date getDataServicoFim() {
@@ -132,5 +158,20 @@ public class Servico {
         this.dataServicoFim = dataServicoFim;
     }
 
+    public int getTipoClienteBanco() {
+        return tipoCliente;
+    }
     
+    public String getTipoClienteSTR() {
+        if (this.tipoCliente == 0) {
+            return "Física";
+        } else {
+            return "Jurídica";
+        }
+    }
+
+    public void setTipoCliente(int tipoCliente) {
+        this.tipoCliente = tipoCliente;
+    }
+
 }
