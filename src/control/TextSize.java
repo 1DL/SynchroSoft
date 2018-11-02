@@ -49,8 +49,8 @@ public class TextSize {
 
     public static String maxLenghtServico(String str) {
         String valor = "";
-        if (str.length() > 10) {
-            valor = str.substring(0, 10);
+        if (str.length() > 9) {
+            valor = str.substring(0, 9);
             str = valor;
         }
         return str;

@@ -43,7 +43,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     boolean existeCpf;
     boolean existeCnpj;
     boolean existeServico;
-    boolean flagContrato = false;
+    boolean existeContrato = false;
     boolean flagFuncionario;
 
     public FrmCadastroServico(int nivelAdm) {
@@ -94,7 +94,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         lblTipoCliente = new javax.swing.JLabel();
         rbtFisica = new javax.swing.JRadioButton();
         rbtJuridica = new javax.swing.JRadioButton();
-        jLabel5 = new javax.swing.JLabel();
+        lblRelatorioServico = new javax.swing.JLabel();
         lblSelecionarFunc = new javax.swing.JLabel();
         btnArquivoRelatorio = new javax.swing.JButton();
         lblRelatorio = new javax.swing.JLabel();
@@ -145,6 +145,8 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         btnListarEndereco = new javax.swing.JButton();
         btnHoje = new javax.swing.JButton();
         lblNomeFunc = new javax.swing.JLabel();
+        lblCodigoServicoInicial = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         btnMenuPrincipal = new javax.swing.JButton();
         btnFecharFrame = new javax.swing.JButton();
         lblBackground = new javax.swing.JLabel();
@@ -194,9 +196,9 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtCpfCnpj.setBounds(380, 50, 120, 25);
 
         lblDataCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblDataCadastro.setText("Data de Cadastro");
+        lblDataCadastro.setText("Data de Cadastro:");
         panPrincipal.add(lblDataCadastro);
-        lblDataCadastro.setBounds(793, 10, 150, 25);
+        lblDataCadastro.setBounds(781, 10, 150, 25);
 
         lblTipoCliente.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblTipoCliente.setText("Tipo de Cliente:");
@@ -228,10 +230,10 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         panPrincipal.add(rbtJuridica);
         rbtJuridica.setBounds(230, 47, 85, 33);
 
-        jLabel5.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        jLabel5.setText("Relatório do serviço:");
-        panPrincipal.add(jLabel5);
-        jLabel5.setBounds(30, 130, 170, 25);
+        lblRelatorioServico.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblRelatorioServico.setText("Relatório do serviço:");
+        panPrincipal.add(lblRelatorioServico);
+        lblRelatorioServico.setBounds(30, 130, 170, 25);
 
         lblSelecionarFunc.setForeground(java.awt.Color.red);
         lblSelecionarFunc.setText("Funcionário Inválido.");
@@ -399,7 +401,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(cmbTipoServico);
-        cmbTipoServico.setBounds(680, 10, 110, 25);
+        cmbTipoServico.setBounds(668, 10, 110, 25);
 
         btnCadastrarPessoaJ.setText("Cadastrar CPF");
         btnCadastrarPessoaJ.addActionListener(new java.awt.event.ActionListener() {
@@ -411,9 +413,9 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         btnCadastrarPessoaJ.setBounds(627, 47, 103, 30);
 
         lblTipoServico.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblTipoServico.setText("Tipo de Serviço");
+        lblTipoServico.setText("Tipo de Serviço:");
         panPrincipal.add(lblTipoServico);
-        lblTipoServico.setBounds(550, 10, 160, 25);
+        lblTipoServico.setBounds(532, 10, 160, 25);
 
         txtCodigoServico.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -421,12 +423,12 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(txtCodigoServico);
-        txtCodigoServico.setBounds(200, 10, 90, 25);
+        txtCodigoServico.setBounds(210, 10, 80, 25);
 
         lblCodigoServico.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCodigoServico.setText("Código do serviço ");
+        lblCodigoServico.setText("Código do serviço: ");
         panPrincipal.add(lblCodigoServico);
-        lblCodigoServico.setBounds(30, 10, 156, 25);
+        lblCodigoServico.setBounds(30, 10, 160, 25);
 
         btnListarFunc.setText("Listar Funcionários");
         btnListarFunc.addActionListener(new java.awt.event.ActionListener() {
@@ -458,7 +460,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
 
         txtfDataServico.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
         panPrincipal.add(txtfDataServico);
-        txtfDataServico.setBounds(938, 10, 90, 25);
+        txtfDataServico.setBounds(928, 10, 90, 25);
 
         try {
             txtfCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
@@ -544,12 +546,25 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnHoje);
-        btnHoje.setBounds(1033, 10, 55, 25);
+        btnHoje.setBounds(1025, 10, 55, 25);
 
         lblNomeFunc.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblNomeFunc.setText("Nome Func. ");
+        lblNomeFunc.setText("Nome Func.: ");
         panPrincipal.add(lblNomeFunc);
         lblNomeFunc.setBounds(630, 90, 110, 25);
+
+        lblCodigoServicoInicial.setText("P");
+        panPrincipal.add(lblCodigoServicoInicial);
+        lblCodigoServicoInicial.setBounds(203, 15, 20, 14);
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(jButton1);
+        jButton1.setBounds(350, 160, 73, 23);
 
         getContentPane().add(panPrincipal);
         panPrincipal.setBounds(30, 30, 1100, 510);
@@ -581,11 +596,15 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rbtFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtFisicaActionPerformed
+        textSizeCpfCnpj();
         modoFisica();
+        validarCpfCnpj();
     }//GEN-LAST:event_rbtFisicaActionPerformed
 
     private void rbtJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtJuridicaActionPerformed
+        textSizeCpfCnpj();
         modoJuridica();
+        validarCpfCnpj();
     }//GEN-LAST:event_rbtJuridicaActionPerformed
 
     private void btnCadastrarPessoaJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarPessoaJActionPerformed
@@ -603,12 +622,12 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         if (returnVal == javax.swing.JFileChooser.APPROVE_OPTION) {
             java.io.File file = db.getSelectedFile();
             String fileConvert = file.toString();
-            lblRelatorio.setText(" " + fileConvert + " ");
+            lblRelatorio.setText("" + fileConvert + "");
         }
     }//GEN-LAST:event_btnArquivoRelatorioActionPerformed
 
     private void txtCpfCnpjKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfCnpjKeyReleased
-        txtCpfCnpj.setText(TextSize.maxLenghtCPFCNPJ(txtCpfCnpj.getText(), rbtFisica.isSelected()));
+        textSizeCpfCnpj();
         validarCpfCnpj();
     }//GEN-LAST:event_txtCpfCnpjKeyReleased
 
@@ -631,7 +650,8 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodigoServicoKeyReleased
 
     private void cmbTipoServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoServicoActionPerformed
-
+        definirInicialCodigoServico();
+        verificarCodigoServico();
     }//GEN-LAST:event_cmbTipoServicoActionPerformed
 
     private void btnListarServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarServicoActionPerformed
@@ -696,6 +716,10 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtfDataServico.setText(control.Datas.getDiaHoje());
     }//GEN-LAST:event_btnHojeActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        control.ManipularArquivos.moverArquivo(lblRelatorio.getText());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -703,7 +727,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -753,7 +777,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbTipoServico;
     private javax.swing.JFileChooser db;
     private javax.swing.ButtonGroup grupoSexo;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblCampoCpfCnpj;
@@ -763,6 +787,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JLabel lblCidade;
     private javax.swing.JLabel lblCodigoFunc;
     private javax.swing.JLabel lblCodigoServico;
+    private javax.swing.JLabel lblCodigoServicoInicial;
     private javax.swing.JLabel lblCpfCnpjExiste;
     private javax.swing.JLabel lblDataCadastro;
     private javax.swing.JLabel lblEstado;
@@ -773,6 +798,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JLabel lblNomeFuncValor;
     private javax.swing.JLabel lblRazaoSocial;
     private javax.swing.JLabel lblRelatorio;
+    private javax.swing.JLabel lblRelatorioServico;
     private javax.swing.JLabel lblSelecionarFunc;
     private javax.swing.JLabel lblSexoDesc;
     private javax.swing.JLabel lblSexoValor;
@@ -809,6 +835,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             lblCepExiste.setText("Cep Inválido.");
             lblCepExiste.setForeground(Color.red);
             limparExibicaoEndereco();
+            existeCep = false;
         } else {
             this.existeCep = dao.DaoEndereco.existeEndereco(cep);
             if (existeCep) {
@@ -851,6 +878,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
                 lblCpfCnpjExiste.setText("CPF Inválido!");
                 lblCpfCnpjExiste.setForeground(Color.red);
                 limparExibicaoPessoa();
+                existeCpf = false;
             } else {
                 existeCpf = dao.DaoPessoa.existePessoaFisica(txtCpfCnpj.getText());
                 if (existeCpf) {
@@ -859,45 +887,47 @@ public class FrmCadastroServico extends javax.swing.JFrame {
                     if (pessoaFisica.getPessoa().getManterContrato() == 0) {
                         lblCpfCnpjExiste.setText("CPF Sem contrato!");
                         lblCpfCnpjExiste.setForeground(Color.red);
-                        flagContrato = false;
+                        existeContrato = false;
                     } else {
                         lblCpfCnpjExiste.setText("CPF Cadastrado.");
                         lblCpfCnpjExiste.setForeground(Color.black);
-                        flagContrato = true;
+                        existeContrato = true;
                     }
                     popularExibicaoPessoa(pessoaFisica);
                 } else {
                     lblCpfCnpjExiste.setText("CPF Inexistente!");
                     lblCpfCnpjExiste.setForeground(Color.red);
-                    flagContrato = false;
+                    existeContrato = false;
                     limparExibicaoPessoa();
                 }
             }
         } else if (rbtJuridica.isSelected()) {
             if ((txtCpfCnpj.getText().length() < 14) || (txtCpfCnpj.getText().length() > 14)) {
                 lblCpfCnpjExiste.setText("CNPJ Inválido!");
+                lblCpfCnpjExiste.setForeground(Color.red);
                 limparExibicaoPessoa();
+                existeCnpj = false;
             } else {
 
                 existeCnpj = dao.DaoPessoa.existePessoaJuridica(txtCpfCnpj.getText());
                 if (existeCnpj) {
                     PessoaJuridica pessoaJuridica = new PessoaJuridica();
-                    pessoaJuridica = dao.DaoPessoa.popularPessoaJuridica(txtCpfCnpj.getText(), txtfCep.getText());
+                    pessoaJuridica = dao.DaoPessoa.popularPessoaJuridica(txtCpfCnpj.getText());
                     if (pessoaJuridica.getPessoa().getManterContrato() == 0) {
                         lblCpfCnpjExiste.setText("CNPJ Sem contrato!");
                         lblCpfCnpjExiste.setForeground(Color.red);
-                        flagContrato = false;
+                        existeContrato = false;
                     } else {
                         lblCpfCnpjExiste.setText("CNPJ Cadastrado.");
                         lblCpfCnpjExiste.setForeground(Color.black);
-                        flagContrato = true;
+                        existeContrato = true;
                     }
 
                     popularExibicaoPessoaJuridica(pessoaJuridica);
                 } else {
                     lblCpfCnpjExiste.setText("CNPJ Inexistente!");
                     lblCpfCnpjExiste.setForeground(Color.red);
-                    flagContrato = false;
+                    existeContrato = false;
                     limparExibicaoPessoaJuridica();
                 }
             }
@@ -905,25 +935,27 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }
 
     public void validarCEP() {
-        if ((txtfCep.getText().length() < 9) || (txtfCep.getText().length() > 9)) {
+        String cep = txtfCep.getText();
+        cep = cep.replace("-", "");
+        cep = cep.trim();
+        if ((cep.length() < 8) || (cep.length() > 8)) {
             lblCepExiste.setText("Cep Inválido!");
             lblCepExiste.setForeground(Color.red);
             limparExibicaoEndereco();
+            existeCep = false;
         } else {
-            existeCep = dao.DaoEndereco.existeEndereco(txtfCep.getText());
+            existeCep = dao.DaoEndereco.existeEndereco(cep);
             if (existeCep) {
                 lblCepExiste.setText("CEP Cadastrado.");
                 lblCepExiste.setForeground(Color.black);
                 Endereco endereco = new Endereco();
-                String cep = txtfCep.getText();
-                cep = cep.replace("-", "");
-                cep = cep.trim();
                 endereco = dao.DaoEndereco.popularEndereco(cep);
                 popularExibicaoEndereco(endereco);
             } else {
                 lblCepExiste.setText("CEP Inexistente!");
                 lblCepExiste.setForeground(Color.red);
                 limparExibicaoEndereco();
+                existeCep = false;
             }
 
         }
@@ -945,10 +977,6 @@ public class FrmCadastroServico extends javax.swing.JFrame {
 
     public void popularExibicaoPessoa(PessoaFisica pessoaFisica) {
         txtNomePessoaFicticio.setText(pessoaFisica.getPessoa().getNome());
-        txtLogradouro.setText(pessoaFisica.getPessoa().getEndereco().getLogradouro());
-        txtCidade.setText(pessoaFisica.getPessoa().getEndereco().getCidade());
-        txtEstado.setText(pessoaFisica.getPessoa().getEndereco().getEstado());
-        txtBairro.setText(pessoaFisica.getPessoa().getEndereco().getBairro());
         txtNumero.setText(pessoaFisica.getPessoa().getComplementoLogradouro());
         txtTelefone.setText(String.valueOf(pessoaFisica.getPessoa().getTelefone()));
         txtCelularRamal.setText(String.valueOf(pessoaFisica.getCelular()));
@@ -958,10 +986,6 @@ public class FrmCadastroServico extends javax.swing.JFrame {
 
     public void popularExibicaoPessoaJuridica(PessoaJuridica pessoaJuridica) {
         txtNomePessoaFicticio.setText(pessoaJuridica.getPessoa().getNome());
-        txtLogradouro.setText(pessoaJuridica.getPessoa().getEndereco().getLogradouro());
-        txtCidade.setText(pessoaJuridica.getPessoa().getEndereco().getCidade());
-        txtEstado.setText(pessoaJuridica.getPessoa().getEndereco().getEstado());
-        txtBairro.setText(pessoaJuridica.getPessoa().getEndereco().getBairro());
         txtNumero.setText(pessoaJuridica.getPessoa().getComplementoLogradouro());
         txtTelefone.setText(String.valueOf(pessoaJuridica.getPessoa().getTelefone()));
         txtCelularRamal.setText(String.valueOf(pessoaJuridica.getRamalCliente()));
@@ -1023,7 +1047,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             lblExisteServico.setText("Código Inválido.");
             lblExisteServico.setForeground(Color.red);
             existeServico = false;
-        } else if (dao.DaoServico.existeServico(Integer.parseInt(txtCodigoServico.getText()))) {
+        } else if (dao.DaoServico.existeServico(lblCodigoServicoInicial.getText() + txtCodigoServico.getText())) {
             lblExisteServico.setText("Código já cadastrado.");
             lblExisteServico.setForeground(Color.red);
             existeServico = false;
@@ -1050,35 +1074,44 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private void cadastrarServico() {
         validarCEP();
         validarCpfCnpj();
-        if (flagContrato && existeCep && verificarFuncVazio() && (existeCnpj || existeCpf)) {
-            ArrayList<Funcionario> lista = new ArrayList<>();
+        if (validarCampos()) {
+            Servico servico = new Servico();
+
+            servico.setCodigoServico(lblCodigoServicoInicial.getText() + txtCodigoServico.getText());
+            servico.setTipoServico(cmbTipoServico.getSelectedIndex());
+            servico.setDataServico(txtfDataServico.getText());
+            servico.setTipoCliente(rbtFisica.isSelected());
+            servico.setCpfCliente(txtCpfCnpj.getText());
+            String cep = txtfCep.getText();
+            cep = cep.replace("-", "");
+            cep = cep.trim();
+            servico.setEndereco(dao.DaoEndereco.popularEndereco(cep));
+            servico.setCnpjCliente(txtCpfCnpj.getText());
+            servico.setDescricaoServicoFILE(lblRelatorio.getText());
+            servico.setStatusServico(true);
 
             DefaultTableModel model = (DefaultTableModel) tblFuncSelecionados.getModel();
-            for (int i = 0; i < model.getRowCount(); i++) {
-                Funcionario f = new Funcionario();
-                f.setCodigoFuncionario(((String) model.getValueAt(i, 0)));
-                lista.add(f);
 
+            for (int i = 0; i < model.getRowCount(); i++) {
+                Funcionario funcionario = new Funcionario();
+                funcionario.setCodigoFuncionario(((String) model.getValueAt(i, 0)));
+                servico.setFuncionarioNaLista(funcionario);
             }
 
-            Servico serv = new Servico(Integer.parseInt(txtCodigoServico.getText()), cmbTipoServico.getSelectedItem().toString(),
-                    Date.valueOf(txtfDataServico.getText()), rbtFisica.isSelected(), txtCpfCnpj.getText(), txtCpfCnpj.getText(), f, lblRelatorio.getText(), true);
-            DaoServico dao = new DaoServico();
-            
-                dao.cadastrarServico(serv.getCnpjCliente(), lista, serv.getCodigoServico(), serv.getTipoServico(),
-                        serv.getTipoCliente(), serv.getDescricaoServicoFILE(), serv.getDataServico(), serv.getStatusServico());
-                iniciarTabela();
-                if (!serv.getTipoServico().equals("Preventivo")) {
-                    int aux = 9;
-                    aux = JOptionPane.showConfirmDialog(rootPane, "Deseja criar um orçamento para o serviço?");
-                    if (aux == 0) {
-                        FrmCadastroOrcamento tela = new FrmCadastroOrcamento(serv.getCodigoServico(), true);
-                        tela.setVisible(true);
-                    }
+            dao.DaoServico.cadastrarServico(servico);
+            iniciarTabela();
+
+            if (servico.getTipoServicoBanco() != 0) {
+                int opcaoJOPane;
+                opcaoJOPane = JOptionPane.showConfirmDialog(rootPane, "Deseja criar um orçamento para o serviço?", "Criação de orçamento", 0, JOptionPane.QUESTION_MESSAGE);
+                if (opcaoJOPane == 0) {
+                    control.Janelas.abrirCadastroOrcamento(servico.getCodigoServico(), true);
                 }
+            }
             
+            verificarCodigoServico();
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Erro! Preencha os campos corretamente.");
+
         }
     }
 
@@ -1118,6 +1151,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         } else {
             lblNomeFuncValor.setText("-");
             lblSelecionarFunc.setText("Funcionário Inexistente");
+            lblSelecionarFunc.setForeground(Color.red);
             flagFuncionario = false;
             btnSelecionarfunc.setEnabled(false);
         }
@@ -1130,23 +1164,21 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) tblFuncSelecionados.getModel();
             Object rowData[] = new Object[3];
             rowData[0] = (String) txtCodFunc.getText();
-            rowData[1] = (String) lblNomeFunc.getText();
+            rowData[1] = (String) lblNomeFuncValor.getText();
             String codigos = "";
-            try {
-                codigos = DaoServico.listarServicosDoFuncionario(txtCodFunc.getText());
-            } catch (SQLException ex) {
-                Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+            codigos = DaoServico.listarServicosDoFuncionario(txtCodFunc.getText());
+
             if (codigos.equals("")) {
                 rowData[2] = (String) "Livre";
             } else {
                 codigos = codigos.substring(2);
                 rowData[2] = (String) codigos;
             }
+
             String aux = (String) rowData[0];
             String aux2 = "";
+
             for (int i = 0; i < model.getRowCount(); i++) {
                 aux2 = (String) model.getValueAt(i, 0);
                 if (aux.equals(aux2)) {
@@ -1157,12 +1189,87 @@ public class FrmCadastroServico extends javax.swing.JFrame {
                 model.addRow(rowData);
                 tblFuncSelecionados.setModel(model);
                 txtCodFunc.setText("");
+                btnSelecionarfunc.setEnabled(false);
                 txtCodFunc.requestFocus();
             }
         }
     }
-    
-    private void validarCamps() {
+
+    private boolean validarCampos() {
+        if (rbtFisica.isSelected()) {
+            if (txtCpfCnpj.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "CPF em branco. \nDigite um CPF válido.", "Erro - CPF Inválido", 0);
+                txtCpfCnpj.requestFocus();
+                return false;
+            } else if (!existeCpf) {
+                JOptionPane.showMessageDialog(null, "CPF Inválido. \nDigite um CPF que esteja cadastrado no sistema.", "Erro - CPF Inválido", 0);
+                txtCpfCnpj.requestFocus();
+                return false;
+            } else if (!existeContrato) {
+                JOptionPane.showMessageDialog(null, "A pessoa física informada não mantém um contrato. \nA pessoa física deve criar um contrato ou insira um CPF diferente.", "Erro - CPF sem contrato", 0);
+                txtCpfCnpj.requestFocus();
+                return false;
+            }
+        } else {
+            if (txtCpfCnpj.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "CNPJ em branco. \nDigite um CNPJ válido.", "Erro - CNPJ Inválido", 0);
+                txtCpfCnpj.requestFocus();
+                return false;
+            } else if (!existeCnpj) {
+                JOptionPane.showMessageDialog(null, "CNPJ Inválido. \nDigite um CNPJ que esteja cadastrado no sistema.", "Erro - CPF Inválido", 0);
+                txtCpfCnpj.requestFocus();
+                return false;
+            } else if (!existeContrato) {
+                JOptionPane.showMessageDialog(null, "A pessoa jurídica informada não mantém um contrato. \nA pessoa jurídica deve criar um contrato ou insira um CNPJ diferente.", "Erro - CPF sem contrato", 0);
+                txtCpfCnpj.requestFocus();
+                return false;
+            }
+        } 
         
+        if (txtCodigoServico.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Código do serviço em branco. \nDigite um código para o serviço.", "Erro - Código Serviço Inválido", 0);
+            txtCodigoServico.requestFocus();
+            return false;
+        } else if (!existeServico) {
+            JOptionPane.showMessageDialog(null, "Código do serviço já cadastrado. \nDigite um código diferente para o serviço.", "Erro - Código Serviço Inválido", 0);
+            txtCodigoServico.requestFocus();
+            return false;
+        } else if (txtfDataServico.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Data do serviço em branco. \nClique no botão 'Hoje' ou defina uma data manualmente.", "Erro - Data do Serviço Inválido", 0);
+            txtfDataServico.requestFocus();
+            return false;
+        } else if (!existeCep) {
+            JOptionPane.showMessageDialog(null, "CEP inexistente. \nDigite um CEP que esteja cadastrado no sistema.", "Erro - CEP Inválido", 0);
+            txtfCep.requestFocus();
+            return false;
+        } else if (!verificarFuncVazio()) {
+            JOptionPane.showMessageDialog(null, "Nenhum funcionário foi atribuído ao serviço. \nDigite o código do funcionário e selecione pelo menos um funcionário.", "Erro - Nenhum Funcionário Selecionado", 0);
+            txtCodFunc.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+        
+    }
+
+    private void definirInicialCodigoServico() {
+        switch (cmbTipoServico.getSelectedIndex()) {
+            case 0:
+                lblCodigoServicoInicial.setText("P");
+                break;
+            case 1:
+                lblCodigoServicoInicial.setText("C");
+                break;
+            case 2:
+                lblCodigoServicoInicial.setText("E");
+                break;
+            default:
+                lblCodigoServicoInicial.setText("-");
+                break;
+        }
+    }
+
+    private void textSizeCpfCnpj() {
+        txtCpfCnpj.setText(TextSize.maxLenghtCPFCNPJ(txtCpfCnpj.getText(), rbtFisica.isSelected()));
     }
 }

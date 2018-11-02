@@ -26,7 +26,7 @@ public class SynchroSoft {
 
     public static void main(String[] args) throws IOException {
 
-        LeitorArquivo.lerArquivoJanelas();
+        ManipularArquivos.lerArquivoJanelas();
         Janelas.abrirLogin();
     }
 

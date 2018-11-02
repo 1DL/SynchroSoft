@@ -93,40 +93,50 @@ public class DaoPessoa {
 
     }
 
-    public static PessoaFisica popularPessoaFisicaSemCep(String cpf) throws SQLException, ClassNotFoundException {
-        boolean flag;
-        Connection con = Conexao.conectar();
-        String sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA WHERE CD_CPF = ?";
-        PreparedStatement st = con.prepareStatement(sql);
-        st.setString(1, cpf);
-        ResultSet rs = st.executeQuery();
-        rs.next();
+    public static PessoaFisica popularPessoaFisicaSemCep(String cpf) {
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA WHERE CD_CPF = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, cpf);
+            ResultSet rs = st.executeQuery();
+            rs.next();
 
-        Endereco end = new Endereco();
-        end = DaoEndereco.popularEndereco(rs.getString("CD_CEP"));
-        end.setCep(rs.getString("CD_CEP"));
+            Endereco end = new Endereco();
+            end = DaoEndereco.popularEndereco(rs.getString("CD_CEP"));
+          
 
-        Pessoa pessoa = new Pessoa();
-        pessoa.setNome("NM_PESSOA_FISICA");
-        pessoa.setEndereco(end);
-        pessoa.setTelefone(rs.getString("NR_TELEFONE"));
-        pessoa.setComplementoLogradouro(rs.getString("NR_COMPLEMENTO_LOGRADOURO"));
-        pessoa.setManterContratoBanco(rs.getInt("ID_CONTRATO"));
+            Pessoa pessoa = new Pessoa();
+            pessoa.setNome("NM_PESSOA_FISICA");
+            pessoa.setEndereco(end);
+            pessoa.setTelefone(rs.getString("NR_TELEFONE"));
+            pessoa.setComplementoLogradouro(rs.getString("NR_COMPLEMENTO_LOGRADOURO"));
+            pessoa.setManterContratoBanco(rs.getInt("ID_CONTRATO"));
 
-        PessoaFisica pessoaFisica = new PessoaFisica();
-        pessoaFisica.setPessoa(pessoa);
-        pessoaFisica.setCpf(rs.getString("CD_CPF"));
-        pessoaFisica.setSexoBanco(rs.getInt("ID_SEXO"));
-        pessoaFisica.setCelular(String.valueOf(rs.getLong("NR_CELULAR")));
-        pessoaFisica.setDataCadastroBanco((control.Datas.converterParaBrasileira(String.valueOf(rs.getDate("DT_CADASTRO")))));
+            PessoaFisica pessoaFisica = new PessoaFisica();
+            pessoaFisica.setPessoa(pessoa);
+            pessoaFisica.setCpf(rs.getString("CD_CPF"));
+            pessoaFisica.setSexoBanco(rs.getInt("ID_SEXO"));
+            pessoaFisica.setCelular(String.valueOf(rs.getLong("NR_CELULAR")));
+            pessoaFisica.setDataCadastroBanco(rs.getDate("DT_CADASTRO").toString());
 
-        st.close();
-        rs.close();
+            st.close();
+            rs.close();
 
-        return pessoaFisica;
+            return pessoaFisica;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível popular os dados da pessoa física.\n\nErro Nº:"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoPessoa - Popular pessoa física sem cep", 0);
+            return null;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível popular os dados da pessoa física.\n\nErro :"
+                    + ex.getMessage(), "Erro: DaoPessoa - Popular pessoa física sem cep", 0);
+            return null;
+        }
+
     }
 
-    public static PessoaJuridica popularPessoaJuridica(String cnpj, String cep) {
+    public static PessoaJuridica popularPessoaJuridica(String cnpj) {
         try {
             Connection con = Conexao.conectar();
             String sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA WHERE CD_CNPJ = ?";
@@ -136,7 +146,47 @@ public class DaoPessoa {
             rs.next();
 
             Endereco end = new Endereco();
-            end = DaoEndereco.popularEndereco(cep);
+            end = DaoEndereco.popularEndereco(rs.getString("CD_CEP"));
+            
+            Pessoa pessoa = new Pessoa();
+            pessoa.setNome(rs.getString("NM_FICTICIO"));
+            pessoa.setEndereco(end);
+            pessoa.setTelefone(String.valueOf(rs.getLong("NR_TELEFONE")));
+            pessoa.setComplementoLogradouro(rs.getString("NR_LOGRADOURO"));
+            pessoa.setManterContratoBanco(rs.getInt("ID_CONTRATO"));
+
+            PessoaJuridica pessoaJuridica = new PessoaJuridica();
+            pessoaJuridica.setPessoa(pessoa);
+            pessoaJuridica.setCnpj(rs.getString("CD_CNPJ"));
+            pessoaJuridica.setRazaoSocial(rs.getString("NM_RAZAO_SOCIAL"));
+            pessoaJuridica.setDataCadastroBanco(rs.getDate("DT_CADASTRO").toString());
+            pessoaJuridica.setRamalCliente(String.valueOf(rs.getInt("NR_RAMAL")));
+
+            st.close();
+            rs.close();
+
+            return pessoaJuridica;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível popular os dados da pessoa jurídica.\n\nErro Nº:"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoPessoa - Popular pessoa jurídica", 0);
+            return null;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível popular os dados da pessoa jurídica sem cep.\n\nErro :"
+                    + ex, "Erro: DaoPessoa - Popular pessoa jurídica", 0);
+            return null;
+        }
+    }
+
+    public static PessoaJuridica popularPessoaJuridicaSemCep(String cnpj) {
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA WHERE CD_CNPJ = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, cnpj);
+            ResultSet rs = st.executeQuery();
+            rs.next();
+            Endereco end = new Endereco();
+            end = DaoEndereco.popularEndereco(rs.getString("CD_CEP"));
 
             Pessoa pessoa = new Pessoa();
             pessoa.setNome(rs.getString("NM_RAZAO_SOCIAL"));
@@ -149,50 +199,21 @@ public class DaoPessoa {
             pessoaJuridica.setPessoa(pessoa);
             pessoaJuridica.setCnpj(rs.getString("CD_CNPJ"));
             pessoaJuridica.setRazaoSocial(rs.getString("NM_RAZAO_SOCIAL"));
-            pessoaJuridica.setDataCadastroBanco(control.Datas.converterParaBrasileira(String.valueOf(rs.getDate("DT_CADASTRO"))));
+            pessoaJuridica.setDataCadastroBanco(rs.getDate("DT_CADASTRO").toString());
             pessoaJuridica.setRamalCliente(String.valueOf(rs.getInt("NR_RAMAL")));
 
             st.close();
             rs.close();
-
             return pessoaJuridica;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não  foi possível popular os dados da pessoa jurídica.\n\nErro Nº:"
-                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoPessoa - Popular pessoa jurídica", 0);
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoPessoa - Popular pessoa jurídica sem cep", 0);
             return null;
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DaoPessoa.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível popular os dados da pessoa jurídica sem cep.\n\nErro :"
+                    + ex.getMessage(), "Erro: DaoPessoa - Popular pessoa jurídica", 0);
             return null;
         }
-    }
-
-    public static PessoaJuridica popularPessoaJuridicaSemCep(String cnpj) throws SQLException, ClassNotFoundException {
-        Connection con = Conexao.conectar();
-        String sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA WHERE CD_CNPJ = ?";
-        PreparedStatement st = con.prepareStatement(sql);
-        st.setString(1, cnpj);
-        ResultSet rs = st.executeQuery();
-        rs.next();
-        Endereco end = new Endereco();
-        end = DaoEndereco.popularEndereco(rs.getString("CD_CEP"));
-
-        Pessoa pessoa = new Pessoa();
-        pessoa.setNome(rs.getString("NM_RAZAO_SOCIAL"));
-        pessoa.setEndereco(end);
-        pessoa.setTelefone(String.valueOf(rs.getLong("NR_TELEFONE")));
-        pessoa.setComplementoLogradouro(rs.getString("NR_LOGRADOURO"));
-        pessoa.setManterContratoBanco(rs.getInt("ID_CONTRATO"));
-
-        PessoaJuridica pessoaJuridica = new PessoaJuridica();
-        pessoaJuridica.setPessoa(pessoa);
-        pessoaJuridica.setCnpj(rs.getString("CD_CNPJ"));
-        pessoaJuridica.setRazaoSocial(rs.getString("NM_RAZAO_SOCIAL"));
-        pessoaJuridica.setDataCadastroBanco(control.Datas.converterParaBrasileira(String.valueOf(rs.getDate("DT_CADASTRO"))));
-        pessoaJuridica.setRamalCliente(String.valueOf(rs.getInt("NR_RAMAL")));
-
-        st.close();
-        rs.close();
-        return pessoaJuridica;
     }
 
     public static boolean existePessoaFisica(String cpf) {

@@ -6,6 +6,7 @@
 package model;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,59 +16,59 @@ import javax.swing.JOptionPane;
 public class Servico {
 
     private String codigoServico;
-    private String tipoServico;
+    private int tipoServico;
     private Date dataServico;
     private Date dataServicoFim;
     private int tipoCliente;
     private String cpfCliente;
     private String cnpjCliente;
-    private Funcionario funcionario;
+    private ArrayList<Funcionario> listaFuncionario = new ArrayList<>();
     private String descricaoServicoFILE;
     private int statusServico;
+    private Endereco endereco;
 
     public Servico() {
-    }
 
-    public Servico(String codigoServico, String tipoServico, String dataServico, 
-            boolean tipoCliente, String cpfCliente, 
-            String cnpjCliente, String descricaoServicoFILE) {
-        this.setCodigoServico(codigoServico);
-        this.tipoServico = tipoServico;
-        this.setDataServico(dataServico);
-        this.setTipoCliente(tipoCliente);
-        this.cpfCliente = cpfCliente;
-        this.cnpjCliente = cnpjCliente;
-        this.descricaoServicoFILE = descricaoServicoFILE;
-
-    }
-
-    public Servico(String codigoServico, String tipoServico, Date dataServico, 
-            boolean tipoCliente, String cpfCliente, String cnpjCliente, 
-            Funcionario funcionario, String descricaoServicoFILE, boolean statusServico) {
-        this.setCodigoServico(codigoServico);
-        this.tipoServico = tipoServico;
-        this.dataServico = dataServico;
-        this.setTipoCliente(tipoCliente);
-        this.cpfCliente = cpfCliente;
-        this.cnpjCliente = cnpjCliente;
-        this.funcionario = funcionario;
-        this.descricaoServicoFILE = descricaoServicoFILE;
-        this.setStatusServico(statusServico);
     }
 
     public String getCodigoServico() {
         return codigoServico;
     }
 
+    public ArrayList<Funcionario> getListaFuncionario() {
+        return listaFuncionario;
+    }
+
+    public void setListaFuncionario(ArrayList<Funcionario> funcionario) {
+        this.listaFuncionario = funcionario;
+    }
+    
+    public void setFuncionarioNaLista(Funcionario funcionario){
+        this.listaFuncionario.add(funcionario);
+    }
+
     public void setCodigoServico(String codigoServico) {
         this.codigoServico = codigoServico;
     }
 
-    public String getTipoServico() {
+    public int getTipoServicoBanco() {
         return tipoServico;
     }
 
-    public void setTipoServico(String tipoServico) {
+    public String getTipoServicoSTR() {
+        switch (this.tipoServico) {
+            case 0:
+                return "Preventivo";
+            case 1:
+                return "Corretivo";
+            case 2:
+                return "Emergencial";
+            default:
+                return "Erro Tipo Serviço";
+        }
+    }
+
+    public void setTipoServico(int tipoServico) {
         this.tipoServico = tipoServico;
     }
 
@@ -78,19 +79,44 @@ public class Servico {
     public void setDataServico(String dataServico) {
         this.dataServico = Date.valueOf(control.Datas.converterParaAmericana(dataServico));
     }
-    
-    public void setDataServicoBanco (String dataServico) {
+
+    public void setDataServicoBanco(String dataServico) {
         this.dataServico = Date.valueOf(dataServico);
     }
 
-   
+    public String getDataServicoFim() {
+        return control.Datas.converterParaBrasileira(this.dataServicoFim.toString());
+    }
 
+    public void setDataServicoFim(String dataServicoFim) {
+        this.dataServicoFim = Date.valueOf(control.Datas.converterParaAmericana(dataServicoFim));
+    }
+
+    public void setDataServicoFimBanco(String dataServicoFim) {
+        this.dataServicoFim = Date.valueOf(dataServicoFim);
+    }
+    /**
+     * Define o valor inteiro para o atributo tipoCliente. 
+     * O argumento booleano true representa o cliente do tipo Físico, 
+     * atribuindo o valor inteiro 0 para o atributo tipoCliente.
+     * 
+     * O argumento booleano false representa o cliente do tipo Jurídico,
+     * atribuindo o valor inteiro 1 para o atributo tipoCliente.
+     * 
+     * @param tipoCliente determina o tipo de cliente. Se true, 
+     * representa cliente Físico e atribui inteiro 0 ao tipoCliente. Se false,
+     * representa cliente Jurídico e atribui inteiro 1 ao tipoCliente.
+     */
     public void setTipoCliente(boolean tipoCliente) {
         if (tipoCliente) {
             this.tipoCliente = 0;
         } else {
             this.tipoCliente = 1;
         }
+    }
+
+    public void setTipoClienteBanco(int tipoCliente) {
+        this.tipoCliente = tipoCliente;
     }
 
     public String getCpfCliente() {
@@ -109,14 +135,6 @@ public class Servico {
         this.cnpjCliente = cnpjCliente;
     }
 
-    public Funcionario getFuncionario() {
-        return funcionario;
-    }
-
-    public void setFuncionario(Funcionario funcionario) {
-        this.funcionario = funcionario;
-    }
-
     public String getDescricaoServicoFILE() {
         return descricaoServicoFILE;
     }
@@ -128,9 +146,9 @@ public class Servico {
     public int getStatusServico() {
         return statusServico;
     }
-    
+
     public String getStatusServicoSTR() {
-        if(this.statusServico == 0) {
+        if (this.statusServico == 0) {
             return "Inativo";
         } else {
             return "Ativo";
@@ -145,18 +163,14 @@ public class Servico {
         }
     }
 
-    public Date getDataServicoFim() {
-        return dataServicoFim;
-    }
-
-    public void setDataServicoFim(Date dataServicoFim) {
-        this.dataServicoFim = dataServicoFim;
+    public void setStatusServicoBanco(int statusServico) {
+        this.statusServico = statusServico;
     }
 
     public int getTipoClienteBanco() {
         return tipoCliente;
     }
-    
+
     public String getTipoClienteSTR() {
         if (this.tipoCliente == 0) {
             return "Física";
@@ -165,8 +179,11 @@ public class Servico {
         }
     }
 
-    public void setTipoCliente(int tipoCliente) {
-        this.tipoCliente = tipoCliente;
+    public Endereco getEndereco() {
+        return endereco;
     }
 
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
 }

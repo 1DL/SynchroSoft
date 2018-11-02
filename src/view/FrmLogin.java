@@ -26,7 +26,7 @@ public class FrmLogin extends javax.swing.JFrame {
 //    FrmLogin telaLogin = new FrmLogin();
     
     public FrmLogin() throws IOException {
-        control.LeitorArquivo.lerArquivoConfiguracoes();
+        control.ManipularArquivos.lerArquivoConfiguracoes();
         try {
             UIManager.setLookAndFeel(
             UIManager.getSystemLookAndFeelClassName());
@@ -67,7 +67,7 @@ public class FrmLogin extends javax.swing.JFrame {
             control.Opcoes.setUsuarioDB(txtp_usuarioDB.getText());
             control.Opcoes.setSenhaDB(txtp_senhaDB.getText());
             
-            control.LeitorArquivo.escreverArquivoConfiguracoes();
+            control.ManipularArquivos.escreverArquivoConfiguracoes();
             
             //eliminando a tela de login da memória
             this.dispose();

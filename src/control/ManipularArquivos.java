@@ -6,13 +6,34 @@
 package control;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author LuizV1
  */
-public class LeitorArquivo {
+public class ManipularArquivos {
+
+    public static void copiarArquivo(String diretorioOrigem) {
+        try {
+            Path temp = Files.copy(Paths.get(diretorioOrigem), Paths.get("C:\\JAVAMOVE\\a.txt"), StandardCopyOption.REPLACE_EXISTING);
+
+            if (temp != null) {
+                System.out.println("File renamed and moved successfully");
+            } else {
+                System.out.println("Failed to move the file");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ManipularArquivos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 
     public static void lerArquivoJanelas() {
         //Nome do arquivo a ser acessado, presente na pasta raíz do projeto.
@@ -138,7 +159,7 @@ public class LeitorArquivo {
                             opcao = linha.substring(linha.indexOf("=") + 1);
                             opcao.trim();
                             Opcoes.setSenhaDB(opcao);
-                            break;                            
+                            break;
                     }
 
                     limiteConfiguracao++;
@@ -146,11 +167,11 @@ public class LeitorArquivo {
             } catch (Exception ex) {
                 resetarConfiguracoes();
             }
-            
+
             if (limiteConfiguracao != Opcoes.qtdOpcoes) {
                 resetarConfiguracoes();
             }
-            
+
             bufferedReader.close();
 
         } catch (FileNotFoundException ex) {
@@ -200,7 +221,7 @@ public class LeitorArquivo {
             // ex.printStackTrace();
         }
     }
-    
+
     public static void escreverArquivoConfiguracoes() throws IOException {
 
         String fileName = "configuracoes.txt";
@@ -214,38 +235,34 @@ public class LeitorArquivo {
             System.out.println("escrita configuracoes");
             int limiteConfiguracao = 0;
             String linha;
-            
 
-                linha = "Login="+Opcoes.getLogin();
-                bufferedWriter.write(linha);
-                bufferedWriter.newLine();
-                limiteConfiguracao++;
-                linha = "IP="+Opcoes.getIp();
-                bufferedWriter.write(linha);
-                bufferedWriter.newLine();
-                limiteConfiguracao++;
-                linha = "Porta="+Opcoes.getPorta();
-                bufferedWriter.write(linha);
-                bufferedWriter.newLine();
-                limiteConfiguracao++;
-                linha = "SID="+Opcoes.getSID();
-                bufferedWriter.write(linha);
-                bufferedWriter.newLine();
-                limiteConfiguracao++;
-                linha = "UsuárioDB="+Opcoes.getUsuarioDB();
-                bufferedWriter.write(linha);
-                bufferedWriter.newLine();
-                limiteConfiguracao++;
-                linha = "SenhaDB="+Opcoes.getSenhaDB();
-                bufferedWriter.write(linha);
-                bufferedWriter.newLine();
-                limiteConfiguracao++;
-                
-                
-                
-                System.out.println(linha);
-                
-            
+            linha = "Login=" + Opcoes.getLogin();
+            bufferedWriter.write(linha);
+            bufferedWriter.newLine();
+            limiteConfiguracao++;
+            linha = "IP=" + Opcoes.getIp();
+            bufferedWriter.write(linha);
+            bufferedWriter.newLine();
+            limiteConfiguracao++;
+            linha = "Porta=" + Opcoes.getPorta();
+            bufferedWriter.write(linha);
+            bufferedWriter.newLine();
+            limiteConfiguracao++;
+            linha = "SID=" + Opcoes.getSID();
+            bufferedWriter.write(linha);
+            bufferedWriter.newLine();
+            limiteConfiguracao++;
+            linha = "UsuárioDB=" + Opcoes.getUsuarioDB();
+            bufferedWriter.write(linha);
+            bufferedWriter.newLine();
+            limiteConfiguracao++;
+            linha = "SenhaDB=" + Opcoes.getSenhaDB();
+            bufferedWriter.write(linha);
+            bufferedWriter.newLine();
+            limiteConfiguracao++;
+
+            System.out.println(linha);
+
             if (limiteConfiguracao != Opcoes.qtdOpcoes) {
                 resetarConfiguracoes();
             }
@@ -289,8 +306,8 @@ public class LeitorArquivo {
         }
         escreverArquivoJanelas();
     }
-    
-    public static void resetarConfiguracoes() throws IOException{
+
+    public static void resetarConfiguracoes() throws IOException {
         JOptionPane.showMessageDialog(null, "Arquivo 'configuracoes.txt' corrompido ou não foi encontrado. \n\n"
                 + "O arquivo será reconstruído, e as configuracões serão redefinidas para valores padrãoes.");
         Opcoes.setLogin("");

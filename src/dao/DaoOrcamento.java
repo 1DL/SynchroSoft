@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Orcamento;
 import model.Produto;
@@ -21,17 +23,27 @@ import model.Servico;
  */
 public class DaoOrcamento {
 
-    public static boolean existeOrcamento(String codigoServico) throws SQLException, ClassNotFoundException {
+    public static boolean existeOrcamento(String codigoServico) {
         boolean flag;
-        Connection con = Conexao.conectar();
-        String sql = "SELECT * FROM SYNCHROSOFT.TB_ORCAMENTO WHERE CD_SERVICO = ?";
-        PreparedStatement st = con.prepareStatement(sql);
-        st.setString(1, codigoServico);
-        ResultSet rs = st.executeQuery();
-        flag = rs.isBeforeFirst();
-        st.close();
-        rs.close();
-        return flag;
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "SELECT * FROM SYNCHROSOFT.TB_ORCAMENTO WHERE CD_SERVICO = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, codigoServico);
+            ResultSet rs = st.executeQuery();
+            flag = rs.isBeforeFirst();
+            st.close();
+            rs.close();
+            return flag;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível verificar a existência do orçamento.\n\nErro Nº "+
+                    ex.getErrorCode()+"\n"+ex.getMessage(), "Erro: DaoOrcamento - Existe Orçamento", 0);
+            return false;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
     }
 
     public static void criarOrcamento(Orcamento o, boolean flagTemPeca, boolean flagCriarOuAlterar) throws SQLException, ClassNotFoundException {
@@ -96,11 +108,11 @@ public class DaoOrcamento {
                 + "WHERE CD_ORCAMENTO = ?";
         PreparedStatement st = con.prepareStatement(sql);
         if (flag) {
-         st.setInt(1, 1);   
+            st.setInt(1, 1);
         } else {
             st.setInt(1, 0);
         }
-        
+
         st.setInt(2, codigoOrcamento);
         st.executeUpdate();
         st.close();
@@ -218,7 +230,7 @@ Valor Total
             rs.close();
 
         } catch (Exception ex) { //Caso exista a possibilidade de retorno de erro
-            JOptionPane.showMessageDialog(null,"Erro no carregamento da lista de Orçamento filtrada.\n\n" + ex, "Erro Carregamento", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro no carregamento da lista de Orçamento filtrada.\n\n" + ex, "Erro Carregamento", JOptionPane.ERROR_MESSAGE);
         }
         //return lista;
         return lista;

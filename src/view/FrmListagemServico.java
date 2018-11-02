@@ -674,7 +674,6 @@ public class FrmListagemServico extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         if (verificarFuncVazio() && (cnpjCadastrado || cpfCadastrado)) {
-
             try {
                 tblListagemServico.getCellEditor().stopCellEditing();
                 tblFuncionarioTrabalhando.getCellEditor().stopCellEditing();
@@ -682,13 +681,14 @@ public class FrmListagemServico extends javax.swing.JFrame {
 
             }
             try {
-                Servico s = new Servico(Integer.parseInt((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)),
-                        cmbTipoServico.getSelectedItem().toString(), Date.valueOf(txtDataAntes.getText()), Date.valueOf(txtDataDepois.getText()), rbtFisica.isSelected(), txtCpfCnpj.getText(), txtCpfCnpj.getText(), lblRelatorio.getText());
-                ArrayList<Funcionario> lista = new ArrayList<>();
-                for (int i = 0; i < tblFuncionarioTrabalhando.getRowCount(); i++) {
-                    Funcionario f = new Funcionario();
-                    f.setCodigoFuncionario(((String) tblFuncionarioTrabalhando.getValueAt(i, 0)));
-                    lista.add(f);
+                Servico servico = new Servico();
+                
+                servico.setCodigoServico();
+                
+                for (int i = 0; i < tblFuncionarioTrabalhando.getRowCount(); i++) {                    
+                    Funcionario funcionario = new Funcionario();
+                    funcionario.setCodigoFuncionario(((String) tblFuncionarioTrabalhando.getValueAt(i, 0)));
+                    servico.getListaFuncionario().add(funcionario);
                 }
                 DaoServico.alterarServico(s, lista, rbtFisica.isSelected(), txtCpfCnpj.getText());
 
@@ -707,7 +707,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
 
         if (flag == 0) {
             Servico s = new Servico();
-            s.setCodigoServico(Integer.parseInt((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)));
+            s.setCodigoServico((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0));
             try {
                 DaoServico.deletarServico(s);
                 atualizarTabela();
@@ -823,17 +823,11 @@ public class FrmListagemServico extends javax.swing.JFrame {
             modoJuridica();
             exibicaoJuridica();
         }
+        String cod = (String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0);
 
-        int cod = 0;
-        cod = Integer.parseInt((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0));
-
-        try {
+        
             popularTabelaFuncionario(cod);
-        } catch (SQLException ex) {
-            Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
 
         String aux = "";
         aux = (String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 1);
@@ -874,7 +868,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
             lblOrcamento.setText("Preventivo não possui orçamento.");
 
         } else {
-            try {
+            
                 if (DaoOrcamento.existeOrcamento(cod)) {
                     lblOrcamento.setText("Serviço com um orçamento ativo.");
                     btnOrcamento.setText("Alterar Orçamento");
@@ -885,11 +879,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
                     btnOrcamento.setText("Criar Orçamento");
                     btnOrcamento.setEnabled(true);
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
         }
 
 
@@ -944,21 +934,17 @@ public class FrmListagemServico extends javax.swing.JFrame {
                 limparExibicaoPessoa();
             } else {
                 DaoPessoa dp = new DaoPessoa();
-                try {
-                    cnpjCadastrado = dp.existePessoaJuridica(txtCpfCnpj.getText());
-                    if (cnpjCadastrado) {
-                        lblCpfCnpjExiste.setText("CNPJ Cadastrado");
-                        pessoaJuridicaExibicao = dp.popularPessoaJuridica(txtCpfCnpj.getText(), txtCep.getText());
-                        popularExibicaoPessoaJuridica(pessoaJuridicaExibicao);
-                    } else {
-                        lblCpfCnpjExiste.setText("CNPJ Inexistente");
-                        limparExibicaoPessoaJuridica();
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(FrmCadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(FrmCadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+
+                cnpjCadastrado = dp.existePessoaJuridica(txtCpfCnpj.getText());
+                if (cnpjCadastrado) {
+                    lblCpfCnpjExiste.setText("CNPJ Cadastrado");
+                    pessoaJuridicaExibicao = dp.popularPessoaJuridica(txtCpfCnpj.getText(), txtCep.getText());
+                    popularExibicaoPessoaJuridica(pessoaJuridicaExibicao);
+                } else {
+                    lblCpfCnpjExiste.setText("CNPJ Inexistente");
+                    limparExibicaoPessoaJuridica();
                 }
+
             }
         }
     }//GEN-LAST:event_txtCpfCnpjKeyReleased
@@ -998,23 +984,18 @@ public class FrmListagemServico extends javax.swing.JFrame {
 
     private void btnOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrcamentoActionPerformed
         Servico s = new Servico();
-        s.setCodigoServico(Integer.parseInt((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)));
-        try {
-            if (DaoServico.verificarServicoAtivo(s.getCodigoServico())) {
-                if (btnOrcamento.getText().equals("Criar Orçamento")) {
+        s.setCodigoServico((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0));
+
+        if (DaoServico.verificarServicoAtivo(s.getCodigoServico())) {
+            if (btnOrcamento.getText().equals("Criar Orçamento")) {
                 FrmCadastroOrcamento telaCadOrcamento = new FrmCadastroOrcamento(s.getCodigoServico(), true);
                 telaCadOrcamento.setVisible(true);
-                } else {
-                    FrmCadastroOrcamento telaCadOrcamento = new FrmCadastroOrcamento(s.getCodigoServico(), false);
-                telaCadOrcamento.setVisible(true);
-                }
             } else {
-                JOptionPane.showMessageDialog(null, "Serviço ainda não está ativado. Ative-o para gerar um orçamento para o mesmo.");
+                FrmCadastroOrcamento telaCadOrcamento = new FrmCadastroOrcamento(s.getCodigoServico(), false);
+                telaCadOrcamento.setVisible(true);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
+        } else {
+            JOptionPane.showMessageDialog(null, "Serviço ainda não está ativado. Ative-o para gerar um orçamento para o mesmo.");
         }
     }//GEN-LAST:event_btnOrcamentoActionPerformed
 
@@ -1043,29 +1024,24 @@ public class FrmListagemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodFuncActionPerformed
 
     private void txtCodFuncKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodFuncKeyReleased
-        try {
-            flagFuncionario = DaoFuncionario.existeFuncionario(txtCodFunc.getText());
-            if (flagFuncionario) {
-                f = DaoFuncionario.popularFuncionario(txtCodFunc.getText());
-                txtNomeFunc.setText(f.getPessoa().getNome());
-                lblSelecionarFunc.setText("Funcionário Livre");
+
+        flagFuncionario = DaoFuncionario.existeFuncionario(txtCodFunc.getText());
+        if (flagFuncionario) {
+            f = DaoFuncionario.popularFuncionario(txtCodFunc.getText());
+            txtNomeFunc.setText(f.getPessoa().getNome());
+            lblSelecionarFunc.setText("Funcionário Livre");
+            flagFuncionario = true;
+            btnSelecionarfunc.setEnabled(true);
+            if (DaoServico.isFuncionarioEmServico(txtCodFunc.getText())) {
+                lblSelecionarFunc.setText("Funcionário já vinculado a outro serviço");
                 flagFuncionario = true;
                 btnSelecionarfunc.setEnabled(true);
-                if (DaoServico.isFuncionarioEmServico(Integer.parseInt(txtCodFunc.getText()))) {
-                    lblSelecionarFunc.setText("Funcionário já vinculado a outro serviço");
-                    flagFuncionario = true;
-                    btnSelecionarfunc.setEnabled(true);
-                }
-            } else {
-                txtNomeFunc.setText("");
-                lblSelecionarFunc.setText("Funcionário Inexistente");
-                flagFuncionario = false;
-                btnSelecionarfunc.setEnabled(false);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
+        } else {
+            txtNomeFunc.setText("");
+            lblSelecionarFunc.setText("Funcionário Inexistente");
+            flagFuncionario = false;
+            btnSelecionarfunc.setEnabled(false);
         }
     }//GEN-LAST:event_txtCodFuncKeyReleased
 
@@ -1114,7 +1090,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
     private void btnAtivarDesativarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtivarDesativarActionPerformed
         try {
             DaoServico.ativarDesativarServico(Integer.parseInt((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)), flagAtivo);
-            
+
             atualizarTabela();
         } catch (SQLException ex) {
             Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
@@ -1178,25 +1154,14 @@ public class FrmListagemServico extends javax.swing.JFrame {
             model.setRowCount(0);
             Object rowData[] = new Object[8];
             for (int i = 0; i < lista.size(); i++) {
-                rowData[0] = Integer.toString(lista.get(i).getCodigoServico());
+                rowData[0] = lista.get(i).getCodigoServico();
                 rowData[1] = lista.get(i).getTipoServico();
-
-                if (lista.get(i).isTipoCliente()) {
-                    rowData[2] = "Jurídico";
-                } else {
-                    rowData[2] = "Físico";
-                }
-
+                rowData[2] = lista.get(i).getTipoClienteSTR();
                 rowData[3] = lista.get(i).getDescricaoServicoFILE();
-
-                if (lista.get(i).isStatusServico()) {
-                    rowData[4] = "Ativado";
-                } else {
-                    rowData[4] = "Desativado";
-                }
+                rowData[4] = lista.get(i).getStatusServicoSTR();
                 rowData[5] = lista.get(i).getDataServico().toString();
                 rowData[6] = lista.get(i).getDataServicoFim().toString();
-                rowData[7] = Integer.toString(lista.get(i).getCodigoServico());
+                rowData[7] = lista.get(i).getCodigoServico();
 
                 model.addRow(rowData);
             }
@@ -1275,7 +1240,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         }
     }
 
-    private void popularTabelaFuncionario(int codigoServico) throws SQLException, ClassNotFoundException {
+    private void popularTabelaFuncionario(String codigoServico) {
         ArrayList<Funcionario> lista = new ArrayList<>();
         lista = DaoServico.listarFuncionariosEmServico(codigoServico);
         String[] nomeColunas = {"Código", "Funcionário", "Cód. Serviços em execução"};
@@ -1321,25 +1286,14 @@ public class FrmListagemServico extends javax.swing.JFrame {
             model.setRowCount(0);
             Object rowData[] = new Object[8];
             for (int i = 0; i < lista.size(); i++) {
-                rowData[0] = Integer.toString(lista.get(i).getCodigoServico());
+                rowData[0] = lista.get(i).getCodigoServico();
                 rowData[1] = lista.get(i).getTipoServico();
-
-                if (lista.get(i).isTipoCliente()) {
-                    rowData[2] = "Jurídico";
-                } else {
-                    rowData[2] = "Físico";
-                }
-
+                rowData[2] = lista.get(i).getTipoClienteSTR();
                 rowData[3] = lista.get(i).getDescricaoServicoFILE();
-
-                if (lista.get(i).isStatusServico()) {
-                    rowData[4] = "Ativado";
-                } else {
-                    rowData[4] = "Desativado";
-                }
+                rowData[4] = lista.get(i).getStatusServicoSTR();
                 rowData[5] = lista.get(i).getDataServico().toString();
                 rowData[6] = lista.get(i).getDataServicoFim().toString();
-                rowData[7] = Integer.toString(lista.get(i).getCodigoServico());
+                rowData[7] = lista.get(i).getCodigoServico();
 
                 model.addRow(rowData);
             }
@@ -1384,7 +1338,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         boolean flag;
         ArrayList<Object> lista = new ArrayList<>();
 
-        s.setCodigoServico(Integer.parseInt((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)));
+        s.setCodigoServico(((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)));
         s.setDescricaoServicoFILE(((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 3)));
 
         try {
@@ -1503,7 +1457,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         boolean flag;
         ArrayList<Object> lista = new ArrayList<>();
 
-        s.setCodigoServico(Integer.parseInt((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)));
+        s.setCodigoServico(((String) tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)));
 
         try {
             lista = DaoServico.popularListaServicoDetalhada(s.getCodigoServico(), 0);

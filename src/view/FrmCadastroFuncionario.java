@@ -667,19 +667,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarFuncionariosActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        PessoaFisica pf = new PessoaFisica();
-        if (validarCampos()) {
-            pf = DaoPessoa.popularPessoaFisica(txtCpf.getText());
-            Funcionario func = new Funcionario(txtCodigoFuncionario.getText(),
-                    pf.getPessoa(), pf, txtfSalario.getText(), txtCargo.getText(),
-                    txtfDataAdmissao.getText(), txtfDataAdmissao.getText(), txtfHoras.getText(),
-                    rbtVisualizacao.isSelected());
-            boolean cadastroSucedido = dao.DaoFuncionario.cadastrarFuncionario(func);
-            if (cadastroSucedido) {
-                atualizarTabela(func);
-            }
-        }
-
+        cadastrarFuncionario();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
@@ -1004,4 +992,18 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         }
     }
 
+    private void cadastrarFuncionario() {
+        PessoaFisica pf = new PessoaFisica();
+        if (validarCampos()) {
+            pf = DaoPessoa.popularPessoaFisica(txtCpf.getText());
+            Funcionario func = new Funcionario(txtCodigoFuncionario.getText(),
+                    pf.getPessoa(), pf, txtfSalario.getText(), txtCargo.getText(),
+                    txtfDataAdmissao.getText(), txtfDataAdmissao.getText(), txtfHoras.getText(),
+                    rbtVisualizacao.isSelected());
+            boolean cadastroSucedido = dao.DaoFuncionario.cadastrarFuncionario(func);
+            if (cadastroSucedido) {
+                atualizarTabela(func);
+            }
+        }
+    }
 }

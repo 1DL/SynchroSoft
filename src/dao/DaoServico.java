@@ -27,6 +27,68 @@ import model.Servico;
  */
 public class DaoServico {
 
+    public static void cadastrarServico(Servico servico) {
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "INSERT INTO SYNCHROSOFT.TB_SERVICO "
+                    + "(CD_SERVICO, DS_TIPO_SERVICO, DS_TIPO_CLIENTE, DS_SERVICO, ID_STATUS_SERVICO, DT_SERVICO_INICIO, DT_SERVICO_FIM) "
+                    + "VALUES (?,?,?,?,?,?,?)";
+            PreparedStatement st = con.prepareStatement(sql);
+
+            st.setString(1, servico.getCodigoServico());
+            st.setInt(2, servico.getTipoServicoBanco());
+            st.setInt(3, servico.getTipoClienteBanco());
+            st.setString(4, servico.getDescricaoServicoFILE());
+            st.setInt(5, servico.getStatusServico());
+            st.setDate(6, Date.valueOf(control.Datas.converterParaAmericana(servico.getDataServico())));
+            st.setDate(7, null);
+
+            st.executeUpdate();
+
+            sql = "INSERT INTO SYNCHROSOFT.TB_FUNC_SERVICO (CD_FUNCIONARIO, CD_SERVICO) VALUES (?,?)";
+            PreparedStatement st2 = con.prepareStatement(sql);
+            for (int i = 0; i < servico.getListaFuncionario().size(); i++) {
+                st2.setString(1, servico.getListaFuncionario().get(i).getCodigoFuncionario());
+                st2.setString(2, servico.getCodigoServico());
+                st2.executeUpdate();
+            }
+
+            if (servico.getTipoClienteBanco() == 0) {
+                sql = "INSERT INTO SYNCHROSOFT.TB_PESSOAF_SERVICO (CD_CPF, CD_SERVICO) VALUES (?,?)";
+                PreparedStatement st3 = con.prepareStatement(sql);
+                st3.setString(1, servico.getCnpjCliente());
+                st3.setString(2, servico.getCodigoServico());
+                st3.executeUpdate();
+                st3.close();
+            } else {
+                sql = "INSERT INTO SYNCHROSOFT.TB_PESSOAJ_SERVICO (CD_CNPJ, CD_SERVICO) VALUES (?,?)";
+                PreparedStatement st3 = con.prepareStatement(sql);
+                st3.setString(1, servico.getCnpjCliente());
+                st3.setString(2, servico.getCodigoServico());
+                st3.executeUpdate();
+                st3.close();
+            }
+            
+            sql = "INSERT INTO SYNCHROSOFT.TB_ENDERECO_SERVICO (CD_CEP, CD_SERVICO) VALUES (?,?)";
+            PreparedStatement st4 = con.prepareStatement(sql);
+            
+            st4.setString(1, servico.getEndereco().getCep());
+            st4.setString(2, servico.getCodigoServico());
+            st4.executeUpdate();
+            
+            st.close();
+            st2.close();
+            st4.close();
+
+            JOptionPane.showMessageDialog(null, "Serviço cadastrado e ativado com sucesso!", "Cadastro concluído", 1);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o serviço.\n\nErro Nº:"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoServico - Cadastrar Serviço", 0);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoServico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public static ArrayList listarServico() {
         ArrayList<Servico> lista = new ArrayList<>();
         try {
@@ -36,44 +98,29 @@ public class DaoServico {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Servico s = new Servico();
+
                 s.setCodigoServico(rs.getString("CD_SERVICO"));
-
-                switch (rs.getInt("DS_TIPO_SERVICO")) {
-                    case 0:
-                        s.setTipoServico("Preventivo");
-                        break;
-                    case 1:
-                        s.setTipoServico("Corretivo");
-                        break;
-                    case 2:
-                        s.setTipoServico("Emergencial");
-                        break;
-                }
-
-                if (rs.getInt("DS_TIPO_CLIENTE") == 0) {
-                    s.setTipoCliente(true);
-                } else {
-                    s.setTipoCliente(false);
-                }
-
+                s.setTipoServico(rs.getInt("DS_TIPO_SERVICO"));
+                s.setTipoClienteBanco(rs.getInt("DS_TIPO_CLIENTE"));
                 s.setDescricaoServicoFILE(rs.getString("DS_SERVICO"));
-
-                if (rs.getInt("ID_STATUS_SERVICO") == 0) {
-                    s.setStatusServico(false);
-                } else {
-                    s.setStatusServico(true);
-                }
-
+                s.setStatusServicoBanco(rs.getInt("ID_STATUS_SERVICO"));
                 s.setDataServico(rs.getDate("DT_SERVICO_INICIO").toString());
-                s.setDataServicoFim(rs.getDate("DT_SERVICO_INICIO"));
+                s.setDataServicoFim(rs.getDate("DT_SERVICO_INICIO").toString());
+
                 lista.add(s);
             }
             st.close();
             rs.close();
-        } catch (Exception ex) {
-            System.err.println("DaoServico Listagem Java: " + ex.getMessage());
+
+            return lista;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível criar a lista de serviços.\n\nErro Nº:"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoServico - Listar Serviço", 0);
+            return null;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoServico.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
-        return lista;
     }
 
     public static void alterarFuncionarioServico(ArrayList<Funcionario> lista, String codigoServico) throws SQLException, ClassNotFoundException {
@@ -129,22 +176,12 @@ public class DaoServico {
                 + "DT_SERVICO_INICIO = ?, DT_SERVICO_FIM = ?"
                 + "WHERE CD_SERVICO = ?";
         PreparedStatement st = con.prepareStatement(sql);
-        switch (s.getTipoServico()) {
-            case "Preventivo":
-                st.setInt(1, 0);
-                break;
-            case "Corretivo":
-                st.setInt(1, 1);
-                break;
-            case "Emergencial":
-                st.setInt(1, 2);
-                break;
-        }
+        st.setInt(1, s.getTipoServicoBanco());
         st.setInt(2, s.getTipoClienteBanco());
 
         st.setString(3, s.getDescricaoServicoFILE());
         st.setDate(4, Date.valueOf(control.Datas.converterParaAmericana(s.getDataServico())));
-        st.setDate(5, s.getDataServicoFim());
+        st.setDate(5, Date.valueOf(control.Datas.converterParaAmericana(s.getDataServicoFim())));
         st.setString(6, s.getCodigoServico());
         st.executeUpdate();
         st.close();
@@ -176,7 +213,7 @@ public class DaoServico {
 
     }
 
-    public static ArrayList popularListaServicoDetalhada(int codigoServico, int tipoCliente) throws ClassNotFoundException {
+    public static ArrayList popularListaServicoDetalhada(String codigoServico, int tipoCliente) throws ClassNotFoundException {
         Servico s = new Servico();
         PessoaJuridica pj = new PessoaJuridica();
         PessoaFisica pf = new PessoaFisica();
@@ -188,7 +225,7 @@ public class DaoServico {
             if (tipoCliente == 0) {
                 String sql = "SELECT CD_CNPJ FROM SYNCHROSOFT.TB_PESSOAJ_SERVICO WHERE CD_SERVICO = ?";
                 PreparedStatement st = con.prepareStatement(sql);
-                st.setInt(1, codigoServico);
+                st.setString(1, codigoServico);
                 ResultSet rs = st.executeQuery();
                 while (rs.next()) {
                     s.setCnpjCliente(rs.getString("CD_CNPJ"));
@@ -202,7 +239,7 @@ public class DaoServico {
             } else {
                 String sql = "SELECT CD_CPF FROM SYNCHROSOFT.TB_PESSOAF_SERVICO WHERE CD_SERVICO = ?";
                 PreparedStatement st = con.prepareStatement(sql);
-                st.setInt(1, codigoServico);
+                st.setString(1, codigoServico);
                 ResultSet rs = st.executeQuery();
                 while (rs.next()) {
                     s.setCpfCliente(rs.getString("CD_CPF"));
@@ -265,35 +302,12 @@ Data Encerramento
             while (rs.next()) {
                 Servico s = new Servico();
                 s.setCodigoServico(rs.getString("CD_SERVICO"));
-
-                switch (rs.getInt("DS_TIPO_SERVICO")) {
-                    case 0:
-                        s.setTipoServico("Preventivo");
-                        break;
-                    case 1:
-                        s.setTipoServico("Corretivo");
-                        break;
-                    case 2:
-                        s.setTipoServico("Emergencial");
-                        break;
-                }
-
-                if (rs.getInt("DS_TIPO_CLIENTE") == 0) {
-                    s.setTipoCliente(false);
-                } else {
-                    s.setTipoCliente(true);
-                }
-
+                s.setTipoServico(rs.getInt("DS_TIPO_SERVICO"));
+                s.setTipoClienteBanco(rs.getInt("DS_TIPO_CLIENTE"));
                 s.setDescricaoServicoFILE(rs.getString("DS_SERVICO"));
-
-                if (rs.getInt("ID_STATUS_SERVICO") == 0) {
-                    s.setStatusServico(false);
-                } else {
-                    s.setStatusServico(true);
-                }
-
+                s.setStatusServicoBanco(rs.getInt("ID_STATUS_SERVICO"));
                 s.setDataServico(rs.getDate("DT_SERVICO_INICIO").toString());
-                s.setDataServicoFim(rs.getDate("DT_SERVICO_INICIO"));
+                s.setDataServicoFim(rs.getDate("DT_SERVICO_INICIO").toString());
                 lista.add(s);
             }
             st.close();
@@ -304,13 +318,13 @@ Data Encerramento
         return lista;
     }
 
-    public static boolean verificarServicoAtivo(int codigoServico) throws SQLException, ClassNotFoundException {
+    public static boolean verificarServicoAtivo(String codigoServico) {
         int aux = 0;
         try {
             Connection con = Conexao.conectar();
             String sql = "SELECT ID_STATUS_SERVICO FROM SYNCHROSOFT.TB_SERVICO WHERE CD_SERVICO = ?";
             PreparedStatement st = con.prepareStatement(sql);
-            st.setInt(1, codigoServico);
+            st.setString(1, codigoServico);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
@@ -320,6 +334,8 @@ Data Encerramento
             rs.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoServico.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (aux == 1) {
             return true;
@@ -329,90 +345,13 @@ Data Encerramento
 
     }
 
-    public static void cadastrarServico(String cpfcnpj, ArrayList<Funcionario> lista, int codigoServico, String tipoServico, boolean tipoCliente, String descricaoServico, Date dataServico,
-            boolean statusServico) throws SQLException, ClassNotFoundException {
-        try {
-            Connection con = Conexao.conectar();
-            String sql = "INSERT INTO SYNCHROSOFT.TB_SERVICO (CD_SERVICO, DS_TIPO_SERVICO, DS_TIPO_CLIENTE, DS_SERVICO, ID_STATUS_SERVICO, DT_SERVICO_INICIO, DT_SERVICO_FIM) VALUES (?,?,?,?,?,?,?)";
-            PreparedStatement st = con.prepareStatement(sql);
-
-            st.setInt(1, codigoServico);
-
-            int serv = 0;
-            if (tipoServico.equals("Preventivo")) {
-                serv = 0;
-            } else if (tipoServico.equals("Corretivo")) {
-                serv = 1;
-            } else {
-                serv = 2;
-            }
-            st.setInt(2, serv);
-
-            int tipo;
-            if (tipoCliente) {
-                tipo = 1;
-            } else {
-                tipo = 0;
-            }
-            st.setInt(3, tipo);
-
-            st.setString(4, descricaoServico);
-
-            int status = 0;
-            if (statusServico) {
-                status = 1;
-            } else {
-                status = 0;
-            }
-            st.setInt(5, status);
-
-            st.setDate(6, dataServico);
-            st.setDate(7, dataServico);
-
-            st.executeUpdate();
-
-            sql = "INSERT INTO SYNCHROSOFT.TB_FUNC_SERVICO (CD_FUNCIONARIO, CD_SERVICO) VALUES (?,?)";
-            PreparedStatement st2 = con.prepareStatement(sql);
-            for (int i = 0; i < lista.size(); i++) {
-                st2.setString(1, lista.get(i).getCodigoFuncionario());
-                st2.setInt(2, codigoServico);
-                st2.executeUpdate();
-            }
-
-            if (tipoCliente) {
-                sql = "INSERT INTO SYNCHROSOFT.TB_PESSOAF_SERVICO (CD_CPF, CD_SERVICO) VALUES (?,?)";
-                PreparedStatement st3 = con.prepareStatement(sql);
-                st3.setString(1, cpfcnpj);
-                st3.setInt(2, codigoServico);
-                st3.executeUpdate();
-                st3.close();
-            } else {
-                sql = "INSERT INTO SYNCHROSOFT.TB_PESSOAJ_SERVICO (CD_CNPJ, CD_SERVICO) VALUES (?,?)";
-                PreparedStatement st3 = con.prepareStatement(sql);
-                st3.setString(1, cpfcnpj);
-                st3.setInt(2, codigoServico);
-                st3.executeUpdate();
-                st3.close();
-            }
-
-            st.close();
-            st2.close();
-
-            JOptionPane.showMessageDialog(null, "Serviço ativado.");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o Serviço.\n Erro SQL:\n\n" + ex.getMessage());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o Serviço.\n Erro JAVA:\n\n" + e.getMessage());
-        }
-    }
-
-    public static boolean existeServico(int codserv) {
+    public static boolean existeServico(String codserv) {
         boolean flag = false;
         try {
             Connection con = Conexao.conectar();
             String sql = "SELECT CD_SERVICO FROM SYNCHROSOFT.TB_SERVICO WHERE CD_SERVICO = ?";
             PreparedStatement st = con.prepareStatement(sql);
-            st.setInt(1, codserv);
+            st.setString(1, codserv);
             ResultSet rs = st.executeQuery();
             flag = rs.isBeforeFirst();
             st.close();
@@ -431,7 +370,7 @@ Data Encerramento
     public static boolean isFuncionarioEmServico(String codfunc) {
         boolean flag = false;
         try {
-            ArrayList<Long> arrayFunc = new ArrayList<>();
+            ArrayList<String> arrayFunc = new ArrayList<>();
             int status = 0;
             Connection con = Conexao.conectar();
             String sql = "SELECT CD_FUNCIONARIO, CD_SERVICO FROM SYNCHROSOFT.TB_FUNC_SERVICO WHERE CD_FUNCIONARIO = ?";
@@ -439,12 +378,12 @@ Data Encerramento
             st.setString(1, codfunc);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                arrayFunc.add(rs.getLong("CD_SERVICO"));
+                arrayFunc.add(rs.getString("CD_SERVICO"));
             }
             for (int j = 0; j <= arrayFunc.size() - 1; j++) {
                 sql = "SELECT ID_STATUS_SERVICO FROM SYNCHROSOFT.TB_SERVICO WHERE CD_SERVICO = ?";
                 PreparedStatement st2 = con.prepareStatement(sql);
-                st2.setLong(1, arrayFunc.get(j));
+                st2.setString(1, arrayFunc.get(j));
                 ResultSet rs2 = st2.executeQuery();
                 while (rs2.next()) {
                     status = rs2.getInt("ID_STATUS_SERVICO");
@@ -470,19 +409,29 @@ Data Encerramento
 
     }
 
-    public static String listarServicosDoFuncionario(String codFunc) throws SQLException, ClassNotFoundException {
-        String codigos = "";
-        Connection con = Conexao.conectar();
-        String sql = "SELECT CD_SERVICO FROM SYNCHROSOFT.TB_FUNC_SERVICO WHERE CD_FUNCIONARIO = ?";
-        PreparedStatement st = con.prepareStatement(sql);
-        st.setString(1, codFunc);
-        ResultSet rs = st.executeQuery();
-        while (rs.next()) {
-            codigos = codigos + ", " + rs.getInt("CD_SERVICO");
+    public static String listarServicosDoFuncionario(String codFunc) {
+        String codigos = ""; 
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "SELECT CD_SERVICO FROM SYNCHROSOFT.TB_FUNC_SERVICO WHERE CD_FUNCIONARIO = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, codFunc);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                codigos = codigos + ", " + rs.getString("CD_SERVICO");
+            }
+            st.close();
+            rs.close();
+            return codigos;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível verificar a se o Funcionário já está alocado em algum serviço.\n\nErro Nº:"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoServico - Listar servicos do Funcionario", 0);
+            return null;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível verificar a se o Funcionário já está alocado em algum serviço.\n\nErro: "
+                    + ex.getMessage(), "Erro: DaoServico - Listar servicos do Funcionario", 0);
+            return null;
         }
-        st.close();
-        rs.close();
-        return codigos;
     }
 
     public static ArrayList funcionarioEmServico(int codigoServico) throws SQLException, ClassNotFoundException {
@@ -525,29 +474,38 @@ Data Encerramento
 
     }
 
-    public static ArrayList listarFuncionariosEmServico(int codigoServico) throws SQLException, ClassNotFoundException {
+    public static ArrayList listarFuncionariosEmServico(String codigoServico) {
         ArrayList<Funcionario> lista = new ArrayList<>();
-        Connection con = Conexao.conectar();
-        String sql = "SELECT CD_FUNCIONARIO, NM_FUNCIONARIO FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE CD_FUNCIONARIO IN (SELECT CD_FUNCIONARIO FROM SYNCHROSOFT.TB_FUNC_SERVICO WHERE CD_SERVICO = ?)";
-        PreparedStatement st = con.prepareStatement(sql);
-        st.setInt(1, codigoServico);
-        ResultSet rs = st.executeQuery();
-        String servFunc = "";
-        while (rs.next()) {
-            Pessoa p = new Pessoa();
-            Funcionario f = new Funcionario();
-            f.setCodigoFuncionario(rs.getString("CD_FUNCIONARIO"));
-            p.setNome(rs.getString("NM_FUNCIONARIO"));
-            f.setPessoa(p);
-            servFunc = listarServicosDoFuncionario(f.getCodigoFuncionario());
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "SELECT CD_FUNCIONARIO, NM_FUNCIONARIO FROM SYNCHROSOFT.TB_FUNCIONARIO WHERE CD_FUNCIONARIO IN (SELECT CD_FUNCIONARIO FROM SYNCHROSOFT.TB_FUNC_SERVICO WHERE CD_SERVICO = ?)";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, codigoServico);
+            ResultSet rs = st.executeQuery();
+            String servFunc = "";
+            while (rs.next()) {
+                Pessoa p = new Pessoa();
+                Funcionario f = new Funcionario();
+                f.setCodigoFuncionario(rs.getString("CD_FUNCIONARIO"));
+                p.setNome(rs.getString("NM_FUNCIONARIO"));
+                f.setPessoa(p);
+                servFunc = listarServicosDoFuncionario(f.getCodigoFuncionario());
 
-            servFunc = servFunc.substring(2);
-            f.setCargo(servFunc);
-            lista.add(f);
+                servFunc = servFunc.substring(2);
+                f.setCargo(servFunc);
+                lista.add(f);
+            }
+            st.close();
+            rs.close();
+
+            return lista;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível criar a lista de Funcionários em serviço..\n\nErro Nº:"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoServico - Listar Funcionarios Em Serviço", 0);
+            return null;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoServico.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
-        st.close();
-        rs.close();
-
-        return lista;
     }
 }
