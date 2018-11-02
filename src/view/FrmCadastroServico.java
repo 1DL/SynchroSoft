@@ -102,8 +102,6 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtCodFunc = new javax.swing.JTextField();
         lblNomeFuncValor = new javax.swing.JLabel();
         btnCadastrar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblFuncSelecionados = new javax.swing.JTable();
         panPessoa = new javax.swing.JPanel();
         lblNomeFicticio = new javax.swing.JLabel();
         txtNomePessoaFicticio = new javax.swing.JTextField();
@@ -138,15 +136,18 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         btnCadastrarCep = new javax.swing.JButton();
         lblCepExiste = new javax.swing.JLabel();
         lblCpfCnpjExiste = new javax.swing.JLabel();
-        btnListarPessoa1 = new javax.swing.JButton();
-        btnLimpaFunc = new javax.swing.JButton();
-        btnRemoveLinhaFunc = new javax.swing.JButton();
-        lblTabelaFunc = new javax.swing.JLabel();
-        btnListarEndereco = new javax.swing.JButton();
         btnHoje = new javax.swing.JButton();
         lblNomeFunc = new javax.swing.JLabel();
         lblCodigoServicoInicial = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        panTabelaFunc = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblFuncSelecionados = new javax.swing.JTable();
+        btnLimpaFunc = new javax.swing.JButton();
+        btnRemoveLinhaFunc = new javax.swing.JButton();
+        panUtilidade = new javax.swing.JPanel();
+        btnListarEndereco = new javax.swing.JButton();
+        btnListarPessoa1 = new javax.swing.JButton();
         btnMenuPrincipal = new javax.swing.JButton();
         btnFecharFrame = new javax.swing.JButton();
         lblBackground = new javax.swing.JLabel();
@@ -170,7 +171,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnLimpar);
-        btnLimpar.setBounds(800, 160, 100, 30);
+        btnLimpar.setBounds(800, 325, 100, 30);
 
         lblCampoCpfCnpj.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCampoCpfCnpj.setText("CPF");
@@ -247,7 +248,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnArquivoRelatorio);
-        btnArquivoRelatorio.setBounds(210, 130, 80, 30);
+        btnArquivoRelatorio.setBounds(210, 130, 80, 25);
 
         lblRelatorio.setText("Nenhum arquivo selecionado.");
         panPrincipal.add(lblRelatorio);
@@ -278,23 +279,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnCadastrar);
-        btnCadastrar.setBounds(920, 160, 160, 30);
-
-        tblFuncSelecionados.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tblFuncSelecionados);
-
-        panPrincipal.add(jScrollPane1);
-        jScrollPane1.setBounds(30, 200, 680, 140);
+        btnCadastrar.setBounds(920, 325, 160, 30);
 
         panPessoa.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados da Pessoa"));
         panPessoa.setOpaque(false);
@@ -392,7 +377,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         lblSexoValor.setBounds(700, 100, 190, 25);
 
         panPrincipal.add(panPessoa);
-        panPessoa.setBounds(30, 350, 1056, 140);
+        panPessoa.setBounds(30, 355, 1056, 140);
 
         cmbTipoServico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Preventivo", "Corretivo", "Emergencial" }));
         cmbTipoServico.addActionListener(new java.awt.event.ActionListener() {
@@ -499,46 +484,6 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         panPrincipal.add(lblCpfCnpjExiste);
         lblCpfCnpjExiste.setBounds(503, 56, 120, 14);
 
-        btnListarPessoa1.setText("Listar Pessoas");
-        btnListarPessoa1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListarPessoa1ActionPerformed(evt);
-            }
-        });
-        panPrincipal.add(btnListarPessoa1);
-        btnListarPessoa1.setBounds(680, 160, 101, 30);
-
-        btnLimpaFunc.setText("Remover Todos");
-        btnLimpaFunc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpaFuncActionPerformed(evt);
-            }
-        });
-        panPrincipal.add(btnLimpaFunc);
-        btnLimpaFunc.setBounds(720, 290, 160, 30);
-
-        btnRemoveLinhaFunc.setText("Remover Funcionário");
-        btnRemoveLinhaFunc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoveLinhaFuncActionPerformed(evt);
-            }
-        });
-        panPrincipal.add(btnRemoveLinhaFunc);
-        btnRemoveLinhaFunc.setBounds(720, 240, 160, 30);
-
-        lblTabelaFunc.setText("Tabela de Funcionários Alocados ao serviço:");
-        panPrincipal.add(lblTabelaFunc);
-        lblTabelaFunc.setBounds(30, 186, 230, 14);
-
-        btnListarEndereco.setText("Listar Endereços");
-        btnListarEndereco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListarEnderecoActionPerformed(evt);
-            }
-        });
-        panPrincipal.add(btnListarEndereco);
-        btnListarEndereco.setBounds(550, 160, 111, 30);
-
         btnHoje.setText("Hoje");
         btnHoje.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -564,7 +509,73 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(jButton1);
-        jButton1.setBounds(350, 160, 73, 23);
+        jButton1.setBounds(30, 320, 73, 23);
+
+        panTabelaFunc.setBorder(javax.swing.BorderFactory.createTitledBorder("Funcionários selecionados para executar esse serviço"));
+        panTabelaFunc.setOpaque(false);
+        panTabelaFunc.setLayout(null);
+
+        tblFuncSelecionados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblFuncSelecionados);
+
+        panTabelaFunc.add(jScrollPane1);
+        jScrollPane1.setBounds(10, 15, 680, 140);
+
+        btnLimpaFunc.setText("Remover Todos");
+        btnLimpaFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpaFuncActionPerformed(evt);
+            }
+        });
+        panTabelaFunc.add(btnLimpaFunc);
+        btnLimpaFunc.setBounds(700, 90, 160, 30);
+
+        btnRemoveLinhaFunc.setText("Remover Funcionário");
+        btnRemoveLinhaFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveLinhaFuncActionPerformed(evt);
+            }
+        });
+        panTabelaFunc.add(btnRemoveLinhaFunc);
+        btnRemoveLinhaFunc.setBounds(700, 40, 160, 30);
+
+        panPrincipal.add(panTabelaFunc);
+        panTabelaFunc.setBounds(30, 155, 870, 165);
+
+        panUtilidade.setBorder(javax.swing.BorderFactory.createTitledBorder("Acesso Rápido"));
+        panUtilidade.setOpaque(false);
+        panUtilidade.setLayout(null);
+
+        btnListarEndereco.setText("Listar Endereços");
+        btnListarEndereco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarEnderecoActionPerformed(evt);
+            }
+        });
+        panUtilidade.add(btnListarEndereco);
+        btnListarEndereco.setBounds(30, 100, 111, 30);
+
+        btnListarPessoa1.setText("Listar Pessoas");
+        btnListarPessoa1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarPessoa1ActionPerformed(evt);
+            }
+        });
+        panUtilidade.add(btnListarPessoa1);
+        btnListarPessoa1.setBounds(30, 30, 110, 30);
+
+        panPrincipal.add(panUtilidade);
+        panUtilidade.setBounds(920, 155, 160, 165);
 
         getContentPane().add(panPrincipal);
         panPrincipal.setBounds(30, 30, 1100, 510);
@@ -668,8 +679,6 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             model.removeRow(tblFuncSelecionados.getSelectedRow());
             tblFuncSelecionados.setModel(model);
         }
-
-
     }//GEN-LAST:event_btnRemoveLinhaFuncActionPerformed
 
     private void btnLimpaFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpaFuncActionPerformed
@@ -717,7 +726,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHojeActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        control.ManipularArquivos.moverArquivo(lblRelatorio.getText());
+        control.ManipularArquivos.copiarArquivo(lblRelatorio.getText(), lblCodigoServicoInicial.getText()+txtCodigoServico.getText(), "txt");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -802,12 +811,13 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JLabel lblSelecionarFunc;
     private javax.swing.JLabel lblSexoDesc;
     private javax.swing.JLabel lblSexoValor;
-    private javax.swing.JLabel lblTabelaFunc;
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JLabel lblTipoCliente;
     private javax.swing.JLabel lblTipoServico;
     private javax.swing.JPanel panPessoa;
     private javax.swing.JPanel panPrincipal;
+    private javax.swing.JPanel panTabelaFunc;
+    private javax.swing.JPanel panUtilidade;
     private javax.swing.JRadioButton rbtFisica;
     private javax.swing.JRadioButton rbtJuridica;
     private javax.swing.JTable tblFuncSelecionados;
