@@ -730,7 +730,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            control.ManipularArquivos.copiarArquivoNoServidor(lblNomeArquivo.getText(), 
+            control.ManipularArquivos.copiarArquivoNoServidorNome(lblNomeArquivo.getText(), 
                     lblDiretorioArquivo.getText(), lblCodigoServicoInicial.getText()+txtCodigoServico.getText());
         } catch (IOException ex) {
             Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);

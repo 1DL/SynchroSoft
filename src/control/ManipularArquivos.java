@@ -6,7 +6,14 @@
 package control;
 
 import java.io.*;
+import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,6 +21,69 @@ import javax.swing.JOptionPane;
  * @author LuizV1
  */
 public class ManipularArquivos {
+
+    public static void copiarArquivoNoServidorNome(String nomeArquivo, String diretorioArquivo, String CodigoServico) throws IOException {
+        //String diretorioArquivoServico = copiarArquivoComCodServ(nomeArquivo, diretorioArquivo, CodigoServico).toString();
+        
+        Socket sock = new Socket(dao.Conexao.getServerName(), 5005);
+
+        //Send file  
+        File myFile = new File(diretorioArquivo);
+        byte[] mybytearray = new byte[(int) myFile.length()];
+
+        FileInputStream fis = new FileInputStream(myFile);
+        BufferedInputStream bis = new BufferedInputStream(fis);
+        //bis.read(mybytearray, 0, mybytearray.length);  
+
+        DataInputStream dis = new DataInputStream(bis);
+        dis.readFully(mybytearray, 0, mybytearray.length);
+
+        OutputStream os = sock.getOutputStream();
+
+        //Sending file name and file size to the server  
+        DataOutputStream dos = new DataOutputStream(os);
+        dos.writeUTF(CodigoServico+"-"+myFile.getName());
+        dos.writeLong(mybytearray.length);
+        dos.write(mybytearray, 0, mybytearray.length);
+        dos.flush();
+
+        //Sending file data to the server  
+        os.write(mybytearray, 0, mybytearray.length);
+        os.flush();
+
+        //Closing socket
+        os.close();
+        dos.close();
+        sock.close();
+        
+        
+        //deletarArquivo(diretorioArquivoServico);
+    }
+    
+    public static Path copiarArquivoComCodServ(String nomeArquivo, String diretorioArquivo, String CodigoServico) throws IOException {
+        Path origem = Paths.get(diretorioArquivo);
+        Path destino = Paths.get("C:\\xyz\\"+CodigoServico+"-"+nomeArquivo);
+        
+            Path temp = Files.copy(origem, destino, StandardCopyOption.REPLACE_EXISTING);
+
+            if (temp != null) {
+                System.out.println("File renamed and moved successfully");
+                return destino;
+            } else {
+                System.out.println("Failed to move the file");
+                return null;
+            }
+
+    }
+    
+    public static void deletarArquivo(String diretorio) throws IOException {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ManipularArquivos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Files.deleteIfExists(Paths.get(diretorio));
+    }
 
     public static void copiarArquivoNoServidor(String nomeArquivo, String diretorioArquivo, String CodigoServico) throws IOException {
         Socket socket = null;
