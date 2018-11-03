@@ -92,7 +92,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         rbtJuridica = new javax.swing.JRadioButton();
         lblRelatorioServico = new javax.swing.JLabel();
         lblSelecionarFunc = new javax.swing.JLabel();
-        btnArquivoRelatorio = new javax.swing.JButton();
+        btnSelecionarArquivo = new javax.swing.JButton();
         lblDiretorioArquivo = new javax.swing.JLabel();
         lblCodigoFunc = new javax.swing.JLabel();
         txtCodFunc = new javax.swing.JTextField();
@@ -135,7 +135,6 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         btnHoje = new javax.swing.JButton();
         lblNomeFunc = new javax.swing.JLabel();
         lblCodigoServicoInicial = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         panTabelaFunc = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblFuncSelecionados = new javax.swing.JTable();
@@ -145,6 +144,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         btnListarEndereco = new javax.swing.JButton();
         btnListarPessoa1 = new javax.swing.JButton();
         lblNomeArquivo = new javax.swing.JLabel();
+        btnRemoverArquivo = new javax.swing.JButton();
         btnMenuPrincipal = new javax.swing.JButton();
         btnFecharFrame = new javax.swing.JButton();
         lblBackground = new javax.swing.JLabel();
@@ -185,6 +185,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         panPrincipal.add(lblCep);
         lblCep.setBounds(730, 50, 60, 25);
 
+        txtCpfCnpj.setNextFocusableComponent(txtfCep);
         txtCpfCnpj.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCpfCnpjKeyReleased(evt);
@@ -238,18 +239,19 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         panPrincipal.add(lblSelecionarFunc);
         lblSelecionarFunc.setBounds(205, 115, 250, 14);
 
-        btnArquivoRelatorio.setText("Procurar");
-        btnArquivoRelatorio.addActionListener(new java.awt.event.ActionListener() {
+        btnSelecionarArquivo.setText("Procurar");
+        btnSelecionarArquivo.setNextFocusableComponent(btnCadastrar);
+        btnSelecionarArquivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnArquivoRelatorioActionPerformed(evt);
+                btnSelecionarArquivoActionPerformed(evt);
             }
         });
-        panPrincipal.add(btnArquivoRelatorio);
-        btnArquivoRelatorio.setBounds(210, 130, 80, 25);
+        panPrincipal.add(btnSelecionarArquivo);
+        btnSelecionarArquivo.setBounds(210, 130, 80, 25);
 
         lblDiretorioArquivo.setText("...");
         panPrincipal.add(lblDiretorioArquivo);
-        lblDiretorioArquivo.setBounds(445, 138, 650, 14);
+        lblDiretorioArquivo.setBounds(615, 138, 480, 14);
 
         lblCodigoFunc.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCodigoFunc.setText("Código Funcionário");
@@ -377,6 +379,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         panPessoa.setBounds(30, 355, 1056, 140);
 
         cmbTipoServico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Preventivo", "Corretivo", "Emergencial" }));
+        cmbTipoServico.setNextFocusableComponent(txtfDataServico);
         cmbTipoServico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbTipoServicoActionPerformed(evt);
@@ -399,6 +402,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         panPrincipal.add(lblTipoServico);
         lblTipoServico.setBounds(532, 10, 160, 25);
 
+        txtCodigoServico.setNextFocusableComponent(cmbTipoServico);
         txtCodigoServico.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCodigoServicoKeyReleased(evt);
@@ -432,6 +436,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
 
         btnSelecionarfunc.setText("Selecionar Funcionário");
         btnSelecionarfunc.setEnabled(false);
+        btnSelecionarfunc.setNextFocusableComponent(btnSelecionarArquivo);
         btnSelecionarfunc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSelecionarfuncActionPerformed(evt);
@@ -449,6 +454,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtfCep.setNextFocusableComponent(txtCodFunc);
         txtfCep.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtfCepFocusLost(evt);
@@ -498,15 +504,6 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         lblCodigoServicoInicial.setText("P");
         panPrincipal.add(lblCodigoServicoInicial);
         lblCodigoServicoInicial.setBounds(203, 15, 20, 14);
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        panPrincipal.add(jButton1);
-        jButton1.setBounds(30, 320, 73, 23);
 
         panTabelaFunc.setBorder(javax.swing.BorderFactory.createTitledBorder("Funcionários selecionados para executar esse serviço"));
         panTabelaFunc.setOpaque(false);
@@ -578,6 +575,15 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         panPrincipal.add(lblNomeArquivo);
         lblNomeArquivo.setBounds(293, 138, 150, 14);
 
+        btnRemoverArquivo.setText("Remover Arquivo");
+        btnRemoverArquivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverArquivoActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnRemoverArquivo);
+        btnRemoverArquivo.setBounds(490, 130, 120, 25);
+
         getContentPane().add(panPrincipal);
         panPrincipal.setBounds(30, 30, 1100, 510);
 
@@ -623,22 +629,9 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         control.Janelas.abrirCadastroPessoa();
     }//GEN-LAST:event_btnCadastrarPessoaJActionPerformed
 
-    private void btnArquivoRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArquivoRelatorioActionPerformed
-        FileFilter filtroDocx = new FileNameExtensionFilter("Documentos do Word", "docx");
-        FileFilter filtroTxt = new FileNameExtensionFilter("Arquivos de texto", "txt");
-        selecionarArquivo.addChoosableFileFilter(filtroDocx);
-        selecionarArquivo.addChoosableFileFilter(filtroTxt);
-
-        int retornoJFileChooser = selecionarArquivo.showOpenDialog(this);
-
-        if (retornoJFileChooser == javax.swing.JFileChooser.APPROVE_OPTION) {
-            java.io.File arquivo = selecionarArquivo.getSelectedFile();
-            String nomeArquivo = arquivo.getName().toString();
-            String diretorioArquivo = arquivo.toString();
-            lblNomeArquivo.setText(nomeArquivo);
-            lblDiretorioArquivo.setText(diretorioArquivo);
-        }
-    }//GEN-LAST:event_btnArquivoRelatorioActionPerformed
+    private void btnSelecionarArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarArquivoActionPerformed
+        escolherArquivo();
+    }//GEN-LAST:event_btnSelecionarArquivoActionPerformed
 
     private void txtCpfCnpjKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfCnpjKeyReleased
         textSizeCpfCnpj();
@@ -728,14 +721,9 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtfDataServico.setText(control.Datas.getDiaHoje());
     }//GEN-LAST:event_btnHojeActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            control.ManipularArquivos.copiarArquivoNoServidorNome(lblNomeArquivo.getText(), 
-                    lblDiretorioArquivo.getText(), lblCodigoServicoInicial.getText()+txtCodigoServico.getText());
-        } catch (IOException ex) {
-            Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnRemoverArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverArquivoActionPerformed
+        removerArquivo();
+    }//GEN-LAST:event_btnRemoverArquivoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -775,7 +763,6 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Bairro;
     private javax.swing.JLabel Bairro1;
-    private javax.swing.JButton btnArquivoRelatorio;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCadastrarCep;
     private javax.swing.JButton btnCadastrarPessoaJ;
@@ -789,11 +776,12 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JButton btnListarServico;
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JButton btnRemoveLinhaFunc;
+    private javax.swing.JButton btnRemoverArquivo;
+    private javax.swing.JButton btnSelecionarArquivo;
     private javax.swing.JButton btnSelecionarfunc;
     private javax.swing.ButtonGroup btngTipoCliente;
     private javax.swing.JComboBox<String> cmbTipoServico;
     private javax.swing.ButtonGroup grupoSexo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblCampoCpfCnpj;
@@ -1116,19 +1104,24 @@ public class FrmCadastroServico extends javax.swing.JFrame {
                 funcionario.setCodigoFuncionario(((String) model.getValueAt(i, 0)));
                 servico.setFuncionarioNaLista(funcionario);
             }
+            boolean cadastroSucedido;
+            cadastroSucedido = dao.DaoServico.cadastrarServico(servico);
+            if (cadastroSucedido) {
+                salvarArquivo();
+                iniciarTabela();
 
-            dao.DaoServico.cadastrarServico(servico);
-            iniciarTabela();
-
-            if (servico.getTipoServicoBanco() != 0) {
-                int opcaoJOPane;
-                opcaoJOPane = JOptionPane.showConfirmDialog(rootPane, "Deseja criar um orçamento para o serviço?", "Criação de orçamento", 0, JOptionPane.QUESTION_MESSAGE);
-                if (opcaoJOPane == 0) {
-                    control.Janelas.abrirCadastroOrcamento(servico.getCodigoServico(), true);
+                if (servico.getTipoServicoBanco() != 0) {
+                    int opcaoJOPane;
+                    opcaoJOPane = JOptionPane.showConfirmDialog(rootPane, "Deseja criar um orçamento para o serviço?", "Criação de orçamento", 0, JOptionPane.QUESTION_MESSAGE);
+                    if (opcaoJOPane == 0) {
+                        control.Janelas.abrirCadastroOrcamento(servico.getCodigoServico(), true);
+                    }
                 }
+                limpar();
+                verificarCodigoServico();
+                txtCodigoServico.requestFocus();
             }
-            
-            verificarCodigoServico();
+
         } else {
 
         }
@@ -1149,6 +1142,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         lblNomeFuncValor.setText("");
         lblDiretorioArquivo.setText("Nenhum arquivo selecionado.");
         iniciarTabela();
+        removerArquivo();
     }
 
     private void verificarFuncionario() {
@@ -1243,8 +1237,8 @@ public class FrmCadastroServico extends javax.swing.JFrame {
                 txtCpfCnpj.requestFocus();
                 return false;
             }
-        } 
-        
+        }
+
         if (txtCodigoServico.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Código do serviço em branco. \nDigite um código para o serviço.", "Erro - Código Serviço Inválido", 0);
             txtCodigoServico.requestFocus();
@@ -1268,7 +1262,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         } else {
             return true;
         }
-        
+
     }
 
     private void definirInicialCodigoServico() {
@@ -1290,5 +1284,39 @@ public class FrmCadastroServico extends javax.swing.JFrame {
 
     private void textSizeCpfCnpj() {
         txtCpfCnpj.setText(TextSize.maxLenghtCPFCNPJ(txtCpfCnpj.getText(), rbtFisica.isSelected()));
+    }
+
+    private void removerArquivo() {
+        lblNomeArquivo.setText("Nenhum arquivo selecionado.");
+        lblDiretorioArquivo.setText("...");
+    }
+
+    private void escolherArquivo() {
+        FileFilter filtroDocx = new FileNameExtensionFilter("Documentos do Word", "docx");
+        FileFilter filtroTxt = new FileNameExtensionFilter("Arquivos de texto", "txt");
+        selecionarArquivo.addChoosableFileFilter(filtroDocx);
+        selecionarArquivo.addChoosableFileFilter(filtroTxt);
+
+        int retornoJFileChooser = selecionarArquivo.showOpenDialog(this);
+
+        if (retornoJFileChooser == javax.swing.JFileChooser.APPROVE_OPTION) {
+            java.io.File arquivo = selecionarArquivo.getSelectedFile();
+            String nomeArquivo = arquivo.getName().toString();
+            String diretorioArquivo = arquivo.toString();
+            lblNomeArquivo.setText(nomeArquivo);
+            lblDiretorioArquivo.setText(diretorioArquivo);
+        }
+    }
+
+    private void salvarArquivo() {
+        if (!lblNomeArquivo.getText().equals("Nenhum arquivo selecionado.")) {
+            try {
+                control.ManipularArquivos.enviarArquivoServico(lblNomeArquivo.getText(),
+                        lblDiretorioArquivo.getText(), lblCodigoServicoInicial.getText() + txtCodigoServico.getText());
+            } catch (IOException ex) {
+                Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+        }
     }
 }

@@ -27,7 +27,7 @@ import model.Servico;
  */
 public class DaoServico {
 
-    public static void cadastrarServico(Servico servico) {
+    public static boolean cadastrarServico(Servico servico) {
         try {
             Connection con = Conexao.conectar();
             String sql = "INSERT INTO SYNCHROSOFT.TB_SERVICO "
@@ -81,11 +81,15 @@ public class DaoServico {
             st4.close();
 
             JOptionPane.showMessageDialog(null, "Serviço cadastrado e ativado com sucesso!", "Cadastro concluído", 1);
+            
+            return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar o serviço.\n\nErro Nº:"
                     + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoServico - Cadastrar Serviço", 0);
+            return false;
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DaoServico.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
     }
 

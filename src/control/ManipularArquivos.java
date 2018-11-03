@@ -22,44 +22,109 @@ import javax.swing.JOptionPane;
  */
 public class ManipularArquivos {
 
-    public static void copiarArquivoNoServidorNome(String nomeArquivo, String diretorioArquivo, String CodigoServico) throws IOException {
-        //String diretorioArquivoServico = copiarArquivoComCodServ(nomeArquivo, diretorioArquivo, CodigoServico).toString();
+    /**
+     * Recebe o arquivo de relatório/descrição a ser salvo com o cadastro de serviço.
+     * Cria um socket que irá enviar os dados do arquivo e o seu respectivo nome.
+     * Para esse método funcionar, o servidor ou o computador em que a aplicação
+     * de banco de dados deve estar com uma aplicação que também cria um socket e
+     * escuta por requisições.
+     * O arquivo enviado será renomeado com o código do serviço + o próprio nome
+     * do arquivo, e será salvo no diretório C:\Synchro Relatorios\, no computador
+     * servidor.
+     * @param nomeArquivo O nome do arquivo a ser salvo.
+     * @param diretorioArquivo O diretório do arquivo no computador cliente, a ser salvo.
+     * @param CodigoServico O código do serviço que terá o arquivo relacionado.
+     * @throws IOException Joga uma excessão de erro de I/O
+     */
+    public static void enviarArquivoServico(String nomeArquivo, String diretorioArquivo, String CodigoServico) throws IOException {
+        /*
+        Instancia um socket. O construtor recebe 2 parâmetros, o IP do computador
+        que está executando o banco de dados, e a porta a ser utilizada pelo socket.
+        Esse IP será o mesmo utilizado na tela de login do sistema, sendo o mesmo
+        IP do banco de dados.
         
+        A porta socket 5005 é arbitrária. Pode ser trocada por qualquer valor, 
+        desde que seja acima das portas exclusivas do sistema. Se alterada, 
+        O aplicativo que irá escutar requisições também precisa ter o socket trocado.
+        */
+        try {
         Socket sock = new Socket(dao.Conexao.getServerName(), 5005);
 
-        //Send file  
-        File myFile = new File(diretorioArquivo);
-        byte[] mybytearray = new byte[(int) myFile.length()];
-
-        FileInputStream fis = new FileInputStream(myFile);
+        /*
+        Preparação do arquivo. Um objeto File é instanciado, o construtor recebe 
+        um parâmetro, que é o diretório do arquivo presente no computador cliente.
+        */
+        File arquivo = new File(diretorioArquivo);
+        /*
+        Um array de byes é criado, que irá representar o tamanho total do arquivo
+        a ser transferido pela rede.
+        */
+        byte[] mybytearray = new byte[(int) arquivo.length()];
+        /*
+        Um objeto do tipo FileInputStream é instanciado, é um wrapper para o arquivo,
+        como se estivesse preparando-o.
+        */
+        FileInputStream fis = new FileInputStream(arquivo);
+        /*
+        Objeto do tipo BufferedInputStream é instanciado com o objeto do tipo
+        FileInputStream. Adiciona funcionalidades adicionais para o processamento
+        do arquivo.
+        */
         BufferedInputStream bis = new BufferedInputStream(fis);
-        //bis.read(mybytearray, 0, mybytearray.length);  
-
+        
+        /*
+        Objeto do tipo DataInputStream é criado. Esse será o objeto que irá
+        carregar o nome do arquivo e seus respectivos dados pela rede.
+        */
         DataInputStream dis = new DataInputStream(bis);
+        
+        /*
+        Leitura de todos os bytes a ser transferido.
+        */
         dis.readFully(mybytearray, 0, mybytearray.length);
-
+        
+        /*
+        Objeto do tipo OutputStream é instanciado e o socket é inicializado. 
+        */
         OutputStream os = sock.getOutputStream();
 
-        //Sending file name and file size to the server  
+        /*
+        Aqui o arquivo é enviado com seu nome e dados para o destino.
+        */
         DataOutputStream dos = new DataOutputStream(os);
-        dos.writeUTF(CodigoServico+"-"+myFile.getName());
+        /*
+        Aqui o arquivo será renomeado para o código do serviço + o próprio nome.
+        */
+        dos.writeUTF(CodigoServico+"-"+arquivo.getName()); 
         dos.writeLong(mybytearray.length);
         dos.write(mybytearray, 0, mybytearray.length);
         dos.flush();
 
-        //Sending file data to the server  
+        /*
+        O arquivo é escrito no computador destino.
+        */
         os.write(mybytearray, 0, mybytearray.length);
         os.flush();
 
-        //Closing socket
+        /*
+        Fechamento do socket.
+        */
         os.close();
         dos.close();
         sock.close();
         
+        JOptionPane.showMessageDialog(null, "O arquivo "+nomeArquivo+" foi salvo em \n"
+        +"\\\\"+dao.Conexao.getServerName()+"\\Synchro Relatórios\\"+CodigoServico+"-"+nomeArquivo, "Arquivo enviado com sucesso", 1);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao enviar o arquivo.\n\n"
+                    + "Verifique se o aplicativo para receber requisições sockets está sendo executado no servidor,\n"
+            +"ou se o arquivo foi devidamente selecionado. Verifique também se a porta do socket da aplicação é a mesma do servidor.\n\n"
+                    +"Erro: "+ex, "Erro - não foi possível salvar oa rquivo.", 0);
+        }
         
         //deletarArquivo(diretorioArquivoServico);
     }
-    
+    /* 
     public static Path copiarArquivoComCodServ(String nomeArquivo, String diretorioArquivo, String CodigoServico) throws IOException {
         Path origem = Paths.get(diretorioArquivo);
         Path destino = Paths.get("C:\\xyz\\"+CodigoServico+"-"+nomeArquivo);
@@ -74,8 +139,8 @@ public class ManipularArquivos {
                 return null;
             }
 
-    }
-    
+    }*/
+    /*
     public static void deletarArquivo(String diretorio) throws IOException {
         try {
             Thread.sleep(3000);
@@ -83,7 +148,7 @@ public class ManipularArquivos {
             Logger.getLogger(ManipularArquivos.class.getName()).log(Level.SEVERE, null, ex);
         }
         Files.deleteIfExists(Paths.get(diretorio));
-    }
+    }*/
 
     public static void copiarArquivoNoServidor(String nomeArquivo, String diretorioArquivo, String CodigoServico) throws IOException {
         Socket socket = null;
