@@ -7,18 +7,10 @@ package view;
 
 import control.Datas;
 import control.TextSize;
-import dao.DaoEndereco;
-import dao.DaoFuncionario;
 import dao.DaoPessoa;
 import java.awt.Color;
 import java.awt.Toolkit;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.sql.Date;
-import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;

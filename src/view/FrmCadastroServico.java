@@ -7,16 +7,13 @@ package view;
 
 import control.Datas;
 import control.TextSize;
-import dao.DaoEndereco;
 import dao.DaoFuncionario;
-import dao.DaoPessoa;
 import dao.DaoServico;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,7 +25,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 import model.Endereco;
 import model.Funcionario;
-import model.Pessoa;
 import model.PessoaFisica;
 import model.PessoaJuridica;
 import model.Servico;
@@ -82,7 +78,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private void initComponents() {
 
         btngTipoCliente = new javax.swing.ButtonGroup();
-        db = new javax.swing.JFileChooser();
+        selecionarArquivo = new javax.swing.JFileChooser();
         grupoSexo = new javax.swing.ButtonGroup();
         panPrincipal = new javax.swing.JPanel();
         btnLimpar = new javax.swing.JButton();
@@ -97,7 +93,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         lblRelatorioServico = new javax.swing.JLabel();
         lblSelecionarFunc = new javax.swing.JLabel();
         btnArquivoRelatorio = new javax.swing.JButton();
-        lblRelatorio = new javax.swing.JLabel();
+        lblDiretorioArquivo = new javax.swing.JLabel();
         lblCodigoFunc = new javax.swing.JLabel();
         txtCodFunc = new javax.swing.JTextField();
         lblNomeFuncValor = new javax.swing.JLabel();
@@ -148,6 +144,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         panUtilidade = new javax.swing.JPanel();
         btnListarEndereco = new javax.swing.JButton();
         btnListarPessoa1 = new javax.swing.JButton();
+        lblNomeArquivo = new javax.swing.JLabel();
         btnMenuPrincipal = new javax.swing.JButton();
         btnFecharFrame = new javax.swing.JButton();
         lblBackground = new javax.swing.JLabel();
@@ -250,9 +247,9 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         panPrincipal.add(btnArquivoRelatorio);
         btnArquivoRelatorio.setBounds(210, 130, 80, 25);
 
-        lblRelatorio.setText("Nenhum arquivo selecionado.");
-        panPrincipal.add(lblRelatorio);
-        lblRelatorio.setBounds(292, 138, 790, 14);
+        lblDiretorioArquivo.setText("...");
+        panPrincipal.add(lblDiretorioArquivo);
+        lblDiretorioArquivo.setBounds(445, 138, 650, 14);
 
         lblCodigoFunc.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCodigoFunc.setText("Código Funcionário");
@@ -577,6 +574,10 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         panPrincipal.add(panUtilidade);
         panUtilidade.setBounds(920, 155, 160, 165);
 
+        lblNomeArquivo.setText("Nenhum arquivo selecionado.");
+        panPrincipal.add(lblNomeArquivo);
+        lblNomeArquivo.setBounds(293, 138, 150, 14);
+
         getContentPane().add(panPrincipal);
         panPrincipal.setBounds(30, 30, 1100, 510);
 
@@ -623,17 +624,19 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarPessoaJActionPerformed
 
     private void btnArquivoRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArquivoRelatorioActionPerformed
-        FileFilter ft1 = new FileNameExtensionFilter("Documentos do Word", "docx");
-        FileFilter ft2 = new FileNameExtensionFilter("Arquivos de texto", "txt");
-        db.addChoosableFileFilter(ft1);
-        db.addChoosableFileFilter(ft2);
+        FileFilter filtroDocx = new FileNameExtensionFilter("Documentos do Word", "docx");
+        FileFilter filtroTxt = new FileNameExtensionFilter("Arquivos de texto", "txt");
+        selecionarArquivo.addChoosableFileFilter(filtroDocx);
+        selecionarArquivo.addChoosableFileFilter(filtroTxt);
 
-        int returnVal = db.showOpenDialog(this);
+        int retornoJFileChooser = selecionarArquivo.showOpenDialog(this);
 
-        if (returnVal == javax.swing.JFileChooser.APPROVE_OPTION) {
-            java.io.File file = db.getSelectedFile();
-            String fileConvert = file.toString();
-            lblRelatorio.setText("" + fileConvert + "");
+        if (retornoJFileChooser == javax.swing.JFileChooser.APPROVE_OPTION) {
+            java.io.File arquivo = selecionarArquivo.getSelectedFile();
+            String nomeArquivo = arquivo.getName().toString();
+            String diretorioArquivo = arquivo.toString();
+            lblNomeArquivo.setText(nomeArquivo);
+            lblDiretorioArquivo.setText(diretorioArquivo);
         }
     }//GEN-LAST:event_btnArquivoRelatorioActionPerformed
 
@@ -726,7 +729,12 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHojeActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        control.ManipularArquivos.copiarArquivo(lblRelatorio.getText(), lblCodigoServicoInicial.getText()+txtCodigoServico.getText(), "txt");
+        try {
+            control.ManipularArquivos.copiarArquivoNoServidor(lblNomeArquivo.getText(), 
+                    lblDiretorioArquivo.getText(), lblCodigoServicoInicial.getText()+txtCodigoServico.getText());
+        } catch (IOException ex) {
+            Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -784,7 +792,6 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JButton btnSelecionarfunc;
     private javax.swing.ButtonGroup btngTipoCliente;
     private javax.swing.JComboBox<String> cmbTipoServico;
-    private javax.swing.JFileChooser db;
     private javax.swing.ButtonGroup grupoSexo;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -799,14 +806,15 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JLabel lblCodigoServicoInicial;
     private javax.swing.JLabel lblCpfCnpjExiste;
     private javax.swing.JLabel lblDataCadastro;
+    private javax.swing.JLabel lblDiretorioArquivo;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblExisteServico;
     private javax.swing.JLabel lblLogradouro;
+    private javax.swing.JLabel lblNomeArquivo;
     private javax.swing.JLabel lblNomeFicticio;
     private javax.swing.JLabel lblNomeFunc;
     private javax.swing.JLabel lblNomeFuncValor;
     private javax.swing.JLabel lblRazaoSocial;
-    private javax.swing.JLabel lblRelatorio;
     private javax.swing.JLabel lblRelatorioServico;
     private javax.swing.JLabel lblSelecionarFunc;
     private javax.swing.JLabel lblSexoDesc;
@@ -820,6 +828,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JPanel panUtilidade;
     private javax.swing.JRadioButton rbtFisica;
     private javax.swing.JRadioButton rbtJuridica;
+    private javax.swing.JFileChooser selecionarArquivo;
     private javax.swing.JTable tblFuncSelecionados;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JTextField txtCelularRamal;
@@ -1097,7 +1106,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             cep = cep.trim();
             servico.setEndereco(dao.DaoEndereco.popularEndereco(cep));
             servico.setCnpjCliente(txtCpfCnpj.getText());
-            servico.setDescricaoServicoFILE(lblRelatorio.getText());
+            servico.setDescricaoServicoFILE(lblDiretorioArquivo.getText());
             servico.setStatusServico(true);
 
             DefaultTableModel model = (DefaultTableModel) tblFuncSelecionados.getModel();
@@ -1138,7 +1147,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtfCep.setText("");
         txtCodFunc.setText("");
         lblNomeFuncValor.setText("");
-        lblRelatorio.setText("Nenhum arquivo selecionado.");
+        lblDiretorioArquivo.setText("Nenhum arquivo selecionado.");
         iniciarTabela();
     }
 

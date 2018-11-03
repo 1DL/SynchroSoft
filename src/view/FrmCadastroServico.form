@@ -4,7 +4,7 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="btngTipoCliente">
     </Component>
-    <Component class="javax.swing.JFileChooser" name="db">
+    <Component class="javax.swing.JFileChooser" name="selecionarArquivo">
     </Component>
     <Component class="javax.swing.ButtonGroup" name="grupoSexo">
     </Component>
@@ -231,13 +231,13 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblRelatorio">
+        <Component class="javax.swing.JLabel" name="lblDiretorioArquivo">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nenhum arquivo selecionado."/>
+            <Property name="text" type="java.lang.String" value="..."/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="292" y="138" width="790" height="-1"/>
+              <AbsoluteConstraints x="445" y="138" width="650" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -891,6 +891,16 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JLabel" name="lblNomeArquivo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Nenhum arquivo selecionado."/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="293" y="138" width="150" height="-1"/>
+            </Constraint>
+          </Constraints>
+        </Component>
       </SubComponents>
     </Container>
     <Component class="javax.swing.JButton" name="btnMenuPrincipal">

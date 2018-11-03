@@ -7,12 +7,8 @@ package view;
 
 import control.TextSize;
 import dao.DaoFuncionario;
-import dao.DaoUsuario;
 import java.awt.Color;
 import java.awt.Toolkit;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Funcionario;

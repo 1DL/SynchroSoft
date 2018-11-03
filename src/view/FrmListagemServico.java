@@ -673,33 +673,33 @@ public class FrmListagemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtualizarTabelaActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        if (verificarFuncVazio() && (cnpjCadastrado || cpfCadastrado)) {
-            try {
-                tblListagemServico.getCellEditor().stopCellEditing();
-                tblFuncionarioTrabalhando.getCellEditor().stopCellEditing();
-            } catch (Exception ex) {
-
-            }
-            try {
-                Servico servico = new Servico();
-                
-                servico.setCodigoServico();
-                
-                for (int i = 0; i < tblFuncionarioTrabalhando.getRowCount(); i++) {                    
-                    Funcionario funcionario = new Funcionario();
-                    funcionario.setCodigoFuncionario(((String) tblFuncionarioTrabalhando.getValueAt(i, 0)));
-                    servico.getListaFuncionario().add(funcionario);
-                }
-                DaoServico.alterarServico(s, lista, rbtFisica.isSelected(), txtCpfCnpj.getText());
-
-            } catch (SQLException ex) {
-                Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Dados inválidos ou incompletos.");
-        }
+//        if (verificarFuncVazio() && (cnpjCadastrado || cpfCadastrado)) {
+//            try {
+//                tblListagemServico.getCellEditor().stopCellEditing();
+//                tblFuncionarioTrabalhando.getCellEditor().stopCellEditing();
+//            } catch (Exception ex) {
+//
+//            }
+//            try {
+//                Servico servico = new Servico();
+//                
+//                servico.setCodigoServico();
+//                
+//                for (int i = 0; i < tblFuncionarioTrabalhando.getRowCount(); i++) {                    
+//                    Funcionario funcionario = new Funcionario();
+//                    funcionario.setCodigoFuncionario(((String) tblFuncionarioTrabalhando.getValueAt(i, 0)));
+//                    servico.getListaFuncionario().add(funcionario);
+//                }
+//                DaoServico.alterarServico(s, lista, rbtFisica.isSelected(), txtCpfCnpj.getText());
+//
+//            } catch (SQLException ex) {
+//                Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (ClassNotFoundException ex) {
+//                Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(rootPane, "Dados inválidos ou incompletos.");
+//        }
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
@@ -938,7 +938,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
                 cnpjCadastrado = dp.existePessoaJuridica(txtCpfCnpj.getText());
                 if (cnpjCadastrado) {
                     lblCpfCnpjExiste.setText("CNPJ Cadastrado");
-                    pessoaJuridicaExibicao = dp.popularPessoaJuridica(txtCpfCnpj.getText(), txtCep.getText());
+                    //pessoaJuridicaExibicao = dp.popularPessoaJuridica(txtCpfCnpj.getText(), txtCep.getText());
                     popularExibicaoPessoaJuridica(pessoaJuridicaExibicao);
                 } else {
                     lblCpfCnpjExiste.setText("CNPJ Inexistente");
@@ -1046,41 +1046,41 @@ public class FrmListagemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodFuncKeyReleased
 
     private void btnSelecionarfuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarfuncActionPerformed
-        boolean flag = true;
-        if (flagFuncionario) {
-            DefaultTableModel model = (DefaultTableModel) tblFuncionarioTrabalhando.getModel();
-            Object rowData[] = new Object[3];
-            rowData[0] = (String) txtCodFunc.getText();
-            rowData[1] = (String) txtNomeFunc.getText();
-            String codigos = "";
-            try {
-                codigos = DaoServico.listarServicosDoFuncionario(txtCodFunc.getText());
-            } catch (SQLException ex) {
-                Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if (codigos.equals("")) {
-                rowData[2] = (String) "Livre";
-            } else {
-                codigos = codigos.substring(2);
-                rowData[2] = (String) codigos;
-            }
-            String aux = (String) rowData[0];
-            String aux2 = "";
-            for (int i = 0; i < model.getRowCount(); i++) {
-                aux2 = (String) model.getValueAt(i, 0);
-                if (aux.equals(aux2)) {
-                    flag = false;
-                }
-            }
-            if (flag) {
-                model.addRow(rowData);
-                tblFuncionarioTrabalhando.setModel(model);
-                txtCodFunc.setText("");
-                txtCodFunc.requestFocus();
-            }
-        }
+//        boolean flag = true;
+//        if (flagFuncionario) {
+//            DefaultTableModel model = (DefaultTableModel) tblFuncionarioTrabalhando.getModel();
+//            Object rowData[] = new Object[3];
+//            rowData[0] = (String) txtCodFunc.getText();
+//            rowData[1] = (String) txtNomeFunc.getText();
+//            String codigos = "";
+//            try {
+//                codigos = DaoServico.listarServicosDoFuncionario(txtCodFunc.getText());
+//            } catch (SQLException ex) {
+//                Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (ClassNotFoundException ex) {
+//                Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            if (codigos.equals("")) {
+//                rowData[2] = (String) "Livre";
+//            } else {
+//                codigos = codigos.substring(2);
+//                rowData[2] = (String) codigos;
+//            }
+//            String aux = (String) rowData[0];
+//            String aux2 = "";
+//            for (int i = 0; i < model.getRowCount(); i++) {
+//                aux2 = (String) model.getValueAt(i, 0);
+//                if (aux.equals(aux2)) {
+//                    flag = false;
+//                }
+//            }
+//            if (flag) {
+//                model.addRow(rowData);
+//                tblFuncionarioTrabalhando.setModel(model);
+//                txtCodFunc.setText("");
+//                txtCodFunc.requestFocus();
+//            }
+//        }
     }//GEN-LAST:event_btnSelecionarfuncActionPerformed
 
     private void btnListarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarFuncActionPerformed
@@ -1155,7 +1155,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
             Object rowData[] = new Object[8];
             for (int i = 0; i < lista.size(); i++) {
                 rowData[0] = lista.get(i).getCodigoServico();
-                rowData[1] = lista.get(i).getTipoServico();
+                //rowData[1] = lista.get(i).getTipoServico();
                 rowData[2] = lista.get(i).getTipoClienteSTR();
                 rowData[3] = lista.get(i).getDescricaoServicoFILE();
                 rowData[4] = lista.get(i).getStatusServicoSTR();
@@ -1287,7 +1287,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
             Object rowData[] = new Object[8];
             for (int i = 0; i < lista.size(); i++) {
                 rowData[0] = lista.get(i).getCodigoServico();
-                rowData[1] = lista.get(i).getTipoServico();
+                //rowData[1] = lista.get(i).getTipoServico();
                 rowData[2] = lista.get(i).getTipoClienteSTR();
                 rowData[3] = lista.get(i).getDescricaoServicoFILE();
                 rowData[4] = lista.get(i).getStatusServicoSTR();

@@ -6,16 +6,8 @@
 package control;
 
 import java.io.*;
-import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.net.Socket;
 import javax.swing.JOptionPane;
-import jcifs.smb.NtlmPasswordAuthentication;
-import jcifs.smb.SmbFile;
 
 /**
  *
@@ -23,35 +15,65 @@ import jcifs.smb.SmbFile;
  */
 public class ManipularArquivos {
 
-    public static void copiarArquivo(String diretorioOrigem, String CodigoServico, String extensaoArquivo) {
+    public static void copiarArquivoNoServidor(String nomeArquivo, String diretorioArquivo, String CodigoServico) throws IOException {
+        Socket socket = null;
+        String host = dao.Conexao.getServerName();
 
-        try {
-            
-            System.setProperty("jcifs.smb.client.username", "Luiz");
-		//Lê a senha 
-		System.setProperty("jcifs.smb.client.password", "desk");  
-            
-            InputStream in = new FileInputStream(new File(diretorioOrigem));
-            NtlmPasswordAuthentication authentication = new NtlmPasswordAuthentication("Luiz:desk"); // replace with actual values
-            SmbFile file = new SmbFile("file://192.168.100.200/Synchro Relatorios/teste.txt", authentication); // note the different format
-            OutputStream out = file.getOutputStream();
+        socket = new Socket(host, 5005);
 
-            // Transfer bytes from in to out
-            byte[] buf = new byte[1024];
-            int len;
-            while ((len = in.read(buf)) > 0) {
-                out.write(buf, 0, len);
-            }
-            in.close();
-            out.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(ManipularArquivos.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ManipularArquivos.class.getName()).log(Level.SEVERE, null, ex);
+        File file = new File(diretorioArquivo);
+        // Get the size of the file
+        long length = file.length();
+        byte[] bytes = new byte[16 * 1024];
+        InputStream in = new FileInputStream(file);
+        OutputStream out = socket.getOutputStream();
+
+        int count;
+        while ((count = in.read(bytes)) > 0) {
+            out.write(bytes, 0, count);
         }
 
-        
-
+        out.close();
+        in.close();
+        socket.close();
+        //        try {
+//        Path source = Paths.get(diretorioOrigem);
+//        SmbFile newFile = new SmbFile("smb://192.168.100.200/Synchro Relatorios/teste.txt", new NtlmPasswordAuthentication(null, "Luiz", "desk"));
+//        try (OutputStream out = newFile.getOutputStream()) {
+//            Files.copy(source, out);
+//        }
+//        
+//        } catch (IOException ex) {
+//            System.err.print(ex);
+//        }
+//        
+//        
+//        try {
+//            
+//            System.setProperty("jcifs.smb.client.username", "Luiz");
+//		//Lê a senha 
+//		System.setProperty("jcifs.smb.client.password", "desk");  
+//            
+//            InputStream in = new FileInputStream(new File(diretorioOrigem));
+//            NtlmPasswordAuthentication authentication = new NtlmPasswordAuthentication("Luiz:desk"); // replace with actual values
+//            SmbFile file = new SmbFile("file://192.168.100.200/Synchro Relatorios/teste.txt", authentication); // note the different format
+//            OutputStream out = file.getOutputStream();
+//
+//            // Transfer bytes from in to out
+//            byte[] buf = new byte[1024];
+//            int len;
+//            while ((len = in.read(buf)) > 0) {
+//                out.write(buf, 0, len);
+//            }
+//            in.close();
+//            out.close();
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(ManipularArquivos.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IOException ex) {
+//            Logger.getLogger(ManipularArquivos.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//        
 //        Path origem = Paths.get(diretorioOrigem);
 //        extensaoArquivo = "txt";
 //        Path destino = Paths.get("\\\\192.168.100.200\\Synchro Relatorios\\" + CodigoServico + "." + extensaoArquivo);
@@ -66,11 +88,9 @@ public class ManipularArquivos {
 //        } catch (IOException ex) {
 //            Logger.getLogger(ManipularArquivos.class.getName()).log(Level.SEVERE, null, ex);
 //        }
+    }
 
-    
-}
-
-public static void lerArquivoJanelas() {
+    public static void lerArquivoJanelas() {
         //Nome do arquivo a ser acessado, presente na pasta raíz do projeto.
         String fileName = "acessojanelas.txt";
         //Variável que receberá os dados de uma linha inteira do arquivo de texto.

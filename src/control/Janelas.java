@@ -6,19 +6,16 @@
 package control;
 
 import java.awt.Frame;
-import java.awt.Toolkit;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import view.FrmCadastroDespesa;
 import view.FrmCadastroEndereco;
 import view.FrmCadastroFuncionario;
 import view.FrmCadastroOrcamento;
-import view.FrmCadastroProduto;
 import view.FrmCadastroPessoa;
+import view.FrmCadastroProduto;
 import view.FrmCadastroServico;
 import view.FrmCadastroUsuario;
 import view.FrmListagemDespesa;
