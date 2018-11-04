@@ -11,7 +11,7 @@ package model;
  */
 public class VendaPeca {
     private Produto peca;
-    private int quantidadeVendida;
+    private long quantidadeVendida;
 
     public Produto getPeca() {
         return peca;
@@ -21,11 +21,11 @@ public class VendaPeca {
         this.peca = peca;
     }
 
-    public int getQuantidadeVendida() {
+    public long getQuantidadeVendida() {
         return quantidadeVendida;
     }
 
-    public void setQuantidadeVendida(int quantidadeVendida) {
+    public void setQuantidadeVendida(long quantidadeVendida) {
         this.quantidadeVendida = quantidadeVendida;
     }
 }

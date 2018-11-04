@@ -16,10 +16,10 @@ public class Produto {
     private String codigoPeca;
     private String categoriaPeca;
     private String nomePeca;
-    private int quantidadePeca;
+    private long quantidadePeca;
     private float valorUnitario;
-    private int alertaQtdMin;
-    private int alertaQtdMax;
+    private long alertaQtdMin;
+    private long alertaQtdMax;
     private boolean validacao = true;
 
     public Produto() {
@@ -62,13 +62,13 @@ public class Produto {
         this.nomePeca = nomePeca;
     }
 
-    public int getQuantidadePeca() {
+    public long getQuantidadePeca() {
         return quantidadePeca;
     }
 
     public void setQuantidadePeca(String quantidadePeca) {
         try{
-            this.quantidadePeca = Integer.parseInt(quantidadePeca);
+            this.quantidadePeca = Long.parseLong(quantidadePeca);
             validacao = true;
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(null, "Erro ao definir a quantidade de produtos. \n\nUse somente valores inteiros.", "Erro - Quantidade inválida", 0);
@@ -97,13 +97,13 @@ public class Produto {
         }
     }
 
-    public int getAlertaQtdMin() {
+    public long getAlertaQtdMin() {
         return alertaQtdMin;
     }
 
     public void setAlertaQtdMin(String alertaQtdMin) {
         try{
-            this.alertaQtdMin = Integer.parseInt(alertaQtdMin);
+            this.alertaQtdMin = Long.parseLong(alertaQtdMin);
             validacao = true;
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao definir a o alerta de quantidade mínima. \n\nUse somente valores inteiros.", "Erro - Alerta mínimo inválido", 0);
@@ -111,13 +111,13 @@ public class Produto {
         }
     }
 
-    public int getAlertaQtdMax() {
+    public long getAlertaQtdMax() {
         return alertaQtdMax;
     }
 
     public void setAlertaQtdMax(String alertaQtdMax) {
         try{
-            this.alertaQtdMax = Integer.parseInt(alertaQtdMax);
+            this.alertaQtdMax = Long.parseLong(alertaQtdMax);
             validacao = true;
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao definir a o alerta de quantidade máxima. \n\nUse somente valores inteiros.", "Erro - Alerta máxima inválido", 0);

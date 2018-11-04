@@ -6,6 +6,7 @@
 package model;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -58,6 +59,16 @@ public class Orcamento {
 
     public void setMaoDeObra(Double maoDeObra) {
         this.maoDeObra = maoDeObra;
+    }
+    
+    public void setMaoDeObraSTR (String maoDeObra) {
+        maoDeObra = maoDeObra.replace(",", ".");
+        try {
+            this.maoDeObra = Double.parseDouble(maoDeObra);
+        } catch (NumberFormatException nfe) {
+            JOptionPane.showMessageDialog(null, "Erro ao converter o valor da mão de obra. \n\n"
+                    + "Erro: "+nfe, "Erro ao atribuir Mão de Obra", 0);
+        }
     }
 
     public Double getValorTotal() {

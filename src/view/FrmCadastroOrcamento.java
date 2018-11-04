@@ -38,12 +38,12 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         if (nvlAdm == 0) {
             btnCadOrcamento.setEnabled(false);
         }
+
+        selecionarAoFocar();
     }
 
-    
-    
     public FrmCadastroOrcamento(String codigoServico, boolean flag) {
-        
+
         initComponents();
         iniciarTabela();
         txtCodServico.setText("" + codigoServico);
@@ -54,7 +54,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     boolean flagCriarAlterar;
     Servico s = new Servico();
     boolean flagPeca;
-    int limitePeca = 0;
+    long limitePeca = 0;
     double valorTotal;
     double valorMaoDeObra;
     double valorPecas;
@@ -174,7 +174,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(txtValorTotal);
-        txtValorTotal.setBounds(210, 440, 160, 40);
+        txtValorTotal.setBounds(180, 440, 190, 40);
 
         lblValorTotal.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lblValorTotal.setText("Valor Total:");
@@ -199,6 +199,11 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         pnlPeca.add(lblQtdEmEstoque);
         lblQtdEmEstoque.setBounds(320, 140, 120, 25);
 
+        txtCodPeca.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCodPecaFocusGained(evt);
+            }
+        });
         txtCodPeca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCodPecaActionPerformed(evt);
@@ -237,9 +242,9 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         pnlPeca.add(lblQtdProduto);
         lblQtdProduto.setBounds(320, 10, 110, 25);
 
-        txtfQuantidadePeca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfQuantidadePecaActionPerformed(evt);
+        txtfQuantidadePeca.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtfQuantidadePecaFocusGained(evt);
             }
         });
         txtfQuantidadePeca.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -400,52 +405,8 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtValorTotalActionPerformed
 
     private void btnCadOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadOrcamentoActionPerformed
-        if (valorTotal>0){
-            Orcamento o = new Orcamento();
-            s.setCodigoServico(txtCodServico.getText());
-            o.setServico(s);
-            o.setMaoDeObra(Double.parseDouble(txtfMaoDeObra.getText()));
-            ArrayList<VendaPeca> lista = new ArrayList<>();
-            for(int i = 0; i < tblOrcamento.getRowCount(); i++){
-                Produto p = new Produto();
-                p.setCodigoPeca((String)tblOrcamento.getValueAt(i, 0));
-                p.setNomePeca((String) tblOrcamento.getValueAt(i, 1));
-                p.setCategoriaPeca((String) tblOrcamento.getValueAt(i, 2));
-                p.setValorUnitario((String) tblOrcamento.getValueAt(i, 3));
-                p.setQuantidadePeca(((String) tblOrcamento.getValueAt(i, 4)));
-                VendaPeca vp = new VendaPeca();
-                vp.setPeca(p);
-                vp.setQuantidadeVendida(p.getQuantidadePeca());
-                lista.add(vp);
-            }
-            o.setPecas(lista);
-            o.setValorTotal(0.0);
-            for (int i = 0; i < lista.size(); i++){
-                o.setValorTotal(o.getValorTotal() + (lista.get(i).getPeca().getValorUnitarioBanco() * lista.get(i).getQuantidadeVendida()));
-            }
-            o.setValorTotal(o.getValorTotal() + o.getMaoDeObra());
-            try {
-                if (tblOrcamento.getRowCount() !=0) {
-                    DaoOrcamento.criarOrcamento(o, true, flagCriarAlterar); 
-                } else {
-                    DaoOrcamento.criarOrcamento(o, false, flagCriarAlterar); 
-                }
-               
-               
-            } catch (SQLException ex) {
-                Logger.getLogger(FrmCadastroOrcamento.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(FrmCadastroOrcamento.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Insira um valor de mão de obra e/ou peça.");
-        }
+        vincularOrcamento();
     }//GEN-LAST:event_btnCadOrcamentoActionPerformed
-
-    private void txtfQuantidadePecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfQuantidadePecaActionPerformed
-
-    }//GEN-LAST:event_txtfQuantidadePecaActionPerformed
 
     private void txtCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCategoriaActionPerformed
         // TODO add your handling code here:
@@ -468,7 +429,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarPecaActionPerformed
 
     private void txtCodPecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodPecaKeyReleased
-        
+
         txtCodPeca.setText(TextSize.maxLenghtCodigoPeca(txtCodPeca.getText()));
         if (txtCodPeca.getText().equals("")) {
             limparPeca();
@@ -502,31 +463,12 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodPecaKeyReleased
 
     private void txtfQuantidadePecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfQuantidadePecaKeyReleased
-        txtfQuantidadePeca.setText(TextSize.maxLenghtQuantidadePeca(txtfQuantidadePeca.getText()));
-        int qtd;
-        float produto;
-        float vlunit;
-        try {
-            qtd = Integer.parseInt(txtfQuantidadePeca.getText());
-            if (qtd > limitePeca) {
-                txtfQuantidadePeca.setText("" + limitePeca);
-                qtd = limitePeca;
-                vlunit = Float.parseFloat(txtValorUnitario.getText());
-                produto = qtd * vlunit;
-                txtValorXQtd.setText("" + produto);
-            } else {
-                vlunit = Float.parseFloat(txtValorUnitario.getText());
-                produto = qtd * vlunit;
-                txtValorXQtd.setText("" + produto);
-            }
-        } catch (NumberFormatException ex) {
-            txtfQuantidadePeca.setText("");
-        }
+        calcularValorUnitXQtd();
     }//GEN-LAST:event_txtfQuantidadePecaKeyReleased
 
     private void btnAdicionarPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarPecaActionPerformed
         boolean flag = true;
-        int flagQtd = Integer.parseInt(txtfQuantidadePeca.getText());
+        Long flagQtd = Long.parseLong(txtfQuantidadePeca.getText());
         if (flagQtd <= 0 || txtQtdEstoque.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Digite uma quantidade válida.");
         } else {
@@ -555,10 +497,8 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
                 txtCodPeca.requestFocus();
             }
         }
-        
-       
-        
-       atualizarValorTotal();
+
+        atualizarValorTotal();
     }//GEN-LAST:event_btnAdicionarPecaActionPerformed
 
     private void btnExcluirTodasPecasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirTodasPecasActionPerformed
@@ -603,6 +543,14 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         txtfMaoDeObra.setText(TextSize.maxLenghtMaoDeObra(txtfMaoDeObra.getText()));
     }//GEN-LAST:event_txtfMaoDeObraKeyReleased
 
+    private void txtCodPecaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodPecaFocusGained
+        txtCodPeca.selectAll();
+    }//GEN-LAST:event_txtCodPecaFocusGained
+
+    private void txtfQuantidadePecaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfQuantidadePecaFocusGained
+        txtfQuantidadePeca.selectAll();
+    }//GEN-LAST:event_txtfQuantidadePecaFocusGained
+
     /**
      * @param args the command line arguments
      */
@@ -638,48 +586,6 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         });
     }
 
-    public void popularPeca(String codigo) throws SQLException, ClassNotFoundException {
-        Produto p = new Produto();
-        p = DaoProduto.popularPeca(codigo);
-        limitePeca = p.getQuantidadePeca();
-        txtNomePeca.setText("" + p.getNomePeca());
-        txtValorUnitario.setText("" + p.getValorUnitarioSTR());
-        txtQtdEstoque.setText("" + p.getQuantidadePeca());
-        txtCategoria.setText("" + p.getCategoriaPeca());
-    }
-
-    public void limparPeca() {
-        txtfQuantidadePeca.setText("0");
-        txtNomePeca.setText("");
-        txtValorUnitario.setText("0.00");
-        txtQtdEstoque.setText("0");
-        txtCategoria.setText("");
-        txtValorXQtd.setText("");
-        limitePeca = 0;
-
-    }
-
-    public void iniciarTabela() {
-        String[] nomeColunas = {"Código", "Nome", "Categoria", "Vlr Unit.", "Qtd", "Vlr SubTotal"};
-        try {
-            DefaultTableModel model = new DefaultTableModel() {
-                @Override
-                public boolean isCellEditable(int row, int column) {
-
-                    return false;
-                }
-            };
-            tblOrcamento.setModel(model);
-            model.setColumnIdentifiers(nomeColunas);
-            model.setRowCount(0);
-            tblOrcamento.getColumnModel().getColumn(1).setPreferredWidth(200);
-            tblOrcamento.getColumnModel().getColumn(4).setPreferredWidth(40);
-            tblOrcamento.getColumnModel().getColumn(5).setPreferredWidth(90);
-            
-        } catch (Exception ex) {
-            System.out.println("Erro ao reiniciar tabela.\n\n" + ex.getMessage());
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarPeca;
@@ -719,20 +625,19 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void atualizarValorTotal() {
-        
+
         valorPecas = 0;
-        for (int i = 0; i < tblOrcamento.getRowCount(); i++){
+        for (int i = 0; i < tblOrcamento.getRowCount(); i++) {
             valorPecas += Double.parseDouble((String) tblOrcamento.getValueAt(i, 5));
         }
-        
+
         valorTotal = valorPecas + valorMaoDeObra;
-        String valorTotalSTR =(new DecimalFormat("###,###,##0.00").format(valorTotal));
+        String valorTotalSTR = (new DecimalFormat("###,###,##0.00").format(valorTotal));
         txtValorTotal.setText(valorTotalSTR);
-        
-        
+
     }
-    
-    private void selecionarAoFocar(){
+
+    private void selecionarAoFocar() {
         txtfMaoDeObra.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 SwingUtilities.invokeLater(new Runnable() {
@@ -743,5 +648,115 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
                 });
             }
         });
+    }
+
+    private void calcularValorUnitXQtd() {
+        txtfQuantidadePeca.setText(TextSize.maxLenghtQuantidadePeca(txtfQuantidadePeca.getText()));
+        long qtd;
+        float produto;
+        float vlunit;
+        try {
+            qtd = Long.parseLong(txtfQuantidadePeca.getText());
+            if (qtd > limitePeca) {
+                txtfQuantidadePeca.setText("" + limitePeca);
+                qtd = limitePeca;
+                String vlunitSTR = txtValorUnitario.getText();
+                vlunitSTR = vlunitSTR.replace(",", ".");
+                vlunit = Float.parseFloat(vlunitSTR);
+                produto = qtd * vlunit;
+                txtValorXQtd.setText("" + produto);
+            } else {
+                String vlunitSTR = txtValorUnitario.getText();
+                vlunitSTR = vlunitSTR.replace(",", ".");
+                vlunit = Float.parseFloat(vlunitSTR);
+                produto = qtd * vlunit;
+                txtValorXQtd.setText("" + produto);
+            }
+        } catch (NumberFormatException ex) {
+            txtfQuantidadePeca.setText("");
+        }
+    }
+
+    public void popularPeca(String codigo) throws SQLException, ClassNotFoundException {
+        Produto p = new Produto();
+        p = DaoProduto.popularPeca(codigo);
+        limitePeca = p.getQuantidadePeca();
+        txtNomePeca.setText("" + p.getNomePeca());
+        txtValorUnitario.setText("" + p.getValorUnitarioSTR());
+        txtQtdEstoque.setText("" + p.getQuantidadePeca());
+        txtCategoria.setText("" + p.getCategoriaPeca());
+    }
+
+    public void limparPeca() {
+        txtfQuantidadePeca.setText("0");
+        txtNomePeca.setText("");
+        txtValorUnitario.setText("0,00");
+        txtQtdEstoque.setText("0");
+        txtCategoria.setText("");
+        txtValorXQtd.setText("");
+        limitePeca = 0;
+
+    }
+
+    public void iniciarTabela() {
+        String[] nomeColunas = {"Código", "Nome", "Categoria", "Vlr Unit.", "Qtd", "Vlr SubTotal"};
+        try {
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+
+                    return false;
+                }
+            };
+            tblOrcamento.setModel(model);
+            model.setColumnIdentifiers(nomeColunas);
+            model.setRowCount(0);
+            tblOrcamento.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tblOrcamento.getColumnModel().getColumn(4).setPreferredWidth(40);
+            tblOrcamento.getColumnModel().getColumn(5).setPreferredWidth(90);
+
+        } catch (Exception ex) {
+            System.out.println("Erro ao reiniciar tabela.\n\n" + ex.getMessage());
+        }
+    }
+
+    private void vincularOrcamento() {
+        if (valorTotal > 0) {
+            Orcamento o = new Orcamento();
+            s.setCodigoServico(txtCodServico.getText());
+            o.setServico(s);
+
+            o.setMaoDeObraSTR(txtfMaoDeObra.getText());
+            ArrayList<VendaPeca> lista = new ArrayList<>();
+            for (int i = 0; i < tblOrcamento.getRowCount(); i++) {
+                Produto p = new Produto();
+                p.setCodigoPeca((String) tblOrcamento.getValueAt(i, 0));
+                p.setNomePeca((String) tblOrcamento.getValueAt(i, 1));
+                p.setCategoriaPeca((String) tblOrcamento.getValueAt(i, 2));
+                p.setValorUnitario((String) tblOrcamento.getValueAt(i, 3));
+                p.setQuantidadePeca(((String) tblOrcamento.getValueAt(i, 4)));
+                VendaPeca vp = new VendaPeca();
+                vp.setPeca(p);
+                vp.setQuantidadeVendida(p.getQuantidadePeca());
+                lista.add(vp);
+            }
+            o.setPecas(lista);
+            o.setValorTotal(0.0);
+            for (int i = 0; i < lista.size(); i++) {
+                o.setValorTotal(o.getValorTotal() + (lista.get(i).getPeca().getValorUnitarioBanco() * lista.get(i).getQuantidadeVendida()));
+            }
+            o.setValorTotal(o.getValorTotal() + o.getMaoDeObra());
+
+            if (tblOrcamento.getRowCount() != 0) {
+                DaoOrcamento.criarOrcamento(o, true, flagCriarAlterar);
+            } else {
+                DaoOrcamento.criarOrcamento(o, false, flagCriarAlterar);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Erro - Orçamento em branco.\n\n"
+                    + "Informe o valor da mão de obra, caso exista, e/ou pelo menos um produto.",
+                    "Erro ao criar o orçamento", 0);
+        }
     }
 }

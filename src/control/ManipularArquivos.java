@@ -114,7 +114,7 @@ public class ManipularArquivos {
         sock.close();
         
         JOptionPane.showMessageDialog(null, "O arquivo "+nomeArquivo+" foi salvo em \n"
-        +"\\\\"+dao.Conexao.getServerName()+"\\Synchro Relatórios\\"+CodigoServico+"-"+nomeArquivo, "Arquivo enviado com sucesso", 1);
+        +"\\\\"+dao.Conexao.getServerName()+"\\Synchro Relatorios\\"+CodigoServico+"-"+nomeArquivo, "Arquivo enviado com sucesso", 1);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Ocorreu um erro ao enviar o arquivo.\n\n"
                     + "Verifique se o aplicativo para receber requisições sockets está sendo executado no servidor,\n"

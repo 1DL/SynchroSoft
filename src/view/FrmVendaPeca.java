@@ -48,7 +48,7 @@ public class FrmVendaPeca extends javax.swing.JFrame {
     boolean flagCriarAlterar;
     Servico s = new Servico();
     boolean flagPeca;
-    int limitePeca = 0;
+    long limitePeca = 0;
     double valorTotal;
     double valorMaoDeObra;
     double valorPecas;
@@ -427,11 +427,11 @@ public class FrmVendaPeca extends javax.swing.JFrame {
 
     private void txtQuantidadePecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadePecaKeyReleased
         txtQuantidadePeca.setText(TextSize.maxLenghtQuantidadePeca(txtQuantidadePeca.getText()));
-        int qtd;
+        long qtd;
         float produto;
         float vlunit;
         try {
-            qtd = Integer.parseInt(txtQuantidadePeca.getText());
+            qtd = Long.parseLong(txtQuantidadePeca.getText());
             if (qtd > limitePeca) {
                 txtQuantidadePeca.setText("" + limitePeca);
                 qtd = limitePeca;
@@ -450,7 +450,7 @@ public class FrmVendaPeca extends javax.swing.JFrame {
 
     private void btnAdicionarPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarPecaActionPerformed
         boolean flag = true;
-        int flagQtd = Integer.parseInt(txtQuantidadePeca.getText());
+        long flagQtd = Long.parseLong(txtQuantidadePeca.getText());
         if (flagQtd <= 0 || txtQtdEstoque.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Digite uma quantidade válida.");
         } else {

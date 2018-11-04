@@ -145,11 +145,6 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
 
         txtQuantidadePeca.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
         txtQuantidadePeca.setText("0");
-        txtQuantidadePeca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtQuantidadePecaActionPerformed(evt);
-            }
-        });
         txtQuantidadePeca.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtQuantidadePecaKeyReleased(evt);
@@ -349,10 +344,6 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
     private void txtNomePecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomePecaKeyReleased
         txtNomePeca.setText(TextSize.maxLenghtNomePeca(txtNomePeca.getText()));
     }//GEN-LAST:event_txtNomePecaKeyReleased
-
-    private void txtQuantidadePecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidadePecaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtQuantidadePecaActionPerformed
 
     private void txtQuantidadePecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadePecaKeyReleased
         txtQuantidadePeca.setText(TextSize.maxLenghtQuantidadePeca(txtQuantidadePeca.getText()));

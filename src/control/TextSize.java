@@ -154,9 +154,10 @@ public class TextSize {
     }
     
     public static String maxLenghtQuantidadePeca(String str) {
-         String valor = "";
-            if(str.length() > 10){
-	        valor = str.substring(0,10);
+        str = str.replaceAll("[^0-9]", ""); 
+        String valor = "";
+            if(str.length() > 8){
+	        valor = str.substring(0,8);
                 str = valor;
             }
 	    return str;
@@ -164,8 +165,8 @@ public class TextSize {
     
     public static String maxLenghtValorPeca(String str) {
          String valor = "";
-            if(str.length() > 13){
-	        valor = str.substring(0,13);
+            if(str.length() > 7){
+	        valor = str.substring(0,7);
                 str = valor;
             }
 	    return str;

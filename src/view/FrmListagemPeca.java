@@ -313,9 +313,9 @@ public class FrmListagemPeca extends javax.swing.JFrame {
                 rowData[0] = lista.get(i).getCodigoPeca();
                 rowData[1] = lista.get(i).getNomePeca();
                 rowData[2] = lista.get(i).getCategoriaPeca();
-                rowData[3] = Integer.toString(lista.get(i).getQuantidadePeca());
-                rowData[4] = Integer.toString(lista.get(i).getAlertaQtdMin());
-                rowData[5] = Integer.toString(lista.get(i).getAlertaQtdMax());
+                rowData[3] = Long.toString(lista.get(i).getQuantidadePeca());
+                rowData[4] = Long.toString(lista.get(i).getAlertaQtdMin());
+                rowData[5] = Long.toString(lista.get(i).getAlertaQtdMax());
                 rowData[6] = lista.get(i).getValorUnitarioSTR();
                 rowData[7] = lista.get(i).getCodigoPeca();
                 model.addRow(rowData);
@@ -361,9 +361,9 @@ public class FrmListagemPeca extends javax.swing.JFrame {
                 rowData[0] = lista.get(i).getCodigoPeca();
                 rowData[1] = lista.get(i).getNomePeca();
                 rowData[2] = lista.get(i).getCategoriaPeca();
-                rowData[3] = Integer.toString(lista.get(i).getQuantidadePeca());
-                rowData[4] = Integer.toString(lista.get(i).getAlertaQtdMin());
-                rowData[5] = Integer.toString(lista.get(i).getAlertaQtdMax());
+                rowData[3] = Long.toString(lista.get(i).getQuantidadePeca());
+                rowData[4] = Long.toString(lista.get(i).getAlertaQtdMin());
+                rowData[5] = Long.toString(lista.get(i).getAlertaQtdMax());
                 rowData[6] = lista.get(i).getValorUnitarioSTR();
                 rowData[7] = lista.get(i).getCodigoPeca();
                 model.addRow(rowData);

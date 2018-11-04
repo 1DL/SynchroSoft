@@ -347,3 +347,10 @@ BEGIN
     INTO :new.CD_ENDERECO_SERVICO
     FROM dual;
 END;
+_______________________________
+alter table "TB_ORCAMENTO" modify ("VL_ORCAMENTO" NUMBER(30,2));
+
+alter table "TB_PECA_ORCAMENTO" modify ("QT_PECA_VENDIDA" NUMBER(10,0));   
+
+alter table "TB_PECA_ORCAMENTO" modify ("VL_PECA_VENDIDA" NUMBER(10,2));   
+  

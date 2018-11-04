@@ -41,7 +41,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
     boolean flagCriarAlterar;
     Servico s = new Servico();
     boolean flagPeca;
-    int limitePeca = 0;
+    long limitePeca = 0;
     double valorTotal;
     double valorMaoDeObra;
     double valorPecas;
@@ -503,11 +503,11 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodPecaKeyReleased
 
     private void txtQuantidadePecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadePecaKeyReleased
-        int qtd;
+        long qtd;
         float produto;
         float vlunit;
         try {
-            qtd = Integer.parseInt(txtQuantidadePeca.getText());
+            qtd = Long.parseLong(txtQuantidadePeca.getText());
             if (qtd > limitePeca) {
                 txtQuantidadePeca.setText("" + limitePeca);
                 qtd = limitePeca;
@@ -526,7 +526,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
 
     private void btnAdicionarPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarPecaActionPerformed
         boolean flag = true;
-        int flagQtd = Integer.parseInt(txtQuantidadePeca.getText());
+        long flagQtd = Long.parseLong(txtQuantidadePeca.getText());
         if (flagQtd <= 0 || txtQtdEstoque.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Digite uma quantidade válida.");
         } else {
@@ -951,7 +951,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
                 rowData[1] = lista.get(i).getNomePeca();
                 rowData[2] = lista.get(i).getCategoriaPeca();
                 rowData[3] = lista.get(i).getValorUnitarioSTR();
-                rowData[4] = Integer.toString(lista.get(i).getQuantidadePeca());
+                rowData[4] = Long.toString(lista.get(i).getQuantidadePeca());
                 Float aux;
                 aux = (lista.get(i).getValorUnitarioBanco() * lista.get(i).getQuantidadePeca());
                 rowData[5] = Float.toString(aux);

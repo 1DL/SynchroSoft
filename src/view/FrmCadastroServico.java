@@ -1109,7 +1109,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             if (cadastroSucedido) {
                 salvarArquivo();
                 iniciarTabela();
-
+                txtCodigoServico.requestFocus();
                 if (servico.getTipoServicoBanco() != 0) {
                     int opcaoJOPane;
                     opcaoJOPane = JOptionPane.showConfirmDialog(rootPane, "Deseja criar um orçamento para o serviço?", "Criação de orçamento", 0, JOptionPane.QUESTION_MESSAGE);
@@ -1118,8 +1118,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
                     }
                 }
                 limpar();
-                verificarCodigoServico();
-                txtCodigoServico.requestFocus();
+                verificarCodigoServico(); 
             }
 
         } else {

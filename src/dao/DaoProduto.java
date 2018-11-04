@@ -29,9 +29,9 @@ public class DaoProduto {
             st.setString(1, peca.getCodigoPeca());
             st.setString(2, peca.getNomePeca());
             st.setString(3, peca.getCategoriaPeca());
-            st.setInt(4, peca.getQuantidadePeca());
+            st.setLong(4, peca.getQuantidadePeca());
             st.setFloat(5, peca.getValorUnitarioBanco());
-            st.setInt(6, peca.getAlertaQtdMin());
+            st.setLong(6, peca.getAlertaQtdMin());
             st.setFloat(7, peca.getAlertaQtdMax());
             st.executeUpdate();
             st.close();
@@ -77,7 +77,7 @@ public class DaoProduto {
                         + "SET QT_PECA = ? WHERE CD_PECA = ?";
                 PreparedStatement st2 = con.prepareStatement(sql);
                 for (int i = 0; i < lista.size(); i++) {
-                    st2.setInt(1, (estoque.get(i) - lista.get(i).getQuantidadeVendida()));
+                    st2.setLong(1, (estoque.get(i) - lista.get(i).getQuantidadeVendida()));
                     st2.setString(2, lista.get(i).getPeca().getCodigoPeca());
                     st2.executeUpdate();
                 }
@@ -294,9 +294,9 @@ public class DaoProduto {
                 st.setString(1, peca.getCodigoPeca());
                 st.setString(2, peca.getNomePeca());
                 st.setString(3, peca.getCategoriaPeca());
-                st.setInt(4, peca.getQuantidadePeca());
-                st.setInt(5, peca.getAlertaQtdMin());
-                st.setInt(6, peca.getAlertaQtdMax());
+                st.setLong(4, peca.getQuantidadePeca());
+                st.setLong(5, peca.getAlertaQtdMin());
+                st.setLong(6, peca.getAlertaQtdMax());
                 st.setFloat(7, peca.getValorUnitarioBanco());
                 st.setString(8, CD_PECA_REFERENCIA);
 

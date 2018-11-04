@@ -36,8 +36,8 @@ public class DaoOrcamento {
             rs.close();
             return flag;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível verificar a existência do orçamento.\n\nErro Nº "+
-                    ex.getErrorCode()+"\n"+ex.getMessage(), "Erro: DaoOrcamento - Existe Orçamento", 0);
+            JOptionPane.showMessageDialog(null, "Não foi possível verificar a existência do orçamento.\n\nErro Nº "
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoOrcamento - Existe Orçamento", 0);
             return false;
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DaoOrcamento.class.getName()).log(Level.SEVERE, null, ex);
@@ -46,42 +46,55 @@ public class DaoOrcamento {
 
     }
 
-    public static void criarOrcamento(Orcamento o, boolean flagTemPeca, boolean flagCriarOuAlterar) throws SQLException, ClassNotFoundException {
+    public static void criarOrcamento(Orcamento o, boolean flagTemPeca, boolean flagCriarOuAlterar) {
+        try {
+            if (flagCriarOuAlterar) {
+                if (existeOrcamento(o.getServico().getCodigoServico())) {
+                    JOptionPane.showMessageDialog(null, "Já existe um orçamento para esse serviço. "
+                            + "\nAltere ou exclua-o na listagem de orçamentos.",
+                            "Erro - Serviço com orçamento já existente", 0);
+                } else {
+                    Connection con = Conexao.conectar();
+                    String sql = "INSERT INTO SYNCHROSOFT.TB_ORCAMENTO (CD_SERVICO, VL_MAODEOBRA, VL_ORCAMENTO, ID_STATUS_ORCAMENTO) VALUES (?,?,?,?)";
+                    PreparedStatement st = con.prepareStatement(sql);
+                    st.setString(1, o.getServico().getCodigoServico());
+                    st.setDouble(2, o.getMaoDeObra());
+                    st.setDouble(3, o.getValorTotal());
+                    st.setInt(4, 0);
+                    st.executeUpdate();
+                    st.close();
+                    if (flagTemPeca) {
+                        criarAlterarPecaOrcamento(o);
+                    }
+                    JOptionPane.showMessageDialog(null, "Orçamento criado com sucesso!",
+                            "Orçamento vinculado ao serviço", 1);
 
-        if (flagCriarOuAlterar) {
-            if (existeOrcamento(o.getServico().getCodigoServico())) {
-                JOptionPane.showMessageDialog(null, "Já existe um orçamento para esse serviço. \nAltere ou exclua-o na listagem de Orçamentos.");
+                }
             } else {
                 Connection con = Conexao.conectar();
-                String sql = "INSERT INTO SYNCHROSOFT.TB_ORCAMENTO (CD_SERVICO, VL_MAODEOBRA, VL_ORCAMENTO, ID_STATUS_ORCAMENTO) VALUES (?,?,?,?)";
+                String sql = "UPDATE SYNCHROSOFT.TB_ORCAMENTO "
+                        + "SET VL_MAODEOBRA = ?, VL_ORCAMENTO = ? "
+                        + "WHERE CD_SERVICO = ?";
                 PreparedStatement st = con.prepareStatement(sql);
-                st.setString(1, o.getServico().getCodigoServico());
-                st.setDouble(2, o.getMaoDeObra());
-                st.setDouble(3, o.getValorTotal());
-                st.setInt(4, 0);
+                st.setDouble(1, o.getMaoDeObra());
+                st.setDouble(2, o.getValorTotal());
+                st.setString(3, o.getServico().getCodigoServico());
                 st.executeUpdate();
                 st.close();
                 if (flagTemPeca) {
                     criarAlterarPecaOrcamento(o);
                 }
+                JOptionPane.showMessageDialog(null, "Orçamento alterado com sucesso!",
+                        "Orçamento alterado", 1);
             }
-        } else {
-            Connection con = Conexao.conectar();
-            String sql = "UPDATE SYNCHROSOFT.TB_ORCAMENTO "
-                    + "SET VL_MAODEOBRA = ?, VL_ORCAMENTO = ? "
-                    + "WHERE CD_SERVICO = ?";
-            PreparedStatement st = con.prepareStatement(sql);
-            st.setDouble(1, o.getMaoDeObra());
-            st.setDouble(2, o.getValorTotal());
-            st.setString(3, o.getServico().getCodigoServico());
-            st.executeUpdate();
-            st.close();
-            if (flagTemPeca) {
-                criarAlterarPecaOrcamento(o);
-            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao vincular orçamento. \n\nErro nº: "+
+                    ex.getErrorCode()+"\n"+ex.getMessage(), "Erro: DaoOrcamento - Criar Orçamento", 0);
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao vincular orçamento. \n\nErro: "+
+                    ex, "Erro: DaoOrcamento - Criar Orçamento", 0);
         }
 
-        JOptionPane.showMessageDialog(null, "Orçamento criado/Alterado com sucesso.");
     }
 
     public static int buscarOrcamento(String codigoServico) throws SQLException, ClassNotFoundException {
@@ -131,7 +144,7 @@ public class DaoOrcamento {
             PreparedStatement st2 = con.prepareStatement(sql);
             st2.setString(1, o.getPecas().get(i).getPeca().getCodigoPeca());
             st2.setInt(2, codigoOrcamento);
-            st2.setInt(3, o.getPecas().get(i).getQuantidadeVendida());
+            st2.setLong(3, o.getPecas().get(i).getQuantidadeVendida());
             st2.setFloat(4, o.getPecas().get(i).getPeca().getValorUnitarioBanco());
             st2.executeUpdate();
             st2.close();
