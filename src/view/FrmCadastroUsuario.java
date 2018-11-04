@@ -137,12 +137,12 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         txtNomeFuncionario.setBounds(180, 20, 316, 25);
 
         lblNomeFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblNomeFuncionario.setText("Nome");
+        lblNomeFuncionario.setText("Nome:");
         panDadosFunc.add(lblNomeFuncionario);
         lblNomeFuncionario.setBounds(20, 20, 70, 25);
 
         lblCpf.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCpf.setText("CPF");
+        lblCpf.setText("CPF:");
         panDadosFunc.add(lblCpf);
         lblCpf.setBounds(550, 20, 40, 25);
 
@@ -157,12 +157,12 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         txtCargo.setBounds(180, 60, 316, 25);
 
         lblCargo.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCargo.setText("Cargo");
+        lblCargo.setText("Cargo:");
         panDadosFunc.add(lblCargo);
         lblCargo.setBounds(20, 60, 70, 25);
 
         lblSalario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblSalario.setText("Salário");
+        lblSalario.setText("Salário:");
         panDadosFunc.add(lblSalario);
         lblSalario.setBounds(790, 20, 70, 25);
 
@@ -177,9 +177,9 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblSexoDesc.setBounds(550, 60, 50, 25);
 
         lblHorasMensais.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblHorasMensais.setText("Horas Mensais");
+        lblHorasMensais.setText("Horas Mensais:");
         panDadosFunc.add(lblHorasMensais);
-        lblHorasMensais.setBounds(20, 100, 119, 25);
+        lblHorasMensais.setBounds(20, 100, 140, 25);
 
         txtHorasMensais.setEditable(false);
         panDadosFunc.add(txtHorasMensais);
@@ -204,7 +204,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         panDadosFunc.setBounds(10, 160, 1060, 140);
 
         lblLogin.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblLogin.setText("Login");
+        lblLogin.setText("Login:");
         pnlDadosFuncionario.add(lblLogin);
         lblLogin.setBounds(20, 50, 60, 25);
 
@@ -218,7 +218,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         txtLogin.setBounds(190, 50, 316, 25);
 
         lblCodFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCodFuncionario.setText("Cód. do Funcionário");
+        lblCodFuncionario.setText("Cód. do Funcionário:");
         pnlDadosFuncionario.add(lblCodFuncionario);
         lblCodFuncionario.setBounds(20, 10, 170, 25);
 
@@ -232,7 +232,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         txtCodFuncionario.setBounds(190, 10, 140, 25);
 
         lblSenha.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblSenha.setText("Senha");
+        lblSenha.setText("Senha:");
         pnlDadosFuncionario.add(lblSenha);
         lblSenha.setBounds(20, 90, 60, 25);
 
@@ -246,7 +246,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         txtSenha.setBounds(190, 90, 316, 25);
 
         lblConfirmarSenha.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblConfirmarSenha.setText("Confirmar Senha");
+        lblConfirmarSenha.setText("Confirmar Senha:");
         pnlDadosFuncionario.add(lblConfirmarSenha);
         lblConfirmarSenha.setBounds(560, 90, 140, 25);
 
@@ -274,7 +274,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblExisteLogin.setBounds(510, 56, 130, 14);
 
         getContentPane().add(pnlDadosFuncionario);
-        pnlDadosFuncionario.setBounds(30, 30, 1100, 310);
+        pnlDadosFuncionario.setBounds(10, 10, 1125, 310);
         pnlDadosFuncionario.getAccessibleContext().setAccessibleName("Dados do funcionário");
 
         btnMenuPrincipal.setText("Menu Principal");
@@ -293,12 +293,12 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnFecharFrame);
-        btnFecharFrame.setBounds(1050, 550, 80, 30);
+        btnFecharFrame.setBounds(1055, 550, 80, 30);
 
         lblUsuarioRecente.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblUsuarioRecente.setText("Usuários Cadastrados Recentemente:");
         getContentPane().add(lblUsuarioRecente);
-        lblUsuarioRecente.setBounds(30, 340, 350, 25);
+        lblUsuarioRecente.setBounds(10, 320, 350, 25);
 
         tblUsuarioRecente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -314,7 +314,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblUsuarioRecente);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(30, 370, 1100, 170);
+        jScrollPane1.setBounds(10, 350, 1125, 170);
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(lblBackground);

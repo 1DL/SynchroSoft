@@ -92,17 +92,17 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnFecharFrame);
-        btnFecharFrame.setBounds(1050, 550, 80, 30);
+        btnFecharFrame.setBounds(1055, 550, 80, 30);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setOpaque(false);
         jPanel1.setPreferredSize(new java.awt.Dimension(1100, 510));
 
         lblCodigoPeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCodigoPeca.setText("Código de Barras");
+        lblCodigoPeca.setText("Código de Barras:");
 
         lblCategoriaPeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCategoriaPeca.setText("Categoria");
+        lblCategoriaPeca.setText("Categoria:");
 
         txtNomePeca.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -111,13 +111,13 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
         });
 
         lblNomePeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblNomePeca.setText("Nome da Peça");
+        lblNomePeca.setText("Nome da Peça:");
 
         lblQuantidadePeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblQuantidadePeca.setText("Quantidade");
+        lblQuantidadePeca.setText("Quantidade:");
 
         lblValorUnitario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblValorUnitario.setText("Valor Unitário");
+        lblValorUnitario.setText("Valor Unitário:");
 
         cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gerador", "Bombas", "Aquecedores", "Alarme de incêndio", "Pressurizadores de escada", "Alarme perimetral", "Cabine primária", "Redutoras de pressão" }));
 
@@ -165,7 +165,7 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
         });
 
         lblQuantidadeMinima.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblQuantidadeMinima.setText("Alerta Qtd Mínima");
+        lblQuantidadeMinima.setText("Alerta Qtd Mínima:");
 
         txtQuantidadeMinima.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
         txtQuantidadeMinima.setText("0");
@@ -181,7 +181,7 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
         });
 
         lblQuantidadeMaxima.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblQuantidadeMaxima.setText("Alerta Qtd Máxima");
+        lblQuantidadeMaxima.setText("Alerta Qtd Máxima:");
 
         txtQuantidadeMaxima.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
         txtQuantidadeMaxima.setText("0");
@@ -227,8 +227,8 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(205, 205, 205)
-                                        .addComponent(lblQuantidadeMaxima, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
+                                        .addComponent(lblQuantidadeMaxima)
+                                        .addGap(15, 15, 15)
                                         .addComponent(txtQuantidadeMaxima, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -256,7 +256,7 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
                         .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
                         .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 135, Short.MAX_VALUE))
+                .addGap(30, 160, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,12 +294,12 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(30, 30, 1100, 240);
+        jPanel1.setBounds(10, 10, 1125, 240);
 
         lblProdutoRecente.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblProdutoRecente.setText("Produtos Cadastrados Recentemente:");
         getContentPane().add(lblProdutoRecente);
-        lblProdutoRecente.setBounds(30, 280, 350, 25);
+        lblProdutoRecente.setBounds(10, 250, 350, 25);
 
         tblProdutoRecente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -315,7 +315,7 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblProdutoRecente);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(30, 320, 1100, 220);
+        jScrollPane1.setBounds(10, 280, 1125, 220);
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(lblBackground);

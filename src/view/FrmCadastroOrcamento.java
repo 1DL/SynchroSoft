@@ -369,7 +369,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         txtfMaoDeObra.setBounds(210, 50, 170, 40);
 
         getContentPane().add(panPrincipal);
-        panPrincipal.setBounds(30, 30, 1100, 510);
+        panPrincipal.setBounds(10, 10, 1125, 510);
 
         btnFecharFrame.setText("Fechar ");
         btnFecharFrame.addActionListener(new java.awt.event.ActionListener() {
@@ -378,7 +378,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnFecharFrame);
-        btnFecharFrame.setBounds(1050, 550, 80, 30);
+        btnFecharFrame.setBounds(1055, 550, 80, 30);
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(lblBackground);

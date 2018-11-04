@@ -171,7 +171,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         btnLimpar.setBounds(800, 325, 100, 30);
 
         lblCampoCpfCnpj.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCampoCpfCnpj.setText("CPF");
+        lblCampoCpfCnpj.setText("CPF:");
         panPrincipal.add(lblCampoCpfCnpj);
         lblCampoCpfCnpj.setBounds(340, 50, 60, 25);
 
@@ -181,7 +181,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         lblExisteServico.setBounds(293, 15, 120, 14);
 
         lblCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCep.setText("CEP");
+        lblCep.setText("CEP:");
         panPrincipal.add(lblCep);
         lblCep.setBounds(730, 50, 60, 25);
 
@@ -254,7 +254,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         lblDiretorioArquivo.setBounds(615, 138, 480, 14);
 
         lblCodigoFunc.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCodigoFunc.setText("Código Funcionário");
+        lblCodigoFunc.setText("Código Funcionário:");
         panPrincipal.add(lblCodigoFunc);
         lblCodigoFunc.setBounds(30, 90, 170, 25);
 
@@ -285,7 +285,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         panPessoa.setLayout(null);
 
         lblNomeFicticio.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblNomeFicticio.setText("Nome");
+        lblNomeFicticio.setText("Nome:");
         panPessoa.add(lblNomeFicticio);
         lblNomeFicticio.setBounds(10, 10, 140, 25);
 
@@ -294,7 +294,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtNomePessoaFicticio.setBounds(160, 10, 316, 25);
 
         lblTelefone.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblTelefone.setText("Telefone");
+        lblTelefone.setText("Telefone:");
         panPessoa.add(lblTelefone);
         lblTelefone.setBounds(10, 70, 140, 25);
 
@@ -303,12 +303,12 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtTelefone.setBounds(160, 70, 316, 25);
 
         lblCelularRamal.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCelularRamal.setText("Celular");
+        lblCelularRamal.setText("Celular:");
         panPessoa.add(lblCelularRamal);
         lblCelularRamal.setBounds(530, 70, 140, 25);
 
         lblLogradouro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblLogradouro.setText("Logradouro");
+        lblLogradouro.setText("Logradouro:");
         panPessoa.add(lblLogradouro);
         lblLogradouro.setBounds(530, 10, 140, 25);
 
@@ -317,7 +317,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtLogradouro.setBounds(700, 10, 316, 25);
 
         lblCidade.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCidade.setText("Cidade");
+        lblCidade.setText("Cidade:");
         panPessoa.add(lblCidade);
         lblCidade.setBounds(10, 40, 140, 25);
 
@@ -335,7 +335,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtEstado.setBounds(356, 40, 120, 25);
 
         Bairro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        Bairro.setText("Bairro");
+        Bairro.setText("Bairro:");
         panPessoa.add(Bairro);
         Bairro.setBounds(530, 40, 140, 25);
 
@@ -344,7 +344,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtBairro.setBounds(700, 40, 178, 25);
 
         Bairro1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        Bairro1.setText("N°");
+        Bairro1.setText("N°:");
         panPessoa.add(Bairro1);
         Bairro1.setBounds(900, 40, 39, 25);
 
@@ -357,7 +357,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtCelularRamal.setBounds(700, 70, 316, 25);
 
         lblRazaoSocial.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblRazaoSocial.setText("Razão Social");
+        lblRazaoSocial.setText("Razão Social:");
         panPessoa.add(lblRazaoSocial);
         lblRazaoSocial.setBounds(10, 100, 140, 25);
 
@@ -366,7 +366,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtRazaoSocial.setBounds(160, 100, 316, 25);
 
         lblSexoDesc.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblSexoDesc.setText("Sexo");
+        lblSexoDesc.setText("Sexo:");
         panPessoa.add(lblSexoDesc);
         lblSexoDesc.setBounds(530, 100, 140, 18);
 
@@ -585,7 +585,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         btnRemoverArquivo.setBounds(490, 130, 120, 25);
 
         getContentPane().add(panPrincipal);
-        panPrincipal.setBounds(30, 30, 1100, 510);
+        panPrincipal.setBounds(10, 10, 1125, 510);
 
         btnMenuPrincipal.setText("Menu Principal");
         btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
@@ -603,7 +603,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnFecharFrame);
-        btnFecharFrame.setBounds(1050, 550, 80, 30);
+        btnFecharFrame.setBounds(1055, 550, 80, 30);
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(lblBackground);

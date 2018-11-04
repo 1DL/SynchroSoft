@@ -173,7 +173,7 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
                                 .add(jPanel1Layout.createSequentialGroup()
                                     .add(lblDescrição, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 343, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                     .add(0, 0, Short.MAX_VALUE))))))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -200,7 +200,7 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(30, 30, 1100, 420);
+        jPanel1.setBounds(10, 10, 1125, 420);
 
         btnMenuPrincipal.setText("Menu Principal");
         btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
@@ -218,7 +218,7 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnFecharFrame);
-        btnFecharFrame.setBounds(1050, 550, 80, 30);
+        btnFecharFrame.setBounds(1055, 550, 80, 30);
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(lblBackground);
@@ -244,10 +244,6 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         control.Janelas.focarPrincipal();
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
-    private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnFecharFrameActionPerformed
-
     private void txtfValorDespesaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfValorDespesaKeyReleased
         txtfValorDespesa.setText(control.TextSize.maxLenghtValorDespesa(txtfValorDespesa.getText()));
     }//GEN-LAST:event_txtfValorDespesaKeyReleased
@@ -255,6 +251,10 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         limpar();
     }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnFecharFrameActionPerformed
 
     
 

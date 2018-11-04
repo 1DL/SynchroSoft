@@ -103,7 +103,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnFecharFrame);
-        btnFecharFrame.setBounds(1050, 550, 80, 30);
+        btnFecharFrame.setBounds(1055, 550, 80, 30);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setOpaque(false);
@@ -116,7 +116,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         });
 
         lblCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCep.setText("CEP");
+        lblCep.setText("CEP:");
 
         txtLogradouro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -125,7 +125,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         });
 
         lblLogradouro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblLogradouro.setText("Logradouro");
+        lblLogradouro.setText("Logradouro:");
 
         txtCidade.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -134,10 +134,10 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         });
 
         lblQuantidadePeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblQuantidadePeca.setText("Cidade");
+        lblQuantidadePeca.setText("Cidade:");
 
         lblEstado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblEstado.setText("Estado");
+        lblEstado.setText("Estado:");
 
         btnLimpar.setText("Limpar");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -158,7 +158,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         cmbEstado.setNextFocusableComponent(txtLogradouro);
 
         Bairro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        Bairro.setText("Bairro");
+        Bairro.setText("Bairro:");
 
         txtBairro.setNextFocusableComponent(btnCadastrar);
         txtBairro.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -266,7 +266,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(30, 30, 1100, 200);
+        jPanel1.setBounds(10, 10, 1125, 200);
 
         tblEnderecoRecente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -282,12 +282,12 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblEnderecoRecente);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(30, 282, 1100, 260);
+        jScrollPane1.setBounds(10, 240, 1125, 260);
 
         lblEnderecoRecente.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblEnderecoRecente.setText("Endereços Cadastrados Recentemente:");
         getContentPane().add(lblEnderecoRecente);
-        lblEnderecoRecente.setBounds(30, 250, 350, 25);
+        lblEnderecoRecente.setBounds(10, 210, 350, 25);
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(lblBackground);

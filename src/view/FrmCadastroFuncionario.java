@@ -140,7 +140,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         panPrincipal.setPreferredSize(new java.awt.Dimension(1152, 648));
 
         lblCpf.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCpf.setText("CPF");
+        lblCpf.setText("CPF:");
 
         txtCpf.setNextFocusableComponent(txtCargo);
         txtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -150,10 +150,10 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         });
 
         lblSalario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblSalario.setText("Salário");
+        lblSalario.setText("Salário:");
 
         lblCodigoFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCodigoFuncionario.setText("Código do Funcionário");
+        lblCodigoFuncionario.setText("Código do Funcionário:");
 
         txtCodigoFuncionario.setNextFocusableComponent(txtCpf);
         txtCodigoFuncionario.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -185,7 +185,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         });
 
         lblCargo.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCargo.setText("Cargo a ser exercido");
+        lblCargo.setText("Cargo a ser exercido:");
 
         txtCargo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -199,7 +199,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         });
 
         lblHorasTrabalhadas.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblHorasTrabalhadas.setText("Horas Mensais");
+        lblHorasTrabalhadas.setText("Horas Mensais:");
 
         lblNivelAdm.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblNivelAdm.setText("Nível Administrativo do Sistema:");
@@ -239,7 +239,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         panDadosPessoa.setOpaque(false);
 
         lblNome.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblNome.setText("Nome");
+        lblNome.setText("Nome:");
 
         txtNomePessoa.setEditable(false);
         txtNomePessoa.addActionListener(new java.awt.event.ActionListener() {
@@ -249,35 +249,35 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         });
 
         lblTelefone.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblTelefone.setText("Telefone");
+        lblTelefone.setText("Telefone:");
 
         txtTelefone.setEditable(false);
 
         lblCelular.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCelular.setText("Celular");
+        lblCelular.setText("Celular:");
 
         lblLogradouro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblLogradouro.setText("Logradouro");
+        lblLogradouro.setText("Logradouro:");
 
         txtLogradouro.setEditable(false);
 
         lblCidade.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCidade.setText("Cidade");
+        lblCidade.setText("Cidade:");
 
         txtCidade.setEditable(false);
 
         lblEstado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblEstado.setText("Estado");
+        lblEstado.setText("Estado:");
 
         txtEstado.setEditable(false);
 
         Bairro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        Bairro.setText("Bairro");
+        Bairro.setText("Bairro:");
 
         txtBairro.setEditable(false);
 
         Bairro1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        Bairro1.setText("N° Logradouro");
+        Bairro1.setText("N° Logradouro:");
 
         txtNumero.setEditable(false);
 
@@ -287,9 +287,14 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         lblSexoDesc.setText("Sexo:");
 
         lblCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCep.setText("CEP");
+        lblCep.setText("CEP:");
 
         txtCep.setEditable(false);
+        txtCep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCepActionPerformed(evt);
+            }
+        });
 
         lblSexoValor.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblSexoValor.setText("-");
@@ -304,7 +309,8 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                     .addGroup(panDadosPessoaLayout.createSequentialGroup()
                         .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panDadosPessoaLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(lblNome)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtNomePessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panDadosPessoaLayout.createSequentialGroup()
                                 .addComponent(Bairro)
@@ -328,9 +334,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                                 .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(62, 62, 62))
                     .addGroup(panDadosPessoaLayout.createSequentialGroup()
-                        .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCidade))
+                        .addComponent(lblCidade)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panDadosPessoaLayout.createSequentialGroup()
@@ -364,8 +368,9 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                     .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtNomePessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblNome))
-                    .addComponent(lblCep)
-                    .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblCep)
+                        .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panDadosPessoaLayout.createSequentialGroup()
@@ -426,7 +431,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         });
 
         lblDataAdmissao.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblDataAdmissao.setText("Data Admissão");
+        lblDataAdmissao.setText("Data Admissão:");
 
         txtfDataAdmissao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
         txtfDataAdmissao.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -464,8 +469,8 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                             .addGroup(panPrincipalLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(lblCodigoFuncionario)
-                                .addGap(10, 10, 10)
-                                .addComponent(txtCodigoFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCodigoFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(10, 10, 10)
                                 .addComponent(lblCodigoExiste, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(4, 4, 4)
@@ -477,7 +482,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                             .addGroup(panPrincipalLayout.createSequentialGroup()
                                 .addGap(11, 11, 11)
                                 .addComponent(lblCargo)
-                                .addGap(27, 27, 27)
+                                .addGap(21, 21, 21)
                                 .addComponent(txtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(4, 4, 4)
                                 .addComponent(lblDataAdmissao)
@@ -499,7 +504,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                                 .addComponent(lblCpfExiste, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnCadastrarPessoa)))))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         panPrincipalLayout.setVerticalGroup(
             panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -565,7 +570,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         );
 
         getContentPane().add(panPrincipal);
-        panPrincipal.setBounds(30, 30, 1100, 310);
+        panPrincipal.setBounds(10, 10, 1125, 310);
 
         btnMenuPrincipal1.setText("Menu Principal");
         btnMenuPrincipal1.addActionListener(new java.awt.event.ActionListener() {
@@ -583,12 +588,12 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnFecharFrame1);
-        btnFecharFrame1.setBounds(1050, 550, 80, 30);
+        btnFecharFrame1.setBounds(1055, 550, 80, 30);
 
         lblFuncionarioRecente.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblFuncionarioRecente.setText("Funcionários Cadastrados Recentemente:");
         getContentPane().add(lblFuncionarioRecente);
-        lblFuncionarioRecente.setBounds(30, 350, 350, 25);
+        lblFuncionarioRecente.setBounds(10, 320, 350, 25);
 
         tblFuncionarioRecente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -604,7 +609,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblFuncionarioRecente);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(30, 380, 1100, 160);
+        jScrollPane1.setBounds(10, 350, 1125, 160);
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(lblBackground);
@@ -683,6 +688,10 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
     private void txtfSalarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtfSalarioMouseClicked
         txtfDataAdmissao.selectAll();
     }//GEN-LAST:event_txtfSalarioMouseClicked
+
+    private void txtCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCepActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCepActionPerformed
 
     /**
      * @param args the command line arguments
