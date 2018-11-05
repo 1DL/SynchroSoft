@@ -47,7 +47,7 @@ public class DaoEndereco {
         }
     }
 
-    public static void deletarEndereco(String cep) throws SQLException, ClassNotFoundException {
+    public static void deletarEndereco(String cep) {
         try {
             Connection con = Conexao.conectar();
             String sql = "DELETE FROM SYNCHROSOFT.TB_ENDERECO WHERE CD_CEP = ?";
@@ -55,9 +55,38 @@ public class DaoEndereco {
             st.setString(1, cep);
             st.executeUpdate();
             st.close();
-            JOptionPane.showMessageDialog(null, "Endereço removido com sucesso.");
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível remover o endereço.\nErro:\n\n" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "O Endereço cujo o CEP - " + cep + " foi removido com sucesso.",
+                    "Exclusão concluída", 1);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível remover o endereço.\n\nErro Nº :"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro : DaoEndereco - Deletar Endereço", 0);
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível remover o endereço.\n\nErro:"
+                    + ex, "Erro : DaoEndereco - Deletar Endereço", 0);
+        }
+    }
+    
+    public static boolean deletarTodosEnderecos() {
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "DELETE FROM SYNCHROSOFT.TB_ENDERECO";
+            PreparedStatement st = con.prepareStatement(sql);
+    
+            st.executeUpdate();
+            st.close();
+            
+            JOptionPane.showMessageDialog(null, "Todos os registros de Endereços foram removidos do banco de dados.",
+                    "Exclusão total concluída", 1);
+            return true;
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível remover os endereços.\n\nErro Nº :"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro : DaoEndereco - Deletar Endereço", 0);
+            return false;
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível remover os endereços.\n\nErro:"
+                    + ex, "Erro : DaoEndereco - Deletar Endereço", 0);
+            return false;
         }
     }
 
@@ -75,10 +104,16 @@ public class DaoEndereco {
             }
             st.close();
             rs.close();
+            return lista;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível listar os endereços.\n\n Erro Nº"
+            +ex.getErrorCode()+"\n"+ex.getMessage(), "Erro: DaoEndereco - Listar Endereço",0);
+            return null;
         } catch (Exception ex) {
-            System.err.println("DaoEndereco Instanciamento: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Não foi possível listar os endereços.\n\n Erro:"
+            +ex, "Erro: DaoEndereco - Listar Endereço",0);
+            return null;
         }
-        return lista;
     }
 
     public static boolean existeEndereco(String cep) {
@@ -131,40 +166,36 @@ public class DaoEndereco {
 
     }
 
-    public static void alterarEndereco(JTable tabela) throws SQLException, ClassNotFoundException {
+    public static boolean alterarEndereco(Endereco end, String PK_REF) {
         try {
-            int rows = tabela.getRowCount();
-            JOptionPane.showConfirmDialog(null, "Deseja realizar a alteração?");
-
             Connection con = Conexao.conectar();
-            con.setAutoCommit(false);
             String sql = "UPDATE SYNCHROSOFT.TB_ENDERECO "
                     + "SET CD_CEP = ?, DS_LOGRADOURO = ?, NM_BAIRRO = ?, "
                     + "NM_CIDADE= ?, SG_ESTADO= ? WHERE CD_CEP = ?";
             PreparedStatement st = con.prepareStatement(sql);
-            for (int row = 0; row < rows; row++) {
 
-                String cep_alterado = (String) tabela.getValueAt(row, 0);
-                String logradouro = (String) tabela.getValueAt(row, 1);
-                String bairro = (String) tabela.getValueAt(row, 2);
-                String cidade = (String) tabela.getValueAt(row, 3);
-                String uf = (String) tabela.getValueAt(row, 4);
-                String cep_ref = (String) tabela.getValueAt(row, 5);
-
-                st.setString(1, cep_alterado);
-                st.setString(2, logradouro);
-                st.setString(3, bairro);
-                st.setString(4, cidade);
-                st.setString(5, uf);
-                st.setString(6, cep_ref);
-                st.addBatch();
-                st.executeBatch();
-                con.commit();
-                JOptionPane.showMessageDialog(null, "A base de endereços foi alterada com sucesso!");
-            }
+            st.setString(1, end.getCep());
+            st.setString(2, end.getLogradouro());
+            st.setString(3, end.getBairro());
+            st.setString(4, end.getCidade());
+            st.setString(5, end.getEstado());
+            st.setString(6, PK_REF);
+            
+            st.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "O endereço foi alterado com sucesso!",
+                    "Alteração concluída", 1);
+            
+            return true;
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao alterar a base de endereços. \n\n" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar alterar o endereço.\n\nErro Nº "+
+                ex.getErrorCode()+"\n"+ex.getMessage(),"Erro: DaoEndereco - Alterar Endereço", 0);
+            return false;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar alterar o endereço.\n\nErro:"+
+                ex,"Erro: DaoEndereco - Alterar Endereço", 0);
+            return false;
         }
     }
 

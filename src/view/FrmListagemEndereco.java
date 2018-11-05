@@ -5,12 +5,15 @@
  */
 package view;
 
+import control.TextSize;
 import dao.DaoEndereco;
+import java.awt.Color;
 import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Endereco;
 
@@ -20,12 +23,16 @@ import model.Endereco;
  */
 public class FrmListagemEndereco extends javax.swing.JFrame {
 
+    private boolean cepExiste;
+    private boolean ultimoTipoPesquisa;
+
     /**
      * Creates new form FrmListagemPeca
      */
     public FrmListagemEndereco(int nvlAdm) {
         initComponents();
-        atualizarTabela();
+        inicializarTabela();
+        definirNivelAcesso(nvlAdm);
     }
 
     /**
@@ -37,19 +44,35 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblListagemEndereco = new javax.swing.JTable();
-        btnFechar = new javax.swing.JButton();
-        btnAlterar = new javax.swing.JButton();
-        btnAtualizarTabela = new javax.swing.JButton();
-        btnTelaCadastro = new javax.swing.JButton();
-        btnDeletar = new javax.swing.JButton();
+        panPrincipal = new javax.swing.JPanel();
         lblPesquisar = new javax.swing.JLabel();
         cmbFiltro = new javax.swing.JComboBox<>();
+        lblDigiteODado = new javax.swing.JLabel();
         txtPesquisa = new javax.swing.JTextField();
-        lblDescrever = new javax.swing.JLabel();
+        panDadosEndereco = new javax.swing.JPanel();
+        txtCidade = new javax.swing.JTextField();
+        cmbEstado = new javax.swing.JComboBox<>();
+        txtfCep = new javax.swing.JFormattedTextField();
+        lblLogradouro = new javax.swing.JLabel();
+        Bairro = new javax.swing.JLabel();
+        lblEstado = new javax.swing.JLabel();
+        lblQuantidadePeca = new javax.swing.JLabel();
+        txtBairro = new javax.swing.JTextField();
+        lblCep = new javax.swing.JLabel();
+        txtLogradouro = new javax.swing.JTextField();
+        lblCepExiste = new javax.swing.JLabel();
+        btnCadastrarEndereco = new javax.swing.JButton();
+        btnAlterar = new javax.swing.JButton();
+        btnDeletar = new javax.swing.JButton();
+        btnListarTodos = new javax.swing.JButton();
+        btnLimparTabela = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblListagemEndereco = new javax.swing.JTable();
         btnMenuPrincipal = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        btnFecharFrame = new javax.swing.JButton();
+        lblEnderecoEncontrado = new javax.swing.JLabel();
+        btnDeletarTodosRegistros = new javax.swing.JButton();
+        lblBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Listar Endereços");
@@ -58,6 +81,173 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1152, 648));
         setResizable(false);
         getContentPane().setLayout(null);
+
+        panPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panPrincipal.setOpaque(false);
+        panPrincipal.setLayout(null);
+
+        lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblPesquisar.setText("Pesquisar por: ");
+        panPrincipal.add(lblPesquisar);
+        lblPesquisar.setBounds(10, 10, 160, 20);
+
+        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CEP", "Logradouro", "Bairro", "Cidade", "Estado" }));
+        cmbFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbFiltroActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(cmbFiltro);
+        cmbFiltro.setBounds(160, 10, 210, 25);
+
+        lblDigiteODado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblDigiteODado.setText("Digite o(a) CEP:");
+        panPrincipal.add(lblDigiteODado);
+        lblDigiteODado.setBounds(375, 10, 200, 25);
+
+        txtPesquisa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPesquisaFocusGained(evt);
+            }
+        });
+        txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPesquisaKeyReleased(evt);
+            }
+        });
+        panPrincipal.add(txtPesquisa);
+        txtPesquisa.setBounds(571, 10, 540, 25);
+
+        panDadosEndereco.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Endereço"));
+        panDadosEndereco.setOpaque(false);
+        panDadosEndereco.setLayout(null);
+
+        txtCidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCidadeKeyReleased(evt);
+            }
+        });
+        panDadosEndereco.add(txtCidade);
+        txtCidade.setBounds(750, 60, 316, 25);
+
+        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
+        panDadosEndereco.add(cmbEstado);
+        cmbEstado.setBounds(750, 20, 95, 25);
+
+        try {
+            txtfCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtfCep.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtfCepFocusLost(evt);
+            }
+        });
+        txtfCep.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfCepKeyReleased(evt);
+            }
+        });
+        panDadosEndereco.add(txtfCep);
+        txtfCep.setBounds(150, 20, 127, 25);
+
+        lblLogradouro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblLogradouro.setText("Logradouro:");
+        panDadosEndereco.add(lblLogradouro);
+        lblLogradouro.setBounds(10, 60, 140, 25);
+
+        Bairro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        Bairro.setText("Bairro:");
+        panDadosEndereco.add(Bairro);
+        Bairro.setBounds(10, 100, 140, 25);
+
+        lblEstado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblEstado.setText("Estado:");
+        panDadosEndereco.add(lblEstado);
+        lblEstado.setBounds(600, 20, 140, 25);
+
+        lblQuantidadePeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblQuantidadePeca.setText("Cidade:");
+        panDadosEndereco.add(lblQuantidadePeca);
+        lblQuantidadePeca.setBounds(600, 60, 140, 25);
+
+        txtBairro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBairroKeyReleased(evt);
+            }
+        });
+        panDadosEndereco.add(txtBairro);
+        txtBairro.setBounds(150, 100, 420, 25);
+
+        lblCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblCep.setText("CEP:");
+        panDadosEndereco.add(lblCep);
+        lblCep.setBounds(10, 20, 140, 25);
+
+        txtLogradouro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtLogradouroKeyReleased(evt);
+            }
+        });
+        panDadosEndereco.add(txtLogradouro);
+        txtLogradouro.setBounds(150, 60, 420, 25);
+
+        lblCepExiste.setForeground(new java.awt.Color(255, 0, 0));
+        lblCepExiste.setText("CEP Inválido.");
+        panDadosEndereco.add(lblCepExiste);
+        lblCepExiste.setBounds(280, 25, 120, 14);
+
+        btnCadastrarEndereco.setText("Cadastrar novo Endereço");
+        btnCadastrarEndereco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarEnderecoActionPerformed(evt);
+            }
+        });
+        panDadosEndereco.add(btnCadastrarEndereco);
+        btnCadastrarEndereco.setBounds(410, 18, 160, 30);
+
+        panPrincipal.add(panDadosEndereco);
+        panDadosEndereco.setBounds(10, 50, 1100, 140);
+
+        btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnAlterar);
+        btnAlterar.setBounds(980, 195, 130, 30);
+
+        btnDeletar.setText("Deletar registro selecionado");
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnDeletar);
+        btnDeletar.setBounds(10, 195, 170, 30);
+
+        btnListarTodos.setText("Listar todos os registros");
+        btnListarTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarTodosActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnListarTodos);
+        btnListarTodos.setBounds(550, 195, 147, 30);
+
+        btnLimparTabela.setText("Limpar tabela");
+        btnLimparTabela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparTabelaActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnLimparTabela);
+        btnLimparTabela.setBounds(410, 195, 120, 30);
+
+        getContentPane().add(panPrincipal);
+        panPrincipal.setBounds(10, 10, 1125, 240);
 
         tblListagemEndereco.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -70,92 +260,15 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblListagemEndereco.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblListagemEnderecoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblListagemEndereco);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(232, 119, 632, 402);
-
-        btnFechar.setText("Fechar");
-        btnFechar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFecharActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnFechar);
-        btnFechar.setBounds(990, 550, 130, 50);
-
-        btnAlterar.setText("Alterar");
-        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAlterarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnAlterar);
-        btnAlterar.setBounds(446, 552, 65, 23);
-
-        btnAtualizarTabela.setText("AtualizarTabela");
-        btnAtualizarTabela.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtualizarTabelaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnAtualizarTabela);
-        btnAtualizarTabela.setBounds(321, 552, 107, 23);
-
-        btnTelaCadastro.setText("Tela Cadastro");
-        btnTelaCadastro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTelaCadastroActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnTelaCadastro);
-        btnTelaCadastro.setBounds(644, 552, 99, 23);
-
-        btnDeletar.setText("Deletar");
-        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeletarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnDeletar);
-        btnDeletar.setBounds(545, 552, 67, 23);
-
-        lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblPesquisar.setText("Pesquisar por: ");
-        getContentPane().add(lblPesquisar);
-        lblPesquisar.setBounds(230, 50, 160, 40);
-
-        cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CEP", "Logradouro", "Bairro", "Cidade", "Estado" }));
-        cmbFiltro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbFiltroActionPerformed(evt);
-            }
-        });
-        getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(360, 60, 107, 31);
-
-        txtPesquisa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPesquisaActionPerformed(evt);
-            }
-        });
-        txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtPesquisaKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtPesquisaKeyTyped(evt);
-            }
-        });
-        getContentPane().add(txtPesquisa);
-        txtPesquisa.setBounds(640, 50, 221, 40);
-
-        lblDescrever.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblDescrever.setText("Descrição:");
-        getContentPane().add(lblDescrever);
-        lblDescrever.setBounds(520, 50, 83, 30);
+        jScrollPane1.setBounds(10, 289, 1125, 250);
 
         btnMenuPrincipal.setText("Menu Principal");
         btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
@@ -164,11 +277,34 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnMenuPrincipal);
-        btnMenuPrincipal.setBounds(949, 119, 161, 239);
+        btnMenuPrincipal.setBounds(900, 550, 130, 30);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 1150, 650);
+        btnFecharFrame.setText("Fechar ");
+        btnFecharFrame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharFrameActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnFecharFrame);
+        btnFecharFrame.setBounds(1055, 550, 80, 30);
+
+        lblEnderecoEncontrado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblEnderecoEncontrado.setText("Endereços encontrados no banco de dados. Para visualizar ou alterar um registro, clique em um registro exibido na tabela.");
+        getContentPane().add(lblEnderecoEncontrado);
+        lblEnderecoEncontrado.setBounds(10, 260, 1040, 25);
+
+        btnDeletarTodosRegistros.setText("Deletar todos os registros");
+        btnDeletarTodosRegistros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarTodosRegistrosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnDeletarTodosRegistros);
+        btnDeletarTodosRegistros.setBounds(10, 550, 160, 30);
+
+        lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
+        getContentPane().add(lblBackground);
+        lblBackground.setBounds(0, -20, 1150, 650);
 
         pack();
         setLocationRelativeTo(null);
@@ -177,84 +313,76 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
     DaoEndereco de = new DaoEndereco();
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        try {
-            tblListagemEndereco.getCellEditor().stopCellEditing();
-        } catch (Exception ex) {
-
-        }
-        try {
-            de.alterarEndereco(tblListagemEndereco);
-        } catch (SQLException ex) {
-            Logger.getLogger(FrmListagemEndereco.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrmListagemEndereco.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-
+        alterarRegistro();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
-    private void btnAtualizarTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarTabelaActionPerformed
-        atualizarTabela();
-    }//GEN-LAST:event_btnAtualizarTabelaActionPerformed
+    private void btnListarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarTodosActionPerformed
+        atualizarTabela(false);
+    }//GEN-LAST:event_btnListarTodosActionPerformed
 
-    private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
+    private void btnCadastrarEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarEnderecoActionPerformed
         control.Janelas.abrirCadastroEndereco();
-    }//GEN-LAST:event_btnTelaCadastroActionPerformed
+    }//GEN-LAST:event_btnCadastrarEnderecoActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-        Endereco end = new Endereco();
-        end.setCep((String) tblListagemEndereco.getValueAt(tblListagemEndereco.getSelectedRow(), 0));
-        
-        try {
-            de.deletarEndereco(end.getCep());
-            atualizarTabela();
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(FrmListagemEndereco.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        deletarRegistro();
     }//GEN-LAST:event_btnDeletarActionPerformed
 
-    private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
-
-    }//GEN-LAST:event_txtPesquisaActionPerformed
-
-    private void txtPesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyTyped
-
-    }//GEN-LAST:event_txtPesquisaKeyTyped
-
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
-        // Chamando método de listagem com filtro, se txt preenchido
-        try {
-            //criando variável de controle
-            int controle = 0;
-
-            //Se campo de texto não estiver vazio
-            if (txtPesquisa.getText().trim() != "") {
-                controle = 1;
-                atualizarTabelaFiltrada();
-            }
-
-            //Se a variável de controle for 0, diz-se que o campo está vazio e, portanto, atualiza a JTable
-            if (controle == 0) {
-                atualizarTabela();
-            }
-        } catch (Exception ex) {
-            System.out.println("Exceção: " + ex);
-        }
+        limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
+        pesquisarFiltrada();
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
     private void cmbFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFiltroActionPerformed
-        // TODO add your handling code here:
+        lblDigiteODado.setText("Digite o(a) " + cmbFiltro.getSelectedItem().toString() + ":");
+        limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
     }//GEN-LAST:event_cmbFiltroActionPerformed
 
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
-        FrmPrincipal princ = new FrmPrincipal();
-        princ.setVisible(true);
-        this.dispose();
+        control.Janelas.focarPrincipal();
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
-    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
+    private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
         this.dispose();
-    }//GEN-LAST:event_btnFecharActionPerformed
+    }//GEN-LAST:event_btnFecharFrameActionPerformed
+
+    private void txtLogradouroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLogradouroKeyReleased
+        txtLogradouro.setText(TextSize.maxLenghtLogradouro(txtLogradouro.getText()));
+    }//GEN-LAST:event_txtLogradouroKeyReleased
+
+    private void txtCidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCidadeKeyReleased
+        txtCidade.setText(TextSize.maxLenghtCidade(txtCidade.getText()));
+    }//GEN-LAST:event_txtCidadeKeyReleased
+
+    private void txtBairroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBairroKeyReleased
+        txtBairro.setText(TextSize.maxLenghtBairro(txtBairro.getText()));
+    }//GEN-LAST:event_txtBairroKeyReleased
+
+    private void txtfCepFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfCepFocusLost
+        verificarCepExistente();
+    }//GEN-LAST:event_txtfCepFocusLost
+
+    private void txtfCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfCepKeyReleased
+        verificarCepExistente();
+    }//GEN-LAST:event_txtfCepKeyReleased
+
+    private void tblListagemEnderecoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListagemEnderecoMouseClicked
+        popularCampos();
+    }//GEN-LAST:event_tblListagemEnderecoMouseClicked
+
+    private void btnLimparTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparTabelaActionPerformed
+        limparTabela();
+    }//GEN-LAST:event_btnLimparTabelaActionPerformed
+
+    private void txtPesquisaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPesquisaFocusGained
+        txtPesquisa.selectAll();
+        limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
+        pesquisarFiltrada();
+    }//GEN-LAST:event_txtPesquisaFocusGained
+
+    private void btnDeletarTodosRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarTodosRegistrosActionPerformed
+        removerTodosRegistros();
+    }//GEN-LAST:event_btnDeletarTodosRegistrosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -292,94 +420,487 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         });
     }
 
-    //Criando método de preenchimento/atualização de tabela com dados do banco
-    private void atualizarTabela() {
-        ArrayList<Endereco> lista = new ArrayList<>();
-        lista = DaoEndereco.listarEndereco();
-        String[] nomeColunas = {"CEP", "Logradouro", "Bairro", "Cidade", "Estado", "PK_REF"};
-        try {
-            DefaultTableModel model = new DefaultTableModel() {
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    if (column == 6) {
-                        return false;
-                    }
-                    return true;
-                }
-            };
-            tblListagemEndereco.setModel(model);
-            model.setColumnIdentifiers(nomeColunas);
-            model.setRowCount(0);
-            Object rowData[] = new Object[6];
-            for (int i = 0; i < lista.size(); i++) {
-                rowData[0] = lista.get(i).getCep();
-                rowData[1] = lista.get(i).getLogradouro();
-                rowData[2] = lista.get(i).getBairro();
-                rowData[3] = lista.get(i).getCidade();
-                rowData[4] = lista.get(i).getEstado();
-                rowData[5] = lista.get(i).getCep();
-                model.addRow(rowData);
-
-            }
-
-        } catch (Exception ex) {
-            System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
-        }
-        tblListagemEndereco.getColumnModel().getColumn(5).setMinWidth(0);
-        tblListagemEndereco.getColumnModel().getColumn(5).setPreferredWidth(0);
-        tblListagemEndereco.getColumnModel().getColumn(5).setMaxWidth(0);
-    }
-
-    private void atualizarTabelaFiltrada() {
-        ArrayList<Endereco> lista = new ArrayList<>();
-        lista = DaoEndereco.listarEnderecoFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().toLowerCase().trim()); //Filtrando dados que aparecem na pesquisa
-        String[] nomeColunas = {"CEP", "Logradouro", "Bairro", "Cidade", "Estado", "PK_REF"};
-        try {
-            DefaultTableModel model = new DefaultTableModel() {
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    if (column == 6) {
-                        return false;
-                    }
-                    return true;
-                }
-            };
-            tblListagemEndereco.setModel(model);
-            model.setColumnIdentifiers(nomeColunas);
-            model.setRowCount(0);
-            Object rowData[] = new Object[6];
-            for (int i = 0; i < lista.size(); i++) {
-                rowData[0] = lista.get(i).getCep();
-                rowData[1] = lista.get(i).getLogradouro();
-                rowData[2] = lista.get(i).getBairro();
-                rowData[3] = lista.get(i).getCidade();
-                rowData[4] = lista.get(i).getEstado();
-                rowData[5] = lista.get(i).getCep();
-                model.addRow(rowData);
-
-            }
-
-        } catch (Exception ex) {
-            System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
-        }
-        tblListagemEndereco.getColumnModel().getColumn(5).setMinWidth(0);
-        tblListagemEndereco.getColumnModel().getColumn(5).setPreferredWidth(0);
-        tblListagemEndereco.getColumnModel().getColumn(5).setMaxWidth(0);
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Bairro;
     private javax.swing.JButton btnAlterar;
-    private javax.swing.JButton btnAtualizarTabela;
+    private javax.swing.JButton btnCadastrarEndereco;
     private javax.swing.JButton btnDeletar;
-    private javax.swing.JButton btnFechar;
+    private javax.swing.JButton btnDeletarTodosRegistros;
+    private javax.swing.JButton btnFecharFrame;
+    private javax.swing.JButton btnLimparTabela;
+    private javax.swing.JButton btnListarTodos;
     private javax.swing.JButton btnMenuPrincipal;
-    private javax.swing.JButton btnTelaCadastro;
+    private javax.swing.JComboBox<String> cmbEstado;
     private javax.swing.JComboBox<String> cmbFiltro;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblDescrever;
+    private javax.swing.JLabel lblBackground;
+    private javax.swing.JLabel lblCep;
+    private javax.swing.JLabel lblCepExiste;
+    private javax.swing.JLabel lblDigiteODado;
+    private javax.swing.JLabel lblEnderecoEncontrado;
+    private javax.swing.JLabel lblEstado;
+    private javax.swing.JLabel lblLogradouro;
     private javax.swing.JLabel lblPesquisar;
+    private javax.swing.JLabel lblQuantidadePeca;
+    private javax.swing.JPanel panDadosEndereco;
+    private javax.swing.JPanel panPrincipal;
     private javax.swing.JTable tblListagemEndereco;
+    private javax.swing.JTextField txtBairro;
+    private javax.swing.JTextField txtCidade;
+    private javax.swing.JTextField txtLogradouro;
     private javax.swing.JTextField txtPesquisa;
+    private javax.swing.JFormattedTextField txtfCep;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * Verifica a condição do CEP selecionado e/ou alterado.
+     * Inicialmente remove o hífen introduzido pela mascara do JTextFormmatedField
+     * e a variável estática cepExiste irá armazenar o retorno do método
+     * <code> existeEndereco(cep) </code>. Caso o cep digitado exista, 
+     * o cepExiste vira a ser false. Caso o cep informado não exista mas está
+     * de acordo com a quantidade mínima de dígitos, o cepExiste vira a ser false.
+     * Caso o cep digitado não atenda nenhuma das duas condições, o cepExiste vira
+     * a ser true.
+     * O motivo da inversão do booleano, é que essa flag de controle é usada no método
+     * <code> validarCampos() </code> A inversão se dá também pelo motivo que, um 
+     * cep existente não o torna incapaz de ser alterado - afinal outros atributos
+     * podem ser alterados porém o mesmo cep é mantido.
+     */
+    private void verificarCepExistente() {
+        String cep = txtfCep.getText();
+        /*
+        Remoção de hífen e qualquer espaço em branco.
+        Somente números devem permanecer na string após isso.
+        */
+        cep = cep.replace("-", "");
+        cep = cep.trim();
+        cepExiste = dao.DaoEndereco.existeEndereco(cep);
+        if (cepExiste) {
+            lblCepExiste.setText("CEP já cadastrado.");
+            lblCepExiste.setForeground(Color.black);
+            cepExiste = false;
+        } else if (cep.length() == 8) {
+            lblCepExiste.setText("CEP Disponível.");
+            lblCepExiste.setForeground(Color.black);
+            cepExiste = false;
+        } else {
+            lblCepExiste.setText("CEP Inválido.");
+            lblCepExiste.setForeground(Color.red);
+            cepExiste = true;
+        }
+    }
+
+    /**
+     * Popula os campos com dados salvos no banco de dados. Ao selecionar uma
+     * linha na tabela, o método <code> popularEndereco(cep)</code> é chamado,
+     * onde o cep da linha selecionada é vasculhada no banco e então um objeto
+     * Endereco é instanciado e populado. Os campos da interface são populados
+     * com o valor atribuido aos atributos desse objeto Endereco.
+     */
+    private void popularCampos() {
+        /*
+        Instancia o objeto Endereco.
+         */
+        Endereco endereco = new Endereco();
+        /*
+        Variável de auxilio String é instanciada com o valor do CEP da linha selecioanda
+        da tabela.
+         */
+        String cep = (String) tblListagemEndereco.getValueAt(tblListagemEndereco.getSelectedRow(), 0);
+        /*
+        Método popularEndereco() é chamado com o cep de parâmetro. Ele irá popular
+        o objeto endereco com todos os dados salvos no banco, relacionadas ao 
+        cep informado
+         */
+        endereco = dao.DaoEndereco.popularEndereco(cep);
+        /*
+        Os texto dos campso da janela são definidos de acordo com os valores
+        atribuidos ao objeto Endereco.
+         */
+        txtfCep.setText(endereco.getCep());
+        cmbEstado.setSelectedItem((String) endereco.getEstado());
+        txtLogradouro.setText(endereco.getLogradouro());
+        txtCidade.setText(endereco.getCidade());
+        txtBairro.setText(endereco.getBairro());
+        /*
+        Chamada do metodo verificarCepExistente, para re-definir o texto e cor
+        da label que informa se o CEP está inválido ou não.
+         */
+        verificarCepExistente();
+    }
+
+    /**
+     * Limpa todos os campos da janela e atualiza o status do CEP informado,
+     * para fins estéticos e de validação.
+     */
+    private void limparCampos() {
+        txtfCep.setText("");
+        cmbEstado.setSelectedItem("-");
+        txtLogradouro.setText("");
+        txtCidade.setText("");
+        txtBairro.setText("");
+        verificarCepExistente();
+    }
+
+    /**
+     * Cria um objeto do tipo DefaultTableModel de acordo com as necessidades
+     * dessa janela. As colunas são definidas, a edição de células é desativada
+     * e a coluna da chave primária para utilização de referência (PK_REF) é
+     * ocultada da exibição. Também é definido largura para colunas
+     * individualmente.
+     */
+    private void inicializarTabela() {
+        /*
+        Array com o nome das colunas.
+         */
+        String[] nomeColunas = {"CEP", "Logradouro", "Bairro", "Cidade", "Estado", "PK_REF"};
+        try {
+            /*
+            Desativando a edição da tabela.
+             */
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+            /*
+            Atribuindo o modelo para a tabela.
+             */
+            tblListagemEndereco.setModel(model);
+            /*
+            Atribuindo as colunas e seus respectivos nomes.
+             */
+            model.setColumnIdentifiers(nomeColunas);
+            /*
+            Define que a tabela não tenha nenhuma linha.
+             */
+            model.setRowCount(0);
+            /*
+            Definindo um tamanho 0 para a coluna PK_REF, assim dessa forma
+            ela se torna invisível para o usuário.
+             */
+            tblListagemEndereco.getColumnModel().getColumn(5).setMinWidth(0);
+            tblListagemEndereco.getColumnModel().getColumn(5).setPreferredWidth(0);
+            tblListagemEndereco.getColumnModel().getColumn(5).setMaxWidth(0);
+            /*
+            Remove os dados do campo selecionado anteriormente.
+             */
+            limparCampos();
+
+            /*
+            Captura de qualquer tipo de excessão que aconteça.
+             */
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao inicializar a tabela. \n\n"
+                    + ex, "Erro - Inicialização de tabela.", 0);
+        }
+    }
+
+    /**
+     * Atualiza os dados da tabela. Um ArrayList do tipo Endereco é instanciado,
+     * e o método <code>listarEndereco()</code> é chamado, populando o
+     * ArrayList. O parâmetro filtrada define se a chamada da atualização de
+     * Tabela é para através de uma busca filtrada, ou caso não, se é uma busca
+     * de todos os registros armazenados no banco de dados.
+     *
+     * @param filtrada booleano que define se a pesquisa é filtrada ou não. true
+     * = filtrada. false = atualiza a tabela com todos os dados registrados no
+     * banco.
+     */
+    private void atualizarTabela(boolean filtrada) {
+        /*
+        Cria um novo modelo de tabela do tipo DefaultTableModel, baseado no modelo
+        atual da tabela, definido no metodo inicializarTabela.
+         */
+        DefaultTableModel model = new DefaultTableModel();
+        model = (DefaultTableModel) tblListagemEndereco.getModel();
+        model.setRowCount(0);
+        /*
+        Instanciamento do ArrayList lista, do tipo Endereco.
+         */
+        ArrayList<Endereco> lista = new ArrayList<>();
+        /*
+        Caso seja uma atualização por filtro, chama o metodo listarEnderecoFiltrada() 
+        e define que o último tipo de pesquisa foi por filtro (ultimoTipoPesquisa = true).
+        Caso não, chama o método listarEndereco, que popula a lista com todos os dados
+        armazenados no banco de dados, e define que o último tipo de pesquisa foi listar todos
+        (ultimoTipoPesquisa = false).
+         */
+        if (filtrada) {
+            lista = DaoEndereco.listarEnderecoFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().toLowerCase().trim());
+            ultimoTipoPesquisa = true;
+        } else {
+            lista = DaoEndereco.listarEndereco();
+            ultimoTipoPesquisa = false;
+        }
+        /*
+        Instanciamento do array dadosLinha do tipo Object. O tipo Object é genérico.
+        Nele será atribuido cada atributo do objeto Endereco.
+         */
+        Object dadosLinha[] = new Object[6];
+        /*
+        Um laço de repetição para adicionar linhas a tabela.
+        O for percorre até o último índice da lista, especificado pela chamada do 
+        método .size(), que retorna o tamanho do ArrayList lista.
+        Cada posição do array dadosLinha é populado com os dados do objeto Endereco
+        presente na lista.
+         */
+        for (int i = 0; i < lista.size(); i++) {
+            dadosLinha[0] = lista.get(i).getCep();
+            dadosLinha[1] = lista.get(i).getLogradouro();
+            dadosLinha[2] = lista.get(i).getBairro();
+            dadosLinha[3] = lista.get(i).getCidade();
+            dadosLinha[4] = lista.get(i).getEstado();
+            dadosLinha[5] = lista.get(i).getCep();
+            model.addRow(dadosLinha);
+        }
+        /*
+        Remove os dados do campo selecionado anteriormente.
+         */
+        limparCampos();
+    }
+
+    /**
+     * Define os elementos gráficos e funções disponíveis de acordo com o nível
+     * de acesso do usuário logado no sistema.
+     *
+     * @param nvlAdm nível de acesso do usuario logado. 0 = Visualização. 1 =
+     * Completo. Visualização só pode pesquisar e visualizar registros.
+     * Completo, alem da visualização, pode alterar deletar e chamar a tela de
+     * cadastro.
+     */
+    private void definirNivelAcesso(int nvlAdm) {
+        if (nvlAdm == 0) {
+            btnAlterar.setEnabled(false);
+            btnDeletar.setEnabled(false);
+            btnCadastrarEndereco.setEnabled(false);
+            txtfCep.setEditable(false);
+            txtLogradouro.setEditable(false);
+            txtCidade.setEditable(false);
+            cmbEstado.setEnabled(false);
+            txtBairro.setEditable(false);
+            btnDeletarTodosRegistros.setEnabled(false);
+        }
+    }
+
+    /**
+     * Inicia o procedimento para atualizar a tabela através de uma busca
+     * filtrada. O método da listagemFiltrada só é chamado caso o campo de texto
+     * não esteja vazio.
+     */
+    private void pesquisarFiltrada() {
+        try {
+            /*
+            Caso o campo de pesquisa esteja populado, o método de atualização é chamado.
+            Caso não, a tabela é esvaziada.
+             */
+            if (!"".equals(txtPesquisa.getText().trim())) {
+                atualizarTabela(true);
+            } else {
+                limparTabela();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao atualizar a tabela por filtro.\n\n"
+                    + ex, "Erro ao popular tabela", 0);
+        }
+    }
+
+    /**
+     * Esvazia todo o conteúdo da tabela e limpa os campos.
+     */
+    private void limparTabela() {
+        DefaultTableModel model = new DefaultTableModel();
+        model = (DefaultTableModel) tblListagemEndereco.getModel();
+        model.setRowCount(0);
+        /*
+        Chama o metodo limparCampos para limpar os dados do registro anteriormente
+        selecionado.
+         */
+        limparCampos();
+    }
+
+    /**
+     * Define dinamicamente o limite de caracteres do campo de pesquisa
+     * filtrada. O metodo apropriado da classe TextSize é chamado com base no
+     * ítem selecionado na combo box que define o filtro.
+     *
+     * @param filtro Texto do filtro selecionado. Valores possíveis: CEP,
+     * Logradouro, Bairro, Cidade, Estado
+     */
+    private void limiteDigitosPesquisa(String filtro) {
+        switch (filtro) {
+            case "CEP":
+                txtPesquisa.setText(control.TextSize.maxLenghtCep(txtPesquisa.getText()));
+                break;
+            case "Logradouro":
+                txtPesquisa.setText(control.TextSize.maxLenghtLogradouro(txtPesquisa.getText()));
+                break;
+            case "Bairro":
+                txtPesquisa.setText(control.TextSize.maxLenghtBairro(txtPesquisa.getText()));
+                break;
+            case "Cidade":
+                txtPesquisa.setText(control.TextSize.maxLenghtCidade(txtPesquisa.getText()));
+                break;
+            case "Estado":
+                txtPesquisa.setText(control.TextSize.maxLenghtEstado(txtPesquisa.getText()));
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Erro ao definir limite de caracteres do campo de pesquisa.",
+                        "Erro - limite de dígitos dinâmico", 0);
+                break;
+        }
+    }
+
+    /**
+     * Interroga o usuário se realmente deseja remover o registro selecionado na
+     * tabela. Caso sim, chama o metodo <code>deletarRegistro</code> no qual
+     * remove do banco de dados todos os registros relacionados ao CEP infromado
+     * por parâmetro, CEP no qual é o CEP da linha selecionada da tabela.
+     */
+    private void deletarRegistro() {
+        /*
+        Variável de controle opcao. Armazena o retorno do JOPtionPane.
+        O mesmo retorna 0 quando a opção SIM/YES é selecionada,
+        1 para quando a opção NÃO/NO é selecionada.
+         */
+        int opcao;
+        opcao = JOptionPane.showConfirmDialog(null, "Atenção! Todos os registros relacionados ao CEP "
+                + ((String) tblListagemEndereco.getValueAt(tblListagemEndereco.getSelectedRow(), 0))
+                + " serão permanentemente removidos.\n\nDeseja realmente excluir o registro?",
+                "Confirmação de exclusão",
+                JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        /*
+        Caso a opção SIM seja selecionada, o atributo CEP é populado do objeto 
+        Endereco, e o mesmo é passado como parâmetro para o metodo deletarEndereco.
+        Após a execução do método, a tabela é atualizada de acordo com o último
+        tipo de pesquisa realizada.
+        ultimoTipoPesquisa - true = filtrada. false = listar todos.
+         */
+        if (opcao == 0) {
+            Endereco end = new Endereco();
+            end.setCep((String) tblListagemEndereco.getValueAt(tblListagemEndereco.getSelectedRow(), 0));
+            dao.DaoEndereco.deletarEndereco(end.getCep());
+            atualizarTabela(ultimoTipoPesquisa);
+            limparCampos();
+        }
+    }
+    /**
+     * Valida todos os campos antes de executar uma ação de cadastro ou alteração.
+     * Os campos serão verificados, se estão em branco, com a quantidade certa de dígitos,
+     * variáveis estáticas de controles serão verificadas, entre diversas operações.
+     * 
+     * @return false Caso alguma das validações sejam atendidas.
+     * true Caso todas as exigências de validação sejam atendidas.
+     */
+    private boolean validarCampos() {
+        if (txtfCep.getText().length() < 9) {
+            JOptionPane.showMessageDialog(null, "CEP Inválido. \n\bPreencha o campo de CEP corretamente, com 8 números.", "Erro - CPF Inválido", 0);
+            txtfCep.requestFocus();
+            return false;
+        } else if (txtfCep.getText().trim().length() < 9) {
+            JOptionPane.showMessageDialog(null, "CEP Inválido. \n\nPreencha o campo de CEP corretamente, com 8 dígitos.", "Erro - CPF Inválido", 0);
+            txtfCep.requestFocus();
+            return false;
+        } else if (cepExiste) {
+            JOptionPane.showMessageDialog(null, "CEP Inválido. \n\nO CEP informado já está cadastrado.", "Erro - CPF Inválido", 0);
+            txtfCep.requestFocus();
+            return false;
+        } else if (txtLogradouro.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Logradouro em branco. \n\nInforme o nome da rua/avenida corretamente.", "Erro - Logradouro Inválido", 0);
+            txtLogradouro.requestFocus();
+            return false;
+        } else if (txtCidade.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Cidade em branco. \n\nInforme o nome da Cidade.", "Erro - Cidade Inválida", 0);
+            txtCidade.requestFocus();
+            return false;
+        } else if (txtBairro.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Bairro em branco. \n\nInforme o nome do bairro.", "Erro - Bairro Inválido", 0);
+            txtBairro.requestFocus();
+            return false;
+        } else if (cmbEstado.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Estado inválido. \n\nSelecione um estado.", "Erro - Estado Inválido", 0);
+            cmbEstado.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+    }
+    /**
+     * Altera o registro no banco de dados, com base nos valores informados nos
+     * campos. Utiliza o valor oculto PK_REF da tabela, como referência para o 
+     * código original, caso o mesmo seja alterado. PK_REF será usado na cláusula
+     * WHERE da QUERY de UPDATE do banco.
+     * 
+     * Antes de chamar o método <code>alterarEndereco</code>, o metodo <validarCampos>
+     *  é chamado para validar todos os campos preenchidos. Sendo o metodo alterarEndereco
+     * retornando true, um objeto do tipo Endereco é instanciado e enfim, o método
+     * alterarEndereco é chamado.
+     * Após a chamada, a tabela é atualizada de acordo com o último tipo de pesquisa
+     * e os dados dos campos são limpados.
+     */
+    private void alterarRegistro() {
+        if (validarCampos()) {
+            Endereco endereco = new Endereco();
+            String cep = txtfCep.getText();
+            cep = cep.replace("-", "");
+            cep = cep.trim();
+            endereco.setCep(cep);
+            endereco.setEstado(cmbEstado.getSelectedItem().toString());
+            endereco.setLogradouro(txtLogradouro.getText());
+            endereco.setCidade(txtCidade.getText());
+            endereco.setBairro(txtBairro.getText());
+            /*
+            String de controle PK_REF. Seu valor é baseado no campo oculto PK_REF da tabela.
+            Irá armazenar o código original, inalterado, da linha selecionada. Esse valor
+            será utilizado na cláusula WHERE da query no banco, pois é possível que
+            usuário altere o código do registro selecionado, sendo o PK_REF
+            a referência da Primary Key (código original)
+            */
+            String PK_REF = (String) tblListagemEndereco.getValueAt(tblListagemEndereco.getSelectedRow(), 5);
+            boolean alteracaoSucedida ;
+            alteracaoSucedida = dao.DaoEndereco.alterarEndereco(endereco, PK_REF);
+            
+            if (alteracaoSucedida) {
+                atualizarTabela(ultimoTipoPesquisa);
+                limparCampos();
+            }
+        }
+    }
+    /**
+     * Remove todos os registros da tabela Endereco do banco de dados. Essa operacao
+     * não utiliza do parâmetro CASCADE, ou seja, se houver algum registro relacionado
+     * com alguma outra tabela, a operação irá falhar.
+     * Interroga o usuário duas vezes, alertando sobre a operação a ser realizada.
+     * Caso o usuário selecione SIM, irá armazenar 0 na variavel de controle opcao.
+     * Caso digite não, irá armazenar 1 na variável de controle opcao.
+     * Selecionando SIM duas vezes, finalmente o metodo <code>deletarTodosEnderecos</code>
+     *  é chamado. Uma variável de controle booleana <code>exclusaoSucedida</code>
+     * armazena caso a operação tenha sido concluída com sucesso - true, ou não -
+     * false. Caso tenha sido sucedida, a tabela é atualizada com base no ultimo
+     * tipo de pesquisa e os campos do registro previamente selecionado são limpados.
+     */
+    private void removerTodosRegistros() {
+        int opcao;
+        opcao = JOptionPane.showConfirmDialog(null, "Deseja REALMENTE remover todos os endereços do banco de dados?\n\n",
+        "Alerta - remoção de todos os registros",JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (opcao == 0) {
+            opcao = JOptionPane.showConfirmDialog(null, "Essa operação tem grandes chances de falhar, devido a existência\n"
+                    + "de restrições de chaves estrangeiras no banco de dados.\n\n"
+                    + "Deseja REALMENTE tentar excluir todos os registros do banco de dados?\n\n"
+                    + "Caso a operação suceda, todos os dados serão permanentemente excluídos.\n"
+                    + "Caso ela falhe, talvez alguns registros possam ter sidos excluidos, e outros não."
+                    + "\n\n"
+                    + "Deseja prosseguir?",
+                "Alerta - remoção de todos os registros",JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            if (opcao == 0) {
+                boolean exclusaoSucedida;
+                exclusaoSucedida = dao.DaoEndereco.deletarTodosEnderecos();
+                if (exclusaoSucedida) {
+                    atualizarTabela(ultimoTipoPesquisa);
+                }
+            }
+        }
+    }
 }

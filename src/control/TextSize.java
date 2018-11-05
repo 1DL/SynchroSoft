@@ -235,6 +235,17 @@ public class TextSize {
 	    return str;
     }
     
+    public static String maxLenghtEstado(String str) {
+         String valor = "";
+            if(str.length() > 2){
+	        valor = str.substring(0,2);
+                str = valor;
+            }
+	    return str;
+    }
+    
+    
+    
     public static String maxLenghtBairro(String str) {
          String valor = "";
             if(str.length() > 50){
