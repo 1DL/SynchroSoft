@@ -5,8 +5,16 @@
  */
 package control;
 
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -25,6 +33,16 @@ public class SynchroSoft {
     private static String nvlAcessoSTR = "";
 
     public static void main(String[] args) throws IOException {
+        
+        File fonte = new File("src/fonte/tahoma.ttf");
+        FileInputStream fonteIS = new FileInputStream(fonte);
+
+        try {
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, fonteIS));
+        } catch (IOException | FontFormatException e) {
+            //Handle exception
+        }
 
         ManipularArquivos.lerArquivoJanelas();
         Janelas.abrirLogin();
@@ -76,8 +94,8 @@ public class SynchroSoft {
 
         return acesso;
     }
-    
-    public static String getNvlAdmSTR(){
+
+    public static String getNvlAdmSTR() {
         if (nvlAdm == 0) {
             nvlAcessoSTR = "Visualização";
         } else if (nvlAdm == 1) {
