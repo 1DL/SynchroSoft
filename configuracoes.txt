@@ -1,5 +1,5 @@
 Login=luiz
-IP=localhost
+IP=127.0.0.1
 Porta=1521
 SID=XE
 UsuárioDB=system

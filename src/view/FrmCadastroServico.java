@@ -1094,7 +1094,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             cep = cep.trim();
             servico.setEndereco(dao.DaoEndereco.popularEndereco(cep));
             servico.setCnpjCliente(txtCpfCnpj.getText());
-            servico.setDescricaoServicoFILE(lblDiretorioArquivo.getText());
+            servico.setDescricaoServicoFILE(lblNomeArquivo.getText());
             servico.setStatusServico(true);
 
             DefaultTableModel model = (DefaultTableModel) tblFuncSelecionados.getModel();
