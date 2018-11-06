@@ -5,12 +5,15 @@
  */
 package dao;
 
+import java.awt.Image;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import model.Produto;
 import model.VendaPeca;
 
@@ -19,6 +22,7 @@ import model.VendaPeca;
  * @author LuizV1
  */
 public class DaoProduto {
+  
 
     public static boolean cadastrarPeca(Produto peca) {
         try {
@@ -42,8 +46,9 @@ public class DaoProduto {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar o produto. \n\nErro Nº: "
                     + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoPeca - Cadastrar Produto", 0);
             return false;
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DaoProduto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar o produto. \n\nErro : "
+                    + ex, "Erro: DaoPeca - Cadastrar Produto", 0);
             return false;
         }
     }
@@ -216,14 +221,14 @@ public class DaoProduto {
                     break;
 
                 case "Quantidade":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE LOWER(QT_PECA)A LIKE LOWER(?)";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE LOWER(QT_PECA) LIKE LOWER(?)";
                     break;
                 case "Alerta Qtd Min":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE LOWER(QT_PECAMIN)A LIKE LOWER(?)";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE LOWER(QT_PECAMIN) LIKE LOWER(?)";
                     break;
 
                 case "Alerta Qtd Max":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE LOWER(QT_PECMAX)A LIKE LOWER(?)";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PECA WHERE LOWER(QT_PECAMAX) LIKE LOWER(?)";
                     break;
 
                 case "Valor":
@@ -265,7 +270,7 @@ public class DaoProduto {
         return lista;
     }
 
-    public static boolean alterarPeca(Produto produto, String PK_REF) {
+    public static boolean alterarPeca(Produto produto, String PK_REF) {        
         try {
             Connection con = Conexao.conectar();
             String sql = "UPDATE SYNCHROSOFT.TB_PECA "
@@ -284,34 +289,38 @@ public class DaoProduto {
             st.setString(8, PK_REF);
 
             st.executeUpdate();
-
-            JOptionPane.showMessageDialog(null, "O produto foi alterado com sucesso!",
+//            JOptionPane optionPane = new JOptionPane("O produto foi alterado com sucesso!", JOptionPane.INFORMATION_MESSAGE);
+//            JDialog dialog = optionPane.createDialog("Alteração concluída");
+//            
+//            dialog.setAlwaysOnTop(true);
+//            dialog.setVisible(true);
+            JOptionPane.showMessageDialog(null ,"O produto foi alterado com sucesso!",
                     "Alteração concluída", 1);
             return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Ocorreu um erro ao alterar o produto. \n\nErro nº :"
-            +ex.getErrorCode()+"\n"+ex.getMessage(), "Erro: DaoProduto - Alterar Peça",0);
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoProduto - Alterar Peça", 0);
             return false;
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Ocorreu um erro ao alterar o produto. \n\nErro:"
-            +ex, "Erro: DaoProduto - Alterar Peça",0);
+                    + ex, "Erro: DaoProduto - Alterar Peça", 0);
             return false;
         }
     }
-    
+
     public static boolean deletarTodasPecas() {
         try {
             Connection con = Conexao.conectar();
             String sql = "DELETE FROM SYNCHROSOFT.TB_PECA";
             PreparedStatement st = con.prepareStatement(sql);
-    
+
             st.executeUpdate();
             st.close();
-            
+
             JOptionPane.showMessageDialog(null, "Todos os registros de Produtos foram removidos do banco de dados.",
                     "Exclusão total concluída", 1);
             return true;
-            
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível remover os produtos.\n\nErro Nº :"
                     + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro : DaoProduto - Deletar Todas Peças", 0);
@@ -322,4 +331,6 @@ public class DaoProduto {
             return false;
         }
     }
+
+    
 }

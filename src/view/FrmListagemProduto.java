@@ -19,8 +19,11 @@ import model.Produto;
  * @author Administrator
  */
 public class FrmListagemProduto extends javax.swing.JFrame {
+
     private boolean ultimoTipoPesquisa;
     private boolean existeProduto;
+    private String PK_REF;
+
     /**
      * Creates new form FrmListagemPeca
      */
@@ -74,7 +77,6 @@ public class FrmListagemProduto extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Listar Produtos Cadastrados");
-        setAlwaysOnTop(true);
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logopng32.png")));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         setResizable(false);
@@ -135,7 +137,7 @@ public class FrmListagemProduto extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(txtPesquisa);
-        txtPesquisa.setBounds(570, 10, 540, 25);
+        txtPesquisa.setBounds(620, 10, 490, 25);
 
         btnDeletar.setText("Deletar registro selecionado");
         btnDeletar.addActionListener(new java.awt.event.ActionListener() {
@@ -369,6 +371,7 @@ public class FrmListagemProduto extends javax.swing.JFrame {
     private void cmbFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFiltroActionPerformed
         lblDigiteODado.setText("Digite o(a) " + cmbFiltro.getSelectedItem().toString() + ":");
         limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
+        txtPesquisa.requestFocus();
     }//GEN-LAST:event_cmbFiltroActionPerformed
 
     private void txtNomePecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomePecaKeyReleased
@@ -429,9 +432,9 @@ public class FrmListagemProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_tblListagemProdutoMouseClicked
 
     private void txtPesquisaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPesquisaFocusGained
-        txtPesquisa.selectAll();
         limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
         pesquisarFiltrada();
+        txtPesquisa.selectAll();
     }//GEN-LAST:event_txtPesquisaFocusGained
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -512,23 +515,23 @@ public class FrmListagemProduto extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     /**
-     * Atualiza os dados da tabela.
-     * Um novo DefaultTableModel é instanciado, recebendo atributos
-     * do tableModel atual. Então, é forçado que a tabela possua nenhuma linha.
-     * Isso é para evitar repetição de valores em múltiplas pesquisas.
-     * Um ArrayList do tipo Produto é instanciado. É verificado se o tipo de pesquisa
-     * é filtrada ou listagem geral. Caso seja pesquisa filtrada, o metodo de listagem
-     * via pesquisa filtrada é chamada <code>listarPecaFiltrada</code> recebendo
-     * o termo do filtro como parâmetro, populando o ArrayList. Caso não, o método 
-     * <code>listarPeca()</code> é chamado, populando o ArrayList. 
-     * Um array de tipo Object (genérico) dadosLinha é instanciado, com a quantidade de colunas
-     * da tabela. O For percorre até a quantidade de elementos presente no ArrayList, 
-     * e cada posição do array dadosLinha é populado com os valores dos atributos 
-     * do objeto presente no índice atual do ArrayList. Em seguida, uma linha é
-     * adicionada a tabela através dos dados continhos no array dadosLinha.
-     * Por fim, chama o método <code> limparCampos </code> para limpar os dados
-     * do registro selecionado anteriormente.
-     * 
+     * Atualiza os dados da tabela. Um novo DefaultTableModel é instanciado,
+     * recebendo atributos do tableModel atual. Então, é forçado que a tabela
+     * possua nenhuma linha. Isso é para evitar repetição de valores em
+     * múltiplas pesquisas. Um ArrayList do tipo Produto é instanciado. É
+     * verificado se o tipo de pesquisa é filtrada ou listagem geral. Caso seja
+     * pesquisa filtrada, o metodo de listagem via pesquisa filtrada é chamada
+     * <code>listarPecaFiltrada</code> recebendo o termo do filtro como
+     * parâmetro, populando o ArrayList. Caso não, o método
+     * <code>listarPeca()</code> é chamado, populando o ArrayList. Um array de
+     * tipo Object (genérico) dadosLinha é instanciado, com a quantidade de
+     * colunas da tabela. O For percorre até a quantidade de elementos presente
+     * no ArrayList, e cada posição do array dadosLinha é populado com os
+     * valores dos atributos do objeto presente no índice atual do ArrayList. Em
+     * seguida, uma linha é adicionada a tabela através dos dados continhos no
+     * array dadosLinha. Por fim, chama o método <code> limparCampos </code>
+     * para limpar os dados do registro selecionado anteriormente.
+     *
      * @param filtrada booleano que define se a pesquisa é filtrada ou não. true
      * = filtrada. false = atualiza a tabela com todos os dados registrados no
      * banco.
@@ -563,7 +566,7 @@ public class FrmListagemProduto extends javax.swing.JFrame {
         Instanciamento do array dadosLinha do tipo Object. O tipo Object é genérico.
         Nele será atribuido cada atributo do objeto Produto.
          */
-        Object dadosLinha[] = new Object[8];
+        Object dadosLinha[] = new Object[7];
         /*
         Um laço de repetição para adicionar linhas a tabela.
         O for percorre até o último índice da lista, especificado pela chamada do 
@@ -579,7 +582,6 @@ public class FrmListagemProduto extends javax.swing.JFrame {
             dadosLinha[4] = lista.get(i).getAlertaQtdMin();
             dadosLinha[5] = lista.get(i).getAlertaQtdMax();
             dadosLinha[6] = lista.get(i).getValorUnitarioSTR();
-            dadosLinha[7] = lista.get(i).getCodigoPeca();
             model.addRow(dadosLinha);
         }
         //String[] nomeColunas = {"Código", "Nome", "Categoria", "Quantidade", "Alerta Qtd Mínima", "Alerta Qtd Máxima", "Valor Unitário", "PK Ref"};
@@ -588,6 +590,7 @@ public class FrmListagemProduto extends javax.swing.JFrame {
          */
         limparCampos();
     }
+
     /**
      * Limpa todos os campos da janela e atualiza o status do Código informado,
      * para fins estéticos e de validação.
@@ -601,6 +604,7 @@ public class FrmListagemProduto extends javax.swing.JFrame {
         txtQuantidadeMinima.setText("0");
         txtQuantidadeMaxima.setText("0");
         verificarCodigoProduto();
+        PK_REF = null;
     }
 
     /**
@@ -631,26 +635,29 @@ public class FrmListagemProduto extends javax.swing.JFrame {
             case "Valor":
                 txtPesquisa.setText(control.TextSize.maxLenghtValorPeca(txtPesquisa.getText()));
                 break;
+            case "Categoria":
+                txtPesquisa.setText(control.TextSize.maxLenghtCategoriaProduto(txtPesquisa.getText()));
+                break;
             default:
-                JOptionPane.showMessageDialog(null, "Erro ao definir limite de caracteres do campo de pesquisa.",
+                JOptionPane.showMessageDialog(this, "Erro ao definir limite de caracteres do campo de pesquisa.",
                         "Erro - limite de dígitos dinâmico", 0);
                 break;
         }
     }
 
     /**
-     * A tabela é modelada e inicializada no JFrame. Um array de Strings 
+     * A tabela é modelada e inicializada no JFrame. Um array de Strings
      * <code>nomeColunas[]</code> é instanciado com o nome de cada coluna a ser
-     * utilizado pela tabela. Cria um objeto do tipo DefaultTableModel de acordo com as necessidades
-     * dessa janela. Em seguida, a edição das células da tabela é desativada.
-     * As colunas são definidas, e é forçado que a tabela inicie com nenhuma linha.
-     * A coluna da chave primária para utilização de referência (PK_REF) é
-     * ocultada da exibição. Também é definido largura para colunas
-     * individualmente.
+     * utilizado pela tabela. Cria um objeto do tipo DefaultTableModel de acordo
+     * com as necessidades dessa janela. Em seguida, a edição das células da
+     * tabela é desativada. As colunas são definidas, e é forçado que a tabela
+     * inicie com nenhuma linha. A coluna da chave primária para utilização de
+     * referência (PK_REF) é ocultada da exibição. Também é definido largura
+     * para colunas individualmente.
      */
     private void inicializarTabela() {
-        
-        String[] nomeColunas = {"Código", "Nome", "Categoria", "Quantidade", "Alerta Qtd Mínima", "Alerta Qtd Máxima", "Valor Unitário", "PK Ref"};
+
+        String[] nomeColunas = {"Código", "Nome", "Categoria", "Quantidade", "Alerta Qtd Mínima", "Alerta Qtd Máxima", "Valor Unitário"};
         try {
             /*
             Desativando a edição da tabela.
@@ -661,27 +668,20 @@ public class FrmListagemProduto extends javax.swing.JFrame {
                     return false;
                 }
             };
-            
+
             tblListagemProduto.setModel(model);
-            
+
             model.setColumnIdentifiers(nomeColunas);
-            
+
             model.setRowCount(0);
-            /*
-            Ocultando a coluna PK_REF, que armazena a referência da chave primaria
-            original que pode vir a ser alterado, se o usuário desejar.
-            */
-            tblListagemProduto.getColumnModel().getColumn(7).setMinWidth(0);
-            tblListagemProduto.getColumnModel().getColumn(7).setPreferredWidth(0);
-            tblListagemProduto.getColumnModel().getColumn(7).setMaxWidth(0);
-            
+
             limparCampos();
 
             /*
             Captura de qualquer tipo de excessão que aconteça.
              */
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao inicializar a tabela. \n\n"
+            JOptionPane.showMessageDialog(this, "Erro ao inicializar a tabela. \n\n"
                     + ex, "Erro - Inicialização de tabela.", 0);
         }
     }
@@ -707,22 +707,23 @@ public class FrmListagemProduto extends javax.swing.JFrame {
 
     /**
      * Popula os campos com dados salvos no banco de dados. Ao selecionar uma
-     * linha na tabela, um objeto do tipoProduto é instanciado. Uma variavel string
-     * de controle também é isntanciada, recebendo o valor do código do produto
-     * da linha selecionada atualmente. Então o objeto produto é populado através
-     * do método <code> popularPeca(codigo)</code> onde o codigo da linha selecionada 
-     * é vasculhado no banco populando o objeto produto de acordo com os registros
-     * relacionados ao código passado como parâmetro. Os campos da interface são populados
-     * com o valor atribuido aos atributos desse objeto produto.
+     * linha na tabela, um objeto do tipoProduto é instanciado. Uma variavel
+     * string de controle também é isntanciada, recebendo o valor do código do
+     * produto da linha selecionada atualmente. Então o objeto produto é
+     * populado através do método <code> popularPeca(codigo)</code> onde o
+     * codigo da linha selecionada é vasculhado no banco populando o objeto
+     * produto de acordo com os registros relacionados ao código passado como
+     * parâmetro. Os campos da interface são populados com o valor atribuido aos
+     * atributos desse objeto produto.
      */
     private void popularCampos() {
-        
+
         Produto produto = new Produto();
-        
+
         String codigo = (String) tblListagemProduto.getValueAt(tblListagemProduto.getSelectedRow(), 0);
-        
+
         produto = dao.DaoProduto.popularPeca(codigo);
-        
+
         txtCodigoPeca.setText(produto.getCodigoPeca());
         cmbCategoria.setSelectedItem((String) produto.getCategoriaPeca());
         txtNomePeca.setText(produto.getNomePeca());
@@ -730,17 +731,18 @@ public class FrmListagemProduto extends javax.swing.JFrame {
         txtQuantidadePeca.setText(String.valueOf(produto.getQuantidadePeca()));
         txtQuantidadeMinima.setText(String.valueOf(produto.getAlertaQtdMin()));
         txtQuantidadeMaxima.setText(String.valueOf(produto.getAlertaQtdMax()));
-        
+        PK_REF = produto.getCodigoPeca();
+
         verificarCodigoProduto();
     }
 
     /**
-     * Remove o registro atualmente selecionado do banco de dados.
-     * Interroga o usuário se realmente deseja remover o registro selecionado na
-     * tabela. O retorno do JOPtionPane é guardado na variavel de controle opcao.
-     * Caso sim (opcao == 0), chama o metodo <code>deletarPeca</code> no qual
-     * remove do banco de dados todos os registros relacionados ao código infromado
-     * por parâmetro, código no qual é o código da linha selecionada da tabela.
+     * Remove o registro atualmente selecionado do banco de dados. Interroga o
+     * usuário se realmente deseja remover o registro selecionado na tabela. O
+     * retorno do JOPtionPane é guardado na variavel de controle opcao. Caso sim
+     * (opcao == 0), chama o metodo <code>deletarPeca</code> no qual remove do
+     * banco de dados todos os registros relacionados ao código infromado por
+     * parâmetro, código no qual é o código da linha selecionada da tabela.
      */
     private void deletarRegistro() {
         /*
@@ -749,7 +751,7 @@ public class FrmListagemProduto extends javax.swing.JFrame {
         1 para quando a opção NÃO/NO é selecionada.
          */
         int opcao;
-        opcao = JOptionPane.showConfirmDialog(null, "Atenção! Todos os registros relacionados ao código "
+        opcao = JOptionPane.showConfirmDialog(this, "Atenção! Todos os registros relacionados ao código "
                 + ((String) tblListagemProduto.getValueAt(tblListagemProduto.getSelectedRow(), 0))
                 + " serão permanentemente removidos.\n\nDeseja realmente excluir o registro?",
                 "Confirmação de exclusão",
@@ -769,7 +771,7 @@ public class FrmListagemProduto extends javax.swing.JFrame {
             limparCampos();
         }
     }
-    
+
     /**
      * Esvazia todo o conteúdo da tabela e limpa os campos.
      */
@@ -786,22 +788,21 @@ public class FrmListagemProduto extends javax.swing.JFrame {
 
     /**
      * Altera o registro no banco de dados, com base nos valores informados nos
-     * campos. Utiliza o valor oculto PK_REF da tabela, como referência para o 
-     * código original, caso o mesmo seja alterado. PK_REF será usado na cláusula
-     * WHERE da QUERY de UPDATE do banco.
-     * 
-     * Antes de chamar o método <code>alterarPeca</code>, o metodo <code>validarCampos</code>
-     *  é chamado para validar todos os campos preenchidos. Sendo o metodo alterarPeca
-     * retornando true, um objeto do tipo Produto é instanciado e enfim, o método
-     * alterarProduto é chamado.
-     * Após a chamada, a tabela é atualizada de acordo com o último tipo de pesquisa
-     * e os dados dos campos são limpados.
+     * campos. Utiliza o valor oculto PK_REF da tabela, como referência para o
+     * código original, caso o mesmo seja alterado. PK_REF será usado na
+     * cláusula WHERE da QUERY de UPDATE do banco.
+     *
+     * Antes de chamar o método <code>alterarPeca</code>, o metodo
+     * <code>validarCampos</code> é chamado para validar todos os campos
+     * preenchidos. Sendo o metodo alterarPeca retornando true, um objeto do
+     * tipo Produto é instanciado e enfim, o método alterarProduto é chamado.
+     * Após a chamada, a tabela é atualizada de acordo com o último tipo de
+     * pesquisa e os dados dos campos são limpados.
      */
     private void alterarRegistro() {
         if (validarCampos()) {
             Produto produto = new Produto();
-            
-            
+
             produto.setCodigoPeca(txtCodigoPeca.getText());
             produto.setCategoriaPeca(cmbCategoria.getSelectedItem().toString());
             produto.setNomePeca(txtNomePeca.getText());
@@ -815,45 +816,59 @@ public class FrmListagemProduto extends javax.swing.JFrame {
             será utilizado na cláusula WHERE da query no banco, pois é possível que
             usuário altere o código do registro selecionado, sendo o PK_REF
             a referência da Primary Key (código original)
-            */
-            String PK_REF = (String) tblListagemProduto.getValueAt(tblListagemProduto.getSelectedRow(), 7);
-            boolean alteracaoSucedida ;
+             */
+            boolean alteracaoSucedida;
             alteracaoSucedida = dao.DaoProduto.alterarPeca(produto, PK_REF);
-            
+
             if (alteracaoSucedida) {
                 atualizarTabela(ultimoTipoPesquisa);
                 limparCampos();
             }
         }
     }
-    
+
     private boolean validarCampos() {
-        if (txtCodigoPeca.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Código do Produto em branco.\n\n"
+        boolean selectionEmpty = tblListagemProduto.getSelectionModel().isSelectionEmpty();
+        if (selectionEmpty) {
+            JOptionPane.showMessageDialog(this, "Nenhum registro selecionado da tabela.\n\n"
+                    + "Pesquise por algum registro e clique em alguma linha da tabela.", "Erro - Não há registro selecionado", 0);
+            return false;
+        } else if (txtCodigoPeca.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Código do Produto em branco.\n\n"
                     + "Informe corretamente o Código do Produto a ser alterado.", "Erro - Código do Produto Inválido", 0);
             txtCodigoPeca.requestFocus();
             return false;
         } else if (this.existeProduto) {
-            JOptionPane.showMessageDialog(null, "Código do Produto inválido.\n\n"
+            JOptionPane.showMessageDialog(this, "Código do Produto inválido.\n\n"
                     + "Informe um código do produto diferente.", "Erro - Código do Produto Inválido", 0);
             txtCodigoPeca.requestFocus();
             return false;
         } else if (txtNomePeca.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Nome do Produto em branco.\n\n"
+            JOptionPane.showMessageDialog(this, "Nome do Produto em branco.\n\n"
                     + "Informe corretamente o Nome do Produto a ser alterado.", "Erro - Nome do Produto Inválido", 0);
             txtNomePeca.requestFocus();
             return false;
-        } else if (txtfValorUnitario.getText().equals("0,00")) {
-            JOptionPane.showMessageDialog(null, "Valor unitário do Produto zerado.\n\n"
-                    + "Informe corretamente o valor unitário do Produto a ser alterado.", "Erro - Valor Unitário Inválido", 0);
-            txtfValorUnitario.requestFocus();
-            return false;
-        } else if (txtQuantidadePeca.getText().equals("0")) {
-            JOptionPane.showMessageDialog(null, "Quantidade do Produto zerado.\n\n"
-                    + "Informe corretamente a quantidade do Produto a ser alterado.", "Erro - Quantidade Inválida", 0);
+        } else if (txtQuantidadePeca.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Quantidade de produto em branco.\n\n"
+                    + "Informe corretamente o a quantidade do Produto a ser alterado.", "Erro - Quantidade Inválida", 0);
             txtQuantidadePeca.requestFocus();
             return false;
-        } else {
+        } else if (txtQuantidadeMinima.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Alerta mínimo em branco.\n\n"
+                    + "Informe corretamente o alerta mínimo a ser alterado.", "Erro - Alerta mínimo Inválido", 0);
+            txtQuantidadeMinima.requestFocus();
+            return false;
+        } else if (txtQuantidadeMaxima.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Alerta máximo em branco.\n\n"
+                    + "Informe corretamente o alerta máximo do Produto a ser alterado.", "Alerta máximo Inválido", 0);
+            txtQuantidadeMaxima.requestFocus();
+            return false;
+        } else if (txtfValorUnitario.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Valor unitário em branco.\n\n"
+                    + "Informe corretamente o valor unitário do Produto a ser alterado.", "Erro - Valor unitário Inválido", 0);
+            txtQuantidadeMaxima.requestFocus();
+            return false;
+        }else {
             return true;
         }
     }
@@ -875,37 +890,38 @@ public class FrmListagemProduto extends javax.swing.JFrame {
                 limparTabela();
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao atualizar a tabela por filtro.\n\n"
+            JOptionPane.showMessageDialog(this, "Ocorreu um erro ao atualizar a tabela por filtro.\n\n"
                     + ex, "Erro ao popular tabela", 0);
         }
     }
 
     /**
-     * Remove todos os registros da tabela Produto do banco de dados. Essa operacao
-     * não utiliza do parâmetro CASCADE, ou seja, se houver algum registro relacionado
-     * com alguma outra tabela, a operação irá falhar.
-     * Interroga o usuário duas vezes, alertando sobre a operação a ser realizada.
-     * Caso o usuário selecione SIM, irá armazenar 0 na variavel de controle opcao.
-     * Caso digite não, irá armazenar 1 na variável de controle opcao.
-     * Selecionando SIM duas vezes, finalmente o metodo <code>deletarTodasPecas</code>
-     *  é chamado. Uma variável de controle booleana <code>exclusaoSucedida</code>
-     * armazena caso a operação tenha sido concluída com sucesso - true, ou não -
-     * false. Caso tenha sido sucedida, a tabela é atualizada com base no ultimo
-     * tipo de pesquisa e os campos do registro previamente selecionado são limpados.
+     * Remove todos os registros da tabela Produto do banco de dados. Essa
+     * operacao não utiliza do parâmetro CASCADE, ou seja, se houver algum
+     * registro relacionado com alguma outra tabela, a operação irá falhar.
+     * Interroga o usuário duas vezes, alertando sobre a operação a ser
+     * realizada. Caso o usuário selecione SIM, irá armazenar 0 na variavel de
+     * controle opcao. Caso digite não, irá armazenar 1 na variável de controle
+     * opcao. Selecionando SIM duas vezes, finalmente o metodo
+     * <code>deletarTodasPecas</code> é chamado. Uma variável de controle
+     * booleana <code>exclusaoSucedida</code> armazena caso a operação tenha
+     * sido concluída com sucesso - true, ou não - false. Caso tenha sido
+     * sucedida, a tabela é atualizada com base no ultimo tipo de pesquisa e os
+     * campos do registro previamente selecionado são limpados.
      */
     private void removerTodosRegistros() {
         int opcao;
-        opcao = JOptionPane.showConfirmDialog(null, "Deseja REALMENTE remover todos os produtos do banco de dados?\n\n",
-        "Alerta - remoção de todos os registros",JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        opcao = JOptionPane.showConfirmDialog(this, "Deseja REALMENTE remover todos os produtos do banco de dados?\n\n",
+                "Alerta - remoção de todos os registros", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (opcao == 0) {
-            opcao = JOptionPane.showConfirmDialog(null, "Essa operação tem grandes chances de falhar, devido a existência\n"
+            opcao = JOptionPane.showConfirmDialog(this, "Essa operação tem grandes chances de falhar, devido a existência\n"
                     + "de restrições de chaves estrangeiras no banco de dados.\n\n"
                     + "Deseja REALMENTE tentar excluir todos os registros do banco de dados?\n\n"
                     + "Caso a operação suceda, todos os dados serão permanentemente excluídos.\n"
                     + "Caso ela falhe, talvez alguns registros possam ter sidos excluidos, e outros não."
                     + "\n\n"
                     + "Deseja prosseguir?",
-                "Alerta - remoção de todos os registros",JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                    "Alerta - remoção de todos os registros", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             if (opcao == 0) {
                 boolean exclusaoSucedida;
                 exclusaoSucedida = dao.DaoProduto.deletarTodasPecas();

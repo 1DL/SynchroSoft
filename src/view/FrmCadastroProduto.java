@@ -71,7 +71,6 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Produto");
-        setAlwaysOnTop(true);
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logopng32.png")));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         setResizable(false);
@@ -513,27 +512,27 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
 
     private boolean validarCampos() {
         if (txtCodigoPeca.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Código do Produto em branco.\n\n"
+            JOptionPane.showMessageDialog(this, "Código do Produto em branco.\n\n"
                     + "Informe corretamente o Código do Produto a ser cadastrado.", "Erro - Código do Produto Inválido", 0);
             txtCodigoPeca.requestFocus();
             return false;
         } else if (this.existeProduto) {
-            JOptionPane.showMessageDialog(null, "Código do Produto já cadastrado.\n\n"
+            JOptionPane.showMessageDialog(this, "Código do Produto já cadastrado.\n\n"
                     + "Informe um código do produto diferente.", "Erro - Código do Produto Inválido", 0);
             txtCodigoPeca.requestFocus();
             return false;
         } else if (txtNomePeca.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Nome do Produto em branco.\n\n"
+            JOptionPane.showMessageDialog(this, "Nome do Produto em branco.\n\n"
                     + "Informe corretamente o Nome do Produto a ser cadastrado.", "Erro - Nome do Produto Inválido", 0);
             txtNomePeca.requestFocus();
             return false;
         } else if (txtfValorUnitario.getText().equals("0,00")) {
-            JOptionPane.showMessageDialog(null, "Valor unitário do Produto zerado.\n\n"
+            JOptionPane.showMessageDialog(this, "Valor unitário do Produto zerado.\n\n"
                     + "Informe corretamente o valor unitário do Produto a ser cadastrado.", "Erro - Valor Unitário Inválido", 0);
             txtfValorUnitario.requestFocus();
             return false;
         } else if (txtQuantidadePeca.getText().equals("0")) {
-            JOptionPane.showMessageDialog(null, "Quantidade do Produto zerado.\n\n"
+            JOptionPane.showMessageDialog(this, "Quantidade do Produto zerado.\n\n"
                     + "Informe corretamente a quantidade do Produto a ser cadastrado.", "Erro - Quantidade Inválida", 0);
             txtQuantidadePeca.requestFocus();
             return false;

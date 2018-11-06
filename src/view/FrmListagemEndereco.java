@@ -22,6 +22,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
 
     private boolean cepExiste;
     private boolean ultimoTipoPesquisa;
+    private String PK_REF;
 
     /**
      * Creates new form FrmListagemPeca
@@ -307,7 +308,6 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    DaoEndereco de = new DaoEndereco();
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         alterarRegistro();
@@ -333,6 +333,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
     private void cmbFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFiltroActionPerformed
         lblDigiteODado.setText("Digite o(a) " + cmbFiltro.getSelectedItem().toString() + ":");
         limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
+        txtPesquisa.requestFocus();
     }//GEN-LAST:event_cmbFiltroActionPerformed
 
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
@@ -372,9 +373,9 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimparTabelaActionPerformed
 
     private void txtPesquisaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPesquisaFocusGained
-        txtPesquisa.selectAll();
         limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
         pesquisarFiltrada();
+        txtPesquisa.selectAll();
     }//GEN-LAST:event_txtPesquisaFocusGained
 
     private void btnDeletarTodosRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarTodosRegistrosActionPerformed
@@ -520,6 +521,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         txtLogradouro.setText(endereco.getLogradouro());
         txtCidade.setText(endereco.getCidade());
         txtBairro.setText(endereco.getBairro());
+        PK_REF = endereco.getCep();
         /*
         Chamada do metodo verificarCepExistente, para re-definir o texto e cor
         da label que informa se o CEP está inválido ou não.
@@ -538,6 +540,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         txtCidade.setText("");
         txtBairro.setText("");
         verificarCepExistente();
+        PK_REF = null;
     }
 
     /**
@@ -551,7 +554,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         /*
         Array com o nome das colunas.
          */
-        String[] nomeColunas = {"CEP", "Logradouro", "Bairro", "Cidade", "Estado", "PK_REF"};
+        String[] nomeColunas = {"CEP", "Logradouro", "Bairro", "Cidade", "Estado"};
         try {
             /*
             Desativando a edição da tabela.
@@ -574,13 +577,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             Define que a tabela não tenha nenhuma linha.
              */
             model.setRowCount(0);
-            /*
-            Definindo um tamanho 0 para a coluna PK_REF, assim dessa forma
-            ela se torna invisível para o usuário.
-             */
-            tblListagemEndereco.getColumnModel().getColumn(5).setMinWidth(0);
-            tblListagemEndereco.getColumnModel().getColumn(5).setPreferredWidth(0);
-            tblListagemEndereco.getColumnModel().getColumn(5).setMaxWidth(0);
+            
             /*
             Remove os dados do campo selecionado anteriormente.
              */
@@ -636,7 +633,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         Instanciamento do array dadosLinha do tipo Object. O tipo Object é genérico.
         Nele será atribuido cada atributo do objeto Endereco.
          */
-        Object dadosLinha[] = new Object[6];
+        Object dadosLinha[] = new Object[5];
         /*
         Um laço de repetição para adicionar linhas a tabela.
         O for percorre até o último índice da lista, especificado pela chamada do 
@@ -650,7 +647,6 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             dadosLinha[2] = lista.get(i).getBairro();
             dadosLinha[3] = lista.get(i).getCidade();
             dadosLinha[4] = lista.get(i).getEstado();
-            dadosLinha[5] = lista.get(i).getCep();
             model.addRow(dadosLinha);
         }
         /*
@@ -792,7 +788,12 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
      * true Caso todas as exigências de validação sejam atendidas.
      */
     private boolean validarCampos() {
-        if (txtfCep.getText().length() < 9) {
+        boolean selectionEmpty = tblListagemEndereco.getSelectionModel().isSelectionEmpty();
+        if (selectionEmpty){
+            JOptionPane.showMessageDialog(this, "Nenhum registro selecionado da tabela.\n\n"
+                    + "Pesquise por algum registro e clique em alguma linha da tabela.", "Erro - Não há registro selecionado", 0);
+            return false;
+        } else if (txtfCep.getText().length() < 9) {
             JOptionPane.showMessageDialog(null, "CEP Inválido. \n\bPreencha o campo de CEP corretamente, com 8 números.", "Erro - CPF Inválido", 0);
             txtfCep.requestFocus();
             return false;
@@ -855,7 +856,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             usuário altere o código do registro selecionado, sendo o PK_REF
             a referência da Primary Key (código original)
             */
-            String PK_REF = (String) tblListagemEndereco.getValueAt(tblListagemEndereco.getSelectedRow(), 5);
+            
             boolean alteracaoSucedida ;
             alteracaoSucedida = dao.DaoEndereco.alterarEndereco(endereco, PK_REF);
             

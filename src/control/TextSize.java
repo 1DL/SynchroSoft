@@ -11,6 +11,15 @@ package control;
  */
 public class TextSize {
     
+    public static String maxLenghtCategoriaProduto(String str) {
+        String valor = "";
+        if (str.length() > 50) {
+            valor = str.substring(0, 50);
+            str = valor;
+        }
+        return str;
+    }
+    
     public static String maxLenghtData(String str) {
         String valor = "";
         if (str.length() > 10) {
