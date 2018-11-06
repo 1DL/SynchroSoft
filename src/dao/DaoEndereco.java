@@ -80,11 +80,11 @@ public class DaoEndereco {
             
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível remover os endereços.\n\nErro Nº :"
-                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro : DaoEndereco - Deletar Endereço", 0);
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro : DaoEndereco - Deletar Todos Endereço", 0);
             return false;
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível remover os endereços.\n\nErro:"
-                    + ex, "Erro : DaoEndereco - Deletar Endereço", 0);
+                    + ex, "Erro : DaoEndereco - Deletar Todos Endereço", 0);
             return false;
         }
     }

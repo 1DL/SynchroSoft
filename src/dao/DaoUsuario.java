@@ -138,7 +138,7 @@ public class DaoUsuario {
                     + "FROM SYNCHROSOFT.TB_USUARIO "
                     + "WHERE CD_USUARIO = ?";
             PreparedStatement st = con.prepareStatement(sql);
-            st.setString(1, login);            
+            st.setString(1, login);
             ResultSet rs = st.executeQuery();
             flag = rs.isBeforeFirst();
             st.close();
@@ -146,8 +146,8 @@ public class DaoUsuario {
             return flag;
         } catch (SQLException ex) {
             JOptionPane.showConfirmDialog(null, "Erro ao verificar se o Login já existe.\n\nErro Nº" + ex.getErrorCode() + ""
-                        + "\n" + ex.getMessage(),
-                        "Erro: DaoUsuario - Existe Login", 0);
+                    + "\n" + ex.getMessage(),
+                    "Erro: DaoUsuario - Existe Login", 0);
             return false;
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
@@ -168,20 +168,24 @@ public class DaoUsuario {
                 Usuario user = new Usuario();
                 //user.setCodigoUsuario(rs.getInt("CD_USUARIO"));
                 user.setCodigoFuncionario(rs.getString("CD_FUNCIONARIO"));
-                user.setLogin(rs.getString("DS_LOGIN"));
+                user.setLogin(rs.getString("CD_USUARIO"));
                 user.setSenha(rs.getString("DS_SENHA"));
                 lista.add(user);
             }
             st.close();
             rs.close();
+            
+        } catch (SQLException ex) {
+            JOptionPane.showConfirmDialog(null, "Erro ao acessar dados de usuário no banco de dados.\n\nErro Nº: "
+                    +ex.getErrorCode()+"\n"+ex.getMessage(),"Erro : DaoUsuario - Listar Usuário",0);
         } catch (Exception ex) {
-            JOptionPane.showConfirmDialog(null, "Erro ao acessar dados de usuário no banco de dados.\n\n" + ex.getMessage(),
-                    "Erro de Banco de Dados - DaoUsuario Listagem", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showConfirmDialog(null, "Erro ao acessar dados de usuário no banco de dados.\n\nErro: "
+                    +ex,"Erro : DaoUsuario - Listar Usuário",0);
         }
         return lista;
     }
 
-    public static void deletarUsuario(String login) throws SQLException, ClassNotFoundException {
+    public static void deletarUsuario(String login) {
         try {
             Connection con = Conexao.conectar();
             String sql = "DELETE FROM SYNCHROSOFT.TB_USUARIO "
@@ -190,46 +194,99 @@ public class DaoUsuario {
             st.setString(1, login);
             st.executeUpdate();
             st.close();
-            JOptionPane.showMessageDialog(null, "Usuário removido com sucesso.");
+            JOptionPane.showMessageDialog(null, "Usuário removido com sucesso.", "Remoção concluída", 1);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível remover usuário.\n\nErro Nº:"
+                +ex.getErrorCode()+"\n"+ex.getMessage(), "Erro: DaoUsuario - Deletar Usuário", 0);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível remover usuário.\nErro:\n\n" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Não foi possível remover usuário.\n\nErro:"
+                +ex, "Erro: DaoUsuario - Deletar Usuário", 0);
+        }
+    }
+    
+    public static boolean deletarTodosUsuarios() {
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "DELETE FROM SYNCHROSOFT.TB_USUARIO";
+            PreparedStatement st = con.prepareStatement(sql);
+    
+            st.executeUpdate();
+            st.close();
+            
+            JOptionPane.showMessageDialog(null, "Todos os registros de Usuários foram removidos do banco de dados.",
+                    "Exclusão total concluída", 1);
+            return true;
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível remover os usuários.\n\nErro Nº :"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro : DaoUsuario - Deletar Todos Usuários", 0);
+            return false;
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível remover os usuários.\n\nErro:"
+                    + ex, "Erro : DaoUsuario - Deletar Todos Usuários", 0);
+            return false;
         }
     }
 
-    public static void alterarUsuario(JTable tabela) throws SQLException, ClassNotFoundException {
+    public static boolean alterarUsuario(Usuario usuario, String PK_REF) {
         try {
-            int rows = tabela.getRowCount();
-            String log = "";
-            JOptionPane.showConfirmDialog(null, "Deseja realizar a alteração?");
             Connection con = Conexao.conectar();
-            con.setAutoCommit(false);
             String sql = "UPDATE SYNCHROSOFT.TB_USUARIO "
-                    + "SET CD_FUNCIONARIO = ?, DS_LOGIN = ?, "
+                    + "SET CD_FUNCIONARIO = ?, CD_USUARIO = ?, "
                     + "DS_SENHA = ? WHERE CD_USUARIO = ?";
             PreparedStatement st = con.prepareStatement(sql);
-            for (int row = 0; row < rows; row++) {
-                //String cod_alterado = (String) tabela.getValueAt(row, 0);
-                String cod_func = tabela.getValueAt(row, 0).toString();
-                String login = (String) tabela.getValueAt(row, 1);
-                String senha = (String) tabela.getValueAt(row, 2);
-                String cod_ref = tabela.getValueAt(row, 3).toString();
+            st.setString(1, usuario.getCodigoFuncionario());
+            st.setString(2, usuario.getLogin());
+            st.setString(3, usuario.getSenha());
+            st.setString(4, PK_REF);
 
-                //st.setInt(1, Integer.parseInt(cod_alterado));
-                st.setInt(1, Integer.parseInt(cod_func));
-                st.setString(2, login);
-                st.setString(3, senha);
-                st.setLong(4, Integer.parseInt(cod_ref));
-
-                st.addBatch();
-                st.executeBatch();
-                con.commit();
-            }
-            JOptionPane.showMessageDialog(null, "A base de usuários foi alterada com sucesso!");
-
+            st.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "O usuário foi alterado com sucesso!", "Alteração concluída", 1);
+            return true;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao alterar a base de usuários. \n\n" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao alterar o usuário.\n\nErro Nº: "
+                    +ex.getErrorCode()+"\n"+ex.getMessage(), "Erro: DaoUsuario - Alterar Usuário", 0);
+            return false;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao alterar o usuário.\n\nErro: "
+                    +ex, "Erro: DaoUsuario - Alterar Usuário", 0);            
+            return false;
         }
 
+    }
+
+    public static Usuario popularUsuario(String login) {
+        try {
+            Connection con = Conexao.conectar();
+
+            String sql = "SELECT * "
+                    + "FROM SYNCHROSOFT.TB_USUARIO "
+                    + "WHERE CD_USUARIO = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, login);
+            ResultSet rs = st.executeQuery();
+
+            rs.next();
+
+            Usuario usuario = new Usuario();
+
+            usuario.setCodigoFuncionario(rs.getString("CD_FUNCIONARIO"));
+            usuario.setLogin(rs.getString("CD_USUARIO"));
+            usuario.setSenha(rs.getString("DS_SENHA"));
+
+            st.close();
+            rs.close();
+            return usuario;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao popular o usuário.\n\nErro Nº: "
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoUsuario - Popular Usuário", 0);
+            return null;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao popular o usuário.\n\nErro: "
+                    + ex, "Erro: DaoUsuario - Popular Usuário", 0);
+            return null;
+        }
     }
 
     public static ArrayList listarUsuarioFiltrada(String cmbFiltro, String txtPesquisa) {
@@ -238,18 +295,18 @@ public class DaoUsuario {
             Connection con = Conexao.conectar();
             String sql = "";
             /*
-Código", "Funcionário", "Login", "Senha            
+Código", "Codigo do Funcionário", "Login", "Senha            
              */
 
             switch (cmbFiltro) {
 //                case "Código":
 //                    sql = "SELECT * FROM SYNCHROSOFT.TB_USUARIO WHERE LOWER(CD_USUARIO) LIKE LOWER(?)";
 //                    break;
-                case "Funcionário":
+                case "Código do Funcionário":
                     sql = "SELECT * FROM SYNCHROSOFT.TB_USUARIO WHERE LOWER(CD_FUNCIONARIO) LIKE LOWER(?)";
                     break;
                 case "Login":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_USUARIO WHERE LOWER(DS_LOGIN) LIKE LOWER(?)";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_USUARIO WHERE LOWER(CD_USUARIO) LIKE LOWER(?)";
                     break;
                 case "Senha":
                     sql = "SELECT * FROM SYNCHROSOFT.TB_USUARIO WHERE LOWER(DS_SENHA) LIKE LOWER(?)";
@@ -262,7 +319,7 @@ Código", "Funcionário", "Login", "Senha
                 Usuario u = new Usuario();
                 //u.setCodigoUsuario(rs.getInt("CD_USUARIO"));
                 u.setCodigoFuncionario(rs.getString("CD_FUNCIONARIO"));
-                u.setLogin(rs.getString("DS_LOGIN").toString());
+                u.setLogin(rs.getString("CD_USUARIO").toString());
                 u.setSenha(rs.getString("DS_SENHA"));
                 lista.add(u);
             }

@@ -59,11 +59,11 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         lblCep = new javax.swing.JLabel();
         txtLogradouro = new javax.swing.JTextField();
         lblCepExiste = new javax.swing.JLabel();
-        btnCadastrarEndereco = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
         btnDeletar = new javax.swing.JButton();
         btnListarTodos = new javax.swing.JButton();
         btnLimparTabela = new javax.swing.JButton();
+        btnCadastrarEndereco = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListagemEndereco = new javax.swing.JTable();
         btnMenuPrincipal = new javax.swing.JButton();
@@ -196,15 +196,6 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         panDadosEndereco.add(lblCepExiste);
         lblCepExiste.setBounds(280, 10, 120, 25);
 
-        btnCadastrarEndereco.setText("Cadastrar novo Endereço");
-        btnCadastrarEndereco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarEnderecoActionPerformed(evt);
-            }
-        });
-        panDadosEndereco.add(btnCadastrarEndereco);
-        btnCadastrarEndereco.setBounds(410, 10, 160, 30);
-
         panPrincipal.add(panDadosEndereco);
         panDadosEndereco.setBounds(10, 50, 1100, 130);
 
@@ -215,7 +206,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnAlterar);
-        btnAlterar.setBounds(980, 185, 130, 30);
+        btnAlterar.setBounds(980, 190, 130, 30);
 
         btnDeletar.setText("Deletar registro selecionado");
         btnDeletar.addActionListener(new java.awt.event.ActionListener() {
@@ -224,7 +215,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnDeletar);
-        btnDeletar.setBounds(10, 185, 170, 30);
+        btnDeletar.setBounds(10, 190, 170, 30);
 
         btnListarTodos.setText("Listar todos os registros");
         btnListarTodos.addActionListener(new java.awt.event.ActionListener() {
@@ -233,7 +224,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnListarTodos);
-        btnListarTodos.setBounds(550, 185, 147, 30);
+        btnListarTodos.setBounds(550, 190, 147, 30);
 
         btnLimparTabela.setText("Limpar tabela");
         btnLimparTabela.addActionListener(new java.awt.event.ActionListener() {
@@ -242,7 +233,16 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnLimparTabela);
-        btnLimparTabela.setBounds(410, 185, 120, 30);
+        btnLimparTabela.setBounds(410, 190, 120, 30);
+
+        btnCadastrarEndereco.setText("Cadastrar novo Endereço");
+        btnCadastrarEndereco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarEnderecoActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnCadastrarEndereco);
+        btnCadastrarEndereco.setBounds(720, 190, 160, 30);
 
         getContentPane().add(panPrincipal);
         panPrincipal.setBounds(10, 10, 1125, 230);

@@ -19,9 +19,9 @@ import model.Produto;
  * @author Administrator
  */
 public class FrmListagemProduto extends javax.swing.JFrame {
-
-    private boolean ultimoTipoPesquisa;
+    
     private boolean existeProduto;
+    private boolean ultimoTipoPesquisa;
     private String PK_REF;
 
     /**

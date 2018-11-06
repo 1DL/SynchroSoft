@@ -116,7 +116,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblExisteFuncionario.setForeground(new java.awt.Color(255, 0, 0));
         lblExisteFuncionario.setText("Funcionário inexistente.");
         pnlDadosFuncionario.add(lblExisteFuncionario);
-        lblExisteFuncionario.setBounds(332, 10, 170, 25);
+        lblExisteFuncionario.setBounds(342, 10, 160, 25);
 
         btnListarFuncionarios.setText("Listar Funcionários Cadastrados");
         btnListarFuncionarios.addActionListener(new java.awt.event.ActionListener() {
