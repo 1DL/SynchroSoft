@@ -86,7 +86,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblPesquisar.setText("Pesquisar por: ");
         panPrincipal.add(lblPesquisar);
-        lblPesquisar.setBounds(10, 10, 160, 20);
+        lblPesquisar.setBounds(10, 10, 160, 25);
 
         cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CEP", "Logradouro", "Bairro", "Cidade", "Estado" }));
         cmbFiltro.addActionListener(new java.awt.event.ActionListener() {
@@ -113,7 +113,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(txtPesquisa);
-        txtPesquisa.setBounds(571, 10, 540, 25);
+        txtPesquisa.setBounds(570, 10, 540, 25);
 
         panDadosEndereco.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Endereço"));
         panDadosEndereco.setOpaque(false);
@@ -125,11 +125,11 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         panDadosEndereco.add(txtCidade);
-        txtCidade.setBounds(750, 60, 316, 25);
+        txtCidade.setBounds(750, 50, 316, 25);
 
         cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
         panDadosEndereco.add(cmbEstado);
-        cmbEstado.setBounds(750, 20, 95, 25);
+        cmbEstado.setBounds(750, 10, 95, 25);
 
         try {
             txtfCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
@@ -147,27 +147,27 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         panDadosEndereco.add(txtfCep);
-        txtfCep.setBounds(150, 20, 127, 25);
+        txtfCep.setBounds(150, 10, 127, 25);
 
         lblLogradouro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblLogradouro.setText("Logradouro:");
         panDadosEndereco.add(lblLogradouro);
-        lblLogradouro.setBounds(10, 60, 140, 25);
+        lblLogradouro.setBounds(10, 50, 140, 25);
 
         Bairro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         Bairro.setText("Bairro:");
         panDadosEndereco.add(Bairro);
-        Bairro.setBounds(10, 100, 140, 25);
+        Bairro.setBounds(10, 90, 140, 25);
 
         lblEstado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblEstado.setText("Estado:");
         panDadosEndereco.add(lblEstado);
-        lblEstado.setBounds(600, 20, 140, 25);
+        lblEstado.setBounds(600, 10, 140, 25);
 
         lblQuantidadePeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblQuantidadePeca.setText("Cidade:");
         panDadosEndereco.add(lblQuantidadePeca);
-        lblQuantidadePeca.setBounds(600, 60, 140, 25);
+        lblQuantidadePeca.setBounds(600, 50, 140, 25);
 
         txtBairro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -175,12 +175,12 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         panDadosEndereco.add(txtBairro);
-        txtBairro.setBounds(150, 100, 420, 25);
+        txtBairro.setBounds(150, 90, 420, 25);
 
         lblCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCep.setText("CEP:");
         panDadosEndereco.add(lblCep);
-        lblCep.setBounds(10, 20, 140, 25);
+        lblCep.setBounds(10, 10, 140, 25);
 
         txtLogradouro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -188,12 +188,12 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         panDadosEndereco.add(txtLogradouro);
-        txtLogradouro.setBounds(150, 60, 420, 25);
+        txtLogradouro.setBounds(150, 50, 420, 25);
 
         lblCepExiste.setForeground(new java.awt.Color(255, 0, 0));
         lblCepExiste.setText("CEP Inválido.");
         panDadosEndereco.add(lblCepExiste);
-        lblCepExiste.setBounds(280, 25, 120, 14);
+        lblCepExiste.setBounds(280, 10, 120, 25);
 
         btnCadastrarEndereco.setText("Cadastrar novo Endereço");
         btnCadastrarEndereco.addActionListener(new java.awt.event.ActionListener() {
@@ -202,10 +202,10 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         panDadosEndereco.add(btnCadastrarEndereco);
-        btnCadastrarEndereco.setBounds(410, 18, 160, 30);
+        btnCadastrarEndereco.setBounds(410, 10, 160, 30);
 
         panPrincipal.add(panDadosEndereco);
-        panDadosEndereco.setBounds(10, 50, 1100, 140);
+        panDadosEndereco.setBounds(10, 50, 1100, 130);
 
         btnAlterar.setText("Alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -214,7 +214,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnAlterar);
-        btnAlterar.setBounds(980, 195, 130, 30);
+        btnAlterar.setBounds(980, 185, 130, 30);
 
         btnDeletar.setText("Deletar registro selecionado");
         btnDeletar.addActionListener(new java.awt.event.ActionListener() {
@@ -223,7 +223,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnDeletar);
-        btnDeletar.setBounds(10, 195, 170, 30);
+        btnDeletar.setBounds(10, 185, 170, 30);
 
         btnListarTodos.setText("Listar todos os registros");
         btnListarTodos.addActionListener(new java.awt.event.ActionListener() {
@@ -232,7 +232,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnListarTodos);
-        btnListarTodos.setBounds(550, 195, 147, 30);
+        btnListarTodos.setBounds(550, 185, 147, 30);
 
         btnLimparTabela.setText("Limpar tabela");
         btnLimparTabela.addActionListener(new java.awt.event.ActionListener() {
@@ -241,10 +241,10 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnLimparTabela);
-        btnLimparTabela.setBounds(410, 195, 120, 30);
+        btnLimparTabela.setBounds(410, 185, 120, 30);
 
         getContentPane().add(panPrincipal);
-        panPrincipal.setBounds(10, 10, 1125, 240);
+        panPrincipal.setBounds(10, 10, 1125, 230);
 
         tblListagemEndereco.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -265,7 +265,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblListagemEndereco);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 289, 1125, 250);
+        jScrollPane1.setBounds(10, 270, 1125, 270);
 
         btnMenuPrincipal.setText("Menu Principal");
         btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
@@ -288,7 +288,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         lblEnderecoEncontrado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblEnderecoEncontrado.setText("Endereços encontrados no banco de dados. Para visualizar ou alterar um registro, clique em um registro exibido na tabela.");
         getContentPane().add(lblEnderecoEncontrado);
-        lblEnderecoEncontrado.setBounds(10, 260, 1040, 25);
+        lblEnderecoEncontrado.setBounds(10, 240, 1040, 25);
 
         btnDeletarTodosRegistros.setText("Deletar todos os registros");
         btnDeletarTodosRegistros.addActionListener(new java.awt.event.ActionListener() {

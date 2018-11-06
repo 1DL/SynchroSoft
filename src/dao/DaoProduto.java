@@ -265,56 +265,61 @@ public class DaoProduto {
         return lista;
     }
 
-    public static void alterarPeca(JTable tabela){
-
+    public static boolean alterarPeca(Produto produto, String PK_REF) {
         try {
-
-            int rows = tabela.getRowCount();
-            String log = "";
-            JOptionPane.showConfirmDialog(null, "Deseja realizar a alteração?");
-
             Connection con = Conexao.conectar();
-            con.setAutoCommit(false);
             String sql = "UPDATE SYNCHROSOFT.TB_PECA "
                     + "SET CD_PECA = ?, NM_PECA = ?, DS_CATEGORIA = ?, "
                     + "QT_PECA = ?, QT_PECAMIN = ?, QT_PECAMAX = ?, VL_PECA = ? "
                     + "WHERE CD_PECA = ?";
             PreparedStatement st = con.prepareStatement(sql);
-            for (int row = 0; row < rows; row++) {
-                Produto peca = new Produto();
-                peca.setCodigoPeca((String) tabela.getValueAt(row, 0));
-                peca.setNomePeca((String) tabela.getValueAt(row, 1));
-                peca.setCategoriaPeca((String) tabela.getValueAt(row, 2));
-                peca.setQuantidadePeca((String) tabela.getValueAt(row, 3));
-                peca.setAlertaQtdMin((String) tabela.getValueAt(row, 4));
-                peca.setAlertaQtdMax((String) tabela.getValueAt(row, 5));
-                peca.setValorUnitario((String) tabela.getValueAt(row, 6));
-                String CD_PECA_REFERENCIA = ((String) tabela.getValueAt(row, 7));
 
-                st.setString(1, peca.getCodigoPeca());
-                st.setString(2, peca.getNomePeca());
-                st.setString(3, peca.getCategoriaPeca());
-                st.setLong(4, peca.getQuantidadePeca());
-                st.setLong(5, peca.getAlertaQtdMin());
-                st.setLong(6, peca.getAlertaQtdMax());
-                st.setFloat(7, peca.getValorUnitarioBanco());
-                st.setString(8, CD_PECA_REFERENCIA);
+            st.setString(1, produto.getCodigoPeca());
+            st.setString(2, produto.getNomePeca());
+            st.setString(3, produto.getCategoriaPeca());
+            st.setLong(4, produto.getQuantidadePeca());
+            st.setLong(5, produto.getAlertaQtdMin());
+            st.setLong(6, produto.getAlertaQtdMax());
+            st.setFloat(7, produto.getValorUnitarioBanco());
+            st.setString(8, PK_REF);
 
-                st.addBatch();
-                st.executeBatch();
-                con.commit();
-                
-            }
-            JOptionPane.showMessageDialog(null, "A base de produtos foi alterada com sucesso!", "Atualização da base de Produtos", 1);
-            
+            st.executeUpdate();
 
+            JOptionPane.showMessageDialog(null, "O produto foi alterado com sucesso!",
+                    "Alteração concluída", 1);
+            return true;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível alterar a base de produtos.\n\nErro Nº: " + ex.getErrorCode()
-                    + "\n" + ex.getMessage(), "Erro: DaoPeca - Alterar Produto via Tabela", 0);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DaoProduto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao alterar o produto. \n\nErro nº :"
+            +ex.getErrorCode()+"\n"+ex.getMessage(), "Erro: DaoProduto - Alterar Peça",0);
+            return false;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao alterar o produto. \n\nErro:"
+            +ex, "Erro: DaoProduto - Alterar Peça",0);
+            return false;
         }
-
     }
-
+    
+    public static boolean deletarTodasPecas() {
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "DELETE FROM SYNCHROSOFT.TB_PECA";
+            PreparedStatement st = con.prepareStatement(sql);
+    
+            st.executeUpdate();
+            st.close();
+            
+            JOptionPane.showMessageDialog(null, "Todos os registros de Produtos foram removidos do banco de dados.",
+                    "Exclusão total concluída", 1);
+            return true;
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível remover os produtos.\n\nErro Nº :"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro : DaoProduto - Deletar Todas Peças", 0);
+            return false;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível remover os endereços.\n\nErro:"
+                    + ex, "Erro : DaoProduto - Deletar Todas Peças", 0);
+            return false;
+        }
+    }
 }

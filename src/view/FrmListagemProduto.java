@@ -5,8 +5,12 @@
  */
 package view;
 
+import control.TextSize;
+import dao.DaoProduto;
+import java.awt.Color;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Produto;
 
@@ -15,14 +19,14 @@ import model.Produto;
  * @author Administrator
  */
 public class FrmListagemProduto extends javax.swing.JFrame {
-
+    private boolean ultimoTipoPesquisa;
+    private boolean existeProduto;
     /**
      * Creates new form FrmListagemPeca
      */
     public FrmListagemProduto(int nvlAdm) {
         initComponents();
-        atualizarTabela();
-
+        inicializarTabela();
     }
 
     /**
@@ -35,18 +39,38 @@ public class FrmListagemProduto extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblListagemPeca = new javax.swing.JTable();
-        btnFechar = new javax.swing.JButton();
-        btnAlterar = new javax.swing.JButton();
-        btnAtualizarTabela = new javax.swing.JButton();
-        btnTelaCadastro = new javax.swing.JButton();
-        btnDeletar = new javax.swing.JButton();
+        tblListagemProduto = new javax.swing.JTable();
+        panPrincipal = new javax.swing.JPanel();
         lblPesquisar = new javax.swing.JLabel();
         cmbFiltro = new javax.swing.JComboBox<>();
+        lblDigiteODado = new javax.swing.JLabel();
         txtPesquisa = new javax.swing.JTextField();
-        lblDescrever = new javax.swing.JLabel();
+        btnDeletar = new javax.swing.JButton();
+        btnLimparTabela = new javax.swing.JButton();
+        btnListarTodos = new javax.swing.JButton();
+        btnAlterar = new javax.swing.JButton();
+        panDadosProduto = new javax.swing.JPanel();
+        lblCodigoPeca = new javax.swing.JLabel();
+        lblCategoriaPeca = new javax.swing.JLabel();
+        txtNomePeca = new javax.swing.JTextField();
+        lblNomePeca = new javax.swing.JLabel();
+        lblQuantidadePeca = new javax.swing.JLabel();
+        lblValorUnitario = new javax.swing.JLabel();
+        cmbCategoria = new javax.swing.JComboBox<>();
+        txtQuantidadePeca = new javax.swing.JFormattedTextField();
+        txtfValorUnitario = new javax.swing.JFormattedTextField();
+        lblQuantidadeMinima = new javax.swing.JLabel();
+        txtQuantidadeMinima = new javax.swing.JFormattedTextField();
+        lblQuantidadeMaxima = new javax.swing.JLabel();
+        txtQuantidadeMaxima = new javax.swing.JFormattedTextField();
+        txtCodigoPeca = new javax.swing.JTextField();
+        lblCodigoExiste = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         btnMenuPrincipal = new javax.swing.JButton();
-        lblFundo = new javax.swing.JLabel();
+        btnFecharFrame = new javax.swing.JButton();
+        btnDeletarTodosRegistros = new javax.swing.JButton();
+        lblProdutoEncontrado = new javax.swing.JLabel();
+        lblBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Listar Produtos Cadastrados");
@@ -56,8 +80,7 @@ public class FrmListagemProduto extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(null);
 
-        tblListagemPeca.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
-        tblListagemPeca.setModel(new javax.swing.table.DefaultTableModel(
+        tblListagemProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -68,93 +91,223 @@ public class FrmListagemProduto extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblListagemPeca);
+        tblListagemProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblListagemProdutoMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblListagemProduto);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(230, 130, 660, 402);
+        jScrollPane1.setBounds(10, 270, 1125, 270);
 
-        btnFechar.setText("Fechar");
-        btnFechar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFecharActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnFechar);
-        btnFechar.setBounds(990, 550, 130, 50);
-
-        btnAlterar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        btnAlterar.setText("Alterar");
-        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAlterarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnAlterar);
-        btnAlterar.setBounds(440, 560, 85, 33);
-
-        btnAtualizarTabela.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        btnAtualizarTabela.setText("AtualizarTabela");
-        btnAtualizarTabela.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtualizarTabelaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnAtualizarTabela);
-        btnAtualizarTabela.setBounds(230, 560, 153, 33);
-
-        btnTelaCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        btnTelaCadastro.setText("Tela Cadastro");
-        btnTelaCadastro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTelaCadastroActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnTelaCadastro);
-        btnTelaCadastro.setBounds(750, 560, 143, 33);
-
-        btnDeletar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        btnDeletar.setText("Deletar");
-        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeletarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnDeletar);
-        btnDeletar.setBounds(590, 560, 91, 33);
+        panPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panPrincipal.setOpaque(false);
+        panPrincipal.setLayout(null);
 
         lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblPesquisar.setText("Pesquisar por: ");
-        getContentPane().add(lblPesquisar);
-        lblPesquisar.setBounds(230, 65, 120, 25);
+        panPrincipal.add(lblPesquisar);
+        lblPesquisar.setBounds(10, 10, 120, 25);
 
-        cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "Nome", "Categoria", "Quantidade", "Alerta Qtd Min", "Alerta Qtd Max", "Valor" }));
-        getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(370, 60, 107, 25);
-
-        txtPesquisa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
+        cmbFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPesquisaActionPerformed(evt);
+                cmbFiltroActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(cmbFiltro);
+        cmbFiltro.setBounds(160, 10, 210, 25);
+
+        lblDigiteODado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblDigiteODado.setText("Digite o(a) Código");
+        panPrincipal.add(lblDigiteODado);
+        lblDigiteODado.setBounds(375, 10, 230, 25);
+
+        txtPesquisa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPesquisaFocusGained(evt);
             }
         });
         txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtPesquisaKeyReleased(evt);
             }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtPesquisaKeyTyped(evt);
+        });
+        panPrincipal.add(txtPesquisa);
+        txtPesquisa.setBounds(570, 10, 540, 25);
+
+        btnDeletar.setText("Deletar registro selecionado");
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
             }
         });
-        getContentPane().add(txtPesquisa);
-        txtPesquisa.setBounds(670, 60, 221, 25);
+        panPrincipal.add(btnDeletar);
+        btnDeletar.setBounds(10, 190, 170, 30);
 
-        lblDescrever.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblDescrever.setText("Descrição:");
-        getContentPane().add(lblDescrever);
-        lblDescrever.setBounds(530, 60, 83, 25);
+        btnLimparTabela.setText("Limpar tabela");
+        btnLimparTabela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparTabelaActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnLimparTabela);
+        btnLimparTabela.setBounds(410, 190, 120, 30);
 
-        btnMenuPrincipal.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        btnListarTodos.setText("Listar todos os registros");
+        btnListarTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarTodosActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnListarTodos);
+        btnListarTodos.setBounds(550, 190, 147, 30);
+
+        btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnAlterar);
+        btnAlterar.setBounds(980, 190, 130, 30);
+
+        panDadosProduto.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Produto"));
+        panDadosProduto.setOpaque(false);
+        panDadosProduto.setPreferredSize(new java.awt.Dimension(1100, 510));
+        panDadosProduto.setLayout(null);
+
+        lblCodigoPeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblCodigoPeca.setText("Código de Barras:");
+        panDadosProduto.add(lblCodigoPeca);
+        lblCodigoPeca.setBounds(10, 10, 154, 25);
+
+        lblCategoriaPeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblCategoriaPeca.setText("Categoria:");
+        panDadosProduto.add(lblCategoriaPeca);
+        lblCategoriaPeca.setBounds(656, 10, 90, 25);
+
+        txtNomePeca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomePecaKeyReleased(evt);
+            }
+        });
+        panDadosProduto.add(txtNomePeca);
+        txtNomePeca.setBounds(170, 50, 316, 25);
+
+        lblNomePeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblNomePeca.setText("Nome da Peça:");
+        panDadosProduto.add(lblNomePeca);
+        lblNomePeca.setBounds(10, 50, 140, 25);
+
+        lblQuantidadePeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblQuantidadePeca.setText("Quantidade:");
+        panDadosProduto.add(lblQuantidadePeca);
+        lblQuantidadePeca.setBounds(10, 90, 140, 25);
+
+        lblValorUnitario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblValorUnitario.setText("Valor Unitário:");
+        panDadosProduto.add(lblValorUnitario);
+        lblValorUnitario.setBounds(656, 50, 114, 25);
+
+        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Gerador", "Bombas", "Aquecedores", "Alarme de incêndio", "Pressurizadores de escada", "Alarme perimetral", "Cabine primária", "Redutoras de pressão" }));
+        panDadosProduto.add(cmbCategoria);
+        cmbCategoria.setBounds(788, 10, 175, 25);
+
+        txtQuantidadePeca.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
+        txtQuantidadePeca.setText("0");
+        txtQuantidadePeca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtQuantidadePecaKeyReleased(evt);
+            }
+        });
+        panDadosProduto.add(txtQuantidadePeca);
+        txtQuantidadePeca.setBounds(170, 90, 100, 25);
+
+        txtfValorUnitario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####0.00"))));
+        txtfValorUnitario.setText("0,00");
+        txtfValorUnitario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtfValorUnitarioActionPerformed(evt);
+            }
+        });
+        txtfValorUnitario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfValorUnitarioKeyReleased(evt);
+            }
+        });
+        panDadosProduto.add(txtfValorUnitario);
+        txtfValorUnitario.setBounds(788, 50, 175, 25);
+
+        lblQuantidadeMinima.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblQuantidadeMinima.setText("Alerta Qtd Mínima:");
+        panDadosProduto.add(lblQuantidadeMinima);
+        lblQuantidadeMinima.setBounds(280, 90, 156, 25);
+
+        txtQuantidadeMinima.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
+        txtQuantidadeMinima.setText("0");
+        txtQuantidadeMinima.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtQuantidadeMinimaActionPerformed(evt);
+            }
+        });
+        txtQuantidadeMinima.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtQuantidadeMinimaKeyReleased(evt);
+            }
+        });
+        panDadosProduto.add(txtQuantidadeMinima);
+        txtQuantidadeMinima.setBounds(440, 90, 100, 25);
+
+        lblQuantidadeMaxima.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblQuantidadeMaxima.setText("Alerta Qtd Máxima:");
+        panDadosProduto.add(lblQuantidadeMaxima);
+        lblQuantidadeMaxima.setBounds(550, 90, 157, 25);
+
+        txtQuantidadeMaxima.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
+        txtQuantidadeMaxima.setText("0");
+        txtQuantidadeMaxima.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtQuantidadeMaximaActionPerformed(evt);
+            }
+        });
+        txtQuantidadeMaxima.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtQuantidadeMaximaKeyReleased(evt);
+            }
+        });
+        panDadosProduto.add(txtQuantidadeMaxima);
+        txtQuantidadeMaxima.setBounds(720, 90, 100, 25);
+
+        txtCodigoPeca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodigoPecaKeyReleased(evt);
+            }
+        });
+        panDadosProduto.add(txtCodigoPeca);
+        txtCodigoPeca.setBounds(170, 10, 316, 25);
+
+        lblCodigoExiste.setForeground(java.awt.Color.red);
+        lblCodigoExiste.setText("Código inválido.");
+        panDadosProduto.add(lblCodigoExiste);
+        lblCodigoExiste.setBounds(490, 10, 151, 25);
+
+        panPrincipal.add(panDadosProduto);
+        panDadosProduto.setBounds(10, 50, 1100, 130);
+
+        jButton1.setText("Cadastrar novo Produto");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(jButton1);
+        jButton1.setBounds(720, 190, 150, 30);
+
+        getContentPane().add(panPrincipal);
+        panPrincipal.setBounds(10, 10, 1125, 230);
+
         btnMenuPrincipal.setText("Menu Principal");
         btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,88 +315,128 @@ public class FrmListagemProduto extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnMenuPrincipal);
-        btnMenuPrincipal.setBounds(960, 170, 161, 239);
+        btnMenuPrincipal.setBounds(900, 550, 130, 30);
 
-        lblFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
-        getContentPane().add(lblFundo);
-        lblFundo.setBounds(0, 0, 1150, 650);
+        btnFecharFrame.setText("Fechar ");
+        btnFecharFrame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharFrameActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnFecharFrame);
+        btnFecharFrame.setBounds(1055, 550, 80, 30);
+
+        btnDeletarTodosRegistros.setText("Deletar todos os registros");
+        btnDeletarTodosRegistros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarTodosRegistrosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnDeletarTodosRegistros);
+        btnDeletarTodosRegistros.setBounds(10, 550, 160, 30);
+
+        lblProdutoEncontrado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblProdutoEncontrado.setText("Produtos encontrados no banco de dados. Para visualizar ou alterar um registro, clique em um registro exibido na tabela.");
+        getContentPane().add(lblProdutoEncontrado);
+        lblProdutoEncontrado.setBounds(10, 240, 1040, 25);
+
+        lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
+        getContentPane().add(lblBackground);
+        lblBackground.setBounds(0, -20, 1150, 650);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
 
-    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-
-        try {
-            tblListagemPeca.getCellEditor().stopCellEditing();
-        } catch (Exception ex) {
-
-        }
-        dao.DaoProduto.alterarPeca(tblListagemPeca);
-
-
-    }//GEN-LAST:event_btnAlterarActionPerformed
-
-    private void btnAtualizarTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarTabelaActionPerformed
-        atualizarTabela();
-
-    }//GEN-LAST:event_btnAtualizarTabelaActionPerformed
-
-    private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
-        control.Janelas.abrirCadastroProduto();
-//        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-//        telaCadastro.setLocation(dim.width / 2 - this.getPreferredSize().width / 2, dim.height / 2 - this.getPreferredSize().height / 2);
-//        telaCadastro.setVisible(true);
-//        telaCadastro.setSize(1152, 648);
-
-    }//GEN-LAST:event_btnTelaCadastroActionPerformed
-
-    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-        Produto peca = new Produto();
-        String aux = (String) tblListagemPeca.getValueAt(tblListagemPeca.getSelectedRow(), 0);
-        peca.setCodigoPeca(aux);
-        dao.DaoProduto.deletarPeca(peca.getCodigoPeca());
-        atualizarTabela();
-
-    }//GEN-LAST:event_btnDeletarActionPerformed
-
-    private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
-
-    }//GEN-LAST:event_txtPesquisaActionPerformed
-
-    private void txtPesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyTyped
-
-    }//GEN-LAST:event_txtPesquisaKeyTyped
-
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
-        // Chamando método de listagem com filtro, se txt preenchido
-//        try {
-        //criando variável de controle
-        int controle = 0;
-
-        //Se campo de texto não estiver vazio
-        if (txtPesquisa.getText().trim() != "") {
-            controle = 1;
-            atualizarTabelaFiltrada();
-        }
-
-        //Se a variável de controle for 0, diz-se que o campo está vazio e, portanto, atualiza a JTable
-        if (controle == 0) {
-            atualizarTabela();
-        }
-//        } catch (Exception ex) {
-//            System.out.println("Exceção: " + ex);
-//        }
+        limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
+        pesquisarFiltrada();
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
-        control.Janelas.abrirPrincipal();
+        control.Janelas.focarPrincipal();
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
-    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
+    private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
         this.dispose();
-    }//GEN-LAST:event_btnFecharActionPerformed
+    }//GEN-LAST:event_btnFecharFrameActionPerformed
+
+    private void btnDeletarTodosRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarTodosRegistrosActionPerformed
+        removerTodosRegistros();
+    }//GEN-LAST:event_btnDeletarTodosRegistrosActionPerformed
+
+    private void cmbFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFiltroActionPerformed
+        lblDigiteODado.setText("Digite o(a) " + cmbFiltro.getSelectedItem().toString() + ":");
+        limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
+    }//GEN-LAST:event_cmbFiltroActionPerformed
+
+    private void txtNomePecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomePecaKeyReleased
+        txtNomePeca.setText(TextSize.maxLenghtNomePeca(txtNomePeca.getText()));
+    }//GEN-LAST:event_txtNomePecaKeyReleased
+
+    private void txtQuantidadePecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadePecaKeyReleased
+        txtQuantidadePeca.setText(TextSize.maxLenghtQuantidadePeca(txtQuantidadePeca.getText()));
+    }//GEN-LAST:event_txtQuantidadePecaKeyReleased
+
+    private void txtfValorUnitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfValorUnitarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtfValorUnitarioActionPerformed
+
+    private void txtfValorUnitarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfValorUnitarioKeyReleased
+        txtfValorUnitario.setText(TextSize.maxLenghtValorPeca(txtfValorUnitario.getText()));
+    }//GEN-LAST:event_txtfValorUnitarioKeyReleased
+
+    private void txtQuantidadeMinimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidadeMinimaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtQuantidadeMinimaActionPerformed
+
+    private void txtQuantidadeMinimaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeMinimaKeyReleased
+        txtQuantidadeMinima.setText(TextSize.maxLenghtQuantidadePeca(txtQuantidadeMinima.getText()));
+    }//GEN-LAST:event_txtQuantidadeMinimaKeyReleased
+
+    private void txtQuantidadeMaximaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidadeMaximaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtQuantidadeMaximaActionPerformed
+
+    private void txtQuantidadeMaximaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeMaximaKeyReleased
+        txtQuantidadeMaxima.setText(TextSize.maxLenghtQuantidadePeca(txtQuantidadeMaxima.getText()));
+    }//GEN-LAST:event_txtQuantidadeMaximaKeyReleased
+
+    private void txtCodigoPecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoPecaKeyReleased
+        txtCodigoPeca.setText(TextSize.maxLenghtCodigoPeca(txtCodigoPeca.getText()));
+        verificarCodigoProduto();
+    }//GEN-LAST:event_txtCodigoPecaKeyReleased
+
+    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
+        deletarRegistro();
+    }//GEN-LAST:event_btnDeletarActionPerformed
+
+    private void btnLimparTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparTabelaActionPerformed
+        limparTabela();
+    }//GEN-LAST:event_btnLimparTabelaActionPerformed
+
+    private void btnListarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarTodosActionPerformed
+        atualizarTabela(false);
+    }//GEN-LAST:event_btnListarTodosActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        alterarRegistro();
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void tblListagemProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListagemProdutoMouseClicked
+        popularCampos();
+    }//GEN-LAST:event_tblListagemProdutoMouseClicked
+
+    private void txtPesquisaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPesquisaFocusGained
+        txtPesquisa.selectAll();
+        limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
+        pesquisarFiltrada();
+    }//GEN-LAST:event_txtPesquisaFocusGained
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        control.Janelas.abrirCadastroProduto();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -281,118 +474,445 @@ public class FrmListagemProduto extends javax.swing.JFrame {
         });
     }
 
-    //Criando método de preenchimento/atualização de tabela com dados do banco
-    private void atualizarTabela() {
-        //Instanciando array de peças para preenchimento da tabela
-        ArrayList<Produto> lista = new ArrayList<>();
-        //Chamando método para preenchimento de Jtable com dados da tabela de peça
-        lista = dao.DaoProduto.listarPeca();
-        //Criando array com os nomes para cada coluna.
-        String[] nomeColunas = {"Código", "Nome", "Categoria", "Quantidade", "Alerta Qtd Mínima", "Alerta Qtd Máxima", "Valor Unitário", "PK Ref"};
-        try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPeca()
-        {
-            DefaultTableModel model = new DefaultTableModel() {
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    if (column == 7) {
-                        //Coluna 8 não poderá ser editada.
-                        return false;
-                    }
-                    return true;
-                }
-            };
-            //atribui o modelo para a tabela.
-            tblListagemPeca.setModel(model);
-            //atribui os cabeçalhos para o modelo.
-            model.setColumnIdentifiers(nomeColunas);
-            //Remove as linhas da tabela.
-            model.setRowCount(0);
-            //declara um array de objetos para armazenar os valores.
-            Object rowData[] = new Object[8];
-            for (int i = 0; i < lista.size(); i++) {
-                rowData[0] = lista.get(i).getCodigoPeca();
-                rowData[1] = lista.get(i).getNomePeca();
-                rowData[2] = lista.get(i).getCategoriaPeca();
-                rowData[3] = Long.toString(lista.get(i).getQuantidadePeca());
-                rowData[4] = Long.toString(lista.get(i).getAlertaQtdMin());
-                rowData[5] = Long.toString(lista.get(i).getAlertaQtdMax());
-                rowData[6] = lista.get(i).getValorUnitarioSTR();
-                rowData[7] = lista.get(i).getCodigoPeca();
-                model.addRow(rowData);
-
-            }
-
-        } catch (Exception ex) {
-            System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
-        }
-
-        tblListagemPeca.getColumnModel().getColumn(7).setMinWidth(0);
-        tblListagemPeca.getColumnModel().getColumn(7).setPreferredWidth(0);
-        tblListagemPeca.getColumnModel().getColumn(7).setMaxWidth(0);
-
-    }
-
-    private void atualizarTabelaFiltrada() { //Igual método de ListarPeca, mas chama o método de ListarPecaFiltrada()
-
-        ArrayList<Produto> lista = new ArrayList<>();
-        lista = dao.DaoProduto.listarPecaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim().toLowerCase()); //Filtrando 
-        String[] nomeColunas = {"Código", "Nome", "Categoria", "Quantidade", "Alerta Qtd Mínima", "Alerta Qtd Máxima", "Valor Unitário", "PK Ref"};
-        try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPeca()
-        {
-            DefaultTableModel model = new DefaultTableModel() {
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    if (column == 7) {
-                        //Coluna 8 não poderá ser editada.
-                        return false;
-                    }
-                    return true;
-                }
-            };
-            //atribui o modelo para a tabela.
-            tblListagemPeca.setModel(model);
-            //atribui os cabeçalhos para o modelo.
-            model.setColumnIdentifiers(nomeColunas);
-            //Remove as linhas da tabela.
-            model.setRowCount(0);
-            //declara um array de objetos para armazenar os valores.
-            Object rowData[] = new Object[8];
-            for (int i = 0; i < lista.size(); i++) {
-                rowData[0] = lista.get(i).getCodigoPeca();
-                rowData[1] = lista.get(i).getNomePeca();
-                rowData[2] = lista.get(i).getCategoriaPeca();
-                rowData[3] = Long.toString(lista.get(i).getQuantidadePeca());
-                rowData[4] = Long.toString(lista.get(i).getAlertaQtdMin());
-                rowData[5] = Long.toString(lista.get(i).getAlertaQtdMax());
-                rowData[6] = lista.get(i).getValorUnitarioSTR();
-                rowData[7] = lista.get(i).getCodigoPeca();
-                model.addRow(rowData);
-
-            }
-
-        } catch (Exception ex) {
-            System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
-        }
-
-        tblListagemPeca.getColumnModel().getColumn(7).setMinWidth(0);
-        tblListagemPeca.getColumnModel().getColumn(7).setPreferredWidth(0);
-        tblListagemPeca.getColumnModel().getColumn(7).setMaxWidth(0);
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
-    private javax.swing.JButton btnAtualizarTabela;
     private javax.swing.JButton btnDeletar;
-    private javax.swing.JButton btnFechar;
+    private javax.swing.JButton btnDeletarTodosRegistros;
+    private javax.swing.JButton btnFecharFrame;
+    private javax.swing.JButton btnLimparTabela;
+    private javax.swing.JButton btnListarTodos;
     private javax.swing.JButton btnMenuPrincipal;
-    private javax.swing.JButton btnTelaCadastro;
+    private javax.swing.JComboBox<String> cmbCategoria;
     private javax.swing.JComboBox<String> cmbFiltro;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblDescrever;
-    private javax.swing.JLabel lblFundo;
+    private javax.swing.JLabel lblBackground;
+    private javax.swing.JLabel lblCategoriaPeca;
+    private javax.swing.JLabel lblCodigoExiste;
+    private javax.swing.JLabel lblCodigoPeca;
+    private javax.swing.JLabel lblDigiteODado;
+    private javax.swing.JLabel lblNomePeca;
     private javax.swing.JLabel lblPesquisar;
-    private javax.swing.JTable tblListagemPeca;
+    private javax.swing.JLabel lblProdutoEncontrado;
+    private javax.swing.JLabel lblQuantidadeMaxima;
+    private javax.swing.JLabel lblQuantidadeMinima;
+    private javax.swing.JLabel lblQuantidadePeca;
+    private javax.swing.JLabel lblValorUnitario;
+    private javax.swing.JPanel panDadosProduto;
+    private javax.swing.JPanel panPrincipal;
+    private javax.swing.JTable tblListagemProduto;
+    private javax.swing.JTextField txtCodigoPeca;
+    private javax.swing.JTextField txtNomePeca;
     private javax.swing.JTextField txtPesquisa;
+    private javax.swing.JFormattedTextField txtQuantidadeMaxima;
+    private javax.swing.JFormattedTextField txtQuantidadeMinima;
+    private javax.swing.JFormattedTextField txtQuantidadePeca;
+    private javax.swing.JFormattedTextField txtfValorUnitario;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * Atualiza os dados da tabela.
+     * Um novo DefaultTableModel é instanciado, recebendo atributos
+     * do tableModel atual. Então, é forçado que a tabela possua nenhuma linha.
+     * Isso é para evitar repetição de valores em múltiplas pesquisas.
+     * Um ArrayList do tipo Produto é instanciado. É verificado se o tipo de pesquisa
+     * é filtrada ou listagem geral. Caso seja pesquisa filtrada, o metodo de listagem
+     * via pesquisa filtrada é chamada <code>listarPecaFiltrada</code> recebendo
+     * o termo do filtro como parâmetro, populando o ArrayList. Caso não, o método 
+     * <code>listarPeca()</code> é chamado, populando o ArrayList. 
+     * Um array de tipo Object (genérico) dadosLinha é instanciado, com a quantidade de colunas
+     * da tabela. O For percorre até a quantidade de elementos presente no ArrayList, 
+     * e cada posição do array dadosLinha é populado com os valores dos atributos 
+     * do objeto presente no índice atual do ArrayList. Em seguida, uma linha é
+     * adicionada a tabela através dos dados continhos no array dadosLinha.
+     * Por fim, chama o método <code> limparCampos </code> para limpar os dados
+     * do registro selecionado anteriormente.
+     * 
+     * @param filtrada booleano que define se a pesquisa é filtrada ou não. true
+     * = filtrada. false = atualiza a tabela com todos os dados registrados no
+     * banco.
+     */
+    private void atualizarTabela(boolean filtrada) {
+        /*
+        Cria um novo modelo de tabela do tipo DefaultTableModel, baseado no modelo
+        atual da tabela, definido no metodo inicializarTabela.
+         */
+        DefaultTableModel model = new DefaultTableModel();
+        model = (DefaultTableModel) tblListagemProduto.getModel();
+        model.setRowCount(0);
+        /*
+        Instanciamento do ArrayList lista, do tipo Produto.
+         */
+        ArrayList<Produto> lista = new ArrayList<>();
+        /*
+        Caso seja uma atualização por filtro, chama o metodo listarPecaFiltrada() 
+        e define que o último tipo de pesquisa foi por filtro (ultimoTipoPesquisa = true).
+        Caso não, chama o método listarPeca, que popula a lista com todos os dados
+        armazenados no banco de dados, e define que o último tipo de pesquisa foi listar todos
+        (ultimoTipoPesquisa = false).
+         */
+        if (filtrada) {
+            lista = DaoProduto.listarPecaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().toLowerCase().trim());
+            ultimoTipoPesquisa = true;
+        } else {
+            lista = DaoProduto.listarPeca();
+            ultimoTipoPesquisa = false;
+        }
+        /*
+        Instanciamento do array dadosLinha do tipo Object. O tipo Object é genérico.
+        Nele será atribuido cada atributo do objeto Produto.
+         */
+        Object dadosLinha[] = new Object[8];
+        /*
+        Um laço de repetição para adicionar linhas a tabela.
+        O for percorre até o último índice da lista, especificado pela chamada do 
+        método .size(), que retorna o tamanho do ArrayList lista.
+        Cada posição do array dadosLinha é populado com os dados do objeto Produto
+        presente na lista.
+         */
+        for (int i = 0; i < lista.size(); i++) {
+            dadosLinha[0] = lista.get(i).getCodigoPeca();
+            dadosLinha[1] = lista.get(i).getNomePeca();
+            dadosLinha[2] = lista.get(i).getCategoriaPeca();
+            dadosLinha[3] = lista.get(i).getQuantidadePeca();
+            dadosLinha[4] = lista.get(i).getAlertaQtdMin();
+            dadosLinha[5] = lista.get(i).getAlertaQtdMax();
+            dadosLinha[6] = lista.get(i).getValorUnitarioSTR();
+            dadosLinha[7] = lista.get(i).getCodigoPeca();
+            model.addRow(dadosLinha);
+        }
+        //String[] nomeColunas = {"Código", "Nome", "Categoria", "Quantidade", "Alerta Qtd Mínima", "Alerta Qtd Máxima", "Valor Unitário", "PK Ref"};
+        /*
+        Remove os dados do campo selecionado anteriormente.
+         */
+        limparCampos();
+    }
+    /**
+     * Limpa todos os campos da janela e atualiza o status do Código informado,
+     * para fins estéticos e de validação.
+     */
+    private void limparCampos() {
+        txtCodigoPeca.setText("");
+        cmbCategoria.setSelectedItem("-");
+        txtNomePeca.setText("");
+        txtfValorUnitario.setText("0,00");
+        txtQuantidadePeca.setText("0");
+        txtQuantidadeMinima.setText("0");
+        txtQuantidadeMaxima.setText("0");
+        verificarCodigoProduto();
+    }
+
+    /**
+     * Define dinamicamente o limite de caracteres do campo de pesquisa
+     * filtrada. O metodo apropriado da classe TextSize é chamado com base no
+     * ítem selecionado na combo box que define o filtro.
+     *
+     * @param filtro Texto do filtro selecionado. Valores possíveis: Código,
+     * Nome, Categoria, Quantidade, Alerta Qtd Min, Alerta Qtd Max, Valor
+     */
+    private void limiteDigitosPesquisa(String filtro) {
+        switch (filtro) {
+            case "Código":
+                txtPesquisa.setText(control.TextSize.maxLenghtCodigoPeca(txtPesquisa.getText()));
+                break;
+            case "Nome":
+                txtPesquisa.setText(control.TextSize.maxLenghtNomePeca(txtPesquisa.getText()));
+                break;
+            case "Quantidade":
+                txtPesquisa.setText(control.TextSize.maxLenghtQuantidadePeca(txtPesquisa.getText()));
+                break;
+            case "Alerta Qtd Min":
+                txtPesquisa.setText(control.TextSize.maxLenghtQuantidadePeca(txtPesquisa.getText()));
+                break;
+            case "Alerta Qtd Max":
+                txtPesquisa.setText(control.TextSize.maxLenghtQuantidadePeca(txtPesquisa.getText()));
+                break;
+            case "Valor":
+                txtPesquisa.setText(control.TextSize.maxLenghtValorPeca(txtPesquisa.getText()));
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Erro ao definir limite de caracteres do campo de pesquisa.",
+                        "Erro - limite de dígitos dinâmico", 0);
+                break;
+        }
+    }
+
+    /**
+     * A tabela é modelada e inicializada no JFrame. Um array de Strings 
+     * <code>nomeColunas[]</code> é instanciado com o nome de cada coluna a ser
+     * utilizado pela tabela. Cria um objeto do tipo DefaultTableModel de acordo com as necessidades
+     * dessa janela. Em seguida, a edição das células da tabela é desativada.
+     * As colunas são definidas, e é forçado que a tabela inicie com nenhuma linha.
+     * A coluna da chave primária para utilização de referência (PK_REF) é
+     * ocultada da exibição. Também é definido largura para colunas
+     * individualmente.
+     */
+    private void inicializarTabela() {
+        
+        String[] nomeColunas = {"Código", "Nome", "Categoria", "Quantidade", "Alerta Qtd Mínima", "Alerta Qtd Máxima", "Valor Unitário", "PK Ref"};
+        try {
+            /*
+            Desativando a edição da tabela.
+             */
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+            
+            tblListagemProduto.setModel(model);
+            
+            model.setColumnIdentifiers(nomeColunas);
+            
+            model.setRowCount(0);
+            /*
+            Ocultando a coluna PK_REF, que armazena a referência da chave primaria
+            original que pode vir a ser alterado, se o usuário desejar.
+            */
+            tblListagemProduto.getColumnModel().getColumn(7).setMinWidth(0);
+            tblListagemProduto.getColumnModel().getColumn(7).setPreferredWidth(0);
+            tblListagemProduto.getColumnModel().getColumn(7).setMaxWidth(0);
+            
+            limparCampos();
+
+            /*
+            Captura de qualquer tipo de excessão que aconteça.
+             */
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao inicializar a tabela. \n\n"
+                    + ex, "Erro - Inicialização de tabela.", 0);
+        }
+    }
+
+    private void verificarCodigoProduto() {
+        if (txtCodigoPeca.getText().equals("")) {
+            lblCodigoExiste.setText("Código Inválido.");
+            lblCodigoExiste.setForeground(Color.red);
+            existeProduto = true;
+        } else {
+            this.existeProduto = dao.DaoProduto.existePeca(txtCodigoPeca.getText());
+            if (this.existeProduto) {
+                lblCodigoExiste.setText("Produto já cadastrado.");
+                lblCodigoExiste.setForeground(Color.black);
+                existeProduto = false;
+            } else {
+                lblCodigoExiste.setText("Código Disponível.");
+                lblCodigoExiste.setForeground(Color.black);
+                existeProduto = false;
+            }
+        }
+    }
+
+    /**
+     * Popula os campos com dados salvos no banco de dados. Ao selecionar uma
+     * linha na tabela, um objeto do tipoProduto é instanciado. Uma variavel string
+     * de controle também é isntanciada, recebendo o valor do código do produto
+     * da linha selecionada atualmente. Então o objeto produto é populado através
+     * do método <code> popularPeca(codigo)</code> onde o codigo da linha selecionada 
+     * é vasculhado no banco populando o objeto produto de acordo com os registros
+     * relacionados ao código passado como parâmetro. Os campos da interface são populados
+     * com o valor atribuido aos atributos desse objeto produto.
+     */
+    private void popularCampos() {
+        
+        Produto produto = new Produto();
+        
+        String codigo = (String) tblListagemProduto.getValueAt(tblListagemProduto.getSelectedRow(), 0);
+        
+        produto = dao.DaoProduto.popularPeca(codigo);
+        
+        txtCodigoPeca.setText(produto.getCodigoPeca());
+        cmbCategoria.setSelectedItem((String) produto.getCategoriaPeca());
+        txtNomePeca.setText(produto.getNomePeca());
+        txtfValorUnitario.setText(produto.getValorUnitarioSTR());
+        txtQuantidadePeca.setText(String.valueOf(produto.getQuantidadePeca()));
+        txtQuantidadeMinima.setText(String.valueOf(produto.getAlertaQtdMin()));
+        txtQuantidadeMaxima.setText(String.valueOf(produto.getAlertaQtdMax()));
+        
+        verificarCodigoProduto();
+    }
+
+    /**
+     * Remove o registro atualmente selecionado do banco de dados.
+     * Interroga o usuário se realmente deseja remover o registro selecionado na
+     * tabela. O retorno do JOPtionPane é guardado na variavel de controle opcao.
+     * Caso sim (opcao == 0), chama o metodo <code>deletarPeca</code> no qual
+     * remove do banco de dados todos os registros relacionados ao código infromado
+     * por parâmetro, código no qual é o código da linha selecionada da tabela.
+     */
+    private void deletarRegistro() {
+        /*
+        Variável de controle opcao. Armazena o retorno do JOPtionPane.
+        O mesmo retorna 0 quando a opção SIM/YES é selecionada,
+        1 para quando a opção NÃO/NO é selecionada.
+         */
+        int opcao;
+        opcao = JOptionPane.showConfirmDialog(null, "Atenção! Todos os registros relacionados ao código "
+                + ((String) tblListagemProduto.getValueAt(tblListagemProduto.getSelectedRow(), 0))
+                + " serão permanentemente removidos.\n\nDeseja realmente excluir o registro?",
+                "Confirmação de exclusão",
+                JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        /*
+        Caso a opção SIM seja selecionada, o atributo código é populado do objeto 
+        produto, e o mesmo é passado como parâmetro para o metodo deletarPeca.
+        Após a execução do método, a tabela é atualizada de acordo com o último
+        tipo de pesquisa realizada.
+        ultimoTipoPesquisa - true = filtrada. false = listar todos.
+         */
+        if (opcao == 0) {
+            Produto produto = new Produto();
+            produto.setCodigoPeca((String) tblListagemProduto.getValueAt(tblListagemProduto.getSelectedRow(), 0));
+            dao.DaoProduto.deletarPeca(produto.getCodigoPeca());
+            atualizarTabela(ultimoTipoPesquisa);
+            limparCampos();
+        }
+    }
+    
+    /**
+     * Esvazia todo o conteúdo da tabela e limpa os campos.
+     */
+    private void limparTabela() {
+        DefaultTableModel model = new DefaultTableModel();
+        model = (DefaultTableModel) tblListagemProduto.getModel();
+        model.setRowCount(0);
+        /*
+        Chama o metodo limparCampos para limpar os dados do registro anteriormente
+        selecionado.
+         */
+        limparCampos();
+    }
+
+    /**
+     * Altera o registro no banco de dados, com base nos valores informados nos
+     * campos. Utiliza o valor oculto PK_REF da tabela, como referência para o 
+     * código original, caso o mesmo seja alterado. PK_REF será usado na cláusula
+     * WHERE da QUERY de UPDATE do banco.
+     * 
+     * Antes de chamar o método <code>alterarPeca</code>, o metodo <code>validarCampos</code>
+     *  é chamado para validar todos os campos preenchidos. Sendo o metodo alterarPeca
+     * retornando true, um objeto do tipo Produto é instanciado e enfim, o método
+     * alterarProduto é chamado.
+     * Após a chamada, a tabela é atualizada de acordo com o último tipo de pesquisa
+     * e os dados dos campos são limpados.
+     */
+    private void alterarRegistro() {
+        if (validarCampos()) {
+            Produto produto = new Produto();
+            
+            
+            produto.setCodigoPeca(txtCodigoPeca.getText());
+            produto.setCategoriaPeca(cmbCategoria.getSelectedItem().toString());
+            produto.setNomePeca(txtNomePeca.getText());
+            produto.setValorUnitario(txtfValorUnitario.getText());
+            produto.setQuantidadePeca(txtQuantidadePeca.getText());
+            produto.setAlertaQtdMin(txtQuantidadeMinima.getText());
+            produto.setAlertaQtdMax(txtQuantidadeMaxima.getText());
+            /*
+            String de controle PK_REF. Seu valor é baseado no campo oculto PK_REF da tabela.
+            Irá armazenar o código original, inalterado, da linha selecionada. Esse valor
+            será utilizado na cláusula WHERE da query no banco, pois é possível que
+            usuário altere o código do registro selecionado, sendo o PK_REF
+            a referência da Primary Key (código original)
+            */
+            String PK_REF = (String) tblListagemProduto.getValueAt(tblListagemProduto.getSelectedRow(), 7);
+            boolean alteracaoSucedida ;
+            alteracaoSucedida = dao.DaoProduto.alterarPeca(produto, PK_REF);
+            
+            if (alteracaoSucedida) {
+                atualizarTabela(ultimoTipoPesquisa);
+                limparCampos();
+            }
+        }
+    }
+    
+    private boolean validarCampos() {
+        if (txtCodigoPeca.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Código do Produto em branco.\n\n"
+                    + "Informe corretamente o Código do Produto a ser alterado.", "Erro - Código do Produto Inválido", 0);
+            txtCodigoPeca.requestFocus();
+            return false;
+        } else if (this.existeProduto) {
+            JOptionPane.showMessageDialog(null, "Código do Produto inválido.\n\n"
+                    + "Informe um código do produto diferente.", "Erro - Código do Produto Inválido", 0);
+            txtCodigoPeca.requestFocus();
+            return false;
+        } else if (txtNomePeca.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Nome do Produto em branco.\n\n"
+                    + "Informe corretamente o Nome do Produto a ser alterado.", "Erro - Nome do Produto Inválido", 0);
+            txtNomePeca.requestFocus();
+            return false;
+        } else if (txtfValorUnitario.getText().equals("0,00")) {
+            JOptionPane.showMessageDialog(null, "Valor unitário do Produto zerado.\n\n"
+                    + "Informe corretamente o valor unitário do Produto a ser alterado.", "Erro - Valor Unitário Inválido", 0);
+            txtfValorUnitario.requestFocus();
+            return false;
+        } else if (txtQuantidadePeca.getText().equals("0")) {
+            JOptionPane.showMessageDialog(null, "Quantidade do Produto zerado.\n\n"
+                    + "Informe corretamente a quantidade do Produto a ser alterado.", "Erro - Quantidade Inválida", 0);
+            txtQuantidadePeca.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Inicia o procedimento para atualizar a tabela através de uma busca
+     * filtrada. O método da listagemFiltrada só é chamado caso o campo de texto
+     * não esteja vazio.
+     */
+    private void pesquisarFiltrada() {
+        try {
+            /*
+            Caso o campo de pesquisa esteja populado, o método de atualização é chamado.
+            Caso não, a tabela é esvaziada.
+             */
+            if (!"".equals(txtPesquisa.getText().trim())) {
+                atualizarTabela(true);
+            } else {
+                limparTabela();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao atualizar a tabela por filtro.\n\n"
+                    + ex, "Erro ao popular tabela", 0);
+        }
+    }
+
+    /**
+     * Remove todos os registros da tabela Produto do banco de dados. Essa operacao
+     * não utiliza do parâmetro CASCADE, ou seja, se houver algum registro relacionado
+     * com alguma outra tabela, a operação irá falhar.
+     * Interroga o usuário duas vezes, alertando sobre a operação a ser realizada.
+     * Caso o usuário selecione SIM, irá armazenar 0 na variavel de controle opcao.
+     * Caso digite não, irá armazenar 1 na variável de controle opcao.
+     * Selecionando SIM duas vezes, finalmente o metodo <code>deletarTodasPecas</code>
+     *  é chamado. Uma variável de controle booleana <code>exclusaoSucedida</code>
+     * armazena caso a operação tenha sido concluída com sucesso - true, ou não -
+     * false. Caso tenha sido sucedida, a tabela é atualizada com base no ultimo
+     * tipo de pesquisa e os campos do registro previamente selecionado são limpados.
+     */
+    private void removerTodosRegistros() {
+        int opcao;
+        opcao = JOptionPane.showConfirmDialog(null, "Deseja REALMENTE remover todos os produtos do banco de dados?\n\n",
+        "Alerta - remoção de todos os registros",JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (opcao == 0) {
+            opcao = JOptionPane.showConfirmDialog(null, "Essa operação tem grandes chances de falhar, devido a existência\n"
+                    + "de restrições de chaves estrangeiras no banco de dados.\n\n"
+                    + "Deseja REALMENTE tentar excluir todos os registros do banco de dados?\n\n"
+                    + "Caso a operação suceda, todos os dados serão permanentemente excluídos.\n"
+                    + "Caso ela falhe, talvez alguns registros possam ter sidos excluidos, e outros não."
+                    + "\n\n"
+                    + "Deseja prosseguir?",
+                "Alerta - remoção de todos os registros",JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            if (opcao == 0) {
+                boolean exclusaoSucedida;
+                exclusaoSucedida = dao.DaoProduto.deletarTodasPecas();
+                if (exclusaoSucedida) {
+                    atualizarTabela(ultimoTipoPesquisa);
+                }
+            }
+        }
+    }
 }
