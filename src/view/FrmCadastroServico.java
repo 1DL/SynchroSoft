@@ -178,7 +178,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         lblExisteServico.setForeground(java.awt.Color.red);
         lblExisteServico.setText("Código Inválido.");
         panPrincipal.add(lblExisteServico);
-        lblExisteServico.setBounds(293, 15, 120, 14);
+        lblExisteServico.setBounds(270, 10, 120, 25);
 
         lblCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCep.setText("CEP:");
@@ -197,12 +197,12 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         lblDataCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDataCadastro.setText("Data de Cadastro:");
         panPrincipal.add(lblDataCadastro);
-        lblDataCadastro.setBounds(781, 10, 150, 25);
+        lblDataCadastro.setBounds(750, 10, 150, 25);
 
         lblTipoCliente.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblTipoCliente.setText("Tipo de Cliente:");
         panPrincipal.add(lblTipoCliente);
-        lblTipoCliente.setBounds(30, 50, 160, 25);
+        lblTipoCliente.setBounds(10, 50, 160, 25);
 
         btngTipoCliente.add(rbtFisica);
         rbtFisica.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -215,7 +215,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(rbtFisica);
-        rbtFisica.setBounds(160, 47, 69, 33);
+        rbtFisica.setBounds(160, 50, 69, 25);
 
         btngTipoCliente.add(rbtJuridica);
         rbtJuridica.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -227,12 +227,12 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(rbtJuridica);
-        rbtJuridica.setBounds(230, 47, 85, 33);
+        rbtJuridica.setBounds(230, 50, 85, 25);
 
         lblRelatorioServico.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblRelatorioServico.setText("Relatório do serviço:");
         panPrincipal.add(lblRelatorioServico);
-        lblRelatorioServico.setBounds(30, 130, 170, 25);
+        lblRelatorioServico.setBounds(10, 130, 170, 25);
 
         lblSelecionarFunc.setForeground(java.awt.Color.red);
         lblSelecionarFunc.setText("Funcionário Inválido.");
@@ -247,16 +247,16 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnSelecionarArquivo);
-        btnSelecionarArquivo.setBounds(210, 130, 80, 25);
+        btnSelecionarArquivo.setBounds(190, 130, 80, 25);
 
         lblDiretorioArquivo.setText("...");
         panPrincipal.add(lblDiretorioArquivo);
-        lblDiretorioArquivo.setBounds(615, 138, 480, 14);
+        lblDiretorioArquivo.setBounds(615, 130, 480, 25);
 
         lblCodigoFunc.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCodigoFunc.setText("Código Funcionário:");
         panPrincipal.add(lblCodigoFunc);
-        lblCodigoFunc.setBounds(30, 90, 170, 25);
+        lblCodigoFunc.setBounds(10, 90, 170, 25);
 
         txtCodFunc.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -264,12 +264,12 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(txtCodFunc);
-        txtCodFunc.setBounds(200, 90, 120, 25);
+        txtCodFunc.setBounds(190, 90, 120, 25);
 
         lblNomeFuncValor.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblNomeFuncValor.setText("-");
         panPrincipal.add(lblNomeFuncValor);
-        lblNomeFuncValor.setBounds(740, 90, 350, 25);
+        lblNomeFuncValor.setBounds(730, 90, 360, 25);
 
         btnCadastrar.setText("Criar e ativar serviço");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
@@ -386,7 +386,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(cmbTipoServico);
-        cmbTipoServico.setBounds(668, 10, 110, 25);
+        cmbTipoServico.setBounds(640, 10, 110, 25);
 
         btnCadastrarPessoaJ.setText("Cadastrar CPF");
         btnCadastrarPessoaJ.addActionListener(new java.awt.event.ActionListener() {
@@ -400,7 +400,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         lblTipoServico.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblTipoServico.setText("Tipo de Serviço:");
         panPrincipal.add(lblTipoServico);
-        lblTipoServico.setBounds(532, 10, 160, 25);
+        lblTipoServico.setBounds(500, 10, 160, 25);
 
         txtCodigoServico.setNextFocusableComponent(cmbTipoServico);
         txtCodigoServico.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -409,12 +409,12 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(txtCodigoServico);
-        txtCodigoServico.setBounds(210, 10, 80, 25);
+        txtCodigoServico.setBounds(190, 10, 80, 25);
 
         lblCodigoServico.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCodigoServico.setText("Código do serviço: ");
         panPrincipal.add(lblCodigoServico);
-        lblCodigoServico.setBounds(30, 10, 160, 25);
+        lblCodigoServico.setBounds(10, 10, 160, 25);
 
         btnListarFunc.setText("Listar Funcionários");
         btnListarFunc.addActionListener(new java.awt.event.ActionListener() {
@@ -432,7 +432,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnListarServico);
-        btnListarServico.setBounds(420, 7, 110, 30);
+        btnListarServico.setBounds(390, 8, 110, 30);
 
         btnSelecionarfunc.setText("Selecionar Funcionário");
         btnSelecionarfunc.setEnabled(false);
@@ -447,7 +447,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
 
         txtfDataServico.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
         panPrincipal.add(txtfDataServico);
-        txtfDataServico.setBounds(928, 10, 90, 25);
+        txtfDataServico.setBounds(900, 10, 90, 25);
 
         try {
             txtfCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
@@ -480,12 +480,12 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         lblCepExiste.setForeground(java.awt.Color.red);
         lblCepExiste.setText("Cep Inválido.");
         panPrincipal.add(lblCepExiste);
-        lblCepExiste.setBounds(883, 56, 110, 14);
+        lblCepExiste.setBounds(883, 50, 110, 25);
 
         lblCpfCnpjExiste.setForeground(java.awt.Color.red);
         lblCpfCnpjExiste.setText("CPF Inválido.");
         panPrincipal.add(lblCpfCnpjExiste);
-        lblCpfCnpjExiste.setBounds(503, 56, 120, 14);
+        lblCpfCnpjExiste.setBounds(503, 50, 120, 25);
 
         btnHoje.setText("Hoje");
         btnHoje.addActionListener(new java.awt.event.ActionListener() {
@@ -494,16 +494,16 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnHoje);
-        btnHoje.setBounds(1025, 10, 55, 25);
+        btnHoje.setBounds(1000, 10, 55, 25);
 
         lblNomeFunc.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblNomeFunc.setText("Nome Func.: ");
+        lblNomeFunc.setText("Funcionário:");
         panPrincipal.add(lblNomeFunc);
-        lblNomeFunc.setBounds(630, 90, 110, 25);
+        lblNomeFunc.setBounds(630, 90, 100, 25);
 
         lblCodigoServicoInicial.setText("P");
         panPrincipal.add(lblCodigoServicoInicial);
-        lblCodigoServicoInicial.setBounds(203, 15, 20, 14);
+        lblCodigoServicoInicial.setBounds(180, 10, 20, 25);
 
         panTabelaFunc.setBorder(javax.swing.BorderFactory.createTitledBorder("Funcionários selecionados para executar esse serviço"));
         panTabelaFunc.setOpaque(false);
@@ -544,7 +544,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         btnRemoveLinhaFunc.setBounds(700, 40, 160, 30);
 
         panPrincipal.add(panTabelaFunc);
-        panTabelaFunc.setBounds(30, 155, 870, 165);
+        panTabelaFunc.setBounds(10, 155, 870, 165);
 
         panUtilidade.setBorder(javax.swing.BorderFactory.createTitledBorder("Acesso Rápido"));
         panUtilidade.setOpaque(false);
@@ -573,7 +573,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
 
         lblNomeArquivo.setText("Nenhum arquivo selecionado.");
         panPrincipal.add(lblNomeArquivo);
-        lblNomeArquivo.setBounds(293, 138, 150, 14);
+        lblNomeArquivo.setBounds(273, 130, 220, 25);
 
         btnRemoverArquivo.setText("Remover Arquivo");
         btnRemoverArquivo.addActionListener(new java.awt.event.ActionListener() {

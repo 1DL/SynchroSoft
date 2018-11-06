@@ -45,7 +45,7 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
 
         btnMenuPrincipal = new javax.swing.JButton();
         btnFecharFrame = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        panPrincipal = new javax.swing.JPanel();
         lblCodigoPeca = new javax.swing.JLabel();
         lblCategoriaPeca = new javax.swing.JLabel();
         txtNomePeca = new javax.swing.JTextField();
@@ -70,7 +70,8 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
         lblBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de Peça");
+        setTitle("Cadastro de Produto");
+        setAlwaysOnTop(true);
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logopng32.png")));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         setResizable(false);
@@ -94,32 +95,47 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
         getContentPane().add(btnFecharFrame);
         btnFecharFrame.setBounds(1055, 550, 80, 30);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.setOpaque(false);
-        jPanel1.setPreferredSize(new java.awt.Dimension(1100, 510));
+        panPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panPrincipal.setOpaque(false);
+        panPrincipal.setPreferredSize(new java.awt.Dimension(1100, 510));
+        panPrincipal.setLayout(null);
 
         lblCodigoPeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCodigoPeca.setText("Código de Barras:");
+        panPrincipal.add(lblCodigoPeca);
+        lblCodigoPeca.setBounds(10, 10, 154, 25);
 
         lblCategoriaPeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCategoriaPeca.setText("Categoria:");
+        panPrincipal.add(lblCategoriaPeca);
+        lblCategoriaPeca.setBounds(656, 10, 90, 25);
 
         txtNomePeca.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNomePecaKeyReleased(evt);
             }
         });
+        panPrincipal.add(txtNomePeca);
+        txtNomePeca.setBounds(170, 50, 316, 25);
 
         lblNomePeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblNomePeca.setText("Nome da Peça:");
+        panPrincipal.add(lblNomePeca);
+        lblNomePeca.setBounds(10, 50, 140, 25);
 
         lblQuantidadePeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblQuantidadePeca.setText("Quantidade:");
+        panPrincipal.add(lblQuantidadePeca);
+        lblQuantidadePeca.setBounds(10, 90, 140, 25);
 
         lblValorUnitario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblValorUnitario.setText("Valor Unitário:");
+        panPrincipal.add(lblValorUnitario);
+        lblValorUnitario.setBounds(656, 50, 114, 25);
 
         cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gerador", "Bombas", "Aquecedores", "Alarme de incêndio", "Pressurizadores de escada", "Alarme perimetral", "Cabine primária", "Redutoras de pressão" }));
+        panPrincipal.add(cmbCategoria);
+        cmbCategoria.setBounds(788, 10, 175, 25);
 
         btnLimpar.setText("Limpar");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -127,6 +143,8 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
                 btnLimparActionPerformed(evt);
             }
         });
+        panPrincipal.add(btnLimpar);
+        btnLimpar.setBounds(700, 130, 100, 30);
 
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.setNextFocusableComponent(txtCodigoPeca);
@@ -135,6 +153,8 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
                 btnCadastrarActionPerformed(evt);
             }
         });
+        panPrincipal.add(btnCadastrar);
+        btnCadastrar.setBounds(830, 130, 130, 30);
 
         btnListarPeca.setText("Listar produtos cadastrados");
         btnListarPeca.addActionListener(new java.awt.event.ActionListener() {
@@ -142,6 +162,8 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
                 btnListarPecaActionPerformed(evt);
             }
         });
+        panPrincipal.add(btnListarPeca);
+        btnListarPeca.setBounds(170, 130, 180, 30);
 
         txtQuantidadePeca.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
         txtQuantidadePeca.setText("0");
@@ -150,6 +172,8 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
                 txtQuantidadePecaKeyReleased(evt);
             }
         });
+        panPrincipal.add(txtQuantidadePeca);
+        txtQuantidadePeca.setBounds(170, 90, 100, 25);
 
         txtfValorUnitario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####0.00"))));
         txtfValorUnitario.setText("0,00");
@@ -163,9 +187,13 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
                 txtfValorUnitarioKeyReleased(evt);
             }
         });
+        panPrincipal.add(txtfValorUnitario);
+        txtfValorUnitario.setBounds(788, 50, 175, 25);
 
         lblQuantidadeMinima.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblQuantidadeMinima.setText("Alerta Qtd Mínima:");
+        panPrincipal.add(lblQuantidadeMinima);
+        lblQuantidadeMinima.setBounds(280, 90, 156, 25);
 
         txtQuantidadeMinima.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
         txtQuantidadeMinima.setText("0");
@@ -179,9 +207,13 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
                 txtQuantidadeMinimaKeyReleased(evt);
             }
         });
+        panPrincipal.add(txtQuantidadeMinima);
+        txtQuantidadeMinima.setBounds(440, 90, 100, 25);
 
         lblQuantidadeMaxima.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblQuantidadeMaxima.setText("Alerta Qtd Máxima:");
+        panPrincipal.add(lblQuantidadeMaxima);
+        lblQuantidadeMaxima.setBounds(550, 90, 157, 25);
 
         txtQuantidadeMaxima.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
         txtQuantidadeMaxima.setText("0");
@@ -195,111 +227,29 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
                 txtQuantidadeMaximaKeyReleased(evt);
             }
         });
+        panPrincipal.add(txtQuantidadeMaxima);
+        txtQuantidadeMaxima.setBounds(720, 90, 100, 25);
 
         txtCodigoPeca.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCodigoPecaKeyReleased(evt);
             }
         });
+        panPrincipal.add(txtCodigoPeca);
+        txtCodigoPeca.setBounds(170, 10, 316, 25);
 
         lblCodigoExiste.setForeground(java.awt.Color.red);
         lblCodigoExiste.setText("Código inválido.");
+        panPrincipal.add(lblCodigoExiste);
+        lblCodigoExiste.setBounds(490, 10, 151, 25);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(lblCodigoPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtCodigoPeca))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(lblNomePeca, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtNomePeca, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(205, 205, 205)
-                                        .addComponent(lblQuantidadeMaxima)
-                                        .addGap(15, 15, 15)
-                                        .addComponent(txtQuantidadeMaxima, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblCodigoExiste, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblValorUnitario)
-                                            .addComponent(lblCategoriaPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtfValorUnitario, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                                            .addComponent(cmbCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblQuantidadePeca, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtQuantidadePeca, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(78, 78, 78)
-                                .addComponent(lblQuantidadeMinima, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtQuantidadeMinima, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(114, 114, 114)
-                        .addComponent(btnListarPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 160, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCodigoPeca)
-                    .addComponent(lblCategoriaPeca)
-                    .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCodigoPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCodigoExiste))
-                .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNomePeca)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNomePeca, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblValorUnitario)
-                            .addComponent(txtfValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblQuantidadePeca)
-                    .addComponent(txtQuantidadePeca, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblQuantidadeMinima)
-                    .addComponent(txtQuantidadeMinima, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblQuantidadeMaxima)
-                    .addComponent(txtQuantidadeMaxima, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnListarPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(10, 10, 1125, 240);
+        getContentPane().add(panPrincipal);
+        panPrincipal.setBounds(10, 10, 1125, 180);
 
         lblProdutoRecente.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblProdutoRecente.setText("Produtos Cadastrados Recentemente:");
         getContentPane().add(lblProdutoRecente);
-        lblProdutoRecente.setBounds(10, 250, 350, 25);
+        lblProdutoRecente.setBounds(10, 190, 350, 25);
 
         tblProdutoRecente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -315,7 +265,7 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblProdutoRecente);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 280, 1125, 220);
+        jScrollPane1.setBounds(10, 220, 1125, 320);
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(lblBackground);
@@ -425,7 +375,6 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
     private javax.swing.JButton btnListarPeca;
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JComboBox<String> cmbCategoria;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblCategoriaPeca;
@@ -437,6 +386,7 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
     private javax.swing.JLabel lblQuantidadeMinima;
     private javax.swing.JLabel lblQuantidadePeca;
     private javax.swing.JLabel lblValorUnitario;
+    private javax.swing.JPanel panPrincipal;
     private javax.swing.JTable tblProdutoRecente;
     private javax.swing.JTextField txtCodigoPeca;
     private javax.swing.JTextField txtNomePeca;

@@ -23,7 +23,7 @@ import model.Despesa;
  */
 public class DaoDespesa {
 
-    public static void cadastrarDespesa(Despesa desp) {
+    public static boolean cadastrarDespesa(Despesa desp) {
         try {
             Connection con = Conexao.conectar();
             String sql = "INSERT INTO SYNCHROSOFT.TB_DESPESA (DS_TIPO_DESPESA, "
@@ -38,14 +38,15 @@ public class DaoDespesa {
             st.close();
             JOptionPane.showMessageDialog(null, "Despesa cadastrada com sucesso!",
                     "Cadastro realizado", 1);
+            return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar a despesa.\n\nErro Nº:"
                     + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoDespesa - Cadastro despesa", 0);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DaoDespesa.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro ao popular atributos de despesa. \n\nExceção JAVA:\n"
                     + ex.getMessage(), "Erro ao cadastrar despesas", 0);
+            return false;
         }
     }
 

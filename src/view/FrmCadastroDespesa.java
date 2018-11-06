@@ -13,8 +13,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 import model.Despesa;
+import model.Endereco;
 
 /**
  *
@@ -24,6 +26,7 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
 
     public FrmCadastroDespesa(int nvlAdm) {
         initComponents();
+        inicializarTabela();
         MaskFormatter dateMask;
         try {
             dateMask = new MaskFormatter("##/##/####");
@@ -34,10 +37,8 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         }
 
         txtfDataVencimento.setText(Datas.getDiaHoje());
-        
+
         selecionarAoFocar();
-        
-        
 
         if (nvlAdm == 0) {
             btnCadastrar.setEnabled(false);
@@ -53,7 +54,7 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        panPrincipal = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txaDescricaoDespesa = new javax.swing.JTextArea();
         lblDescrição = new javax.swing.JLabel();
@@ -68,6 +69,9 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         txtfValorDespesa = new javax.swing.JFormattedTextField();
         btnMenuPrincipal = new javax.swing.JButton();
         btnFecharFrame = new javax.swing.JButton();
+        lblDespesaRecente = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblDespesaRecente = new javax.swing.JTable();
         lblBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -77,8 +81,9 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(null);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.setOpaque(false);
+        panPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panPrincipal.setOpaque(false);
+        panPrincipal.setLayout(null);
 
         txaDescricaoDespesa.setColumns(20);
         txaDescricaoDespesa.setLineWrap(true);
@@ -90,11 +95,17 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(txaDescricaoDespesa);
 
+        panPrincipal.add(jScrollPane1);
+        jScrollPane1.setBounds(10, 83, 1100, 180);
+
         lblDescrição.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDescrição.setText("Descrição detalhada da Despesa:");
+        panPrincipal.add(lblDescrição);
+        lblDescrição.setBounds(10, 50, 343, 25);
 
-        cmbTipoDespesa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         cmbTipoDespesa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Serviço", "Obrigações", "Salarios a pagar" }));
+        panPrincipal.add(cmbTipoDespesa);
+        cmbTipoDespesa.setBounds(166, 10, 215, 25);
 
         btnListarDespesas.setText("Listar Despesas Cadastradas");
         btnListarDespesas.addActionListener(new java.awt.event.ActionListener() {
@@ -102,9 +113,13 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
                 btnListarDespesasActionPerformed(evt);
             }
         });
+        panPrincipal.add(btnListarDespesas);
+        btnListarDespesas.setBounds(570, 270, 210, 30);
 
         lblTipoDespesa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblTipoDespesa.setText("Tipo de despesa:");
+        panPrincipal.add(lblTipoDespesa);
+        lblTipoDespesa.setBounds(10, 10, 150, 25);
 
         btnLimpar.setText("Limpar");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -112,9 +127,13 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
                 btnLimparActionPerformed(evt);
             }
         });
+        panPrincipal.add(btnLimpar);
+        btnLimpar.setBounds(820, 270, 100, 30);
 
         lblValorDespesa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblValorDespesa.setText("Valor da despesa:");
+        panPrincipal.add(lblValorDespesa);
+        lblValorDespesa.setBounds(770, 10, 150, 25);
 
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
@@ -122,12 +141,17 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
                 btnCadastrarActionPerformed(evt);
             }
         });
+        panPrincipal.add(btnCadastrar);
+        btnCadastrar.setBounds(950, 270, 130, 30);
 
         lblVencimento.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblVencimento.setText("Data de Vencimento:");
+        panPrincipal.add(lblVencimento);
+        lblVencimento.setBounds(409, 10, 171, 25);
 
         txtfDataVencimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-        txtfDataVencimento.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        panPrincipal.add(txtfDataVencimento);
+        txtfDataVencimento.setBounds(590, 10, 128, 25);
 
         txtfValorDespesa.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         txtfValorDespesa.setText("0,00");
@@ -137,70 +161,11 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
                 txtfValorDespesaKeyReleased(evt);
             }
         });
+        panPrincipal.add(txtfValorDespesa);
+        txtfValorDespesa.setBounds(930, 10, 125, 25);
 
-        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(btnListarDespesas, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(39, 39, 39)
-                        .add(btnLimpar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(31, 31, 31)
-                        .add(btnCadastrar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 130, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                        .add(jPanel1Layout.createSequentialGroup()
-                            .add(35, 35, 35)
-                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 1010, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .add(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(jPanel1Layout.createSequentialGroup()
-                                    .add(lblTipoDespesa, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 150, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                    .add(cmbTipoDespesa, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 215, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(28, 28, 28)
-                                    .add(lblVencimento)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                    .add(txtfDataVencimento, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 128, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 52, Short.MAX_VALUE)
-                                    .add(lblValorDespesa, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 150, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                    .add(txtfValorDespesa, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 125, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                .add(jPanel1Layout.createSequentialGroup()
-                                    .add(lblDescrição, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 343, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(0, 0, Short.MAX_VALUE))))))
-                .addContainerGap(68, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, lblValorDespesa)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(lblTipoDespesa)
-                        .add(cmbTipoDespesa, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(lblVencimento))
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, txtfDataVencimento)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, txtfValorDespesa))
-                .add(18, 18, 18)
-                .add(lblDescrição)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 260, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(18, 18, 18)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(btnCadastrar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(btnLimpar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(btnListarDespesas, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(10, 10, 1125, 420);
+        getContentPane().add(panPrincipal);
+        panPrincipal.setBounds(10, 10, 1125, 310);
 
         btnMenuPrincipal.setText("Menu Principal");
         btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
@@ -219,6 +184,27 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
         });
         getContentPane().add(btnFecharFrame);
         btnFecharFrame.setBounds(1055, 550, 80, 30);
+
+        lblDespesaRecente.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblDespesaRecente.setText("Despesas Cadastradas Recentemente:");
+        getContentPane().add(lblDespesaRecente);
+        lblDespesaRecente.setBounds(10, 320, 350, 25);
+
+        tblDespesaRecente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tblDespesaRecente);
+
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(10, 350, 1125, 190);
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(lblBackground);
@@ -255,8 +241,6 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
     private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnFecharFrameActionPerformed
-
-    
 
     /**
      * @param args the command line arguments
@@ -300,13 +284,16 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
     private javax.swing.JButton btnListarDespesas;
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JComboBox<String> cmbTipoDespesa;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblDescrição;
+    private javax.swing.JLabel lblDespesaRecente;
     private javax.swing.JLabel lblTipoDespesa;
     private javax.swing.JLabel lblValorDespesa;
     private javax.swing.JLabel lblVencimento;
+    private javax.swing.JPanel panPrincipal;
+    private javax.swing.JTable tblDespesaRecente;
     private javax.swing.JTextArea txaDescricaoDespesa;
     private javax.swing.JFormattedTextField txtfDataVencimento;
     private javax.swing.JFormattedTextField txtfValorDespesa;
@@ -314,23 +301,28 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
 
     private void cadastrarDespesa() {
         try {
-        Despesa desp = new Despesa(txtfDataVencimento.getText(), cmbTipoDespesa.getSelectedItem().toString(), 
-                txaDescricaoDespesa.getText(), txtfValorDespesa.getText());
-        
-        dao.DaoDespesa.cadastrarDespesa(desp);
+            Despesa despesa = new Despesa(txtfDataVencimento.getText(), cmbTipoDespesa.getSelectedItem().toString(),
+                    txaDescricaoDespesa.getText(), txtfValorDespesa.getText());
+            if (validarCampos()) {
+                boolean cadastroSucedido = dao.DaoDespesa.cadastrarDespesa(despesa);
+                if (cadastroSucedido) {
+                    atualizarTabela(despesa);
+                }
+            }
+
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao popular atributos de despesa. \n\nExceção JAVA:\n" +
-                    ex.getMessage(), "Erro ao cadastrar despesas", 0);
+            JOptionPane.showMessageDialog(null, "Erro ao popular atributos de despesa. \n\nExceção JAVA:\n"
+                    + ex.getMessage(), "Erro ao cadastrar despesas", 0);
         }
     }
-    
+
     private void limpar() {
         cmbTipoDespesa.setSelectedIndex(0);
         txtfValorDespesa.setText("0,00");
         txaDescricaoDespesa.setText("");
     }
-    
-    private void selecionarAoFocar(){
+
+    private void selecionarAoFocar() {
         txtfDataVencimento.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 SwingUtilities.invokeLater(new Runnable() {
@@ -341,7 +333,7 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
                 });
             }
         });
-        
+
         txtfValorDespesa.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 SwingUtilities.invokeLater(new Runnable() {
@@ -352,5 +344,46 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
                 });
             }
         });
+    }
+
+    private void inicializarTabela() {
+        String[] nomeColunas = {"Tipo Despesa", "Vencimento", "Valor", "Descrição"};
+        try {
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+            tblDespesaRecente.setModel(model);
+            model.setColumnIdentifiers(nomeColunas);
+            model.setRowCount(0);
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao popular tabela de cadastros recentes.\n\n" + ex.getMessage(), "Erro ao popular tabela", 0);
+        }
+    }
+
+    private void atualizarTabela(Despesa despesa) {
+        Object rowData[] = new Object[4];
+
+        rowData[0] = despesa.getTipoDespesas();
+        rowData[1] = despesa.getDataDespesa();
+        rowData[2] = despesa.getValorDespesaSTR();
+        rowData[3] = despesa.getDescricaoDespesa();
+
+        DefaultTableModel model = new DefaultTableModel();
+        model = (DefaultTableModel) tblDespesaRecente.getModel();
+        model.addRow(rowData);
+    }
+
+    private boolean validarCampos() {
+        if (txtfValorDespesa.getValue().equals("0,00")) {
+            JOptionPane.showMessageDialog(null, "Valor da despesa zerado.\n\n"
+                    + "Informe o valor da despesa maior que zero.", "Erro - Valor da despesa inválido.", 0);
+            return false;
+        } else {
+            return true;
+        }
     }
 }

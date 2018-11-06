@@ -257,8 +257,8 @@ public class TextSize {
     
     public static String maxLenghtValorDespesa(String str) {
          String valor = "";
-            if(str.length() > 8){
-	        valor = str.substring(0,8);
+            if(str.length() > 7){
+	        valor = str.substring(0,7);
                 str = valor;
             }
 	    return str;

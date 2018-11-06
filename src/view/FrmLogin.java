@@ -44,7 +44,7 @@ public class FrmLogin extends javax.swing.JFrame {
     
     public void logar() throws IOException{
         //Parametrizando dados do banco de dados ORACLE
-        dao.Conexao.setServerName(txt_ipBanco.getText());
+        dao.Conexao.setServerName(txtf_IpBanco.getText());
         dao.Conexao.setServerPort(txt_portaBanco.getText());
         dao.Conexao.setUsername(txtp_usuarioDB.getText());
         dao.Conexao.setPassword(txtp_senhaDB.getText());
@@ -61,7 +61,7 @@ public class FrmLogin extends javax.swing.JFrame {
             control.Janelas.abrirPrincipal();
             //Salva os parâmetros de login
             control.Opcoes.setLogin(txtLogin.getText());
-            control.Opcoes.setIp(txt_ipBanco.getText());
+            control.Opcoes.setIp(txtf_IpBanco.getText());
             control.Opcoes.setPorta(txt_portaBanco.getText());
             control.Opcoes.setSID(txt_sid.getText());
             control.Opcoes.setUsuarioDB(txtp_usuarioDB.getText());
@@ -96,9 +96,8 @@ public class FrmLogin extends javax.swing.JFrame {
         txtLogin = new javax.swing.JTextField();
         BtnAcesso = new javax.swing.JButton();
         txtPassword = new javax.swing.JPasswordField();
-        jPanel1 = new javax.swing.JPanel();
+        panDadosDB = new javax.swing.JPanel();
         lbl_ip = new javax.swing.JLabel();
-        txt_ipBanco = new javax.swing.JTextField();
         lbl_porta = new javax.swing.JLabel();
         txt_portaBanco = new javax.swing.JTextField();
         lbl_user = new javax.swing.JLabel();
@@ -107,6 +106,7 @@ public class FrmLogin extends javax.swing.JFrame {
         txtp_senhaDB = new javax.swing.JPasswordField();
         lbl_sid = new javax.swing.JLabel();
         txt_sid = new javax.swing.JTextField();
+        txtf_IpBanco = new javax.swing.JFormattedTextField();
         btn_debugrun = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
@@ -134,7 +134,6 @@ public class FrmLogin extends javax.swing.JFrame {
         jpnLogin.add(jLabel3);
         jLabel3.setBounds(230, 80, 53, 25);
 
-        txtLogin.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtLogin.setText(control.Opcoes.getLogin());
         txtLogin.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -145,9 +144,8 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
         jpnLogin.add(txtLogin);
-        txtLogin.setBounds(230, 50, 246, 31);
+        txtLogin.setBounds(230, 50, 246, 25);
 
-        BtnAcesso.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         BtnAcesso.setText("Acessar");
         BtnAcesso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,12 +160,6 @@ public class FrmLogin extends javax.swing.JFrame {
         jpnLogin.add(BtnAcesso);
         BtnAcesso.setBounds(360, 150, 110, 30);
 
-        txtPassword.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPasswordActionPerformed(evt);
-            }
-        });
         txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtPasswordKeyPressed(evt);
@@ -177,91 +169,59 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
         jpnLogin.add(txtPassword);
-        txtPassword.setBounds(230, 110, 246, 31);
+        txtPassword.setBounds(230, 110, 246, 25);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Banco de Dados"));
-        jPanel1.setOpaque(false);
+        panDadosDB.setBorder(javax.swing.BorderFactory.createTitledBorder("Banco de Dados"));
+        panDadosDB.setOpaque(false);
+        panDadosDB.setLayout(null);
 
         lbl_ip.setText("IP:");
-
-        txt_ipBanco.setText(control.Opcoes.getIp());
-        txt_ipBanco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_ipBancoActionPerformed(evt);
-            }
-        });
+        panDadosDB.add(lbl_ip);
+        lbl_ip.setBounds(10, 19, 50, 14);
 
         lbl_porta.setText("Porta:");
+        panDadosDB.add(lbl_porta);
+        lbl_porta.setBounds(170, 19, 40, 14);
 
         txt_portaBanco.setText(control.Opcoes.getPorta());
+        panDadosDB.add(txt_portaBanco);
+        txt_portaBanco.setBounds(210, 16, 72, 20);
 
         lbl_user.setText("Usuário:");
+        panDadosDB.add(lbl_user);
+        lbl_user.setBounds(10, 45, 50, 14);
 
         txtp_usuarioDB.setText(control.Opcoes.getUsuarioDB());
+        panDadosDB.add(txtp_usuarioDB);
+        txtp_usuarioDB.setBounds(60, 42, 100, 20);
 
         lbl_senhaDB.setText("Senha:");
+        panDadosDB.add(lbl_senhaDB);
+        lbl_senhaDB.setBounds(10, 71, 50, 14);
 
         txtp_senhaDB.setText(control.Opcoes.getSenhaDB());
+        panDadosDB.add(txtp_senhaDB);
+        txtp_senhaDB.setBounds(60, 68, 100, 20);
 
         lbl_sid.setText("SID:");
+        panDadosDB.add(lbl_sid);
+        lbl_sid.setBounds(170, 45, 40, 14);
 
         txt_sid.setText(control.Opcoes.getSID());
+        panDadosDB.add(txt_sid);
+        txt_sid.setBounds(210, 42, 72, 20);
 
-        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .add(lbl_ip)
-                        .add(30, 30, 30)
-                        .add(txt_ipBanco, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 89, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(lbl_porta)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createSequentialGroup()
-                                .add(lbl_senhaDB)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(txtp_senhaDB, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 89, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createSequentialGroup()
-                                .add(lbl_user)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(txtp_usuarioDB, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 89, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(lbl_sid)
-                        .add(13, 13, 13)))
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(txt_portaBanco)
-                    .add(txt_sid))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(lbl_ip)
-                    .add(txt_ipBanco, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(lbl_porta)
-                    .add(txt_portaBanco, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(lbl_user)
-                    .add(txtp_usuarioDB, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(lbl_sid)
-                    .add(txt_sid, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(lbl_senhaDB)
-                    .add(txtp_senhaDB, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(0, 6, Short.MAX_VALUE))
-        );
+        try {
+            txtf_IpBanco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###.###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtf_IpBanco.setText(control.Opcoes.getIp());
+        panDadosDB.add(txtf_IpBanco);
+        txtf_IpBanco.setBounds(60, 16, 100, 20);
 
-        jpnLogin.add(jPanel1);
-        jPanel1.setBounds(220, 190, 290, 100);
+        jpnLogin.add(panDadosDB);
+        panDadosDB.setBounds(220, 190, 310, 100);
 
         btn_debugrun.setText("Debug run");
         btn_debugrun.addActionListener(new java.awt.event.ActionListener() {
@@ -270,7 +230,7 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
         jpnLogin.add(btn_debugrun);
-        btn_debugrun.setBounds(230, 150, 100, 23);
+        btn_debugrun.setBounds(230, 150, 100, 30);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo pequeno.png"))); // NOI18N
         jLabel4.setLabelFor(this);
@@ -338,18 +298,10 @@ public class FrmLogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BtnAcessoKeyPressed
 
-    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPasswordActionPerformed
-
-    private void txt_ipBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_ipBancoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_ipBancoActionPerformed
-
     private void btn_debugrunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_debugrunActionPerformed
         control.Janelas.abrirPrincipal();
         control.SynchroSoft.setNvlAdm(1);
-        dao.Conexao.setServerName(txt_ipBanco.getText());
+        dao.Conexao.setServerName(txtf_IpBanco.getText());
         dao.Conexao.setServerPort(txt_portaBanco.getText());
         dao.Conexao.setUsername(txtp_usuarioDB.getText());
         dao.Conexao.setPassword(txtp_senhaDB.getText());
@@ -403,7 +355,6 @@ public class FrmLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jpnLogin;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lbl_ip;
@@ -411,11 +362,12 @@ public class FrmLogin extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_senhaDB;
     private javax.swing.JLabel lbl_sid;
     private javax.swing.JLabel lbl_user;
+    private javax.swing.JPanel panDadosDB;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JPasswordField txtPassword;
-    private javax.swing.JTextField txt_ipBanco;
     private javax.swing.JTextField txt_portaBanco;
     private javax.swing.JTextField txt_sid;
+    private javax.swing.JFormattedTextField txtf_IpBanco;
     private javax.swing.JPasswordField txtp_senhaDB;
     private javax.swing.JPasswordField txtp_usuarioDB;
     // End of variables declaration//GEN-END:variables

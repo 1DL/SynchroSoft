@@ -14,12 +14,12 @@ import model.Produto;
  *
  * @author Administrator
  */
-public class FrmListagemPeca extends javax.swing.JFrame {
+public class FrmListagemProduto extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmListagemPeca
      */
-    public FrmListagemPeca(int nvlAdm) {
+    public FrmListagemProduto(int nvlAdm) {
         initComponents();
         atualizarTabela();
 
@@ -49,11 +49,10 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         lblFundo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Listar Peças Cadastradas");
+        setTitle("Listar Produtos Cadastrados");
+        setAlwaysOnTop(true);
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logopng32.png")));
-        setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
-        setPreferredSize(new java.awt.Dimension(1152, 648));
         setResizable(false);
         getContentPane().setLayout(null);
 
@@ -126,12 +125,12 @@ public class FrmListagemPeca extends javax.swing.JFrame {
         lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblPesquisar.setText("Pesquisar por: ");
         getContentPane().add(lblPesquisar);
-        lblPesquisar.setBounds(230, 60, 120, 25);
+        lblPesquisar.setBounds(230, 65, 120, 25);
 
         cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "Nome", "Categoria", "Quantidade", "Alerta Qtd Min", "Alerta Qtd Max", "Valor" }));
         getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(370, 60, 107, 31);
+        cmbFiltro.setBounds(370, 60, 107, 25);
 
         txtPesquisa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -148,7 +147,7 @@ public class FrmListagemPeca extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtPesquisa);
-        txtPesquisa.setBounds(670, 60, 221, 31);
+        txtPesquisa.setBounds(670, 60, 221, 25);
 
         lblDescrever.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDescrever.setText("Descrição:");
@@ -263,20 +262,21 @@ public class FrmListagemPeca extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmListagemPeca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListagemProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmListagemPeca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListagemProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmListagemPeca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListagemProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmListagemPeca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListagemProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmListagemPeca(control.SynchroSoft.getNvlAdm()).setVisible(true);
+                new FrmListagemProduto(control.SynchroSoft.getNvlAdm()).setVisible(true);
             }
         });
     }

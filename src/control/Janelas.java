@@ -22,7 +22,7 @@ import view.FrmListagemDespesa;
 import view.FrmListagemEndereco;
 import view.FrmListagemFuncionario;
 import view.FrmListagemOrcamento;
-import view.FrmListagemPeca;
+import view.FrmListagemProduto;
 import view.FrmListagemPessoaF;
 import view.FrmListagemPessoaJ;
 import view.FrmListagemServico;
@@ -166,7 +166,7 @@ public class Janelas {
     }
 
     public static void abrirListagemProduto() {
-        FrmListagemPeca telaListaProduto = new FrmListagemPeca(SynchroSoft.getNvlAdm());
+        FrmListagemProduto telaListaProduto = new FrmListagemProduto(SynchroSoft.getNvlAdm());
         telaListaProduto.setVisible(true);
         acessoTelas.get(10).setAcesso(acessoTelas.get(10).getAcesso() + 1);
         ManipularArquivos.escreverArquivoJanelas();

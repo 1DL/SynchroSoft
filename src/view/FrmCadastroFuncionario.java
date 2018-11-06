@@ -138,9 +138,12 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         panPrincipal.setMinimumSize(new java.awt.Dimension(1152, 648));
         panPrincipal.setOpaque(false);
         panPrincipal.setPreferredSize(new java.awt.Dimension(1152, 648));
+        panPrincipal.setLayout(null);
 
         lblCpf.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCpf.setText("CPF:");
+        panPrincipal.add(lblCpf);
+        lblCpf.setBounds(646, 10, 34, 25);
 
         txtCpf.setNextFocusableComponent(txtCargo);
         txtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -148,12 +151,18 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                 txtCpfKeyReleased(evt);
             }
         });
+        panPrincipal.add(txtCpf);
+        txtCpf.setBounds(691, 10, 90, 25);
 
         lblSalario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblSalario.setText("Salário:");
+        panPrincipal.add(lblSalario);
+        lblSalario.setBounds(785, 50, 57, 25);
 
         lblCodigoFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCodigoFuncionario.setText("Código do Funcionário:");
+        panPrincipal.add(lblCodigoFuncionario);
+        lblCodigoFuncionario.setBounds(12, 10, 190, 25);
 
         txtCodigoFuncionario.setNextFocusableComponent(txtCpf);
         txtCodigoFuncionario.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -161,6 +170,8 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                 txtCodigoFuncionarioKeyReleased(evt);
             }
         });
+        panPrincipal.add(txtCodigoFuncionario);
+        txtCodigoFuncionario.setBounds(206, 10, 110, 25);
 
         btnLimpar.setText("Limpar");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -168,6 +179,8 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                 btnLimparActionPerformed(evt);
             }
         });
+        panPrincipal.add(btnLimpar);
+        btnLimpar.setBounds(795, 87, 100, 30);
 
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.setNextFocusableComponent(txtCodigoFuncionario);
@@ -176,6 +189,8 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                 btnCadastrarActionPerformed(evt);
             }
         });
+        panPrincipal.add(btnCadastrar);
+        btnCadastrar.setBounds(927, 87, 130, 30);
 
         btnListarFuncionarios.setText("Listar Funcionários");
         btnListarFuncionarios.addActionListener(new java.awt.event.ActionListener() {
@@ -183,9 +198,13 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                 btnListarFuncionariosActionPerformed(evt);
             }
         });
+        panPrincipal.add(btnListarFuncionarios);
+        btnListarFuncionarios.setBounds(477, 8, 121, 30);
 
         lblCargo.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCargo.setText("Cargo a ser exercido:");
+        panPrincipal.add(lblCargo);
+        lblCargo.setBounds(13, 50, 172, 25);
 
         txtCargo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -197,12 +216,18 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                 txtCargoKeyReleased(evt);
             }
         });
+        panPrincipal.add(txtCargo);
+        txtCargo.setBounds(206, 50, 260, 25);
 
         lblHorasTrabalhadas.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblHorasTrabalhadas.setText("Horas Mensais:");
+        panPrincipal.add(lblHorasTrabalhadas);
+        lblHorasTrabalhadas.setBounds(923, 50, 123, 25);
 
         lblNivelAdm.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblNivelAdm.setText("Nível Administrativo do Sistema:");
+        panPrincipal.add(lblNivelAdm);
+        lblNivelAdm.setBounds(12, 90, 270, 25);
 
         grupoNivelADM.add(rbtVisualizacao);
         rbtVisualizacao.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -214,6 +239,8 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                 rbtVisualizacaoActionPerformed(evt);
             }
         });
+        panPrincipal.add(rbtVisualizacao);
+        rbtVisualizacao.setBounds(288, 90, 121, 25);
 
         grupoNivelADM.add(rbtCompleto);
         rbtCompleto.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -224,9 +251,13 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                 rbtCompletoActionPerformed(evt);
             }
         });
+        panPrincipal.add(rbtCompleto);
+        rbtCompleto.setBounds(419, 90, 105, 25);
 
         lblCpfExiste.setForeground(java.awt.Color.red);
         lblCpfExiste.setText("CPF Inválido.");
+        panPrincipal.add(lblCpfExiste);
+        lblCpfExiste.setBounds(785, 10, 153, 25);
 
         btnCadastrarPessoa.setText("Cadastrar CPF");
         btnCadastrarPessoa.addActionListener(new java.awt.event.ActionListener() {
@@ -234,12 +265,17 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                 btnCadastrarPessoaActionPerformed(evt);
             }
         });
+        panPrincipal.add(btnCadastrarPessoa);
+        btnCadastrarPessoa.setBounds(956, 8, 103, 29);
 
         panDadosPessoa.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados da Pessoa"));
         panDadosPessoa.setOpaque(false);
+        panDadosPessoa.setLayout(null);
 
         lblNome.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblNome.setText("Nome:");
+        panDadosPessoa.add(lblNome);
+        lblNome.setBounds(10, 20, 140, 25);
 
         txtNomePessoa.setEditable(false);
         txtNomePessoa.addActionListener(new java.awt.event.ActionListener() {
@@ -247,47 +283,81 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                 txtNomePessoaActionPerformed(evt);
             }
         });
+        panDadosPessoa.add(txtNomePessoa);
+        txtNomePessoa.setBounds(162, 20, 316, 25);
 
         lblTelefone.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblTelefone.setText("Telefone:");
+        panDadosPessoa.add(lblTelefone);
+        lblTelefone.setBounds(10, 140, 140, 25);
 
         txtTelefone.setEditable(false);
+        panDadosPessoa.add(txtTelefone);
+        txtTelefone.setBounds(162, 140, 316, 25);
 
         lblCelular.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCelular.setText("Celular:");
+        panDadosPessoa.add(lblCelular);
+        lblCelular.setBounds(540, 140, 140, 25);
 
         lblLogradouro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblLogradouro.setText("Logradouro:");
+        panDadosPessoa.add(lblLogradouro);
+        lblLogradouro.setBounds(540, 60, 140, 25);
 
         txtLogradouro.setEditable(false);
+        panDadosPessoa.add(txtLogradouro);
+        txtLogradouro.setBounds(710, 60, 316, 25);
 
         lblCidade.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCidade.setText("Cidade:");
+        panDadosPessoa.add(lblCidade);
+        lblCidade.setBounds(10, 60, 140, 25);
 
         txtCidade.setEditable(false);
+        panDadosPessoa.add(txtCidade);
+        txtCidade.setBounds(162, 60, 114, 25);
 
         lblEstado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblEstado.setText("Estado:");
+        panDadosPessoa.add(lblEstado);
+        lblEstado.setBounds(280, 60, 73, 25);
 
         txtEstado.setEditable(false);
+        panDadosPessoa.add(txtEstado);
+        txtEstado.setBounds(357, 60, 121, 25);
 
         Bairro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         Bairro.setText("Bairro:");
+        panDadosPessoa.add(Bairro);
+        Bairro.setBounds(10, 100, 130, 25);
 
         txtBairro.setEditable(false);
+        panDadosPessoa.add(txtBairro);
+        txtBairro.setBounds(162, 100, 114, 25);
 
         Bairro1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         Bairro1.setText("N° Logradouro:");
+        panDadosPessoa.add(Bairro1);
+        Bairro1.setBounds(280, 100, 127, 25);
 
         txtNumero.setEditable(false);
+        panDadosPessoa.add(txtNumero);
+        txtNumero.setBounds(417, 100, 61, 25);
 
         txtCelular.setEditable(false);
+        panDadosPessoa.add(txtCelular);
+        txtCelular.setBounds(710, 140, 316, 25);
 
         lblSexoDesc.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblSexoDesc.setText("Sexo:");
+        panDadosPessoa.add(lblSexoDesc);
+        lblSexoDesc.setBounds(540, 100, 140, 25);
 
         lblCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCep.setText("CEP:");
+        panDadosPessoa.add(lblCep);
+        lblCep.setBounds(540, 20, 140, 25);
 
         txtCep.setEditable(false);
         txtCep.addActionListener(new java.awt.event.ActionListener() {
@@ -295,119 +365,21 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                 txtCepActionPerformed(evt);
             }
         });
+        panDadosPessoa.add(txtCep);
+        txtCep.setBounds(710, 20, 178, 25);
 
         lblSexoValor.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblSexoValor.setText("-");
+        panDadosPessoa.add(lblSexoValor);
+        lblSexoValor.setBounds(710, 100, 180, 25);
 
-        javax.swing.GroupLayout panDadosPessoaLayout = new javax.swing.GroupLayout(panDadosPessoa);
-        panDadosPessoa.setLayout(panDadosPessoaLayout);
-        panDadosPessoaLayout.setHorizontalGroup(
-            panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panDadosPessoaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panDadosPessoaLayout.createSequentialGroup()
-                        .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(panDadosPessoaLayout.createSequentialGroup()
-                                .addComponent(lblNome)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtNomePessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panDadosPessoaLayout.createSequentialGroup()
-                                .addComponent(Bairro)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtBairro, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-                                    .addComponent(txtCidade))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panDadosPessoaLayout.createSequentialGroup()
-                                        .addComponent(lblEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(panDadosPessoaLayout.createSequentialGroup()
-                                        .addComponent(Bairro1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(panDadosPessoaLayout.createSequentialGroup()
-                                .addComponent(lblTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(62, 62, 62))
-                    .addGroup(panDadosPessoaLayout.createSequentialGroup()
-                        .addComponent(lblCidade)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panDadosPessoaLayout.createSequentialGroup()
-                        .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panDadosPessoaLayout.createSequentialGroup()
-                                .addComponent(lblCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panDadosPessoaLayout.createSequentialGroup()
-                                .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panDadosPessoaLayout.createSequentialGroup()
-                                        .addComponent(lblLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(27, 27, 27))
-                                    .addGroup(panDadosPessoaLayout.createSequentialGroup()
-                                        .addComponent(lblCep, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)))
-                                .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblSexoValor, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(24, Short.MAX_VALUE))
-                    .addGroup(panDadosPessoaLayout.createSequentialGroup()
-                        .addComponent(lblSexoDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        panDadosPessoaLayout.setVerticalGroup(
-            panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panDadosPessoaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtNomePessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblNome))
-                    .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblCep)
-                        .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panDadosPessoaLayout.createSequentialGroup()
-                        .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblLogradouro)
-                            .addComponent(txtLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblSexoDesc)
-                            .addComponent(lblSexoValor))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCelular)
-                            .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panDadosPessoaLayout.createSequentialGroup()
-                        .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(lblCidade)
-                                .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(lblEstado)
-                                .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Bairro)
-                            .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Bairro1)
-                            .addComponent(txtBairro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panDadosPessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTelefone)
-                            .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        panPrincipal.add(panDadosPessoa);
+        panDadosPessoa.setBounds(12, 123, 1090, 180);
 
         lblCodigoExiste.setForeground(java.awt.Color.red);
         lblCodigoExiste.setText("Código inválido.");
+        panPrincipal.add(lblCodigoExiste);
+        lblCodigoExiste.setBounds(320, 10, 151, 25);
 
         txtfSalario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         txtfSalario.setText("0,00");
@@ -421,6 +393,8 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                 txtfSalarioKeyReleased(evt);
             }
         });
+        panPrincipal.add(txtfSalario);
+        txtfSalario.setBounds(846, 50, 67, 25);
 
         txtfHoras.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         txtfHoras.setText("0");
@@ -429,12 +403,17 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                 txtfHorasKeyReleased(evt);
             }
         });
+        panPrincipal.add(txtfHoras);
+        txtfHoras.setBounds(1050, 50, 40, 25);
 
         lblDataAdmissao.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDataAdmissao.setText("Data Admissão:");
+        panPrincipal.add(lblDataAdmissao);
+        lblDataAdmissao.setBounds(470, 50, 126, 25);
 
         txtfDataAdmissao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-        txtfDataAdmissao.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        panPrincipal.add(txtfDataAdmissao);
+        txtfDataAdmissao.setBounds(603, 50, 113, 25);
 
         btnHoje.setText("Hoje");
         btnHoje.addActionListener(new java.awt.event.ActionListener() {
@@ -442,132 +421,8 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                 btnHojeActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout panPrincipalLayout = new javax.swing.GroupLayout(panPrincipal);
-        panPrincipal.setLayout(panPrincipalLayout);
-        panPrincipalLayout.setHorizontalGroup(
-            panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panPrincipalLayout.createSequentialGroup()
-                .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panPrincipalLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(lblNivelAdm, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(6, 6, 6)
-                            .addComponent(rbtVisualizacao)
-                            .addGap(10, 10, 10)
-                            .addComponent(rbtCompleto)
-                            .addGap(271, 271, 271)
-                            .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(32, 32, 32)
-                            .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(panPrincipalLayout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(panDadosPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panPrincipalLayout.createSequentialGroup()
-                        .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(panPrincipalLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(lblCodigoFuncionario)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCodigoFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(lblCodigoExiste, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(4, 4, 4)
-                                .addComponent(btnListarFuncionarios)
-                                .addGap(48, 48, 48)
-                                .addComponent(lblCpf)
-                                .addGap(11, 11, 11)
-                                .addComponent(txtCpf))
-                            .addGroup(panPrincipalLayout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addComponent(lblCargo)
-                                .addGap(21, 21, 21)
-                                .addComponent(txtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(4, 4, 4)
-                                .addComponent(lblDataAdmissao)
-                                .addGap(7, 7, 7)
-                                .addComponent(txtfDataAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnHoje)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panPrincipalLayout.createSequentialGroup()
-                                .addComponent(lblSalario)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtfSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblHorasTrabalhadas)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtfHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panPrincipalLayout.createSequentialGroup()
-                                .addComponent(lblCpfExiste, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnCadastrarPessoa)))))
-                .addContainerGap(60, Short.MAX_VALUE))
-        );
-        panPrincipalLayout.setVerticalGroup(
-            panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panPrincipalLayout.createSequentialGroup()
-                .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panPrincipalLayout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panPrincipalLayout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(lblCodigoExiste))
-                            .addComponent(btnListarFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panPrincipalLayout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(lblCpf))
-                            .addGroup(panPrincipalLayout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblCodigoFuncionario)
-                                    .addComponent(txtCodigoFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(panPrincipalLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCpfExiste)
-                            .addComponent(btnCadastrarPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(panPrincipalLayout.createSequentialGroup()
-                        .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panPrincipalLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtfSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panPrincipalLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblSalario)
-                                    .addComponent(txtfHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblHorasTrabalhadas)))
-                            .addGroup(panPrincipalLayout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(btnHoje, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panPrincipalLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtfDataAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblDataAdmissao))
-                            .addComponent(lblCargo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panPrincipalLayout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(lblNivelAdm))
-                            .addComponent(rbtVisualizacao)
-                            .addComponent(rbtCompleto))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panDadosPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        panPrincipal.add(btnHoje);
+        btnHoje.setBounds(726, 50, 55, 25);
 
         getContentPane().add(panPrincipal);
         panPrincipal.setBounds(10, 10, 1125, 310);
@@ -609,7 +464,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblFuncionarioRecente);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 350, 1125, 160);
+        jScrollPane1.setBounds(10, 350, 1125, 190);
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(lblBackground);

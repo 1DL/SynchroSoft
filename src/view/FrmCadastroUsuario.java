@@ -116,7 +116,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblExisteFuncionario.setForeground(new java.awt.Color(255, 0, 0));
         lblExisteFuncionario.setText("Funcionário inexistente.");
         pnlDadosFuncionario.add(lblExisteFuncionario);
-        lblExisteFuncionario.setBounds(332, 16, 130, 14);
+        lblExisteFuncionario.setBounds(332, 10, 170, 25);
 
         btnListarFuncionarios.setText("Listar Funcionários Cadastrados");
         btnListarFuncionarios.addActionListener(new java.awt.event.ActionListener() {
@@ -139,7 +139,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblNomeFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblNomeFuncionario.setText("Nome:");
         panDadosFunc.add(lblNomeFuncionario);
-        lblNomeFuncionario.setBounds(20, 20, 70, 25);
+        lblNomeFuncionario.setBounds(10, 20, 140, 25);
 
         lblCpf.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCpf.setText("CPF:");
@@ -159,7 +159,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblCargo.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCargo.setText("Cargo:");
         panDadosFunc.add(lblCargo);
-        lblCargo.setBounds(20, 60, 70, 25);
+        lblCargo.setBounds(10, 60, 130, 25);
 
         lblSalario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblSalario.setText("Salário:");
@@ -179,7 +179,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblHorasMensais.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblHorasMensais.setText("Horas Mensais:");
         panDadosFunc.add(lblHorasMensais);
-        lblHorasMensais.setBounds(20, 100, 140, 25);
+        lblHorasMensais.setBounds(10, 100, 140, 25);
 
         txtHorasMensais.setEditable(false);
         panDadosFunc.add(txtHorasMensais);
@@ -206,7 +206,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblLogin.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblLogin.setText("Login:");
         pnlDadosFuncionario.add(lblLogin);
-        lblLogin.setBounds(20, 50, 60, 25);
+        lblLogin.setBounds(10, 50, 170, 25);
 
         txtLogin.setNextFocusableComponent(txtSenha);
         txtLogin.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -220,7 +220,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblCodFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCodFuncionario.setText("Cód. do Funcionário:");
         pnlDadosFuncionario.add(lblCodFuncionario);
-        lblCodFuncionario.setBounds(20, 10, 170, 25);
+        lblCodFuncionario.setBounds(10, 10, 170, 25);
 
         txtCodFuncionario.setNextFocusableComponent(txtLogin);
         txtCodFuncionario.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -234,7 +234,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblSenha.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblSenha.setText("Senha:");
         pnlDadosFuncionario.add(lblSenha);
-        lblSenha.setBounds(20, 90, 60, 25);
+        lblSenha.setBounds(10, 90, 170, 25);
 
         txtSenha.setNextFocusableComponent(txtConfirma);
         txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -271,7 +271,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblExisteLogin.setForeground(new java.awt.Color(255, 0, 0));
         lblExisteLogin.setText("Login Inválido.");
         pnlDadosFuncionario.add(lblExisteLogin);
-        lblExisteLogin.setBounds(510, 56, 130, 14);
+        lblExisteLogin.setBounds(510, 50, 210, 25);
 
         getContentPane().add(pnlDadosFuncionario);
         pnlDadosFuncionario.setBounds(10, 10, 1125, 310);

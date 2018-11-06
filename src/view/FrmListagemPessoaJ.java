@@ -249,7 +249,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
             pessoa.deletarPessoaJuridica(pj.getCnpj());
             atualizarTabela();
         } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(FrmListagemPeca.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrmListagemProduto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnDeletarActionPerformed
 

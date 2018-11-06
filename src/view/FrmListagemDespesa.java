@@ -82,7 +82,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtDataAntes);
-        txtDataAntes.setBounds(690, 50, 130, 40);
+        txtDataAntes.setBounds(690, 50, 130, 25);
 
         lblPesquisar1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblPesquisar1.setText("Descrição da Despesa Selecionada:");
@@ -111,12 +111,12 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtDataDepois);
-        txtDataDepois.setBounds(870, 50, 130, 40);
+        txtDataDepois.setBounds(870, 50, 130, 25);
 
         lblPesquisarData1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblPesquisarData1.setText("Até:");
         getContentPane().add(lblPesquisarData1);
-        lblPesquisarData1.setBounds(830, 50, 70, 40);
+        lblPesquisarData1.setBounds(830, 50, 70, 25);
 
         btnAtualizarTabela.setText("AtualizarTabela");
         btnAtualizarTabela.addActionListener(new java.awt.event.ActionListener() {
@@ -139,7 +139,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         lblPesquisarData.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblPesquisarData.setText("Data:  De:");
         getContentPane().add(lblPesquisarData);
-        lblPesquisarData.setBounds(600, 50, 90, 40);
+        lblPesquisarData.setBounds(600, 50, 90, 25);
 
         btnDeletar.setText("Deletar");
         btnDeletar.addActionListener(new java.awt.event.ActionListener() {
@@ -192,7 +192,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblPesquisar.setText("Pesquisar por: ");
         getContentPane().add(lblPesquisar);
-        lblPesquisar.setBounds(30, 50, 160, 40);
+        lblPesquisar.setBounds(30, 50, 160, 25);
 
         btnHoje.setText("Hoje");
         btnHoje.addActionListener(new java.awt.event.ActionListener() {
@@ -211,12 +211,12 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(160, 60, 107, 31);
+        cmbFiltro.setBounds(160, 60, 107, 25);
 
         lblDescrever.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDescrever.setText("Descrição:");
         getContentPane().add(lblDescrever);
-        lblDescrever.setBounds(270, 50, 83, 40);
+        lblDescrever.setBounds(270, 50, 83, 25);
 
         txtPesquisa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -233,7 +233,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtPesquisa);
-        txtPesquisa.setBounds(370, 50, 221, 40);
+        txtPesquisa.setBounds(370, 50, 221, 25);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(jLabel1);
