@@ -40,17 +40,14 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
     private void initComponents() {
 
         lblPesquisar = new javax.swing.JLabel();
+        panPrincipal = new javax.swing.JPanel();
         cmbFiltro = new javax.swing.JComboBox<>();
         lblDescrever = new javax.swing.JLabel();
         txtPesquisa = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListagemUsuario = new javax.swing.JTable();
-        btnAtualizarTabela = new javax.swing.JButton();
-        btnAlterar = new javax.swing.JButton();
-        btnDeletar = new javax.swing.JButton();
-        btnTelaCadastro = new javax.swing.JButton();
-        btnFechar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lblUsuarioEncontrado = new javax.swing.JLabel();
+        lblBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Listar Usuários");
@@ -63,9 +60,13 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
         lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblPesquisar.setText("Pesquisar por: ");
         getContentPane().add(lblPesquisar);
-        lblPesquisar.setBounds(30, 50, 160, 40);
+        lblPesquisar.setBounds(30, 50, 160, 25);
 
-        cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        panPrincipal.setOpaque(false);
+        panPrincipal.setLayout(null);
+        getContentPane().add(panPrincipal);
+        panPrincipal.setBounds(10, 10, 1125, 40);
+
         cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Funcionário", "Login", "Senha" }));
         cmbFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,14 +74,13 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(160, 60, 150, 31);
+        cmbFiltro.setBounds(160, 60, 150, 25);
 
         lblDescrever.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDescrever.setText("Descrição:");
         getContentPane().add(lblDescrever);
-        lblDescrever.setBounds(330, 50, 83, 40);
+        lblDescrever.setBounds(330, 50, 83, 25);
 
-        txtPesquisa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPesquisaActionPerformed(evt);
@@ -95,7 +95,7 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtPesquisa);
-        txtPesquisa.setBounds(430, 50, 221, 40);
+        txtPesquisa.setBounds(430, 50, 221, 25);
 
         tblListagemUsuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -116,56 +116,16 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblListagemUsuario);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(14, 119, 1090, 390);
+        jScrollPane1.setBounds(10, 359, 1125, 150);
 
-        btnAtualizarTabela.setText("AtualizarTabela");
-        btnAtualizarTabela.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtualizarTabelaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnAtualizarTabela);
-        btnAtualizarTabela.setBounds(60, 550, 190, 40);
+        lblUsuarioEncontrado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblUsuarioEncontrado.setText("Usuários encontrados no banco de dados. Para visualizar ou alterar um registro, clique em um registro exibido na tabela.");
+        getContentPane().add(lblUsuarioEncontrado);
+        lblUsuarioEncontrado.setBounds(10, 330, 1040, 25);
 
-        btnAlterar.setText("Alterar");
-        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAlterarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnAlterar);
-        btnAlterar.setBounds(301, 552, 210, 40);
-
-        btnDeletar.setText("Deletar");
-        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeletarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnDeletar);
-        btnDeletar.setBounds(545, 552, 170, 40);
-
-        btnTelaCadastro.setText("Tela Cadastro");
-        btnTelaCadastro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTelaCadastroActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnTelaCadastro);
-        btnTelaCadastro.setBounds(770, 550, 160, 50);
-
-        btnFechar.setText("Fechar");
-        btnFechar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFecharActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnFechar);
-        btnFechar.setBounds(990, 550, 130, 50);
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 1150, 650);
+        lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
+        getContentPane().add(lblBackground);
+        lblBackground.setBounds(0, -20, 1150, 650);
 
         pack();
         setLocationRelativeTo(null);
@@ -207,47 +167,6 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
     private void tblListagemUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListagemUsuarioMouseClicked
         
     }//GEN-LAST:event_tblListagemUsuarioMouseClicked
-
-    private void btnAtualizarTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarTabelaActionPerformed
-        atualizarTabela();
-    }//GEN-LAST:event_btnAtualizarTabelaActionPerformed
-
-    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        try {
-            tblListagemUsuario.getCellEditor().stopCellEditing();
-        } catch (Exception ex) {
-
-        }
-        try {
-            duser.alterarUsuario(tblListagemUsuario);
-        } catch (SQLException ex) {
-            Logger.getLogger(FrmListagemDespesa.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrmListagemDespesa.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnAlterarActionPerformed
-
-    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-        Usuario user = new Usuario();
-        String aux;
-        aux = (String) tblListagemUsuario.getValueAt(tblListagemUsuario.getSelectedRow(), 1);
-        user.setLogin(aux);
-
-        try {
-            duser.deletarUsuario(user.getLogin());
-            atualizarTabela();
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(FrmListagemDespesa.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnDeletarActionPerformed
-
-    private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
-        control.Janelas.abrirCadastroUsuario();
-    }//GEN-LAST:event_btnTelaCadastroActionPerformed
-
-    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnFecharActionPerformed
 
     /**
      * @param args the command line arguments
@@ -357,16 +276,13 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAlterar;
-    private javax.swing.JButton btnAtualizarTabela;
-    private javax.swing.JButton btnDeletar;
-    private javax.swing.JButton btnFechar;
-    private javax.swing.JButton btnTelaCadastro;
     private javax.swing.JComboBox<String> cmbFiltro;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblDescrever;
     private javax.swing.JLabel lblPesquisar;
+    private javax.swing.JLabel lblUsuarioEncontrado;
+    private javax.swing.JPanel panPrincipal;
     private javax.swing.JTable tblListagemUsuario;
     private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables

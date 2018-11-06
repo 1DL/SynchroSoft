@@ -666,6 +666,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
      */
     private void definirNivelAcesso(int nvlAdm) {
         if (nvlAdm == 0) {
+            btnDeletarTodosRegistros.setEnabled(false);
             btnAlterar.setEnabled(false);
             btnDeletar.setEnabled(false);
             btnCadastrarEndereco.setEnabled(false);
@@ -674,7 +675,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             txtCidade.setEditable(false);
             cmbEstado.setEnabled(false);
             txtBairro.setEditable(false);
-            btnDeletarTodosRegistros.setEnabled(false);
+            
         }
     }
 

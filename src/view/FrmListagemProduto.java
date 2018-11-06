@@ -30,6 +30,7 @@ public class FrmListagemProduto extends javax.swing.JFrame {
     public FrmListagemProduto(int nvlAdm) {
         initComponents();
         inicializarTabela();
+        definirNivelAcesso(nvlAdm);
     }
 
     /**
@@ -68,7 +69,7 @@ public class FrmListagemProduto extends javax.swing.JFrame {
         txtQuantidadeMaxima = new javax.swing.JFormattedTextField();
         txtCodigoPeca = new javax.swing.JTextField();
         lblCodigoExiste = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnCadastrarProduto = new javax.swing.JButton();
         btnMenuPrincipal = new javax.swing.JButton();
         btnFecharFrame = new javax.swing.JButton();
         btnDeletarTodosRegistros = new javax.swing.JButton();
@@ -298,14 +299,14 @@ public class FrmListagemProduto extends javax.swing.JFrame {
         panPrincipal.add(panDadosProduto);
         panDadosProduto.setBounds(10, 50, 1100, 130);
 
-        jButton1.setText("Cadastrar novo Produto");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrarProduto.setText("Cadastrar novo Produto");
+        btnCadastrarProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCadastrarProdutoActionPerformed(evt);
             }
         });
-        panPrincipal.add(jButton1);
-        jButton1.setBounds(720, 190, 150, 30);
+        panPrincipal.add(btnCadastrarProduto);
+        btnCadastrarProduto.setBounds(720, 190, 150, 30);
 
         getContentPane().add(panPrincipal);
         panPrincipal.setBounds(10, 10, 1125, 230);
@@ -437,9 +438,9 @@ public class FrmListagemProduto extends javax.swing.JFrame {
         txtPesquisa.selectAll();
     }//GEN-LAST:event_txtPesquisaFocusGained
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarProdutoActionPerformed
         control.Janelas.abrirCadastroProduto();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnCadastrarProdutoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -480,6 +481,7 @@ public class FrmListagemProduto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
+    private javax.swing.JButton btnCadastrarProduto;
     private javax.swing.JButton btnDeletar;
     private javax.swing.JButton btnDeletarTodosRegistros;
     private javax.swing.JButton btnFecharFrame;
@@ -488,7 +490,6 @@ public class FrmListagemProduto extends javax.swing.JFrame {
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JComboBox<String> cmbCategoria;
     private javax.swing.JComboBox<String> cmbFiltro;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblCategoriaPeca;
@@ -868,7 +869,11 @@ public class FrmListagemProduto extends javax.swing.JFrame {
                     + "Informe corretamente o valor unitário do Produto a ser alterado.", "Erro - Valor unitário Inválido", 0);
             txtQuantidadeMaxima.requestFocus();
             return false;
-        }else {
+        } else if (cmbCategoria.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Categoria inválida. \n\nSelecione uma categoria.", "Erro - Categoria Inválida", 0);
+            cmbCategoria.requestFocus();
+            return false;
+        } else {
             return true;
         }
     }
@@ -929,6 +934,31 @@ public class FrmListagemProduto extends javax.swing.JFrame {
                     atualizarTabela(ultimoTipoPesquisa);
                 }
             }
+        }
+    }
+    
+    /**
+     * Define os elementos gráficos e funções disponíveis de acordo com o nível
+     * de acesso do usuário logado no sistema.
+     *
+     * @param nvlAdm nível de acesso do usuario logado. 0 = Visualização. 1 =
+     * Completo. Visualização só pode pesquisar e visualizar registros.
+     * Completo, alem da visualização, pode alterar deletar e chamar a tela de
+     * cadastro.
+     */
+    private void definirNivelAcesso(int nvlAdm) {
+        if (nvlAdm == 0) {
+            btnDeletarTodosRegistros.setEnabled(false);
+            btnAlterar.setEnabled(false);
+            btnDeletar.setEnabled(false);
+            btnCadastrarProduto.setEnabled(false);
+            txtCodigoPeca.setEditable(false);
+            txtNomePeca.setEditable(false);
+            txtfValorUnitario.setEditable(false);
+            cmbCategoria.setEnabled(false);
+            txtQuantidadePeca.setEditable(false);
+            txtQuantidadeMaxima.setEditable(false);
+            txtQuantidadeMinima.setEditable(false);
         }
     }
 }
