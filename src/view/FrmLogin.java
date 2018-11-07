@@ -127,14 +127,19 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel2.setText("Login:");
         jpnLogin.add(jLabel2);
-        jLabel2.setBounds(230, 20, 49, 25);
+        jLabel2.setBounds(230, 20, 54, 25);
 
         jLabel3.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel3.setText("Senha:");
         jpnLogin.add(jLabel3);
-        jLabel3.setBounds(230, 80, 53, 25);
+        jLabel3.setBounds(230, 80, 60, 25);
 
         txtLogin.setText(control.Opcoes.getLogin());
+        txtLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLoginActionPerformed(evt);
+            }
+        });
         txtLogin.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtLoginKeyPressed(evt);
@@ -177,39 +182,39 @@ public class FrmLogin extends javax.swing.JFrame {
 
         lbl_ip.setText("IP:");
         panDadosDB.add(lbl_ip);
-        lbl_ip.setBounds(10, 19, 50, 14);
+        lbl_ip.setBounds(10, 19, 50, 15);
 
         lbl_porta.setText("Porta:");
         panDadosDB.add(lbl_porta);
-        lbl_porta.setBounds(170, 19, 40, 14);
+        lbl_porta.setBounds(170, 19, 40, 15);
 
         txt_portaBanco.setText(control.Opcoes.getPorta());
         panDadosDB.add(txt_portaBanco);
-        txt_portaBanco.setBounds(210, 16, 72, 20);
+        txt_portaBanco.setBounds(210, 16, 139, 19);
 
         lbl_user.setText("Usuário:");
         panDadosDB.add(lbl_user);
-        lbl_user.setBounds(10, 45, 50, 14);
+        lbl_user.setBounds(10, 45, 50, 15);
 
         txtp_usuarioDB.setText(control.Opcoes.getUsuarioDB());
         panDadosDB.add(txtp_usuarioDB);
-        txtp_usuarioDB.setBounds(60, 42, 100, 20);
+        txtp_usuarioDB.setBounds(60, 42, 100, 19);
 
         lbl_senhaDB.setText("Senha:");
         panDadosDB.add(lbl_senhaDB);
-        lbl_senhaDB.setBounds(10, 71, 50, 14);
+        lbl_senhaDB.setBounds(10, 71, 50, 15);
 
         txtp_senhaDB.setText(control.Opcoes.getSenhaDB());
         panDadosDB.add(txtp_senhaDB);
-        txtp_senhaDB.setBounds(60, 68, 100, 20);
+        txtp_senhaDB.setBounds(60, 68, 100, 19);
 
         lbl_sid.setText("SID:");
         panDadosDB.add(lbl_sid);
-        lbl_sid.setBounds(170, 45, 40, 14);
+        lbl_sid.setBounds(170, 45, 40, 15);
 
         txt_sid.setText(control.Opcoes.getSID());
         panDadosDB.add(txt_sid);
-        txt_sid.setBounds(210, 42, 72, 20);
+        txt_sid.setBounds(210, 42, 139, 19);
 
         try {
             txtf_IpBanco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###.###")));
@@ -218,7 +223,7 @@ public class FrmLogin extends javax.swing.JFrame {
         }
         txtf_IpBanco.setText(control.Opcoes.getIp());
         panDadosDB.add(txtf_IpBanco);
-        txtf_IpBanco.setBounds(60, 16, 100, 20);
+        txtf_IpBanco.setBounds(60, 16, 100, 19);
 
         jpnLogin.add(panDadosDB);
         panDadosDB.setBounds(220, 190, 310, 100);
@@ -308,6 +313,10 @@ public class FrmLogin extends javax.swing.JFrame {
         dao.Conexao.setSid(txt_sid.getText());
         this.dispose();
     }//GEN-LAST:event_btn_debugrunActionPerformed
+
+    private void txtLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLoginActionPerformed
 
     /**
      * @param args the command line arguments

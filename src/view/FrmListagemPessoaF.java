@@ -145,7 +145,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblPesquisar.setText("Pesquisar por: ");
         panPrincipal.add(lblPesquisar);
-        lblPesquisar.setBounds(10, 10, 120, 25);
+        lblPesquisar.setBounds(10, 10, 131, 25);
 
         panDadosPessoaF.setBackground(new java.awt.Color(204, 204, 204));
         panDadosPessoaF.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados da Pessoa Física\n"));
@@ -230,7 +230,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
             }
         });
         panDadosPessoaF.add(rbtSimCadastro);
-        rbtSimCadastro.setBounds(148, 10, 55, 25);
+        rbtSimCadastro.setBounds(148, 10, 58, 25);
 
         grupoContrato.add(rbtNaoCadastro);
         rbtNaoCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -243,7 +243,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
             }
         });
         panDadosPessoaF.add(rbtNaoCadastro);
-        rbtNaoCadastro.setBounds(210, 10, 59, 25);
+        rbtNaoCadastro.setBounds(210, 10, 60, 25);
 
         lblCpfCnpj.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCpfCnpj.setText("CPF:");
@@ -296,7 +296,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         lblDataCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDataCadastro.setText("Data Cadastro:");
         panDadosPessoaF.add(lblDataCadastro);
-        lblDataCadastro.setBounds(530, 10, 150, 25);
+        lblDataCadastro.setBounds(530, 10, 150, 22);
 
         txtfDataCadastro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
         panDadosPessoaF.add(txtfDataCadastro);
@@ -309,7 +309,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
             }
         });
         panDadosPessoaF.add(btnHoje);
-        btnHoje.setBounds(810, 10, 55, 25);
+        btnHoje.setBounds(810, 10, 66, 25);
 
         lblCpfCnpjExiste.setForeground(java.awt.Color.red);
         lblCpfCnpjExiste.setText("CPF Inválido.");
@@ -375,7 +375,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnListarTodos);
-        btnListarTodos.setBounds(550, 230, 147, 30);
+        btnListarTodos.setBounds(550, 230, 210, 30);
 
         btnCadastrarProduto.setText("Cadastrar novo CPF");
         btnCadastrarProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -425,7 +425,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnHojePesquisa);
-        btnHojePesquisa.setBounds(730, 10, 55, 25);
+        btnHojePesquisa.setBounds(730, 10, 66, 25);
 
         getContentPane().add(panPrincipal);
         panPrincipal.setBounds(10, 10, 1125, 270);
