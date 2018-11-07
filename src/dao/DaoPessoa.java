@@ -104,7 +104,6 @@ public class DaoPessoa {
 
             Endereco end = new Endereco();
             end = DaoEndereco.popularEndereco(rs.getString("CD_CEP"));
-          
 
             Pessoa pessoa = new Pessoa();
             pessoa.setNome("NM_PESSOA_FISICA");
@@ -147,7 +146,7 @@ public class DaoPessoa {
 
             Endereco end = new Endereco();
             end = DaoEndereco.popularEndereco(rs.getString("CD_CEP"));
-            
+
             Pessoa pessoa = new Pessoa();
             pessoa.setNome(rs.getString("NM_FICTICIO"));
             pessoa.setEndereco(end);
@@ -289,7 +288,7 @@ public class DaoPessoa {
         }
     }
 
-    public static void deletarPessoaFisica(String cpf) throws SQLException, ClassNotFoundException {
+    public static void deletarPessoaFisica(String cpf) {
         try {
             Connection con = Conexao.conectar();
             String sql = "DELETE FROM SYNCHROSOFT.TB_PESSOA_FISICA WHERE CD_CPF = ?";
@@ -297,9 +296,33 @@ public class DaoPessoa {
             st.setString(1, cpf);
             st.executeUpdate();
             st.close();
-            JOptionPane.showMessageDialog(null, "Pessoa física removida com sucesso.");
+            JOptionPane.showMessageDialog(null, "Pessoa física removida com sucesso.", "Remoção concluída", 1);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível remover a pessoa física.\nErro Nº :\n\n"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoPessoa - Deletar Pessoa Física", 0);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível remover a pessoa física.\nErro:\n\n" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Não foi possível remover a pessoa física.\nErro:\n\n"
+                    + ex, "Erro: DaoPessoa - Deletar Pessoa Física", 0);
+        }
+    }
+
+    public static boolean deletarTodasPessoasFisicas() {
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "DELETE FROM SYNCHROSOFT.TB_PESSOA_FISICA";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.executeUpdate();
+            st.close();
+            JOptionPane.showMessageDialog(null, "Todas as pessoas físicas foram excluídas com sucesso.", "Exclusão total concluída.", 1);
+            return true;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível remover as pessoas físicas.\nErro Nº :\n\n"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoPessoa - Deletar Todas Pessoa Física", 0);
+            return false;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível remover as pessoas físicas.\nErro:\n\n"
+                    + ex, "Erro: DaoPessoa - Deletar Todas Pessoa Física", 0);
+            return false;
         }
     }
 
@@ -332,7 +355,7 @@ public class DaoPessoa {
                 end.setLogradouro(rs.getString("DS_LOGRADOURO"));
 
                 Pessoa pessoa = new Pessoa();
-                pessoa.setNome("NM_PESSOA_FISICA");
+                pessoa.setNome(rs.getString("NM_PESSOA_FISICA"));
                 pessoa.setEndereco(end);
                 pessoa.setTelefone(rs.getString("NR_TELEFONE"));
                 pessoa.setComplementoLogradouro(rs.getString("NR_COMPLEMENTO_LOGRADOURO"));
@@ -400,7 +423,7 @@ public class DaoPessoa {
         return lista;
     }
 
-    public static ArrayList listarPessoaFisicaFiltrada(String cmbFiltro, String txtPesquisa) {
+    public static ArrayList listarPessoaFisicaFiltrada(String cmbFiltro, String txtPesquisa, String dataDe, String dataAte) {
         ArrayList<PessoaFisica> lista = new ArrayList<>();
         try {
             Connection con = Conexao.conectar();
@@ -414,8 +437,9 @@ Endereço
 Número Endereço
 Telefone
 Celular
-Contrato
+Mantém Contrato?
 Data de Cadastro
+Data Entre/Até
             
              */
             switch (cmbFiltro) {
@@ -427,6 +451,12 @@ Data de Cadastro
                     sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(CD_CPF) LIKE LOWER(?)";
                     break;
                 case "Sexo":
+                    txtPesquisa = txtPesquisa.substring(0, 1);
+                    if (txtPesquisa.equals("m")) {
+                        txtPesquisa = "0";
+                    } else if (txtPesquisa.equals("f")) {
+                        txtPesquisa = "1";
+                    }
                     sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(ID_SEXO) LIKE LOWER(?)";
                     break;
                 case "CEP":
@@ -444,11 +474,20 @@ Data de Cadastro
                 case "Celular":
                     sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(NR_CELULAR) LIKE LOWER(?)";
                     break;
-                case "Contrato":
+                case "Mantém Contrato?":
+                    txtPesquisa = txtPesquisa.substring(0, 1);
+                    if (txtPesquisa.equals("n")) {
+                        txtPesquisa = "0";
+                    } else if (txtPesquisa.equals("s")){
+                        txtPesquisa = "1";
+                    }
                     sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(ID_CONTRATO) LIKE LOWER(?)";
                     break;
                 case "Data de Cadastro":
                     sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(DT_CADASTRO) LIKE LOWER(?)";
+                    break;
+                case "Data Entre/Até":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(DT_CADASTRO) BETWEEN LIKE LOWER(?) AND LIKE LOWER(?)";
                     break;
 
             }
@@ -457,8 +496,27 @@ Data de Cadastro
             PreparedStatement st = con.prepareStatement(sql);
 
             //colocando valor da variável ? da query 
-            st.setString(1, "%" + txtPesquisa + "%");
+            if (cmbFiltro.equals("Data de Cadastro")) {
+                try {
+                    dataDe = control.Datas.converterParaAmericana(dataDe);
 
+                } catch (Exception ex) {
+
+                }
+                st.setString(1, "%" + dataDe + "%");
+
+            } else if (cmbFiltro.equals("Data Entre/Até")) {
+                try {
+                    dataDe = control.Datas.converterParaAmericana(dataDe);
+                    dataAte = control.Datas.converterParaAmericana(dataAte);
+                } catch (Exception ex) {
+
+                }
+                st.setString(1, "%" + dataDe + "%");
+                st.setString(2, "%" + dataAte + "%");
+            } else {
+                st.setString(1, "%" + txtPesquisa + "%");
+            }
             //executando query selecionada pelo switch case
             ResultSet rs = st.executeQuery();
 
@@ -469,7 +527,7 @@ Data de Cadastro
                 end.setLogradouro(rs.getString("DS_LOGRADOURO"));
 
                 Pessoa pessoa = new Pessoa();
-                pessoa.setNome("NM_PESSOA_FISICA");
+                pessoa.setNome(rs.getString("NM_PESSOA_FISICA"));
                 pessoa.setEndereco(end);
                 pessoa.setTelefone(rs.getString("NR_TELEFONE"));
                 pessoa.setComplementoLogradouro(rs.getString("NR_COMPLEMENTO_LOGRADOURO"));
@@ -480,7 +538,7 @@ Data de Cadastro
                 pessoaFisica.setCpf(rs.getString("CD_CPF"));
                 pessoaFisica.setSexoBanco(rs.getInt("ID_SEXO"));
                 pessoaFisica.setCelular(String.valueOf(rs.getLong("NR_CELULAR")));
-                pessoaFisica.setDataCadastroBanco((control.Datas.converterParaBrasileira(String.valueOf(rs.getDate("DT_CADASTRO")))));
+                pessoaFisica.setDataCadastroBanco(String.valueOf(rs.getDate("DT_CADASTRO")));
 
                 lista.add(pessoaFisica);
 
@@ -491,8 +549,8 @@ Data de Cadastro
             rs.close();
 
         } catch (SQLException ex) { //Caso exista a possibilidade de retorno de erro
-            JOptionPane.showMessageDialog(null, "Erro ao listar Pessoas Físicas via filtro.\n\nErro Nº " + ex.getErrorCode()
-                    + "\n" + ex.getMessage(), "Erro: DaoPessoa - Listar Pessoa Física Filtrada", 0);
+            /*JOptionPane.showMessageDialog(null, "Erro ao listar Pessoas Físicas via filtro.\n\nErro Nº " + ex.getErrorCode()
+                    + "\n" + ex.getMessage(), "Erro: DaoPessoa - Listar Pessoa Física Filtrada", 0);*/
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DaoPessoa.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -596,72 +654,40 @@ Data Cadastro
         return lista;
     }
 
-    public static void alterarPessoaFisica(JTable tabela) {
-//      
+    public static boolean alterarPessoaFisica(PessoaFisica pessoaFisica, String PK_REF) {
         try {
-
-            int rows = tabela.getRowCount();
-            String log = "";
-            JOptionPane.showConfirmDialog(null, "Deseja realizar a alteração?");
-
             Connection con = Conexao.conectar();
-            con.setAutoCommit(false);
             String sql = "UPDATE SYNCHROSOFT.TB_PESSOA_FISICA "
                     + "SET CD_CPF = ?, CD_CEP = ?, NM_PESSOA_FISICA = ?, "
                     + "ID_SEXO = ?, NR_TELEFONE = ?, NR_CELULAR = ?, NR_COMPLEMENTO_LOGRADOURO = ?,"
                     + "DT_CADASTRO = ?, ID_CONTRATO = ? "
                     + "WHERE CD_CPF = ?";
             PreparedStatement st = con.prepareStatement(sql);
-            for (int row = 0; row < rows; row++) {
-                String CD_CPF_ALTERADO = (String) tabela.getValueAt(row, 1);
-                String CD_CEP = (String) tabela.getValueAt(row, 3);
-                String NM_PESSOA_FISICA = (String) tabela.getValueAt(row, 0);
-                String ID_SEXO = (String) tabela.getValueAt(row, 2);
-                int sexo;
-                if (ID_SEXO.toLowerCase().substring(0, 1).equals("m")) {
-                    sexo = 0;
-                } else {
-                    sexo = 1;
-                }
 
-                String NR_TELEFONE = (String) tabela.getValueAt(row, 6);
-                String NR_CELULAR = (String) tabela.getValueAt(row, 7);
-                String NR_COMPLEMENTO_LOGRADOURO = (String) tabela.getValueAt(row, 5);
-                PessoaFisica pf = new PessoaFisica();
-                String DT_CADASTRO = (String) tabela.getValueAt(row, 9);
-                pf.setDataCadastro(DT_CADASTRO);
-                String ID_CONTRATO = (String) tabela.getValueAt(row, 8);
-                int contrato;
-                if (ID_CONTRATO.toLowerCase().substring(0, 1).equals("s")) {
-                    contrato = 1;
-                } else {
-                    contrato = 0;
-                }
-                String CD_CPF_REFERENCIA = (String) tabela.getValueAt(row, 10);
+            st.setString(1, pessoaFisica.getCpf());
+            st.setString(2, pessoaFisica.getPessoa().getEndereco().getCep());
+            st.setString(3, pessoaFisica.getPessoa().getNome());
+            st.setInt(4, pessoaFisica.getSexoBanco());
+            st.setLong(5, pessoaFisica.getPessoa().getTelefone());
+            st.setLong(6, pessoaFisica.getCelular());
+            st.setString(7, pessoaFisica.getPessoa().getComplementoLogradouro());
+            st.setDate(8, Date.valueOf(control.Datas.converterParaAmericana(pessoaFisica.getDataCadastro())));
+            st.setInt(9, pessoaFisica.getPessoa().getManterContrato());
+            st.setString(10, PK_REF);
 
-                st.setString(1, CD_CPF_ALTERADO);
-                st.setString(2, CD_CEP);
-                st.setString(3, NM_PESSOA_FISICA);
-                st.setInt(4, sexo);
-                st.setLong(5, Long.parseLong(NR_TELEFONE));
-                st.setLong(6, Long.parseLong(NR_CELULAR));
-                st.setInt(7, Integer.parseInt(NR_COMPLEMENTO_LOGRADOURO));
+            st.executeUpdate();
 
-                st.setDate(8, Date.valueOf(control.Datas.converterParaAmericana(pf.getDataCadastro())));
-                st.setInt(9, contrato);
-                st.setString(10, CD_CPF_REFERENCIA);
-
-                st.addBatch();
-                st.executeBatch();
-                con.commit();
-            }
-            JOptionPane.showMessageDialog(null, "A base de pessoas físicas foi alterada com sucesso!", "Alteração concluída", 1);
+            JOptionPane.showMessageDialog(null, "A pessoa física foi alterada com sucesso!", "Alteração concluída", 1);
+            return true;
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao alterar a base de Pessoas Físicas.\n\nErro Nº " + ex.getErrorCode()
+            JOptionPane.showMessageDialog(null, "Erro ao alterar a pessoa físicas.\n\nErro Nº: " + ex.getErrorCode()
                     + "\n" + ex.getMessage(), "Erro: DaoPessoa - Alterar Pessoa Fisica", 0);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DaoPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar a pessoa físicas.\n\nErro: "
+                    + ex, "Erro: DaoPessoa - Alterar Pessoa Fisica", 0);
+            return false;
         }
 
     }

@@ -64,10 +64,6 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         btnListarTodos = new javax.swing.JButton();
         btnLimparTabela = new javax.swing.JButton();
         btnCadastrarEndereco = new javax.swing.JButton();
-        lblDataDe = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        lblDataAte = new javax.swing.JLabel();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListagemEndereco = new javax.swing.JTable();
         btnMenuPrincipal = new javax.swing.JButton();
@@ -118,7 +114,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(txtPesquisa);
-        txtPesquisa.setBounds(570, 10, 210, 25);
+        txtPesquisa.setBounds(570, 10, 540, 25);
 
         panDadosEndereco.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Endereço"));
         panDadosEndereco.setOpaque(false);
@@ -130,11 +126,11 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         panDadosEndereco.add(txtCidade);
-        txtCidade.setBounds(750, 50, 316, 25);
+        txtCidade.setBounds(700, 50, 316, 25);
 
         cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
         panDadosEndereco.add(cmbEstado);
-        cmbEstado.setBounds(750, 10, 95, 25);
+        cmbEstado.setBounds(700, 10, 95, 25);
 
         try {
             txtfCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
@@ -167,12 +163,12 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         lblEstado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblEstado.setText("Estado:");
         panDadosEndereco.add(lblEstado);
-        lblEstado.setBounds(600, 10, 140, 25);
+        lblEstado.setBounds(560, 10, 140, 25);
 
         lblQuantidadePeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblQuantidadePeca.setText("Cidade:");
         panDadosEndereco.add(lblQuantidadePeca);
-        lblQuantidadePeca.setBounds(600, 50, 140, 25);
+        lblQuantidadePeca.setBounds(560, 50, 140, 25);
 
         txtBairro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -180,7 +176,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         panDadosEndereco.add(txtBairro);
-        txtBairro.setBounds(150, 90, 420, 25);
+        txtBairro.setBounds(150, 90, 316, 25);
 
         lblCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCep.setText("CEP:");
@@ -193,7 +189,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         panDadosEndereco.add(txtLogradouro);
-        txtLogradouro.setBounds(150, 50, 420, 25);
+        txtLogradouro.setBounds(150, 50, 316, 25);
 
         lblCepExiste.setForeground(new java.awt.Color(255, 0, 0));
         lblCepExiste.setText("CEP Inválido.");
@@ -247,20 +243,6 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         });
         panPrincipal.add(btnCadastrarEndereco);
         btnCadastrarEndereco.setBounds(720, 190, 160, 30);
-
-        lblDataDe.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblDataDe.setText("De:");
-        panPrincipal.add(lblDataDe);
-        lblDataDe.setBounds(790, 10, 34, 25);
-        panPrincipal.add(jFormattedTextField1);
-        jFormattedTextField1.setBounds(1000, 10, 110, 25);
-
-        lblDataAte.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblDataAte.setText("Até:");
-        panPrincipal.add(lblDataAte);
-        lblDataAte.setBounds(960, 10, 34, 25);
-        panPrincipal.add(jFormattedTextField2);
-        jFormattedTextField2.setBounds(830, 10, 110, 25);
 
         getContentPane().add(panPrincipal);
         panPrincipal.setBounds(10, 10, 1125, 230);
@@ -449,14 +431,10 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JComboBox<String> cmbEstado;
     private javax.swing.JComboBox<String> cmbFiltro;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblCep;
     private javax.swing.JLabel lblCepExiste;
-    private javax.swing.JLabel lblDataAte;
-    private javax.swing.JLabel lblDataDe;
     private javax.swing.JLabel lblDigiteODado;
     private javax.swing.JLabel lblEnderecoEncontrado;
     private javax.swing.JLabel lblEstado;

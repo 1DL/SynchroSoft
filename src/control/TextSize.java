@@ -11,6 +11,33 @@ package control;
  */
 public class TextSize {
     
+    public static String maxLenghtSexo(String str) {
+        String valor = "";
+        if (str.length() > 10) {
+            valor = str.substring(0, 10);
+            str = valor;
+        }
+        return str;
+    }
+    
+    public static String maxLenghtDataCadastro(String str) {
+        String valor = "";
+        if (str.length() > 10) {
+            valor = str.substring(0, 10);
+            str = valor;
+        }
+        return str;
+    }
+    
+    public static String maxLenghtContrato(String str) {
+        String valor = "";
+        if (str.length() > 3) {
+            valor = str.substring(0, 3);
+            str = valor;
+        }
+        return str;
+    }
+    
     public static String maxLenghtCategoriaProduto(String str) {
         String valor = "";
         if (str.length() > 50) {

@@ -68,6 +68,15 @@ public class Pessoa {
         return manterContrato;
     }
     
+    public boolean getManterContratoBooleano() {
+        if (this.manterContrato == 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    
     public String getManterContratoSTR(){
         if (manterContrato == 1){
             return "Sim";

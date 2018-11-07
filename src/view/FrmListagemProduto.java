@@ -182,14 +182,14 @@ public class FrmListagemProduto extends javax.swing.JFrame {
         panDadosProduto.setLayout(null);
 
         lblCodigoPeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCodigoPeca.setText("Código de Barras:");
+        lblCodigoPeca.setText("Cód. de Barras:");
         panDadosProduto.add(lblCodigoPeca);
         lblCodigoPeca.setBounds(10, 10, 154, 25);
 
         lblCategoriaPeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCategoriaPeca.setText("Categoria:");
         panDadosProduto.add(lblCategoriaPeca);
-        lblCategoriaPeca.setBounds(656, 10, 90, 25);
+        lblCategoriaPeca.setBounds(610, 10, 90, 25);
 
         txtNomePeca.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -197,7 +197,7 @@ public class FrmListagemProduto extends javax.swing.JFrame {
             }
         });
         panDadosProduto.add(txtNomePeca);
-        txtNomePeca.setBounds(170, 50, 316, 25);
+        txtNomePeca.setBounds(150, 50, 316, 25);
 
         lblNomePeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblNomePeca.setText("Nome da Peça:");
@@ -212,11 +212,11 @@ public class FrmListagemProduto extends javax.swing.JFrame {
         lblValorUnitario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblValorUnitario.setText("Valor Unitário:");
         panDadosProduto.add(lblValorUnitario);
-        lblValorUnitario.setBounds(656, 50, 114, 25);
+        lblValorUnitario.setBounds(610, 50, 114, 25);
 
         cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Gerador", "Bombas", "Aquecedores", "Alarme de incêndio", "Pressurizadores de escada", "Alarme perimetral", "Cabine primária", "Redutoras de pressão" }));
         panDadosProduto.add(cmbCategoria);
-        cmbCategoria.setBounds(788, 10, 175, 25);
+        cmbCategoria.setBounds(750, 10, 175, 25);
 
         txtQuantidadePeca.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
         txtQuantidadePeca.setText("0");
@@ -226,7 +226,7 @@ public class FrmListagemProduto extends javax.swing.JFrame {
             }
         });
         panDadosProduto.add(txtQuantidadePeca);
-        txtQuantidadePeca.setBounds(170, 90, 100, 25);
+        txtQuantidadePeca.setBounds(150, 90, 100, 25);
 
         txtfValorUnitario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####0.00"))));
         txtfValorUnitario.setText("0,00");
@@ -241,12 +241,12 @@ public class FrmListagemProduto extends javax.swing.JFrame {
             }
         });
         panDadosProduto.add(txtfValorUnitario);
-        txtfValorUnitario.setBounds(788, 50, 175, 25);
+        txtfValorUnitario.setBounds(750, 50, 175, 25);
 
         lblQuantidadeMinima.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblQuantidadeMinima.setText("Alerta Qtd Mínima:");
         panDadosProduto.add(lblQuantidadeMinima);
-        lblQuantidadeMinima.setBounds(280, 90, 156, 25);
+        lblQuantidadeMinima.setBounds(260, 90, 156, 25);
 
         txtQuantidadeMinima.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
         txtQuantidadeMinima.setText("0");
@@ -261,12 +261,12 @@ public class FrmListagemProduto extends javax.swing.JFrame {
             }
         });
         panDadosProduto.add(txtQuantidadeMinima);
-        txtQuantidadeMinima.setBounds(440, 90, 100, 25);
+        txtQuantidadeMinima.setBounds(420, 90, 100, 25);
 
         lblQuantidadeMaxima.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblQuantidadeMaxima.setText("Alerta Qtd Máxima:");
         panDadosProduto.add(lblQuantidadeMaxima);
-        lblQuantidadeMaxima.setBounds(550, 90, 157, 25);
+        lblQuantidadeMaxima.setBounds(530, 90, 157, 25);
 
         txtQuantidadeMaxima.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
         txtQuantidadeMaxima.setText("0");
@@ -281,7 +281,7 @@ public class FrmListagemProduto extends javax.swing.JFrame {
             }
         });
         panDadosProduto.add(txtQuantidadeMaxima);
-        txtQuantidadeMaxima.setBounds(720, 90, 100, 25);
+        txtQuantidadeMaxima.setBounds(695, 90, 100, 25);
 
         txtCodigoPeca.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -289,12 +289,12 @@ public class FrmListagemProduto extends javax.swing.JFrame {
             }
         });
         panDadosProduto.add(txtCodigoPeca);
-        txtCodigoPeca.setBounds(170, 10, 316, 25);
+        txtCodigoPeca.setBounds(150, 10, 316, 25);
 
         lblCodigoExiste.setForeground(java.awt.Color.red);
         lblCodigoExiste.setText("Código inválido.");
         panDadosProduto.add(lblCodigoExiste);
-        lblCodigoExiste.setBounds(490, 10, 151, 25);
+        lblCodigoExiste.setBounds(470, 10, 151, 25);
 
         panPrincipal.add(panDadosProduto);
         panDadosProduto.setBounds(10, 50, 1100, 130);

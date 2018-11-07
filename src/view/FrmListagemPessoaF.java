@@ -5,13 +5,19 @@
  */
 package view;
 
+import control.TextSize;
 import dao.DaoPessoa;
+import java.awt.Color;
 import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import model.Endereco;
+import model.Pessoa;
 import model.PessoaFisica;
 
 /**
@@ -20,12 +26,21 @@ import model.PessoaFisica;
  */
 public class FrmListagemPessoaF extends javax.swing.JFrame {
 
+    private boolean cepCadastrado;
+    private boolean ultimoTipoPesquisa;
+    private boolean existeCpf;
+    private String PK_REF;
+
     /**
      * Creates new form FrmListagemPessoa
      */
     public FrmListagemPessoaF(int nvlAdm) {
         initComponents();
-        atualizarTabela();
+        inicializarTabela();
+        txtPesquisa.setSize(490, 25);
+        txtfDataDe.setText(control.Datas.getDiaHoje());
+        txtfDataAte.setText(control.Datas.getDiaHoje());
+        selecionarAoFocar();
     }
 
     /**
@@ -37,6 +52,8 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        grupoContrato = new javax.swing.ButtonGroup();
+        grupoSexo = new javax.swing.ButtonGroup();
         panPrincipal = new javax.swing.JPanel();
         txtPesquisa = new javax.swing.JTextField();
         cmbFiltro = new javax.swing.JComboBox<>();
@@ -72,6 +89,10 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         btnListarTodos = new javax.swing.JButton();
         btnCadastrarProduto = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
+        txtfDataDe = new javax.swing.JFormattedTextField();
+        lblDataAte = new javax.swing.JLabel();
+        txtfDataAte = new javax.swing.JFormattedTextField();
+        btnHojePesquisa = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListagemPessoaF = new javax.swing.JTable();
         btnDeletarTodosRegistros = new javax.swing.JButton();
@@ -93,6 +114,11 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         panPrincipal.setOpaque(false);
         panPrincipal.setLayout(null);
 
+        txtPesquisa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPesquisaFocusGained(evt);
+            }
+        });
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPesquisaActionPerformed(evt);
@@ -102,14 +128,17 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtPesquisaKeyReleased(evt);
             }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtPesquisaKeyTyped(evt);
-            }
         });
         panPrincipal.add(txtPesquisa);
-        txtPesquisa.setBounds(690, 10, 420, 25);
+        txtPesquisa.setBounds(620, 10, 60, 25);
 
-        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome", "CPF", "Sexo", "CEP", "Endereço", "Número Endereço", "Telefone", "Celular", "Contrato", "Data de Cadastro" }));
+        cmbFiltro.setMaximumRowCount(15);
+        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome", "CPF", "Sexo", "CEP", "Endereço", "Número Endereço", "Telefone", "Celular", "Mantém Contrato?", "Data de Cadastro", "Data Entre/Até" }));
+        cmbFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbFiltroActionPerformed(evt);
+            }
+        });
         panPrincipal.add(cmbFiltro);
         cmbFiltro.setBounds(160, 10, 210, 25);
 
@@ -196,6 +225,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         panDadosPessoaF.add(lblTipoPessoa1);
         lblTipoPessoa1.setBounds(10, 10, 140, 25);
 
+        grupoContrato.add(rbtSimCadastro);
         rbtSimCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         rbtSimCadastro.setText("Sim");
         rbtSimCadastro.setOpaque(false);
@@ -207,6 +237,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         panDadosPessoaF.add(rbtSimCadastro);
         rbtSimCadastro.setBounds(148, 10, 55, 25);
 
+        grupoContrato.add(rbtNaoCadastro);
         rbtNaoCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         rbtNaoCadastro.setSelected(true);
         rbtNaoCadastro.setText("Não");
@@ -242,6 +273,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         panDadosPessoaF.add(lblSexo);
         lblSexo.setBounds(810, 90, 50, 25);
 
+        grupoSexo.add(rbtMasculino);
         rbtMasculino.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         rbtMasculino.setSelected(true);
         rbtMasculino.setText("Masculino");
@@ -254,6 +286,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         panDadosPessoaF.add(rbtMasculino);
         rbtMasculino.setBounds(860, 90, 110, 25);
 
+        grupoSexo.add(rbtFeminino);
         rbtFeminino.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         rbtFeminino.setText("Feminino");
         rbtFeminino.setOpaque(false);
@@ -367,6 +400,48 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         panPrincipal.add(btnAlterar);
         btnAlterar.setBounds(980, 230, 130, 30);
 
+        txtfDataDe.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        txtfDataDe.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtfDataDeFocusGained(evt);
+            }
+        });
+        txtfDataDe.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfDataDeKeyReleased(evt);
+            }
+        });
+        panPrincipal.add(txtfDataDe);
+        txtfDataDe.setBounds(620, 10, 100, 25);
+
+        lblDataAte.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblDataAte.setText("Até:");
+        panPrincipal.add(lblDataAte);
+        lblDataAte.setBounds(800, 10, 34, 25);
+
+        txtfDataAte.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        txtfDataAte.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtfDataAteFocusGained(evt);
+            }
+        });
+        txtfDataAte.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfDataAteKeyReleased(evt);
+            }
+        });
+        panPrincipal.add(txtfDataAte);
+        txtfDataAte.setBounds(840, 10, 100, 25);
+
+        btnHojePesquisa.setText("Hoje");
+        btnHojePesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHojePesquisaActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnHojePesquisa);
+        btnHojePesquisa.setBounds(730, 10, 55, 25);
+
         getContentPane().add(panPrincipal);
         panPrincipal.setBounds(10, 10, 1125, 270);
 
@@ -381,10 +456,15 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblListagemPessoaF.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblListagemPessoaFMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblListagemPessoaF);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 452, 1125, 90);
+        jScrollPane1.setBounds(10, 312, 1125, 230);
 
         btnDeletarTodosRegistros.setText("Deletar todos os registros");
         btnDeletarTodosRegistros.addActionListener(new java.awt.event.ActionListener() {
@@ -398,7 +478,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         lblPessoaFEncontrado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblPessoaFEncontrado.setText("Pessoas Físicas encontradas no banco de dados. Para visualizar ou alterar um registro, clique em um registro exibido na tabela.");
         getContentPane().add(lblPessoaFEncontrado);
-        lblPessoaFEncontrado.setBounds(10, 430, 1120, 25);
+        lblPessoaFEncontrado.setBounds(10, 280, 1120, 25);
 
         btnMenuPrincipal.setText("Menu Principal");
         btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
@@ -431,34 +511,9 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesquisaActionPerformed
 
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
-//         Chamando método de listagem com filtro, se txt preenchido
-        try
-        {
-            //criando variável de controle
-            int controle = 0;
-
-            //Se campo de texto não estiver vazio
-            if (txtPesquisa.getText().trim() != "")
-            {
-                controle = 1;
-                atualizarTabelaFiltrada();
-            }
-
-            //Se a variável de controle for 0, diz-se que o campo está vazio e, portanto, atualiza a JTable
-            if (controle == 0)
-            {
-                atualizarTabela();
-            }
-        }
-        catch(Exception ex)
-        {
-            System.out.println("Exceção: "+ex);
-        }
+        limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
+        pesquisarFiltrada();
     }//GEN-LAST:event_txtPesquisaKeyReleased
-
-    private void txtPesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyTyped
-
-    }//GEN-LAST:event_txtPesquisaKeyTyped
 
     private void btnDeletarTodosRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarTodosRegistrosActionPerformed
         removerTodosRegistros();
@@ -552,6 +607,46 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         alterarRegistro();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
+    private void cmbFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFiltroActionPerformed
+        lblDigiteODado.setText("Digite o(a) " + cmbFiltro.getSelectedItem().toString() + ":");
+        limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
+    }//GEN-LAST:event_cmbFiltroActionPerformed
+
+    private void btnHojePesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojePesquisaActionPerformed
+        txtfDataDe.setText(control.Datas.getDiaHoje());
+        txtfDataAte.setText(control.Datas.getDiaHoje());
+    }//GEN-LAST:event_btnHojePesquisaActionPerformed
+
+    private void txtPesquisaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPesquisaFocusGained
+        limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
+        pesquisarFiltrada();
+        txtPesquisa.selectAll();
+    }//GEN-LAST:event_txtPesquisaFocusGained
+
+    private void txtfDataDeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfDataDeFocusGained
+        limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
+        pesquisarFiltrada();
+        txtfDataDe.selectAll();
+    }//GEN-LAST:event_txtfDataDeFocusGained
+
+    private void txtfDataAteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfDataAteFocusGained
+        limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
+        pesquisarFiltrada();
+        txtfDataAte.selectAll();
+    }//GEN-LAST:event_txtfDataAteFocusGained
+
+    private void txtfDataDeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataDeKeyReleased
+        pesquisarFiltrada();
+    }//GEN-LAST:event_txtfDataDeKeyReleased
+
+    private void txtfDataAteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataAteKeyReleased
+        pesquisarFiltrada();
+    }//GEN-LAST:event_txtfDataAteKeyReleased
+
+    private void tblListagemPessoaFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListagemPessoaFMouseClicked
+        popularCampos();
+    }//GEN-LAST:event_tblListagemPessoaFMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -586,155 +681,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
                 new FrmListagemPessoaF(control.SynchroSoft.getNvlAdm()).setVisible(true);
             }
         });
-    }  
-       
-    private void atualizarTabelaFiltrada (){
-       
-//        DaoPeca teste = new DaoPeca();
-        
-        //Instanciando array de pessoas para preenchimento da tabela
-        //ArrayList<Pessoa> lista = new ArrayList<>();
-        ArrayList<PessoaFisica> lista = new ArrayList<>();
-        //Chamando método para preenchimento de Jtable com dados da tabela de peça
-        lista = DaoPessoa.listarPessoaFisicaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().toLowerCase().trim());
-//        System.out.println(lista.get(0).);
-        String[] nomeColunas = {"Nome","CPF","Sexo","CEP","Endereço", "Número", "Telefone", "Celular", "Contrato", "Data de Cadastro", "PK Ref"};
-        try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPeca()
-        {
-            //declaração de variável pra contrato e para sexo
-            String contrato = "";
-            String sexo = "";
-            
-            
-//            DefaultTableModel modelo = new DefaultTableModel(
-//        lista.toArray(new Peca[lista.size()][]), nomeColunas);
-//            tblListagemPeca.setModel(modelo);
-            
-            DefaultTableModel model = new DefaultTableModel() {
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    if (column == 11) {
-                        //Coluna 10 não poderá ser editada.
-                        return false;
-                    }
-                    return true;
-                }
-            };
-            tblListagemPessoaF.setModel(model);
-            model.setColumnIdentifiers(nomeColunas);
-            model.setRowCount(0);
-        Object rowData[] = new Object[11];
-        for(int i = 0; i < lista.size(); i++)
-        {
-            //Se o manter contrato for 1, possui; senão, não possui
-            if(lista.get(i).getPessoa().getManterContrato() == 0)
-            {
-                contrato = "Possui contrato";
-            }
-            else
-            {
-                contrato = "Não possui contrato";
-            }
-            
-            //Se o sexo for 0, masculino; senão, feminino
-            rowData[0] = lista.get(i).getPessoa().getNome();
-            rowData[1] = lista.get(i).getCpf();
-            rowData[2] = lista.get(i).getSexo();            
-            rowData[3] = lista.get(i).getPessoa().getEndereco().getCep();
-            rowData[4] = lista.get(i).getPessoa().getEndereco().getLogradouro();
-            rowData[5] = lista.get(i).getPessoa().getComplementoLogradouro();
-            rowData[6] = Long.toString(lista.get(i).getPessoa().getTelefone());
-            rowData[7] = Long.toString(lista.get(i).getCelular());
-            rowData[8] = contrato;            
-            rowData[9] = lista.get(i).getDataCadastro().toString();
-            rowData[10] = lista.get(i).getCpf();
-            
-            
-            model.addRow(rowData);
-            
-        }
-                    
-        }
-        catch(Exception ex)
-        {
-            System.out.println("Erro ao popular tabela.\n\n"+ex.getMessage());
-        }
-        
-        tblListagemPessoaF.getColumnModel().getColumn(10).setMinWidth(0);
-        tblListagemPessoaF.getColumnModel().getColumn(10).setPreferredWidth(0);
-        tblListagemPessoaF.getColumnModel().getColumn(10).setMaxWidth(0);
     }
-
-    //Criando método de preenchimento/atualização de tabela com dados do banco
-    private void atualizarTabela (){
-       
-        ArrayList<PessoaFisica> lista = new ArrayList<>();
-        
-        lista = DaoPessoa.listarPessoaFisica();
-
-        String[] nomeColunas = {"Nome","CPF","Sexo","CEP","Endereço", "Número", "Telefone", "Celular", "Contrato", "Data de Cadastro", "PK Ref"};
-        try
-        {
-            
-            String contrato = "";
-            String sexo = "";
-            
-            DefaultTableModel model = new DefaultTableModel() {
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    if (column == 11) {
-                        //Coluna 10 não poderá ser editada.
-                        return false;
-                    }
-                    return true;
-                }
-            };
-            tblListagemPessoaF.setModel(model);
-            model.setColumnIdentifiers(nomeColunas);
-            model.setRowCount(0);
-        Object rowData[] = new Object[11];
-        for(int i = 0; i < lista.size(); i++)
-        {
-            //Se o manter contrato for 1, possui; senão, não possui
-            if(lista.get(i).getPessoa().getManterContrato() == 1)
-            {
-                contrato = "Sim";
-            }
-            else
-            {
-                contrato = "Não";
-            }
-            
-            //Se o sexo for 0, masculino; senão, feminino
-            
-            rowData[0] = lista.get(i).getPessoa().getNome();
-            rowData[1] = lista.get(i).getCpf();
-            rowData[2] = lista.get(i).getSexo();
-            rowData[3] = lista.get(i).getPessoa().getEndereco().getCep();
-            rowData[4] = lista.get(i).getPessoa().getEndereco().getLogradouro();
-            rowData[5] = lista.get(i).getPessoa().getComplementoLogradouro();
-            rowData[6] = Long.toString(lista.get(i).getPessoa().getTelefone());
-            rowData[7] = Long.toString(lista.get(i).getCelular());
-            rowData[8] = contrato;            
-            rowData[9] = lista.get(i).getDataCadastro().toString();
-            rowData[10] = lista.get(i).getCpf();
-            
-            
-            model.addRow(rowData);
-            
-        }
-                    
-        }
-        catch(Exception ex)
-        {
-            System.out.println("Erro ao popular tabela.\n\n"+ex.getMessage());
-        }
-        
-        tblListagemPessoaF.getColumnModel().getColumn(10).setMinWidth(0);
-        tblListagemPessoaF.getColumnModel().getColumn(10).setPreferredWidth(0);
-        tblListagemPessoaF.getColumnModel().getColumn(10).setMaxWidth(0);
-    }
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
@@ -744,10 +691,13 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
     private javax.swing.JButton btnDeletarTodosRegistros;
     private javax.swing.JButton btnFecharFrame;
     private javax.swing.JButton btnHoje;
+    private javax.swing.JButton btnHojePesquisa;
     private javax.swing.JButton btnLimparTabela;
     private javax.swing.JButton btnListarTodos;
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JComboBox<String> cmbFiltro;
+    private javax.swing.ButtonGroup grupoContrato;
+    private javax.swing.ButtonGroup grupoSexo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblCelRamal;
@@ -755,6 +705,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
     private javax.swing.JLabel lblCepExiste;
     private javax.swing.JLabel lblCpfCnpj;
     private javax.swing.JLabel lblCpfCnpjExiste;
+    private javax.swing.JLabel lblDataAte;
     private javax.swing.JLabel lblDataCadastro;
     private javax.swing.JLabel lblDigiteODado;
     private javax.swing.JLabel lblNome;
@@ -778,6 +729,425 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
     private javax.swing.JTextField txtPesquisa;
     private javax.swing.JTextField txtTelefone;
     private javax.swing.JFormattedTextField txtfCep;
+    private javax.swing.JFormattedTextField txtfDataAte;
     private javax.swing.JFormattedTextField txtfDataCadastro;
+    private javax.swing.JFormattedTextField txtfDataDe;
     // End of variables declaration//GEN-END:variables
+
+    private void pesquisarFiltrada() {
+        int opcaoFiltro = cmbFiltro.getSelectedIndex();
+        int opcaoDataCadastro = 9;
+        int opcaoDataDeAte = 10;
+
+        
+            if ((opcaoFiltro != opcaoDataCadastro) && (opcaoFiltro != opcaoDataDeAte)) {
+                if (!"".equals(txtPesquisa.getText().trim())) {
+                    atualizarTabela(true);
+                } else {
+                    limparTabela();
+                }
+            } else {
+                if ((!"".equals(txtfDataDe.getText().trim())) && (!"".equals(txtfDataAte.getText().trim()))) {
+                    atualizarTabela(true);
+                } else {
+                    limparTabela();
+                }
+            }
+
+         
+    }
+
+    private void removerTodosRegistros() {
+        int opcao;
+        opcao = JOptionPane.showConfirmDialog(this, "Deseja REALMENTE remover todas as pessoas físicas do banco de dados?\n\n",
+                "Alerta - remoção de todos os registros", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (opcao == 0) {
+            opcao = JOptionPane.showConfirmDialog(this, "Essa operação tem grandes chances de falhar, devido a existência\n"
+                    + "de restrições de chaves estrangeiras no banco de dados.\n\n"
+                    + "Deseja REALMENTE tentar excluir todos os registros do banco de dados?\n\n"
+                    + "Caso a operação suceda, todos os dados serão permanentemente excluídos.\n"
+                    + "Caso ela falhe, talvez alguns registros possam ter sidos excluidos, e outros não."
+                    + "\n\n"
+                    + "Deseja prosseguir?",
+                    "Alerta - remoção de todos os registros", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            if (opcao == 0) {
+                boolean exclusaoSucedida;
+                exclusaoSucedida = dao.DaoPessoa.deletarTodasPessoasFisicas();
+                if (exclusaoSucedida) {
+                    atualizarTabela(ultimoTipoPesquisa);
+                }
+            }
+        }
+    }
+
+    private void alterarRegistro() {
+        if (validarCampos()) {
+            PessoaFisica pessoaFisica = new PessoaFisica();
+            Pessoa pessoa = new Pessoa();
+            Endereco endereco = new Endereco();
+
+            String cep = txtfCep.getText();
+            cep = cep.replace("-", "");
+            cep = cep.trim();
+
+            endereco.setCep(cep);
+
+            pessoa.setManterContrato(rbtSimCadastro.isSelected());
+            pessoa.setNome(txtNomePessoaFicticio.getText());
+            pessoa.setComplementoLogradouro(txtNumeroLogradouro.getText());
+            pessoa.setTelefone(txtTelefone.getText());
+            pessoa.setEndereco(endereco);
+
+            pessoaFisica.setPessoa(pessoa);
+            pessoaFisica.setCelular(txtCelRamal.getText());
+            pessoaFisica.setCpf(txtCpfCnpj.getText());
+            pessoaFisica.setSexo(rbtMasculino.isSelected());
+            pessoaFisica.setDataCadastro(txtfDataCadastro.getText());
+
+            boolean alteracaoSucedida;
+            alteracaoSucedida = dao.DaoPessoa.alterarPessoaFisica(pessoaFisica, PK_REF);
+
+            if (alteracaoSucedida) {
+                atualizarTabela(ultimoTipoPesquisa);
+                limparCampos();
+            }
+        }
+    }
+
+    private boolean validarCampos() {
+        if (txtNomePessoaFicticio.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Nome em branco. \nDigite um nome para a pessoa física.", "Erro - Nome Inválido", 0);
+            txtNomePessoaFicticio.requestFocus();
+            return false;
+        } else if (txtCpfCnpj.getText().length() < 11) {
+            JOptionPane.showMessageDialog(null, "CPF Inválido. Digite 11 dígitos, sem pontos ou hífens.", "Erro - CPF Inválido", 0);
+            txtCpfCnpj.requestFocus();
+            return false;
+        } else if (existeCpf) {
+            JOptionPane.showMessageDialog(null, "CPF inválido. Verifique se o CPF está correto e se já não existe um mesmo CPF cadastrado.", "Erro - CPF Inválido", 0);
+            txtCpfCnpj.requestFocus();
+            return false;
+        } else if (!cepCadastrado) {
+            JOptionPane.showMessageDialog(null, "CEP inválido. Verifique se o CEP informado está correto ou se ele já está cadastrado.", "Erro - CEP Inválido", 0);
+            txtfCep.requestFocus();
+            return false;
+        } else if (txtNumeroLogradouro.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Número do logradouro em branco. \nDigite o número e/ou complemento do logradouro.", "Erro - Nº Logradouro Inválido", 0);
+            txtNumeroLogradouro.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private void deletarRegistro() {
+
+        int opcao;
+        opcao = JOptionPane.showConfirmDialog(this, "Atenção! Todos os registros relacionados ao CPF "
+                + ((String) tblListagemPessoaF.getValueAt(tblListagemPessoaF.getSelectedRow(), 1))
+                + " serão permanentemente removidos.\n\nDeseja realmente excluir o registro?",
+                "Confirmação de exclusão",
+                JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+        if (opcao == 0) {
+            String cpf;
+            cpf = ((String) tblListagemPessoaF.getValueAt(tblListagemPessoaF.getSelectedRow(), 1));
+            dao.DaoPessoa.deletarPessoaFisica(cpf);
+            atualizarTabela(ultimoTipoPesquisa);
+            limparCampos();
+        }
+    }
+
+    private void limparTabela() {
+        DefaultTableModel model = new DefaultTableModel();
+        model = (DefaultTableModel) tblListagemPessoaF.getModel();
+        model.setRowCount(0);
+        /*
+        Chama o metodo limparCampos para limpar os dados do registro anteriormente
+        selecionado.
+         */
+        limparCampos();
+    }
+
+    private void textSizeCPFJCNPJ() {
+        txtCpfCnpj.setText(TextSize.maxLenghtCPFCNPJ(txtCpfCnpj.getText(), true));
+        verificarCpfCnpjEmUso();
+    }
+
+    private void verificarCpfCnpjEmUso() {
+        if ((txtCpfCnpj.getText().length() < 11) || (txtCpfCnpj.getText().length() > 11)) {
+            lblCpfCnpjExiste.setText("CPF Inválido.");
+            lblCpfCnpjExiste.setForeground(Color.red);
+            existeCpf = true;
+        } else {
+            this.existeCpf = dao.DaoPessoa.existePessoaFisica(txtCpfCnpj.getText());
+            if (existeCpf) {
+                lblCpfCnpjExiste.setText("CPF já Cadastrado.");
+                lblCpfCnpjExiste.setForeground(Color.red);
+                existeCpf = false;
+            } else {
+                lblCpfCnpjExiste.setText("CPF livre.");
+                lblCpfCnpjExiste.setForeground(Color.black);
+                existeCpf = false;
+            }
+        }
+
+    }
+
+    /**
+     * Nome CPF Sexo CEP Endereço Número Endereço Telefone Celular Contrato Data
+     * de Cadastro Data Entre/Até
+     *
+     * @param filtro
+     */
+    private void limiteDigitosPesquisa(String filtro) {
+        switch (filtro) {
+            case "Nome":
+                txtPesquisa.setText(control.TextSize.maxLenghtNomeRazao(txtPesquisa.getText()));
+                txtPesquisa.setVisible(true);
+                txtfDataDe.setVisible(false);
+                txtfDataAte.setVisible(false);
+                lblDataAte.setVisible(false);
+                txtPesquisa.requestFocus();
+                break;
+            case "CPF":
+                txtPesquisa.setText(control.TextSize.maxLenghtCPFCNPJ(txtPesquisa.getText(), true));
+                txtPesquisa.setVisible(true);
+                txtfDataDe.setVisible(false);
+                txtfDataAte.setVisible(false);
+                lblDataAte.setVisible(false);
+                txtPesquisa.requestFocus();
+                break;
+            case "CEP":
+                txtPesquisa.setText(control.TextSize.maxLenghtCep(txtPesquisa.getText()));
+                txtPesquisa.setVisible(true);
+                txtfDataDe.setVisible(false);
+                txtfDataAte.setVisible(false);
+                lblDataAte.setVisible(false);
+                txtPesquisa.requestFocus();
+                break;
+            case "Endereço":
+                txtPesquisa.setText(control.TextSize.maxLenghtEndereco(txtPesquisa.getText()));
+                txtPesquisa.setVisible(true);
+                txtfDataDe.setVisible(false);
+                txtfDataAte.setVisible(false);
+                lblDataAte.setVisible(false);
+                txtPesquisa.requestFocus();
+                break;
+            case "Número Endereço":
+                txtPesquisa.setText(control.TextSize.maxLenghtNrLogradouro(txtPesquisa.getText()));
+                txtPesquisa.setVisible(true);
+                txtfDataDe.setVisible(false);
+                txtfDataAte.setVisible(false);
+                lblDataAte.setVisible(false);
+                txtPesquisa.requestFocus();
+                break;
+            case "Sexo":
+                txtPesquisa.setText(control.TextSize.maxLenghtSexo(txtPesquisa.getText()));
+                txtPesquisa.setVisible(true);
+                txtfDataDe.setVisible(false);
+                txtfDataAte.setVisible(false);
+                lblDataAte.setVisible(false);
+                txtPesquisa.requestFocus();
+                lblDigiteODado.setText("Digite Masculino ou Feminino:");
+                break;
+            case "Telefone":
+                txtPesquisa.setText(control.TextSize.maxLenghtTelefone(txtPesquisa.getText()));
+                txtPesquisa.setVisible(true);
+                txtfDataDe.setVisible(false);
+                txtfDataAte.setVisible(false);
+                lblDataAte.setVisible(false);
+                txtPesquisa.requestFocus();
+                break;
+            case "Celular":
+                txtPesquisa.setText(control.TextSize.maxLenghtCelularRamal(txtPesquisa.getText(), true));
+                txtPesquisa.setVisible(true);
+                txtfDataDe.setVisible(false);
+                txtfDataAte.setVisible(false);
+                lblDataAte.setVisible(false);
+                txtPesquisa.requestFocus();
+                break;
+            case "Mantém Contrato?":
+                lblDigiteODado.setText("Digite Sim ou Não:");
+                txtPesquisa.setText(control.TextSize.maxLenghtContrato(txtPesquisa.getText()));
+                txtPesquisa.setVisible(true);
+                txtfDataDe.setVisible(false);
+                txtfDataAte.setVisible(false);
+                lblDataAte.setVisible(false);
+                txtPesquisa.requestFocus();
+                break;
+            case "Data de Cadastro":
+                txtPesquisa.setVisible(false);
+                txtfDataDe.setVisible(true);
+                txtfDataAte.setVisible(false);
+                lblDataAte.setVisible(false);
+                txtfDataDe.requestFocus();
+                break;
+            case "Data Entre/Até":
+                lblDigiteODado.setText("Digite a Data Inicial:");
+                txtPesquisa.setVisible(false);
+                txtfDataDe.setVisible(true);
+                txtfDataAte.setVisible(true);
+                lblDataAte.setVisible(true);
+                txtfDataDe.requestFocus();
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "Erro ao definir limite de caracteres do campo de pesquisa.",
+                        "Erro - limite de dígitos dinâmico", 0);
+                break;
+        }
+    }
+
+    private void selecionarAoFocar() {
+        //Código para selecionar o texto todo ao ganhar foco
+        txtfDataDe.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfDataDe.selectAll();
+                    }
+                });
+            }
+        });
+
+        txtfDataAte.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfDataAte.selectAll();
+                    }
+                });
+            }
+        });
+
+        txtfDataCadastro.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfDataCadastro.selectAll();
+                    }
+                });
+            }
+        });
+    }
+
+    private void verificarCep() {
+        String cep = txtfCep.getText();
+        cep = cep.replace("-", "");
+        cep = cep.trim();
+        if ((cep.length() < 8) || (cep.length() > 8)) {
+            lblCepExiste.setText("Cep Inválido.");
+            lblCepExiste.setForeground(Color.red);
+            cepCadastrado = true;
+        } else {
+            this.cepCadastrado = dao.DaoEndereco.existeEndereco(cep);
+            if (cepCadastrado) {
+                lblCepExiste.setText("CEP Cadastrado.");
+                lblCepExiste.setForeground(Color.black);
+                cepCadastrado = false;
+            } else {
+                lblCepExiste.setText("CEP Inexistente.");
+                lblCepExiste.setForeground(Color.red);
+                cepCadastrado = true;
+            }
+        }
+    }
+
+    private void inicializarTabela() {
+        String[] nomeColunas = {"Nome", "CPF", "Sexo", "CEP", "Endereço", "Número", "Telefone", "Celular", "Contrato", "Data de Cadastro"};
+
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        tblListagemPessoaF.setModel(model);
+        model.setColumnIdentifiers(nomeColunas);
+        model.setRowCount(0);
+    }
+
+    private void atualizarTabela(boolean filtrada) {
+
+        DefaultTableModel model = new DefaultTableModel();
+        model = (DefaultTableModel) tblListagemPessoaF.getModel();
+        model.setRowCount(0);
+
+        ArrayList<PessoaFisica> lista = new ArrayList<>();
+
+        if (filtrada) {
+            lista = DaoPessoa.listarPessoaFisicaFiltrada(String.valueOf(cmbFiltro.getSelectedItem()),
+                    txtPesquisa.getText().toLowerCase().trim(), txtfDataDe.getText().toLowerCase().trim(), 
+                    txtfDataAte.getText().toLowerCase().trim());
+            ultimoTipoPesquisa = true;
+        } else {
+            lista = DaoPessoa.listarPessoaFisica();
+            ultimoTipoPesquisa = false;
+        }
+
+        Object dadosLinha[] = new Object[10];
+
+        for (int i = 0; i < lista.size(); i++) {
+            dadosLinha[0] = lista.get(i).getPessoa().getNome();
+            dadosLinha[1] = lista.get(i).getCpf();
+            dadosLinha[2] = lista.get(i).getSexoSTR();
+            dadosLinha[3] = lista.get(i).getPessoa().getEndereco().getCep();
+            dadosLinha[4] = lista.get(i).getPessoa().getEndereco().getLogradouro();
+            dadosLinha[5] = lista.get(i).getPessoa().getComplementoLogradouro();
+            dadosLinha[6] = lista.get(i).getPessoa().getTelefone();
+            dadosLinha[7] = lista.get(i).getCelular();
+            dadosLinha[8] = lista.get(i).getPessoa().getManterContratoSTR();
+            dadosLinha[9] = lista.get(i).getDataCadastro();
+            model.addRow(dadosLinha);
+        }
+        //String[] nomeColunas = {"Nome", "CPF", "Sexo", "CEP", "Endereço", "Número", "Telefone", "Celular", "Contrato", "Data de Cadastro"};
+
+        limparCampos();
+    }
+
+    private void limparCampos() {
+        rbtNaoCadastro.setSelected(false);
+        rbtSimCadastro.setSelected(false);
+        txtfDataCadastro.setText("");
+        txtNomePessoaFicticio.setText("");
+        txtCpfCnpj.setText("");
+        txtfCep.setText("");
+        txtNumeroLogradouro.setText("");
+        rbtFeminino.setSelected(false);
+        rbtMasculino.setSelected(false);
+        txtTelefone.setText("");
+        txtCelRamal.setText("");
+        verificarCep();
+        verificarCpfCnpjEmUso();
+        PK_REF = null;
+    }
+
+    private void textSizeCelRamal() {
+        txtCelRamal.setText(TextSize.maxLenghtCelularRamal(txtCelRamal.getText(), true));
+    }
+
+    private void popularCampos() {
+
+        PessoaFisica pessoaFisica = new PessoaFisica();
+
+        String cpf = (String) tblListagemPessoaF.getValueAt(tblListagemPessoaF.getSelectedRow(), 1);
+
+        pessoaFisica = dao.DaoPessoa.popularPessoaFisica(cpf);
+
+        rbtSimCadastro.setSelected(pessoaFisica.getPessoa().getManterContratoBooleano());
+        txtfDataCadastro.setText(pessoaFisica.getDataCadastro());
+        txtNomePessoaFicticio.setText(pessoaFisica.getPessoa().getNome());
+        txtCpfCnpj.setText(pessoaFisica.getCpf());
+        txtfCep.setText(pessoaFisica.getPessoa().getEndereco().getCep());
+        txtNumeroLogradouro.setText(pessoaFisica.getPessoa().getComplementoLogradouro());
+        txtTelefone.setText(String.valueOf(pessoaFisica.getPessoa().getTelefone()));
+        txtCelRamal.setText(String.valueOf(pessoaFisica.getCelular()));
+        PK_REF = pessoaFisica.getCpf();
+
+        verificarCpfCnpjEmUso();
+        verificarCep();
+    }
 }
