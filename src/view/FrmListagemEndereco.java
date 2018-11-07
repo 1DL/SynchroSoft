@@ -64,6 +64,10 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         btnListarTodos = new javax.swing.JButton();
         btnLimparTabela = new javax.swing.JButton();
         btnCadastrarEndereco = new javax.swing.JButton();
+        lblDataDe = new javax.swing.JLabel();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        lblDataAte = new javax.swing.JLabel();
+        jFormattedTextField2 = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListagemEndereco = new javax.swing.JTable();
         btnMenuPrincipal = new javax.swing.JButton();
@@ -114,7 +118,7 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(txtPesquisa);
-        txtPesquisa.setBounds(570, 10, 540, 25);
+        txtPesquisa.setBounds(570, 10, 210, 25);
 
         panDadosEndereco.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Endereço"));
         panDadosEndereco.setOpaque(false);
@@ -243,6 +247,20 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
         });
         panPrincipal.add(btnCadastrarEndereco);
         btnCadastrarEndereco.setBounds(720, 190, 160, 30);
+
+        lblDataDe.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblDataDe.setText("De:");
+        panPrincipal.add(lblDataDe);
+        lblDataDe.setBounds(790, 10, 34, 25);
+        panPrincipal.add(jFormattedTextField1);
+        jFormattedTextField1.setBounds(1000, 10, 110, 25);
+
+        lblDataAte.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblDataAte.setText("Até:");
+        panPrincipal.add(lblDataAte);
+        lblDataAte.setBounds(960, 10, 34, 25);
+        panPrincipal.add(jFormattedTextField2);
+        jFormattedTextField2.setBounds(830, 10, 110, 25);
 
         getContentPane().add(panPrincipal);
         panPrincipal.setBounds(10, 10, 1125, 230);
@@ -431,10 +449,14 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JComboBox<String> cmbEstado;
     private javax.swing.JComboBox<String> cmbFiltro;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblCep;
     private javax.swing.JLabel lblCepExiste;
+    private javax.swing.JLabel lblDataAte;
+    private javax.swing.JLabel lblDataDe;
     private javax.swing.JLabel lblDigiteODado;
     private javax.swing.JLabel lblEnderecoEncontrado;
     private javax.swing.JLabel lblEstado;

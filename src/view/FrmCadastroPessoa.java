@@ -91,7 +91,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         grupoTipoPessoa = new javax.swing.ButtonGroup();
         grupoCadastro = new javax.swing.ButtonGroup();
         grupoSexo = new javax.swing.ButtonGroup();
-        jPanel1 = new javax.swing.JPanel();
+        panPrincipal = new javax.swing.JPanel();
         panDadosCep = new javax.swing.JPanel();
         lblLogradouro = new javax.swing.JLabel();
         Bairro = new javax.swing.JLabel();
@@ -156,10 +156,10 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         });
         getContentPane().setLayout(null);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.setOpaque(false);
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panPrincipal.setBackground(new java.awt.Color(204, 204, 204));
+        panPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panPrincipal.setOpaque(false);
+        panPrincipal.setLayout(null);
 
         panDadosCep.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do CEP"));
         panDadosCep.setOpaque(false);
@@ -206,26 +206,31 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         panDadosCep.add(txtEstado);
         txtEstado.setBounds(714, 56, 120, 25);
 
-        jPanel1.add(panDadosCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 200, 1030, 100));
+        panPrincipal.add(panDadosCep);
+        panDadosCep.setBounds(17, 200, 1030, 100);
 
         lblTelefone.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblTelefone.setText("Telefone:");
-        jPanel1.add(lblTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 140, 25));
+        panPrincipal.add(lblTelefone);
+        lblTelefone.setBounds(10, 130, 140, 25);
 
         txtTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtTelefoneKeyReleased(evt);
             }
         });
-        jPanel1.add(txtTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, 316, 25));
+        panPrincipal.add(txtTelefone);
+        txtTelefone.setBounds(170, 130, 316, 25);
 
         lblNumeroLogradouro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblNumeroLogradouro.setText("Nº Logradouro:");
-        jPanel1.add(lblNumeroLogradouro, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 90, 150, 25));
+        panPrincipal.add(lblNumeroLogradouro);
+        lblNumeroLogradouro.setBounds(560, 90, 150, 25);
 
         lblTipoPessoa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblTipoPessoa.setText("Tipo de Pessoa:");
-        jPanel1.add(lblTipoPessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 140, 25));
+        panPrincipal.add(lblTipoPessoa);
+        lblTipoPessoa.setBounds(10, 10, 140, 25);
 
         grupoTipoPessoa.add(rbtFisica);
         rbtFisica.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -237,7 +242,8 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 rbtFisicaActionPerformed(evt);
             }
         });
-        jPanel1.add(rbtFisica, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, 25));
+        panPrincipal.add(rbtFisica);
+        rbtFisica.setBounds(160, 10, 69, 25);
 
         grupoTipoPessoa.add(rbtJuridica);
         rbtJuridica.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -248,26 +254,31 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 rbtJuridicaActionPerformed(evt);
             }
         });
-        jPanel1.add(rbtJuridica, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, -1, 25));
+        panPrincipal.add(rbtJuridica);
+        rbtJuridica.setBounds(220, 10, 85, 25);
 
         lblNome.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblNome.setText("Nome:");
-        jPanel1.add(lblNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 140, 25));
+        panPrincipal.add(lblNome);
+        lblNome.setBounds(10, 50, 140, 25);
 
         txtNomePessoaFicticio.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNomePessoaFicticioKeyReleased(evt);
             }
         });
-        jPanel1.add(txtNomePessoaFicticio, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 316, 25));
+        panPrincipal.add(txtNomePessoaFicticio);
+        txtNomePessoaFicticio.setBounds(170, 50, 316, 25);
 
         lblCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCep.setText("CEP:");
-        jPanel1.add(lblCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 140, 25));
+        panPrincipal.add(lblCep);
+        lblCep.setBounds(10, 90, 140, 25);
 
         lblCepExiste.setForeground(java.awt.Color.red);
         lblCepExiste.setText("Cep Inválido.");
-        jPanel1.add(lblCepExiste, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 90, 90, 25));
+        panPrincipal.add(lblCepExiste);
+        lblCepExiste.setBounds(300, 90, 90, 25);
 
         btnCadastrarCep.setText("Cadastrar");
         btnCadastrarCep.addActionListener(new java.awt.event.ActionListener() {
@@ -275,7 +286,8 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 btnCadastrarCepActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCadastrarCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 87, 80, 29));
+        panPrincipal.add(btnCadastrarCep);
+        btnCadastrarCep.setBounds(410, 87, 80, 29);
 
         txtNumeroLogradouro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,11 +299,13 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 txtNumeroLogradouroKeyReleased(evt);
             }
         });
-        jPanel1.add(txtNumeroLogradouro, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 90, 120, 25));
+        panPrincipal.add(txtNumeroLogradouro);
+        txtNumeroLogradouro.setBounds(730, 90, 120, 25);
 
         lblTipoPessoa1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblTipoPessoa1.setText("Possui Contrato:");
-        jPanel1.add(lblTipoPessoa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 140, 25));
+        panPrincipal.add(lblTipoPessoa1);
+        lblTipoPessoa1.setBounds(400, 10, 140, 25);
 
         grupoCadastro.add(rbtSimCadastro);
         rbtSimCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -302,7 +316,8 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 rbtSimCadastroActionPerformed(evt);
             }
         });
-        jPanel1.add(rbtSimCadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 10, -1, 25));
+        panPrincipal.add(rbtSimCadastro);
+        rbtSimCadastro.setBounds(540, 10, 55, 25);
 
         grupoCadastro.add(rbtNaoCadastro);
         rbtNaoCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -314,7 +329,8 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 rbtNaoCadastroActionPerformed(evt);
             }
         });
-        jPanel1.add(rbtNaoCadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 10, -1, 25));
+        panPrincipal.add(rbtNaoCadastro);
+        rbtNaoCadastro.setBounds(600, 10, 59, 25);
 
         btnLimpar.setText("Limpar");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -322,7 +338,8 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 btnLimparActionPerformed(evt);
             }
         });
-        jPanel1.add(btnLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 170, 100, 30));
+        panPrincipal.add(btnLimpar);
+        btnLimpar.setBounds(780, 170, 100, 30);
 
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.setNextFocusableComponent(rbtFisica);
@@ -331,11 +348,13 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 btnCadastrarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 170, 130, 30));
+        panPrincipal.add(btnCadastrar);
+        btnCadastrar.setBounds(910, 170, 130, 30);
 
         lblCpfCnpj.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCpfCnpj.setText("CPF:");
-        jPanel1.add(lblCpfCnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 50, 140, 25));
+        panPrincipal.add(lblCpfCnpj);
+        lblCpfCnpj.setBounds(560, 50, 140, 25);
 
         txtRazaoSocial.setNextFocusableComponent(btnCadastrar);
         txtRazaoSocial.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -343,26 +362,31 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 txtRazaoSocialKeyReleased(evt);
             }
         });
-        jPanel1.add(txtRazaoSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 316, 25));
+        panPrincipal.add(txtRazaoSocial);
+        txtRazaoSocial.setBounds(170, 170, 316, 25);
 
         lblRazaoSocial.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblRazaoSocial.setText("Razão Social:");
-        jPanel1.add(lblRazaoSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 140, 25));
+        panPrincipal.add(lblRazaoSocial);
+        lblRazaoSocial.setBounds(10, 170, 140, 25);
 
         lblCelRamal.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCelRamal.setText("Celular:");
-        jPanel1.add(lblCelRamal, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 130, 140, 25));
+        panPrincipal.add(lblCelRamal);
+        lblCelRamal.setBounds(560, 130, 140, 25);
 
         txtCelRamal.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCelRamalKeyReleased(evt);
             }
         });
-        jPanel1.add(txtCelRamal, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 130, 316, 25));
+        panPrincipal.add(txtCelRamal);
+        txtCelRamal.setBounds(730, 130, 316, 25);
 
         lblSexo.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblSexo.setText("Sexo:");
-        jPanel1.add(lblSexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 90, 50, 25));
+        panPrincipal.add(lblSexo);
+        lblSexo.setBounds(860, 90, 50, 25);
 
         grupoSexo.add(rbtMasculino);
         rbtMasculino.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -374,7 +398,8 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 rbtMasculinoActionPerformed(evt);
             }
         });
-        jPanel1.add(rbtMasculino, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 92, 110, 25));
+        panPrincipal.add(rbtMasculino);
+        rbtMasculino.setBounds(910, 92, 110, 25);
 
         grupoSexo.add(rbtFeminino);
         rbtFeminino.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -385,14 +410,17 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 rbtFemininoActionPerformed(evt);
             }
         });
-        jPanel1.add(rbtFeminino, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 92, 100, 25));
+        panPrincipal.add(rbtFeminino);
+        rbtFeminino.setBounds(1010, 92, 100, 25);
 
         lblDataCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDataCadastro.setText("Data Cadastro:");
-        jPanel1.add(lblDataCadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 10, -1, 25));
+        panPrincipal.add(lblDataCadastro);
+        lblDataCadastro.setBounds(730, 10, 118, 25);
 
         txtfDataCadastro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-        jPanel1.add(txtfDataCadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 10, 120, 25));
+        panPrincipal.add(txtfDataCadastro);
+        txtfDataCadastro.setBounds(860, 10, 120, 25);
 
         btnHoje.setText("Hoje");
         btnHoje.addActionListener(new java.awt.event.ActionListener() {
@@ -400,11 +428,13 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 btnHojeActionPerformed(evt);
             }
         });
-        jPanel1.add(btnHoje, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 10, -1, 25));
+        panPrincipal.add(btnHoje);
+        btnHoje.setBounds(990, 10, 55, 25);
 
         lblCpfCnpjExiste.setForeground(java.awt.Color.red);
         lblCpfCnpjExiste.setText("CPF Inválido.");
-        jPanel1.add(lblCpfCnpjExiste, new org.netbeans.lib.awtextra.AbsoluteConstraints(852, 50, 190, 25));
+        panPrincipal.add(lblCpfCnpjExiste);
+        lblCpfCnpjExiste.setBounds(852, 50, 190, 25);
 
         btnListarPessoa1.setText("Listar Pessoas");
         btnListarPessoa1.addActionListener(new java.awt.event.ActionListener() {
@@ -412,7 +442,8 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 btnListarPessoa1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnListarPessoa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 47, 110, 30));
+        panPrincipal.add(btnListarPessoa1);
+        btnListarPessoa1.setBounds(960, 47, 110, 30);
 
         try {
             txtfCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
@@ -429,7 +460,8 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 txtfCepKeyReleased(evt);
             }
         });
-        jPanel1.add(txtfCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 127, 25));
+        panPrincipal.add(txtfCep);
+        txtfCep.setBounds(170, 90, 127, 25);
 
         txtCpfCnpj.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -441,10 +473,11 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
                 txtCpfCnpjKeyReleased(evt);
             }
         });
-        jPanel1.add(txtCpfCnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 50, 120, 25));
+        panPrincipal.add(txtCpfCnpj);
+        txtCpfCnpj.setBounds(730, 50, 120, 25);
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(10, 10, 1125, 320);
+        getContentPane().add(panPrincipal);
+        panPrincipal.setBounds(10, 10, 1125, 320);
 
         btnMenuPrincipal.setText("Menu Principal");
         btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
@@ -646,7 +679,6 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     private javax.swing.ButtonGroup grupoCadastro;
     private javax.swing.ButtonGroup grupoSexo;
     private javax.swing.ButtonGroup grupoTipoPessoa;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblCelRamal;
@@ -667,6 +699,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     private javax.swing.JLabel lblTipoPessoa;
     private javax.swing.JLabel lblTipoPessoa1;
     private javax.swing.JPanel panDadosCep;
+    private javax.swing.JPanel panPrincipal;
     private javax.swing.JRadioButton rbtFeminino;
     private javax.swing.JRadioButton rbtFisica;
     private javax.swing.JRadioButton rbtJuridica;
