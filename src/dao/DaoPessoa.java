@@ -462,7 +462,7 @@ Data Entre/Até
                 case "CEP":
                     sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(TB_PESSOA_FISICA.CD_CEP) LIKE LOWER(?)";
                     break;
-                case "Eendereço":
+                case "Endereço":
                     sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(TB_ENDERECO.DS_LOGRADOURO) LIKE LOWER(?)";
                     break;
                 case "Número Endereço":
