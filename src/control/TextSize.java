@@ -11,6 +11,15 @@ package control;
  */
 public class TextSize {
     
+    public static String maxLenghtLogradouro(String str) {
+        String valor = "";
+        if (str.length() > 100) {
+            valor = str.substring(0, 100);
+            str = valor;
+        }
+        return str;
+    }
+    
     public static String maxLenghtSexo(String str) {
         String valor = "";
         if (str.length() > 10) {
@@ -252,16 +261,7 @@ public class TextSize {
             }
 	    return str;
     }
-    
-    public static String maxLenghtLogradouro(String str) {
-         String valor = "";
-            if(str.length() > 100){
-	        valor = str.substring(0,100);
-                str = valor;
-            }
-	    return str;
-    }
-    
+        
     public static String maxLenghtCidade(String str) {
          String valor = "";
             if(str.length() > 50){
