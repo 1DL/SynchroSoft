@@ -114,11 +114,6 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         panPrincipal.setOpaque(false);
         panPrincipal.setLayout(null);
 
-        txtPesquisa.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtPesquisaFocusGained(evt);
-            }
-        });
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPesquisaActionPerformed(evt);
@@ -401,11 +396,6 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         btnAlterar.setBounds(980, 230, 130, 30);
 
         txtfDataDe.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-        txtfDataDe.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtfDataDeFocusGained(evt);
-            }
-        });
         txtfDataDe.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtfDataDeKeyReleased(evt);
@@ -420,11 +410,6 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         lblDataAte.setBounds(800, 10, 34, 25);
 
         txtfDataAte.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-        txtfDataAte.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtfDataAteFocusGained(evt);
-            }
-        });
         txtfDataAte.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtfDataAteKeyReleased(evt);
@@ -616,24 +601,6 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         txtfDataDe.setText(control.Datas.getDiaHoje());
         txtfDataAte.setText(control.Datas.getDiaHoje());
     }//GEN-LAST:event_btnHojePesquisaActionPerformed
-
-    private void txtPesquisaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPesquisaFocusGained
-        limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
-        pesquisarFiltrada();
-        txtPesquisa.selectAll();
-    }//GEN-LAST:event_txtPesquisaFocusGained
-
-    private void txtfDataDeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfDataDeFocusGained
-        limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
-        pesquisarFiltrada();
-        txtfDataDe.selectAll();
-    }//GEN-LAST:event_txtfDataDeFocusGained
-
-    private void txtfDataAteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfDataAteFocusGained
-        limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
-        pesquisarFiltrada();
-        txtfDataAte.selectAll();
-    }//GEN-LAST:event_txtfDataAteFocusGained
 
     private void txtfDataDeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataDeKeyReleased
         pesquisarFiltrada();
@@ -1136,8 +1103,24 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         String cpf = (String) tblListagemPessoaF.getValueAt(tblListagemPessoaF.getSelectedRow(), 1);
 
         pessoaFisica = dao.DaoPessoa.popularPessoaFisica(cpf);
-
-        rbtSimCadastro.setSelected(pessoaFisica.getPessoa().getManterContratoBooleano());
+        boolean mantemContrato = pessoaFisica.getPessoa().getManterContratoBooleano();
+        
+        int sexoMasculino = 0;
+        
+        if (pessoaFisica.getSexo() == sexoMasculino) {
+            rbtMasculino.setSelected(true);
+            rbtFeminino.setSelected(false);
+        } else {
+            rbtMasculino.setSelected(false);
+            rbtFeminino.setSelected(true);
+        }
+        if (mantemContrato) {
+            rbtSimCadastro.setSelected(true);
+            rbtNaoCadastro.setSelected(false);
+        } else {
+            rbtSimCadastro.setSelected(false);
+            rbtNaoCadastro.setSelected(true);
+        }
         txtfDataCadastro.setText(pessoaFisica.getDataCadastro());
         txtNomePessoaFicticio.setText(pessoaFisica.getPessoa().getNome());
         txtCpfCnpj.setText(pessoaFisica.getCpf());

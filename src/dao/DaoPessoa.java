@@ -460,13 +460,16 @@ Data Entre/Até
                     sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(ID_SEXO) LIKE LOWER(?)";
                     break;
                 case "CEP":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(CD_CEP) LIKE LOWER(?)";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(TB_PESSOA_FISICA.CD_CEP) LIKE LOWER(?)";
                     break;
                 case "Eendereço":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(SYNCHROSOFT.TB_ENDERECO.CD_CEP) LIKE LOWER(?)";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(TB_ENDERECO.DS_LOGRADOURO) LIKE LOWER(?)";
                     break;
                 case "Número Endereço":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(NR_COMPLEMENTO_LOGRADOURO) LIKE LOWER(?)";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA "
+                            + "INNER JOIN SYNCHROSOFT.TB_ENDERECO ON "
+                            + "(SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) "
+                            + "WHERE LOWER(NR_COMPLEMENTO_LOGRADOURO) LIKE LOWER(?)";
                     break;
                 case "Telefone":
                     sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(NR_TELEFONE) LIKE LOWER(?)";
@@ -478,16 +481,16 @@ Data Entre/Até
                     txtPesquisa = txtPesquisa.substring(0, 1);
                     if (txtPesquisa.equals("n")) {
                         txtPesquisa = "0";
-                    } else if (txtPesquisa.equals("s")){
+                    } else if (txtPesquisa.equals("s")) {
                         txtPesquisa = "1";
                     }
                     sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(ID_CONTRATO) LIKE LOWER(?)";
                     break;
                 case "Data de Cadastro":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(DT_CADASTRO) LIKE LOWER(?)";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(DT_CADASTRO) LIKE LOWER (?)";
                     break;
                 case "Data Entre/Até":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(DT_CADASTRO) BETWEEN LIKE LOWER(?) AND LIKE LOWER(?)";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(DT_CADASTRO) BETWEEN LIKE LOWER(?,) AND LIKE LOWER(?)";
                     break;
 
             }
@@ -549,8 +552,8 @@ Data Entre/Até
             rs.close();
 
         } catch (SQLException ex) { //Caso exista a possibilidade de retorno de erro
-            /*JOptionPane.showMessageDialog(null, "Erro ao listar Pessoas Físicas via filtro.\n\nErro Nº " + ex.getErrorCode()
-                    + "\n" + ex.getMessage(), "Erro: DaoPessoa - Listar Pessoa Física Filtrada", 0);*/
+            JOptionPane.showMessageDialog(null, "Erro ao listar Pessoas Físicas via filtro.\n\nErro Nº " + ex.getErrorCode()
+                    + "\n" + ex.getMessage(), "Erro: DaoPessoa - Listar Pessoa Física Filtrada", 0);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DaoPessoa.class.getName()).log(Level.SEVERE, null, ex);
         }
