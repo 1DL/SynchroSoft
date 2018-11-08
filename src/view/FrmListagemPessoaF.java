@@ -87,7 +87,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         btnDeletar = new javax.swing.JButton();
         btnLimparTabela = new javax.swing.JButton();
         btnListarTodos = new javax.swing.JButton();
-        btnCadastrarProduto = new javax.swing.JButton();
+        btnCadastraCPF = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
         txtfDataDe = new javax.swing.JFormattedTextField();
         lblDataAte = new javax.swing.JLabel();
@@ -377,14 +377,14 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         panPrincipal.add(btnListarTodos);
         btnListarTodos.setBounds(550, 230, 147, 30);
 
-        btnCadastrarProduto.setText("Cadastrar novo CPF");
-        btnCadastrarProduto.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastraCPF.setText("Cadastrar novo CPF");
+        btnCadastraCPF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarProdutoActionPerformed(evt);
+                btnCadastraCPFActionPerformed(evt);
             }
         });
-        panPrincipal.add(btnCadastrarProduto);
-        btnCadastrarProduto.setBounds(720, 230, 150, 30);
+        panPrincipal.add(btnCadastraCPF);
+        btnCadastraCPF.setBounds(720, 230, 150, 30);
 
         btnAlterar.setText("Alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -584,9 +584,9 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         atualizarTabela(false);
     }//GEN-LAST:event_btnListarTodosActionPerformed
 
-    private void btnCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarProdutoActionPerformed
+    private void btnCadastraCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastraCPFActionPerformed
         control.Janelas.abrirCadastroPessoa();
-    }//GEN-LAST:event_btnCadastrarProdutoActionPerformed
+    }//GEN-LAST:event_btnCadastraCPFActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         alterarRegistro();
@@ -652,8 +652,8 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
+    private javax.swing.JButton btnCadastraCPF;
     private javax.swing.JButton btnCadastrarCep;
-    private javax.swing.JButton btnCadastrarProduto;
     private javax.swing.JButton btnDeletar;
     private javax.swing.JButton btnDeletarTodosRegistros;
     private javax.swing.JButton btnFecharFrame;

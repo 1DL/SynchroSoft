@@ -40,8 +40,6 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         panPrincipal = new javax.swing.JPanel();
         lblPesquisar = new javax.swing.JLabel();
         cmbFiltro = new javax.swing.JComboBox<>();
-        lblDigiteODado = new javax.swing.JLabel();
-        txtPesquisa = new javax.swing.JTextField();
         panPrincipal1 = new javax.swing.JPanel();
         lblTelefone = new javax.swing.JLabel();
         txtTelefone = new javax.swing.JTextField();
@@ -69,8 +67,14 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         btnDeletar = new javax.swing.JButton();
         btnLimparTabela = new javax.swing.JButton();
         btnListarTodos = new javax.swing.JButton();
-        btnCadastrarProduto = new javax.swing.JButton();
+        btnCadastrarCnpj = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
+        lblDigiteODado = new javax.swing.JLabel();
+        txtPesquisa = new javax.swing.JTextField();
+        txtfDataDe = new javax.swing.JFormattedTextField();
+        btnHojePesquisa = new javax.swing.JButton();
+        lblDataAte = new javax.swing.JLabel();
+        txtfDataAte = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListagemPessoaJ = new javax.swing.JTable();
         btnDeletarTodosRegistros = new javax.swing.JButton();
@@ -100,27 +104,6 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome Fictício", "CNPJ", "CEP", "Logradouro", "Razão Social", "Número Endereço", "Telefone", "Ramal", "Contrato", "Data Cadastro" }));
         panPrincipal.add(cmbFiltro);
         cmbFiltro.setBounds(160, 10, 210, 25);
-
-        lblDigiteODado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblDigiteODado.setText("Descrição:");
-        panPrincipal.add(lblDigiteODado);
-        lblDigiteODado.setBounds(375, 10, 83, 25);
-
-        txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPesquisaActionPerformed(evt);
-            }
-        });
-        txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtPesquisaKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtPesquisaKeyTyped(evt);
-            }
-        });
-        panPrincipal.add(txtPesquisa);
-        txtPesquisa.setBounds(660, 10, 256, 25);
 
         panPrincipal1.setBackground(new java.awt.Color(204, 204, 204));
         panPrincipal1.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados da Pessoa Jurídica"));
@@ -333,14 +316,14 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         panPrincipal.add(btnListarTodos);
         btnListarTodos.setBounds(550, 270, 147, 30);
 
-        btnCadastrarProduto.setText("Cadastrar novo CPF");
-        btnCadastrarProduto.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrarCnpj.setText("Cadastrar novo CNPJ");
+        btnCadastrarCnpj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarProdutoActionPerformed(evt);
+                btnCadastrarCnpjActionPerformed(evt);
             }
         });
-        panPrincipal.add(btnCadastrarProduto);
-        btnCadastrarProduto.setBounds(720, 270, 150, 30);
+        panPrincipal.add(btnCadastrarCnpj);
+        btnCadastrarCnpj.setBounds(720, 270, 150, 30);
 
         btnAlterar.setText("Alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -350,6 +333,56 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         });
         panPrincipal.add(btnAlterar);
         btnAlterar.setBounds(980, 270, 130, 30);
+
+        lblDigiteODado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblDigiteODado.setText("Digite o(a) Nome Fictício:");
+        panPrincipal.add(lblDigiteODado);
+        lblDigiteODado.setBounds(375, 10, 280, 25);
+
+        txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPesquisaActionPerformed(evt);
+            }
+        });
+        txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPesquisaKeyReleased(evt);
+            }
+        });
+        panPrincipal.add(txtPesquisa);
+        txtPesquisa.setBounds(620, 10, 60, 25);
+
+        txtfDataDe.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        txtfDataDe.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfDataDeKeyReleased(evt);
+            }
+        });
+        panPrincipal.add(txtfDataDe);
+        txtfDataDe.setBounds(620, 10, 100, 25);
+
+        btnHojePesquisa.setText("Hoje");
+        btnHojePesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHojePesquisaActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnHojePesquisa);
+        btnHojePesquisa.setBounds(730, 10, 55, 25);
+
+        lblDataAte.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblDataAte.setText("Até:");
+        panPrincipal.add(lblDataAte);
+        lblDataAte.setBounds(800, 10, 34, 25);
+
+        txtfDataAte.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        txtfDataAte.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfDataAteKeyReleased(evt);
+            }
+        });
+        panPrincipal.add(txtfDataAte);
+        txtfDataAte.setBounds(840, 10, 100, 25);
 
         getContentPane().add(panPrincipal);
         panPrincipal.setBounds(10, 10, 1125, 310);
@@ -410,40 +443,6 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     DaoPessoa pessoa = new DaoPessoa();
-    private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
-
-    }//GEN-LAST:event_txtPesquisaActionPerformed
-
-    private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
-//         Chamando método de listagem com filtro, se txt preenchido
-        try
-        {
-            //criando variável de controle
-            int controle = 0;
-
-            //Se campo de texto não estiver vazio
-            if (txtPesquisa.getText().trim() != "")
-            {
-                controle = 1;
-                atualizarTabelaFiltrada();
-            }
-
-            //Se a variável de controle for 0, diz-se que o campo está vazio e, portanto, atualiza a JTable
-            if (controle == 0)
-            {
-                atualizarTabela();
-            }
-        }
-        catch(Exception ex)
-        {
-            System.out.println("Exceção: "+ex);
-        }
-    }//GEN-LAST:event_txtPesquisaKeyReleased
-
-    private void txtPesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyTyped
-
-    }//GEN-LAST:event_txtPesquisaKeyTyped
-
     private void btnDeletarTodosRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarTodosRegistrosActionPerformed
         removerTodosRegistros();
     }//GEN-LAST:event_btnDeletarTodosRegistrosActionPerformed
@@ -524,13 +523,35 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         atualizarTabela(false);
     }//GEN-LAST:event_btnListarTodosActionPerformed
 
-    private void btnCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarProdutoActionPerformed
+    private void btnCadastrarCnpjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCnpjActionPerformed
         control.Janelas.abrirCadastroPessoa();
-    }//GEN-LAST:event_btnCadastrarProdutoActionPerformed
+    }//GEN-LAST:event_btnCadastrarCnpjActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         alterarRegistro();
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
+
+    }//GEN-LAST:event_txtPesquisaActionPerformed
+
+    private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
+        limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
+        pesquisarFiltrada();
+    }//GEN-LAST:event_txtPesquisaKeyReleased
+
+    private void txtfDataDeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataDeKeyReleased
+        pesquisarFiltrada();
+    }//GEN-LAST:event_txtfDataDeKeyReleased
+
+    private void btnHojePesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojePesquisaActionPerformed
+        txtfDataDe.setText(control.Datas.getDiaHoje());
+        txtfDataAte.setText(control.Datas.getDiaHoje());
+    }//GEN-LAST:event_btnHojePesquisaActionPerformed
+
+    private void txtfDataAteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataAteKeyReleased
+        pesquisarFiltrada();
+    }//GEN-LAST:event_txtfDataAteKeyReleased
 
     /**
      * @param args the command line arguments
@@ -717,11 +738,12 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnCadastrarCep;
-    private javax.swing.JButton btnCadastrarProduto;
+    private javax.swing.JButton btnCadastrarCnpj;
     private javax.swing.JButton btnDeletar;
     private javax.swing.JButton btnDeletarTodosRegistros;
     private javax.swing.JButton btnFecharFrame;
     private javax.swing.JButton btnHoje;
+    private javax.swing.JButton btnHojePesquisa;
     private javax.swing.JButton btnLimparTabela;
     private javax.swing.JButton btnListarTodos;
     private javax.swing.JButton btnMenuPrincipal;
@@ -733,6 +755,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     private javax.swing.JLabel lblCepExiste;
     private javax.swing.JLabel lblCpfCnpj;
     private javax.swing.JLabel lblCpfCnpjExiste;
+    private javax.swing.JLabel lblDataAte;
     private javax.swing.JLabel lblDataCadastro;
     private javax.swing.JLabel lblDigiteODado;
     private javax.swing.JLabel lblNome;
@@ -755,6 +778,8 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     private javax.swing.JTextField txtRazaoSocial;
     private javax.swing.JTextField txtTelefone;
     private javax.swing.JFormattedTextField txtfCep;
+    private javax.swing.JFormattedTextField txtfDataAte;
     private javax.swing.JFormattedTextField txtfDataCadastro;
+    private javax.swing.JFormattedTextField txtfDataDe;
     // End of variables declaration//GEN-END:variables
 }

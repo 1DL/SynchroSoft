@@ -38,19 +38,47 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panPrincipal = new javax.swing.JPanel();
+        panDados = new javax.swing.JPanel();
+        lblCpf = new javax.swing.JLabel();
+        txtCpf = new javax.swing.JTextField();
+        lblSalario = new javax.swing.JLabel();
+        lblCodigoFuncionario = new javax.swing.JLabel();
+        txtCodigoFuncionario = new javax.swing.JTextField();
+        lblCargo = new javax.swing.JLabel();
+        txtCargo = new javax.swing.JTextField();
+        lblHorasTrabalhadas = new javax.swing.JLabel();
+        lblNivelAdm = new javax.swing.JLabel();
+        rbtVisualizacao = new javax.swing.JRadioButton();
+        rbtCompleto = new javax.swing.JRadioButton();
+        lblCpfExiste = new javax.swing.JLabel();
+        btnCadastrarPessoa = new javax.swing.JButton();
+        lblCodigoExiste = new javax.swing.JLabel();
+        txtfSalario = new javax.swing.JFormattedTextField();
+        txtfHoras = new javax.swing.JFormattedTextField();
+        lblDataAdmissao = new javax.swing.JLabel();
+        txtfDataAdmissao = new javax.swing.JFormattedTextField();
+        btnHoje = new javax.swing.JButton();
+        cmbFiltro = new javax.swing.JComboBox<>();
+        lblPesquisar = new javax.swing.JLabel();
+        btnDeletar = new javax.swing.JButton();
+        btnLimparTabela = new javax.swing.JButton();
+        btnListarTodos = new javax.swing.JButton();
+        btnCadastrarFuncionario = new javax.swing.JButton();
+        btnAlterar = new javax.swing.JButton();
+        lblDigiteODado = new javax.swing.JLabel();
+        txtPesquisa = new javax.swing.JTextField();
+        txtfDataDe = new javax.swing.JFormattedTextField();
+        btnHojePesquisa = new javax.swing.JButton();
+        lblDataAte = new javax.swing.JLabel();
+        txtfDataAte = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListagemFuncionario = new javax.swing.JTable();
-        btnFechar = new javax.swing.JButton();
-        btnAlterar = new javax.swing.JButton();
-        btnAtualizarTabela = new javax.swing.JButton();
-        btnTelaCadastro = new javax.swing.JButton();
-        btnDeletar = new javax.swing.JButton();
-        lblPesquisar = new javax.swing.JLabel();
-        cmbFiltro = new javax.swing.JComboBox<>();
-        txtPesquisa = new javax.swing.JTextField();
-        lblDescrever = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        btnMenuPrincipal = new javax.swing.JButton();
+        btnDeletarTodosRegistros = new javax.swing.JButton();
+        btnMenuPrincipal1 = new javax.swing.JButton();
+        btnFecharFrame = new javax.swing.JButton();
+        lblFuncionarioEncontrado = new javax.swing.JLabel();
+        lblBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Listar Funcionários");
@@ -60,6 +88,276 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
+
+        panPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panPrincipal.setOpaque(false);
+        panPrincipal.setLayout(null);
+
+        panDados.setBackground(new java.awt.Color(204, 204, 204));
+        panDados.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Funcionário"));
+        panDados.setMaximumSize(new java.awt.Dimension(1152, 648));
+        panDados.setMinimumSize(new java.awt.Dimension(1152, 648));
+        panDados.setOpaque(false);
+        panDados.setLayout(null);
+
+        lblCpf.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblCpf.setText("CPF:");
+        panDados.add(lblCpf);
+        lblCpf.setBounds(646, 10, 34, 25);
+
+        txtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCpfKeyReleased(evt);
+            }
+        });
+        panDados.add(txtCpf);
+        txtCpf.setBounds(691, 10, 90, 25);
+
+        lblSalario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblSalario.setText("Salário:");
+        panDados.add(lblSalario);
+        lblSalario.setBounds(785, 50, 57, 25);
+
+        lblCodigoFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblCodigoFuncionario.setText("Código do Funcionário:");
+        panDados.add(lblCodigoFuncionario);
+        lblCodigoFuncionario.setBounds(12, 10, 190, 25);
+
+        txtCodigoFuncionario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodigoFuncionarioKeyReleased(evt);
+            }
+        });
+        panDados.add(txtCodigoFuncionario);
+        txtCodigoFuncionario.setBounds(206, 10, 110, 25);
+
+        lblCargo.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblCargo.setText("Cargo a ser exercido:");
+        panDados.add(lblCargo);
+        lblCargo.setBounds(13, 50, 172, 25);
+
+        txtCargo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCargoActionPerformed(evt);
+            }
+        });
+        txtCargo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCargoKeyReleased(evt);
+            }
+        });
+        panDados.add(txtCargo);
+        txtCargo.setBounds(206, 50, 260, 25);
+
+        lblHorasTrabalhadas.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblHorasTrabalhadas.setText("Horas Mensais:");
+        panDados.add(lblHorasTrabalhadas);
+        lblHorasTrabalhadas.setBounds(923, 50, 123, 25);
+
+        lblNivelAdm.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblNivelAdm.setText("Nível Administrativo do Sistema:");
+        panDados.add(lblNivelAdm);
+        lblNivelAdm.setBounds(12, 90, 270, 25);
+
+        rbtVisualizacao.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        rbtVisualizacao.setSelected(true);
+        rbtVisualizacao.setText("Visualização");
+        rbtVisualizacao.setOpaque(false);
+        rbtVisualizacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtVisualizacaoActionPerformed(evt);
+            }
+        });
+        panDados.add(rbtVisualizacao);
+        rbtVisualizacao.setBounds(288, 90, 121, 25);
+
+        rbtCompleto.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        rbtCompleto.setText("Completo");
+        rbtCompleto.setOpaque(false);
+        rbtCompleto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtCompletoActionPerformed(evt);
+            }
+        });
+        panDados.add(rbtCompleto);
+        rbtCompleto.setBounds(419, 90, 105, 25);
+
+        lblCpfExiste.setForeground(java.awt.Color.red);
+        lblCpfExiste.setText("CPF Inválido.");
+        panDados.add(lblCpfExiste);
+        lblCpfExiste.setBounds(785, 10, 153, 25);
+
+        btnCadastrarPessoa.setText("Cadastrar CPF");
+        btnCadastrarPessoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarPessoaActionPerformed(evt);
+            }
+        });
+        panDados.add(btnCadastrarPessoa);
+        btnCadastrarPessoa.setBounds(956, 8, 103, 29);
+
+        lblCodigoExiste.setForeground(java.awt.Color.red);
+        lblCodigoExiste.setText("Código inválido.");
+        panDados.add(lblCodigoExiste);
+        lblCodigoExiste.setBounds(320, 10, 151, 25);
+
+        txtfSalario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        txtfSalario.setText("0,00");
+        txtfSalario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtfSalarioMouseClicked(evt);
+            }
+        });
+        txtfSalario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfSalarioKeyReleased(evt);
+            }
+        });
+        panDados.add(txtfSalario);
+        txtfSalario.setBounds(846, 50, 67, 25);
+
+        txtfHoras.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        txtfHoras.setText("0");
+        txtfHoras.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfHorasKeyReleased(evt);
+            }
+        });
+        panDados.add(txtfHoras);
+        txtfHoras.setBounds(1050, 50, 40, 25);
+
+        lblDataAdmissao.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblDataAdmissao.setText("Data Admissão:");
+        panDados.add(lblDataAdmissao);
+        lblDataAdmissao.setBounds(470, 50, 126, 25);
+
+        txtfDataAdmissao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        panDados.add(txtfDataAdmissao);
+        txtfDataAdmissao.setBounds(603, 50, 113, 25);
+
+        btnHoje.setText("Hoje");
+        btnHoje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHojeActionPerformed(evt);
+            }
+        });
+        panDados.add(btnHoje);
+        btnHoje.setBounds(726, 50, 55, 25);
+
+        panPrincipal.add(panDados);
+        panDados.setBounds(10, 50, 1100, 130);
+
+        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome", "Código", "CPF", "CEP", "Sexo", "Telefone", "Celular", "Salário", "Cargo", "Data Admissão", "Data Demissão", "Horas Trabalhadas", "Nível Admnistrativo", "Número Endereço" }));
+        cmbFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbFiltroActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(cmbFiltro);
+        cmbFiltro.setBounds(160, 10, 210, 25);
+
+        lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblPesquisar.setText("Pesquisar por: ");
+        panPrincipal.add(lblPesquisar);
+        lblPesquisar.setBounds(10, 10, 160, 25);
+
+        btnDeletar.setText("Deletar registro selecionado");
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnDeletar);
+        btnDeletar.setBounds(10, 190, 170, 30);
+
+        btnLimparTabela.setText("Limpar tabela");
+        btnLimparTabela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparTabelaActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnLimparTabela);
+        btnLimparTabela.setBounds(410, 190, 120, 30);
+
+        btnListarTodos.setText("Listar todos os registros");
+        btnListarTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarTodosActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnListarTodos);
+        btnListarTodos.setBounds(550, 190, 147, 30);
+
+        btnCadastrarFuncionario.setText("Cadastrar novo Funcionário");
+        btnCadastrarFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarFuncionarioActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnCadastrarFuncionario);
+        btnCadastrarFuncionario.setBounds(720, 190, 170, 30);
+
+        btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnAlterar);
+        btnAlterar.setBounds(980, 190, 130, 30);
+
+        lblDigiteODado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblDigiteODado.setText("Digite o(a) Nome:");
+        panPrincipal.add(lblDigiteODado);
+        lblDigiteODado.setBounds(375, 10, 280, 25);
+
+        txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPesquisaActionPerformed(evt);
+            }
+        });
+        txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPesquisaKeyReleased(evt);
+            }
+        });
+        panPrincipal.add(txtPesquisa);
+        txtPesquisa.setBounds(620, 10, 60, 25);
+
+        txtfDataDe.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        txtfDataDe.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfDataDeKeyReleased(evt);
+            }
+        });
+        panPrincipal.add(txtfDataDe);
+        txtfDataDe.setBounds(620, 10, 100, 25);
+
+        btnHojePesquisa.setText("Hoje");
+        btnHojePesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHojePesquisaActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnHojePesquisa);
+        btnHojePesquisa.setBounds(730, 10, 55, 25);
+
+        lblDataAte.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblDataAte.setText("Até:");
+        panPrincipal.add(lblDataAte);
+        lblDataAte.setBounds(800, 10, 34, 25);
+
+        txtfDataAte.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        txtfDataAte.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfDataAteKeyReleased(evt);
+            }
+        });
+        panPrincipal.add(txtfDataAte);
+        txtfDataAte.setBounds(840, 10, 100, 25);
+
+        getContentPane().add(panPrincipal);
+        panPrincipal.setBounds(10, 10, 1125, 230);
 
         tblListagemFuncionario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -75,102 +373,43 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblListagemFuncionario);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(14, 119, 1090, 402);
+        jScrollPane1.setBounds(10, 269, 1125, 270);
 
-        btnFechar.setText("Fechar");
-        btnFechar.addActionListener(new java.awt.event.ActionListener() {
+        btnDeletarTodosRegistros.setText("Deletar todos os registros");
+        btnDeletarTodosRegistros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFecharActionPerformed(evt);
+                btnDeletarTodosRegistrosActionPerformed(evt);
             }
         });
-        getContentPane().add(btnFechar);
-        btnFechar.setBounds(990, 550, 130, 50);
+        getContentPane().add(btnDeletarTodosRegistros);
+        btnDeletarTodosRegistros.setBounds(10, 550, 160, 30);
 
-        btnAlterar.setText("Alterar");
-        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+        btnMenuPrincipal1.setText("Menu Principal");
+        btnMenuPrincipal1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAlterarActionPerformed(evt);
+                btnMenuPrincipal1ActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAlterar);
-        btnAlterar.setBounds(301, 552, 210, 40);
+        getContentPane().add(btnMenuPrincipal1);
+        btnMenuPrincipal1.setBounds(900, 550, 130, 30);
 
-        btnAtualizarTabela.setText("AtualizarTabela");
-        btnAtualizarTabela.addActionListener(new java.awt.event.ActionListener() {
+        btnFecharFrame.setText("Fechar ");
+        btnFecharFrame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtualizarTabelaActionPerformed(evt);
+                btnFecharFrameActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAtualizarTabela);
-        btnAtualizarTabela.setBounds(60, 550, 190, 40);
+        getContentPane().add(btnFecharFrame);
+        btnFecharFrame.setBounds(1055, 550, 80, 30);
 
-        btnTelaCadastro.setText("Tela Cadastro");
-        btnTelaCadastro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTelaCadastroActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnTelaCadastro);
-        btnTelaCadastro.setBounds(770, 550, 160, 50);
+        lblFuncionarioEncontrado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblFuncionarioEncontrado.setText("Funcionários encontrados no banco de dados. Para visualizar ou alterar um registro, clique em um registro exibido na tabela.");
+        getContentPane().add(lblFuncionarioEncontrado);
+        lblFuncionarioEncontrado.setBounds(10, 240, 1040, 25);
 
-        btnDeletar.setText("Deletar");
-        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeletarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnDeletar);
-        btnDeletar.setBounds(545, 552, 170, 40);
-
-        lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblPesquisar.setText("Pesquisar por: ");
-        getContentPane().add(lblPesquisar);
-        lblPesquisar.setBounds(230, 50, 160, 40);
-
-        cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome", "Código", "CPF", "CEP", "Sexo", "Telefone", "Celular", "Salário", "Cargo", "Data Admissão", "Data Demissão", "Horas Trabalhadas", "Nível Admnistrativo", "Número Endereço" }));
-        cmbFiltro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbFiltroActionPerformed(evt);
-            }
-        });
-        getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(360, 60, 107, 31);
-
-        txtPesquisa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPesquisaActionPerformed(evt);
-            }
-        });
-        txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtPesquisaKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtPesquisaKeyTyped(evt);
-            }
-        });
-        getContentPane().add(txtPesquisa);
-        txtPesquisa.setBounds(640, 50, 221, 40);
-
-        lblDescrever.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblDescrever.setText("Descrição:");
-        getContentPane().add(lblDescrever);
-        lblDescrever.setBounds(520, 50, 83, 30);
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 1150, 650);
-
-        btnMenuPrincipal.setText("Menu Principal");
-        btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuPrincipalActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnMenuPrincipal);
-        btnMenuPrincipal.setBounds(949, 119, 161, 239);
+        lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
+        getContentPane().add(lblBackground);
+        lblBackground.setBounds(0, -20, 1150, 650);
 
         pack();
         setLocationRelativeTo(null);
@@ -178,87 +417,109 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
 
     DaoFuncionario df = new DaoFuncionario();
 
-    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        try {
-            tblListagemFuncionario.getCellEditor().stopCellEditing();
-        } catch (Exception ex) {
+    private void cmbFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFiltroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbFiltroActionPerformed
 
-        }
-        try {
-            df.alterarFuncionario(tblListagemFuncionario);
-        } catch (SQLException ex) {
-            Logger.getLogger(FrmListagemFuncionario.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrmListagemFuncionario.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private void btnDeletarTodosRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarTodosRegistrosActionPerformed
+        removerTodosRegistros();
+    }//GEN-LAST:event_btnDeletarTodosRegistrosActionPerformed
 
+    private void btnMenuPrincipal1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipal1ActionPerformed
+        control.Janelas.focarPrincipal();
+    }//GEN-LAST:event_btnMenuPrincipal1ActionPerformed
 
-    }//GEN-LAST:event_btnAlterarActionPerformed
+    private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnFecharFrameActionPerformed
 
-    private void btnAtualizarTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarTabelaActionPerformed
-        atualizarTabela();
-    }//GEN-LAST:event_btnAtualizarTabelaActionPerformed
+    private void txtCpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyReleased
+        txtCpf.setText(TextSize.maxLenghtCPFCNPJ(txtCpf.getText(), true));
+        verificarCpfExiste();
+    }//GEN-LAST:event_txtCpfKeyReleased
 
-    private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
-        control.Janelas.abrirCadastroFuncionário();
-    }//GEN-LAST:event_btnTelaCadastroActionPerformed
+    private void txtCodigoFuncionarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoFuncionarioKeyReleased
+        txtCodigoFuncionario.setText(TextSize.maxLenghtFuncionario(txtCodigoFuncionario.getText()));
+        verificarCodigoFuncionario();
+    }//GEN-LAST:event_txtCodigoFuncionarioKeyReleased
+
+    private void txtCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCargoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCargoActionPerformed
+
+    private void txtCargoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCargoKeyReleased
+        txtCargo.setText(TextSize.maxLenghtCargo(txtCargo.getText()));
+    }//GEN-LAST:event_txtCargoKeyReleased
+
+    private void rbtVisualizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtVisualizacaoActionPerformed
+
+    }//GEN-LAST:event_rbtVisualizacaoActionPerformed
+
+    private void rbtCompletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtCompletoActionPerformed
+
+    }//GEN-LAST:event_rbtCompletoActionPerformed
+
+    private void btnCadastrarPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarPessoaActionPerformed
+        control.Janelas.abrirCadastroPessoa();
+    }//GEN-LAST:event_btnCadastrarPessoaActionPerformed
+
+    private void txtfSalarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtfSalarioMouseClicked
+        txtfDataAdmissao.selectAll();
+    }//GEN-LAST:event_txtfSalarioMouseClicked
+
+    private void txtfSalarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfSalarioKeyReleased
+        txtfSalario.setText(control.TextSize.maxLenghtSalario(txtfSalario.getText()));
+    }//GEN-LAST:event_txtfSalarioKeyReleased
+
+    private void txtfHorasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfHorasKeyReleased
+        txtfHoras.setText(control.TextSize.maxLenghtHoraMensal(txtfHoras.getText()));
+    }//GEN-LAST:event_txtfHorasKeyReleased
+
+    private void btnHojeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojeActionPerformed
+        txtfDataAdmissao.setText(control.Datas.getDiaHoje());
+    }//GEN-LAST:event_btnHojeActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-        Funcionario func = new Funcionario();
-        String aux;
-        aux = (String) tblListagemFuncionario.getValueAt(tblListagemFuncionario.getSelectedRow(), 0);
-        func.setCodigoFuncionario(aux);
-
-        try {
-            DaoFuncionario.deletarFuncionario(func.getCodigoFuncionario());
-            atualizarTabela();
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(FrmListagemFuncionario.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        deletarRegistro();
     }//GEN-LAST:event_btnDeletarActionPerformed
+
+    private void btnLimparTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparTabelaActionPerformed
+        limparTabela();
+    }//GEN-LAST:event_btnLimparTabelaActionPerformed
+
+    private void btnListarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarTodosActionPerformed
+        atualizarTabela(false);
+    }//GEN-LAST:event_btnListarTodosActionPerformed
+
+    private void btnCadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarFuncionarioActionPerformed
+        control.Janelas.abrirCadastroFuncionário();
+    }//GEN-LAST:event_btnCadastrarFuncionarioActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        alterarRegistro();
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
 
     }//GEN-LAST:event_txtPesquisaActionPerformed
 
-    private void txtPesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyTyped
-
-    }//GEN-LAST:event_txtPesquisaKeyTyped
-
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
-        // Chamando método de listagem com filtro, se txt preenchido
-        try {
-            //criando variável de controle
-            int controle = 0;
-
-            //Se campo de texto não estiver vazio
-            if (txtPesquisa.getText().trim() != "") {
-                controle = 1;
-                atualizarTabelaFiltrada();
-            }
-
-            //Se a variável de controle for 0, diz-se que o campo está vazio e, portanto, atualiza a JTable
-            if (controle == 0) {
-                atualizarTabela();
-            }
-        } catch (Exception ex) {
-            System.out.println("Exceção: " + ex);
-        }
+        limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
+        pesquisarFiltrada();
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
-    private void cmbFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFiltroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbFiltroActionPerformed
+    private void txtfDataDeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataDeKeyReleased
+        pesquisarFiltrada();
+    }//GEN-LAST:event_txtfDataDeKeyReleased
 
-    private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
-        FrmPrincipal princ = new FrmPrincipal();
-        princ.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnMenuPrincipalActionPerformed
+    private void btnHojePesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojePesquisaActionPerformed
+        txtfDataDe.setText(control.Datas.getDiaHoje());
+        txtfDataAte.setText(control.Datas.getDiaHoje());
+    }//GEN-LAST:event_btnHojePesquisaActionPerformed
 
-    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnFecharActionPerformed
+    private void txtfDataAteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataAteKeyReleased
+        pesquisarFiltrada();
+    }//GEN-LAST:event_txtfDataAteKeyReleased
 
     /**
      * @param args the command line arguments
@@ -399,17 +660,45 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
-    private javax.swing.JButton btnAtualizarTabela;
+    private javax.swing.JButton btnCadastrarFuncionario;
+    private javax.swing.JButton btnCadastrarPessoa;
     private javax.swing.JButton btnDeletar;
-    private javax.swing.JButton btnFechar;
-    private javax.swing.JButton btnMenuPrincipal;
-    private javax.swing.JButton btnTelaCadastro;
+    private javax.swing.JButton btnDeletarTodosRegistros;
+    private javax.swing.JButton btnFecharFrame;
+    private javax.swing.JButton btnHoje;
+    private javax.swing.JButton btnHojePesquisa;
+    private javax.swing.JButton btnLimparTabela;
+    private javax.swing.JButton btnListarTodos;
+    private javax.swing.JButton btnMenuPrincipal1;
     private javax.swing.JComboBox<String> cmbFiltro;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblDescrever;
+    private javax.swing.JLabel lblBackground;
+    private javax.swing.JLabel lblCargo;
+    private javax.swing.JLabel lblCodigoExiste;
+    private javax.swing.JLabel lblCodigoFuncionario;
+    private javax.swing.JLabel lblCpf;
+    private javax.swing.JLabel lblCpfExiste;
+    private javax.swing.JLabel lblDataAdmissao;
+    private javax.swing.JLabel lblDataAte;
+    private javax.swing.JLabel lblDigiteODado;
+    private javax.swing.JLabel lblFuncionarioEncontrado;
+    private javax.swing.JLabel lblHorasTrabalhadas;
+    private javax.swing.JLabel lblNivelAdm;
     private javax.swing.JLabel lblPesquisar;
+    private javax.swing.JLabel lblSalario;
+    private javax.swing.JPanel panDados;
+    private javax.swing.JPanel panPrincipal;
+    private javax.swing.JRadioButton rbtCompleto;
+    private javax.swing.JRadioButton rbtVisualizacao;
     private javax.swing.JTable tblListagemFuncionario;
+    private javax.swing.JTextField txtCargo;
+    private javax.swing.JTextField txtCodigoFuncionario;
+    private javax.swing.JTextField txtCpf;
     private javax.swing.JTextField txtPesquisa;
+    private javax.swing.JFormattedTextField txtfDataAdmissao;
+    private javax.swing.JFormattedTextField txtfDataAte;
+    private javax.swing.JFormattedTextField txtfDataDe;
+    private javax.swing.JFormattedTextField txtfHoras;
+    private javax.swing.JFormattedTextField txtfSalario;
     // End of variables declaration//GEN-END:variables
 }
