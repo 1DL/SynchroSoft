@@ -1,5 +1,5 @@
 Login=luiz
-IP=192.168.100.202
+IP=127.000.000.001
 Porta=1521
 SID=XE
 UsuárioDB=system
