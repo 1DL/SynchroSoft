@@ -128,7 +128,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         txtPesquisa.setBounds(620, 10, 60, 25);
 
         cmbFiltro.setMaximumRowCount(15);
-        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome", "CPF", "Sexo", "CEP", "Endereço", "Número Endereço", "Telefone", "Celular", "Mantém Contrato?", "Data de Cadastro", "Data Entre/Até" }));
+        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome", "CPF", "Sexo", "CEP", "Logradouro", "Nr Logradouro", "Telefone", "Celular", "Mantém Contrato?", "Data de Cadastro", "Data Entre/Até" }));
         cmbFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbFiltroActionPerformed(evt);
@@ -794,7 +794,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "CPF inválido. Verifique se o CPF está correto e se já não existe um mesmo CPF cadastrado.", "Erro - CPF Inválido", 0);
             txtCpfCnpj.requestFocus();
             return false;
-        } else if (!cepCadastrado) {
+        } else if (cepCadastrado) {
             JOptionPane.showMessageDialog(null, "CEP inválido. Verifique se o CEP informado está correto ou se ele já está cadastrado.", "Erro - CEP Inválido", 0);
             txtfCep.requestFocus();
             return false;
@@ -893,7 +893,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
                 lblDataAte.setVisible(false);
                 txtPesquisa.requestFocus();
                 break;
-            case "Endereço":
+            case "Logradouro":
                 txtPesquisa.setText(control.TextSize.maxLenghtLogradouro(txtPesquisa.getText()));
                 txtPesquisa.setVisible(true);
                 txtfDataDe.setVisible(false);
@@ -901,7 +901,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
                 lblDataAte.setVisible(false);
                 txtPesquisa.requestFocus();
                 break;
-            case "Número Endereço":
+            case "Nr Logradouro":
                 txtPesquisa.setText(control.TextSize.maxLenghtNrLogradouro(txtPesquisa.getText()));
                 txtPesquisa.setVisible(true);
                 txtfDataDe.setVisible(false);
@@ -1024,7 +1024,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
     }
 
     private void inicializarTabela() {
-        String[] nomeColunas = {"Nome", "CPF", "Sexo", "CEP", "Endereço", "Número", "Telefone", "Celular", "Contrato", "Data de Cadastro"};
+        String[] nomeColunas = {"Nome", "CPF", "Sexo", "CEP", "Logradouro", "Nr Logradouro", "Telefone", "Celular", "Contrato", "Data de Cadastro"};
 
         DefaultTableModel model = new DefaultTableModel() {
             @Override

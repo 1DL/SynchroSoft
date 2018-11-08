@@ -37,20 +37,47 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnFechar = new javax.swing.JButton();
+        panPrincipal = new javax.swing.JPanel();
         lblPesquisar = new javax.swing.JLabel();
         cmbFiltro = new javax.swing.JComboBox<>();
-        lblDescrever = new javax.swing.JLabel();
+        lblDigiteODado = new javax.swing.JLabel();
         txtPesquisa = new javax.swing.JTextField();
-        btnMenuPrincipal = new javax.swing.JButton();
-        btnAlterar = new javax.swing.JButton();
+        panPrincipal1 = new javax.swing.JPanel();
+        lblTelefone = new javax.swing.JLabel();
+        txtTelefone = new javax.swing.JTextField();
+        lblNumeroLogradouro = new javax.swing.JLabel();
+        lblNome = new javax.swing.JLabel();
+        txtNomePessoaFicticio = new javax.swing.JTextField();
+        lblCep = new javax.swing.JLabel();
+        lblCepExiste = new javax.swing.JLabel();
+        btnCadastrarCep = new javax.swing.JButton();
+        txtNumeroLogradouro = new javax.swing.JTextField();
+        lblTipoPessoa1 = new javax.swing.JLabel();
+        rbtSimCadastro = new javax.swing.JRadioButton();
+        rbtNaoCadastro = new javax.swing.JRadioButton();
+        lblCpfCnpj = new javax.swing.JLabel();
+        txtRazaoSocial = new javax.swing.JTextField();
+        lblRazaoSocial = new javax.swing.JLabel();
+        lblCelRamal = new javax.swing.JLabel();
+        txtCelRamal = new javax.swing.JTextField();
+        lblDataCadastro = new javax.swing.JLabel();
+        txtfDataCadastro = new javax.swing.JFormattedTextField();
+        btnHoje = new javax.swing.JButton();
+        lblCpfCnpjExiste = new javax.swing.JLabel();
+        txtfCep = new javax.swing.JFormattedTextField();
+        txtCpfCnpj = new javax.swing.JTextField();
         btnDeletar = new javax.swing.JButton();
-        btnTelaCadastro = new javax.swing.JButton();
-        btnAtualizarTabela1 = new javax.swing.JButton();
-        btnFisica = new javax.swing.JButton();
-        scpListagemPessoaF = new javax.swing.JScrollPane();
+        btnLimparTabela = new javax.swing.JButton();
+        btnListarTodos = new javax.swing.JButton();
+        btnCadastrarProduto = new javax.swing.JButton();
+        btnAlterar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
         tblListagemPessoaJ = new javax.swing.JTable();
-        lblFundo = new javax.swing.JLabel();
+        btnDeletarTodosRegistros = new javax.swing.JButton();
+        btnMenuPrincipal = new javax.swing.JButton();
+        btnFecharFrame = new javax.swing.JButton();
+        lblPessoaJEncontrado = new javax.swing.JLabel();
+        lblBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Listar Pessoas Jurídicas");
@@ -61,31 +88,24 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
 
-        btnFechar.setText("Fechar");
-        btnFechar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFecharActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnFechar);
-        btnFechar.setBounds(990, 550, 130, 50);
+        panPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panPrincipal.setOpaque(false);
+        panPrincipal.setLayout(null);
 
         lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblPesquisar.setText("Pesquisar por: ");
-        getContentPane().add(lblPesquisar);
-        lblPesquisar.setBounds(240, 100, 120, 25);
+        panPrincipal.add(lblPesquisar);
+        lblPesquisar.setBounds(10, 10, 120, 25);
 
-        cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CNPJ", "CEP", "Nome Fictício", "Razão Social", "Número Endereço", "Telefone", "Ramal", "Contrato", "Data Cadastro" }));
-        getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(400, 100, 107, 31);
+        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome Fictício", "CNPJ", "CEP", "Logradouro", "Razão Social", "Número Endereço", "Telefone", "Ramal", "Contrato", "Data Cadastro" }));
+        panPrincipal.add(cmbFiltro);
+        cmbFiltro.setBounds(160, 10, 210, 25);
 
-        lblDescrever.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblDescrever.setText("Descrição:");
-        getContentPane().add(lblDescrever);
-        lblDescrever.setBounds(540, 100, 83, 25);
+        lblDigiteODado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblDigiteODado.setText("Descrição:");
+        panPrincipal.add(lblDigiteODado);
+        lblDigiteODado.setBounds(375, 10, 83, 25);
 
-        txtPesquisa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPesquisaActionPerformed(evt);
@@ -99,11 +119,266 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
                 txtPesquisaKeyTyped(evt);
             }
         });
-        getContentPane().add(txtPesquisa);
-        txtPesquisa.setBounds(660, 100, 256, 31);
+        panPrincipal.add(txtPesquisa);
+        txtPesquisa.setBounds(660, 10, 256, 25);
 
-        btnMenuPrincipal.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        btnMenuPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo pequeno.png"))); // NOI18N
+        panPrincipal1.setBackground(new java.awt.Color(204, 204, 204));
+        panPrincipal1.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados da Pessoa Jurídica"));
+        panPrincipal1.setOpaque(false);
+        panPrincipal1.setLayout(null);
+
+        lblTelefone.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblTelefone.setText("Telefone:");
+        panPrincipal1.add(lblTelefone);
+        lblTelefone.setBounds(10, 130, 140, 25);
+
+        txtTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTelefoneKeyReleased(evt);
+            }
+        });
+        panPrincipal1.add(txtTelefone);
+        txtTelefone.setBounds(150, 130, 316, 25);
+
+        lblNumeroLogradouro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblNumeroLogradouro.setText("Nº Logradouro:");
+        panPrincipal1.add(lblNumeroLogradouro);
+        lblNumeroLogradouro.setBounds(530, 90, 150, 25);
+
+        lblNome.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblNome.setText("Nome Fictício:");
+        panPrincipal1.add(lblNome);
+        lblNome.setBounds(10, 50, 150, 25);
+
+        txtNomePessoaFicticio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomePessoaFicticioKeyReleased(evt);
+            }
+        });
+        panPrincipal1.add(txtNomePessoaFicticio);
+        txtNomePessoaFicticio.setBounds(150, 50, 316, 25);
+
+        lblCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblCep.setText("CEP:");
+        panPrincipal1.add(lblCep);
+        lblCep.setBounds(10, 90, 140, 25);
+
+        lblCepExiste.setForeground(java.awt.Color.red);
+        lblCepExiste.setText("Cep Inválido.");
+        panPrincipal1.add(lblCepExiste);
+        lblCepExiste.setBounds(280, 90, 90, 25);
+
+        btnCadastrarCep.setText("Cadastrar");
+        btnCadastrarCep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarCepActionPerformed(evt);
+            }
+        });
+        panPrincipal1.add(btnCadastrarCep);
+        btnCadastrarCep.setBounds(384, 87, 80, 29);
+
+        txtNumeroLogradouro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumeroLogradouroActionPerformed(evt);
+            }
+        });
+        txtNumeroLogradouro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNumeroLogradouroKeyReleased(evt);
+            }
+        });
+        panPrincipal1.add(txtNumeroLogradouro);
+        txtNumeroLogradouro.setBounds(680, 90, 120, 25);
+
+        lblTipoPessoa1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblTipoPessoa1.setText("Possui Contrato:");
+        panPrincipal1.add(lblTipoPessoa1);
+        lblTipoPessoa1.setBounds(10, 10, 140, 25);
+
+        rbtSimCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        rbtSimCadastro.setText("Sim");
+        rbtSimCadastro.setOpaque(false);
+        rbtSimCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtSimCadastroActionPerformed(evt);
+            }
+        });
+        panPrincipal1.add(rbtSimCadastro);
+        rbtSimCadastro.setBounds(148, 10, 55, 25);
+
+        rbtNaoCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        rbtNaoCadastro.setSelected(true);
+        rbtNaoCadastro.setText("Não");
+        rbtNaoCadastro.setOpaque(false);
+        rbtNaoCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtNaoCadastroActionPerformed(evt);
+            }
+        });
+        panPrincipal1.add(rbtNaoCadastro);
+        rbtNaoCadastro.setBounds(210, 10, 59, 25);
+
+        lblCpfCnpj.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblCpfCnpj.setText("CPF:");
+        panPrincipal1.add(lblCpfCnpj);
+        lblCpfCnpj.setBounds(530, 50, 140, 25);
+
+        txtRazaoSocial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtRazaoSocialKeyReleased(evt);
+            }
+        });
+        panPrincipal1.add(txtRazaoSocial);
+        txtRazaoSocial.setBounds(150, 170, 316, 25);
+
+        lblRazaoSocial.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblRazaoSocial.setText("Razão Social:");
+        panPrincipal1.add(lblRazaoSocial);
+        lblRazaoSocial.setBounds(10, 170, 140, 25);
+
+        lblCelRamal.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblCelRamal.setText("Ramal");
+        panPrincipal1.add(lblCelRamal);
+        lblCelRamal.setBounds(530, 130, 140, 25);
+
+        txtCelRamal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCelRamalKeyReleased(evt);
+            }
+        });
+        panPrincipal1.add(txtCelRamal);
+        txtCelRamal.setBounds(680, 130, 316, 25);
+
+        lblDataCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblDataCadastro.setText("Data Cadastro:");
+        panPrincipal1.add(lblDataCadastro);
+        lblDataCadastro.setBounds(530, 10, 118, 25);
+
+        txtfDataCadastro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        panPrincipal1.add(txtfDataCadastro);
+        txtfDataCadastro.setBounds(680, 10, 120, 25);
+
+        btnHoje.setText("Hoje");
+        btnHoje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHojeActionPerformed(evt);
+            }
+        });
+        panPrincipal1.add(btnHoje);
+        btnHoje.setBounds(810, 10, 55, 25);
+
+        lblCpfCnpjExiste.setForeground(java.awt.Color.red);
+        lblCpfCnpjExiste.setText("CPF Inválido.");
+        panPrincipal1.add(lblCpfCnpjExiste);
+        lblCpfCnpjExiste.setBounds(810, 50, 190, 25);
+
+        try {
+            txtfCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtfCep.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtfCepFocusLost(evt);
+            }
+        });
+        txtfCep.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfCepKeyReleased(evt);
+            }
+        });
+        panPrincipal1.add(txtfCep);
+        txtfCep.setBounds(150, 90, 127, 25);
+
+        txtCpfCnpj.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCpfCnpjFocusLost(evt);
+            }
+        });
+        txtCpfCnpj.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCpfCnpjKeyReleased(evt);
+            }
+        });
+        panPrincipal1.add(txtCpfCnpj);
+        txtCpfCnpj.setBounds(680, 50, 120, 25);
+
+        panPrincipal.add(panPrincipal1);
+        panPrincipal1.setBounds(10, 50, 1100, 210);
+
+        btnDeletar.setText("Deletar registro selecionado");
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnDeletar);
+        btnDeletar.setBounds(10, 270, 170, 30);
+
+        btnLimparTabela.setText("Limpar tabela");
+        btnLimparTabela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparTabelaActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnLimparTabela);
+        btnLimparTabela.setBounds(410, 270, 120, 30);
+
+        btnListarTodos.setText("Listar todos os registros");
+        btnListarTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarTodosActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnListarTodos);
+        btnListarTodos.setBounds(550, 270, 147, 30);
+
+        btnCadastrarProduto.setText("Cadastrar novo CPF");
+        btnCadastrarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarProdutoActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnCadastrarProduto);
+        btnCadastrarProduto.setBounds(720, 270, 150, 30);
+
+        btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnAlterar);
+        btnAlterar.setBounds(980, 270, 130, 30);
+
+        getContentPane().add(panPrincipal);
+        panPrincipal.setBounds(10, 10, 1125, 310);
+
+        tblListagemPessoaJ.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblListagemPessoaJ);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(10, 350, 1125, 190);
+
+        btnDeletarTodosRegistros.setText("Deletar todos os registros");
+        btnDeletarTodosRegistros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarTodosRegistrosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnDeletarTodosRegistros);
+        btnDeletarTodosRegistros.setBounds(10, 550, 160, 30);
+
         btnMenuPrincipal.setText("Menu Principal");
         btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,84 +386,25 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnMenuPrincipal);
-        btnMenuPrincipal.setBounds(950, 220, 161, 239);
+        btnMenuPrincipal.setBounds(900, 550, 130, 30);
 
-        btnAlterar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        btnAlterar.setText("Alterar");
-        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+        btnFecharFrame.setText("Fechar ");
+        btnFecharFrame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAlterarActionPerformed(evt);
+                btnFecharFrameActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAlterar);
-        btnAlterar.setBounds(450, 560, 100, 33);
+        getContentPane().add(btnFecharFrame);
+        btnFecharFrame.setBounds(1055, 550, 80, 30);
 
-        btnDeletar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        btnDeletar.setText("Deletar");
-        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeletarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnDeletar);
-        btnDeletar.setBounds(590, 560, 110, 33);
+        lblPessoaJEncontrado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblPessoaJEncontrado.setText("Pessoas Jurídicas encontradas no banco de dados. Para visualizar ou alterar um registro, clique em um registro exibido na tabela.");
+        getContentPane().add(lblPessoaJEncontrado);
+        lblPessoaJEncontrado.setBounds(10, 320, 1120, 25);
 
-        btnTelaCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        btnTelaCadastro.setText("Tela Cadastro");
-        btnTelaCadastro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTelaCadastroActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnTelaCadastro);
-        btnTelaCadastro.setBounds(743, 560, 170, 33);
-
-        btnAtualizarTabela1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        btnAtualizarTabela1.setText("AtualizarTabela");
-        btnAtualizarTabela1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtualizarTabela1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnAtualizarTabela1);
-        btnAtualizarTabela1.setBounds(240, 560, 180, 33);
-
-        btnFisica.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        btnFisica.setText("Listar Pessoa Física");
-        btnFisica.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFisicaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnFisica);
-        btnFisica.setBounds(10, 150, 210, 80);
-
-        scpListagemPessoaF.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        scpListagemPessoaF.setMaximumSize(new java.awt.Dimension(100, 100));
-        scpListagemPessoaF.setMinimumSize(new java.awt.Dimension(100, 100));
-        scpListagemPessoaF.setPreferredSize(new java.awt.Dimension(100, 100));
-
-        tblListagemPessoaJ.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
-        tblListagemPessoaJ.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        tblListagemPessoaJ.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tblListagemPessoaJ.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        tblListagemPessoaJ.setGridColor(new java.awt.Color(51, 153, 255));
-        tblListagemPessoaJ.setSelectionBackground(new java.awt.Color(0, 153, 255));
-        scpListagemPessoaF.setViewportView(tblListagemPessoaJ);
-
-        getContentPane().add(scpListagemPessoaF);
-        scpListagemPessoaF.setBounds(240, 140, 670, 402);
-
-        lblFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
-        getContentPane().add(lblFundo);
-        lblFundo.setBounds(0, 0, 1150, 740);
+        lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
+        getContentPane().add(lblBackground);
+        lblBackground.setBounds(0, -20, 1150, 650);
 
         pack();
         setLocationRelativeTo(null);
@@ -228,51 +444,93 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtPesquisaKeyTyped
 
-    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        
-        try{
-            tblListagemPessoaJ.getCellEditor().stopCellEditing();
-        } catch (Exception ex) {
-
-        }
-        
-            pessoa.alterarPessoaJuridica(tblListagemPessoaJ);
-        
-
-    }//GEN-LAST:event_btnAlterarActionPerformed
-
-    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-        PessoaJuridica pj = new PessoaJuridica();
-        String aux = (String) tblListagemPessoaJ.getValueAt(tblListagemPessoaJ.getSelectedRow(), 1);
-        pj.setCnpj(aux);
-        try {
-            pessoa.deletarPessoaJuridica(pj.getCnpj());
-            atualizarTabela();
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(FrmListagemProduto.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnDeletarActionPerformed
-
-    private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
-        control.Janelas.abrirCadastroPessoa();
-    }//GEN-LAST:event_btnTelaCadastroActionPerformed
-
-    private void btnAtualizarTabela1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarTabela1ActionPerformed
-        atualizarTabela();
-    }//GEN-LAST:event_btnAtualizarTabela1ActionPerformed
-
-    private void btnFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFisicaActionPerformed
-        control.Janelas.abrirListagemPessoaFisica();
-        this.dispose();
-    }//GEN-LAST:event_btnFisicaActionPerformed
+    private void btnDeletarTodosRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarTodosRegistrosActionPerformed
+        removerTodosRegistros();
+    }//GEN-LAST:event_btnDeletarTodosRegistrosActionPerformed
 
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
-        control.Janelas.abrirPrincipal();
+        control.Janelas.focarPrincipal();
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
-    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
+    private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
         this.dispose();
-    }//GEN-LAST:event_btnFecharActionPerformed
+    }//GEN-LAST:event_btnFecharFrameActionPerformed
+
+    private void txtTelefoneKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyReleased
+        txtTelefone.setText(TextSize.maxLenghtTelefone(txtTelefone.getText()));
+    }//GEN-LAST:event_txtTelefoneKeyReleased
+
+    private void txtNomePessoaFicticioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomePessoaFicticioKeyReleased
+        txtNomePessoaFicticio.setText(TextSize.maxLenghtNomeRazao(txtNomePessoaFicticio.getText()));
+    }//GEN-LAST:event_txtNomePessoaFicticioKeyReleased
+
+    private void btnCadastrarCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCepActionPerformed
+        control.Janelas.abrirCadastroEnderecoParametrizada(txtfCep.getText().replace("-", ""));
+    }//GEN-LAST:event_btnCadastrarCepActionPerformed
+
+    private void txtNumeroLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroLogradouroActionPerformed
+
+    }//GEN-LAST:event_txtNumeroLogradouroActionPerformed
+
+    private void txtNumeroLogradouroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroLogradouroKeyReleased
+        txtNumeroLogradouro.setText(TextSize.maxLenghtNrLogradouro(txtNumeroLogradouro.getText()));
+    }//GEN-LAST:event_txtNumeroLogradouroKeyReleased
+
+    private void rbtSimCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtSimCadastroActionPerformed
+
+    }//GEN-LAST:event_rbtSimCadastroActionPerformed
+
+    private void rbtNaoCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtNaoCadastroActionPerformed
+
+    }//GEN-LAST:event_rbtNaoCadastroActionPerformed
+
+    private void txtRazaoSocialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazaoSocialKeyReleased
+        txtRazaoSocial.setText(TextSize.maxLenghtNomeRazao(txtRazaoSocial.getText()));
+    }//GEN-LAST:event_txtRazaoSocialKeyReleased
+
+    private void txtCelRamalKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCelRamalKeyReleased
+        textSizeCelRamal();
+    }//GEN-LAST:event_txtCelRamalKeyReleased
+
+    private void btnHojeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojeActionPerformed
+        txtfDataCadastro.setText(control.Datas.getDiaHoje());
+    }//GEN-LAST:event_btnHojeActionPerformed
+
+    private void txtfCepFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfCepFocusLost
+        verificarCep();
+    }//GEN-LAST:event_txtfCepFocusLost
+
+    private void txtfCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfCepKeyReleased
+        verificarCep();
+    }//GEN-LAST:event_txtfCepKeyReleased
+
+    private void txtCpfCnpjFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCpfCnpjFocusLost
+        textSizeCPFJCNPJ();
+    }//GEN-LAST:event_txtCpfCnpjFocusLost
+
+    private void txtCpfCnpjKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfCnpjKeyReleased
+        textSizeCPFJCNPJ();
+    }//GEN-LAST:event_txtCpfCnpjKeyReleased
+
+    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
+        deletarRegistro();
+    }//GEN-LAST:event_btnDeletarActionPerformed
+
+    private void btnLimparTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparTabelaActionPerformed
+        limparTabela();
+    }//GEN-LAST:event_btnLimparTabelaActionPerformed
+
+    private void btnListarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarTodosActionPerformed
+        atualizarTabela(false);
+    }//GEN-LAST:event_btnListarTodosActionPerformed
+
+    private void btnCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarProdutoActionPerformed
+        control.Janelas.abrirCadastroPessoa();
+    }//GEN-LAST:event_btnCadastrarProdutoActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        alterarRegistro();
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -458,18 +716,45 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
-    private javax.swing.JButton btnAtualizarTabela1;
+    private javax.swing.JButton btnCadastrarCep;
+    private javax.swing.JButton btnCadastrarProduto;
     private javax.swing.JButton btnDeletar;
-    private javax.swing.JButton btnFechar;
-    private javax.swing.JButton btnFisica;
+    private javax.swing.JButton btnDeletarTodosRegistros;
+    private javax.swing.JButton btnFecharFrame;
+    private javax.swing.JButton btnHoje;
+    private javax.swing.JButton btnLimparTabela;
+    private javax.swing.JButton btnListarTodos;
     private javax.swing.JButton btnMenuPrincipal;
-    private javax.swing.JButton btnTelaCadastro;
     private javax.swing.JComboBox<String> cmbFiltro;
-    private javax.swing.JLabel lblDescrever;
-    private javax.swing.JLabel lblFundo;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblBackground;
+    private javax.swing.JLabel lblCelRamal;
+    private javax.swing.JLabel lblCep;
+    private javax.swing.JLabel lblCepExiste;
+    private javax.swing.JLabel lblCpfCnpj;
+    private javax.swing.JLabel lblCpfCnpjExiste;
+    private javax.swing.JLabel lblDataCadastro;
+    private javax.swing.JLabel lblDigiteODado;
+    private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblNumeroLogradouro;
     private javax.swing.JLabel lblPesquisar;
-    private javax.swing.JScrollPane scpListagemPessoaF;
+    private javax.swing.JLabel lblPessoaJEncontrado;
+    private javax.swing.JLabel lblRazaoSocial;
+    private javax.swing.JLabel lblTelefone;
+    private javax.swing.JLabel lblTipoPessoa1;
+    private javax.swing.JPanel panPrincipal;
+    private javax.swing.JPanel panPrincipal1;
+    private javax.swing.JRadioButton rbtNaoCadastro;
+    private javax.swing.JRadioButton rbtSimCadastro;
     private javax.swing.JTable tblListagemPessoaJ;
+    private javax.swing.JTextField txtCelRamal;
+    private javax.swing.JTextField txtCpfCnpj;
+    private javax.swing.JTextField txtNomePessoaFicticio;
+    private javax.swing.JTextField txtNumeroLogradouro;
     private javax.swing.JTextField txtPesquisa;
+    private javax.swing.JTextField txtRazaoSocial;
+    private javax.swing.JTextField txtTelefone;
+    private javax.swing.JFormattedTextField txtfCep;
+    private javax.swing.JFormattedTextField txtfDataCadastro;
     // End of variables declaration//GEN-END:variables
 }

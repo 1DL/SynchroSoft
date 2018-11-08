@@ -462,10 +462,10 @@ Data Entre/Até
                 case "CEP":
                     sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(TB_PESSOA_FISICA.CD_CEP) LIKE LOWER(?)";
                     break;
-                case "Endereço":
+                case "Logradouro":
                     sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(TB_ENDERECO.DS_LOGRADOURO) LIKE LOWER(?)";
                     break;
-                case "Número Endereço":
+                case "Nr Logradouro":
                     sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA "
                             + "INNER JOIN SYNCHROSOFT.TB_ENDERECO ON "
                             + "(SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) "
@@ -501,7 +501,7 @@ Data Entre/Até
             //colocando valor da variável ? da query 
             if (cmbFiltro.equals("Data de Cadastro")) {
                 try {
-                    dataDe = control.Datas.converterParaAmericana(dataDe);
+                    //dataDe = control.Datas.converterParaAmericana(dataDe);
 
                 } catch (Exception ex) {
 
@@ -510,8 +510,8 @@ Data Entre/Até
 
             } else if (cmbFiltro.equals("Data Entre/Até")) {
                 try {
-                    dataDe = control.Datas.converterParaAmericana(dataDe);
-                    dataAte = control.Datas.converterParaAmericana(dataAte);
+                    //dataDe = control.Datas.converterParaAmericana(dataDe);
+                    //dataAte = control.Datas.converterParaAmericana(dataAte);
                 } catch (Exception ex) {
 
                 }
@@ -522,7 +522,7 @@ Data Entre/Até
             }
             //executando query selecionada pelo switch case
             ResultSet rs = st.executeQuery();
-
+            System.out.println(dataDe+" "+dataAte);
             //listando dados do banco em jtable
             while (rs.next()) {
                 Endereco end = new Endereco();

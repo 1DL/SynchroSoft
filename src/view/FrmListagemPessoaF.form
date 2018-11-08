@@ -84,8 +84,8 @@
                 <StringItem index="1" value="CPF"/>
                 <StringItem index="2" value="Sexo"/>
                 <StringItem index="3" value="CEP"/>
-                <StringItem index="4" value="Endere&#xe7;o"/>
-                <StringItem index="5" value="N&#xfa;mero Endere&#xe7;o"/>
+                <StringItem index="4" value="Logradouro"/>
+                <StringItem index="5" value="Nr Logradouro"/>
                 <StringItem index="6" value="Telefone"/>
                 <StringItem index="7" value="Celular"/>
                 <StringItem index="8" value="Mant&#xe9;m Contrato?"/>
