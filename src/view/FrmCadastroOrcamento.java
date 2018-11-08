@@ -106,7 +106,6 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Orçamento");
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logopng32.png")));
-        setMaximumSize(new java.awt.Dimension(1152, 648));
         setMinimumSize(new java.awt.Dimension(1152, 648));
         setResizable(false);
         getContentPane().setLayout(null);
@@ -321,7 +320,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         pnlPeca.add(btnAdicionarPeca);
         btnAdicionarPeca.setBounds(140, 240, 260, 40);
 
-        btnListarPeca.setText("Listar Peças");
+        btnListarPeca.setText("Listar Produtos");
         btnListarPeca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnListarPecaActionPerformed(evt);
@@ -332,7 +331,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
 
         lblPecaExiste.setText("Peça não encontrada.");
         pnlPeca.add(lblPecaExiste);
-        lblPecaExiste.setBounds(10, 60, 190, 14);
+        lblPecaExiste.setBounds(10, 50, 190, 25);
 
         panPrincipal.add(pnlPeca);
         pnlPeca.setBounds(20, 100, 540, 320);
