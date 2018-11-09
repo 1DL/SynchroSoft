@@ -89,6 +89,7 @@ public class FrmVendaPeca extends javax.swing.JFrame {
         btnVender = new javax.swing.JButton();
         txtValorTotal = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         btnMenuPrincipal = new javax.swing.JButton();
         btnFecharFrame = new javax.swing.JButton();
         lblBackground = new javax.swing.JLabel();
@@ -311,6 +312,11 @@ public class FrmVendaPeca extends javax.swing.JFrame {
         jLabel9.setText("Valor Total:");
         panPrincipal.add(jLabel9);
         jLabel9.setBounds(40, 450, 160, 25);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 3, 38)); // NOI18N
+        jLabel1.setText("Venda de Peças e Produtos");
+        panPrincipal.add(jLabel1);
+        jLabel1.setBounds(20, 10, 540, 80);
 
         getContentPane().add(panPrincipal);
         panPrincipal.setBounds(10, 10, 1125, 510);
@@ -607,6 +613,7 @@ public class FrmVendaPeca extends javax.swing.JFrame {
     private javax.swing.JButton btnRemoveLinhaPeca;
     private javax.swing.JButton btnVender;
     private javax.swing.ButtonGroup btngPeca;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;

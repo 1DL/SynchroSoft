@@ -64,27 +64,54 @@ public class FrmListagemServico extends javax.swing.JFrame {
 
         grupoTipoCliente = new javax.swing.ButtonGroup();
         db = new javax.swing.JFileChooser();
-        txtDataAntes = new javax.swing.JTextField();
-        txtDataDepois = new javax.swing.JTextField();
-        lblPesquisarData1 = new javax.swing.JLabel();
-        btnAtualizarTabela = new javax.swing.JButton();
+        panPrincipal = new javax.swing.JPanel();
         btnAlterar = new javax.swing.JButton();
         lblPesquisarData = new javax.swing.JLabel();
-        btnDeletar = new javax.swing.JButton();
-        btnTelaCadastro = new javax.swing.JButton();
-        btnFechar = new javax.swing.JButton();
-        lblPesquisar = new javax.swing.JLabel();
-        btnHoje = new javax.swing.JButton();
         cmbFiltro = new javax.swing.JComboBox<>();
         lblDescrever = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        btnDeletar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblFuncionarioTrabalhando = new javax.swing.JTable();
+        lblPesquisarData3 = new javax.swing.JLabel();
+        lblPesquisar = new javax.swing.JLabel();
+        btnAtualizarTabela = new javax.swing.JButton();
+        btnRemoveLinhaFunc = new javax.swing.JButton();
         txtPesquisa = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblListagemServico = new javax.swing.JTable();
+        panDadosServico = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         cmbTipoServico = new javax.swing.JComboBox<>();
         lblCep = new javax.swing.JLabel();
         txtCep = new javax.swing.JTextField();
+        lblOrcamento = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        rbtFisica = new javax.swing.JRadioButton();
+        rbtJuridica = new javax.swing.JRadioButton();
         lblCampoCpfCnpj = new javax.swing.JLabel();
         btnOrcamento = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        lblAtivo = new javax.swing.JLabel();
+        txtCpfCnpj = new javax.swing.JTextField();
+        btnAtivarDesativar = new javax.swing.JButton();
+        btnCadastrarPessoaJ = new javax.swing.JButton();
+        lblCpfCnpjExiste = new javax.swing.JLabel();
+        lblCep2 = new javax.swing.JLabel();
+        txtCodFunc = new javax.swing.JTextField();
+        lblSelecionarFunc = new javax.swing.JLabel();
+        btnSelecionarfunc = new javax.swing.JButton();
+        btnListarFunc = new javax.swing.JButton();
+        lblCep3 = new javax.swing.JLabel();
+        txtNomeFunc = new javax.swing.JTextField();
+        btnHoje = new javax.swing.JButton();
+        txtDataDepois = new javax.swing.JTextField();
+        lblPesquisarData1 = new javax.swing.JLabel();
+        txtDataAntes = new javax.swing.JTextField();
+        lblPesquisarData2 = new javax.swing.JLabel();
+        btnArquivoRelatorio = new javax.swing.JButton();
+        lblRelatorio = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        panDadosCliente = new javax.swing.JPanel();
         lblNomeFicticio = new javax.swing.JLabel();
         txtNomePessoaFicticio = new javax.swing.JTextField();
         lblTelefone = new javax.swing.JLabel();
@@ -103,36 +130,12 @@ public class FrmListagemServico extends javax.swing.JFrame {
         txtCelularRamal = new javax.swing.JTextField();
         lblRazaoSocial = new javax.swing.JLabel();
         txtRazaoSocial = new javax.swing.JTextField();
-        rbtMasculino = new javax.swing.JRadioButton();
-        rbtFeminino = new javax.swing.JRadioButton();
-        lblSexo = new javax.swing.JLabel();
-        txtCpfCnpj = new javax.swing.JTextField();
-        lblCpfCnpjExiste = new javax.swing.JLabel();
-        btnCadastrarPessoaJ = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblListagemServico = new javax.swing.JTable();
-        btnArquivoRelatorio = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        lblRelatorio = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        rbtFisica = new javax.swing.JRadioButton();
-        rbtJuridica = new javax.swing.JRadioButton();
-        btnAtivarDesativar = new javax.swing.JButton();
-        lblOrcamento = new javax.swing.JLabel();
-        lblAtivo = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblFuncionarioTrabalhando = new javax.swing.JTable();
-        lblPesquisarData2 = new javax.swing.JLabel();
-        lblPesquisarData3 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        btnRemoveLinhaFunc = new javax.swing.JButton();
-        lblCep2 = new javax.swing.JLabel();
-        txtCodFunc = new javax.swing.JTextField();
-        lblSelecionarFunc = new javax.swing.JLabel();
-        btnSelecionarfunc = new javax.swing.JButton();
-        btnListarFunc = new javax.swing.JButton();
-        lblCep3 = new javax.swing.JLabel();
-        txtNomeFunc = new javax.swing.JTextField();
+        lblSexoDesc = new javax.swing.JLabel();
+        lblSexoValor = new javax.swing.JLabel();
+        btnLimparTabela = new javax.swing.JButton();
+        btnCadastrarProduto = new javax.swing.JButton();
+        btnFecharFrame = new javax.swing.JButton();
+        btnMenuPrincipal = new javax.swing.JButton();
         lblBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -144,54 +147,9 @@ public class FrmListagemServico extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(null);
 
-        txtDataAntes.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtDataAntes.setText("1980-01-01");
-        txtDataAntes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDataAntesActionPerformed(evt);
-            }
-        });
-        txtDataAntes.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtDataAntesKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtDataAntesKeyTyped(evt);
-            }
-        });
-        getContentPane().add(txtDataAntes);
-        txtDataAntes.setBounds(700, 399, 130, 31);
-
-        txtDataDepois.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtDataDepois.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDataDepoisActionPerformed(evt);
-            }
-        });
-        txtDataDepois.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtDataDepoisKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtDataDepoisKeyTyped(evt);
-            }
-        });
-        getContentPane().add(txtDataDepois);
-        txtDataDepois.setBounds(900, 400, 130, 30);
-
-        lblPesquisarData1.setFont(new java.awt.Font("Malgun Gothic", 0, 10)); // NOI18N
-        lblPesquisarData1.setText("Término:");
-        getContentPane().add(lblPesquisarData1);
-        lblPesquisarData1.setBounds(840, 390, 70, 40);
-
-        btnAtualizarTabela.setText("AtualizarTabelas");
-        btnAtualizarTabela.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtualizarTabelaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnAtualizarTabela);
-        btnAtualizarTabela.setBounds(20, 600, 190, 40);
+        panPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panPrincipal.setOpaque(false);
+        panPrincipal.setLayout(null);
 
         btnAlterar.setText("Alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -199,71 +157,92 @@ public class FrmListagemServico extends javax.swing.JFrame {
                 btnAlterarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAlterar);
-        btnAlterar.setBounds(250, 600, 210, 40);
+        panPrincipal.add(btnAlterar);
+        btnAlterar.setBounds(980, 493, 130, 30);
 
         lblPesquisarData.setFont(new java.awt.Font("Malgun Gothic", 0, 10)); // NOI18N
         lblPesquisarData.setText("Tabela de serviços. Pesquise por algum valor, e selecione uma linha para visualizar e alterar o serviço selecionado.");
-        getContentPane().add(lblPesquisarData);
-        lblPesquisarData.setBounds(20, 60, 580, 40);
+        panPrincipal.add(lblPesquisarData);
+        lblPesquisarData.setBounds(10, 35, 580, 14);
 
-        btnDeletar.setText("Deletar");
-        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeletarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnDeletar);
-        btnDeletar.setBounds(520, 600, 170, 40);
-
-        btnTelaCadastro.setText("Tela Cadastro");
-        btnTelaCadastro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTelaCadastroActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnTelaCadastro);
-        btnTelaCadastro.setBounds(770, 590, 160, 50);
-
-        btnFechar.setText("Fechar");
-        btnFechar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFecharActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnFechar);
-        btnFechar.setBounds(1000, 590, 130, 50);
-
-        lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblPesquisar.setText("Pesquisar por: ");
-        getContentPane().add(lblPesquisar);
-        lblPesquisar.setBounds(30, 20, 160, 40);
-
-        btnHoje.setText("Hoje");
-        btnHoje.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHojeActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnHoje);
-        btnHoje.setBounds(1040, 400, 100, 30);
-
-        cmbFiltro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código Serviço", "Status Serviço", "Tipo Serviço", "Descrição Serviço", "Data Início", "Data Encerramento" }));
         cmbFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbFiltroActionPerformed(evt);
             }
         });
-        getContentPane().add(cmbFiltro);
-        cmbFiltro.setBounds(160, 30, 240, 31);
+        panPrincipal.add(cmbFiltro);
+        cmbFiltro.setBounds(140, 3, 240, 25);
 
         lblDescrever.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDescrever.setText("Descrição:");
-        getContentPane().add(lblDescrever);
-        lblDescrever.setBounds(420, 30, 83, 40);
+        panPrincipal.add(lblDescrever);
+        lblDescrever.setBounds(400, 3, 83, 25);
 
-        txtPesquisa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
+        jButton2.setText("Excluir todos os funcionários");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(jButton2);
+        jButton2.setBounds(950, 50, 160, 25);
+
+        btnDeletar.setText("Deletar registro selecionado");
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnDeletar);
+        btnDeletar.setBounds(10, 493, 170, 30);
+
+        tblFuncionarioTrabalhando.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tblFuncionarioTrabalhando);
+
+        panPrincipal.add(jScrollPane2);
+        jScrollPane2.setBounds(630, 80, 480, 110);
+
+        lblPesquisarData3.setFont(new java.awt.Font("Malgun Gothic", 0, 10)); // NOI18N
+        lblPesquisarData3.setText("Funcionários executando o serviço. Selecione uma linha para excluir um funcionário do serivço.");
+        panPrincipal.add(lblPesquisarData3);
+        lblPesquisarData3.setBounds(630, 35, 460, 14);
+
+        lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblPesquisar.setText("Pesquisar por: ");
+        panPrincipal.add(lblPesquisar);
+        lblPesquisar.setBounds(10, 3, 160, 25);
+
+        btnAtualizarTabela.setText("Listar todos os registros");
+        btnAtualizarTabela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarTabelaActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnAtualizarTabela);
+        btnAtualizarTabela.setBounds(550, 493, 147, 30);
+
+        btnRemoveLinhaFunc.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
+        btnRemoveLinhaFunc.setText("Excluir funcionário selecionado");
+        btnRemoveLinhaFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveLinhaFuncActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnRemoveLinhaFunc);
+        btnRemoveLinhaFunc.setBounds(760, 50, 160, 25);
+
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPesquisaActionPerformed(evt);
@@ -277,203 +256,8 @@ public class FrmListagemServico extends javax.swing.JFrame {
                 txtPesquisaKeyTyped(evt);
             }
         });
-        getContentPane().add(txtPesquisa);
-        txtPesquisa.setBounds(520, 30, 221, 40);
-
-        jLabel3.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        jLabel3.setText("Tipo de serviço:");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(20, 230, 160, 50);
-
-        cmbTipoServico.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        cmbTipoServico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Preventivo", "Corretivo", "Emergencial" }));
-        cmbTipoServico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbTipoServicoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(cmbTipoServico);
-        cmbTipoServico.setBounds(180, 240, 170, 31);
-
-        lblCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCep.setText("CEP:");
-        getContentPane().add(lblCep);
-        lblCep.setBounds(20, 280, 60, 50);
-
-        txtCep.setEditable(false);
-        txtCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtCep.setEnabled(false);
-        txtCep.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCepActionPerformed(evt);
-            }
-        });
-        txtCep.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCepKeyReleased(evt);
-            }
-        });
-        getContentPane().add(txtCep);
-        txtCep.setBounds(60, 290, 240, 30);
-
-        lblCampoCpfCnpj.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCampoCpfCnpj.setText("CPF:");
-        getContentPane().add(lblCampoCpfCnpj);
-        lblCampoCpfCnpj.setBounds(620, 280, 60, 50);
-
-        btnOrcamento.setText("Criar orçamento");
-        btnOrcamento.setEnabled(false);
-        btnOrcamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOrcamentoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnOrcamento);
-        btnOrcamento.setBounds(590, 240, 130, 40);
-
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Cliente"));
-        jPanel2.setOpaque(false);
-        jPanel2.setLayout(null);
-
-        lblNomeFicticio.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblNomeFicticio.setText("Nome");
-        jPanel2.add(lblNomeFicticio);
-        lblNomeFicticio.setBounds(16, 16, 140, 25);
-
-        txtNomePessoaFicticio.setEditable(false);
-        jPanel2.add(txtNomePessoaFicticio);
-        txtNomePessoaFicticio.setBounds(160, 20, 316, 25);
-
-        lblTelefone.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblTelefone.setText("Telefone");
-        jPanel2.add(lblTelefone);
-        lblTelefone.setBounds(16, 86, 140, 25);
-
-        txtTelefone.setEditable(false);
-        jPanel2.add(txtTelefone);
-        txtTelefone.setBounds(160, 86, 316, 25);
-
-        lblCelularRamal.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCelularRamal.setText("Celular");
-        jPanel2.add(lblCelularRamal);
-        lblCelularRamal.setBounds(538, 86, 140, 25);
-
-        lblLogradouro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblLogradouro.setText("Logradouro");
-        jPanel2.add(lblLogradouro);
-        lblLogradouro.setBounds(538, 16, 140, 25);
-
-        txtLogradouro.setEditable(false);
-        jPanel2.add(txtLogradouro);
-        txtLogradouro.setBounds(705, 20, 316, 25);
-
-        lblCidade.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCidade.setText("Cidade");
-        jPanel2.add(lblCidade);
-        lblCidade.setBounds(16, 51, 140, 25);
-
-        txtCidade.setEditable(false);
-        jPanel2.add(txtCidade);
-        txtCidade.setBounds(160, 55, 114, 25);
-
-        lblEstado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblEstado.setText("Estado");
-        jPanel2.add(lblEstado);
-        lblEstado.setBounds(278, 51, 73, 25);
-
-        txtEstado.setEditable(false);
-        jPanel2.add(txtEstado);
-        txtEstado.setBounds(355, 55, 121, 25);
-
-        lblBairro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblBairro.setText("Bairro");
-        jPanel2.add(lblBairro);
-        lblBairro.setBounds(538, 51, 140, 25);
-
-        txtBairro.setEditable(false);
-        jPanel2.add(txtBairro);
-        txtBairro.setBounds(705, 55, 178, 25);
-
-        lblNumeroLog.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblNumeroLog.setText("N°");
-        jPanel2.add(lblNumeroLog);
-        lblNumeroLog.setBounds(901, 51, 39, 25);
-
-        txtNumero.setEditable(false);
-        jPanel2.add(txtNumero);
-        txtNumero.setBounds(944, 55, 77, 25);
-
-        txtCelularRamal.setEditable(false);
-        jPanel2.add(txtCelularRamal);
-        txtCelularRamal.setBounds(705, 86, 316, 25);
-
-        lblRazaoSocial.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblRazaoSocial.setText("Razão Social");
-        jPanel2.add(lblRazaoSocial);
-        lblRazaoSocial.setBounds(16, 117, 140, 25);
-
-        txtRazaoSocial.setEditable(false);
-        jPanel2.add(txtRazaoSocial);
-        txtRazaoSocial.setBounds(160, 117, 316, 25);
-
-        rbtMasculino.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        rbtMasculino.setSelected(true);
-        rbtMasculino.setText("Masculino");
-        rbtMasculino.setEnabled(false);
-        rbtMasculino.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtMasculinoActionPerformed(evt);
-            }
-        });
-        jPanel2.add(rbtMasculino);
-        rbtMasculino.setBounds(704, 117, 107, 17);
-
-        rbtFeminino.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        rbtFeminino.setText("Feminino");
-        rbtFeminino.setEnabled(false);
-        rbtFeminino.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtFemininoActionPerformed(evt);
-            }
-        });
-        jPanel2.add(rbtFeminino);
-        rbtFeminino.setBounds(829, 117, 99, 17);
-
-        lblSexo.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblSexo.setText("Sexo");
-        jPanel2.add(lblSexo);
-        lblSexo.setBounds(538, 117, 140, 18);
-
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(30, 430, 1080, 150);
-        jPanel2.getAccessibleContext().setAccessibleDescription("");
-
-        txtCpfCnpj.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtCpfCnpj.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCpfCnpjActionPerformed(evt);
-            }
-        });
-        txtCpfCnpj.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCpfCnpjKeyReleased(evt);
-            }
-        });
-        getContentPane().add(txtCpfCnpj);
-        txtCpfCnpj.setBounds(700, 290, 250, 30);
-
-        lblCpfCnpjExiste.setText("CPF Inválido");
-        getContentPane().add(lblCpfCnpjExiste);
-        lblCpfCnpjExiste.setBounds(700, 320, 190, 14);
-
-        btnCadastrarPessoaJ.setText("Cadastrar");
-        btnCadastrarPessoaJ.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarPessoaJActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnCadastrarPessoaJ);
-        btnCadastrarPessoaJ.setBounds(870, 320, 81, 23);
+        panPrincipal.add(txtPesquisa);
+        txtPesquisa.setBounds(500, 3, 221, 25);
 
         tblListagemServico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -493,31 +277,55 @@ public class FrmListagemServico extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblListagemServico);
 
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(20, 90, 610, 140);
+        panPrincipal.add(jScrollPane1);
+        jScrollPane1.setBounds(10, 50, 610, 140);
 
-        btnArquivoRelatorio.setText("Trocar");
-        btnArquivoRelatorio.addActionListener(new java.awt.event.ActionListener() {
+        panDadosServico.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do serviço selecionado"));
+        panDadosServico.setOpaque(false);
+        panDadosServico.setLayout(null);
+
+        jLabel3.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        jLabel3.setText("Tipo de serviço:");
+        panDadosServico.add(jLabel3);
+        jLabel3.setBounds(10, 10, 160, 25);
+
+        cmbTipoServico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Preventivo", "Corretivo", "Emergencial" }));
+        cmbTipoServico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnArquivoRelatorioActionPerformed(evt);
+                cmbTipoServicoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnArquivoRelatorio);
-        btnArquivoRelatorio.setBounds(530, 390, 80, 30);
+        panDadosServico.add(cmbTipoServico);
+        cmbTipoServico.setBounds(170, 10, 170, 25);
 
-        jLabel5.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        jLabel5.setText("Relatório do serviço:");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(30, 390, 170, 30);
+        lblCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblCep.setText("CEP:");
+        panDadosServico.add(lblCep);
+        lblCep.setBounds(10, 50, 60, 25);
 
-        lblRelatorio.setText("Nenhum arquivo selecionado.");
-        getContentPane().add(lblRelatorio);
-        lblRelatorio.setBounds(210, 400, 300, 14);
+        txtCep.setEditable(false);
+        txtCep.setEnabled(false);
+        txtCep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCepActionPerformed(evt);
+            }
+        });
+        txtCep.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCepKeyReleased(evt);
+            }
+        });
+        panDadosServico.add(txtCep);
+        txtCep.setBounds(50, 50, 240, 25);
+
+        lblOrcamento.setText("Existe ou não Orçamento");
+        panDadosServico.add(lblOrcamento);
+        lblOrcamento.setBounds(340, 10, 210, 25);
 
         jLabel4.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel4.setText("Tipo de Cliente:");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(310, 280, 160, 50);
+        panDadosServico.add(jLabel4);
+        jLabel4.setBounds(300, 50, 160, 25);
 
         grupoTipoCliente.add(rbtFisica);
         rbtFisica.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -529,8 +337,8 @@ public class FrmListagemServico extends javax.swing.JFrame {
                 rbtFisicaActionPerformed(evt);
             }
         });
-        getContentPane().add(rbtFisica);
-        rbtFisica.setBounds(440, 290, 69, 33);
+        panDadosServico.add(rbtFisica);
+        rbtFisica.setBounds(430, 50, 69, 25);
 
         grupoTipoCliente.add(rbtJuridica);
         rbtJuridica.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -541,8 +349,40 @@ public class FrmListagemServico extends javax.swing.JFrame {
                 rbtJuridicaActionPerformed(evt);
             }
         });
-        getContentPane().add(rbtJuridica);
-        rbtJuridica.setBounds(520, 290, 85, 33);
+        panDadosServico.add(rbtJuridica);
+        rbtJuridica.setBounds(510, 50, 85, 25);
+
+        lblCampoCpfCnpj.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblCampoCpfCnpj.setText("CPF:");
+        panDadosServico.add(lblCampoCpfCnpj);
+        lblCampoCpfCnpj.setBounds(610, 50, 60, 25);
+
+        btnOrcamento.setText("Criar orçamento");
+        btnOrcamento.setEnabled(false);
+        btnOrcamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrcamentoActionPerformed(evt);
+            }
+        });
+        panDadosServico.add(btnOrcamento);
+        btnOrcamento.setBounds(560, 10, 130, 25);
+
+        lblAtivo.setText("Serviço já ativado ou não");
+        panDadosServico.add(lblAtivo);
+        lblAtivo.setBounds(690, 10, 200, 25);
+
+        txtCpfCnpj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCpfCnpjActionPerformed(evt);
+            }
+        });
+        txtCpfCnpj.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCpfCnpjKeyReleased(evt);
+            }
+        });
+        panDadosServico.add(txtCpfCnpj);
+        txtCpfCnpj.setBounds(690, 50, 250, 25);
 
         btnAtivarDesativar.setText("Ativar Serviço");
         btnAtivarDesativar.addActionListener(new java.awt.event.ActionListener() {
@@ -550,69 +390,27 @@ public class FrmListagemServico extends javax.swing.JFrame {
                 btnAtivarDesativarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAtivarDesativar);
-        btnAtivarDesativar.setBounds(930, 240, 200, 40);
+        panDadosServico.add(btnAtivarDesativar);
+        btnAtivarDesativar.setBounds(890, 10, 180, 30);
 
-        lblOrcamento.setText("Existe ou não Orçamento");
-        getContentPane().add(lblOrcamento);
-        lblOrcamento.setBounds(380, 250, 210, 14);
-
-        lblAtivo.setText("Serviço já ativado ou não");
-        getContentPane().add(lblAtivo);
-        lblAtivo.setBounds(730, 250, 200, 14);
-
-        tblFuncionarioTrabalhando.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(tblFuncionarioTrabalhando);
-
-        getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(640, 90, 400, 140);
-
-        lblPesquisarData2.setFont(new java.awt.Font("Malgun Gothic", 0, 10)); // NOI18N
-        lblPesquisarData2.setText("Data Início:");
-        getContentPane().add(lblPesquisarData2);
-        lblPesquisarData2.setBounds(630, 390, 90, 40);
-
-        lblPesquisarData3.setFont(new java.awt.Font("Malgun Gothic", 0, 10)); // NOI18N
-        lblPesquisarData3.setText("Funcionários atualmente executando esse serviço. Selecione uma linha para excluir um funcionário do serivço.");
-        getContentPane().add(lblPesquisarData3);
-        lblPesquisarData3.setBounds(640, 60, 510, 40);
-
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
-        jButton2.setText("Excluir Todos");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrarPessoaJ.setText("Cadastrar");
+        btnCadastrarPessoaJ.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnCadastrarPessoaJActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2);
-        jButton2.setBounds(1040, 150, 100, 20);
+        panDadosServico.add(btnCadastrarPessoaJ);
+        btnCadastrarPessoaJ.setBounds(970, 50, 120, 23);
 
-        btnRemoveLinhaFunc.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
-        btnRemoveLinhaFunc.setText("Excluir Func.");
-        btnRemoveLinhaFunc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoveLinhaFuncActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnRemoveLinhaFunc);
-        btnRemoveLinhaFunc.setBounds(1040, 120, 100, 20);
+        lblCpfCnpjExiste.setText("CPF Inválido");
+        panDadosServico.add(lblCpfCnpjExiste);
+        lblCpfCnpjExiste.setBounds(690, 73, 190, 14);
 
         lblCep2.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCep2.setText("Código Funcionário:");
-        getContentPane().add(lblCep2);
-        lblCep2.setBounds(20, 350, 170, 30);
+        panDadosServico.add(lblCep2);
+        lblCep2.setBounds(10, 90, 170, 25);
 
-        txtCodFunc.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtCodFunc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCodFuncActionPerformed(evt);
@@ -623,12 +421,12 @@ public class FrmListagemServico extends javax.swing.JFrame {
                 txtCodFuncKeyReleased(evt);
             }
         });
-        getContentPane().add(txtCodFunc);
-        txtCodFunc.setBounds(190, 350, 120, 30);
+        panDadosServico.add(txtCodFunc);
+        txtCodFunc.setBounds(200, 90, 120, 25);
 
         lblSelecionarFunc.setText("Inválido");
-        getContentPane().add(lblSelecionarFunc);
-        lblSelecionarFunc.setBounds(190, 380, 250, 14);
+        panDadosServico.add(lblSelecionarFunc);
+        lblSelecionarFunc.setBounds(200, 113, 250, 14);
 
         btnSelecionarfunc.setText("Selecionar Funcionário");
         btnSelecionarfunc.setEnabled(false);
@@ -637,8 +435,8 @@ public class FrmListagemServico extends javax.swing.JFrame {
                 btnSelecionarfuncActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSelecionarfunc);
-        btnSelecionarfunc.setBounds(320, 350, 160, 30);
+        panDadosServico.add(btnSelecionarfunc);
+        btnSelecionarfunc.setBounds(330, 90, 160, 25);
 
         btnListarFunc.setText("Listar Funcionários");
         btnListarFunc.addActionListener(new java.awt.event.ActionListener() {
@@ -646,22 +444,232 @@ public class FrmListagemServico extends javax.swing.JFrame {
                 btnListarFuncActionPerformed(evt);
             }
         });
-        getContentPane().add(btnListarFunc);
-        btnListarFunc.setBounds(480, 350, 140, 30);
+        panDadosServico.add(btnListarFunc);
+        btnListarFunc.setBounds(490, 90, 140, 25);
 
         lblCep3.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCep3.setText("Nome Func. :");
-        getContentPane().add(lblCep3);
-        lblCep3.setBounds(630, 350, 130, 30);
+        lblCep3.setText("Funcionário:");
+        panDadosServico.add(lblCep3);
+        lblCep3.setBounds(640, 90, 130, 25);
 
-        txtNomeFunc.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         txtNomeFunc.setEnabled(false);
-        getContentPane().add(txtNomeFunc);
-        txtNomeFunc.setBounds(760, 350, 350, 30);
+        panDadosServico.add(txtNomeFunc);
+        txtNomeFunc.setBounds(770, 90, 320, 25);
+
+        btnHoje.setText("Hoje");
+        btnHoje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHojeActionPerformed(evt);
+            }
+        });
+        panDadosServico.add(btnHoje);
+        btnHoje.setBounds(1020, 130, 70, 25);
+
+        txtDataDepois.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDataDepoisActionPerformed(evt);
+            }
+        });
+        txtDataDepois.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDataDepoisKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDataDepoisKeyTyped(evt);
+            }
+        });
+        panDadosServico.add(txtDataDepois);
+        txtDataDepois.setBounds(880, 130, 130, 25);
+
+        lblPesquisarData1.setFont(new java.awt.Font("Malgun Gothic", 0, 10)); // NOI18N
+        lblPesquisarData1.setText("Término:");
+        panDadosServico.add(lblPesquisarData1);
+        lblPesquisarData1.setBounds(820, 130, 70, 25);
+
+        txtDataAntes.setText("1980-01-01");
+        txtDataAntes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDataAntesActionPerformed(evt);
+            }
+        });
+        txtDataAntes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDataAntesKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDataAntesKeyTyped(evt);
+            }
+        });
+        panDadosServico.add(txtDataAntes);
+        txtDataAntes.setBounds(680, 130, 130, 25);
+
+        lblPesquisarData2.setFont(new java.awt.Font("Malgun Gothic", 0, 10)); // NOI18N
+        lblPesquisarData2.setText("Data Início:");
+        panDadosServico.add(lblPesquisarData2);
+        lblPesquisarData2.setBounds(610, 130, 90, 25);
+
+        btnArquivoRelatorio.setText("Trocar");
+        btnArquivoRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnArquivoRelatorioActionPerformed(evt);
+            }
+        });
+        panDadosServico.add(btnArquivoRelatorio);
+        btnArquivoRelatorio.setBounds(510, 130, 80, 25);
+
+        lblRelatorio.setText("Nenhum arquivo selecionado.");
+        panDadosServico.add(lblRelatorio);
+        lblRelatorio.setBounds(190, 130, 300, 25);
+
+        jLabel5.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        jLabel5.setText("Relatório do serviço:");
+        panDadosServico.add(jLabel5);
+        jLabel5.setBounds(10, 130, 170, 25);
+
+        panDadosCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Cliente"));
+        panDadosCliente.setOpaque(false);
+        panDadosCliente.setLayout(null);
+
+        lblNomeFicticio.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblNomeFicticio.setText("Nome");
+        panDadosCliente.add(lblNomeFicticio);
+        lblNomeFicticio.setBounds(16, 10, 140, 25);
+
+        txtNomePessoaFicticio.setEditable(false);
+        panDadosCliente.add(txtNomePessoaFicticio);
+        txtNomePessoaFicticio.setBounds(160, 10, 316, 25);
+
+        lblTelefone.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblTelefone.setText("Telefone");
+        panDadosCliente.add(lblTelefone);
+        lblTelefone.setBounds(16, 70, 140, 25);
+
+        txtTelefone.setEditable(false);
+        panDadosCliente.add(txtTelefone);
+        txtTelefone.setBounds(160, 70, 316, 25);
+
+        lblCelularRamal.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblCelularRamal.setText("Celular");
+        panDadosCliente.add(lblCelularRamal);
+        lblCelularRamal.setBounds(538, 70, 140, 25);
+
+        lblLogradouro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblLogradouro.setText("Logradouro");
+        panDadosCliente.add(lblLogradouro);
+        lblLogradouro.setBounds(538, 10, 140, 25);
+
+        txtLogradouro.setEditable(false);
+        panDadosCliente.add(txtLogradouro);
+        txtLogradouro.setBounds(705, 10, 316, 25);
+
+        lblCidade.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblCidade.setText("Cidade");
+        panDadosCliente.add(lblCidade);
+        lblCidade.setBounds(16, 40, 140, 25);
+
+        txtCidade.setEditable(false);
+        panDadosCliente.add(txtCidade);
+        txtCidade.setBounds(160, 40, 114, 25);
+
+        lblEstado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblEstado.setText("Estado");
+        panDadosCliente.add(lblEstado);
+        lblEstado.setBounds(278, 40, 73, 25);
+
+        txtEstado.setEditable(false);
+        panDadosCliente.add(txtEstado);
+        txtEstado.setBounds(355, 40, 121, 25);
+
+        lblBairro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblBairro.setText("Bairro");
+        panDadosCliente.add(lblBairro);
+        lblBairro.setBounds(538, 40, 140, 25);
+
+        txtBairro.setEditable(false);
+        panDadosCliente.add(txtBairro);
+        txtBairro.setBounds(705, 40, 178, 25);
+
+        lblNumeroLog.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblNumeroLog.setText("N°");
+        panDadosCliente.add(lblNumeroLog);
+        lblNumeroLog.setBounds(901, 40, 39, 25);
+
+        txtNumero.setEditable(false);
+        panDadosCliente.add(txtNumero);
+        txtNumero.setBounds(944, 40, 77, 25);
+
+        txtCelularRamal.setEditable(false);
+        panDadosCliente.add(txtCelularRamal);
+        txtCelularRamal.setBounds(705, 70, 316, 25);
+
+        lblRazaoSocial.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblRazaoSocial.setText("Razão Social");
+        panDadosCliente.add(lblRazaoSocial);
+        lblRazaoSocial.setBounds(16, 100, 140, 25);
+
+        txtRazaoSocial.setEditable(false);
+        panDadosCliente.add(txtRazaoSocial);
+        txtRazaoSocial.setBounds(160, 100, 316, 25);
+
+        lblSexoDesc.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblSexoDesc.setText("Sexo");
+        panDadosCliente.add(lblSexoDesc);
+        lblSexoDesc.setBounds(540, 100, 140, 25);
+
+        lblSexoValor.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblSexoValor.setText("-");
+        panDadosCliente.add(lblSexoValor);
+        lblSexoValor.setBounds(710, 100, 140, 25);
+
+        panDadosServico.add(panDadosCliente);
+        panDadosCliente.setBounds(10, 160, 1080, 133);
+        panDadosCliente.getAccessibleContext().setAccessibleDescription("");
+
+        panPrincipal.add(panDadosServico);
+        panDadosServico.setBounds(10, 190, 1100, 300);
+
+        btnLimparTabela.setText("Limpar tabela");
+        btnLimparTabela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparTabelaActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnLimparTabela);
+        btnLimparTabela.setBounds(410, 493, 120, 30);
+
+        btnCadastrarProduto.setText("Cadastrar novo Usuário");
+        btnCadastrarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarProdutoActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnCadastrarProduto);
+        btnCadastrarProduto.setBounds(720, 493, 150, 30);
+
+        getContentPane().add(panPrincipal);
+        panPrincipal.setBounds(10, 10, 1125, 530);
+
+        btnFecharFrame.setText("Fechar ");
+        btnFecharFrame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharFrameActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnFecharFrame);
+        btnFecharFrame.setBounds(1055, 550, 80, 30);
+
+        btnMenuPrincipal.setText("Menu Principal");
+        btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuPrincipalActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMenuPrincipal);
+        btnMenuPrincipal.setBounds(900, 550, 130, 30);
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(lblBackground);
-        lblBackground.setBounds(0, 0, 1160, 650);
+        lblBackground.setBounds(0, -20, 1150, 650);
 
         pack();
         setLocationRelativeTo(null);
@@ -721,14 +729,6 @@ public class FrmListagemServico extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnDeletarActionPerformed
-
-    private void btnTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaCadastroActionPerformed
-        control.Janelas.abrirCadastroServico();
-    }//GEN-LAST:event_btnTelaCadastroActionPerformed
-
-    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnFecharActionPerformed
 
     private void cmbFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFiltroActionPerformed
         // TODO add your handling code here:
@@ -999,14 +999,6 @@ public class FrmListagemServico extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnOrcamentoActionPerformed
 
-    private void rbtMasculinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtMasculinoActionPerformed
-
-    }//GEN-LAST:event_rbtMasculinoActionPerformed
-
-    private void rbtFemininoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtFemininoActionPerformed
-
-    }//GEN-LAST:event_rbtFemininoActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         iniciarTabelaFuncionario();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -1098,6 +1090,22 @@ public class FrmListagemServico extends javax.swing.JFrame {
             Logger.getLogger(FrmListagemServico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnAtivarDesativarActionPerformed
+
+    private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnFecharFrameActionPerformed
+
+    private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
+        control.Janelas.focarPrincipal();
+    }//GEN-LAST:event_btnMenuPrincipalActionPerformed
+
+    private void btnLimparTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparTabelaActionPerformed
+        limparTabela();
+    }//GEN-LAST:event_btnLimparTabelaActionPerformed
+
+    private void btnCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarProdutoActionPerformed
+        control.Janelas.abrirCadastroUsuario();
+    }//GEN-LAST:event_btnCadastrarProdutoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1313,7 +1321,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         lblRazaoSocial.setVisible(false);
         lblNomeFicticio.setText("Nome");
         lblCelularRamal.setText("Celular");
-        lblSexo.setVisible(true);
+        lblSexoDesc.setVisible(true);
         rbtFeminino.setVisible(true);
         rbtMasculino.setVisible(true);
         rbtFisica.setSelected(true);
@@ -1325,7 +1333,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         lblRazaoSocial.setVisible(true);
         lblNomeFicticio.setText("Nome Fictício");
         lblCelularRamal.setText("Ramal");
-        lblSexo.setVisible(false);
+        lblSexoDesc.setVisible(false);
         rbtFeminino.setVisible(false);
         rbtMasculino.setVisible(false);
         rbtJuridica.setSelected(true);
@@ -1488,14 +1496,16 @@ public class FrmListagemServico extends javax.swing.JFrame {
     private javax.swing.JButton btnAtivarDesativar;
     private javax.swing.JButton btnAtualizarTabela;
     private javax.swing.JButton btnCadastrarPessoaJ;
+    private javax.swing.JButton btnCadastrarProduto;
     private javax.swing.JButton btnDeletar;
-    private javax.swing.JButton btnFechar;
+    private javax.swing.JButton btnFecharFrame;
     private javax.swing.JButton btnHoje;
+    private javax.swing.JButton btnLimparTabela;
     private javax.swing.JButton btnListarFunc;
+    private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JButton btnOrcamento;
     private javax.swing.JButton btnRemoveLinhaFunc;
     private javax.swing.JButton btnSelecionarfunc;
-    private javax.swing.JButton btnTelaCadastro;
     private javax.swing.JComboBox<String> cmbFiltro;
     private javax.swing.JComboBox<String> cmbTipoServico;
     private javax.swing.JFileChooser db;
@@ -1504,7 +1514,6 @@ public class FrmListagemServico extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblAtivo;
@@ -1531,12 +1540,14 @@ public class FrmListagemServico extends javax.swing.JFrame {
     private javax.swing.JLabel lblRazaoSocial;
     private javax.swing.JLabel lblRelatorio;
     private javax.swing.JLabel lblSelecionarFunc;
-    private javax.swing.JLabel lblSexo;
+    private javax.swing.JLabel lblSexoDesc;
+    private javax.swing.JLabel lblSexoValor;
     private javax.swing.JLabel lblTelefone;
-    private javax.swing.JRadioButton rbtFeminino;
+    private javax.swing.JPanel panDadosCliente;
+    private javax.swing.JPanel panDadosServico;
+    private javax.swing.JPanel panPrincipal;
     private javax.swing.JRadioButton rbtFisica;
     private javax.swing.JRadioButton rbtJuridica;
-    private javax.swing.JRadioButton rbtMasculino;
     private javax.swing.JTable tblFuncionarioTrabalhando;
     private javax.swing.JTable tblListagemServico;
     private javax.swing.JTextField txtBairro;
