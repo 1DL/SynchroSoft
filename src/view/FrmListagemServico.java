@@ -1099,7 +1099,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         flagFuncionario = DaoFuncionario.existeFuncionario(txtCodFunc.getText());
         if (flagFuncionario) {
             f = DaoFuncionario.popularFuncionario(txtCodFunc.getText());
-            txtNomeFunc.setText(f.getPessoa().getNome());
+//            txtNomeFunc.setText(f.getPessoa().getNome());
             lblSelecionarFunc.setText("Funcionário Livre");
             flagFuncionario = true;
             btnSelecionarfunc.setEnabled(true);
@@ -1109,7 +1109,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
                 btnSelecionarfunc.setEnabled(true);
             }
         } else {
-            txtNomeFunc.setText("");
+         //   txtNomeFunc.setText("");
             lblSelecionarFunc.setText("Funcionário Inexistente");
             flagFuncionario = false;
             btnSelecionarfunc.setEnabled(false);
@@ -1179,7 +1179,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
     private void btnLimparTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparTabelaActionPerformed
-        limparTabela();
+       // limparTabela();
     }//GEN-LAST:event_btnLimparTabelaActionPerformed
 
     private void btnCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarProdutoActionPerformed
@@ -1187,8 +1187,8 @@ public class FrmListagemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarProdutoActionPerformed
 
     private void txtCodigoServicoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoServicoKeyReleased
-        txtCodigoServico.setText(TextSize.maxLenghtServico(txtCodigoServico.getText()));
-        verificarCodigoServico();
+       // txtCodigoServico.setText(TextSize.maxLenghtServico(txtCodigoServico.getText()));
+       // verificarCodigoServico();
     }//GEN-LAST:event_txtCodigoServicoKeyReleased
 
     private void btnHoje1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoje1ActionPerformed
@@ -1200,7 +1200,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarPessoaJ1ActionPerformed
 
     private void btnRemoverArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverArquivoActionPerformed
-        removerArquivo();
+       // removerArquivo();
     }//GEN-LAST:event_btnRemoverArquivoActionPerformed
 
     /**
@@ -1418,8 +1418,8 @@ public class FrmListagemServico extends javax.swing.JFrame {
         lblNomeFicticio.setText("Nome");
         lblCelularRamal.setText("Celular");
         lblSexoDesc.setVisible(true);
-        rbtFeminino.setVisible(true);
-        rbtMasculino.setVisible(true);
+       // rbtFeminino.setVisible(true);
+       // rbtMasculino.setVisible(true);
         rbtFisica.setSelected(true);
     }
 
@@ -1430,8 +1430,8 @@ public class FrmListagemServico extends javax.swing.JFrame {
         lblNomeFicticio.setText("Nome Fictício");
         lblCelularRamal.setText("Ramal");
         lblSexoDesc.setVisible(false);
-        rbtFeminino.setVisible(false);
-        rbtMasculino.setVisible(false);
+       //rbtFeminino.setVisible(false);
+       // rbtMasculino.setVisible(false);
         rbtJuridica.setSelected(true);
     }
 
@@ -1466,9 +1466,9 @@ public class FrmListagemServico extends javax.swing.JFrame {
         txtCelularRamal.setText("" + pf.getCelular());
         lblRelatorio.setText(s.getDescricaoServicoFILE());
         if (pf.getSexoBanco() == 0) {
-            rbtMasculino.setSelected(true);
+          //  rbtMasculino.setSelected(true);
         } else {
-            rbtFeminino.setSelected(true);
+          //  rbtFeminino.setSelected(true);
         }
 
         txtCep.setText(end.getCep());
@@ -1500,9 +1500,9 @@ public class FrmListagemServico extends javax.swing.JFrame {
         txtCelularRamal.setText("" + pf.getCelular());
 
         if (pf.getSexoBanco() == 0) {
-            rbtMasculino.setSelected(true);
+          //  rbtMasculino.setSelected(true);
         } else {
-            rbtFeminino.setSelected(true);
+          //  rbtFeminino.setSelected(true);
         }
 
     }

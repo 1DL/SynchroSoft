@@ -446,16 +446,16 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDataDepoisKeyTyped
 
     private void tblListagemDespesaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListagemDespesaMouseClicked
-        txaDescricaoSelecionada.setText((String) tblListagemDespesa.getValueAt(tblListagemDespesa.getSelectedRow(), 3));
+        //txaDescricaoSelecionada.setText((String) tblListagemDespesa.getValueAt(tblListagemDespesa.getSelectedRow(), 3));
     }//GEN-LAST:event_tblListagemDespesaMouseClicked
 
     private void btnHojePesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojePesquisaActionPerformed
-        txtfDataDe.setText(control.Datas.getDiaHoje());
-        txtfDataAte.setText(control.Datas.getDiaHoje());
+        //txtfDataDe.setText(control.Datas.getDiaHoje());
+        //txtfDataAte.setText(control.Datas.getDiaHoje());
     }//GEN-LAST:event_btnHojePesquisaActionPerformed
 
     private void txaDescricaoDespesaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txaDescricaoDespesaKeyReleased
-        txaDescricaoDespesa.setText(TextSize.maxLenghtDescricaoDespesa(txaDescricaoDespesa.getText()));
+       // txaDescricaoDespesa.setText(TextSize.maxLenghtDescricaoDespesa(txaDescricaoDespesa.getText()));
     }//GEN-LAST:event_txaDescricaoDespesaKeyReleased
 
     private void btnListarDespesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarDespesasActionPerformed
@@ -463,11 +463,11 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarDespesasActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        limpar();
+       // limpar();
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        cadastrarDespesa();
+        //cadastrarDespesa();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void txtfValorDespesaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfValorDespesaKeyReleased
@@ -475,15 +475,15 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
     }//GEN-LAST:event_txtfValorDespesaKeyReleased
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-        deletarRegistro();
+        //deletarRegistro();
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnLimparTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparTabelaActionPerformed
-        limparTabela();
+        //limparTabela();
     }//GEN-LAST:event_btnLimparTabelaActionPerformed
 
     private void btnListarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarTodosActionPerformed
-        atualizarTabela(false);
+       // atualizarTabela(false);
     }//GEN-LAST:event_btnListarTodosActionPerformed
 
     private void btnCadastrarDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarDespesaActionPerformed
@@ -491,11 +491,11 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarDespesaActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        alterarRegistro();
+        //alterarRegistro();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnDeletarTodosRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarTodosRegistrosActionPerformed
-        removerTodosRegistros();
+        //removerTodosRegistros();
     }//GEN-LAST:event_btnDeletarTodosRegistrosActionPerformed
 
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed

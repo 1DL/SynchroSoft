@@ -444,7 +444,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     DaoPessoa pessoa = new DaoPessoa();
     private void btnDeletarTodosRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarTodosRegistrosActionPerformed
-        removerTodosRegistros();
+      //  removerTodosRegistros();
     }//GEN-LAST:event_btnDeletarTodosRegistrosActionPerformed
 
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
@@ -456,11 +456,11 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharFrameActionPerformed
 
     private void txtTelefoneKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyReleased
-        txtTelefone.setText(TextSize.maxLenghtTelefone(txtTelefone.getText()));
+      //  txtTelefone.setText(TextSize.maxLenghtTelefone(txtTelefone.getText()));
     }//GEN-LAST:event_txtTelefoneKeyReleased
 
     private void txtNomePessoaFicticioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomePessoaFicticioKeyReleased
-        txtNomePessoaFicticio.setText(TextSize.maxLenghtNomeRazao(txtNomePessoaFicticio.getText()));
+      //  txtNomePessoaFicticio.setText(TextSize.maxLenghtNomeRazao(txtNomePessoaFicticio.getText()));
     }//GEN-LAST:event_txtNomePessoaFicticioKeyReleased
 
     private void btnCadastrarCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCepActionPerformed
@@ -472,7 +472,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumeroLogradouroActionPerformed
 
     private void txtNumeroLogradouroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroLogradouroKeyReleased
-        txtNumeroLogradouro.setText(TextSize.maxLenghtNrLogradouro(txtNumeroLogradouro.getText()));
+      //  txtNumeroLogradouro.setText(TextSize.maxLenghtNrLogradouro(txtNumeroLogradouro.getText()));
     }//GEN-LAST:event_txtNumeroLogradouroKeyReleased
 
     private void rbtSimCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtSimCadastroActionPerformed
@@ -484,11 +484,11 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtNaoCadastroActionPerformed
 
     private void txtRazaoSocialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazaoSocialKeyReleased
-        txtRazaoSocial.setText(TextSize.maxLenghtNomeRazao(txtRazaoSocial.getText()));
+      //  txtRazaoSocial.setText(TextSize.maxLenghtNomeRazao(txtRazaoSocial.getText()));
     }//GEN-LAST:event_txtRazaoSocialKeyReleased
 
     private void txtCelRamalKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCelRamalKeyReleased
-        textSizeCelRamal();
+     //   textSizeCelRamal();
     }//GEN-LAST:event_txtCelRamalKeyReleased
 
     private void btnHojeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojeActionPerformed
@@ -496,31 +496,31 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHojeActionPerformed
 
     private void txtfCepFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfCepFocusLost
-        verificarCep();
+      //  verificarCep();
     }//GEN-LAST:event_txtfCepFocusLost
 
     private void txtfCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfCepKeyReleased
-        verificarCep();
+      //  verificarCep();
     }//GEN-LAST:event_txtfCepKeyReleased
 
     private void txtCpfCnpjFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCpfCnpjFocusLost
-        textSizeCPFJCNPJ();
+      //  textSizeCPFJCNPJ();
     }//GEN-LAST:event_txtCpfCnpjFocusLost
 
     private void txtCpfCnpjKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfCnpjKeyReleased
-        textSizeCPFJCNPJ();
+      //  textSizeCPFJCNPJ();
     }//GEN-LAST:event_txtCpfCnpjKeyReleased
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-        deletarRegistro();
+       // deletarRegistro();
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnLimparTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparTabelaActionPerformed
-        limparTabela();
+       // limparTabela();
     }//GEN-LAST:event_btnLimparTabelaActionPerformed
 
     private void btnListarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarTodosActionPerformed
-        atualizarTabela(false);
+       // atualizarTabela(false);
     }//GEN-LAST:event_btnListarTodosActionPerformed
 
     private void btnCadastrarCnpjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCnpjActionPerformed
@@ -528,7 +528,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarCnpjActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        alterarRegistro();
+      //  alterarRegistro();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
@@ -536,12 +536,12 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesquisaActionPerformed
 
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
-        limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
-        pesquisarFiltrada();
+       // limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
+       // pesquisarFiltrada();
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
     private void txtfDataDeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataDeKeyReleased
-        pesquisarFiltrada();
+       // pesquisarFiltrada();
     }//GEN-LAST:event_txtfDataDeKeyReleased
 
     private void btnHojePesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojePesquisaActionPerformed
@@ -550,7 +550,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHojePesquisaActionPerformed
 
     private void txtfDataAteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataAteKeyReleased
-        pesquisarFiltrada();
+       // pesquisarFiltrada();
     }//GEN-LAST:event_txtfDataAteKeyReleased
 
     /**

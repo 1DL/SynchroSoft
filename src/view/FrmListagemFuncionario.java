@@ -422,7 +422,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbFiltroActionPerformed
 
     private void btnDeletarTodosRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarTodosRegistrosActionPerformed
-        removerTodosRegistros();
+       // removerTodosRegistros();
     }//GEN-LAST:event_btnDeletarTodosRegistrosActionPerformed
 
     private void btnMenuPrincipal1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipal1ActionPerformed
@@ -434,13 +434,13 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharFrameActionPerformed
 
     private void txtCpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyReleased
-        txtCpf.setText(TextSize.maxLenghtCPFCNPJ(txtCpf.getText(), true));
-        verificarCpfExiste();
+       // txtCpf.setText(TextSize.maxLenghtCPFCNPJ(txtCpf.getText(), true));
+        //verificarCpfExiste();
     }//GEN-LAST:event_txtCpfKeyReleased
 
     private void txtCodigoFuncionarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoFuncionarioKeyReleased
-        txtCodigoFuncionario.setText(TextSize.maxLenghtFuncionario(txtCodigoFuncionario.getText()));
-        verificarCodigoFuncionario();
+      //  txtCodigoFuncionario.setText(TextSize.maxLenghtFuncionario(txtCodigoFuncionario.getText()));
+       // verificarCodigoFuncionario();
     }//GEN-LAST:event_txtCodigoFuncionarioKeyReleased
 
     private void txtCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCargoActionPerformed
@@ -448,7 +448,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCargoActionPerformed
 
     private void txtCargoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCargoKeyReleased
-        txtCargo.setText(TextSize.maxLenghtCargo(txtCargo.getText()));
+       // txtCargo.setText(TextSize.maxLenghtCargo(txtCargo.getText()));
     }//GEN-LAST:event_txtCargoKeyReleased
 
     private void rbtVisualizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtVisualizacaoActionPerformed
@@ -480,15 +480,15 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHojeActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-        deletarRegistro();
+       // deletarRegistro();
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnLimparTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparTabelaActionPerformed
-        limparTabela();
+       // limparTabela();
     }//GEN-LAST:event_btnLimparTabelaActionPerformed
 
     private void btnListarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarTodosActionPerformed
-        atualizarTabela(false);
+       // atualizarTabela(false);
     }//GEN-LAST:event_btnListarTodosActionPerformed
 
     private void btnCadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarFuncionarioActionPerformed
@@ -496,7 +496,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarFuncionarioActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        alterarRegistro();
+     //   alterarRegistro();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
@@ -504,12 +504,12 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesquisaActionPerformed
 
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
-        limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
-        pesquisarFiltrada();
+       // limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
+       // pesquisarFiltrada();
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
     private void txtfDataDeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataDeKeyReleased
-        pesquisarFiltrada();
+       // pesquisarFiltrada();
     }//GEN-LAST:event_txtfDataDeKeyReleased
 
     private void btnHojePesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojePesquisaActionPerformed
@@ -518,7 +518,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHojePesquisaActionPerformed
 
     private void txtfDataAteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataAteKeyReleased
-        pesquisarFiltrada();
+      //  pesquisarFiltrada();
     }//GEN-LAST:event_txtfDataAteKeyReleased
 
     /**

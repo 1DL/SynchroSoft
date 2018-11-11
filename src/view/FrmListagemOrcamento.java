@@ -709,19 +709,19 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharFrameActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-        deletarRegistro();
+       //deletarRegistro();
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        alterarRegistro();
+        //alterarRegistro();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnLimparTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparTabelaActionPerformed
-        limparTabela();
+       // limparTabela();
     }//GEN-LAST:event_btnLimparTabelaActionPerformed
 
     private void btnListarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarTodosActionPerformed
-        atualizarTabela(false);
+      //  atualizarTabela(false);
     }//GEN-LAST:event_btnListarTodosActionPerformed
 
     /**
