@@ -18,6 +18,7 @@ public class Opcoes {
     private static String senhaDB ="";
     private static int limiteAlertaMinimo = 10;
     private static int limiteAlertaMaximo = 10;
+    private static int intervaloDiasVencimento = 10;
     
     
     static int qtdOpcoes = 6;
@@ -84,6 +85,14 @@ public class Opcoes {
 
     public static void setLimiteAlertaMaximo(int aLimiteAlertaMaximo) {
         limiteAlertaMaximo = aLimiteAlertaMaximo;
+    }
+
+    public static int getIntervaloDiasVencimento() {
+        return intervaloDiasVencimento;
+    }
+
+    public static void setIntervaloDiasVencimento(int aIntervaloDiasVencimento) {
+        intervaloDiasVencimento = aIntervaloDiasVencimento;
     }
     
     

@@ -222,4 +222,72 @@ Valor
         }
 
     }
+    
+    public static ArrayList<Despesa> gerarAlertaDespesa() {
+        ArrayList<Despesa> lista = new ArrayList<>();
+        
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "SELECT * FROM SYNCHROSOFT.TB_DESPESA "
+                    + "WHERE SYSDATE+? >= DT_DESPESA";
+            PreparedStatement st = con.prepareStatement(sql);
+            
+            st.setInt(1, control.Opcoes.getIntervaloDiasVencimento());
+            
+            ResultSet rs = st.executeQuery();
+            
+            while (rs.next()) {
+                Despesa desp = new Despesa();
+                desp.setCodigoDespesa(rs.getInt("CD_DESPESA"));
+                desp.setTipoDespesas(rs.getString("DS_TIPO_DESPESA"));
+                desp.setDataDespesaBanco(rs.getDate("DT_DESPESA").toString());
+                desp.setDescricaoDespesa(rs.getString("DS_DESPESA"));
+                desp.setValorDespesa(rs.getString("VL_DESPESA"));
+                lista.add(desp);
+            }
+            
+            st.close();
+            rs.close();
+            return lista;
+        } catch (SQLException ex) {
+            return null;
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+    
+    public static Despesa popularDespesa(int codigoDespesa) {
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "SELECT * FROM SYNCHROSOFT.TB_DESPESA "
+                    + "WHERE CD_DESPESA = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            
+            st.setInt(1, codigoDespesa);
+            
+            ResultSet rs = st.executeQuery();
+            
+            rs.next();
+            
+            Despesa desp = new Despesa();
+            desp.setCodigoDespesa(rs.getInt("CD_DESPESA"));
+            desp.setTipoDespesas(rs.getString("DS_TIPO_DESPESA"));
+            desp.setDataDespesaBanco(rs.getDate("DT_DESPESA").toString());
+            desp.setDescricaoDespesa(rs.getString("DS_DESPESA"));
+            desp.setValorDespesa(rs.getString("VL_DESPESA"));
+
+            st.close();
+            rs.close();
+            
+            return desp;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível popular a despesa.\n\nErro Nº:"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoDespesa - Poular Despesa", 0);
+            return null;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível alterar a base de despesas.\n\nErro: "
+                    + ex, "Erro: DaoDespesa - Popular Despesa", 0);
+            return null;
+        }
+    }
 }

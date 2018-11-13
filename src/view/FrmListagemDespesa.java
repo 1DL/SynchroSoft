@@ -27,6 +27,13 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         atualizarTabela();
         txtDataDepois.setText("" + new Date(Calendar.getInstance().getTimeInMillis()));
     }
+    
+    public FrmListagemDespesa(int nvlAdm, int codigoDespesa) {
+        initComponents();
+        atualizarTabela();
+        txtDataDepois.setText("" + new Date(Calendar.getInstance().getTimeInMillis()));
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

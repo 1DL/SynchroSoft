@@ -192,6 +192,13 @@ public class Janelas {
         acessoTelas.get(12).setAcesso(acessoTelas.get(12).getAcesso() + 1);
         ManipularArquivos.escreverArquivoJanelas();
     }
+    
+    public static void abrirListagemDespesaPopulado(int codigoDespesa) {
+        FrmListagemDespesa telaListaDesp = new FrmListagemDespesa(SynchroSoft.getNvlAdm(), codigoDespesa);
+        telaListaDesp.setVisible(true);
+        acessoTelas.get(12).setAcesso(acessoTelas.get(12).getAcesso() + 1);
+        ManipularArquivos.escreverArquivoJanelas();
+    }
 
     public static void abrirListagemUsuario() {
         FrmListagemUsuario telaListaUsuario = new FrmListagemUsuario(SynchroSoft.getNvlAdm());

@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import model.Despesa;
 import model.Produto;
 
 /**
@@ -31,12 +32,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
     ArrayList<Janelas> maisAcessadas = new ArrayList<>(control.Janelas.acessoTelas);
     ArrayList<Produto> listaMin = new ArrayList<>();
     ArrayList<Produto> listaMax = new ArrayList<>();
+    ArrayList<Despesa> listaDesp = new ArrayList<>();
 
     public FrmPrincipal() {
         definirMaisAcessadas();
         initComponents();
         this.setTitle("Menu Principal - " + control.SynchroSoft.getNomeUsuario() + " - " + control.SynchroSoft.getCodFunc() + " - " + control.SynchroSoft.getNvlAdm());
         popularListaAlertaProduto();
+        popularListaAlertaDespesa();
     }
 
     /**
@@ -54,7 +57,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         listaAlertaProduto = new javax.swing.JList<>();
         panAlertaDespesa = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        listaAlertaDespesa = new javax.swing.JList<>();
         txtAlerta = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         btn_janMaisAcessada1 = new javax.swing.JButton();
@@ -66,6 +69,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnMenuPrincipal = new javax.swing.JButton();
         btnFecharFrame = new javax.swing.JButton();
         btnAtualizarAlertaProd = new javax.swing.JButton();
+        btnAtualizarAlertaDesp = new javax.swing.JButton();
         lblBackground = new javax.swing.JLabel();
         menu = new javax.swing.JMenuBar();
         menu_sistema = new javax.swing.JMenu();
@@ -139,12 +143,17 @@ public class FrmPrincipal extends javax.swing.JFrame {
         panAlertaDespesa.setOpaque(false);
         panAlertaDespesa.setLayout(null);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        listaAlertaDespesa.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Despesa para vencer: <data>" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList1);
+        listaAlertaDespesa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaAlertaDespesaMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(listaAlertaDespesa);
 
         panAlertaDespesa.add(jScrollPane2);
         jScrollPane2.setBounds(10, 20, 380, 260);
@@ -259,6 +268,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         getContentPane().add(btnAtualizarAlertaProd);
         btnAtualizarAlertaProd.setBounds(130, 10, 73, 23);
+
+        btnAtualizarAlertaDesp.setText("atualizar");
+        btnAtualizarAlertaDesp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarAlertaDespActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAtualizarAlertaDesp);
+        btnAtualizarAlertaDesp.setBounds(720, 10, 73, 23);
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(lblBackground);
@@ -655,25 +673,17 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void listaAlertaProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaAlertaProdutoMouseClicked
         popUpAlertaProdutos();
-        
-        
+
+
     }//GEN-LAST:event_listaAlertaProdutoMouseClicked
 
-    private void definirMaisAcessadas() {
-        Collections.sort(maisAcessadas, new Comparator<Janelas>() {
-            @Override
-            public int compare(Janelas j1, Janelas j2) {
-                return j1.getAcesso() - j2.getAcesso(); // Ascending
-            }
+    private void btnAtualizarAlertaDespActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarAlertaDespActionPerformed
+        popularListaAlertaDespesa();
+    }//GEN-LAST:event_btnAtualizarAlertaDespActionPerformed
 
-        });
-
-        Collections.reverse(maisAcessadas);
-        System.out.println("Ordenação");
-        for (Janelas j : maisAcessadas) {
-            System.out.println(j.getNome() + " " + j.getAcesso());
-        }
-    }
+    private void listaAlertaDespesaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaAlertaDespesaMouseClicked
+        popUpAlertaDespesa();
+    }//GEN-LAST:event_listaAlertaDespesaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -697,6 +707,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtualizarAlertaDesp;
     private javax.swing.JButton btnAtualizarAlertaProd;
     private javax.swing.JButton btnFecharFrame;
     private javax.swing.JButton btnMenuPrincipal;
@@ -708,10 +719,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btn_janMaisAcessada6;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblBackground;
+    private javax.swing.JList<String> listaAlertaDespesa;
     private javax.swing.JList<String> listaAlertaProduto;
     private javax.swing.JMenuBar menu;
     private javax.swing.JMenu menu_ajuda;
@@ -747,6 +758,22 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField txtAlerta;
     // End of variables declaration//GEN-END:variables
 
+    private void definirMaisAcessadas() {
+        Collections.sort(maisAcessadas, new Comparator<Janelas>() {
+            @Override
+            public int compare(Janelas j1, Janelas j2) {
+                return j1.getAcesso() - j2.getAcesso(); // Ascending
+            }
+
+        });
+
+        Collections.reverse(maisAcessadas);
+        System.out.println("Ordenação");
+        for (Janelas j : maisAcessadas) {
+            System.out.println(j.getNome() + " " + j.getAcesso());
+        }
+    }
+
     private void popularListaAlertaProduto() {
         DefaultListModel listModel = new DefaultListModel();
         String linha = "";
@@ -780,7 +807,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         int indiceAlertaMin = listaAlertaProduto.getSelectedIndex();
         int indiceAlertaMax = listaAlertaProduto.getSelectedIndex() - listaMin.size();
         boolean alertaVazio = false;
-        
+
         Produto produto = new Produto();
         if (linha.substring(8, 13).equals("baixo")) {
             produto = dao.DaoProduto.popularPeca(listaMin.get(indiceAlertaMin).getCodigoPeca());
@@ -789,26 +816,86 @@ public class FrmPrincipal extends javax.swing.JFrame {
         } else {
             alertaVazio = true;
         }
-        
+
         if (!alertaVazio) {
-            String mensagem = 
-            "Deseja alterar o produto em alerta?\n\nProduto:\n\n"
-            +"Código: " + produto.getCodigoPeca() + "\n"
-            +"Nome do Produto: " + produto.getNomePeca() + "\n"
-            +"Quantidade em estoque: " + produto.getQuantidadePeca() + "\n"
-            +"Alerta de Quantidade mínima: " + produto.getAlertaQtdMin() + "\n"
-            +"Alerta de Quantidade máxima: " + produto.getAlertaQtdMax() + "\n"
-            +"Valor unitário: R$ " + produto.getValorUnitarioSTR()
-            +"\n\n";
-        
-        int opcao;
-        opcao = JOptionPane.showConfirmDialog(this, mensagem, "Produto em alerta", 
-            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        
-        if (opcao == 0) {
-            control.Janelas.abrirListagemProdutoPopulado(produto.getCodigoPeca());
+            String mensagem
+                    = "Deseja alterar o produto em alerta?\n\nProduto:\n\n"
+                    + "Código: " + produto.getCodigoPeca() + "\n"
+                    + "Nome do Produto: " + produto.getNomePeca() + "\n"
+                    + "Quantidade em estoque: " + produto.getQuantidadePeca() + "\n"
+                    + "Alerta de Quantidade mínima: " + produto.getAlertaQtdMin() + "\n"
+                    + "Alerta de Quantidade máxima: " + produto.getAlertaQtdMax() + "\n"
+                    + "Valor unitário: R$ " + produto.getValorUnitarioSTR()
+                    + "\n\n";
+
+            int opcao;
+            opcao = JOptionPane.showConfirmDialog(this, mensagem, "Produto em alerta",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+            if (opcao == 0) {
+                control.Janelas.abrirListagemProdutoPopulado(produto.getCodigoPeca());
+            }
+
         }
-        
+    }
+
+    private void popularListaAlertaDespesa() {
+        DefaultListModel listModel = new DefaultListModel();
+        String linha = "";
+
+        listaDesp = dao.DaoDespesa.gerarAlertaDespesa();
+
+        for (int i = 0; i < listaDesp.size(); i++) {
+            linha = "Despesa para vencer! Tipo: " + listaDesp.get(i).getTipoDespesas()
+                    + " - Vence em: " + listaDesp.get(i).getDataDespesa()
+                    + " - Valor: R$ " + listaDesp.get(i).getValorDespesaSTR();
+            listModel.addElement(linha);
+        }
+
+        if (listaDesp.isEmpty()) {
+            linha = "Nenhum alerta perante as despeas.";
+            listModel.addElement(linha);
+        }
+
+        listaAlertaDespesa.setModel(listModel);
+    }
+
+    private void popUpAlertaDespesa() {
+        String linha = listaAlertaDespesa.getSelectedValue();
+        int indiceAlerta = listaAlertaDespesa.getSelectedIndex();
+        boolean alertaVazio = false;
+
+        Despesa despesa = new Despesa();
+        if (linha.substring(0, 5).equals("Nenhum")) {
+            alertaVazio = true;
+        } else {
+            despesa = dao.DaoDespesa.popularDespesa(listaDesp.get(indiceAlerta).getCodigoDespesa());
+        }
+
+        if (!alertaVazio) {
+            if (despesa.getDescricaoDespesa() == null) {
+                despesa.setDescricaoDespesa("Nenhuma.");
+            } else if (despesa.getDescricaoDespesa().length() >= 180) {
+                despesa.setDescricaoDespesa(despesa.getDescricaoDespesa().substring(0,180));
+            }
+            
+            String mensagem
+                    = "<html><body width='%1s'>Deseja alterar a despesa em alerta?<br><br>Despesa:<br><br>"
+                    + "Código: " + despesa.getCodigoDespesa() + "<br>"
+                    + "Tipo de Despesa: " + despesa.getTipoDespesas() + "<br>"
+                    + "Data de Vencimento: " + despesa.getDataDespesa() + "<br>"
+                    + "Valor: R$ " + despesa.getValorDespesaSTR() + "<br><br>"
+                    + "Descrição: " + despesa.getDescricaoDespesa() + "<br>"
+                    + "<br><br>";
+
+            int opcao;
+            opcao = JOptionPane.showConfirmDialog(this, String.format(mensagem, 250,250), "Despesa em alerta",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+            if (opcao == 0) {
+                control.Janelas.abrirListagemDespesaPopulado(despesa.getCodigoDespesa());
+            }
+
         }
     }
 }
