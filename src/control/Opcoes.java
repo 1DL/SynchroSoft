@@ -16,6 +16,9 @@ public class Opcoes {
     private static String SID ="";
     private static String usuarioDB ="";
     private static String senhaDB ="";
+    private static int limiteAlertaMinimo = 10;
+    private static int limiteAlertaMaximo = 10;
+    
     
     static int qtdOpcoes = 6;
 
@@ -65,6 +68,22 @@ public class Opcoes {
 
     public static void setSenhaDB(String aSenhaDB) {
         senhaDB = aSenhaDB;
+    }
+
+    public static int getLimiteAlertaMinimo() {
+        return limiteAlertaMinimo;
+    }
+
+    public static void setLimiteAlertaMinimo(int aLimiteAlertaMinimo) {
+        limiteAlertaMinimo = aLimiteAlertaMinimo;
+    }
+
+    public static int getLimiteAlertaMaximo() {
+        return limiteAlertaMaximo;
+    }
+
+    public static void setLimiteAlertaMaximo(int aLimiteAlertaMaximo) {
+        limiteAlertaMaximo = aLimiteAlertaMaximo;
     }
     
     

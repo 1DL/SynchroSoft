@@ -332,5 +332,85 @@ public class DaoProduto {
         }
     }
 
+    public static ArrayList<Produto> gerarAlertaProdutoMinimo() {
+        ArrayList<Produto> lista = new ArrayList<>();
+        
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "SELECT * FROM SYNCHROSOFT.TB_PECA "
+                    + "WHERE QT_PECA <= (QT_PECAMIN + ?)";
+            
+            PreparedStatement st = con.prepareStatement(sql);
+            
+            st.setInt(1, control.Opcoes.getLimiteAlertaMinimo());
+            
+            ResultSet rs = st.executeQuery();
+            
+            while (rs.next()) {
+                Produto produto = new Produto();
+                produto.setCodigoPeca(rs.getString("CD_PECA"));
+                produto.setNomePeca(rs.getString("NM_PECA"));
+                produto.setCategoriaPeca(rs.getString("DS_CATEGORIA"));
+                produto.setQuantidadePeca(rs.getString("QT_PECA"));
+                produto.setAlertaQtdMin(rs.getString("QT_PECAMIN"));
+                produto.setAlertaQtdMax(rs.getString("QT_PECAMAX"));
+                produto.setValorUnitario(rs.getString("VL_PECA"));
+                lista.add(produto);
+                System.out.println(produto.getNomePeca());
+            }
+            rs.close();
+            st.close();
+            
+            return lista;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível gerar a lista de alerta de produtos.\n\nErro Nº :"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro : DaoProduto - Gerar Alerta Produto Maximo", 0);
+            return null;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível gerar a lista de alerta de produtos.\n\nErro: "
+                    +ex, "Erro : DaoProduto - Gerar Alerta Produto Minimo", 0);
+            return null;
+        }
+    }
     
+    public static ArrayList<Produto> gerarAlertaProdutoMaximo() {
+        ArrayList<Produto> lista = new ArrayList<>();
+        
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "SELECT * FROM SYNCHROSOFT.TB_PECA "
+                    + "WHERE QT_PECA >= (QT_PECAMAX - ?)";
+            
+            PreparedStatement st = con.prepareStatement(sql);
+            
+            st.setInt(1, control.Opcoes.getLimiteAlertaMaximo());
+            
+            ResultSet rs = st.executeQuery();
+            
+            while (rs.next()) {
+                Produto produto = new Produto();
+                produto.setCodigoPeca(rs.getString("CD_PECA"));
+                produto.setNomePeca(rs.getString("NM_PECA"));
+                produto.setCategoriaPeca(rs.getString("DS_CATEGORIA"));
+                produto.setQuantidadePeca(rs.getString("QT_PECA"));
+                produto.setAlertaQtdMin(rs.getString("QT_PECAMIN"));
+                produto.setAlertaQtdMax(rs.getString("QT_PECAMAX"));
+                produto.setValorUnitario(rs.getString("VL_PECA"));
+                lista.add(produto);
+                System.out.println(produto.getNomePeca());
+            }
+            rs.close();
+            st.close();
+            
+            return lista;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível gerar a lista de alerta de produtos.\n\nErro Nº :"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro : DaoProduto - Gerar Alerta Produto Maximo", 0);
+            return null;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível gerar a lista de alerta de produtos.\n\nErro: "
+                    +ex, "Erro : DaoProduto - Gerar Alerta Produto Minimo", 0);
+            return null;
+        }
+    }
 }

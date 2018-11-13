@@ -168,12 +168,12 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         lblLogradouro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblLogradouro.setText("Logradouro:");
         panDadosCep.add(lblLogradouro);
-        lblLogradouro.setBounds(12, 16, 135, 22);
+        lblLogradouro.setBounds(12, 16, 135, 25);
 
         Bairro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         Bairro.setText("Bairro:");
         panDadosCep.add(Bairro);
-        Bairro.setBounds(12, 52, 135, 22);
+        Bairro.setBounds(12, 52, 135, 25);
 
         txtBairro.setFocusable(false);
         panDadosCep.add(txtBairro);
@@ -186,7 +186,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         lblCidade.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCidade.setText("Cidade:");
         panDadosCep.add(lblCidade);
-        lblCidade.setBounds(541, 16, 140, 22);
+        lblCidade.setBounds(541, 16, 140, 25);
 
         txtCidade.setFocusable(false);
         panDadosCep.add(txtCidade);
@@ -195,7 +195,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         lblEstado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblEstado.setText("Estado:");
         panDadosCep.add(lblEstado);
-        lblEstado.setBounds(541, 56, 140, 22);
+        lblEstado.setBounds(541, 56, 140, 25);
 
         txtEstado.setFocusable(false);
         txtEstado.addActionListener(new java.awt.event.ActionListener() {
@@ -212,7 +212,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         lblTelefone.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblTelefone.setText("Telefone:");
         panPrincipal.add(lblTelefone);
-        lblTelefone.setBounds(10, 130, 140, 22);
+        lblTelefone.setBounds(10, 130, 140, 25);
 
         txtTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -225,12 +225,12 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         lblNumeroLogradouro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblNumeroLogradouro.setText("Nº Logradouro:");
         panPrincipal.add(lblNumeroLogradouro);
-        lblNumeroLogradouro.setBounds(560, 90, 150, 22);
+        lblNumeroLogradouro.setBounds(560, 90, 150, 25);
 
         lblTipoPessoa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblTipoPessoa.setText("Tipo de Pessoa:");
         panPrincipal.add(lblTipoPessoa);
-        lblTipoPessoa.setBounds(10, 10, 140, 22);
+        lblTipoPessoa.setBounds(10, 10, 140, 25);
 
         grupoTipoPessoa.add(rbtFisica);
         rbtFisica.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -243,7 +243,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(rbtFisica);
-        rbtFisica.setBounds(160, 10, 72, 25);
+        rbtFisica.setBounds(160, 10, 69, 25);
 
         grupoTipoPessoa.add(rbtJuridica);
         rbtJuridica.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -255,12 +255,12 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(rbtJuridica);
-        rbtJuridica.setBounds(220, 10, 90, 25);
+        rbtJuridica.setBounds(220, 10, 85, 25);
 
         lblNome.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblNome.setText("Nome:");
         panPrincipal.add(lblNome);
-        lblNome.setBounds(10, 50, 140, 22);
+        lblNome.setBounds(10, 50, 140, 25);
 
         txtNomePessoaFicticio.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -273,7 +273,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         lblCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCep.setText("CEP:");
         panPrincipal.add(lblCep);
-        lblCep.setBounds(10, 90, 140, 22);
+        lblCep.setBounds(10, 90, 140, 25);
 
         lblCepExiste.setForeground(java.awt.Color.red);
         lblCepExiste.setText("Cep Inválido.");
@@ -305,7 +305,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         lblTipoPessoa1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblTipoPessoa1.setText("Possui Contrato:");
         panPrincipal.add(lblTipoPessoa1);
-        lblTipoPessoa1.setBounds(400, 10, 140, 22);
+        lblTipoPessoa1.setBounds(400, 10, 140, 25);
 
         grupoCadastro.add(rbtSimCadastro);
         rbtSimCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -317,7 +317,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(rbtSimCadastro);
-        rbtSimCadastro.setBounds(540, 10, 58, 25);
+        rbtSimCadastro.setBounds(540, 10, 55, 25);
 
         grupoCadastro.add(rbtNaoCadastro);
         rbtNaoCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -330,7 +330,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(rbtNaoCadastro);
-        rbtNaoCadastro.setBounds(600, 10, 60, 25);
+        rbtNaoCadastro.setBounds(600, 10, 59, 25);
 
         btnLimpar.setText("Limpar");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -354,7 +354,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         lblCpfCnpj.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCpfCnpj.setText("CPF:");
         panPrincipal.add(lblCpfCnpj);
-        lblCpfCnpj.setBounds(560, 50, 140, 22);
+        lblCpfCnpj.setBounds(560, 50, 140, 25);
 
         txtRazaoSocial.setNextFocusableComponent(btnCadastrar);
         txtRazaoSocial.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -368,12 +368,12 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         lblRazaoSocial.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblRazaoSocial.setText("Razão Social:");
         panPrincipal.add(lblRazaoSocial);
-        lblRazaoSocial.setBounds(10, 170, 140, 22);
+        lblRazaoSocial.setBounds(10, 170, 140, 25);
 
         lblCelRamal.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCelRamal.setText("Celular:");
         panPrincipal.add(lblCelRamal);
-        lblCelRamal.setBounds(560, 130, 140, 22);
+        lblCelRamal.setBounds(560, 130, 140, 25);
 
         txtCelRamal.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -386,7 +386,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         lblSexo.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblSexo.setText("Sexo:");
         panPrincipal.add(lblSexo);
-        lblSexo.setBounds(860, 90, 50, 22);
+        lblSexo.setBounds(860, 90, 50, 25);
 
         grupoSexo.add(rbtMasculino);
         rbtMasculino.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -416,7 +416,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         lblDataCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDataCadastro.setText("Data Cadastro:");
         panPrincipal.add(lblDataCadastro);
-        lblDataCadastro.setBounds(730, 10, 131, 22);
+        lblDataCadastro.setBounds(730, 10, 118, 25);
 
         txtfDataCadastro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
         panPrincipal.add(txtfDataCadastro);
@@ -429,7 +429,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnHoje);
-        btnHoje.setBounds(990, 10, 66, 25);
+        btnHoje.setBounds(990, 10, 55, 25);
 
         lblCpfCnpjExiste.setForeground(java.awt.Color.red);
         lblCpfCnpjExiste.setText("CPF Inválido.");
@@ -498,9 +498,9 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
         btnFecharFrame.setBounds(1055, 550, 80, 30);
 
         lblPessoaRecente.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblPessoaRecente.setText("Funcionários Cadastrados Recentemente:");
+        lblPessoaRecente.setText("Pessoas Físicas e/ou Jurídicas cadastradas Recentemente:");
         getContentPane().add(lblPessoaRecente);
-        lblPessoaRecente.setBounds(10, 330, 350, 22);
+        lblPessoaRecente.setBounds(10, 330, 590, 25);
 
         tblPessoaRecente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

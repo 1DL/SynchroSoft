@@ -32,6 +32,15 @@ public class FrmListagemProduto extends javax.swing.JFrame {
         inicializarTabela();
         definirNivelAcesso(nvlAdm);
     }
+    
+    public FrmListagemProduto (int nvlAdm, String codigoProduto) {
+        initComponents();
+        inicializarTabela();
+        definirNivelAcesso(nvlAdm);
+        txtPesquisa.setText(codigoProduto);
+        pesquisarFiltrada();
+        selecionarLinhaTabela(codigoProduto);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -960,5 +969,17 @@ public class FrmListagemProduto extends javax.swing.JFrame {
             txtQuantidadeMaxima.setEditable(false);
             txtQuantidadeMinima.setEditable(false);
         }
+    }
+
+    private void selecionarLinhaTabela(String codigoProduto) {
+        int indiceTabela = 0;
+        for (int i = 0; i < tblListagemProduto.getModel().getRowCount(); i++) {
+            String codigoDaLinha = String.valueOf(tblListagemProduto.getModel().getValueAt(i, 0));
+            if (codigoProduto.equals(codigoDaLinha)) {
+                indiceTabela = i;
+            }
+        }
+        tblListagemProduto.getSelectionModel().setSelectionInterval(indiceTabela, indiceTabela);
+        popularCampos();
     }
 }

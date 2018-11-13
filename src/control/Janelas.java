@@ -171,6 +171,13 @@ public class Janelas {
         acessoTelas.get(10).setAcesso(acessoTelas.get(10).getAcesso() + 1);
         ManipularArquivos.escreverArquivoJanelas();
     }
+    
+    public static void abrirListagemProdutoPopulado(String codigoProduto) {
+        FrmListagemProduto telaListaProduto = new FrmListagemProduto(SynchroSoft.getNvlAdm(), codigoProduto);
+        telaListaProduto.setVisible(true);
+        acessoTelas.get(10).setAcesso(acessoTelas.get(10).getAcesso() + 1);
+        ManipularArquivos.escreverArquivoJanelas();
+    }
 
     public static void abrirListagemFuncionario() {
         FrmListagemFuncionario telaListaFunc = new FrmListagemFuncionario(SynchroSoft.getNvlAdm());
