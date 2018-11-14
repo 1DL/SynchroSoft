@@ -21,6 +21,7 @@ public class Produto {
     private long alertaQtdMin;
     private long alertaQtdMax;
     private boolean validacao = true;
+    
 
     public Produto() {
     }   
@@ -132,4 +133,6 @@ public class Produto {
     public void setValidacao(boolean validacao) {
         this.validacao = validacao;
     }
+    
+    
 }

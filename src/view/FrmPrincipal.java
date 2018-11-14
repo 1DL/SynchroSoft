@@ -32,7 +32,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
     ArrayList<Janelas> maisAcessadas = new ArrayList<>(control.Janelas.acessoTelas);
     ArrayList<Produto> listaMin = new ArrayList<>();
     ArrayList<Produto> listaMax = new ArrayList<>();
-    ArrayList<Despesa> listaDesp = new ArrayList<>();
+    ArrayList<Despesa> listaDespAVencer = new ArrayList<>();
+    ArrayList<Despesa> listaDespVencida = new ArrayList<>();
 
     public FrmPrincipal() {
         definirMaisAcessadas();
@@ -156,10 +157,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jScrollPane2.setViewportView(listaAlertaDespesa);
 
         panAlertaDespesa.add(jScrollPane2);
-        jScrollPane2.setBounds(10, 20, 380, 260);
+        jScrollPane2.setBounds(10, 20, 470, 260);
 
         getContentPane().add(panAlertaDespesa);
-        panAlertaDespesa.setBounds(570, 40, 400, 290);
+        panAlertaDespesa.setBounds(570, 40, 490, 290);
 
         txtAlerta.setText("Alerta de Despesas para vencer: ");
         getContentPane().add(txtAlerta);
@@ -843,16 +844,25 @@ public class FrmPrincipal extends javax.swing.JFrame {
         DefaultListModel listModel = new DefaultListModel();
         String linha = "";
 
-        listaDesp = dao.DaoDespesa.gerarAlertaDespesa();
+        listaDespAVencer = dao.DaoDespesa.gerarAlertaDespesaParaVencer();
 
-        for (int i = 0; i < listaDesp.size(); i++) {
-            linha = "Despesa para vencer! Tipo: " + listaDesp.get(i).getTipoDespesas()
-                    + " - Vence em: " + listaDesp.get(i).getDataDespesa()
-                    + " - Valor: R$ " + listaDesp.get(i).getValorDespesaSTR();
+        for (int i = 0; i < listaDespAVencer.size(); i++) {
+            linha = "Despesa à vencer! Vence em: " + listaDespAVencer.get(i).getDataDespesa()
+                    + " - Tipo: " + listaDespAVencer.get(i).getTipoDespesas()
+                    + " - Valor: R$ " + listaDespAVencer.get(i).getValorDespesaSTR();
+            listModel.addElement(linha);
+        }
+        
+        listaDespVencida = dao.DaoDespesa.gerarAlertaDespesaVencida();
+
+        for (int i = 0; i < listaDespVencida.size(); i++) {
+            linha = "Despesa vencida! Venceu em: " + listaDespVencida.get(i).getDataDespesa()
+                    + " - Tipo: " + listaDespVencida.get(i).getTipoDespesas()
+                    + " - Valor: R$ " + listaDespVencida.get(i).getValorDespesaSTR();
             listModel.addElement(linha);
         }
 
-        if (listaDesp.isEmpty()) {
+        if (listaDespAVencer.isEmpty() && listaDespVencida.isEmpty()) {
             linha = "Nenhum alerta perante as despeas.";
             listModel.addElement(linha);
         }
@@ -862,14 +872,17 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void popUpAlertaDespesa() {
         String linha = listaAlertaDespesa.getSelectedValue();
-        int indiceAlerta = listaAlertaDespesa.getSelectedIndex();
+        int indiceAlertaAVencer = listaAlertaDespesa.getSelectedIndex();
+        int indiceAlertaVencida = listaAlertaDespesa.getAnchorSelectionIndex() - listaDespAVencer.size();
         boolean alertaVazio = false;
-
         Despesa despesa = new Despesa();
-        if (linha.substring(0, 5).equals("Nenhum")) {
+        
+        if (linha.substring(0, 6).equals("Nenhum")) {
             alertaVazio = true;
+        } else if (linha.substring(8,9).equals("à")) {
+            despesa = dao.DaoDespesa.popularDespesa(listaDespAVencer.get(indiceAlertaAVencer).getCodigoDespesa());
         } else {
-            despesa = dao.DaoDespesa.popularDespesa(listaDesp.get(indiceAlerta).getCodigoDespesa());
+            despesa = dao.DaoDespesa.popularDespesa(listaDespVencida.get(indiceAlertaVencida).getCodigoDespesa());
         }
 
         if (!alertaVazio) {

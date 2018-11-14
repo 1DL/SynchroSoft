@@ -300,9 +300,9 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void cadastrarDespesa() {
-        try {
+        //try {
             Despesa despesa = new Despesa(txtfDataVencimento.getText(), cmbTipoDespesa.getSelectedItem().toString(),
-                    txaDescricaoDespesa.getText(), txtfValorDespesa.getText());
+                    txaDescricaoDespesa.getText(), txtfValorDespesa.getText(), false);
             if (validarCampos()) {
                 boolean cadastroSucedido = dao.DaoDespesa.cadastrarDespesa(despesa);
                 if (cadastroSucedido) {
@@ -310,10 +310,10 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
                 }
             }
 
-        } catch (Exception ex) {
+        /*} catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro ao popular atributos de despesa. \n\nExceção JAVA:\n"
-                    + ex.getMessage(), "Erro ao cadastrar despesas", 0);
-        }
+                    + ex, "Erro ao cadastrar despesas", 0);
+        }*/
     }
 
     private void limpar() {
@@ -347,7 +347,7 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
     }
 
     private void inicializarTabela() {
-        String[] nomeColunas = {"Tipo Despesa", "Vencimento", "Valor", "Descrição"};
+        String[] nomeColunas = {"Tipo Despesa", "Vencimento", "Valor", "Descrição", "Quitada"};
         try {
             DefaultTableModel model = new DefaultTableModel() {
                 @Override
@@ -365,12 +365,13 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
     }
 
     private void atualizarTabela(Despesa despesa) {
-        Object rowData[] = new Object[4];
+        Object rowData[] = new Object[5];
 
         rowData[0] = despesa.getTipoDespesas();
         rowData[1] = despesa.getDataDespesa();
         rowData[2] = despesa.getValorDespesaSTR();
         rowData[3] = despesa.getDescricaoDespesa();
+        rowData[4] = despesa.getQuitadaSTR();
 
         DefaultTableModel model = new DefaultTableModel();
         model = (DefaultTableModel) tblDespesaRecente.getModel();

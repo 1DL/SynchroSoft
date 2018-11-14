@@ -27,13 +27,14 @@ public class DaoDespesa {
         try {
             Connection con = Conexao.conectar();
             String sql = "INSERT INTO SYNCHROSOFT.TB_DESPESA (DS_TIPO_DESPESA, "
-                    + "DT_DESPESA, DS_DESPESA, VL_DESPESA) "
-                    + "VALUES (?,?,?,?)";
+                    + "DT_DESPESA, DS_DESPESA, VL_DESPESA, ID_QUITADA) "
+                    + "VALUES (?,?,?,?,?)";
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, desp.getTipoDespesas());
             st.setDate(2, Date.valueOf(control.Datas.converterParaAmericana(desp.getDataDespesa())));
             st.setString(3, desp.getDescricaoDespesa());
             st.setFloat(4, desp.getValorDespesaBanco());
+            st.setInt(5, desp.getQuitada());
             st.executeUpdate();
             st.close();
             JOptionPane.showMessageDialog(null, "Despesa cadastrada com sucesso!",
@@ -44,8 +45,8 @@ public class DaoDespesa {
                     + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoDespesa - Cadastro despesa", 0);
             return false;
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao popular atributos de despesa. \n\nExceção JAVA:\n"
-                    + ex.getMessage(), "Erro ao cadastrar despesas", 0);
+            JOptionPane.showMessageDialog(null, "Não  foi possível cadastrar a despesa.\n\nErro: "
+                    + ex, "Erro: DaoDespesa - Cadastro despesa", 0);
             return false;
         }
     }
@@ -65,6 +66,7 @@ public class DaoDespesa {
                 desp.setDataDespesaBanco(rs.getDate("DT_DESPESA").toString());
                 desp.setDescricaoDespesa(rs.getString("DS_DESPESA"));
                 desp.setValorDespesa(rs.getString("VL_DESPESA"));
+                desp.setQuitadaBanco(rs.getInt("ID_QUITADA"));
                 lista.add(desp);
             }
             st.close();
@@ -114,6 +116,7 @@ public class DaoDespesa {
                 desp.setDataDespesa(rs.getDate("DT_DESPESA").toString());
                 desp.setDescricaoDespesa(rs.getString("DS_DESPESA"));
                 desp.setValorDespesa(rs.getString("VL_DESPESA"));
+                desp.setQuitadaBanco(rs.getInt("ID_QUITADA"));
                 lista.add(desp);
             }
             st.close();
@@ -156,6 +159,9 @@ Valor
                 case "Valor":
                     sql = "SELECT * FROM SYNCHROSOFT.TB_DESPESA WHERE LOWER(VL_DESPESA) LIKE LOWER(?)";
                     break;
+                case "Quitada":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_DESPESA WHERE LOWER(ID_QUITADA) LIKE LOWER(?)";
+                    break;
             }
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, "%" + txtPesquisa + "%");
@@ -167,6 +173,7 @@ Valor
                 desp.setDataDespesa(rs.getDate("DT_DESPESA").toString());
                 desp.setDescricaoDespesa(rs.getString("DS_DESPESA"));
                 desp.setValorDespesa(rs.getString("VL_DESPESA"));
+                desp.setQuitadaBanco(rs.getInt("ID_QUITADA"));
                 lista.add(desp);
             }
             st.close();
@@ -189,7 +196,7 @@ Valor
             con.setAutoCommit(false);
             String sql = "UPDATE SYNCHROSOFT.TB_DESPESA "
                     + "SET CD_DESPESA = ?, DS_TIPO_DESPESA = ?, DT_DESPESA = ?, "
-                    + "DS_DESPESA = ?, VL_DESPESA= ? "
+                    + "DS_DESPESA = ?, VL_DESPESA= ?, ID_QUITADA = ? "
                     + "WHERE CD_DESPESA = ?";
             PreparedStatement st = con.prepareStatement(sql);
             for (int row = 0; row < rows; row++) {
@@ -199,14 +206,16 @@ Valor
                 desp.setDataDespesa((String) tabela.getValueAt(row, 2));
                 desp.setDescricaoDespesa((String) tabela.getValueAt(row, 3));
                 desp.setValorDespesa((String) tabela.getValueAt(row, 4));
-                String cod_ref = ((String) tabela.getValueAt(row, 5));
+                desp.setQuitadaSTR((String) tabela.getValueAt(row, 5));
+                String cod_ref = ((String) tabela.getValueAt(row, 6));
 
                 st.setInt(1, desp.getCodigoDespesa());
                 st.setString(2, desp.getTipoDespesas());
                 st.setDate(3, Date.valueOf(control.Datas.converterParaAmericana(desp.getDataDespesa())));
                 st.setString(4, desp.getDescricaoDespesa());
                 st.setFloat(5, desp.getValorDespesaBanco());
-                st.setLong(6, Long.parseLong(cod_ref));
+                st.setInt(6, desp.getQuitada());
+                st.setLong(7, Long.parseLong(cod_ref));
 
                 st.addBatch();
                 st.executeBatch();
@@ -222,20 +231,20 @@ Valor
         }
 
     }
-    
-    public static ArrayList<Despesa> gerarAlertaDespesa() {
+
+    public static ArrayList<Despesa> gerarAlertaDespesaParaVencer() {
         ArrayList<Despesa> lista = new ArrayList<>();
-        
+
         try {
             Connection con = Conexao.conectar();
             String sql = "SELECT * FROM SYNCHROSOFT.TB_DESPESA "
-                    + "WHERE SYSDATE+? >= DT_DESPESA";
+                    + "WHERE DT_DESPESA BETWEEN SYSDATE-1 AND SYSDATE+? ";
             PreparedStatement st = con.prepareStatement(sql);
-            
+
             st.setInt(1, control.Opcoes.getIntervaloDiasVencimento());
-            
+
             ResultSet rs = st.executeQuery();
-            
+
             while (rs.next()) {
                 Despesa desp = new Despesa();
                 desp.setCodigoDespesa(rs.getInt("CD_DESPESA"));
@@ -243,42 +252,84 @@ Valor
                 desp.setDataDespesaBanco(rs.getDate("DT_DESPESA").toString());
                 desp.setDescricaoDespesa(rs.getString("DS_DESPESA"));
                 desp.setValorDespesa(rs.getString("VL_DESPESA"));
+                desp.setQuitadaBanco(rs.getInt("ID_QUITADA"));
                 lista.add(desp);
             }
-            
+
             st.close();
             rs.close();
             return lista;
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível gerar alerta das despesas para vencer.\n\nErro Nº: "
+                +ex.getErrorCode()+"\n\n"+ex.getMessage(),"Erro: DaoDespesa - Gerar Alerta Despesa A Vencer", 0);
             return null;
         } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível gerar alerta das despesas para vencer.\n\nErro: "
+                +ex,"Erro: DaoDespesa - Gerar Alerta Despesa A Vencer", 0);
             return null;
         }
     }
     
+    public static ArrayList<Despesa> gerarAlertaDespesaVencida() {
+        ArrayList<Despesa> lista = new ArrayList<>();
+
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "SELECT * FROM SYNCHROSOFT.TB_DESPESA "
+                    + "WHERE SYSDATE > DT_DESPESA+1";
+            PreparedStatement st = con.prepareStatement(sql);
+
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                Despesa desp = new Despesa();
+                desp.setCodigoDespesa(rs.getInt("CD_DESPESA"));
+                desp.setTipoDespesas(rs.getString("DS_TIPO_DESPESA"));
+                desp.setDataDespesaBanco(rs.getDate("DT_DESPESA").toString());
+                desp.setDescricaoDespesa(rs.getString("DS_DESPESA"));
+                desp.setValorDespesa(rs.getString("VL_DESPESA"));
+                desp.setQuitadaBanco(rs.getInt("ID_QUITADA"));
+                lista.add(desp);
+            }
+
+            st.close();
+            rs.close();
+            return lista;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível gerar alerta das despesas para vencer.\n\nErro Nº: "
+                +ex.getErrorCode()+"\n\n"+ex.getMessage(),"Erro: DaoDespesa - Gerar Alerta Despesa A Vencer", 0);
+            return null;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível gerar alerta das despesas para vencer.\n\nErro: "
+                +ex,"Erro: DaoDespesa - Gerar Alerta Despesa A Vencer", 0);
+            return null;
+        }
+    }
+
     public static Despesa popularDespesa(int codigoDespesa) {
         try {
             Connection con = Conexao.conectar();
             String sql = "SELECT * FROM SYNCHROSOFT.TB_DESPESA "
                     + "WHERE CD_DESPESA = ?";
             PreparedStatement st = con.prepareStatement(sql);
-            
+
             st.setInt(1, codigoDespesa);
-            
+
             ResultSet rs = st.executeQuery();
-            
+
             rs.next();
-            
+
             Despesa desp = new Despesa();
             desp.setCodigoDespesa(rs.getInt("CD_DESPESA"));
             desp.setTipoDespesas(rs.getString("DS_TIPO_DESPESA"));
             desp.setDataDespesaBanco(rs.getDate("DT_DESPESA").toString());
             desp.setDescricaoDespesa(rs.getString("DS_DESPESA"));
             desp.setValorDespesa(rs.getString("VL_DESPESA"));
+            desp.setQuitadaBanco(rs.getInt("ID_QUITADA"));
 
             st.close();
             rs.close();
-            
+
             return desp;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não  foi possível popular a despesa.\n\nErro Nº:"

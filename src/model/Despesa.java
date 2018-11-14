@@ -20,12 +20,14 @@ public class Despesa {
     private String descricaoDespesa;
     private float valorDespesa;
     private boolean validacao;
+    private int quitada;
     
-    public Despesa(String dataDespesa, String tipoDespesas, String descricaoDespesa, String valorDespesa) {
+    public Despesa(String dataDespesa, String tipoDespesas, String descricaoDespesa, String valorDespesa, boolean quitada) {
         this.setDataDespesa(dataDespesa);
         this.tipoDespesas = tipoDespesas;
         this.descricaoDespesa = descricaoDespesa;
         this.setValorDespesa(valorDespesa);
+        this.setQuitada(quitada);
     }
 
     public Despesa () {
@@ -96,5 +98,45 @@ public class Despesa {
 
     public void setValidacao(boolean validacao) {
         this.validacao = validacao;
+    }
+    
+    public void setQuitada(boolean quitada) {
+        if (quitada) {
+            this.quitada = 1;
+        } else {
+            this.quitada = 0;
+        }
+    }
+    
+    public int getQuitada() {
+        return quitada;
+    }
+    
+    public void setQuitadaBanco(int quitada) {
+        this.quitada = quitada;
+    }
+    
+    public boolean getQuitadaBoolean() {
+        if (quitada == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    public void setQuitadaSTR(String quitada) {
+        if (quitada.equals("Sim")) {
+            this.quitada = 1;
+        } else {
+            this.quitada = 0;
+        }
+    }
+    
+    public String getQuitadaSTR() {
+        if (quitada == 0) {
+            return "Não";
+        } else {
+            return "Sim";
+        }
     }
 }

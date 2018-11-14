@@ -32,7 +32,9 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         initComponents();
         atualizarTabela();
         txtDataDepois.setText("" + new Date(Calendar.getInstance().getTimeInMillis()));
-        
+        txtPesquisa.setText(String.valueOf(codigoDespesa));
+        pesquisarFiltrada();
+        selecionarLinhaTabela(codigoProduto);
     }
 
     /**
@@ -44,6 +46,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        grupoQuitada = new javax.swing.ButtonGroup();
         panPrincipal = new javax.swing.JPanel();
         lblPesquisar = new javax.swing.JLabel();
         cmbFiltro = new javax.swing.JComboBox<>();
@@ -66,6 +69,9 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         lblVencimento = new javax.swing.JLabel();
         txtfDataVencimento = new javax.swing.JFormattedTextField();
         txtfValorDespesa = new javax.swing.JFormattedTextField();
+        lblQuitada = new javax.swing.JLabel();
+        tbtQuitadaSim = new javax.swing.JRadioButton();
+        rbtQuitadaNao = new javax.swing.JRadioButton();
         btnDeletar = new javax.swing.JButton();
         btnLimparTabela = new javax.swing.JButton();
         btnListarTodos = new javax.swing.JButton();
@@ -97,7 +103,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         panPrincipal.add(lblPesquisar);
         lblPesquisar.setBounds(10, 10, 160, 25);
 
-        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "Tipo", "Data", "Descrição", "Valor" }));
+        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "Tipo", "Data", "Descrição", "Valor", "Quitada" }));
         cmbFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbFiltroActionPerformed(evt);
@@ -189,12 +195,12 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         jScrollPane3.setViewportView(txaDescricaoDespesa);
 
         panPrincipal1.add(jScrollPane3);
-        jScrollPane3.setBounds(10, 83, 1070, 160);
+        jScrollPane3.setBounds(10, 123, 1070, 120);
 
         lblDescrição.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDescrição.setText("Descrição detalhada da Despesa:");
         panPrincipal1.add(lblDescrição);
-        lblDescrição.setBounds(10, 50, 343, 25);
+        lblDescrição.setBounds(10, 100, 343, 25);
 
         cmbTipoDespesa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Serviço", "Obrigações", "Salarios a pagar" }));
         panPrincipal1.add(cmbTipoDespesa);
@@ -255,6 +261,36 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         });
         panPrincipal1.add(txtfValorDespesa);
         txtfValorDespesa.setBounds(930, 10, 125, 25);
+
+        lblQuitada.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblQuitada.setText("Quitada:");
+        panPrincipal1.add(lblQuitada);
+        lblQuitada.setBounds(10, 50, 140, 25);
+
+        grupoQuitada.add(tbtQuitadaSim);
+        tbtQuitadaSim.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        tbtQuitadaSim.setSelected(true);
+        tbtQuitadaSim.setText("Sim");
+        tbtQuitadaSim.setOpaque(false);
+        tbtQuitadaSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbtQuitadaSimActionPerformed(evt);
+            }
+        });
+        panPrincipal1.add(tbtQuitadaSim);
+        tbtQuitadaSim.setBounds(160, 50, 55, 25);
+
+        grupoQuitada.add(rbtQuitadaNao);
+        rbtQuitadaNao.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        rbtQuitadaNao.setText("Não");
+        rbtQuitadaNao.setOpaque(false);
+        rbtQuitadaNao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtQuitadaNaoActionPerformed(evt);
+            }
+        });
+        panPrincipal1.add(rbtQuitadaNao);
+        rbtQuitadaNao.setBounds(220, 50, 105, 25);
 
         panPrincipal.add(panPrincipal1);
         panPrincipal1.setBounds(10, 50, 1100, 250);
@@ -513,6 +549,14 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnFecharFrameActionPerformed
 
+    private void tbtQuitadaSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtQuitadaSimActionPerformed
+
+    }//GEN-LAST:event_tbtQuitadaSimActionPerformed
+
+    private void rbtQuitadaNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtQuitadaNaoActionPerformed
+
+    }//GEN-LAST:event_rbtQuitadaNaoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -678,6 +722,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JComboBox<String> cmbFiltro;
     private javax.swing.JComboBox<String> cmbTipoDespesa;
+    private javax.swing.ButtonGroup grupoQuitada;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblBackground;
@@ -687,12 +732,15 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
     private javax.swing.JLabel lblPesquisar;
     private javax.swing.JLabel lblPesquisarData;
     private javax.swing.JLabel lblPesquisarData1;
+    private javax.swing.JLabel lblQuitada;
     private javax.swing.JLabel lblTipoDespesa;
     private javax.swing.JLabel lblValorDespesa;
     private javax.swing.JLabel lblVencimento;
     private javax.swing.JPanel panPrincipal;
     private javax.swing.JPanel panPrincipal1;
+    private javax.swing.JRadioButton rbtQuitadaNao;
     private javax.swing.JTable tblListagemDespesa;
+    private javax.swing.JRadioButton tbtQuitadaSim;
     private javax.swing.JTextArea txaDescricaoDespesa;
     private javax.swing.JTextField txtDataAntes;
     private javax.swing.JTextField txtDataDepois;
@@ -700,4 +748,17 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtfDataVencimento;
     private javax.swing.JFormattedTextField txtfValorDespesa;
     // End of variables declaration//GEN-END:variables
+
+        
+    private void selecionarLinhaTabela(int codigoDespesa) {
+        int indiceTabela = 0;
+        for (int i = 0; i < tblListagemDespesa.getModel().getRowCount(); i++) {
+            String codigoDaLinha = String.valueOf(tblListagemDespesa.getModel().getValueAt(i, 0));
+            if (codigoDespesa == Integer.parseInt(codigoDaLinha)) {
+                indiceTabela = i;
+            }
+        }
+        tblListagemDespesa.getSelectionModel().setSelectionInterval(indiceTabela, indiceTabela);
+        popularCampos();
+    }
 }
