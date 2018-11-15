@@ -238,7 +238,8 @@ Valor
         try {
             Connection con = Conexao.conectar();
             String sql = "SELECT * FROM SYNCHROSOFT.TB_DESPESA "
-                    + "WHERE DT_DESPESA BETWEEN SYSDATE-1 AND SYSDATE+? ";
+                    + "WHERE DT_DESPESA BETWEEN SYSDATE-1 AND SYSDATE+? "
+                    + "AND ID_QUITADA = 0";
             PreparedStatement st = con.prepareStatement(sql);
 
             st.setInt(1, control.Opcoes.getIntervaloDiasVencimento());
@@ -276,7 +277,8 @@ Valor
         try {
             Connection con = Conexao.conectar();
             String sql = "SELECT * FROM SYNCHROSOFT.TB_DESPESA "
-                    + "WHERE SYSDATE > DT_DESPESA+1";
+                    + "WHERE SYSDATE > DT_DESPESA+1 "
+                    + "AND ID_QUITADA = 0";
             PreparedStatement st = con.prepareStatement(sql);
 
             ResultSet rs = st.executeQuery();
