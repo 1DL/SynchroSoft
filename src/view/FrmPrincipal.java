@@ -41,7 +41,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     public FrmPrincipal() {
         definirMaisAcessadas();
         initComponents();
-        this.setTitle("Menu Principal - " + control.SynchroSoft.getNomeUsuario() + " - " + control.SynchroSoft.getCodFunc() + " - " + control.SynchroSoft.getNvlAdm());
         popularListaAlertaProduto();
         popularListaAlertaDespesa();
         Thread threadTimer = new Thread(timerAlerta);
@@ -65,11 +64,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         listaAlertaDespesa = new javax.swing.JList<>();
         txtMsgSistema = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        btnMenuPrincipal = new javax.swing.JButton();
         btnFecharFrame = new javax.swing.JButton();
-        btnAtualizarAlertaProd = new javax.swing.JButton();
-        btnAtualizarAlertaDesp = new javax.swing.JButton();
         panBotoesDinamicos = new javax.swing.JPanel();
         btn_janMaisAcessada1 = new javax.swing.JButton();
         btn_janMaisAcessada4 = new javax.swing.JButton();
@@ -111,7 +106,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menu_sobre = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Menu Principal - " + control.SynchroSoft.getNomeUsuario() + 
+        setTitle("Menu Principal - Código: " + control.SynchroSoft.getCodFunc()+ 
+            " - Funcionário: " + control.SynchroSoft.getNomeUsuario() + 
             " - Nível de Acesso: " + control.SynchroSoft.getNvlAdmSTR());
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logopng32.png")));
         setMaximumSize(new java.awt.Dimension(1152, 648));
@@ -123,7 +119,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         lblMsgSistema.setText("Mensagens do Sistema:");
         getContentPane().add(lblMsgSistema);
-        lblMsgSistema.setBounds(50, 550, 120, 30);
+        lblMsgSistema.setBounds(50, 515, 120, 30);
 
         panAlertaProduto.setBorder(javax.swing.BorderFactory.createTitledBorder("Alerta - Estoque de Produtos"));
         panAlertaProduto.setOpaque(false);
@@ -146,7 +142,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jScrollPane1.setBounds(10, 20, 480, 260);
 
         getContentPane().add(panAlertaProduto);
-        panAlertaProduto.setBounds(50, 30, 500, 290);
+        panAlertaProduto.setBounds(50, 10, 500, 290);
 
         panAlertaDespesa.setBorder(javax.swing.BorderFactory.createTitledBorder("Alerta - Despesas para vencer"));
         panAlertaDespesa.setOpaque(false);
@@ -168,7 +164,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jScrollPane2.setBounds(10, 20, 480, 260);
 
         getContentPane().add(panAlertaDespesa);
-        panAlertaDespesa.setBounds(590, 30, 500, 290);
+        panAlertaDespesa.setBounds(590, 10, 500, 290);
 
         txtMsgSistema.setText("Seja bem vindo ao SynchroSoft! Acesse janelas específicas usando o menu na barra de título, ou clique nos botões das janelas mais acessadas.");
         txtMsgSistema.addActionListener(new java.awt.event.ActionListener() {
@@ -177,52 +173,17 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtMsgSistema);
-        txtMsgSistema.setBounds(170, 550, 710, 30);
+        txtMsgSistema.setBounds(170, 515, 918, 30);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(1080, 500, 73, 23);
-
-        btnMenuPrincipal.setText("Menu Principal");
-        btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuPrincipalActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnMenuPrincipal);
-        btnMenuPrincipal.setBounds(900, 550, 130, 30);
-
-        btnFecharFrame.setText("Fechar ");
+        btnFecharFrame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/sistema_sairdosistema.png"))); // NOI18N
+        btnFecharFrame.setText("Sair do Sistema");
         btnFecharFrame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFecharFrameActionPerformed(evt);
             }
         });
         getContentPane().add(btnFecharFrame);
-        btnFecharFrame.setBounds(1050, 550, 80, 30);
-
-        btnAtualizarAlertaProd.setText("atualizar");
-        btnAtualizarAlertaProd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtualizarAlertaProdActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnAtualizarAlertaProd);
-        btnAtualizarAlertaProd.setBounds(210, 10, 73, 23);
-
-        btnAtualizarAlertaDesp.setText("atualizar");
-        btnAtualizarAlertaDesp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtualizarAlertaDespActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnAtualizarAlertaDesp);
-        btnAtualizarAlertaDesp.setBounds(710, 10, 73, 23);
+        btnFecharFrame.setBounds(980, 550, 150, 30);
 
         panBotoesDinamicos.setBorder(javax.swing.BorderFactory.createTitledBorder("Janelas mais acessadas do Sistema"));
         panBotoesDinamicos.setOpaque(false);
@@ -328,7 +289,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btn_janMaisAcessada9.setBounds(750, 140, 280, 40);
 
         getContentPane().add(panBotoesDinamicos);
-        panBotoesDinamicos.setBounds(50, 330, 1040, 200);
+        panBotoesDinamicos.setBounds(50, 310, 1040, 200);
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(lblBackground);
@@ -567,22 +528,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         control.Janelas.abrirSobre();
     }//GEN-LAST:event_menu_sobreActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String teste = "";
-        Frame[] telas = Frame.getFrames();
-        for (Frame fr : telas) {
-            teste += fr.getClass().getName() + "\n";
-            if (fr.getClass().getName().equals("view.FrmPrincipal")) {
-                JOptionPane.showMessageDialog(null, "Existe!");
-                //fr.dispose();
-
-            }
-        }
-        JOptionPane.showMessageDialog(null, teste);
-        teste = "";
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void menu_listaPessoaFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_listaPessoaFActionPerformed
         control.Janelas.abrirListagemPessoaFisica();
     }//GEN-LAST:event_menu_listaPessoaFActionPerformed
@@ -703,31 +648,19 @@ public class FrmPrincipal extends javax.swing.JFrame {
         control.Janelas.abrirMaisAcessada(maisAcessadas.get(5).getNome(), true);
     }//GEN-LAST:event_btn_janMaisAcessada6ActionPerformed
 
-    private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
-        control.Janelas.focarPrincipal();
-    }//GEN-LAST:event_btnMenuPrincipalActionPerformed
-
     private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
-        this.dispose();
+        control.SynchroSoft.sairDoSistema();
     }//GEN-LAST:event_btnFecharFrameActionPerformed
 
     private void menu_osActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_osActionPerformed
         control.Janelas.abrirCadastroServico();
     }//GEN-LAST:event_menu_osActionPerformed
 
-    private void btnAtualizarAlertaProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarAlertaProdActionPerformed
-        popularListaAlertaProduto();
-    }//GEN-LAST:event_btnAtualizarAlertaProdActionPerformed
-
     private void listaAlertaProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaAlertaProdutoMouseClicked
         popUpAlertaProdutos();
 
 
     }//GEN-LAST:event_listaAlertaProdutoMouseClicked
-
-    private void btnAtualizarAlertaDespActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarAlertaDespActionPerformed
-        popularListaAlertaDespesa();
-    }//GEN-LAST:event_btnAtualizarAlertaDespActionPerformed
 
     private void listaAlertaDespesaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaAlertaDespesaMouseClicked
         popUpAlertaDespesa();
@@ -771,10 +704,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAtualizarAlertaDesp;
-    private javax.swing.JButton btnAtualizarAlertaProd;
     private javax.swing.JButton btnFecharFrame;
-    private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JButton btn_janMaisAcessada1;
     private javax.swing.JButton btn_janMaisAcessada2;
     private javax.swing.JButton btn_janMaisAcessada3;
@@ -784,7 +714,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btn_janMaisAcessada7;
     private javax.swing.JButton btn_janMaisAcessada8;
     private javax.swing.JButton btn_janMaisAcessada9;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblBackground;
