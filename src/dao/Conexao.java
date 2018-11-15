@@ -28,13 +28,19 @@ public class Conexao {
         String driverName = "oracle.jdbc.driver.OracleDriver";
         Class.forName(driverName);
         String url = "jdbc:oracle:thin:@"+ serverName + ":" + serverPort + ":" + sid;
+        
+        int retornoJOPane = 99;
         try{
             conn = DriverManager.getConnection(url, username, password);
         } catch(SQLException ex) {
-            JOptionPane.showMessageDialog(null, "<html>Erro ao acessar o banco de dados. <br><br>"
+            retornoJOPane = JOptionPane.showConfirmDialog(null, "<html>Erro ao acessar o banco de dados. <br><br>"
                     + "Verifique se o IP, porta, SID, usuário e senha do banco de dados "
                     + "estão corretos, e tente novamente.<br><br>"
-                    + ex + " </html>", "Erro ao conectar no Banco de Dados", JOptionPane.ERROR_MESSAGE, null);
+                    + ex + "<br><br> Deseja encerrar o sistema?<br><br>", "Erro ao conectar no Banco de Dados", JOptionPane.YES_NO_OPTION, 0);
+        }
+        
+        if (retornoJOPane == 0) {
+            System.exit(0);
         }
         
         return conn;

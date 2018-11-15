@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -30,10 +32,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
      * Creates new form TelaPrincipal
      */
     ArrayList<Janelas> maisAcessadas = new ArrayList<>(control.Janelas.acessoTelas);
-    ArrayList<Produto> listaMin = new ArrayList<>();
-    ArrayList<Produto> listaMax = new ArrayList<>();
-    ArrayList<Despesa> listaDespAVencer = new ArrayList<>();
-    ArrayList<Despesa> listaDespVencida = new ArrayList<>();
+    ArrayList<Produto> listaAlertProdMin = new ArrayList<>();
+    ArrayList<Produto> listaAlertProdMax = new ArrayList<>();
+    ArrayList<Despesa> listaAlertDespAVencer = new ArrayList<>();
+    ArrayList<Despesa> listaAlertDespVencida = new ArrayList<>();
+    long contadorAtualizacoes = 0;
 
     public FrmPrincipal() {
         definirMaisAcessadas();
@@ -41,6 +44,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         this.setTitle("Menu Principal - " + control.SynchroSoft.getNomeUsuario() + " - " + control.SynchroSoft.getCodFunc() + " - " + control.SynchroSoft.getNvlAdm());
         popularListaAlertaProduto();
         popularListaAlertaDespesa();
+        Thread threadTimer = new Thread(timerAlerta);
+        iniciarThread(threadTimer);
     }
 
     /**
@@ -52,25 +57,29 @@ public class FrmPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
+        lblMsgSistema = new javax.swing.JLabel();
         panAlertaProduto = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaAlertaProduto = new javax.swing.JList<>();
         panAlertaDespesa = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         listaAlertaDespesa = new javax.swing.JList<>();
-        txtAlerta = new javax.swing.JTextField();
+        txtMsgSistema = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        btn_janMaisAcessada1 = new javax.swing.JButton();
-        btn_janMaisAcessada2 = new javax.swing.JButton();
-        btn_janMaisAcessada3 = new javax.swing.JButton();
-        btn_janMaisAcessada4 = new javax.swing.JButton();
-        btn_janMaisAcessada5 = new javax.swing.JButton();
-        btn_janMaisAcessada6 = new javax.swing.JButton();
         btnMenuPrincipal = new javax.swing.JButton();
         btnFecharFrame = new javax.swing.JButton();
         btnAtualizarAlertaProd = new javax.swing.JButton();
         btnAtualizarAlertaDesp = new javax.swing.JButton();
+        panBotoesDinamicos = new javax.swing.JPanel();
+        btn_janMaisAcessada1 = new javax.swing.JButton();
+        btn_janMaisAcessada4 = new javax.swing.JButton();
+        btn_janMaisAcessada7 = new javax.swing.JButton();
+        btn_janMaisAcessada8 = new javax.swing.JButton();
+        btn_janMaisAcessada5 = new javax.swing.JButton();
+        btn_janMaisAcessada2 = new javax.swing.JButton();
+        btn_janMaisAcessada3 = new javax.swing.JButton();
+        btn_janMaisAcessada6 = new javax.swing.JButton();
+        btn_janMaisAcessada9 = new javax.swing.JButton();
         lblBackground = new javax.swing.JLabel();
         menu = new javax.swing.JMenuBar();
         menu_sistema = new javax.swing.JMenu();
@@ -98,7 +107,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menu_vendaPeca = new javax.swing.JMenuItem();
         menu_relatorio = new javax.swing.JMenu();
         menu_relatorioOS = new javax.swing.JMenuItem();
-        menu_relatorioDespesa = new javax.swing.JMenuItem();
         menu_ajuda = new javax.swing.JMenu();
         menu_sobre = new javax.swing.JMenuItem();
 
@@ -113,9 +121,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
 
-        jLabel2.setText("Mensagens de Alerta:");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(30, 560, 120, 30);
+        lblMsgSistema.setText("Mensagens do Sistema:");
+        getContentPane().add(lblMsgSistema);
+        lblMsgSistema.setBounds(50, 550, 120, 30);
 
         panAlertaProduto.setBorder(javax.swing.BorderFactory.createTitledBorder("Alerta - Estoque de Produtos"));
         panAlertaProduto.setOpaque(false);
@@ -135,10 +143,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jScrollPane1.setViewportView(listaAlertaProduto);
 
         panAlertaProduto.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 20, 380, 260);
+        jScrollPane1.setBounds(10, 20, 480, 260);
 
         getContentPane().add(panAlertaProduto);
-        panAlertaProduto.setBounds(80, 40, 400, 290);
+        panAlertaProduto.setBounds(50, 30, 500, 290);
 
         panAlertaDespesa.setBorder(javax.swing.BorderFactory.createTitledBorder("Alerta - Despesas para vencer"));
         panAlertaDespesa.setOpaque(false);
@@ -157,14 +165,19 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jScrollPane2.setViewportView(listaAlertaDespesa);
 
         panAlertaDespesa.add(jScrollPane2);
-        jScrollPane2.setBounds(10, 20, 470, 260);
+        jScrollPane2.setBounds(10, 20, 480, 260);
 
         getContentPane().add(panAlertaDespesa);
-        panAlertaDespesa.setBounds(570, 40, 490, 290);
+        panAlertaDespesa.setBounds(590, 30, 500, 290);
 
-        txtAlerta.setText("Alerta de Despesas para vencer: ");
-        getContentPane().add(txtAlerta);
-        txtAlerta.setBounds(190, 560, 530, 30);
+        txtMsgSistema.setText("Seja bem vindo ao SynchroSoft! Acesse janelas específicas usando o menu na barra de título, ou clique nos botões das janelas mais acessadas.");
+        txtMsgSistema.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMsgSistemaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtMsgSistema);
+        txtMsgSistema.setBounds(170, 550, 710, 30);
 
         jButton1.setText("jButton1");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -173,75 +186,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(950, 470, 73, 23);
+        jButton1.setBounds(1080, 500, 73, 23);
 
-        btn_janMaisAcessada1.setIcon(new javax.swing.ImageIcon(getClass().getResource(control.Janelas.setIconeMaisAcessada(maisAcessadas.get(0).getNome()))));
-        btn_janMaisAcessada1.setText(control.Janelas.abrirMaisAcessada(maisAcessadas.get(0).getNome(), false)
-        );
-        btn_janMaisAcessada1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_janMaisAcessada1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_janMaisAcessada1);
-        btn_janMaisAcessada1.setBounds(80, 350, 280, 40);
-
-        btn_janMaisAcessada2.setIcon(new javax.swing.ImageIcon(getClass().getResource(control.Janelas.setIconeMaisAcessada(maisAcessadas.get(1).getNome()))));
-        btn_janMaisAcessada2.setText(control.Janelas.abrirMaisAcessada(maisAcessadas.get(1).getNome(), false)
-        );
-        btn_janMaisAcessada2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_janMaisAcessada2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_janMaisAcessada2);
-        btn_janMaisAcessada2.setBounds(410, 350, 280, 40);
-
-        btn_janMaisAcessada3.setIcon(new javax.swing.ImageIcon(getClass().getResource(control.Janelas.setIconeMaisAcessada(maisAcessadas.get(2).getNome()))));
-        btn_janMaisAcessada3.setText(control.Janelas.abrirMaisAcessada(maisAcessadas.get(2).getNome(), false)
-        );
-        btn_janMaisAcessada3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_janMaisAcessada3ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_janMaisAcessada3);
-        btn_janMaisAcessada3.setBounds(730, 350, 280, 40);
-
-        btn_janMaisAcessada4.setIcon(new javax.swing.ImageIcon(getClass().getResource(control.Janelas.setIconeMaisAcessada(maisAcessadas.get(3).getNome()))));
-        btn_janMaisAcessada4.setText(control.Janelas.abrirMaisAcessada(maisAcessadas.get(3).getNome(), false)
-        );
-        btn_janMaisAcessada4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_janMaisAcessada4ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_janMaisAcessada4);
-        btn_janMaisAcessada4.setBounds(80, 410, 280, 40);
-
-        btn_janMaisAcessada5.setIcon(new javax.swing.ImageIcon(getClass().getResource(control.Janelas.setIconeMaisAcessada(maisAcessadas.get(4).getNome()))));
-        btn_janMaisAcessada5.setText(control.Janelas.abrirMaisAcessada(maisAcessadas.get(4).getNome(), false)
-        );
-        btn_janMaisAcessada5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_janMaisAcessada5ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_janMaisAcessada5);
-        btn_janMaisAcessada5.setBounds(410, 410, 280, 40);
-
-        btn_janMaisAcessada6.setIcon(new javax.swing.ImageIcon(getClass().getResource(control.Janelas.setIconeMaisAcessada(maisAcessadas.get(5).getNome()))));
-        btn_janMaisAcessada6.setText(control.Janelas.abrirMaisAcessada(maisAcessadas.get(5).getNome(), false)
-        );
-        btn_janMaisAcessada6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_janMaisAcessada6ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_janMaisAcessada6);
-        btn_janMaisAcessada6.setBounds(730, 410, 280, 40);
-
-        btnMenuPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logopng32.png"))); // NOI18N
         btnMenuPrincipal.setText("Menu Principal");
         btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -251,7 +197,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         getContentPane().add(btnMenuPrincipal);
         btnMenuPrincipal.setBounds(900, 550, 130, 30);
 
-        btnFecharFrame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logopng16.png"))); // NOI18N
         btnFecharFrame.setText("Fechar ");
         btnFecharFrame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -268,7 +213,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAtualizarAlertaProd);
-        btnAtualizarAlertaProd.setBounds(130, 10, 73, 23);
+        btnAtualizarAlertaProd.setBounds(210, 10, 73, 23);
 
         btnAtualizarAlertaDesp.setText("atualizar");
         btnAtualizarAlertaDesp.addActionListener(new java.awt.event.ActionListener() {
@@ -277,7 +222,113 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAtualizarAlertaDesp);
-        btnAtualizarAlertaDesp.setBounds(720, 10, 73, 23);
+        btnAtualizarAlertaDesp.setBounds(710, 10, 73, 23);
+
+        panBotoesDinamicos.setBorder(javax.swing.BorderFactory.createTitledBorder("Janelas mais acessadas do Sistema"));
+        panBotoesDinamicos.setOpaque(false);
+        panBotoesDinamicos.setLayout(null);
+
+        btn_janMaisAcessada1.setIcon(new javax.swing.ImageIcon(getClass().getResource(control.Janelas.setIconeMaisAcessada(maisAcessadas.get(0).getNome()))));
+        btn_janMaisAcessada1.setText(control.Janelas.abrirMaisAcessada(maisAcessadas.get(0).getNome(), false)
+        );
+        btn_janMaisAcessada1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_janMaisAcessada1ActionPerformed(evt);
+            }
+        });
+        panBotoesDinamicos.add(btn_janMaisAcessada1);
+        btn_janMaisAcessada1.setBounds(10, 20, 280, 40);
+
+        btn_janMaisAcessada4.setIcon(new javax.swing.ImageIcon(getClass().getResource(control.Janelas.setIconeMaisAcessada(maisAcessadas.get(3).getNome()))));
+        btn_janMaisAcessada4.setText(control.Janelas.abrirMaisAcessada(maisAcessadas.get(3).getNome(), false)
+        );
+        btn_janMaisAcessada4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_janMaisAcessada4ActionPerformed(evt);
+            }
+        });
+        panBotoesDinamicos.add(btn_janMaisAcessada4);
+        btn_janMaisAcessada4.setBounds(10, 80, 280, 40);
+
+        btn_janMaisAcessada7.setIcon(new javax.swing.ImageIcon(getClass().getResource(control.Janelas.setIconeMaisAcessada(maisAcessadas.get(6).getNome()))));
+        btn_janMaisAcessada7.setText(control.Janelas.abrirMaisAcessada(maisAcessadas.get(6).getNome(), false)
+        );
+        btn_janMaisAcessada7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_janMaisAcessada7ActionPerformed(evt);
+            }
+        });
+        panBotoesDinamicos.add(btn_janMaisAcessada7);
+        btn_janMaisAcessada7.setBounds(10, 140, 280, 40);
+
+        btn_janMaisAcessada8.setIcon(new javax.swing.ImageIcon(getClass().getResource(control.Janelas.setIconeMaisAcessada(maisAcessadas.get(7).getNome()))));
+        btn_janMaisAcessada8.setText(control.Janelas.abrirMaisAcessada(maisAcessadas.get(7).getNome(), false)
+        );
+        btn_janMaisAcessada8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_janMaisAcessada8ActionPerformed(evt);
+            }
+        });
+        panBotoesDinamicos.add(btn_janMaisAcessada8);
+        btn_janMaisAcessada8.setBounds(380, 140, 280, 40);
+
+        btn_janMaisAcessada5.setIcon(new javax.swing.ImageIcon(getClass().getResource(control.Janelas.setIconeMaisAcessada(maisAcessadas.get(4).getNome()))));
+        btn_janMaisAcessada5.setText(control.Janelas.abrirMaisAcessada(maisAcessadas.get(4).getNome(), false)
+        );
+        btn_janMaisAcessada5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_janMaisAcessada5ActionPerformed(evt);
+            }
+        });
+        panBotoesDinamicos.add(btn_janMaisAcessada5);
+        btn_janMaisAcessada5.setBounds(380, 80, 280, 40);
+
+        btn_janMaisAcessada2.setIcon(new javax.swing.ImageIcon(getClass().getResource(control.Janelas.setIconeMaisAcessada(maisAcessadas.get(1).getNome()))));
+        btn_janMaisAcessada2.setText(control.Janelas.abrirMaisAcessada(maisAcessadas.get(1).getNome(), false)
+        );
+        btn_janMaisAcessada2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_janMaisAcessada2ActionPerformed(evt);
+            }
+        });
+        panBotoesDinamicos.add(btn_janMaisAcessada2);
+        btn_janMaisAcessada2.setBounds(380, 20, 280, 40);
+
+        btn_janMaisAcessada3.setIcon(new javax.swing.ImageIcon(getClass().getResource(control.Janelas.setIconeMaisAcessada(maisAcessadas.get(2).getNome()))));
+        btn_janMaisAcessada3.setText(control.Janelas.abrirMaisAcessada(maisAcessadas.get(2).getNome(), false)
+        );
+        btn_janMaisAcessada3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_janMaisAcessada3ActionPerformed(evt);
+            }
+        });
+        panBotoesDinamicos.add(btn_janMaisAcessada3);
+        btn_janMaisAcessada3.setBounds(750, 20, 280, 40);
+
+        btn_janMaisAcessada6.setIcon(new javax.swing.ImageIcon(getClass().getResource(control.Janelas.setIconeMaisAcessada(maisAcessadas.get(5).getNome()))));
+        btn_janMaisAcessada6.setText(control.Janelas.abrirMaisAcessada(maisAcessadas.get(5).getNome(), false)
+        );
+        btn_janMaisAcessada6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_janMaisAcessada6ActionPerformed(evt);
+            }
+        });
+        panBotoesDinamicos.add(btn_janMaisAcessada6);
+        btn_janMaisAcessada6.setBounds(750, 80, 280, 40);
+
+        btn_janMaisAcessada9.setIcon(new javax.swing.ImageIcon(getClass().getResource(control.Janelas.setIconeMaisAcessada(maisAcessadas.get(8).getNome()))));
+        btn_janMaisAcessada9.setText(control.Janelas.abrirMaisAcessada(maisAcessadas.get(8).getNome(), false)
+        );
+        btn_janMaisAcessada9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_janMaisAcessada9ActionPerformed(evt);
+            }
+        });
+        panBotoesDinamicos.add(btn_janMaisAcessada9);
+        btn_janMaisAcessada9.setBounds(750, 140, 280, 40);
+
+        getContentPane().add(panBotoesDinamicos);
+        panBotoesDinamicos.setBounds(50, 330, 1040, 200);
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(lblBackground);
@@ -490,10 +541,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menu_relatorio.add(menu_relatorioOS);
 
-        menu_relatorioDespesa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/relatorio_despesa.png"))); // NOI18N
-        menu_relatorioDespesa.setText("Despesas");
-        menu_relatorio.add(menu_relatorioDespesa);
-
         menu.add(menu_relatorio);
 
         menu_ajuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/menu_ajuda.png"))); // NOI18N
@@ -686,6 +733,22 @@ public class FrmPrincipal extends javax.swing.JFrame {
         popUpAlertaDespesa();
     }//GEN-LAST:event_listaAlertaDespesaMouseClicked
 
+    private void txtMsgSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMsgSistemaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMsgSistemaActionPerformed
+
+    private void btn_janMaisAcessada7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_janMaisAcessada7ActionPerformed
+        control.Janelas.abrirMaisAcessada(maisAcessadas.get(6).getNome(), true);
+    }//GEN-LAST:event_btn_janMaisAcessada7ActionPerformed
+
+    private void btn_janMaisAcessada8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_janMaisAcessada8ActionPerformed
+        control.Janelas.abrirMaisAcessada(maisAcessadas.get(7).getNome(), true);
+    }//GEN-LAST:event_btn_janMaisAcessada8ActionPerformed
+
+    private void btn_janMaisAcessada9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_janMaisAcessada9ActionPerformed
+        control.Janelas.abrirMaisAcessada(maisAcessadas.get(8).getNome(), true);
+    }//GEN-LAST:event_btn_janMaisAcessada9ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -718,11 +781,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btn_janMaisAcessada4;
     private javax.swing.JButton btn_janMaisAcessada5;
     private javax.swing.JButton btn_janMaisAcessada6;
+    private javax.swing.JButton btn_janMaisAcessada7;
+    private javax.swing.JButton btn_janMaisAcessada8;
+    private javax.swing.JButton btn_janMaisAcessada9;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblBackground;
+    private javax.swing.JLabel lblMsgSistema;
     private javax.swing.JList<String> listaAlertaDespesa;
     private javax.swing.JList<String> listaAlertaProduto;
     private javax.swing.JMenuBar menu;
@@ -746,7 +812,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menu_pessoa;
     private javax.swing.JMenuItem menu_produto;
     private javax.swing.JMenu menu_relatorio;
-    private javax.swing.JMenuItem menu_relatorioDespesa;
     private javax.swing.JMenuItem menu_relatorioOS;
     private javax.swing.JMenuItem menu_sairSistema;
     private javax.swing.JMenu menu_sistema;
@@ -756,7 +821,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menu_vendas;
     private javax.swing.JPanel panAlertaDespesa;
     private javax.swing.JPanel panAlertaProduto;
-    private javax.swing.JTextField txtAlerta;
+    private javax.swing.JPanel panBotoesDinamicos;
+    private javax.swing.JTextField txtMsgSistema;
     // End of variables declaration//GEN-END:variables
 
     private void definirMaisAcessadas() {
@@ -779,23 +845,23 @@ public class FrmPrincipal extends javax.swing.JFrame {
         DefaultListModel listModel = new DefaultListModel();
         String linha = "";
 
-        listaMin = dao.DaoProduto.gerarAlertaProdutoMinimo();
+        listaAlertProdMin = dao.DaoProduto.gerarAlertaProdutoMinimo();
 
-        for (int i = 0; i < listaMin.size(); i++) {
-            linha = "Estoque baixo! Qtd: " + listaMin.get(i).getQuantidadePeca() + " - Qtd Mínima: " + listaMin.get(i).getAlertaQtdMin()
-                    + " - Cód.: " + listaMin.get(i).getCodigoPeca() + " - " + listaMin.get(i).getNomePeca();
+        for (int i = 0; i < listaAlertProdMin.size(); i++) {
+            linha = "Estoque baixo! Qtd: " + listaAlertProdMin.get(i).getQuantidadePeca() + " - Qtd Mínima: " + listaAlertProdMin.get(i).getAlertaQtdMin()
+                    + " - Cód.: " + listaAlertProdMin.get(i).getCodigoPeca() + " - " + listaAlertProdMin.get(i).getNomePeca();
             listModel.addElement(linha);
         }
 
-        listaMax = dao.DaoProduto.gerarAlertaProdutoMaximo();
+        listaAlertProdMax = dao.DaoProduto.gerarAlertaProdutoMaximo();
 
-        for (int i = 0; i < listaMax.size(); i++) {
-            linha = "Estoque cheio! Qtd: " + listaMax.get(i).getQuantidadePeca() + " - Qtd Máxima: " + listaMax.get(i).getAlertaQtdMax()
-                    + " - Cód.: " + listaMax.get(i).getCodigoPeca() + " - " + listaMax.get(i).getNomePeca();
+        for (int i = 0; i < listaAlertProdMax.size(); i++) {
+            linha = "Estoque cheio! Qtd: " + listaAlertProdMax.get(i).getQuantidadePeca() + " - Qtd Máxima: " + listaAlertProdMax.get(i).getAlertaQtdMax()
+                    + " - Cód.: " + listaAlertProdMax.get(i).getCodigoPeca() + " - " + listaAlertProdMax.get(i).getNomePeca();
             listModel.addElement(linha);
         }
 
-        if (listaMin.isEmpty() && listaMax.isEmpty()) {
+        if (listaAlertProdMin.isEmpty() && listaAlertProdMax.isEmpty()) {
             linha = "Nenhum alerta perante o estoque de produto.";
             listModel.addElement(linha);
         }
@@ -806,14 +872,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void popUpAlertaProdutos() {
         String linha = listaAlertaProduto.getSelectedValue();
         int indiceAlertaMin = listaAlertaProduto.getSelectedIndex();
-        int indiceAlertaMax = listaAlertaProduto.getSelectedIndex() - listaMin.size();
+        int indiceAlertaMax = listaAlertaProduto.getSelectedIndex() - listaAlertProdMin.size();
         boolean alertaVazio = false;
 
         Produto produto = new Produto();
         if (linha.substring(8, 13).equals("baixo")) {
-            produto = dao.DaoProduto.popularPeca(listaMin.get(indiceAlertaMin).getCodigoPeca());
+            produto = dao.DaoProduto.popularPeca(listaAlertProdMin.get(indiceAlertaMin).getCodigoPeca());
         } else if (linha.substring(8, 13).equals("cheio")) {
-            produto = dao.DaoProduto.popularPeca(listaMax.get(indiceAlertaMax).getCodigoPeca());
+            produto = dao.DaoProduto.popularPeca(listaAlertProdMax.get(indiceAlertaMax).getCodigoPeca());
         } else {
             alertaVazio = true;
         }
@@ -844,25 +910,25 @@ public class FrmPrincipal extends javax.swing.JFrame {
         DefaultListModel listModel = new DefaultListModel();
         String linha = "";
 
-        listaDespAVencer = dao.DaoDespesa.gerarAlertaDespesaParaVencer();
+        listaAlertDespAVencer = dao.DaoDespesa.gerarAlertaDespesaParaVencer();
 
-        for (int i = 0; i < listaDespAVencer.size(); i++) {
-            linha = "Despesa à vencer! Vence em: " + listaDespAVencer.get(i).getDataDespesa()
-                    + " - Tipo: " + listaDespAVencer.get(i).getTipoDespesas()
-                    + " - Valor: R$ " + listaDespAVencer.get(i).getValorDespesaSTR();
-            listModel.addElement(linha);
-        }
-        
-        listaDespVencida = dao.DaoDespesa.gerarAlertaDespesaVencida();
-
-        for (int i = 0; i < listaDespVencida.size(); i++) {
-            linha = "Despesa vencida! Venceu em: " + listaDespVencida.get(i).getDataDespesa()
-                    + " - Tipo: " + listaDespVencida.get(i).getTipoDespesas()
-                    + " - Valor: R$ " + listaDespVencida.get(i).getValorDespesaSTR();
+        for (int i = 0; i < listaAlertDespAVencer.size(); i++) {
+            linha = "Despesa à vencer! Vence em: " + listaAlertDespAVencer.get(i).getDataDespesa()
+                    + " - Tipo: " + listaAlertDespAVencer.get(i).getTipoDespesas()
+                    + " - Valor: R$ " + listaAlertDespAVencer.get(i).getValorDespesaSTR();
             listModel.addElement(linha);
         }
 
-        if (listaDespAVencer.isEmpty() && listaDespVencida.isEmpty()) {
+        listaAlertDespVencida = dao.DaoDespesa.gerarAlertaDespesaVencida();
+
+        for (int i = 0; i < listaAlertDespVencida.size(); i++) {
+            linha = "Despesa vencida! Venceu em: " + listaAlertDespVencida.get(i).getDataDespesa()
+                    + " - Tipo: " + listaAlertDespVencida.get(i).getTipoDespesas()
+                    + " - Valor: R$ " + listaAlertDespVencida.get(i).getValorDespesaSTR();
+            listModel.addElement(linha);
+        }
+
+        if (listaAlertDespAVencer.isEmpty() && listaAlertDespVencida.isEmpty()) {
             linha = "Nenhum alerta perante as despeas.";
             listModel.addElement(linha);
         }
@@ -873,25 +939,25 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void popUpAlertaDespesa() {
         String linha = listaAlertaDespesa.getSelectedValue();
         int indiceAlertaAVencer = listaAlertaDespesa.getSelectedIndex();
-        int indiceAlertaVencida = listaAlertaDespesa.getAnchorSelectionIndex() - listaDespAVencer.size();
+        int indiceAlertaVencida = listaAlertaDespesa.getAnchorSelectionIndex() - listaAlertDespAVencer.size();
         boolean alertaVazio = false;
         Despesa despesa = new Despesa();
-        
+
         if (linha.substring(0, 6).equals("Nenhum")) {
             alertaVazio = true;
-        } else if (linha.substring(8,9).equals("à")) {
-            despesa = dao.DaoDespesa.popularDespesa(listaDespAVencer.get(indiceAlertaAVencer).getCodigoDespesa());
+        } else if (linha.substring(8, 9).equals("à")) {
+            despesa = dao.DaoDespesa.popularDespesa(listaAlertDespAVencer.get(indiceAlertaAVencer).getCodigoDespesa());
         } else {
-            despesa = dao.DaoDespesa.popularDespesa(listaDespVencida.get(indiceAlertaVencida).getCodigoDespesa());
+            despesa = dao.DaoDespesa.popularDespesa(listaAlertDespVencida.get(indiceAlertaVencida).getCodigoDespesa());
         }
 
         if (!alertaVazio) {
             if (despesa.getDescricaoDespesa() == null) {
                 despesa.setDescricaoDespesa("Nenhuma.");
             } else if (despesa.getDescricaoDespesa().length() >= 180) {
-                despesa.setDescricaoDespesa(despesa.getDescricaoDespesa().substring(0,180));
+                despesa.setDescricaoDespesa(despesa.getDescricaoDespesa().substring(0, 180));
             }
-            
+
             String mensagem
                     = "<html><body width='%1s'>Deseja alterar a despesa em alerta?<br><br>Despesa:<br><br>"
                     + "Código: " + despesa.getCodigoDespesa() + "<br>"
@@ -902,7 +968,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                     + "<br><br>";
 
             int opcao;
-            opcao = JOptionPane.showConfirmDialog(this, String.format(mensagem, 250,250), "Despesa em alerta",
+            opcao = JOptionPane.showConfirmDialog(this, String.format(mensagem, 250, 250), "Despesa em alerta",
                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
             if (opcao == 0) {
@@ -910,5 +976,80 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
 
         }
+    }
+
+    private void atualizarMensagemSistema() {
+        String mensagem = "";
+        if ((qtdAlertaDespesa() + qtdAlertaProduto()) == 0) {
+            mensagem = "Que ótimo! Não há nenhum alerta de estoque ou de despesas. Atualizado "
+                + qtdAtualizacoesAlerta() + " Uso de RAM estimado da aplicação: "
+                + calcularUsoRam();
+        } else if (qtdAlertaDespesa()!= 0 && qtdAlertaProduto() !=0){
+            mensagem = qtdAlertaProduto() + " alerta(s) de estoque e " + qtdAlertaDespesa()
+                + " alerta(s) de despesas. Atualizado "
+                + qtdAtualizacoesAlerta() + " Uso de RAM estimado da aplicação: "
+                + calcularUsoRam();
+        } else if (qtdAlertaDespesa() != 0 && qtdAlertaProduto() == 0) {
+            mensagem = qtdAlertaDespesa() + " alerta(s) de despesas. Atualizado "
+                + qtdAtualizacoesAlerta() + "Uso de Ram estimado da aplicação: "
+                +calcularUsoRam();
+        } else if (qtdAlertaDespesa() == 0 && qtdAlertaProduto() !=0){
+            mensagem = qtdAlertaProduto()+ " alerta(s) de estoque. Atualizado "
+                + qtdAtualizacoesAlerta() + "Uso de Ram estimado da aplicação: "
+                +calcularUsoRam();
+        }
+        
+        txtMsgSistema.setText(mensagem);
+    }
+    
+    private String qtdAtualizacoesAlerta(){
+        String msg = "";
+        if (contadorAtualizacoes != 1){
+            msg = (contadorAtualizacoes + " vezes.");
+        } else {
+            msg = (contadorAtualizacoes + " vez.");
+        }
+        return msg;
+    }
+    
+    private String calcularUsoRam(){
+        int mb = 1024 * 1024;
+        Runtime runtime = Runtime.getRuntime();
+        return ((runtime.totalMemory() - runtime.freeMemory()) / mb + " MB");
+    }
+    
+    private int qtdAlertaProduto() {
+        return (listaAlertProdMin.size() + listaAlertProdMax.size());
+    }
+    
+    private int qtdAlertaDespesa() {
+        return (listaAlertDespAVencer.size() + listaAlertDespVencida.size());
+    }
+
+    private Runnable timerAlerta = new Runnable() {
+        @Override
+        public void run() {
+            Timer timer = new Timer();
+            TimerTask task = new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+                        popularListaAlertaDespesa();
+                        popularListaAlertaProduto();
+                        contadorAtualizacoes++;
+                        atualizarMensagemSistema();
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Ocorreu um erro ao atualizar os alertas pelo temporizador.\n\n"
+                                + ex, "Erro ao gerar alertas via temporizador", 0);
+                    }
+                }
+            };
+
+            timer.schedule(task, 10000, 20000);
+        }
+    };
+
+    private void iniciarThread(Thread thread) {
+        thread.start();
     }
 }

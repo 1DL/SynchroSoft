@@ -356,7 +356,7 @@ public class DaoProduto {
                 produto.setAlertaQtdMax(rs.getString("QT_PECAMAX"));
                 produto.setValorUnitario(rs.getString("VL_PECA"));
                 lista.add(produto);
-                System.out.println(produto.getNomePeca());
+                
             }
             rs.close();
             st.close();
@@ -397,7 +397,6 @@ public class DaoProduto {
                 produto.setAlertaQtdMax(rs.getString("QT_PECAMAX"));
                 produto.setValorUnitario(rs.getString("VL_PECA"));
                 lista.add(produto);
-                System.out.println(produto.getNomePeca());
             }
             rs.close();
             st.close();
