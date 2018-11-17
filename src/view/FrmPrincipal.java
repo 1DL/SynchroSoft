@@ -37,6 +37,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
     ArrayList<Despesa> listaAlertDespAVencer = new ArrayList<>();
     ArrayList<Despesa> listaAlertDespVencida = new ArrayList<>();
     long contadorAtualizacoes = 0;
+    byte expandAlertProd = 0;
+    byte expandAlertDesp = 0;
+    byte expandBtnDinamicos = 0;
 
     public FrmPrincipal() {
         definirMaisAcessadas();
@@ -58,10 +61,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         lblMsgSistema = new javax.swing.JLabel();
         panAlertaProduto = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPaneProd = new javax.swing.JScrollPane();
         listaAlertaProduto = new javax.swing.JList<>();
         panAlertaDespesa = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPaneDesp = new javax.swing.JScrollPane();
         listaAlertaDespesa = new javax.swing.JList<>();
         txtMsgSistema = new javax.swing.JTextField();
         btnFecharFrame = new javax.swing.JButton();
@@ -75,6 +78,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btn_janMaisAcessada3 = new javax.swing.JButton();
         btn_janMaisAcessada6 = new javax.swing.JButton();
         btn_janMaisAcessada9 = new javax.swing.JButton();
+        btnExpandAlertProd = new javax.swing.JButton();
+        btnExpandAlertDesp = new javax.swing.JButton();
+        btnExpandBtnDinamico = new javax.swing.JButton();
         lblBackground = new javax.swing.JLabel();
         menu = new javax.swing.JMenuBar();
         menu_sistema = new javax.swing.JMenu();
@@ -136,10 +142,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 listaAlertaProdutoMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(listaAlertaProduto);
+        jScrollPaneProd.setViewportView(listaAlertaProduto);
 
-        panAlertaProduto.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 20, 480, 260);
+        panAlertaProduto.add(jScrollPaneProd);
+        jScrollPaneProd.setBounds(10, 20, 480, 260);
 
         getContentPane().add(panAlertaProduto);
         panAlertaProduto.setBounds(50, 10, 500, 290);
@@ -158,10 +164,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 listaAlertaDespesaMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(listaAlertaDespesa);
+        jScrollPaneDesp.setViewportView(listaAlertaDespesa);
 
-        panAlertaDespesa.add(jScrollPane2);
-        jScrollPane2.setBounds(10, 20, 480, 260);
+        panAlertaDespesa.add(jScrollPaneDesp);
+        jScrollPaneDesp.setBounds(10, 20, 480, 260);
 
         getContentPane().add(panAlertaDespesa);
         panAlertaDespesa.setBounds(590, 10, 500, 290);
@@ -289,7 +295,34 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btn_janMaisAcessada9.setBounds(750, 140, 280, 40);
 
         getContentPane().add(panBotoesDinamicos);
-        panBotoesDinamicos.setBounds(50, 310, 1040, 200);
+        panBotoesDinamicos.setBounds(50, 310, 1040, 190);
+
+        btnExpandAlertProd.setText("-");
+        btnExpandAlertProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExpandAlertProdActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnExpandAlertProd);
+        btnExpandAlertProd.setBounds(10, 30, 40, 23);
+
+        btnExpandAlertDesp.setText("-");
+        btnExpandAlertDesp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExpandAlertDespActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnExpandAlertDesp);
+        btnExpandAlertDesp.setBounds(550, 30, 40, 23);
+
+        btnExpandBtnDinamico.setText("-");
+        btnExpandBtnDinamico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExpandBtnDinamicoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnExpandBtnDinamico);
+        btnExpandBtnDinamico.setBounds(10, 330, 40, 23);
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(lblBackground);
@@ -682,6 +715,18 @@ public class FrmPrincipal extends javax.swing.JFrame {
         control.Janelas.abrirMaisAcessada(maisAcessadas.get(8).getNome(), true);
     }//GEN-LAST:event_btn_janMaisAcessada9ActionPerformed
 
+    private void btnExpandAlertProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExpandAlertProdActionPerformed
+        expandirRetrairAlertaProd();
+    }//GEN-LAST:event_btnExpandAlertProdActionPerformed
+
+    private void btnExpandAlertDespActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExpandAlertDespActionPerformed
+        expandirRetrairAlertaDesp();
+    }//GEN-LAST:event_btnExpandAlertDespActionPerformed
+
+    private void btnExpandBtnDinamicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExpandBtnDinamicoActionPerformed
+        expandirRetrairJanMaisAcessadas();
+    }//GEN-LAST:event_btnExpandBtnDinamicoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -704,6 +749,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExpandAlertDesp;
+    private javax.swing.JButton btnExpandAlertProd;
+    private javax.swing.JButton btnExpandBtnDinamico;
     private javax.swing.JButton btnFecharFrame;
     private javax.swing.JButton btn_janMaisAcessada1;
     private javax.swing.JButton btn_janMaisAcessada2;
@@ -714,8 +762,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btn_janMaisAcessada7;
     private javax.swing.JButton btn_janMaisAcessada8;
     private javax.swing.JButton btn_janMaisAcessada9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPaneDesp;
+    private javax.swing.JScrollPane jScrollPaneProd;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblMsgSistema;
     private javax.swing.JList<String> listaAlertaDespesa;
@@ -980,5 +1028,105 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void iniciarThread(Thread thread) {
         thread.start();
+    }
+
+    private void expandirRetrairAlertaProd() {
+        switch (expandAlertProd) {
+            case 0:
+                panAlertaProduto.setSize(500, 70);
+                jScrollPaneProd.setSize(480, 40);
+                popularListaAlertaProduto();
+                expandAlertProd = 1;
+                btnExpandAlertProd.setText("+");
+                break;
+            case 1:
+                panAlertaProduto.setSize(500, 160);
+                jScrollPaneProd.setSize(480, 130);
+                popularListaAlertaProduto();
+                expandAlertProd = 2;
+                btnExpandAlertProd.setText("+");
+                break;
+            case 2:
+                panAlertaProduto.setSize(500, 290);
+                jScrollPaneProd.setSize(480, 260);
+                popularListaAlertaProduto();
+                expandAlertProd = 0;
+                btnExpandAlertProd.setText("-");
+                break;                
+        }
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void expandirRetrairAlertaDesp() {
+        switch (expandAlertDesp) {
+            case 0:
+                panAlertaDespesa.setSize(500, 70);
+                jScrollPaneDesp.setSize(480, 40);
+                popularListaAlertaDespesa();
+                expandAlertDesp = 1;
+                btnExpandAlertDesp.setText("+");
+                break;
+            case 1:
+                panAlertaDespesa.setSize(500, 160);
+                jScrollPaneDesp.setSize(480, 130);
+                popularListaAlertaDespesa();
+                expandAlertDesp = 2;
+                btnExpandAlertDesp.setText("+");
+                break;
+            case 2:
+                panAlertaDespesa.setSize(500, 290);
+                jScrollPaneDesp.setSize(480, 260);
+                popularListaAlertaDespesa();
+                expandAlertDesp = 0;
+                btnExpandAlertDesp.setText("-");
+                break;                
+        }
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void expandirRetrairJanMaisAcessadas() {
+        switch (expandBtnDinamicos) {
+            case 0:
+                panBotoesDinamicos.setSize(1040, 70);
+                btn_janMaisAcessada4.setVisible(false);
+                btn_janMaisAcessada5.setVisible(false);
+                btn_janMaisAcessada6.setVisible(false);
+                btn_janMaisAcessada7.setVisible(false);
+                btn_janMaisAcessada8.setVisible(false);
+                btn_janMaisAcessada9.setVisible(false);
+                expandBtnDinamicos = 1;
+                btnExpandBtnDinamico.setText("+");
+                break;
+            case 1:
+                panBotoesDinamicos.setSize(1040, 130);
+                btn_janMaisAcessada4.setVisible(true);
+                btn_janMaisAcessada5.setVisible(true);
+                btn_janMaisAcessada6.setVisible(true);
+                btn_janMaisAcessada7.setVisible(false);
+                btn_janMaisAcessada8.setVisible(false);
+                btn_janMaisAcessada9.setVisible(false);
+                expandBtnDinamicos = 2;
+                btnExpandBtnDinamico.setText("+");
+                break;
+            case 2:
+                panBotoesDinamicos.setSize(1040, 190);
+                btn_janMaisAcessada4.setVisible(true);
+                btn_janMaisAcessada5.setVisible(true);
+                btn_janMaisAcessada6.setVisible(true);
+                btn_janMaisAcessada7.setVisible(true);
+                btn_janMaisAcessada8.setVisible(true);
+                btn_janMaisAcessada9.setVisible(true);
+                expandBtnDinamicos = 0;
+                btnExpandBtnDinamico.setText("-");
+                break;                
+        }
     }
 }

@@ -75,6 +75,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         btnHojePesquisa = new javax.swing.JButton();
         lblDataAte = new javax.swing.JLabel();
         txtfDataAte = new javax.swing.JFormattedTextField();
+        btnPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListagemPessoaJ = new javax.swing.JTable();
         btnDeletarTodosRegistros = new javax.swing.JButton();
@@ -384,6 +385,15 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         panPrincipal.add(txtfDataAte);
         txtfDataAte.setBounds(840, 10, 100, 25);
 
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnPesquisar);
+        btnPesquisar.setBounds(950, 10, 79, 25);
+
         getContentPane().add(panPrincipal);
         panPrincipal.setBounds(10, 10, 1125, 310);
 
@@ -552,6 +562,16 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     private void txtfDataAteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataAteKeyReleased
        // pesquisarFiltrada();
     }//GEN-LAST:event_txtfDataAteKeyReleased
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        txtfDataDe.setText(txtfDataDe.getText().trim());
+        txtfDataAte.setText(txtfDataAte.getText().trim());
+        if (txtfDataDe.getText().length() == 10 && txtfDataAte.getText().length() == 10) {
+            atualizarTabela(true);
+        } else {
+            limparTabela();
+        }
+    }//GEN-LAST:event_btnPesquisarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -747,6 +767,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     private javax.swing.JButton btnLimparTabela;
     private javax.swing.JButton btnListarTodos;
     private javax.swing.JButton btnMenuPrincipal;
+    private javax.swing.JButton btnPesquisar;
     private javax.swing.JComboBox<String> cmbFiltro;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBackground;
@@ -782,4 +803,23 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtfDataCadastro;
     private javax.swing.JFormattedTextField txtfDataDe;
     // End of variables declaration//GEN-END:variables
+    
+    private void modoPesquisaData(boolean fixaOuEntre) {
+        boolean dataFixa = false;
+        boolean dataEntreAte = true;
+
+        if (fixaOuEntre == dataEntreAte) {
+            txtPesquisa.setVisible(false);
+            txtfDataDe.setVisible(true);
+            txtfDataAte.setVisible(true);
+            lblDataAte.setVisible(true);
+            btnPesquisar.setVisible(true);
+        } else if (fixaOuEntre == dataFixa) {
+            txtPesquisa.setVisible(false);
+            txtfDataDe.setVisible(true);
+            txtfDataAte.setVisible(false);
+            lblDataAte.setVisible(false);
+            btnPesquisar.setVisible(true);
+        }
+    }
 }

@@ -34,7 +34,7 @@ public class FrmSobre extends javax.swing.JFrame {
             + "Priscila Maioral Maelaro<br>"
             + "Raul Tomaz<br><br>"
             + "Orientador:<br><br>"
-            + "Fernando Bacic"
+            + "Fernando Mendes Bacic"
             + "</html>";
 
     /**
