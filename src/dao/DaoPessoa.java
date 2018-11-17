@@ -487,10 +487,16 @@ Data Entre/Até
                     sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(ID_CONTRATO) LIKE LOWER(?)";
                     break;
                 case "Data de Cadastro":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(DT_CADASTRO) LIKE LOWER (?)";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA "
+                            + "INNER JOIN SYNCHROSOFT.TB_ENDERECO ON "
+                            + "(SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) "
+                            + "WHERE DT_CADASTRO = TO_DATE(?, 'yyyy-mm-dd')";
                     break;
                 case "Data Entre/Até":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(DT_CADASTRO) BETWEEN LOWER(?) AND LOWER(?)";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_FISICA "
+                            + "INNER JOIN SYNCHROSOFT.TB_ENDERECO ON "
+                            + "(SYNCHROSOFT.TB_PESSOA_FISICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) "
+                            + "WHERE DT_CADASTRO BETWEEN TO_DATE(?, 'yyyy-mm-dd') AND TO_DATE (?, 'yyyy-mm-dd')";
                     break;
 
             }
@@ -501,28 +507,27 @@ Data Entre/Até
             //colocando valor da variável ? da query 
             if (cmbFiltro.equals("Data de Cadastro")) {
                 try {
-                    //dataDe = control.Datas.converterParaAmericana(dataDe);
+                    dataDe = control.Datas.converterParaAmericana(dataDe);
 
                 } catch (Exception ex) {
 
                 }
-                st.setString(1, "%" + dataDe + "%");
-
+                st.setString(1, dataDe);
             } else if (cmbFiltro.equals("Data Entre/Até")) {
                 try {
-                    //dataDe = control.Datas.converterParaAmericana(dataDe);
-                    //dataAte = control.Datas.converterParaAmericana(dataAte);
+                    dataDe = control.Datas.converterParaAmericana(dataDe);
+                    dataAte = control.Datas.converterParaAmericana(dataAte);
                 } catch (Exception ex) {
 
                 }
-                st.setString(1, "%" + dataDe + "%");
-                st.setString(2, "%" + dataAte + "%");
+                st.setString(1, dataDe);
+                st.setString(2, dataAte);
             } else {
                 st.setString(1, "%" + txtPesquisa + "%");
             }
             //executando query selecionada pelo switch case
             ResultSet rs = st.executeQuery();
-            System.out.println(dataDe+" "+dataAte);
+            System.out.println(dataDe + " " + dataAte);
             //listando dados do banco em jtable
             while (rs.next()) {
                 Endereco end = new Endereco();

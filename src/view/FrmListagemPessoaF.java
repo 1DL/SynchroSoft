@@ -37,10 +37,10 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
     public FrmListagemPessoaF(int nvlAdm) {
         initComponents();
         inicializarTabela();
-        txtPesquisa.setSize(490, 25);
         txtfDataDe.setText(control.Datas.getDiaHoje());
         txtfDataAte.setText(control.Datas.getDiaHoje());
         selecionarAoFocar();
+        modoPesquisaNormal();
     }
 
     /**
@@ -93,6 +93,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         lblDataAte = new javax.swing.JLabel();
         txtfDataAte = new javax.swing.JFormattedTextField();
         btnHojePesquisa = new javax.swing.JButton();
+        btnPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListagemPessoaF = new javax.swing.JTable();
         btnDeletarTodosRegistros = new javax.swing.JButton();
@@ -114,11 +115,6 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         panPrincipal.setOpaque(false);
         panPrincipal.setLayout(null);
 
-        txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPesquisaActionPerformed(evt);
-            }
-        });
         txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtPesquisaKeyReleased(evt);
@@ -140,7 +136,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         lblDigiteODado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDigiteODado.setText("Digite o(a) Nome:");
         panPrincipal.add(lblDigiteODado);
-        lblDigiteODado.setBounds(375, 10, 280, 25);
+        lblDigiteODado.setBounds(372, 10, 280, 25);
 
         lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblPesquisar.setText("Pesquisar por: ");
@@ -427,6 +423,15 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         panPrincipal.add(btnHojePesquisa);
         btnHojePesquisa.setBounds(730, 10, 55, 25);
 
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnPesquisar);
+        btnPesquisar.setBounds(950, 10, 79, 25);
+
         getContentPane().add(panPrincipal);
         panPrincipal.setBounds(10, 10, 1125, 270);
 
@@ -490,11 +495,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    DaoPessoa pessoa = new DaoPessoa();
-    private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
-
-    }//GEN-LAST:event_txtPesquisaActionPerformed
-
+    
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
         limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
         pesquisarFiltrada();
@@ -603,16 +604,26 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHojePesquisaActionPerformed
 
     private void txtfDataDeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataDeKeyReleased
-        pesquisarFiltrada();
+        txtfDataDe.setText(control.TextSize.maxLenghtData(txtfDataDe.getText()));
     }//GEN-LAST:event_txtfDataDeKeyReleased
 
     private void txtfDataAteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataAteKeyReleased
-        pesquisarFiltrada();
+        txtfDataAte.setText(control.TextSize.maxLenghtData(txtfDataAte.getText()));
     }//GEN-LAST:event_txtfDataAteKeyReleased
 
     private void tblListagemPessoaFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListagemPessoaFMouseClicked
         popularCampos();
     }//GEN-LAST:event_tblListagemPessoaFMouseClicked
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        txtfDataDe.setText(txtfDataDe.getText().trim());
+        txtfDataAte.setText(txtfDataAte.getText().trim());
+        if (txtfDataDe.getText().length() == 10 && txtfDataAte.getText().length() == 10) {
+            atualizarTabela(true);
+        } else {
+            limparTabela();
+        }
+    }//GEN-LAST:event_btnPesquisarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -662,6 +673,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
     private javax.swing.JButton btnLimparTabela;
     private javax.swing.JButton btnListarTodos;
     private javax.swing.JButton btnMenuPrincipal;
+    private javax.swing.JButton btnPesquisar;
     private javax.swing.JComboBox<String> cmbFiltro;
     private javax.swing.ButtonGroup grupoContrato;
     private javax.swing.ButtonGroup grupoSexo;
@@ -706,22 +718,13 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         int opcaoDataCadastro = 9;
         int opcaoDataDeAte = 10;
 
-        
-            if ((opcaoFiltro != opcaoDataCadastro) && (opcaoFiltro != opcaoDataDeAte)) {
-                if (!"".equals(txtPesquisa.getText().trim())) {
-                    atualizarTabela(true);
-                } else {
-                    limparTabela();
-                }
+        if ((opcaoFiltro != opcaoDataCadastro) && (opcaoFiltro != opcaoDataDeAte)) {
+            if (!"".equals(txtPesquisa.getText().trim())) {
+                atualizarTabela(true);
             } else {
-                if ((!"".equals(txtfDataDe.getText().trim())) && (!"".equals(txtfDataAte.getText().trim()))) {
-                    atualizarTabela(true);
-                } else {
-                    limparTabela();
-                }
+                limparTabela();
             }
-
-         
+        }
     }
 
     private void removerTodosRegistros() {
@@ -871,91 +874,57 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         switch (filtro) {
             case "Nome":
                 txtPesquisa.setText(control.TextSize.maxLenghtNomeRazao(txtPesquisa.getText()));
-                txtPesquisa.setVisible(true);
-                txtfDataDe.setVisible(false);
-                txtfDataAte.setVisible(false);
-                lblDataAte.setVisible(false);
+                modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "CPF":
                 txtPesquisa.setText(control.TextSize.maxLenghtCPFCNPJ(txtPesquisa.getText(), true));
-                txtPesquisa.setVisible(true);
-                txtfDataDe.setVisible(false);
-                txtfDataAte.setVisible(false);
-                lblDataAte.setVisible(false);
+                modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "CEP":
                 txtPesquisa.setText(control.TextSize.maxLenghtCep(txtPesquisa.getText()));
-                txtPesquisa.setVisible(true);
-                txtfDataDe.setVisible(false);
-                txtfDataAte.setVisible(false);
-                lblDataAte.setVisible(false);
+                modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Logradouro":
                 txtPesquisa.setText(control.TextSize.maxLenghtLogradouro(txtPesquisa.getText()));
-                txtPesquisa.setVisible(true);
-                txtfDataDe.setVisible(false);
-                txtfDataAte.setVisible(false);
-                lblDataAte.setVisible(false);
+                modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Nr Logradouro":
                 txtPesquisa.setText(control.TextSize.maxLenghtNrLogradouro(txtPesquisa.getText()));
-                txtPesquisa.setVisible(true);
-                txtfDataDe.setVisible(false);
-                txtfDataAte.setVisible(false);
-                lblDataAte.setVisible(false);
+                modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Sexo":
                 txtPesquisa.setText(control.TextSize.maxLenghtSexo(txtPesquisa.getText()));
-                txtPesquisa.setVisible(true);
-                txtfDataDe.setVisible(false);
-                txtfDataAte.setVisible(false);
-                lblDataAte.setVisible(false);
-                txtPesquisa.requestFocus();
+                modoPesquisaNormal();
                 lblDigiteODado.setText("Digite Masculino ou Feminino:");
                 break;
             case "Telefone":
                 txtPesquisa.setText(control.TextSize.maxLenghtTelefone(txtPesquisa.getText()));
-                txtPesquisa.setVisible(true);
-                txtfDataDe.setVisible(false);
-                txtfDataAte.setVisible(false);
-                lblDataAte.setVisible(false);
+                modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Celular":
                 txtPesquisa.setText(control.TextSize.maxLenghtCelularRamal(txtPesquisa.getText(), true));
-                txtPesquisa.setVisible(true);
-                txtfDataDe.setVisible(false);
-                txtfDataAte.setVisible(false);
-                lblDataAte.setVisible(false);
+                modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Mantém Contrato?":
                 lblDigiteODado.setText("Digite Sim ou Não:");
                 txtPesquisa.setText(control.TextSize.maxLenghtContrato(txtPesquisa.getText()));
-                txtPesquisa.setVisible(true);
-                txtfDataDe.setVisible(false);
-                txtfDataAte.setVisible(false);
-                lblDataAte.setVisible(false);
+                modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Data de Cadastro":
-                txtPesquisa.setVisible(false);
-                txtfDataDe.setVisible(true);
-                txtfDataAte.setVisible(false);
-                lblDataAte.setVisible(false);
+                modoPesquisaData(false);
                 txtfDataDe.requestFocus();
                 break;
             case "Data Entre/Até":
                 lblDigiteODado.setText("Digite a Data Inicial:");
-                txtPesquisa.setVisible(false);
-                txtfDataDe.setVisible(true);
-                txtfDataAte.setVisible(true);
-                lblDataAte.setVisible(true);
+                modoPesquisaData(true);
                 txtfDataDe.requestFocus();
                 break;
             default:
@@ -1047,7 +1016,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
 
         if (filtrada) {
             lista = DaoPessoa.listarPessoaFisicaFiltrada(String.valueOf(cmbFiltro.getSelectedItem()),
-                    txtPesquisa.getText().toLowerCase().trim(), txtfDataDe.getText().toLowerCase().trim(), 
+                    txtPesquisa.getText().toLowerCase().trim(), txtfDataDe.getText().toLowerCase().trim(),
                     txtfDataAte.getText().toLowerCase().trim());
             ultimoTipoPesquisa = true;
         } else {
@@ -1104,9 +1073,9 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
 
         pessoaFisica = dao.DaoPessoa.popularPessoaFisica(cpf);
         boolean mantemContrato = pessoaFisica.getPessoa().getManterContratoBooleano();
-        
+
         int sexoMasculino = 0;
-        
+
         if (pessoaFisica.getSexo() == sexoMasculino) {
             rbtMasculino.setSelected(true);
             rbtFeminino.setSelected(false);
@@ -1132,5 +1101,33 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
 
         verificarCpfCnpjEmUso();
         verificarCep();
+    }
+
+    private void modoPesquisaNormal() {
+        txtPesquisa.setSize(490, 25);
+        txtPesquisa.setVisible(true);
+        txtfDataDe.setVisible(false);
+        txtfDataAte.setVisible(false);
+        lblDataAte.setVisible(false);
+        btnPesquisar.setVisible(false);
+    }
+
+    private void modoPesquisaData(boolean fixaOuEntre) {
+        boolean dataFixa = false;
+        boolean dataEntreAte = true;
+
+        if (fixaOuEntre == dataEntreAte) {
+            txtPesquisa.setVisible(false);
+            txtfDataDe.setVisible(true);
+            txtfDataAte.setVisible(true);
+            lblDataAte.setVisible(true);
+            btnPesquisar.setVisible(true);
+        } else if (fixaOuEntre == dataFixa) {
+            txtPesquisa.setVisible(false);
+            txtfDataDe.setVisible(true);
+            txtfDataAte.setVisible(false);
+            lblDataAte.setVisible(false);
+            btnPesquisar.setVisible(true);
+        }
     }
 }
