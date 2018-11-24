@@ -300,20 +300,14 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void cadastrarDespesa() {
-        //try {
+        if (validarCampos()) {
             Despesa despesa = new Despesa(txtfDataVencimento.getText(), cmbTipoDespesa.getSelectedItem().toString(),
                     txaDescricaoDespesa.getText(), txtfValorDespesa.getText(), false);
-            if (validarCampos()) {
-                boolean cadastroSucedido = dao.DaoDespesa.cadastrarDespesa(despesa);
-                if (cadastroSucedido) {
-                    atualizarTabela(despesa);
-                }
+            boolean cadastroSucedido = dao.DaoDespesa.cadastrarDespesa(despesa);
+            if (cadastroSucedido) {
+                atualizarTabela(despesa);
             }
-
-        /*} catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao popular atributos de despesa. \n\nExceção JAVA:\n"
-                    + ex, "Erro ao cadastrar despesas", 0);
-        }*/
+        }
     }
 
     private void limpar() {
@@ -379,10 +373,13 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
     }
 
     private boolean validarCampos() {
-        if (txtfValorDespesa.getValue().equals("0,00")) {
+        if (txtfValorDespesa.getText().equals("0,00")) {
             JOptionPane.showMessageDialog(null, "Valor da despesa zerado.\n\n"
                     + "Informe o valor da despesa maior que zero.", "Erro - Valor da despesa inválido.", 0);
             return false;
+        } else if (txaDescricaoDespesa.getText().isEmpty()) {
+            txaDescricaoDespesa.setText("Sem descrição.");
+            return true;
         } else {
             return true;
         }

@@ -5,11 +5,14 @@
  */
 package view;
 
+import control.TextSize;
 import dao.DaoDespesa;
 import java.awt.Toolkit;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import model.Despesa;
 
@@ -18,23 +21,32 @@ import model.Despesa;
  * @author LuizV1
  */
 public class FrmListagemDespesa extends javax.swing.JFrame {
-
+    
+    private boolean ultimoTipoPesquisa;
+    private long PK_REF;
+    
     /**
      * Creates new form FrmListagemDespesas
      */
     public FrmListagemDespesa(int nvlAdm) {
         initComponents();
-        atualizarTabela();
-        txtDataDepois.setText("" + new Date(Calendar.getInstance().getTimeInMillis()));
+        inicializarTabela();
+        txtfDataDe.setText(control.Datas.getDiaHoje());
+        txtfDataAte.setText(control.Datas.getDiaHoje());
+        selecionarAoFocar();
+        modoPesquisaNormal();
     }
     
     public FrmListagemDespesa(int nvlAdm, int codigoDespesa) {
         initComponents();
-        atualizarTabela();
-        txtDataDepois.setText("" + new Date(Calendar.getInstance().getTimeInMillis()));
+        inicializarTabela();
+        txtfDataDe.setText(control.Datas.getDiaHoje());
+        txtfDataAte.setText(control.Datas.getDiaHoje());
+        modoPesquisaNormal();
+        selecionarAoFocar();
         txtPesquisa.setText(String.valueOf(codigoDespesa));
         pesquisarFiltrada();
-        selecionarLinhaTabela(codigoProduto);
+        selecionarLinhaTabela(codigoDespesa);
     }
 
     /**
@@ -50,27 +62,18 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         panPrincipal = new javax.swing.JPanel();
         lblPesquisar = new javax.swing.JLabel();
         cmbFiltro = new javax.swing.JComboBox<>();
-        txtPesquisa = new javax.swing.JTextField();
-        lblPesquisarData = new javax.swing.JLabel();
-        txtDataAntes = new javax.swing.JTextField();
-        lblPesquisarData1 = new javax.swing.JLabel();
-        txtDataDepois = new javax.swing.JTextField();
-        btnHojePesquisa = new javax.swing.JButton();
         panPrincipal1 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         txaDescricaoDespesa = new javax.swing.JTextArea();
         lblDescrição = new javax.swing.JLabel();
         cmbTipoDespesa = new javax.swing.JComboBox<>();
-        btnListarDespesas = new javax.swing.JButton();
         lblTipoDespesa = new javax.swing.JLabel();
-        btnLimpar = new javax.swing.JButton();
         lblValorDespesa = new javax.swing.JLabel();
-        btnCadastrar = new javax.swing.JButton();
         lblVencimento = new javax.swing.JLabel();
         txtfDataVencimento = new javax.swing.JFormattedTextField();
         txtfValorDespesa = new javax.swing.JFormattedTextField();
         lblQuitada = new javax.swing.JLabel();
-        tbtQuitadaSim = new javax.swing.JRadioButton();
+        rbtQuitadaSim = new javax.swing.JRadioButton();
         rbtQuitadaNao = new javax.swing.JRadioButton();
         btnDeletar = new javax.swing.JButton();
         btnLimparTabela = new javax.swing.JButton();
@@ -78,6 +81,12 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         btnCadastrarDespesa = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
         lblDigiteODado = new javax.swing.JLabel();
+        txtPesquisa = new javax.swing.JTextField();
+        txtfDataDe = new javax.swing.JFormattedTextField();
+        btnHojePesquisa = new javax.swing.JButton();
+        lblDataAte = new javax.swing.JLabel();
+        txtfDataAte = new javax.swing.JFormattedTextField();
+        btnPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListagemDespesa = new javax.swing.JTable();
         btnDeletarTodosRegistros = new javax.swing.JButton();
@@ -103,7 +112,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         panPrincipal.add(lblPesquisar);
         lblPesquisar.setBounds(10, 10, 160, 25);
 
-        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "Tipo", "Data", "Descrição", "Valor", "Quitada" }));
+        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "Tipo de Despesa", "Descrição Detalhada", "Valor", "Quitada?", "Data de Vencimento", "Data de Vencimento Entre/Até" }));
         cmbFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbFiltroActionPerformed(evt);
@@ -111,74 +120,6 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         });
         panPrincipal.add(cmbFiltro);
         cmbFiltro.setBounds(160, 10, 210, 25);
-
-        txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPesquisaActionPerformed(evt);
-            }
-        });
-        txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtPesquisaKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtPesquisaKeyTyped(evt);
-            }
-        });
-        panPrincipal.add(txtPesquisa);
-        txtPesquisa.setBounds(561, 10, 100, 25);
-
-        lblPesquisarData.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblPesquisarData.setText("Data:  De:");
-        panPrincipal.add(lblPesquisarData);
-        lblPesquisarData.setBounds(670, 10, 90, 25);
-
-        txtDataAntes.setText("1980-01-01");
-        txtDataAntes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDataAntesActionPerformed(evt);
-            }
-        });
-        txtDataAntes.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtDataAntesKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtDataAntesKeyTyped(evt);
-            }
-        });
-        panPrincipal.add(txtDataAntes);
-        txtDataAntes.setBounds(770, 10, 90, 25);
-
-        lblPesquisarData1.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblPesquisarData1.setText("Até:");
-        panPrincipal.add(lblPesquisarData1);
-        lblPesquisarData1.setBounds(870, 10, 70, 25);
-
-        txtDataDepois.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDataDepoisActionPerformed(evt);
-            }
-        });
-        txtDataDepois.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtDataDepoisKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtDataDepoisKeyTyped(evt);
-            }
-        });
-        panPrincipal.add(txtDataDepois);
-        txtDataDepois.setBounds(920, 10, 80, 25);
-
-        btnHojePesquisa.setText("Hoje");
-        btnHojePesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHojePesquisaActionPerformed(evt);
-            }
-        });
-        panPrincipal.add(btnHojePesquisa);
-        btnHojePesquisa.setBounds(1010, 10, 55, 25);
 
         panPrincipal1.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados da Despesa"));
         panPrincipal1.setOpaque(false);
@@ -206,42 +147,15 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         panPrincipal1.add(cmbTipoDespesa);
         cmbTipoDespesa.setBounds(166, 10, 215, 25);
 
-        btnListarDespesas.setText("Listar Despesas Cadastradas");
-        btnListarDespesas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListarDespesasActionPerformed(evt);
-            }
-        });
-        panPrincipal1.add(btnListarDespesas);
-        btnListarDespesas.setBounds(570, 270, 210, 30);
-
         lblTipoDespesa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblTipoDespesa.setText("Tipo de despesa:");
         panPrincipal1.add(lblTipoDespesa);
         lblTipoDespesa.setBounds(10, 10, 150, 25);
 
-        btnLimpar.setText("Limpar");
-        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimparActionPerformed(evt);
-            }
-        });
-        panPrincipal1.add(btnLimpar);
-        btnLimpar.setBounds(820, 270, 100, 30);
-
         lblValorDespesa.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblValorDespesa.setText("Valor da despesa:");
         panPrincipal1.add(lblValorDespesa);
         lblValorDespesa.setBounds(770, 10, 150, 25);
-
-        btnCadastrar.setText("Cadastrar");
-        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarActionPerformed(evt);
-            }
-        });
-        panPrincipal1.add(btnCadastrar);
-        btnCadastrar.setBounds(950, 270, 130, 30);
 
         lblVencimento.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblVencimento.setText("Data de Vencimento:");
@@ -267,18 +181,17 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         panPrincipal1.add(lblQuitada);
         lblQuitada.setBounds(10, 50, 140, 25);
 
-        grupoQuitada.add(tbtQuitadaSim);
-        tbtQuitadaSim.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        tbtQuitadaSim.setSelected(true);
-        tbtQuitadaSim.setText("Sim");
-        tbtQuitadaSim.setOpaque(false);
-        tbtQuitadaSim.addActionListener(new java.awt.event.ActionListener() {
+        grupoQuitada.add(rbtQuitadaSim);
+        rbtQuitadaSim.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        rbtQuitadaSim.setText("Sim");
+        rbtQuitadaSim.setOpaque(false);
+        rbtQuitadaSim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tbtQuitadaSimActionPerformed(evt);
+                rbtQuitadaSimActionPerformed(evt);
             }
         });
-        panPrincipal1.add(tbtQuitadaSim);
-        tbtQuitadaSim.setBounds(160, 50, 55, 25);
+        panPrincipal1.add(rbtQuitadaSim);
+        rbtQuitadaSim.setBounds(160, 50, 55, 25);
 
         grupoQuitada.add(rbtQuitadaNao);
         rbtQuitadaNao.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
@@ -341,9 +254,58 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         btnAlterar.setBounds(980, 310, 130, 30);
 
         lblDigiteODado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblDigiteODado.setText("Digite o(a) Código:");
+        lblDigiteODado.setText("Digite o cód. da despesa:");
         panPrincipal.add(lblDigiteODado);
         lblDigiteODado.setBounds(375, 10, 280, 25);
+
+        txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPesquisaKeyReleased(evt);
+            }
+        });
+        panPrincipal.add(txtPesquisa);
+        txtPesquisa.setBounds(620, 10, 60, 25);
+
+        txtfDataDe.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        txtfDataDe.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfDataDeKeyReleased(evt);
+            }
+        });
+        panPrincipal.add(txtfDataDe);
+        txtfDataDe.setBounds(620, 10, 100, 25);
+
+        btnHojePesquisa.setText("Hoje");
+        btnHojePesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHojePesquisaActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnHojePesquisa);
+        btnHojePesquisa.setBounds(730, 10, 55, 25);
+
+        lblDataAte.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblDataAte.setText("Até:");
+        panPrincipal.add(lblDataAte);
+        lblDataAte.setBounds(800, 10, 34, 25);
+
+        txtfDataAte.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        txtfDataAte.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfDataAteKeyReleased(evt);
+            }
+        });
+        panPrincipal.add(txtfDataAte);
+        txtfDataAte.setBounds(840, 10, 100, 25);
+
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnPesquisar);
+        btnPesquisar.setBounds(950, 10, 79, 25);
 
         getContentPane().add(panPrincipal);
         panPrincipal.setBounds(10, 10, 1125, 350);
@@ -410,123 +372,32 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFiltroActionPerformed
-        // TODO add your handling code here:
+        lblDigiteODado.setText("Digite o(a) " + cmbFiltro.getSelectedItem().toString() + ":");
+        limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
     }//GEN-LAST:event_cmbFiltroActionPerformed
 
-    private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
-
-    }//GEN-LAST:event_txtPesquisaActionPerformed
-
-    private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
-        // Chamando método de listagem com filtro, se txt preenchido
-        try {
-            //criando variável de controle
-            int controle = 0;
-
-            //Se campo de texto não estiver vazio
-            if (!"".equals(txtPesquisa.getText().trim())) {
-                controle = 1;
-                atualizarTabelaFiltrada();
-            }
-
-            //Se a variável de controle for 0, diz-se que o campo está vazio e, portanto, atualiza a JTable
-            if (controle == 0) {
-                atualizarTabela();
-            }
-        } catch (Exception ex) {
-            System.out.println("Exceção: " + ex);
-        }
-    }//GEN-LAST:event_txtPesquisaKeyReleased
-
-    private void txtPesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyTyped
-
-    }//GEN-LAST:event_txtPesquisaKeyTyped
-
-    private void txtDataAntesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataAntesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDataAntesActionPerformed
-
-    private void txtDataAntesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDataAntesKeyReleased
-        try {
-            int controle = 0;
-            if (!"".equals(txtDataAntes.getText().trim())) {
-                controle = 1;
-                atualizarTabelaFiltradaData();
-            }
-            if (controle == 0) {
-                atualizarTabela();
-            }
-        } catch (Exception ex) {
-            System.out.println("Exceção: " + ex);
-        }
-    }//GEN-LAST:event_txtDataAntesKeyReleased
-
-    private void txtDataAntesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDataAntesKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDataAntesKeyTyped
-
-    private void txtDataDepoisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataDepoisActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDataDepoisActionPerformed
-
-    private void txtDataDepoisKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDataDepoisKeyReleased
-        try {
-            int controle = 0;
-            if (!"".equals(txtDataDepois.getText().trim())) {
-                controle = 1;
-                atualizarTabelaFiltradaData();
-            }
-            if (controle == 0) {
-                atualizarTabela();
-            }
-        } catch (Exception ex) {
-            System.out.println("Exceção: " + ex);
-        }
-    }//GEN-LAST:event_txtDataDepoisKeyReleased
-
-    private void txtDataDepoisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDataDepoisKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDataDepoisKeyTyped
-
     private void tblListagemDespesaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListagemDespesaMouseClicked
-        //txaDescricaoSelecionada.setText((String) tblListagemDespesa.getValueAt(tblListagemDespesa.getSelectedRow(), 3));
+        popularCampos();
     }//GEN-LAST:event_tblListagemDespesaMouseClicked
 
-    private void btnHojePesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojePesquisaActionPerformed
-        //txtfDataDe.setText(control.Datas.getDiaHoje());
-        //txtfDataAte.setText(control.Datas.getDiaHoje());
-    }//GEN-LAST:event_btnHojePesquisaActionPerformed
-
     private void txaDescricaoDespesaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txaDescricaoDespesaKeyReleased
-       // txaDescricaoDespesa.setText(TextSize.maxLenghtDescricaoDespesa(txaDescricaoDespesa.getText()));
+        txaDescricaoDespesa.setText(TextSize.maxLenghtDescricaoDespesa(txaDescricaoDespesa.getText()));
     }//GEN-LAST:event_txaDescricaoDespesaKeyReleased
-
-    private void btnListarDespesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarDespesasActionPerformed
-        control.Janelas.abrirListagemDespesa();
-    }//GEN-LAST:event_btnListarDespesasActionPerformed
-
-    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-       // limpar();
-    }//GEN-LAST:event_btnLimparActionPerformed
-
-    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        //cadastrarDespesa();
-    }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void txtfValorDespesaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfValorDespesaKeyReleased
         txtfValorDespesa.setText(control.TextSize.maxLenghtValorDespesa(txtfValorDespesa.getText()));
     }//GEN-LAST:event_txtfValorDespesaKeyReleased
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-        //deletarRegistro();
+        deletarRegistro();
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnLimparTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparTabelaActionPerformed
-        //limparTabela();
+        limparTabela();
     }//GEN-LAST:event_btnLimparTabelaActionPerformed
 
     private void btnListarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarTodosActionPerformed
-       // atualizarTabela(false);
+        atualizarTabela(false);
     }//GEN-LAST:event_btnListarTodosActionPerformed
 
     private void btnCadastrarDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarDespesaActionPerformed
@@ -534,11 +405,11 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarDespesaActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        //alterarRegistro();
+        alterarRegistro();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnDeletarTodosRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarTodosRegistrosActionPerformed
-        //removerTodosRegistros();
+        removerTodosRegistros();
     }//GEN-LAST:event_btnDeletarTodosRegistrosActionPerformed
 
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
@@ -549,13 +420,41 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnFecharFrameActionPerformed
 
-    private void tbtQuitadaSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtQuitadaSimActionPerformed
+    private void rbtQuitadaSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtQuitadaSimActionPerformed
 
-    }//GEN-LAST:event_tbtQuitadaSimActionPerformed
+    }//GEN-LAST:event_rbtQuitadaSimActionPerformed
 
     private void rbtQuitadaNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtQuitadaNaoActionPerformed
 
     }//GEN-LAST:event_rbtQuitadaNaoActionPerformed
+
+    private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
+        limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
+        pesquisarFiltrada();
+    }//GEN-LAST:event_txtPesquisaKeyReleased
+
+    private void txtfDataDeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataDeKeyReleased
+        txtfDataDe.setText(control.TextSize.maxLenghtData(txtfDataDe.getText()));
+    }//GEN-LAST:event_txtfDataDeKeyReleased
+
+    private void btnHojePesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojePesquisaActionPerformed
+        txtfDataDe.setText(control.Datas.getDiaHoje());
+        txtfDataAte.setText(control.Datas.getDiaHoje());
+    }//GEN-LAST:event_btnHojePesquisaActionPerformed
+
+    private void txtfDataAteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataAteKeyReleased
+        txtfDataAte.setText(control.TextSize.maxLenghtData(txtfDataAte.getText()));
+    }//GEN-LAST:event_txtfDataAteKeyReleased
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        txtfDataDe.setText(txtfDataDe.getText().trim());
+        txtfDataAte.setText(txtfDataAte.getText().trim());
+        if (txtfDataDe.getText().length() == 10 && txtfDataAte.getText().length() == 10) {
+            atualizarTabela(true);
+        } else {
+            limparTabela();
+        }
+    }//GEN-LAST:event_btnPesquisarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -593,145 +492,30 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         });
     }
 
-    private void atualizarTabelaFiltrada() {
-        ArrayList<Despesa> lista = new ArrayList<>();
-        lista = DaoDespesa.listarDespesaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().trim().toLowerCase());
-        String[] nomeColunas = {"Código", "Tipo Despesa", "Data", "Descrição", "Valor", "PK_REF"};
-        try {
-            DefaultTableModel model = new DefaultTableModel() {
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    if (column == 6) {
-                        return false;
-                    }
-                    return true;
-                }
-            };
-            tblListagemDespesa.setModel(model);
-            model.setColumnIdentifiers(nomeColunas);
-            model.setRowCount(0);
-            Object rowData[] = new Object[6];
-            for (int i = 0; i < lista.size(); i++) {
-                rowData[0] = Integer.toString(lista.get(i).getCodigoDespesa());
-                rowData[1] = lista.get(i).getTipoDespesas();
-                rowData[2] = lista.get(i).getDataDespesa().toString();
-                rowData[3] = lista.get(i).getDescricaoDespesa();
-                rowData[4] = lista.get(i).getValorDespesaSTR();
-                rowData[5] = Integer.toString(lista.get(i).getCodigoDespesa());
-
-                model.addRow(rowData);
-            }
-
-        } catch (Exception ex) {
-            System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
-        }
-
-        tblListagemDespesa.getColumnModel().getColumn(5).setMinWidth(0);
-        tblListagemDespesa.getColumnModel().getColumn(5).setPreferredWidth(0);
-        tblListagemDespesa.getColumnModel().getColumn(5).setMaxWidth(0);
-    }
-
-    private void atualizarTabelaFiltradaData() {
-        ArrayList<Despesa> lista = new ArrayList<>();
-        lista = DaoDespesa.listarDespesaFiltradaData(txtDataAntes.getText().trim(), txtDataDepois.getText().trim());
-        String[] nomeColunas = {"Código", "Tipo Despesa", "Data", "Descrição", "Valor", "PK_REF"};
-        try {
-            DefaultTableModel model = new DefaultTableModel() {
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    if (column == 6) {
-                        return false;
-                    }
-                    return true;
-                }
-            };
-            tblListagemDespesa.setModel(model);
-            model.setColumnIdentifiers(nomeColunas);
-            model.setRowCount(0);
-            Object rowData[] = new Object[6];
-            for (int i = 0; i < lista.size(); i++) {
-                rowData[0] = Integer.toString(lista.get(i).getCodigoDespesa());
-                rowData[1] = lista.get(i).getTipoDespesas();
-                rowData[2] = lista.get(i).getDataDespesa();
-                rowData[3] = lista.get(i).getDescricaoDespesa();
-                rowData[4] = lista.get(i).getValorDespesaSTR();
-                rowData[5] = Integer.toString(lista.get(i).getCodigoDespesa());
-
-                model.addRow(rowData);
-            }
-
-        } catch (Exception ex) {
-            System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
-        }
-
-        tblListagemDespesa.getColumnModel().getColumn(5).setMinWidth(0);
-        tblListagemDespesa.getColumnModel().getColumn(5).setPreferredWidth(0);
-        tblListagemDespesa.getColumnModel().getColumn(5).setMaxWidth(0);
-    }
-
-    private void atualizarTabela() {
-        ArrayList<Despesa> lista = new ArrayList<>();
-        lista = DaoDespesa.listarDespesa();
-        String[] nomeColunas = {"Código", "Tipo Despesa", "Data", "Descrição", "Valor", "PK_REF"};
-        try {
-            DefaultTableModel model = new DefaultTableModel() {
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    if (column == 6) {
-                        return false;
-                    }
-                    return true;
-                }
-            };
-            tblListagemDespesa.setModel(model);
-            model.setColumnIdentifiers(nomeColunas);
-            model.setRowCount(0);
-            Object rowData[] = new Object[6];
-            for (int i = 0; i < lista.size(); i++) {
-                rowData[0] = Integer.toString(lista.get(i).getCodigoDespesa());
-                rowData[1] = lista.get(i).getTipoDespesas();
-                rowData[2] = lista.get(i).getDataDespesa();
-                rowData[3] = lista.get(i).getDescricaoDespesa();
-                rowData[4] = lista.get(i).getValorDespesaSTR();
-                rowData[5] = Integer.toString(lista.get(i).getCodigoDespesa());
-
-                model.addRow(rowData);
-            }
-
-        } catch (Exception ex) {
-            System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
-        }
-
-        tblListagemDespesa.getColumnModel().getColumn(5).setMinWidth(0);
-        tblListagemDespesa.getColumnModel().getColumn(5).setPreferredWidth(0);
-        tblListagemDespesa.getColumnModel().getColumn(5).setMaxWidth(0);
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
-    private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCadastrarDespesa;
     private javax.swing.JButton btnDeletar;
     private javax.swing.JButton btnDeletarTodosRegistros;
     private javax.swing.JButton btnFecharFrame;
     private javax.swing.JButton btnHojePesquisa;
-    private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnLimparTabela;
-    private javax.swing.JButton btnListarDespesas;
     private javax.swing.JButton btnListarTodos;
     private javax.swing.JButton btnMenuPrincipal;
+    private javax.swing.JButton btnPesquisar;
     private javax.swing.JComboBox<String> cmbFiltro;
     private javax.swing.JComboBox<String> cmbTipoDespesa;
     private javax.swing.ButtonGroup grupoQuitada;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblBackground;
+    private javax.swing.JLabel lblDataAte;
     private javax.swing.JLabel lblDescrição;
     private javax.swing.JLabel lblDespesaEncontrado;
     private javax.swing.JLabel lblDigiteODado;
     private javax.swing.JLabel lblPesquisar;
-    private javax.swing.JLabel lblPesquisarData;
-    private javax.swing.JLabel lblPesquisarData1;
     private javax.swing.JLabel lblQuitada;
     private javax.swing.JLabel lblTipoDespesa;
     private javax.swing.JLabel lblValorDespesa;
@@ -739,16 +523,17 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
     private javax.swing.JPanel panPrincipal;
     private javax.swing.JPanel panPrincipal1;
     private javax.swing.JRadioButton rbtQuitadaNao;
+    private javax.swing.JRadioButton rbtQuitadaSim;
     private javax.swing.JTable tblListagemDespesa;
-    private javax.swing.JRadioButton tbtQuitadaSim;
     private javax.swing.JTextArea txaDescricaoDespesa;
-    private javax.swing.JTextField txtDataAntes;
-    private javax.swing.JTextField txtDataDepois;
     private javax.swing.JTextField txtPesquisa;
+    private javax.swing.JFormattedTextField txtfDataAte;
+    private javax.swing.JFormattedTextField txtfDataDe;
     private javax.swing.JFormattedTextField txtfDataVencimento;
     private javax.swing.JFormattedTextField txtfValorDespesa;
     // End of variables declaration//GEN-END:variables
 
+      
         
     private void selecionarLinhaTabela(int codigoDespesa) {
         int indiceTabela = 0;
@@ -760,5 +545,327 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         }
         tblListagemDespesa.getSelectionModel().setSelectionInterval(indiceTabela, indiceTabela);
         popularCampos();
+    }
+
+    private void selecionarAoFocar() {
+        //Código para selecionar o texto todo ao ganhar foco
+        txtfDataDe.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfDataDe.selectAll();
+                    }
+                });
+            }
+        });
+
+        txtfDataAte.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfDataAte.selectAll();
+                    }
+                });
+            }
+        });
+
+        txtfDataVencimento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfDataVencimento.selectAll();
+                    }
+                });
+            }
+        });
+    }
+
+    private void inicializarTabela() {
+        String[] nomeColunas = {"Código", "Tipo de Despesa", "Data de Vencimento", "Valor", "Quitada?", "Descrição Detalhada"};
+
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        tblListagemDespesa.setModel(model);
+        model.setColumnIdentifiers(nomeColunas);
+        model.setRowCount(0);
+    }
+
+    private void modoPesquisaNormal() {
+        txtPesquisa.setSize(490, 25);
+        txtPesquisa.setVisible(true);
+        txtfDataDe.setVisible(false);
+        txtfDataAte.setVisible(false);
+        lblDataAte.setVisible(false);
+        btnPesquisar.setVisible(false);
+    }
+
+    private void pesquisarFiltrada() {
+        int opcaoFiltro = cmbFiltro.getSelectedIndex();
+        int opcaoDataCadastro = 9;
+        int opcaoDataDeAte = 10;
+
+        if ((opcaoFiltro != opcaoDataCadastro) && (opcaoFiltro != opcaoDataDeAte)) {
+            if (!"".equals(txtPesquisa.getText().trim())) {
+                atualizarTabela(true);
+            } else {
+                limparTabela();
+            }
+        }
+    }
+
+    private void atualizarTabela(boolean filtrada) {
+        DefaultTableModel model = new DefaultTableModel();
+        model = (DefaultTableModel) tblListagemDespesa.getModel();
+        model.setRowCount(0);
+
+        ArrayList<Despesa> lista = new ArrayList<>();
+
+        if (filtrada) {
+            lista = DaoDespesa.listarDespesaFiltrada(String.valueOf(cmbFiltro.getSelectedItem()),
+                    txtPesquisa.getText().toLowerCase().trim(), txtfDataDe.getText().toLowerCase().trim(),
+                    txtfDataAte.getText().toLowerCase().trim());
+            ultimoTipoPesquisa = true;
+        } else {
+            lista = DaoDespesa.listarDespesa();
+            ultimoTipoPesquisa = false;
+        }
+
+        Object dadosLinha[] = new Object[6];
+
+        for (int i = 0; i < lista.size(); i++) {
+            dadosLinha[0] = lista.get(i).getCodigoDespesa();
+            dadosLinha[1] = lista.get(i).getTipoDespesas();
+            dadosLinha[2] = lista.get(i).getDataDespesa();
+            dadosLinha[3] = lista.get(i).getValorDespesaSTR();
+            dadosLinha[4] = lista.get(i).getQuitadaSTR();
+            dadosLinha[5] = lista.get(i).getDescricaoDespesa();
+            model.addRow(dadosLinha);
+        }
+        //String[] nomeColunas = {"Código", "Tipo de Despesa", "Data de Vencimento", "Valor", "Quitada?", "Descrição Detalhada"};
+
+        limparCampos();
+
+    }
+
+    private void limparCampos() {
+        cmbTipoDespesa.setSelectedIndex(0);
+        txtfDataVencimento.setText("");
+        txtfValorDespesa.setText("0,00");
+        txaDescricaoDespesa.setText("");
+        rbtQuitadaNao.setSelected(false);
+        rbtQuitadaSim.setSelected(false);
+        PK_REF = -1;
+    }
+
+    private void limparTabela() {
+        DefaultTableModel model = new DefaultTableModel();
+        model = (DefaultTableModel) tblListagemDespesa.getModel();
+        model.setRowCount(0);
+        /*
+        Chama o metodo limparCampos para limpar os dados do registro anteriormente
+        selecionado.
+         */
+        limparCampos();
+    }
+
+    private void popularCampos() {
+        Despesa despesa = new Despesa();
+
+        String codigoDespesaSTR = String.valueOf(tblListagemDespesa.getValueAt(tblListagemDespesa.getSelectedRow(), 0));
+        long codigoDespesa = Long.parseLong(codigoDespesaSTR);
+        despesa = dao.DaoDespesa.popularDespesa(codigoDespesa);
+        
+        boolean despesaQuitada = despesa.getQuitadaBoolean();
+        
+        if (despesaQuitada) {
+            rbtQuitadaSim.setSelected(true);
+            rbtQuitadaNao.setSelected(false);
+        } else {
+            rbtQuitadaSim.setSelected(false);
+            rbtQuitadaNao.setSelected(true);
+        }
+        
+        cmbTipoDespesa.setSelectedItem((String) despesa.getTipoDespesas());
+        txtfDataVencimento.setText(despesa.getDataDespesa());
+        txtfValorDespesa.setText(despesa.getValorDespesaSTR());
+        txaDescricaoDespesa.setText(despesa.getDescricaoDespesa());
+        PK_REF = despesa.getCodigoDespesa();
+
+    }
+
+    private void limiteDigitosPesquisa(String filtro) {
+        /*
+Código
+Tipo de Despesa
+Descrição Detalhada
+Valor
+Quitada?
+Data de Vencimento
+Data de Vencimento Entre/Até
+        */
+        
+        
+        switch (filtro) {
+            case "Código":
+                lblDigiteODado.setText("Digite o cód. da despesa:");
+                txtPesquisa.setText(control.TextSize.maxLenghtCodigoDespesa(txtPesquisa.getText()));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "Tipo de Despesa":
+                lblDigiteODado.setText("Digite o tipo:");
+                txtPesquisa.setText(control.TextSize.maxLenghtTipoDespesa(txtPesquisa.getText()));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "Descrição Detalhada":
+                lblDigiteODado.setText("Digite a descrição:");
+                txtPesquisa.setText(control.TextSize.maxLenghtDescricaoDespesa(txtPesquisa.getText()));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "Valor":
+                lblDigiteODado.setText("Digite o valor:");
+                txtPesquisa.setText(control.TextSize.maxLenghtValorDespesa(txtPesquisa.getText()));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "Quitada?":
+                lblDigiteODado.setText("Digite Sim ou Não:");
+                txtPesquisa.setText(control.TextSize.maxLenghtDespesaQuitada(txtPesquisa.getText()));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;            
+            case "Data de Vencimento":
+                lblDigiteODado.setText("Digite a data de vencimento:");
+                modoPesquisaData(false);
+                txtfDataDe.requestFocus();
+                break;
+            case "Data de Vencimento Entre/Até":
+                lblDigiteODado.setText("Digite a data Inicial:");
+                modoPesquisaData(true);
+                txtfDataDe.requestFocus();
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "Erro ao definir limite de caracteres do campo de pesquisa.",
+                        "Erro - limite de dígitos dinâmico", 0);
+                break;
+        }
+
+    }
+
+    private void modoPesquisaData(boolean fixaOuEntre) {
+        boolean dataFixa = false;
+        boolean dataEntreAte = true;
+
+        if (fixaOuEntre == dataEntreAte) {
+            txtPesquisa.setVisible(false);
+            txtfDataDe.setVisible(true);
+            txtfDataAte.setVisible(true);
+            lblDataAte.setVisible(true);
+            btnPesquisar.setVisible(true);
+        } else if (fixaOuEntre == dataFixa) {
+            txtPesquisa.setVisible(false);
+            txtfDataDe.setVisible(true);
+            txtfDataAte.setVisible(false);
+            lblDataAte.setVisible(false);
+            btnPesquisar.setVisible(true);
+        }
+    }
+
+    private void deletarRegistro() {
+        int opcao;
+        String codigoDespesaSTR = String.valueOf(tblListagemDespesa.getValueAt(tblListagemDespesa.getSelectedRow(), 0));
+        long codigoDespesa = Long.parseLong(codigoDespesaSTR);
+        opcao = JOptionPane.showConfirmDialog(this, "Atenção! Todos os registros relacionados a despesa de código "
+                + codigoDespesa + " serão permanentemente removidos.\n\nDeseja realmente excluir o registro?",
+                "Confirmação de exclusão",
+                JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+        if (opcao == 0) {          
+            dao.DaoDespesa.deletarDespesa(codigoDespesa);
+            atualizarTabela(ultimoTipoPesquisa);
+            limparCampos();
+        }
+    }
+
+    private void removerTodosRegistros() {
+        int opcao;
+        opcao = JOptionPane.showConfirmDialog(this, "Deseja REALMENTE remover todas as despesas do banco de dados?\n\n",
+                "Alerta - remoção de todos os registros", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (opcao == 0) {
+            opcao = JOptionPane.showConfirmDialog(this, "Essa operação tem grandes chances de falhar, devido a existência\n"
+                    + "de restrições de chaves estrangeiras no banco de dados.\n\n"
+                    + "Deseja REALMENTE tentar excluir todos os registros do banco de dados?\n\n"
+                    + "Caso a operação suceda, todos os dados serão permanentemente excluídos.\n"
+                    + "Caso ela falhe, talvez alguns registros possam ter sidos excluidos, e outros não."
+                    + "\n\n"
+                    + "Deseja prosseguir?",
+                    "Alerta - remoção de todos os registros", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            if (opcao == 0) {
+                boolean exclusaoSucedida;
+                exclusaoSucedida = dao.DaoDespesa.deletarTodasDespesas();
+                if (exclusaoSucedida) {
+                    atualizarTabela(ultimoTipoPesquisa);
+                }
+            }
+        }
+    }
+
+    private void alterarRegistro() {
+        if (validarCampos()) {
+            Despesa despesa = new Despesa();
+            
+            despesa.setTipoDespesas((String) cmbTipoDespesa.getSelectedItem());
+            despesa.setDataDespesa(txtfDataVencimento.getText());
+            despesa.setValorDespesa(txtfValorDespesa.getText());
+            despesa.setQuitada(rbtQuitadaSim.isSelected());
+            despesa.setDescricaoDespesa(txaDescricaoDespesa.getText());
+            
+            boolean alteracaoSucedida;
+            alteracaoSucedida = dao.DaoDespesa.alterarDespesa(despesa, PK_REF);
+
+            if (alteracaoSucedida) {
+                atualizarTabela(ultimoTipoPesquisa);
+                limparCampos();
+            }
+        }
+    }
+    
+    private boolean validarCampos() {
+        boolean selectionEmpty = tblListagemDespesa.getSelectionModel().isSelectionEmpty();
+        if (selectionEmpty){
+            JOptionPane.showMessageDialog(this, "Nenhum registro selecionado da tabela.\n\n"
+                    + "Pesquise por algum registro e clique em alguma linha da tabela.", "Erro - Não há registro selecionado", 0);
+            return false;
+        } else if (txtfDataVencimento.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Data de vencimento em branco. Digite uma data válida.", "Erro - DAta de Vencimento Inválida", 0);
+            txtfDataVencimento.requestFocus();
+            return false;
+        } else if (txtfValorDespesa.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Valor da despesa em branco. Digite um valor para a despesa diferente de zero.", "Erro - Valor da Despesa Inválida", 0);
+            txtfValorDespesa.requestFocus();
+            return false;
+        } else if (txtfValorDespesa.getText().equals("0,00")) {
+            JOptionPane.showMessageDialog(null, "Valor da despesa zerada. Digite um valor para a despesa diferente de zero.", "Erro - Valor da Despesa Inválida", 0);
+            txtfValorDespesa.requestFocus();
+            return false;
+        } else if (rbtQuitadaNao.isSelected() == false && rbtQuitadaSim.isSelected() == false) {
+            JOptionPane.showMessageDialog(null, "Estado da quitação da despesa não selecionada", "Erro - Quitação da Despesa Inválida", 0);
+            rbtQuitadaNao.requestFocus();
+            return false;
+        } else if (txaDescricaoDespesa.getText().isEmpty()) {
+            txaDescricaoDespesa.setText("Sem descrição.");
+            return true;
+        } else {
+            return true;
+        }
     }
 }

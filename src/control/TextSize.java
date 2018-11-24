@@ -11,6 +11,33 @@ package control;
  */
 public class TextSize {
     
+    public static String maxLenghtDespesaQuitada(String str) {
+        String valor = "";
+        if (str.length() > 3) {
+            valor = str.substring(0, 3);
+            str = valor;
+        }
+        return str;
+    }
+    
+    public static String maxLenghtCodigoDespesa(String str) {
+        String valor = "";
+        if (str.length() > 10) {
+            valor = str.substring(0, 10);
+            str = valor;
+        }
+        return str;
+    }
+    
+    public static String maxLenghtTipoDespesa(String str) {
+        String valor = "";
+        if (str.length() > 30) {
+            valor = str.substring(0, 30);
+            str = valor;
+        }
+        return str;
+    }
+    
     public static String maxLenghtLogradouro(String str) {
         String valor = "";
         if (str.length() > 100) {

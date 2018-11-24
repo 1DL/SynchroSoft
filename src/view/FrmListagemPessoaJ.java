@@ -212,7 +212,6 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         rbtSimCadastro.setBounds(148, 10, 55, 25);
 
         rbtNaoCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        rbtNaoCadastro.setSelected(true);
         rbtNaoCadastro.setText("Não");
         rbtNaoCadastro.setOpaque(false);
         rbtNaoCadastro.addActionListener(new java.awt.event.ActionListener() {

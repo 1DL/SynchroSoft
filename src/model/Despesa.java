@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
  * @author LuizV1
  */
 public class Despesa {
+
     private int codigoDespesa;
     private Date dataDespesa;
     private String tipoDespesas;
@@ -21,7 +22,7 @@ public class Despesa {
     private float valorDespesa;
     private boolean validacao;
     private int quitada;
-    
+
     public Despesa(String dataDespesa, String tipoDespesas, String descricaoDespesa, String valorDespesa, boolean quitada) {
         this.setDataDespesa(dataDespesa);
         this.tipoDespesas = tipoDespesas;
@@ -30,8 +31,8 @@ public class Despesa {
         this.setQuitada(quitada);
     }
 
-    public Despesa () {
-        
+    public Despesa() {
+
     }
 
     public int getCodigoDespesa() {
@@ -49,7 +50,7 @@ public class Despesa {
     public void setDataDespesa(String dataDespesa) {
         this.dataDespesa = Date.valueOf(control.Datas.converterParaAmericana(dataDespesa));
     }
-    
+
     public void setDataDespesaBanco(String dataDespesa) {
         this.dataDespesa = Date.valueOf(dataDespesa);
     }
@@ -73,8 +74,8 @@ public class Despesa {
     public float getValorDespesaBanco() {
         return valorDespesa;
     }
-    
-    public String getValorDespesaSTR(){
+
+    public String getValorDespesaSTR() {
         String valorSTR;
         valorSTR = (new DecimalFormat("#0.00").format(valorDespesa));
         valorSTR = valorSTR.replace(".", ",");
@@ -84,8 +85,8 @@ public class Despesa {
     public void setValorDespesa(String valorDespesa) {
         valorDespesa = valorDespesa.replace(",", ".");
         try {
-        this.valorDespesa = Float.parseFloat(valorDespesa);
-        validacao = true;
+            this.valorDespesa = Float.parseFloat(valorDespesa);
+            validacao = true;
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(null, "Valor da despesa inválido. Use somente números inteiros e/ou decimais.", "Erro - Valor Despesa inválido", 0);
             validacao = false;
@@ -99,7 +100,7 @@ public class Despesa {
     public void setValidacao(boolean validacao) {
         this.validacao = validacao;
     }
-    
+
     public void setQuitada(boolean quitada) {
         if (quitada) {
             this.quitada = 1;
@@ -107,15 +108,15 @@ public class Despesa {
             this.quitada = 0;
         }
     }
-    
+
     public int getQuitada() {
         return quitada;
     }
-    
+
     public void setQuitadaBanco(int quitada) {
         this.quitada = quitada;
     }
-    
+
     public boolean getQuitadaBoolean() {
         if (quitada == 0) {
             return false;
@@ -123,7 +124,7 @@ public class Despesa {
             return true;
         }
     }
-    
+
     public void setQuitadaSTR(String quitada) {
         if (quitada.equals("Sim")) {
             this.quitada = 1;
@@ -131,7 +132,7 @@ public class Despesa {
             this.quitada = 0;
         }
     }
-    
+
     public String getQuitadaSTR() {
         if (quitada == 0) {
             return "Não";
