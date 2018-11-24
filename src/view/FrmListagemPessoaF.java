@@ -785,7 +785,12 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
     }
 
     private boolean validarCampos() {
-        if (txtNomePessoaFicticio.getText().equals("")) {
+        boolean selectionEmpty = tblListagemPessoaF.getSelectionModel().isSelectionEmpty();
+        if (selectionEmpty){
+            JOptionPane.showMessageDialog(this, "Nenhum registro selecionado da tabela.\n\n"
+                    + "Pesquise por algum registro e clique em alguma linha da tabela.", "Erro - Não há registro selecionado", 0);
+            return false;
+        } else if (txtNomePessoaFicticio.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Nome em branco. \nDigite um nome para a pessoa física.", "Erro - Nome Inválido", 0);
             txtNomePessoaFicticio.requestFocus();
             return false;
@@ -901,6 +906,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
                 txtPesquisa.setText(control.TextSize.maxLenghtSexo(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 lblDigiteODado.setText("Digite Masculino ou Feminino:");
+                txtPesquisa.requestFocus();
                 break;
             case "Telefone":
                 txtPesquisa.setText(control.TextSize.maxLenghtTelefone(txtPesquisa.getText()));

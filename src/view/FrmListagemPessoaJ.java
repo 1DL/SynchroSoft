@@ -5,27 +5,42 @@
  */
 package view;
 
+import control.TextSize;
 import dao.DaoPessoa;
+import java.awt.Color;
 import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import model.Endereco;
 import model.PessoaJuridica;
+import model.Pessoa;
 
 /**
  *
  * @author Luiz
  */
 public class FrmListagemPessoaJ extends javax.swing.JFrame {
-
+    
+    private boolean cepCadastrado;
+    private boolean ultimoTipoPesquisa;
+    private boolean existeCnpj;
+    private String PK_REF;
+    
     /**
      * Creates new form FrmListagemPessoa
      */
     public FrmListagemPessoaJ(int nvlAdm) {
         initComponents();
-        atualizarTabela();
+        inicializarTabela();
+        txtfDataDe.setText(control.Datas.getDiaHoje());
+        txtfDataAte.setText(control.Datas.getDiaHoje());
+        selecionarAoFocar();
+        modoPesquisaNormal();
     }
 
     /**
@@ -102,7 +117,13 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         panPrincipal.add(lblPesquisar);
         lblPesquisar.setBounds(10, 10, 120, 25);
 
-        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome Fictício", "CNPJ", "CEP", "Logradouro", "Razão Social", "Número Endereço", "Telefone", "Ramal", "Contrato", "Data Cadastro" }));
+        cmbFiltro.setMaximumRowCount(15);
+        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome Fictício", "CNPJ", "Razão Social", "CEP", "Logradouro", "Nr Logradouro", "Telefone", "Ramal", "Mantém Contrato?", "Data de Cadastro", "Data Entre/Até" }));
+        cmbFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbFiltroActionPerformed(evt);
+            }
+        });
         panPrincipal.add(cmbFiltro);
         cmbFiltro.setBounds(160, 10, 210, 25);
 
@@ -203,7 +224,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         rbtNaoCadastro.setBounds(210, 10, 59, 25);
 
         lblCpfCnpj.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCpfCnpj.setText("CPF:");
+        lblCpfCnpj.setText("CNPJ:");
         panPrincipal1.add(lblCpfCnpj);
         lblCpfCnpj.setBounds(530, 50, 140, 25);
 
@@ -252,7 +273,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         btnHoje.setBounds(810, 10, 55, 25);
 
         lblCpfCnpjExiste.setForeground(java.awt.Color.red);
-        lblCpfCnpjExiste.setText("CPF Inválido.");
+        lblCpfCnpjExiste.setText("CNPJ Inválido.");
         panPrincipal1.add(lblCpfCnpjExiste);
         lblCpfCnpjExiste.setBounds(810, 50, 190, 25);
 
@@ -337,6 +358,11 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
 
         lblDigiteODado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDigiteODado.setText("Digite o(a) Nome Fictício:");
+        lblDigiteODado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                lblDigiteODadoKeyReleased(evt);
+            }
+        });
         panPrincipal.add(lblDigiteODado);
         lblDigiteODado.setBounds(375, 10, 280, 25);
 
@@ -408,6 +434,11 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblListagemPessoaJ.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblListagemPessoaJMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblListagemPessoaJ);
 
         getContentPane().add(jScrollPane1);
@@ -454,7 +485,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     DaoPessoa pessoa = new DaoPessoa();
     private void btnDeletarTodosRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarTodosRegistrosActionPerformed
-      //  removerTodosRegistros();
+        removerTodosRegistros();
     }//GEN-LAST:event_btnDeletarTodosRegistrosActionPerformed
 
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
@@ -466,11 +497,11 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharFrameActionPerformed
 
     private void txtTelefoneKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyReleased
-      //  txtTelefone.setText(TextSize.maxLenghtTelefone(txtTelefone.getText()));
+        txtTelefone.setText(TextSize.maxLenghtTelefone(txtTelefone.getText()));
     }//GEN-LAST:event_txtTelefoneKeyReleased
 
     private void txtNomePessoaFicticioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomePessoaFicticioKeyReleased
-      //  txtNomePessoaFicticio.setText(TextSize.maxLenghtNomeRazao(txtNomePessoaFicticio.getText()));
+        txtNomePessoaFicticio.setText(TextSize.maxLenghtNomeRazao(txtNomePessoaFicticio.getText()));
     }//GEN-LAST:event_txtNomePessoaFicticioKeyReleased
 
     private void btnCadastrarCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCepActionPerformed
@@ -482,7 +513,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumeroLogradouroActionPerformed
 
     private void txtNumeroLogradouroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroLogradouroKeyReleased
-      //  txtNumeroLogradouro.setText(TextSize.maxLenghtNrLogradouro(txtNumeroLogradouro.getText()));
+        txtNumeroLogradouro.setText(TextSize.maxLenghtNrLogradouro(txtNumeroLogradouro.getText()));
     }//GEN-LAST:event_txtNumeroLogradouroKeyReleased
 
     private void rbtSimCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtSimCadastroActionPerformed
@@ -494,11 +525,11 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtNaoCadastroActionPerformed
 
     private void txtRazaoSocialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazaoSocialKeyReleased
-      //  txtRazaoSocial.setText(TextSize.maxLenghtNomeRazao(txtRazaoSocial.getText()));
+        txtRazaoSocial.setText(TextSize.maxLenghtNomeRazao(txtRazaoSocial.getText()));
     }//GEN-LAST:event_txtRazaoSocialKeyReleased
 
     private void txtCelRamalKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCelRamalKeyReleased
-     //   textSizeCelRamal();
+        textSizeCelRamal();
     }//GEN-LAST:event_txtCelRamalKeyReleased
 
     private void btnHojeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojeActionPerformed
@@ -506,31 +537,31 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHojeActionPerformed
 
     private void txtfCepFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfCepFocusLost
-      //  verificarCep();
+        verificarCep();
     }//GEN-LAST:event_txtfCepFocusLost
 
     private void txtfCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfCepKeyReleased
-      //  verificarCep();
+        verificarCep();
     }//GEN-LAST:event_txtfCepKeyReleased
 
     private void txtCpfCnpjFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCpfCnpjFocusLost
-      //  textSizeCPFJCNPJ();
+        textSizeCPFJCNPJ();
     }//GEN-LAST:event_txtCpfCnpjFocusLost
 
     private void txtCpfCnpjKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfCnpjKeyReleased
-      //  textSizeCPFJCNPJ();
+        textSizeCPFJCNPJ();
     }//GEN-LAST:event_txtCpfCnpjKeyReleased
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-       // deletarRegistro();
+        deletarRegistro();
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnLimparTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparTabelaActionPerformed
-       // limparTabela();
+        limparTabela();
     }//GEN-LAST:event_btnLimparTabelaActionPerformed
 
     private void btnListarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarTodosActionPerformed
-       // atualizarTabela(false);
+        atualizarTabela(false);
     }//GEN-LAST:event_btnListarTodosActionPerformed
 
     private void btnCadastrarCnpjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCnpjActionPerformed
@@ -538,7 +569,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarCnpjActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-      //  alterarRegistro();
+        alterarRegistro();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
@@ -546,12 +577,12 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesquisaActionPerformed
 
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
-       // limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
-       // pesquisarFiltrada();
+        limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
+        pesquisarFiltrada();
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
     private void txtfDataDeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataDeKeyReleased
-       // pesquisarFiltrada();
+        txtfDataDe.setText(control.TextSize.maxLenghtData(txtfDataDe.getText()));
     }//GEN-LAST:event_txtfDataDeKeyReleased
 
     private void btnHojePesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojePesquisaActionPerformed
@@ -560,7 +591,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHojePesquisaActionPerformed
 
     private void txtfDataAteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataAteKeyReleased
-       // pesquisarFiltrada();
+        txtfDataAte.setText(control.TextSize.maxLenghtData(txtfDataAte.getText()));
     }//GEN-LAST:event_txtfDataAteKeyReleased
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
@@ -572,6 +603,20 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
             limparTabela();
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void cmbFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFiltroActionPerformed
+        lblDigiteODado.setText("Digite o(a) " + cmbFiltro.getSelectedItem().toString() + ":");
+        limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
+    }//GEN-LAST:event_cmbFiltroActionPerformed
+
+    private void lblDigiteODadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lblDigiteODadoKeyReleased
+        limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
+        pesquisarFiltrada();
+    }//GEN-LAST:event_lblDigiteODadoKeyReleased
+
+    private void tblListagemPessoaJMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListagemPessoaJMouseClicked
+        popularCampos();
+    }//GEN-LAST:event_tblListagemPessoaJMouseClicked
 
     /**
      * @param args the command line arguments
@@ -611,148 +656,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         });
     }  
        
-    private void atualizarTabelaFiltrada (){
-       
-//        DaoPeca teste = new DaoPeca();
-        
-        //Instanciando array de pessoas para preenchimento da tabela
-        //ArrayList<Pessoa> lista = new ArrayList<>();
-        ArrayList<PessoaJuridica> lista = new ArrayList<>();
-        //Chamando método para preenchimento de Jtable com dados da tabela de peça
-        lista = DaoPessoa.listarPessoaJuridicaFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().toLowerCase().trim());
-//        System.out.println(lista.get(0).);
-        String[] nomeColunas = {"CNPJ","CEP","Nome Fictício","Razão Social","Nº", "Telefone", "Ramal", "Contrato", 
-            "Data Cadastro","PK Ref"};
-        try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPeca()
-        {
-            //declaração de variável pra contrato
-            String contrato = "";
- 
-            DefaultTableModel model = new DefaultTableModel() {
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    if (column == 10) {
-                        //Coluna 9 não poderá ser editada.
-                        return false;
-                    }
-                    return true;
-                }
-            };
-            tblListagemPessoaJ.setModel(model);
-            model.setColumnIdentifiers(nomeColunas);
-            model.setRowCount(0);
-        Object rowData[] = new Object[10];
-        for(int i = 0; i < lista.size(); i++)
-        {
-            //Se o manter contrato for 1, possui; senão, não possui
-            if(lista.get(i).getPessoa().getManterContrato() == 0)
-            {
-                contrato = "Sim";
-            }
-            else
-            {
-                contrato = "Não";
-            }
-            
-            
-            rowData[0] = lista.get(i).getCnpj();
-            rowData[1] = lista.get(i).getPessoa().getEndereco().getCep();
-            rowData[2] = lista.get(i).getPessoa().getNome();
-            rowData[3] = lista.get(i).getRazaoSocial();
-            rowData[4] = lista.get(i).getPessoa().getComplementoLogradouro();
-            rowData[5] = Long.toString(lista.get(i).getPessoa().getTelefone());
-            rowData[6] = Long.toString(lista.get(i).getRamalCliente());
-            rowData[7] = contrato;
-            rowData[8] = lista.get(i).getDataCadastro().toString();
-            rowData[9] = lista.get(i).getCnpj();
-            
-            
-            model.addRow(rowData);
-            
-        }
-                    
-        }
-        catch(Exception ex)
-        {
-            System.out.println("Erro ao popular tabela.\n\n"+ex.getMessage());
-        }
-        
-        tblListagemPessoaJ.getColumnModel().getColumn(9).setMinWidth(0);
-        tblListagemPessoaJ.getColumnModel().getColumn(9).setPreferredWidth(0);
-        tblListagemPessoaJ.getColumnModel().getColumn(9).setMaxWidth(0);
-    }
-
-    //Criando método de preenchimento/atualização de tabela com dados do banco
-    private void atualizarTabela (){
-       
-//        DaoPeca teste = new DaoPeca();
-        
-        //Instanciando array de pessoas para preenchimento da tabela
-        //ArrayList<Pessoa> lista = new ArrayList<>();
-        ArrayList<PessoaJuridica> lista = new ArrayList<>();
-        //Chamando método para preenchimento de Jtable com dados da tabela de peça
-        lista = DaoPessoa.listarPessoaJuridica();
-//        System.out.println(lista.get(0).);
-        String[] nomeColunas = {"CNPJ","CEP","Nome Fictício","Razão Social","Nº", "Telefone", "Ramal", "Contrato", 
-            "Data Cadastro","PK Ref"};
-        try //Dentro deste try está a criação do modelo Jtable e o preenchimento das linhas pelo método ListarPeca()
-        {
-            //declaração de variável pra contrato
-            String contrato = "";
- 
-            DefaultTableModel model = new DefaultTableModel() {
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    if (column == 10) {
-                        //Coluna 9 não poderá ser editada.
-                        return false;
-                    }
-                    return true;
-                }
-            };
-            tblListagemPessoaJ.setModel(model);
-            model.setColumnIdentifiers(nomeColunas);
-            model.setRowCount(0);
-        Object rowData[] = new Object[10];
-        for(int i = 0; i < lista.size(); i++)
-        {
-            //Se o manter contrato for 1, possui; senão, não possui
-            if(lista.get(i).getPessoa().getManterContrato() == 0)
-            {
-                contrato = "Sim";
-            }
-            else
-            {
-                contrato = "Não";
-            }
-            
-            
-            rowData[0] = lista.get(i).getCnpj();
-            rowData[1] = lista.get(i).getPessoa().getEndereco().getCep();
-            rowData[2] = lista.get(i).getPessoa().getNome();
-            rowData[3] = lista.get(i).getRazaoSocial();
-            rowData[4] = lista.get(i).getPessoa().getComplementoLogradouro();
-            rowData[5] = Long.toString(lista.get(i).getPessoa().getTelefone());
-            rowData[6] = Long.toString(lista.get(i).getRamalCliente());
-            rowData[7] = contrato;            
-            rowData[8] = lista.get(i).getDataCadastro().toString();
-            rowData[9] = lista.get(i).getCnpj();
-            
-            
-            model.addRow(rowData);
-            
-        }
-                    
-        }
-        catch(Exception ex)
-        {
-            System.out.println("Erro ao popular tabela.\n\n"+ex.getMessage());
-        }
-        
-        tblListagemPessoaJ.getColumnModel().getColumn(9).setMinWidth(0);
-        tblListagemPessoaJ.getColumnModel().getColumn(9).setPreferredWidth(0);
-        tblListagemPessoaJ.getColumnModel().getColumn(9).setMaxWidth(0);
-    }
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -804,6 +708,58 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtfDataDe;
     // End of variables declaration//GEN-END:variables
     
+    private void inicializarTabela() {
+        String[] nomeColunas = {"Nome Fictício", "CNPJ", "Razão Social", "CEP", "Logradouro", "Nr Logradouro", "Telefone", "Ramal", "Contrato", "Data de Cadastro"};
+
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        tblListagemPessoaJ.setModel(model);
+        model.setColumnIdentifiers(nomeColunas);
+        model.setRowCount(0);
+    }
+
+    
+    private void atualizarTabela (boolean filtrada){
+       DefaultTableModel model = new DefaultTableModel();
+        model = (DefaultTableModel) tblListagemPessoaJ.getModel();
+        model.setRowCount(0);
+
+        ArrayList<PessoaJuridica> lista = new ArrayList<>();
+
+        if (filtrada) {
+            lista = DaoPessoa.listarPessoaJuridicaFiltrada(String.valueOf(cmbFiltro.getSelectedItem()),
+                    txtPesquisa.getText().toLowerCase().trim(), txtfDataDe.getText().toLowerCase().trim(),
+                    txtfDataAte.getText().toLowerCase().trim());
+            ultimoTipoPesquisa = true;
+        } else {
+            lista = DaoPessoa.listarPessoaJuridica();
+            ultimoTipoPesquisa = false;
+        }
+
+        Object dadosLinha[] = new Object[10];
+
+        for (int i = 0; i < lista.size(); i++) {
+            dadosLinha[0] = lista.get(i).getPessoa().getNome();
+            dadosLinha[1] = lista.get(i).getCnpj();
+            dadosLinha[2] = lista.get(i).getRazaoSocial();
+            dadosLinha[3] = lista.get(i).getPessoa().getEndereco().getCep();
+            dadosLinha[4] = lista.get(i).getPessoa().getEndereco().getLogradouro();
+            dadosLinha[5] = lista.get(i).getPessoa().getComplementoLogradouro();
+            dadosLinha[6] = lista.get(i).getPessoa().getTelefone();
+            dadosLinha[7] = lista.get(i).getRamalCliente();
+            dadosLinha[8] = lista.get(i).getPessoa().getManterContratoSTR();
+            dadosLinha[9] = lista.get(i).getDataCadastro();
+            model.addRow(dadosLinha);
+        }
+        //String[] nomeColunas = {"Nome Fictício", "CNPJ", "Razão Social", "CEP", "Logradouro", "Nr Logradouro", "Telefone", "Ramal", "Contrato", "Data de Cadastro"};
+
+        limparCampos();
+    }
+    
     private void modoPesquisaData(boolean fixaOuEntre) {
         boolean dataFixa = false;
         boolean dataEntreAte = true;
@@ -822,4 +778,358 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
             btnPesquisar.setVisible(true);
         }
     }
+
+    private void selecionarAoFocar() {
+        //Código para selecionar o texto todo ao ganhar foco
+        txtfDataDe.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfDataDe.selectAll();
+                    }
+                });
+            }
+        });
+
+        txtfDataAte.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfDataAte.selectAll();
+                    }
+                });
+            }
+        });
+
+        txtfDataCadastro.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfDataCadastro.selectAll();
+                    }
+                });
+            }
+        });
+    }
+
+    private void modoPesquisaNormal() {
+        txtPesquisa.setSize(490, 25);
+        txtPesquisa.setVisible(true);
+        txtfDataDe.setVisible(false);
+        txtfDataAte.setVisible(false);
+        lblDataAte.setVisible(false);
+        btnPesquisar.setVisible(false);
+    }
+
+    private void removerTodosRegistros() {
+        int opcao;
+        opcao = JOptionPane.showConfirmDialog(this, "Deseja REALMENTE remover todas as pessoas jurídicas do banco de dados?\n\n",
+                "Alerta - remoção de todos os registros", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (opcao == 0) {
+            opcao = JOptionPane.showConfirmDialog(this, "Essa operação tem grandes chances de falhar, devido a existência\n"
+                    + "de restrições de chaves estrangeiras no banco de dados.\n\n"
+                    + "Deseja REALMENTE tentar excluir todos os registros do banco de dados?\n\n"
+                    + "Caso a operação suceda, todos os dados serão permanentemente excluídos.\n"
+                    + "Caso ela falhe, talvez alguns registros possam ter sidos excluidos, e outros não."
+                    + "\n\n"
+                    + "Deseja prosseguir?",
+                    "Alerta - remoção de todos os registros", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            if (opcao == 0) {
+                boolean exclusaoSucedida;
+                exclusaoSucedida = dao.DaoPessoa.deletarTodasPessoasJuridicas();
+                if (exclusaoSucedida) {
+                    atualizarTabela(ultimoTipoPesquisa);
+                }
+            }
+        }
+    }
+
+    private void limparCampos() {
+        rbtNaoCadastro.setSelected(false);
+        rbtSimCadastro.setSelected(false);
+        txtfDataCadastro.setText("");
+        txtNomePessoaFicticio.setText("");
+        txtCpfCnpj.setText("");
+        txtfCep.setText("");
+        txtNumeroLogradouro.setText("");
+        txtTelefone.setText("");
+        txtCelRamal.setText("");
+        txtRazaoSocial.setText("");
+        verificarCep();
+        verificarCpfCnpjEmUso();
+        PK_REF = null;
+    }
+
+    private void verificarCep() {
+        String cep = txtfCep.getText();
+        cep = cep.replace("-", "");
+        cep = cep.trim();
+        if ((cep.length() < 8) || (cep.length() > 8)) {
+            lblCepExiste.setText("Cep Inválido.");
+            lblCepExiste.setForeground(Color.red);
+            cepCadastrado = true;
+        } else {
+            this.cepCadastrado = dao.DaoEndereco.existeEndereco(cep);
+            if (cepCadastrado) {
+                lblCepExiste.setText("CEP Cadastrado.");
+                lblCepExiste.setForeground(Color.black);
+                cepCadastrado = false;
+            } else {
+                lblCepExiste.setText("CEP Inexistente.");
+                lblCepExiste.setForeground(Color.red);
+                cepCadastrado = true;
+            }
+        }
+    }
+
+    private void verificarCpfCnpjEmUso() {
+        if ((txtCpfCnpj.getText().length() < 14) || (txtCpfCnpj.getText().length() > 14)) {
+            lblCpfCnpjExiste.setText("CNPJ Inválido.");
+            lblCpfCnpjExiste.setForeground(Color.red);
+            existeCnpj = true;
+        } else {
+            this.existeCnpj = dao.DaoPessoa.existePessoaJuridica(txtCpfCnpj.getText());
+            if (existeCnpj) {
+                lblCpfCnpjExiste.setText("CNPJ já Cadastrado.");
+                lblCpfCnpjExiste.setForeground(Color.red);
+                existeCnpj = false;
+            } else {
+                lblCpfCnpjExiste.setText("CNPJ livre.");
+                lblCpfCnpjExiste.setForeground(Color.black);
+                existeCnpj = false;
+            }
+        }
+
+    }
+
+    private void textSizeCelRamal() {
+        txtCelRamal.setText(TextSize.maxLenghtCelularRamal(txtCelRamal.getText(), false));
+    }
+
+    private void textSizeCPFJCNPJ() {
+        txtCpfCnpj.setText(TextSize.maxLenghtCPFCNPJ(txtCpfCnpj.getText(), false));
+        verificarCpfCnpjEmUso();
+    }
+
+    private void deletarRegistro() {
+        int opcao;
+        String cnpj = ((String) tblListagemPessoaJ.getValueAt(tblListagemPessoaJ.getSelectedRow(), 1));
+        opcao = JOptionPane.showConfirmDialog(this, "Atenção! Todos os registros relacionados ao CNPJ "
+                + cnpj + " serão permanentemente removidos.\n\nDeseja realmente excluir o registro?",
+                "Confirmação de exclusão",
+                JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+        if (opcao == 0) {
+            dao.DaoPessoa.deletarPessoaJuridica(cnpj);
+            atualizarTabela(ultimoTipoPesquisa);
+            limparCampos();
+        }
+    }
+
+    private void limparTabela() {
+        DefaultTableModel model = new DefaultTableModel();
+        model = (DefaultTableModel) tblListagemPessoaJ.getModel();
+        model.setRowCount(0);
+        /*
+        Chama o metodo limparCampos para limpar os dados do registro anteriormente
+        selecionado.
+         */
+        limparCampos();
+    }
+
+    private void alterarRegistro() {
+        if (validarCampos()) {
+            PessoaJuridica pessoaJuridica = new PessoaJuridica();
+            Pessoa pessoa = new Pessoa();
+            Endereco endereco = new Endereco();
+
+            String cep = txtfCep.getText();
+            cep = cep.replace("-", "");
+            cep = cep.trim();
+
+            endereco.setCep(cep);
+
+            pessoa.setManterContrato(rbtSimCadastro.isSelected());
+            pessoa.setNome(txtNomePessoaFicticio.getText());
+            pessoa.setComplementoLogradouro(txtNumeroLogradouro.getText());
+            pessoa.setTelefone(txtTelefone.getText());
+            pessoa.setEndereco(endereco);
+
+            pessoaJuridica.setPessoa(pessoa);
+            pessoaJuridica.setRazaoSocial(txtRazaoSocial.getText());
+            pessoaJuridica.setRamalCliente(txtCelRamal.getText());
+            pessoaJuridica.setCnpj(txtCpfCnpj.getText());
+            pessoaJuridica.setDataCadastro(txtfDataCadastro.getText());
+
+            boolean alteracaoSucedida;
+            alteracaoSucedida = dao.DaoPessoa.alterarPessoaJuridica(pessoaJuridica, PK_REF);
+
+            if (alteracaoSucedida) {
+                atualizarTabela(ultimoTipoPesquisa);
+                limparCampos();
+            }
+        }
+    }
+
+    private boolean validarCampos() {
+        boolean selectionEmpty = tblListagemPessoaJ.getSelectionModel().isSelectionEmpty();
+        if (selectionEmpty){
+            JOptionPane.showMessageDialog(this, "Nenhum registro selecionado da tabela.\n\n"
+                    + "Pesquise por algum registro e clique em alguma linha da tabela.", "Erro - Não há registro selecionado", 0);
+            return false;
+        } else if (txtNomePessoaFicticio.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Nome fictício em branco. \nDigite um nome fictício para a pessoa jurídica.", "Erro - Nome Fictício Inválido", 0);
+            txtNomePessoaFicticio.requestFocus();
+            return false;
+        } else if (txtCpfCnpj.getText().length() < 11) {
+            JOptionPane.showMessageDialog(null, "CNPJ Inválido. Digite 14 dígitos, sem pontos ou hífens.", "Erro - CNPJ Inválido", 0);
+            txtCpfCnpj.requestFocus();
+            return false;
+        } else if (existeCnpj) {
+            JOptionPane.showMessageDialog(null, "CNPJ inválido. Verifique se o CNPJ está correto e se já não existe um mesmo CNPJ cadastrado.", "Erro - CNPJ Inválido", 0);
+            txtCpfCnpj.requestFocus();
+            return false;
+        } else if (cepCadastrado) {
+            JOptionPane.showMessageDialog(null, "CEP inválido. Verifique se o CEP informado está correto ou se ele já está cadastrado.", "Erro - CEP Inválido", 0);
+            txtfCep.requestFocus();
+            return false;
+        } else if (txtNumeroLogradouro.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Número do logradouro em branco. \nDigite o número e/ou complemento do logradouro.", "Erro - Nº Logradouro Inválido", 0);
+            txtNumeroLogradouro.requestFocus();
+            return false;
+        } else if (txtRazaoSocial.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Razão social em branco. \nDigite a razão social para a pessoa jurídica.", "Erro - Razão Social Inválida", 0);
+            txtRazaoSocial.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private void limiteDigitosPesquisa(String filtro) {
+        /*
+Nome Fictício
+CNPJ
+Razão Social
+CEP
+Logradouro
+Nr Logradouro
+Telefone
+Ramal
+Mantém Contrato?
+Data de Cadastro
+Data Entre/Até
+*/
+        switch (filtro) {
+            case "Nome Fictício":
+                txtPesquisa.setText(control.TextSize.maxLenghtNomeRazao(txtPesquisa.getText()));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "CNPJ":
+                txtPesquisa.setText(control.TextSize.maxLenghtCPFCNPJ(txtPesquisa.getText(), false));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "CEP":
+                txtPesquisa.setText(control.TextSize.maxLenghtCep(txtPesquisa.getText()));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "Logradouro":
+                txtPesquisa.setText(control.TextSize.maxLenghtLogradouro(txtPesquisa.getText()));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "Nr Logradouro":
+                txtPesquisa.setText(control.TextSize.maxLenghtNrLogradouro(txtPesquisa.getText()));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "Razão Social":
+                txtPesquisa.setText(control.TextSize.maxLenghtNomeRazao(txtPesquisa.getText()));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "Telefone":
+                txtPesquisa.setText(control.TextSize.maxLenghtTelefone(txtPesquisa.getText()));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "Ramal":
+                txtPesquisa.setText(control.TextSize.maxLenghtCelularRamal(txtPesquisa.getText(), false));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "Mantém Contrato?":
+                lblDigiteODado.setText("Digite Sim ou Não:");
+                txtPesquisa.setText(control.TextSize.maxLenghtContrato(txtPesquisa.getText()));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "Data de Cadastro":
+                modoPesquisaData(false);
+                txtfDataDe.requestFocus();
+                break;
+            case "Data Entre/Até":
+                lblDigiteODado.setText("Digite a Data Inicial:");
+                modoPesquisaData(true);
+                txtfDataDe.requestFocus();
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "Erro ao definir limite de caracteres do campo de pesquisa.",
+                        "Erro - limite de dígitos dinâmico", 0);
+                break;
+        }
+    }
+
+    private void pesquisarFiltrada() {
+        int opcaoFiltro = cmbFiltro.getSelectedIndex();
+        int opcaoDataCadastro = 9;
+        int opcaoDataDeAte = 10;
+
+        if ((opcaoFiltro != opcaoDataCadastro) && (opcaoFiltro != opcaoDataDeAte)) {
+            if (!"".equals(txtPesquisa.getText().trim())) {
+                atualizarTabela(true);
+            } else {
+                limparTabela();
+            }
+        }
+    }
+
+    private void popularCampos() {
+        PessoaJuridica pessoaJuridica = new PessoaJuridica();
+
+        String cnpj = (String) tblListagemPessoaJ.getValueAt(tblListagemPessoaJ.getSelectedRow(), 1);
+
+        pessoaJuridica = dao.DaoPessoa.popularPessoaJuridica(cnpj);
+        boolean mantemContrato = pessoaJuridica.getPessoa().getManterContratoBooleano();
+
+        if (mantemContrato) {
+            rbtSimCadastro.setSelected(true);
+            rbtNaoCadastro.setSelected(false);
+        } else {
+            rbtSimCadastro.setSelected(false);
+            rbtNaoCadastro.setSelected(true);
+        }
+        txtfDataCadastro.setText(pessoaJuridica.getDataCadastro());
+        txtNomePessoaFicticio.setText(pessoaJuridica.getPessoa().getNome());
+        txtCpfCnpj.setText(pessoaJuridica.getCnpj());
+        txtfCep.setText(pessoaJuridica.getPessoa().getEndereco().getCep());
+        txtNumeroLogradouro.setText(pessoaJuridica.getPessoa().getComplementoLogradouro());
+        txtTelefone.setText(String.valueOf(pessoaJuridica.getPessoa().getTelefone()));
+        txtCelRamal.setText(String.valueOf(pessoaJuridica.getRamalCliente()));
+        txtRazaoSocial.setText(pessoaJuridica.getRazaoSocial());
+        PK_REF = pessoaJuridica.getCnpj();
+
+        verificarCpfCnpjEmUso();
+        verificarCep();
+    }
+
+    
+    
+    
 }

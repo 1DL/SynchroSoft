@@ -73,21 +73,26 @@
         </Component>
         <Component class="javax.swing.JComboBox" name="cmbFiltro">
           <Properties>
+            <Property name="maximumRowCount" type="int" value="15"/>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="10">
+              <StringArray count="11">
                 <StringItem index="0" value="Nome Fict&#xed;cio"/>
                 <StringItem index="1" value="CNPJ"/>
-                <StringItem index="2" value="CEP"/>
-                <StringItem index="3" value="Logradouro"/>
-                <StringItem index="4" value="Raz&#xe3;o Social"/>
-                <StringItem index="5" value="N&#xfa;mero Endere&#xe7;o"/>
+                <StringItem index="2" value="Raz&#xe3;o Social"/>
+                <StringItem index="3" value="CEP"/>
+                <StringItem index="4" value="Logradouro"/>
+                <StringItem index="5" value="Nr Logradouro"/>
                 <StringItem index="6" value="Telefone"/>
                 <StringItem index="7" value="Ramal"/>
-                <StringItem index="8" value="Contrato"/>
-                <StringItem index="9" value="Data Cadastro"/>
+                <StringItem index="8" value="Mant&#xe9;m Contrato?"/>
+                <StringItem index="9" value="Data de Cadastro"/>
+                <StringItem index="10" value="Data Entre/At&#xe9;"/>
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbFiltroActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -281,7 +286,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Malgun Gothic" size="18" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="CPF:"/>
+                <Property name="text" type="java.lang.String" value="CNPJ:"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -378,7 +383,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" id="red" palette="1" red="ff" type="palette"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="CPF Inv&#xe1;lido."/>
+                <Property name="text" type="java.lang.String" value="CNPJ Inv&#xe1;lido."/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -487,6 +492,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Digite o(a) Nome Fict&#xed;cio:"/>
           </Properties>
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="lblDigiteODadoKeyReleased"/>
+          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="375" y="10" width="280" height="25"/>
@@ -598,6 +606,9 @@
               </Table>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblListagemPessoaJMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

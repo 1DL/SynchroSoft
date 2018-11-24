@@ -326,7 +326,27 @@ public class DaoPessoa {
         }
     }
 
-    public static void deletarPessoaJuridica(String cnpj) throws SQLException, ClassNotFoundException {
+    public static boolean deletarTodasPessoasJuridicas() {
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "DELETE FROM SYNCHROSOFT.TB_PESSOA_JURIDICA";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.executeUpdate();
+            st.close();
+            JOptionPane.showMessageDialog(null, "Todas as pessoas jurídicas foram excluídas com sucesso.", "Exclusão total concluída.", 1);
+            return true;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível remover as pessoas jurídicas.\nErro Nº :\n\n"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoPessoa - Deletar Todas Pessoa Jurídicas", 0);
+            return false;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível remover as pessoas jurídicas.\nErro:\n\n"
+                    + ex, "Erro: DaoPessoa - Deletar Todas Pessoa Física", 0);
+            return false;
+        }
+    }
+
+    public static void deletarPessoaJuridica(String cnpj) {
         try {
             Connection con = Conexao.conectar();
             String sql = "DELETE FROM SYNCHROSOFT.TB_PESSOA_JURIDICA WHERE CD_CNPJ = ?";
@@ -334,9 +354,13 @@ public class DaoPessoa {
             st.setString(1, cnpj);
             st.executeUpdate();
             st.close();
-            JOptionPane.showMessageDialog(null, "Pessoa jurídica removida com sucesso.");
+            JOptionPane.showMessageDialog(null, "Pessoa jurídica removida com sucesso.", "Remoção conclúida", 1);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível remover a pessoa jurídica.\n\nErro Nº:" + ex.getErrorCode()
+                    + "\n\n" + ex.getMessage(), "Erro: DaoPessoa - Deletar Pessoa Jurídica", 0);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível remover a pessoa jurídica.\nErro:\n\n" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Não foi possível remover a pessoa jurídica.\n\n"
+                    + "Erroº:" + ex, "Erro: DaoPessoa - Deletar Pessoa Jurídica", 0);
         }
     }
 
@@ -393,10 +417,10 @@ public class DaoPessoa {
             while (rs.next()) {
                 Endereco end = new Endereco();
                 end.setCep(rs.getString("CD_CEP"));
-                end.setLogradouro("DS_LOGRADOURO");
+                end.setLogradouro(rs.getString("DS_LOGRADOURO"));
 
                 Pessoa pessoa = new Pessoa();
-                pessoa.setNome(rs.getString("NM_RAZAO_SOCIAL"));
+                pessoa.setNome(rs.getString("NM_FICTICIO"));
                 pessoa.setEndereco(end);
                 pessoa.setTelefone(String.valueOf(rs.getLong("NR_TELEFONE")));
                 pessoa.setComplementoLogradouro(rs.getString("NR_LOGRADOURO"));
@@ -527,7 +551,7 @@ Data Entre/Até
             }
             //executando query selecionada pelo switch case
             ResultSet rs = st.executeQuery();
-            System.out.println(dataDe + " " + dataAte);
+
             //listando dados do banco em jtable
             while (rs.next()) {
                 Endereco end = new Endereco();
@@ -566,21 +590,23 @@ Data Entre/Até
         return lista;
     }
 
-    public static ArrayList listarPessoaJuridicaFiltrada(String cmbFiltro, String txtPesquisa) {
+    public static ArrayList listarPessoaJuridicaFiltrada(String cmbFiltro, String txtPesquisa, String dataDe, String dataAte) {
         ArrayList<PessoaJuridica> lista = new ArrayList<>();
         try {
             Connection con = Conexao.conectar();
             String sql = "";
             /*
-CNPJ
-CEP
 Nome Fictício
+CNPJ
 Razão Social
-Número Endereço
+CEP
+Logradouro
+Nr Logradouro
 Telefone
 Ramal
-Contrato
-Data Cadastro
+Mantém Contrato?
+Data de Cadastro
+Data Entre/Até
             
              */
             switch (cmbFiltro) {
@@ -589,7 +615,10 @@ Data Cadastro
                     sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_JURIDICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(CD_CNPJ) LIKE LOWER(?)";
                     break;
                 case "CEP":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_JURIDICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(CD_CEP) LIKE LOWER(?)";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA "
+                            + "INNER JOIN SYNCHROSOFT.TB_ENDERECO ON "
+                            + "(SYNCHROSOFT.TB_PESSOA_JURIDICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) "
+                            + "WHERE LOWER(TB_PESSOA_JURIDICA.CD_CEP) LIKE LOWER(?)";
                     break;
                 case "Nome Fictício":
                     sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_JURIDICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(NM_FICTICIO) LIKE LOWER(?)";
@@ -597,7 +626,13 @@ Data Cadastro
                 case "Razão Social":
                     sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_JURIDICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(NM_RAZAO_SOCIAL) LIKE LOWER(?)";
                     break;
-                case "Número Endereço":
+                case "Logradouro":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA "
+                            + "INNER JOIN SYNCHROSOFT.TB_ENDERECO "
+                            + "ON (SYNCHROSOFT.TB_PESSOA_JURIDICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) "
+                            + "WHERE LOWER(TB_ENDERECO.DS_LOGRADOURO) LIKE LOWER(?)";
+                    break;
+                case "Nr Logradouro":
                     sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_JURIDICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(NR_LOGRADOURO) LIKE LOWER(?)";
                     break;
                 case "Telefone":
@@ -606,21 +641,57 @@ Data Cadastro
                 case "Ramal":
                     sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_JURIDICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(NR_RAMAL) LIKE LOWER(?)";
                     break;
-                case "Contrato":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_JURIDICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(ID_CONTRATO) LIKE LOWER(?)";
+                case "Mantém Contrato?":
+                    txtPesquisa = txtPesquisa.substring(0, 1);
+                    if (txtPesquisa.equals("n")) {
+                        txtPesquisa = "0";
+                    } else if (txtPesquisa.equals("s")) {
+                        txtPesquisa = "1";
+                    }
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA "
+                            + "INNER JOIN SYNCHROSOFT.TB_ENDERECO "
+                            + "ON (SYNCHROSOFT.TB_PESSOA_JURIDICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) "
+                            + "WHERE LOWER(ID_CONTRATO) LIKE LOWER(?)";
                     break;
-                case "Data Cadastro":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA INNER JOIN SYNCHROSOFT.TB_ENDERECO ON (SYNCHROSOFT.TB_PESSOA_JURIDICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) WHERE LOWER(DT_CADASTRO) LIKE LOWER(?)";
+                case "Data de Cadastro":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA "
+                            + "INNER JOIN SYNCHROSOFT.TB_ENDERECO ON "
+                            + "(SYNCHROSOFT.TB_PESSOA_JURIDICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) "
+                            + "WHERE DT_CADASTRO = TO_DATE(?, 'yyyy-mm-dd')";
+                    break;
+                case "Data Entre/Até":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_PESSOA_JURIDICA "
+                            + "INNER JOIN SYNCHROSOFT.TB_ENDERECO ON "
+                            + "(SYNCHROSOFT.TB_PESSOA_JURIDICA.CD_CEP = SYNCHROSOFT.TB_ENDERECO.CD_CEP) "
+                            + "WHERE DT_CADASTRO BETWEEN TO_DATE(?, 'yyyy-mm-dd') AND TO_DATE (?, 'yyyy-mm-dd')";
                     break;
 
             }
 
-            //realizando preparedStatement para tratamento de variáveis
+            ///realizando preparedStatement para tratamento de variáveis
             PreparedStatement st = con.prepareStatement(sql);
 
             //colocando valor da variável ? da query 
-            st.setString(1, "%" + txtPesquisa + "%");
+            if (cmbFiltro.equals("Data de Cadastro")) {
+                try {
+                    dataDe = control.Datas.converterParaAmericana(dataDe);
 
+                } catch (Exception ex) {
+
+                }
+                st.setString(1, dataDe);
+            } else if (cmbFiltro.equals("Data Entre/Até")) {
+                try {
+                    dataDe = control.Datas.converterParaAmericana(dataDe);
+                    dataAte = control.Datas.converterParaAmericana(dataAte);
+                } catch (Exception ex) {
+
+                }
+                st.setString(1, dataDe);
+                st.setString(2, dataAte);
+            } else {
+                st.setString(1, "%" + txtPesquisa + "%");
+            }
             //executando query selecionada pelo switch case
             ResultSet rs = st.executeQuery();
 
@@ -628,10 +699,10 @@ Data Cadastro
             while (rs.next()) {
                 Endereco end = new Endereco();
                 end.setCep(rs.getString("CD_CEP"));
-                end.setLogradouro("DS_LOGRADOURO");
+                end.setLogradouro(rs.getString("DS_LOGRADOURO"));
 
                 Pessoa pessoa = new Pessoa();
-                pessoa.setNome(rs.getString("NM_RAZAO_SOCIAL"));
+                pessoa.setNome(rs.getString("NM_FICTICIO"));
                 pessoa.setEndereco(end);
                 pessoa.setTelefone(String.valueOf(rs.getLong("NR_TELEFONE")));
                 pessoa.setComplementoLogradouro(rs.getString("NR_LOGRADOURO"));
@@ -641,7 +712,7 @@ Data Cadastro
                 pessoaJuridica.setPessoa(pessoa);
                 pessoaJuridica.setCnpj(rs.getString("CD_CNPJ"));
                 pessoaJuridica.setRazaoSocial(rs.getString("NM_RAZAO_SOCIAL"));
-                pessoaJuridica.setDataCadastroBanco(control.Datas.converterParaBrasileira(String.valueOf(rs.getDate("DT_CADASTRO"))));
+                pessoaJuridica.setDataCadastroBanco(String.valueOf(rs.getDate("DT_CADASTRO")));
                 pessoaJuridica.setRamalCliente(String.valueOf(rs.getInt("NR_RAMAL")));
 
                 lista.add(pessoaJuridica);
@@ -658,7 +729,7 @@ Data Cadastro
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DaoPessoa.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //return lista;
+
         return lista;
     }
 
@@ -689,74 +760,50 @@ Data Cadastro
             return true;
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao alterar a pessoa físicas.\n\nErro Nº: " + ex.getErrorCode()
+            JOptionPane.showMessageDialog(null, "Erro ao alterar a pessoa física.\n\nErro Nº: " + ex.getErrorCode()
                     + "\n" + ex.getMessage(), "Erro: DaoPessoa - Alterar Pessoa Fisica", 0);
             return false;
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao alterar a pessoa físicas.\n\nErro: "
+            JOptionPane.showMessageDialog(null, "Erro ao alterar a pessoa física.\n\nErro: "
                     + ex, "Erro: DaoPessoa - Alterar Pessoa Fisica", 0);
             return false;
         }
 
     }
 
-    public static void alterarPessoaJuridica(JTable tabela) {
-//      
+    public static boolean alterarPessoaJuridica(PessoaJuridica pessoaJuridica, String PK_REF) {
         try {
-
-            int rows = tabela.getRowCount();
-            String log = "";
-            JOptionPane.showConfirmDialog(null, "Deseja realizar a alteração?");
-
             Connection con = Conexao.conectar();
-            con.setAutoCommit(false);
             String sql = "UPDATE SYNCHROSOFT.TB_PESSOA_JURIDICA "
                     + "SET CD_CNPJ = ?, CD_CEP = ?, NM_FICTICIO = ?, "
                     + "NM_RAZAO_SOCIAL = ?, NR_LOGRADOURO = ?, NR_TELEFONE = ?, "
                     + "NR_RAMAL = ?,"
                     + "ID_CONTRATO = ?, DT_CADASTRO = ? WHERE CD_CNPJ = ?";
             PreparedStatement st = con.prepareStatement(sql);
-            for (int row = 0; row < rows; row++) {
-                String cnpj_alterado = (String) tabela.getValueAt(row, 0);
-                String cep = (String) tabela.getValueAt(row, 1);
-                String nomeFicticio = (String) tabela.getValueAt(row, 2);
-                String razaoSocial = (String) tabela.getValueAt(row, 3);
-                String numero = (String) tabela.getValueAt(row, 4);
-                String telefone = (String) tabela.getValueAt(row, 5);
-                String ramal = (String) tabela.getValueAt(row, 6);
-                String contrato = (String) tabela.getValueAt(row, 7);
 
-                String dataCadastro = (String) tabela.getValueAt(row, 8);
-                PessoaJuridica pj = new PessoaJuridica();
-                pj.setDataCadastro(dataCadastro);
-                String cnpj_ref = (String) tabela.getValueAt(row, 9);
+            st.setString(1, pessoaJuridica.getCnpj());
+            st.setString(2, pessoaJuridica.getPessoa().getEndereco().getCep());
+            st.setString(3, pessoaJuridica.getPessoa().getNome());
+            st.setString(4, pessoaJuridica.getRazaoSocial());
+            st.setString(5, pessoaJuridica.getPessoa().getComplementoLogradouro());
+            st.setLong(6, pessoaJuridica.getPessoa().getTelefone());
+            st.setLong(7, pessoaJuridica.getRamalCliente());
+            st.setInt(8, pessoaJuridica.getPessoa().getManterContrato());
+            st.setDate(9, Date.valueOf(control.Datas.converterParaAmericana(pessoaJuridica.getDataCadastro())));
+            st.setString(10, PK_REF);
+            
+            st.executeUpdate();
 
-                if (contrato.equals("Sim")) {
-                    contrato = "1";
-                } else if (contrato.equals("Não")) {
-                    contrato = "0";
-                }
-                st.setString(1, cnpj_alterado);
-                st.setString(2, cep);
-                st.setString(3, nomeFicticio);
-                st.setString(4, razaoSocial);
-                st.setString(5, numero);
-                st.setLong(6, Long.parseLong(telefone));
-                st.setLong(7, Long.parseLong(ramal));
-                st.setInt(8, Integer.parseInt(contrato));
-                st.setDate(9, Date.valueOf(control.Datas.converterParaAmericana(pj.getDataCadastro())));
-                st.setString(10, cnpj_ref);
-                st.addBatch();
-                st.executeBatch();
-                con.commit();
-            }
-            JOptionPane.showMessageDialog(null, "A base de pessoas Jurídicas foi alterada com sucesso!", "Alteração concluída", 1);
-
+            JOptionPane.showMessageDialog(null, "A pessoa jurídica foi alterada com sucesso!", "Alteração concluída", 1);
+            return true;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao alterar a base de Pessoas Jurídicas.\n\nErro Nº " + ex.getErrorCode()
+            JOptionPane.showMessageDialog(null, "Erro ao alterar a pessoa jurídica.\n\nErro Nº " + ex.getErrorCode()
                     + "\n" + ex.getMessage(), "Erro: DaoPessoa - Alterar Pessoa Jurídica", 0);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DaoPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar a pessoa jurídica.\n\nErro: "
+                    + ex, "Erro: DaoPessoa - Alterar Pessoa Jurídica", 0);
+            return false;
         }
     }
 
