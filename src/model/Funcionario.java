@@ -26,6 +26,7 @@ public class Funcionario{
     private Date dataDemissao;
     private int horasTrabalhadas;
     private int nivelAdministrativo;
+    private int efetivado;
     private boolean validacao;
 
     public Funcionario() {
@@ -193,5 +194,53 @@ public class Funcionario{
 
     public void setDataDemissao(Date dataDemissao) {
         this.dataDemissao = dataDemissao;
+    }
+
+    public int getEfetivado() {
+        return efetivado;
+    }
+
+    public void setEfetivado(int efetivado) {
+        this.efetivado = efetivado;
+    }
+    
+    public String getEfetivadoSTR() {
+        if (efetivado == 1) {
+            return "Sim";
+        } else {
+            return "Não";
+        }
+    }
+    
+    public void setEfetivadoSTR(String efetivado) {
+        if (efetivado.equals("Sim")) {
+            this.efetivado = 1;
+        } else if (efetivado.equals("Não")) {
+            this.efetivado = 0;
+        }
+    }
+    
+    public boolean getEfetivadoBooleano() {
+        if (this.efetivado == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public void setEfetivadoBooleano(boolean efetivado) {
+        if (efetivado) {
+            this.efetivado = 1;
+        } else {
+            this.efetivado = 0;
+        }
+    }
+    
+    public boolean getNivelAdministrativoBooleano(){ 
+        if (this.nivelAdministrativo == 0){
+            return true;
+        } else {
+            return false;
+        }
     }
 }

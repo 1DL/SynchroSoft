@@ -893,7 +893,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
             this.existeCnpj = dao.DaoPessoa.existePessoaJuridica(txtCpfCnpj.getText());
             if (existeCnpj) {
                 lblCpfCnpjExiste.setText("CNPJ já Cadastrado.");
-                lblCpfCnpjExiste.setForeground(Color.red);
+                lblCpfCnpjExiste.setForeground(Color.black);
                 existeCnpj = false;
             } else {
                 lblCpfCnpjExiste.setText("CNPJ livre.");

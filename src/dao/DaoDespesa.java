@@ -117,39 +117,6 @@ public class DaoDespesa {
         }
     }
 
-    public static ArrayList listarDespesaFiltradaData(String antes, String depois) {
-        ArrayList<Despesa> lista = new ArrayList<>();
-        try {
-            Connection con = Conexao.conectar();
-            String sql = "SELECT * FROM SYNCHROSOFT.TB_DESPESA "
-                    + "WHERE DT_DESPESA BETWEEN TO_DATE (?, 'yyyy-mm-dd') AND TO_DATE (?, 'yyyy-mm-dd') "
-                    + "ORDER BY CD_DESPESA";
-
-            PreparedStatement st = con.prepareStatement(sql);
-            st.setString(1, antes);
-            st.setString(2, depois);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                Despesa desp = new Despesa();
-                desp.setCodigoDespesa(rs.getInt("CD_DESPESA"));
-                desp.setTipoDespesas(rs.getString("DS_TIPO_DESPESA"));
-                desp.setDataDespesa(rs.getDate("DT_DESPESA").toString());
-                desp.setDescricaoDespesa(rs.getString("DS_DESPESA"));
-                desp.setValorDespesa(rs.getString("VL_DESPESA"));
-                desp.setQuitadaBanco(rs.getInt("ID_QUITADA"));
-                lista.add(desp);
-            }
-            st.close();
-            rs.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não  foi possível listar despesas por pesquisa filtrada.\n\nErro Nº:"
-                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoDespesa - Listar despesas via filtro", 0);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DaoDespesa.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return lista;
-    }
-
     public static ArrayList listarDespesaFiltrada(String cmbFiltro, String txtPesquisa, String dataDe, String dataAte) {
         ArrayList<Despesa> lista = new ArrayList<>();
         try {

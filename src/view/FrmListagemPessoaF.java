@@ -857,7 +857,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
             this.existeCpf = dao.DaoPessoa.existePessoaFisica(txtCpfCnpj.getText());
             if (existeCpf) {
                 lblCpfCnpjExiste.setText("CPF já Cadastrado.");
-                lblCpfCnpjExiste.setForeground(Color.red);
+                lblCpfCnpjExiste.setForeground(Color.black);
                 existeCpf = false;
             } else {
                 lblCpfCnpjExiste.setText("CPF livre.");

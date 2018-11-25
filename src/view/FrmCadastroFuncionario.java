@@ -28,8 +28,8 @@ import model.PessoaFisica;
  */
 public class FrmCadastroFuncionario extends javax.swing.JFrame {
 
-    boolean codCadastrado;
-    boolean cpfCadastrado;
+    private boolean codCadastrado;
+    private boolean cpfCadastrado;
     Endereco endExibicao;
     PessoaFisica pessoaFisicaExibicao;
     Pessoa pessoaExibicao;
@@ -690,7 +690,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
 
     private void iniciarlizarTabela() {
         String[] nomeColunas = {"Código", "CEP", "Nome", "CPF", "Sexo", "Telefone", "Celular", "Nº Logradouro",
-            "Salário", "Cargo", "Admissão", "Horas Trabalhadas", "Nível Administrativo"};
+            "Salário", "Cargo", "Admissão", "Horas Trabalhadas", "Nível Administrativo", "Efetivado"};
         try {
             DefaultTableModel model = new DefaultTableModel();
             tblFuncionarioRecente.setModel(model);
@@ -704,7 +704,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
     }
 
     private void atualizarTabela(Funcionario func) {
-        Object rowData[] = new Object[13];
+        Object rowData[] = new Object[14];
 
         rowData[0] = func.getCodigoFuncionario();
         rowData[1] = func.getPessoa().getEndereco().getCep();
@@ -719,6 +719,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         rowData[10] = func.getDataContrato();
         rowData[11] = func.getHorasTrabalhadas();
         rowData[12] = func.getNivelAdministrativo();
+        rowData[13] = func.getEfetivadoSTR();
         DefaultTableModel model = new DefaultTableModel();
         model = (DefaultTableModel) tblFuncionarioRecente.getModel();
         model.addRow(rowData);
@@ -856,6 +857,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
                     pf.getPessoa(), pf, txtfSalario.getText(), txtCargo.getText(),
                     txtfDataAdmissao.getText(), txtfDataAdmissao.getText(), txtfHoras.getText(),
                     rbtVisualizacao.isSelected());
+            func.setEfetivadoBooleano(true);
             boolean cadastroSucedido = dao.DaoFuncionario.cadastrarFuncionario(func);
             if (cadastroSucedido) {
                 atualizarTabela(func);

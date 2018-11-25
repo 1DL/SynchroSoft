@@ -608,8 +608,8 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
 
     private void pesquisarFiltrada() {
         int opcaoFiltro = cmbFiltro.getSelectedIndex();
-        int opcaoDataCadastro = 9;
-        int opcaoDataDeAte = 10;
+        int opcaoDataCadastro = 5;
+        int opcaoDataDeAte = 6;
 
         if ((opcaoFiltro != opcaoDataCadastro) && (opcaoFiltro != opcaoDataDeAte)) {
             if (!"".equals(txtPesquisa.getText().trim())) {

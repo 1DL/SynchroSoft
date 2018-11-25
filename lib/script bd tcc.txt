@@ -361,7 +361,9 @@ ALTER TABLE tb_usuario ADD CONSTRAINT login_unico UNIQUE(nm_login);
 ___________________________________________
 
 alter table "TB_DESPESA" add ("ID_QUITADA" NUMBER(1,0));   
+___________________________________________
 
+alter table "TB_FUNCIONARIO" add ("ID_EFETIVADO" NUMBER(1,0));
 __________________________________________
 
 

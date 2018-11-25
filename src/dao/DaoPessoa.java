@@ -61,7 +61,7 @@ public class DaoPessoa {
 
             Endereco end = new Endereco();
             end = DaoEndereco.popularEndereco(rs.getString("CD_CEP"));
-            end.setCep(rs.getString("CD_CEP"));
+            
 
             Pessoa pessoa = new Pessoa();
             pessoa.setNome(rs.getString("NM_PESSOA_FISICA"));

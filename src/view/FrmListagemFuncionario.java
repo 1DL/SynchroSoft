@@ -5,15 +5,20 @@
  */
 package view;
 
+import control.TextSize;
 import dao.DaoFuncionario;
+import java.awt.Color;
 import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import model.Funcionario;
+import model.Pessoa;
+import model.PessoaFisica;
 
 /**
  *
@@ -21,12 +26,21 @@ import model.Funcionario;
  */
 public class FrmListagemFuncionario extends javax.swing.JFrame {
 
+    private boolean codCadastrado;
+    private boolean cpfCadastrado;
+    private boolean ultimoTipoPesquisa;
+    private String PK_REF;
+
     /**
      * Creates new form FrmListagemPeca
      */
     public FrmListagemFuncionario(int nvlAdm) {
         initComponents();
-        atualizarTabela();
+        inicializarTabela();
+        txtfDataDe.setText(control.Datas.getDiaHoje());
+        txtfDataAte.setText(control.Datas.getDiaHoje());
+        selecionarAoFocar();
+        modoPesquisaNormal();
     }
 
     /**
@@ -38,6 +52,8 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        grupoNivelAdm = new javax.swing.ButtonGroup();
+        grupoFuncEfetivado = new javax.swing.ButtonGroup();
         panPrincipal = new javax.swing.JPanel();
         panDados = new javax.swing.JPanel();
         lblCpf = new javax.swing.JLabel();
@@ -58,7 +74,13 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         txtfHoras = new javax.swing.JFormattedTextField();
         lblDataAdmissao = new javax.swing.JLabel();
         txtfDataAdmissao = new javax.swing.JFormattedTextField();
-        btnHoje = new javax.swing.JButton();
+        btnHojeAdmissao = new javax.swing.JButton();
+        lblFuncEfetivado = new javax.swing.JLabel();
+        lblDataDemissao = new javax.swing.JLabel();
+        txtfDataDemissao = new javax.swing.JFormattedTextField();
+        btnHojeDemissao = new javax.swing.JButton();
+        rbtEfetivadoSim = new javax.swing.JRadioButton();
+        rbtEfetivadoNao = new javax.swing.JRadioButton();
         cmbFiltro = new javax.swing.JComboBox<>();
         lblPesquisar = new javax.swing.JLabel();
         btnDeletar = new javax.swing.JButton();
@@ -72,6 +94,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         btnHojePesquisa = new javax.swing.JButton();
         lblDataAte = new javax.swing.JLabel();
         txtfDataAte = new javax.swing.JFormattedTextField();
+        btnPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListagemFuncionario = new javax.swing.JTable();
         btnDeletarTodosRegistros = new javax.swing.JButton();
@@ -103,7 +126,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         lblCpf.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCpf.setText("CPF:");
         panDados.add(lblCpf);
-        lblCpf.setBounds(646, 10, 34, 25);
+        lblCpf.setBounds(580, 10, 34, 25);
 
         txtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -111,12 +134,12 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
             }
         });
         panDados.add(txtCpf);
-        txtCpf.setBounds(691, 10, 90, 25);
+        txtCpf.setBounds(720, 10, 90, 25);
 
         lblSalario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblSalario.setText("Salário:");
         panDados.add(lblSalario);
-        lblSalario.setBounds(785, 50, 57, 25);
+        lblSalario.setBounds(580, 50, 57, 25);
 
         lblCodigoFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCodigoFuncionario.setText("Código do Funcionário:");
@@ -129,12 +152,12 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
             }
         });
         panDados.add(txtCodigoFuncionario);
-        txtCodigoFuncionario.setBounds(206, 10, 110, 25);
+        txtCodigoFuncionario.setBounds(206, 10, 120, 25);
 
         lblCargo.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCargo.setText("Cargo a ser exercido:");
         panDados.add(lblCargo);
-        lblCargo.setBounds(13, 50, 172, 25);
+        lblCargo.setBounds(13, 50, 190, 25);
 
         txtCargo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,15 +175,15 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         lblHorasTrabalhadas.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblHorasTrabalhadas.setText("Horas Mensais:");
         panDados.add(lblHorasTrabalhadas);
-        lblHorasTrabalhadas.setBounds(923, 50, 123, 25);
+        lblHorasTrabalhadas.setBounds(850, 50, 123, 25);
 
         lblNivelAdm.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblNivelAdm.setText("Nível Administrativo do Sistema:");
         panDados.add(lblNivelAdm);
-        lblNivelAdm.setBounds(12, 90, 270, 25);
+        lblNivelAdm.setBounds(13, 130, 270, 25);
 
+        grupoNivelAdm.add(rbtVisualizacao);
         rbtVisualizacao.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        rbtVisualizacao.setSelected(true);
         rbtVisualizacao.setText("Visualização");
         rbtVisualizacao.setOpaque(false);
         rbtVisualizacao.addActionListener(new java.awt.event.ActionListener() {
@@ -169,8 +192,9 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
             }
         });
         panDados.add(rbtVisualizacao);
-        rbtVisualizacao.setBounds(288, 90, 121, 25);
+        rbtVisualizacao.setBounds(290, 130, 121, 25);
 
+        grupoNivelAdm.add(rbtCompleto);
         rbtCompleto.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         rbtCompleto.setText("Completo");
         rbtCompleto.setOpaque(false);
@@ -180,12 +204,12 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
             }
         });
         panDados.add(rbtCompleto);
-        rbtCompleto.setBounds(419, 90, 105, 25);
+        rbtCompleto.setBounds(420, 130, 105, 25);
 
         lblCpfExiste.setForeground(java.awt.Color.red);
         lblCpfExiste.setText("CPF Inválido.");
         panDados.add(lblCpfExiste);
-        lblCpfExiste.setBounds(785, 10, 153, 25);
+        lblCpfExiste.setBounds(820, 10, 160, 25);
 
         btnCadastrarPessoa.setText("Cadastrar CPF");
         btnCadastrarPessoa.addActionListener(new java.awt.event.ActionListener() {
@@ -194,12 +218,12 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
             }
         });
         panDados.add(btnCadastrarPessoa);
-        btnCadastrarPessoa.setBounds(956, 8, 103, 29);
+        btnCadastrarPessoa.setBounds(980, 10, 103, 29);
 
         lblCodigoExiste.setForeground(java.awt.Color.red);
         lblCodigoExiste.setText("Código inválido.");
         panDados.add(lblCodigoExiste);
-        lblCodigoExiste.setBounds(320, 10, 151, 25);
+        lblCodigoExiste.setBounds(331, 10, 160, 25);
 
         txtfSalario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         txtfSalario.setText("0,00");
@@ -214,7 +238,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
             }
         });
         panDados.add(txtfSalario);
-        txtfSalario.setBounds(846, 50, 67, 25);
+        txtfSalario.setBounds(720, 50, 90, 25);
 
         txtfHoras.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         txtfHoras.setText("0");
@@ -224,37 +248,95 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
             }
         });
         panDados.add(txtfHoras);
-        txtfHoras.setBounds(1050, 50, 40, 25);
+        txtfHoras.setBounds(980, 50, 100, 25);
 
         lblDataAdmissao.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDataAdmissao.setText("Data Admissão:");
         panDados.add(lblDataAdmissao);
-        lblDataAdmissao.setBounds(470, 50, 126, 25);
+        lblDataAdmissao.setBounds(13, 90, 190, 25);
 
         txtfDataAdmissao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-        panDados.add(txtfDataAdmissao);
-        txtfDataAdmissao.setBounds(603, 50, 113, 25);
-
-        btnHoje.setText("Hoje");
-        btnHoje.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHojeActionPerformed(evt);
+        txtfDataAdmissao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfDataAdmissaoKeyReleased(evt);
             }
         });
-        panDados.add(btnHoje);
-        btnHoje.setBounds(726, 50, 55, 25);
+        panDados.add(txtfDataAdmissao);
+        txtfDataAdmissao.setBounds(206, 90, 120, 25);
+
+        btnHojeAdmissao.setText("Hoje");
+        btnHojeAdmissao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHojeAdmissaoActionPerformed(evt);
+            }
+        });
+        panDados.add(btnHojeAdmissao);
+        btnHojeAdmissao.setBounds(340, 90, 55, 25);
+
+        lblFuncEfetivado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblFuncEfetivado.setText("Funcionário Efetivado:");
+        panDados.add(lblFuncEfetivado);
+        lblFuncEfetivado.setBounds(580, 130, 190, 25);
+
+        lblDataDemissao.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblDataDemissao.setText("Data Demissão:");
+        panDados.add(lblDataDemissao);
+        lblDataDemissao.setBounds(580, 90, 140, 25);
+
+        txtfDataDemissao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        txtfDataDemissao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfDataDemissaoKeyReleased(evt);
+            }
+        });
+        panDados.add(txtfDataDemissao);
+        txtfDataDemissao.setBounds(720, 90, 120, 25);
+
+        btnHojeDemissao.setText("Hoje");
+        btnHojeDemissao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHojeDemissaoActionPerformed(evt);
+            }
+        });
+        panDados.add(btnHojeDemissao);
+        btnHojeDemissao.setBounds(854, 90, 55, 25);
+
+        grupoFuncEfetivado.add(rbtEfetivadoSim);
+        rbtEfetivadoSim.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        rbtEfetivadoSim.setText("Sim (Contratado)");
+        rbtEfetivadoSim.setOpaque(false);
+        rbtEfetivadoSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtEfetivadoSimActionPerformed(evt);
+            }
+        });
+        panDados.add(rbtEfetivadoSim);
+        rbtEfetivadoSim.setBounds(770, 130, 161, 25);
+
+        grupoFuncEfetivado.add(rbtEfetivadoNao);
+        rbtEfetivadoNao.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        rbtEfetivadoNao.setText("Não (Demitido)");
+        rbtEfetivadoNao.setOpaque(false);
+        rbtEfetivadoNao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtEfetivadoNaoActionPerformed(evt);
+            }
+        });
+        panDados.add(rbtEfetivadoNao);
+        rbtEfetivadoNao.setBounds(940, 130, 160, 25);
 
         panPrincipal.add(panDados);
-        panDados.setBounds(10, 50, 1100, 130);
+        panDados.setBounds(10, 50, 1100, 170);
 
-        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome", "Código", "CPF", "CEP", "Sexo", "Telefone", "Celular", "Salário", "Cargo", "Data Admissão", "Data Demissão", "Horas Trabalhadas", "Nível Admnistrativo", "Número Endereço" }));
+        cmbFiltro.setMaximumRowCount(20);
+        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome", "Código", "CPF", "CEP", "Sexo", "Telefone", "Celular", "Salário", "Cargo", "Horas Trabalhadas", "Nível Administrativo", "Logradouro", "Nr Logradouro", "Data Admissão", "Data Demissão", "Data Admissão Entre/Até", "Data Demissão Entre/Até", "Efetivado" }));
         cmbFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbFiltroActionPerformed(evt);
             }
         });
         panPrincipal.add(cmbFiltro);
-        cmbFiltro.setBounds(160, 10, 210, 25);
+        cmbFiltro.setBounds(160, 10, 160, 25);
 
         lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblPesquisar.setText("Pesquisar por: ");
@@ -268,7 +350,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnDeletar);
-        btnDeletar.setBounds(10, 190, 170, 30);
+        btnDeletar.setBounds(10, 230, 170, 30);
 
         btnLimparTabela.setText("Limpar tabela");
         btnLimparTabela.addActionListener(new java.awt.event.ActionListener() {
@@ -277,7 +359,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnLimparTabela);
-        btnLimparTabela.setBounds(410, 190, 120, 30);
+        btnLimparTabela.setBounds(410, 230, 120, 30);
 
         btnListarTodos.setText("Listar todos os registros");
         btnListarTodos.addActionListener(new java.awt.event.ActionListener() {
@@ -286,7 +368,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnListarTodos);
-        btnListarTodos.setBounds(550, 190, 147, 30);
+        btnListarTodos.setBounds(550, 230, 147, 30);
 
         btnCadastrarFuncionario.setText("Cadastrar novo Funcionário");
         btnCadastrarFuncionario.addActionListener(new java.awt.event.ActionListener() {
@@ -295,7 +377,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnCadastrarFuncionario);
-        btnCadastrarFuncionario.setBounds(720, 190, 170, 30);
+        btnCadastrarFuncionario.setBounds(720, 230, 170, 30);
 
         btnAlterar.setText("Alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -304,18 +386,13 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnAlterar);
-        btnAlterar.setBounds(980, 190, 130, 30);
+        btnAlterar.setBounds(980, 230, 130, 30);
 
         lblDigiteODado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblDigiteODado.setText("Digite o(a) Nome:");
+        lblDigiteODado.setText("Digite o nome:");
         panPrincipal.add(lblDigiteODado);
-        lblDigiteODado.setBounds(375, 10, 280, 25);
+        lblDigiteODado.setBounds(325, 10, 330, 25);
 
-        txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPesquisaActionPerformed(evt);
-            }
-        });
         txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtPesquisaKeyReleased(evt);
@@ -356,8 +433,17 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         panPrincipal.add(txtfDataAte);
         txtfDataAte.setBounds(840, 10, 100, 25);
 
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnPesquisar);
+        btnPesquisar.setBounds(950, 10, 79, 25);
+
         getContentPane().add(panPrincipal);
-        panPrincipal.setBounds(10, 10, 1125, 230);
+        panPrincipal.setBounds(10, 10, 1125, 270);
 
         tblListagemFuncionario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -370,10 +456,15 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblListagemFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblListagemFuncionarioMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblListagemFuncionario);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 269, 1125, 270);
+        jScrollPane1.setBounds(10, 309, 1125, 230);
 
         btnDeletarTodosRegistros.setText("Deletar todos os registros");
         btnDeletarTodosRegistros.addActionListener(new java.awt.event.ActionListener() {
@@ -405,7 +496,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         lblFuncionarioEncontrado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblFuncionarioEncontrado.setText("Funcionários encontrados no banco de dados. Para visualizar ou alterar um registro, clique em um registro exibido na tabela.");
         getContentPane().add(lblFuncionarioEncontrado);
-        lblFuncionarioEncontrado.setBounds(10, 240, 1040, 25);
+        lblFuncionarioEncontrado.setBounds(10, 280, 1040, 25);
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         getContentPane().add(lblBackground);
@@ -415,14 +506,12 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    DaoFuncionario df = new DaoFuncionario();
-
     private void cmbFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFiltroActionPerformed
-        // TODO add your handling code here:
+        limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
     }//GEN-LAST:event_cmbFiltroActionPerformed
 
     private void btnDeletarTodosRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarTodosRegistrosActionPerformed
-       // removerTodosRegistros();
+        removerTodosRegistros();
     }//GEN-LAST:event_btnDeletarTodosRegistrosActionPerformed
 
     private void btnMenuPrincipal1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipal1ActionPerformed
@@ -434,21 +523,21 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharFrameActionPerformed
 
     private void txtCpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyReleased
-       // txtCpf.setText(TextSize.maxLenghtCPFCNPJ(txtCpf.getText(), true));
-        //verificarCpfExiste();
+        txtCpf.setText(TextSize.maxLenghtCPFCNPJ(txtCpf.getText(), true));
+        verificarCpf();
     }//GEN-LAST:event_txtCpfKeyReleased
 
     private void txtCodigoFuncionarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoFuncionarioKeyReleased
-      //  txtCodigoFuncionario.setText(TextSize.maxLenghtFuncionario(txtCodigoFuncionario.getText()));
-       // verificarCodigoFuncionario();
+        txtCodigoFuncionario.setText(TextSize.maxLenghtFuncionario(txtCodigoFuncionario.getText()));
+        verificarCodFunc();
     }//GEN-LAST:event_txtCodigoFuncionarioKeyReleased
 
     private void txtCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCargoActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txtCargoActionPerformed
 
     private void txtCargoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCargoKeyReleased
-       // txtCargo.setText(TextSize.maxLenghtCargo(txtCargo.getText()));
+        txtCargo.setText(TextSize.maxLenghtCargo(txtCargo.getText()));
     }//GEN-LAST:event_txtCargoKeyReleased
 
     private void rbtVisualizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtVisualizacaoActionPerformed
@@ -475,20 +564,20 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         txtfHoras.setText(control.TextSize.maxLenghtHoraMensal(txtfHoras.getText()));
     }//GEN-LAST:event_txtfHorasKeyReleased
 
-    private void btnHojeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojeActionPerformed
+    private void btnHojeAdmissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojeAdmissaoActionPerformed
         txtfDataAdmissao.setText(control.Datas.getDiaHoje());
-    }//GEN-LAST:event_btnHojeActionPerformed
+    }//GEN-LAST:event_btnHojeAdmissaoActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-       // deletarRegistro();
+        deletarRegistro();
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnLimparTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparTabelaActionPerformed
-       // limparTabela();
+        limparTabela();
     }//GEN-LAST:event_btnLimparTabelaActionPerformed
 
     private void btnListarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarTodosActionPerformed
-       // atualizarTabela(false);
+        atualizarTabela(false);
     }//GEN-LAST:event_btnListarTodosActionPerformed
 
     private void btnCadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarFuncionarioActionPerformed
@@ -496,20 +585,16 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarFuncionarioActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-     //   alterarRegistro();
+        alterarRegistro();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
-    private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
-
-    }//GEN-LAST:event_txtPesquisaActionPerformed
-
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
-       // limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
-       // pesquisarFiltrada();
+        limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
+        pesquisarFiltrada();
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
     private void txtfDataDeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataDeKeyReleased
-       // pesquisarFiltrada();
+        pesquisarFiltrada();
     }//GEN-LAST:event_txtfDataDeKeyReleased
 
     private void btnHojePesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojePesquisaActionPerformed
@@ -518,8 +603,46 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHojePesquisaActionPerformed
 
     private void txtfDataAteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataAteKeyReleased
-      //  pesquisarFiltrada();
+        pesquisarFiltrada();
     }//GEN-LAST:event_txtfDataAteKeyReleased
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        txtfDataDe.setText(txtfDataDe.getText().trim());
+        txtfDataAte.setText(txtfDataAte.getText().trim());
+        if (txtfDataDe.getText().length() == 10 && txtfDataAte.getText().length() == 10) {
+            atualizarTabela(true);
+        } else {
+            limparTabela();
+        }
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnHojeDemissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojeDemissaoActionPerformed
+        txtfDataDemissao.setText(control.Datas.getDiaHoje());
+    }//GEN-LAST:event_btnHojeDemissaoActionPerformed
+
+    private void rbtEfetivadoSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtEfetivadoSimActionPerformed
+        txtfDataDemissao.setEnabled(false);
+        btnHojeDemissao.setEnabled(false);
+        txtfDataDemissao.setText("");
+    }//GEN-LAST:event_rbtEfetivadoSimActionPerformed
+
+    private void tblListagemFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListagemFuncionarioMouseClicked
+        popularCampos();
+    }//GEN-LAST:event_tblListagemFuncionarioMouseClicked
+
+    private void rbtEfetivadoNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtEfetivadoNaoActionPerformed
+        txtfDataDemissao.setEnabled(true);
+        btnHojeDemissao.setEnabled(true);
+        txtfDataDemissao.setText(control.Datas.getDiaHoje());
+    }//GEN-LAST:event_rbtEfetivadoNaoActionPerformed
+
+    private void txtfDataAdmissaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataAdmissaoKeyReleased
+        txtfDataAdmissao.setText(control.TextSize.maxLenghtData(txtfDataAdmissao.getText()));
+    }//GEN-LAST:event_txtfDataAdmissaoKeyReleased
+
+    private void txtfDataDemissaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataDemissaoKeyReleased
+        txtfDataDemissao.setText(control.TextSize.maxLenghtData(txtfDataDemissao.getText()));
+    }//GEN-LAST:event_txtfDataDemissaoKeyReleased
 
     /**
      * @param args the command line arguments
@@ -559,105 +682,6 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         });
     }
 
-    //Criando método de preenchimento/atualização de tabela com dados do banco
-    private void atualizarTabela() {
-        ArrayList<Funcionario> lista = new ArrayList<>();
-        lista = DaoFuncionario.listarFuncionario();
-        String[] nomeColunas = {"Código", "CEP", "Nome", "CPF", "Sexo", "Telefone", "Celular", "Número",
-            "Salário", "Cargo", "Admissão", "Demissão", "Horas Trabalhadas", "Nível Administrativo", "PK_REF"};
-        try {
-            DefaultTableModel model = new DefaultTableModel() {
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    if (column == 15) {
-                        return false;
-                    }
-                    return true;
-                }
-            };
-            tblListagemFuncionario.setModel(model);
-            model.setColumnIdentifiers(nomeColunas);
-            model.setRowCount(0);
-            Object rowData[] = new Object[15];
-            for (int i = 0; i < lista.size(); i++) {
-                rowData[0] = lista.get(i).getCodigoFuncionario();
-                rowData[1] = lista.get(i).getPessoa().getEndereco().getCep();
-                rowData[2] = lista.get(i).getPessoa().getNome();
-                rowData[3] = lista.get(i).getFisica().getCpf();
-                rowData[4] = lista.get(i).getFisica().getSexo();
-                rowData[5] = Long.toString(lista.get(i).getPessoa().getTelefone());
-                rowData[6] = Long.toString(lista.get(i).getFisica().getCelular());
-                rowData[7] = lista.get(i).getPessoa().getComplementoLogradouro();
-                rowData[8] = lista.get(i).getSalarioSTR();
-                rowData[9] = lista.get(i).getCargo();
-                rowData[10] = lista.get(i).getDataContrato();
-                rowData[11] = lista.get(i).getDataDemissao();
-                rowData[12] = Integer.toString(lista.get(i).getHorasTrabalhadas());
-                rowData[13] = lista.get(i).getNivelAdministrativo();
-                rowData[14] = lista.get(i).getCodigoFuncionario();
-
-                model.addRow(rowData);
-
-            }
-
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao popular tabela.\n\n" + ex.getMessage());
-        }
-
-        tblListagemFuncionario.getColumnModel().getColumn(14).setMinWidth(0);
-        tblListagemFuncionario.getColumnModel().getColumn(14).setPreferredWidth(0);
-        tblListagemFuncionario.getColumnModel().getColumn(14).setMaxWidth(0);
-    }
-
-    private void atualizarTabelaFiltrada() {
-        ArrayList<Funcionario> lista = new ArrayList<>();
-        lista = DaoFuncionario.listarFuncionarioFiltrada((String) cmbFiltro.getSelectedItem(), txtPesquisa.getText().toLowerCase().trim()); //Filtrando dados que aparecem na pesquisa
-        String[] nomeColunas = {"Código", "CEP", "Nome", "CPF", "Sexo", "Telefone", "Celular", "Número",
-            "Salário", "Cargo", "Admissão", "Demissão", "Horas Trabalhadas", "Nível Administrativo", "PK_REF"};
-        try {
-            DefaultTableModel model = new DefaultTableModel() {
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    if (column == 15) {
-                        return false;
-                    }
-                    return true;
-                }
-            };
-            tblListagemFuncionario.setModel(model);
-            model.setColumnIdentifiers(nomeColunas);
-            model.setRowCount(0);
-            Object rowData[] = new Object[15];
-            for (int i = 0; i < lista.size(); i++) {
-                rowData[0] = lista.get(i).getCodigoFuncionario();
-                rowData[1] = lista.get(i).getPessoa().getEndereco().getCep();
-                rowData[2] = lista.get(i).getPessoa().getNome();
-                rowData[3] = lista.get(i).getFisica().getCpf();
-                rowData[4] = lista.get(i).getFisica().getSexo();
-                rowData[5] = Long.toString(lista.get(i).getPessoa().getTelefone());
-                rowData[6] = Long.toString(lista.get(i).getFisica().getCelular());
-                rowData[7] = lista.get(i).getPessoa().getComplementoLogradouro();
-                rowData[8] = lista.get(i).getSalarioSTR();
-                rowData[9] = lista.get(i).getCargo();
-                rowData[10] = lista.get(i).getDataContrato().toString();
-                rowData[11] = lista.get(i).getDataDemissao().toString();
-                rowData[12] = Integer.toString(lista.get(i).getHorasTrabalhadas());
-                rowData[13] = lista.get(i).getNivelAdministrativo();
-                rowData[14] = lista.get(i).getCodigoFuncionario();
-
-                model.addRow(rowData);
-
-            }
-
-        } catch (Exception ex) {
-            System.out.println("Erro ao popular tabela.\n\n" + ex.getMessage());
-        }
-
-        tblListagemFuncionario.getColumnModel().getColumn(14).setMinWidth(0);
-        tblListagemFuncionario.getColumnModel().getColumn(14).setPreferredWidth(0);
-        tblListagemFuncionario.getColumnModel().getColumn(14).setMaxWidth(0);
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnCadastrarFuncionario;
@@ -665,12 +689,16 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     private javax.swing.JButton btnDeletar;
     private javax.swing.JButton btnDeletarTodosRegistros;
     private javax.swing.JButton btnFecharFrame;
-    private javax.swing.JButton btnHoje;
+    private javax.swing.JButton btnHojeAdmissao;
+    private javax.swing.JButton btnHojeDemissao;
     private javax.swing.JButton btnHojePesquisa;
     private javax.swing.JButton btnLimparTabela;
     private javax.swing.JButton btnListarTodos;
     private javax.swing.JButton btnMenuPrincipal1;
+    private javax.swing.JButton btnPesquisar;
     private javax.swing.JComboBox<String> cmbFiltro;
+    private javax.swing.ButtonGroup grupoFuncEfetivado;
+    private javax.swing.ButtonGroup grupoNivelAdm;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblCargo;
@@ -680,7 +708,9 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel lblCpfExiste;
     private javax.swing.JLabel lblDataAdmissao;
     private javax.swing.JLabel lblDataAte;
+    private javax.swing.JLabel lblDataDemissao;
     private javax.swing.JLabel lblDigiteODado;
+    private javax.swing.JLabel lblFuncEfetivado;
     private javax.swing.JLabel lblFuncionarioEncontrado;
     private javax.swing.JLabel lblHorasTrabalhadas;
     private javax.swing.JLabel lblNivelAdm;
@@ -689,6 +719,8 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     private javax.swing.JPanel panDados;
     private javax.swing.JPanel panPrincipal;
     private javax.swing.JRadioButton rbtCompleto;
+    private javax.swing.JRadioButton rbtEfetivadoNao;
+    private javax.swing.JRadioButton rbtEfetivadoSim;
     private javax.swing.JRadioButton rbtVisualizacao;
     private javax.swing.JTable tblListagemFuncionario;
     private javax.swing.JTextField txtCargo;
@@ -698,7 +730,544 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtfDataAdmissao;
     private javax.swing.JFormattedTextField txtfDataAte;
     private javax.swing.JFormattedTextField txtfDataDe;
+    private javax.swing.JFormattedTextField txtfDataDemissao;
     private javax.swing.JFormattedTextField txtfHoras;
     private javax.swing.JFormattedTextField txtfSalario;
     // End of variables declaration//GEN-END:variables
+
+    private void limiteDigitosPesquisa(String filtro) {
+
+        /*
+Nome
+Código
+CPF
+CEP
+Sexo
+Telefone
+Celular
+Salário
+Cargo
+Horas Trabalhadas
+Nível Administrativo
+Logradouro
+Nr Logradouro
+Data Admissão
+Data Demissão
+Data Admissão Entre/Até
+Data Demissão Entre/Até
+Efetivado
+         */
+        switch (filtro) {
+            case "Nome":
+                lblDigiteODado.setText("Digite o nome:");
+                txtPesquisa.setText(control.TextSize.maxLenghtNomeRazao(txtPesquisa.getText()));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "Código":
+                lblDigiteODado.setText("Digite o cód. do Funcionário:");
+                txtPesquisa.setText(control.TextSize.maxLenghtCodigoFuncionario(txtPesquisa.getText()));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "CPF":
+                lblDigiteODado.setText("Digite o CPF:");
+                txtPesquisa.setText(control.TextSize.maxLenghtCPFCNPJ(txtPesquisa.getText(), true));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "CEP":
+                lblDigiteODado.setText("Digite o CEP:");
+                txtPesquisa.setText(control.TextSize.maxLenghtCep(txtPesquisa.getText()));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "Sexo":
+                lblDigiteODado.setText("Digite Masculino ou Feminino:");
+                txtPesquisa.setText(control.TextSize.maxLenghtSexo(txtPesquisa.getText()));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "Telefone":
+                lblDigiteODado.setText("Digite o telefone:");
+                txtPesquisa.setText(control.TextSize.maxLenghtTelefone(txtPesquisa.getText()));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "Celular":
+                lblDigiteODado.setText("Digite o telefone:");
+                txtPesquisa.setText(control.TextSize.maxLenghtCelularRamal(txtPesquisa.getText(), true));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "Salário":
+                lblDigiteODado.setText("Digite o salário:");
+                txtPesquisa.setText(control.TextSize.maxLenghtSalario(txtPesquisa.getText()));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "Cargo":
+                lblDigiteODado.setText("Digite o cargo:");
+                txtPesquisa.setText(control.TextSize.maxLenghtCargo(txtPesquisa.getText()));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "Horas Trabalhadas":
+                lblDigiteODado.setText("Digite as horas mensais:");
+                txtPesquisa.setText(control.TextSize.maxLenghtHoraMensal(txtPesquisa.getText()));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "Nível Administrativo":
+                lblDigiteODado.setText("Digite Visualização ou Completo:");
+                txtPesquisa.setText(control.TextSize.maxLenghtNivelAdministrativo(txtPesquisa.getText()));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "Logradouro":
+                lblDigiteODado.setText("Digite o logradouro:");
+                txtPesquisa.setText(control.TextSize.maxLenghtLogradouro(txtPesquisa.getText()));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "Nr Logradouro":
+                lblDigiteODado.setText("Digite o número do logradouro:");
+                txtPesquisa.setText(control.TextSize.maxLenghtNrLogradouro(txtPesquisa.getText()));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            case "Data Admissão":
+                lblDigiteODado.setText("Digite a data de admissão:");
+                modoPesquisaData(false);
+                txtfDataDe.requestFocus();
+                break;
+            case "Data Demissão":
+                lblDigiteODado.setText("Digite a data de demissão:");
+                modoPesquisaData(false);
+                txtfDataDe.requestFocus();
+                break;
+            case "Data Admissão Entre/Até":
+                lblDigiteODado.setText("Digite a data de admissão - Entre:");
+                modoPesquisaData(true);
+                txtfDataDe.requestFocus();
+                break;
+            case "Data Demissão Entre/Até":
+                lblDigiteODado.setText("Digite a data de demissão - Entre:");
+                modoPesquisaData(true);
+                txtfDataDe.requestFocus();
+                break;
+            case "Efetivado":
+                lblDigiteODado.setText("Digite Sim ou Não:");
+                txtPesquisa.setText(control.TextSize.maxLenghtEfetivado(txtPesquisa.getText()));
+                modoPesquisaNormal();
+                txtPesquisa.requestFocus();
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "Erro ao definir limite de caracteres do campo de pesquisa.",
+                        "Erro - limite de dígitos dinâmico", 0);
+                break;
+        }
+    }
+
+    private void modoPesquisaNormal() {
+        txtPesquisa.setSize(490, 25);
+        txtPesquisa.setVisible(true);
+        txtfDataDe.setVisible(false);
+        txtfDataAte.setVisible(false);
+        lblDataAte.setVisible(false);
+        btnPesquisar.setVisible(false);
+    }
+
+    private void modoPesquisaData(boolean fixaOuEntre) {
+        boolean dataFixa = false;
+        boolean dataEntreAte = true;
+
+        if (fixaOuEntre == dataEntreAte) {
+            txtPesquisa.setVisible(false);
+            txtfDataDe.setVisible(true);
+            txtfDataAte.setVisible(true);
+            lblDataAte.setVisible(true);
+            btnPesquisar.setVisible(true);
+        } else if (fixaOuEntre == dataFixa) {
+            txtPesquisa.setVisible(false);
+            txtfDataDe.setVisible(true);
+            txtfDataAte.setVisible(false);
+            lblDataAte.setVisible(false);
+            btnPesquisar.setVisible(true);
+        }
+    }
+
+    private void pesquisarFiltrada() {
+        int opcaoFiltro = cmbFiltro.getSelectedIndex();
+        int opcaoDataAdmissao = 13;
+        int opcaoDataAdmissaoDeAte = 15;
+        int opcaoDataDemissao = 14;
+        int opcaoDataDemissaoDeAte = 16;
+
+        if ((opcaoFiltro != opcaoDataAdmissao) && (opcaoFiltro != opcaoDataDemissao)
+                && (opcaoFiltro != opcaoDataAdmissaoDeAte) && (opcaoFiltro != opcaoDataDemissaoDeAte)) {
+            if (!"".equals(txtPesquisa.getText().trim())) {
+                atualizarTabela(true);
+            } else {
+                limparTabela();
+            }
+        }
+    }
+
+    private void atualizarTabela(boolean filtrada) {
+
+        DefaultTableModel model = new DefaultTableModel();
+        model = (DefaultTableModel) tblListagemFuncionario.getModel();
+        model.setRowCount(0);
+
+        ArrayList<Funcionario> lista = new ArrayList<>();
+
+        if (filtrada) {
+            lista = DaoFuncionario.listarFuncionarioFiltrada(String.valueOf(cmbFiltro.getSelectedItem()),
+                    txtPesquisa.getText().toLowerCase().trim(), txtfDataDe.getText().toLowerCase().trim(),
+                    txtfDataAte.getText().toLowerCase().trim());
+            ultimoTipoPesquisa = true;
+        } else {
+            lista = DaoFuncionario.listarFuncionario();
+            ultimoTipoPesquisa = false;
+        }
+
+        Object dadosLinha[] = new Object[16];
+
+        for (int i = 0; i < lista.size(); i++) {
+            dadosLinha[0] = lista.get(i).getPessoa().getNome();
+            dadosLinha[1] = lista.get(i).getCodigoFuncionario();
+            dadosLinha[2] = lista.get(i).getFisica().getCpf();
+            dadosLinha[3] = lista.get(i).getPessoa().getEndereco().getCep();
+            dadosLinha[4] = lista.get(i).getFisica().getSexoSTR();
+            dadosLinha[5] = lista.get(i).getPessoa().getTelefone();
+            dadosLinha[6] = lista.get(i).getFisica().getCelular();
+            dadosLinha[7] = lista.get(i).getSalarioSTR();
+            dadosLinha[8] = lista.get(i).getCargo();
+            dadosLinha[9] = lista.get(i).getHorasTrabalhadas();
+            dadosLinha[10] = lista.get(i).getNivelAdministrativo();
+            dadosLinha[11] = lista.get(i).getPessoa().getEndereco().getLogradouro();
+            dadosLinha[12] = lista.get(i).getPessoa().getComplementoLogradouro();
+            dadosLinha[13] = lista.get(i).getDataContrato();
+            if (lista.get(i).getEfetivadoBooleano()){
+                dadosLinha[14] = "   -";
+            } else {
+                dadosLinha[14] = lista.get(i).getDataDemissao();
+            }            
+            dadosLinha[15] = lista.get(i).getEfetivadoSTR();
+
+            model.addRow(dadosLinha);
+        }
+        /*
+        String[] nomeColunas = {"Nome", "Código", "CPF", "CEP", "Sexo", "Telefone", 
+            "Celular", "Salário", "Cargo", "Horas Trabalhadas", "Nível Admnistrativo", 
+            "Logradouro", "Nr Logradouro", "Data Admissão", "Data Demissão"};
+         */
+
+        limparCampos();
+    }
+
+    private void inicializarTabela() {
+        String[] nomeColunas = {"Nome", "Código", "CPF", "CEP", "Sexo", "Telefone",
+            "Celular", "Salário", "Cargo", "Horas Trabalhadas", "Nível Admnistrativo",
+            "Logradouro", "Nr Logradouro", "Data Admissão", "Data Demissão", "Efetivado"};
+
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        tblListagemFuncionario.setModel(model);
+        model.setColumnIdentifiers(nomeColunas);
+        model.setRowCount(0);
+    }
+
+    private void limparCampos() {
+        txtCodigoFuncionario.setText("");
+        txtCpf.setText("");
+        txtCargo.setText("");
+        txtfDataAdmissao.setText("");
+        txtfDataDemissao.setText("");
+        txtfSalario.setText("0,00");
+        txtfHoras.setText("0");
+        rbtCompleto.setSelected(false);
+        rbtVisualizacao.setSelected(false);
+        rbtEfetivadoSim.setSelected(false);
+        rbtEfetivadoNao.setSelected(false);
+        verificarCpf();
+        verificarCodFunc();
+    }
+
+    private void verificarCpf() {
+        if ((txtCpf.getText().length() < 11) || (txtCpf.getText().length() > 11)) {
+            lblCpfExiste.setText("CPF Inválido.");
+            lblCpfExiste.setForeground(Color.red);
+            cpfCadastrado = true;
+        } else {
+            this.cpfCadastrado = dao.DaoPessoa.existePessoaFisica(txtCpf.getText());
+            if (cpfCadastrado) {
+                lblCpfExiste.setText("CPF já Cadastrado.");
+                lblCpfExiste.setForeground(Color.black);
+                cpfCadastrado = false;
+            } else {
+                lblCpfExiste.setText("CPF não existe.");
+                lblCpfExiste.setForeground(Color.red);
+                cpfCadastrado = true;
+            }
+        }
+    }
+
+    private void verificarCodFunc() {
+        if ((txtCodigoFuncionario.getText().isEmpty())) {
+            lblCodigoExiste.setText("Código Inválido.");
+            lblCodigoExiste.setForeground(Color.red);
+            codCadastrado = true;
+        } else {
+            this.codCadastrado = dao.DaoFuncionario.existeFuncionario(txtCodigoFuncionario.getText());
+            if (codCadastrado) {
+                lblCodigoExiste.setText("Código já Cadastrado.");
+                lblCodigoExiste.setForeground(Color.black);
+                codCadastrado = false;
+            } else {
+                lblCodigoExiste.setText("Código livre.");
+                lblCodigoExiste.setForeground(Color.black);
+                codCadastrado = false;
+            }
+        }
+    }
+
+    private void limparTabela() {
+        DefaultTableModel model = new DefaultTableModel();
+        model = (DefaultTableModel) tblListagemFuncionario.getModel();
+        model.setRowCount(0);
+        /*
+        Chama o metodo limparCampos para limpar os dados do registro anteriormente
+        selecionado.
+         */
+        limparCampos();
+    }
+
+    private void deletarRegistro() {
+        int opcao;
+        String codigoFuncionario = (String) tblListagemFuncionario.getValueAt(tblListagemFuncionario.getSelectedRow(), 1);
+        opcao = JOptionPane.showConfirmDialog(this, "Atenção! Todos os registros relacionados ao Cód. de funcionário "
+                + codigoFuncionario + " serão permanentemente removidos.\n\nDeseja realmente excluir o registro?",
+                "Confirmação de exclusão",
+                JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+        if (opcao == 0) {
+            dao.DaoFuncionario.deletarFuncionario(codigoFuncionario);
+            atualizarTabela(ultimoTipoPesquisa);
+            limparCampos();
+        }
+    }
+
+    private void selecionarAoFocar() {
+        //Código para selecionar o texto todo ao ganhar foco
+        txtfDataDe.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfDataDe.selectAll();
+                    }
+                });
+            }
+        });
+
+        txtfDataAte.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfDataAte.selectAll();
+                    }
+                });
+            }
+        });
+
+        txtfDataAdmissao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfDataAdmissao.selectAll();
+                    }
+                });
+            }
+        });
+
+        txtfSalario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfSalario.selectAll();
+                    }
+                });
+            }
+        });
+
+        txtfHoras.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfHoras.selectAll();
+                    }
+                });
+            }
+        });
+    }
+
+    private void removerTodosRegistros() {
+        int opcao;
+        opcao = JOptionPane.showConfirmDialog(this, "Deseja REALMENTE remover todos os funcionários do banco de dados?\n\n",
+                "Alerta - remoção de todos os registros", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (opcao == 0) {
+            opcao = JOptionPane.showConfirmDialog(this, "Essa operação tem grandes chances de falhar, devido a existência\n"
+                    + "de restrições de chaves estrangeiras no banco de dados.\n\n"
+                    + "Deseja REALMENTE tentar excluir todos os registros do banco de dados?\n\n"
+                    + "Caso a operação suceda, todos os dados serão permanentemente excluídos.\n"
+                    + "Caso ela falhe, talvez alguns registros possam ter sidos excluidos, e outros não."
+                    + "\n\n"
+                    + "Deseja prosseguir?",
+                    "Alerta - remoção de todos os registros", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            if (opcao == 0) {
+                boolean exclusaoSucedida;
+                exclusaoSucedida = dao.DaoFuncionario.deletarTodosFuncionarios();
+                if (exclusaoSucedida) {
+                    atualizarTabela(ultimoTipoPesquisa);
+                }
+            }
+        }
+    }
+
+    private void alterarRegistro() {
+        if (validarCampos()) {
+            Funcionario func = new Funcionario();
+            PessoaFisica pessoaFisica = new PessoaFisica();
+
+            pessoaFisica = dao.DaoPessoa.popularPessoaFisica(txtCpf.getText());
+
+            func.setCodigoFuncionario(txtCodigoFuncionario.getText());
+            func.setFisica(pessoaFisica);
+            func.setCargo(txtCargo.getText());
+            func.setSalario(txtfSalario.getText());
+            func.setHorasTrabalhadas(txtfHoras.getText());
+            if (rbtEfetivadoSim.isSelected()){
+                func.setDataContrato(txtfDataAdmissao.getText());
+            } else {
+                func.setDataContrato(txtfDataAdmissao.getText());
+                func.setDataDemissao(txtfDataDemissao.getText());
+            }            
+            func.setNivelAdministrativo(rbtVisualizacao.isSelected());
+            func.setEfetivadoBooleano(rbtEfetivadoSim.isSelected());
+
+            boolean alteracaoSucedida;
+            alteracaoSucedida = dao.DaoFuncionario.alterarFuncionario(func, PK_REF);
+
+            if (alteracaoSucedida) {
+                atualizarTabela(ultimoTipoPesquisa);
+                limparCampos();
+            }
+        }
+    }
+
+    private boolean validarCampos() {
+        boolean selectionEmpty = tblListagemFuncionario.getSelectionModel().isSelectionEmpty();
+        if (selectionEmpty) {
+            JOptionPane.showMessageDialog(this, "Nenhum registro selecionado da tabela.\n\n"
+                    + "Pesquise por algum registro e clique em alguma linha da tabela.", "Erro - Não há registro selecionado", 0);
+            return false;
+        } else if (txtCodigoFuncionario.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Código do funcionário em branco. \nDigite um código para o funcionário.", "Erro - Código do Funcionário Inválido", 0);
+            txtCodigoFuncionario.requestFocus();
+            return false;
+        } else if (txtCpf.getText().length() < 11) {
+            JOptionPane.showMessageDialog(null, "CPF Inválido. Digite 11 dígitos, sem pontos ou hífens.", "Erro - CPF Inválido", 0);
+            txtCpf.requestFocus();
+            return false;
+        } else if (cpfCadastrado) {
+            JOptionPane.showMessageDialog(null, "CPF inválido. Verifique se o CPF está correto e se já não existe um mesmo CPF cadastrado.", "Erro - CPF Inválido", 0);
+            txtCpf.requestFocus();
+            return false;
+        } else if (codCadastrado) {
+            JOptionPane.showMessageDialog(null, "Código de funcionário inválido. Verifique se o código informado está correto ou se ele já está cadastrado.", "Erro - Código do Funcionário Inválido", 0);
+            txtCodigoFuncionario.requestFocus();
+            return false;
+        } else if (txtCargo.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Cargo a ser exercido em branco. \nDigite o cargo a ser exercido corretamente.", "Erro - Cargo Inválido", 0);
+            txtCargo.requestFocus();
+            return false;
+        } else if (txtfDataAdmissao.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Data de admissão em branco. \nDigite a data de admissão corretamente.", "Erro - Data de Admissão inválida", 0);
+            txtfDataAdmissao.requestFocus();
+            return false;
+        } else if (rbtEfetivadoNao.isSelected() && txtfDataDemissao.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Data de demissao em branco. \nDigite a data de demissão corretamente", "Erro - Data de Demissão inválida", 0);
+            txtfDataDemissao.requestFocus();
+            return false;
+        } else if (txtfHoras.getText().equals("0")) {
+            JOptionPane.showMessageDialog(null, "Horas mensais zerada. \nDigite as horas mensais corretamente.", "Erro - Horas mensais Inválida", 0);
+            txtfHoras.requestFocus();
+            return false;
+        } else if (txtfSalario.getText().equals("0,00")) {
+            JOptionPane.showMessageDialog(null, "Salário zerado. \nInforme um salário diferente de zero.", "Erro - Salário Inválido", 0);
+            txtfSalario.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private void popularCampos() {
+        Funcionario func = new Funcionario();
+
+        String codigoFuncionario = (String) tblListagemFuncionario.getValueAt(tblListagemFuncionario.getSelectedRow(), 1);
+
+        func = dao.DaoFuncionario.popularFuncionario(codigoFuncionario);
+
+        boolean nivelAdm = func.getNivelAdministrativoBooleano();
+        boolean efetivado = func.getEfetivadoBooleano();
+
+        if (nivelAdm) {
+            rbtVisualizacao.setSelected(true);
+            rbtCompleto.setSelected(false);
+        } else {
+            rbtVisualizacao.setSelected(false);
+            rbtCompleto.setSelected(true);
+        }
+        try {
+            if (efetivado) {
+                rbtEfetivadoSim.setSelected(true);
+                rbtEfetivadoNao.setSelected(false);
+                txtfDataDemissao.setEnabled(false);
+                btnHojeDemissao.setEnabled(false);
+                txtfDataAdmissao.setText(func.getDataContrato());
+                txtfDataDemissao.setText("");
+            } else {
+                rbtEfetivadoSim.setSelected(false);
+                rbtEfetivadoNao.setSelected(true);
+                txtfDataDemissao.setEnabled(true);
+                btnHojeDemissao.setEnabled(true);
+                txtfDataAdmissao.setText(func.getDataContrato());
+                txtfDataDemissao.setText(func.getDataDemissao());
+            }
+        } catch (NullPointerException npe) {
+            
+        }
+
+        txtCodigoFuncionario.setText(func.getCodigoFuncionario());
+        txtCpf.setText(func.getFisica().getCpf());
+        txtCargo.setText(func.getCargo());
+        txtfSalario.setText(func.getSalarioSTR());
+        txtfHoras.setText(String.valueOf(func.getHorasTrabalhadas()));
+
+        PK_REF = func.getCodigoFuncionario();
+
+        verificarCpf();
+        verificarCodFunc();
+    }
 }

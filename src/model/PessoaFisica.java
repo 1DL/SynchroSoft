@@ -97,4 +97,12 @@ public class PessoaFisica {
     public void setSexoBanco(int sexo){
         this.sexo = sexo;
     }
+    
+    public void setSexoSTR(String sexo){
+        if (sexo.equals("Masculino")) {
+            this.sexo = 0;
+        } else if (sexo.equals("Feminino")){
+            this.sexo = 1;
+        }
+    }
 }
