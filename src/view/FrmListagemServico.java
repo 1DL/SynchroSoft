@@ -1391,7 +1391,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
             Object rowData[] = new Object[8];
             for (int i = 0; i < lista.size(); i++) {
                 rowData[0] = lista.get(i).getCodigoServico();
-                //rowData[1] = lista.get(i).getTipoServico();
+                rowData[1] = lista.get(i).getTipoServicoSTR();
                 rowData[2] = lista.get(i).getTipoClienteSTR();
                 rowData[3] = lista.get(i).getDescricaoServicoFILE();
                 rowData[4] = lista.get(i).getStatusServicoSTR();

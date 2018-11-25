@@ -68,6 +68,9 @@ public class Produto {
     }
 
     public void setQuantidadePeca(String quantidadePeca) {
+        quantidadePeca = quantidadePeca.replace(".", "");
+        quantidadePeca = quantidadePeca.replace(",", "");
+        quantidadePeca = quantidadePeca.replace("-", "");
         try{
             this.quantidadePeca = Long.parseLong(quantidadePeca);
             validacao = true;

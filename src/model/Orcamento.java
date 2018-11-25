@@ -56,6 +56,13 @@ public class Orcamento {
     public Double getMaoDeObra() {
         return maoDeObra;
     }
+    
+    public String getMaoDeObraSTR(){
+        String valor = "";
+        valor = String.valueOf(this.maoDeObra);
+        valor = valor.replace(".", ",");
+        return valor;
+    }
 
     public void setMaoDeObra(Double maoDeObra) {
         this.maoDeObra = maoDeObra;
@@ -74,6 +81,13 @@ public class Orcamento {
     public Double getValorTotal() {
         return valorTotal;
     }
+    
+    public String getValorTotalSTR() {
+        String valor = "";
+        valor = String.valueOf(this.valorTotal);
+        valor = valor.replace(".", ",");
+        return valor;
+    }
 
     public void setValorTotal(Double valorTotal) {
         this.valorTotal = valorTotal;
@@ -81,6 +95,14 @@ public class Orcamento {
 
     public int getStatusOrcamento() {
         return statusOrcamento;
+    }
+    
+    public String getStatusOrcamentoSTR() {
+        if (this.statusOrcamento == 0){
+            return "Não";
+        } else {
+            return "Sim";
+        }
     }
 
     public void setStatusOrcamento(int statusOrcamento) {

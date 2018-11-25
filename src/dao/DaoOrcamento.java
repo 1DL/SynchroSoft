@@ -242,10 +242,15 @@ Valor Total
             st.close();
             rs.close();
 
-        } catch (Exception ex) { //Caso exista a possibilidade de retorno de erro
-            JOptionPane.showMessageDialog(null, "Erro no carregamento da lista de Orçamento filtrada.\n\n" + ex, "Erro Carregamento", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) { //Caso exista a possibilidade de retorno de erro
+            JOptionPane.showMessageDialog(null, "Erro ao listar orçamentos via filtro.\n\nErro nº:" 
+                    +ex.getErrorCode()+"\n\n"+ex.getMessage(),"Erro: DaoOrcamento - Listar Orcamento Filtrado", 0);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar orçamentos via filtro.\n\nErro: " 
+                    +ex,"Erro: DaoOrcamento - Listar Orcamento Filtrado", 0);
         }
-        //return lista;
         return lista;
     }
 

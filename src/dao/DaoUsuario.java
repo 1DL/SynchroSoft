@@ -325,8 +325,11 @@ Código", "Codigo do Funcionário", "Login", "Senha
             }
             st.close();
             rs.close();
-        } catch (Exception ex) {
-            System.err.println("DaoUsuario Listagem Java: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar usuários via filtro.\n\nErro nº:" 
+                    +ex.getErrorCode()+"\n\n"+ex.getMessage(),"Erro: DaoUsuário - Listar Usuário Filtrado", 0);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lista;
     }

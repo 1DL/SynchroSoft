@@ -11,6 +11,42 @@ package control;
  */
 public class TextSize {
     
+    public static String maxLenghtOrcamentoPago(String str) {
+        String valor = "";
+        if (str.length() > 3) {
+            valor = str.substring(0, 3);
+            str = valor;
+        }
+        return str;
+    }
+    
+    public static String maxLenghtValorTotalOrcamento(String str) {
+        String valor = "";
+        if (str.length() > 30) {
+            valor = str.substring(0, 30);
+            str = valor;
+        }
+        return str;
+    }
+    
+    public static String maxLenghtCodigoOrcamento(String str) {
+        String valor = "";
+        if (str.length() > 4) {
+            valor = str.substring(0, 4);
+            str = valor;
+        }
+        return str;
+    }
+    
+    public static String maxLenghtCodigoServico(String str) {
+        String valor = "";
+        if (str.length() > 10) {
+            valor = str.substring(0, 10);
+            str = valor;
+        }
+        return str;
+    }
+    
     public static String maxLenghtNivelAdministrativo(String str) {
         String valor = "";
         if (str.length() > 20) {
@@ -273,6 +309,7 @@ public class TextSize {
     
     public static String maxLenghtMaoDeObra(String str) {
          String valor = "";
+         str = str.replace("-", "");
             if(str.length() > 8){
 	        valor = str.substring(0,8);
                 str = valor;

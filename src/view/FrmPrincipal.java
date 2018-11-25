@@ -433,6 +433,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menu.add(menu_cadastro);
 
+        menu_listagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/menu_listagem.png"))); // NOI18N
         menu_listagem.setText("Listagem");
 
         menu_listaEndereco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/listagem_endereco.png"))); // NOI18N
