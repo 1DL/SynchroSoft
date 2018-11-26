@@ -108,9 +108,9 @@ public class Servico {
      */
     public void setTipoCliente(boolean tipoCliente) {
         if (tipoCliente) {
-            this.tipoCliente = 0;
-        } else {
             this.tipoCliente = 1;
+        } else {
+            this.tipoCliente = 0;
         }
     }
 

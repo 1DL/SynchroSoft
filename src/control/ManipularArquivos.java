@@ -40,7 +40,7 @@ public class ManipularArquivos {
         desde que seja acima das portas exclusivas do sistema. Se alterada, 
         O aplicativo que irá escutar requisições também precisa ter o socket trocado.
         */
-        try {
+        
         Socket sock = new Socket(dao.Conexao.getServerName(), 5005);
 
         /*
@@ -108,12 +108,7 @@ public class ManipularArquivos {
         
         JOptionPane.showMessageDialog(null, "O arquivo "+nomeArquivo+" foi salvo em \n"
         +"\\\\"+dao.Conexao.getServerName()+"\\Synchro Relatorios\\"+CodigoServico+"-"+nomeArquivo, "Arquivo enviado com sucesso", 1);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao enviar o arquivo.\n\n"
-                    + "Verifique se o aplicativo para receber requisições sockets está sendo executado no servidor,\n"
-            +"ou se o arquivo foi devidamente selecionado. Verifique também se a porta do socket da aplicação é a mesma do servidor.\n\n"
-                    +"Erro: "+ex, "Erro - não foi possível salvar oa rquivo.", 0);
-        }
+        
         
         //deletarArquivo(diretorioArquivoServico);
     }

@@ -456,7 +456,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtfCep.setNextFocusableComponent(txtCodFunc);
+        txtfCep.setNextFocusableComponent(txtNumeroLogradouro);
         txtfCep.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtfCepFocusLost(evt);
@@ -591,6 +591,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         panPrincipal.add(lblNumeroLogradouro);
         lblNumeroLogradouro.setBounds(10, 90, 140, 25);
 
+        txtNumeroLogradouro.setNextFocusableComponent(btnSelecionarArquivo);
         txtNumeroLogradouro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNumeroLogradouroActionPerformed(evt);
@@ -1117,7 +1118,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             servico.setCodigoServico(lblCodigoServicoInicial.getText() + txtCodigoServico.getText());
             servico.setTipoServico(cmbTipoServico.getSelectedIndex());
             servico.setDataServico(txtfDataServico.getText());
-            servico.setTipoCliente(rbtFisica.isSelected());
+            servico.setTipoCliente(rbtJuridica.isSelected());
             servico.setCpfCliente(txtCpfCnpj.getText());
             String cep = txtfCep.getText();
             cep = cep.replace("-", "");
@@ -1134,10 +1135,14 @@ public class FrmCadastroServico extends javax.swing.JFrame {
                 funcionario.setCodigoFuncionario(((String) model.getValueAt(i, 0)));
                 servico.setFuncionarioNaLista(funcionario);
             }
+            if (!salvarArquivo()){
+                servico.setDescricaoServicoFILE("Nenhum arquivo selecionado.");
+                removerArquivo();
+            }
+            
             boolean cadastroSucedido;
             cadastroSucedido = dao.DaoServico.cadastrarServico(servico, txtNumeroLogradouro.getText());
-            if (cadastroSucedido) {
-                salvarArquivo();
+            if (cadastroSucedido) {                
                 iniciarTabela();
                 txtCodigoServico.requestFocus();
                 if (servico.getTipoServicoBanco() != 0) {
@@ -1168,6 +1173,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         txtCpfCnpj.setText("");
         txtfCep.setText("");
         txtCodFunc.setText("");
+        txtNumeroLogradouro.setText("");
         lblNomeFuncValor.setText("");
         lblDiretorioArquivo.setText("Nenhum arquivo selecionado.");
         iniciarTabela();
@@ -1341,15 +1347,27 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         }
     }
 
-    private void salvarArquivo() {
+    private boolean salvarArquivo() {
+        boolean envioConcluido = false;
         if (!lblNomeArquivo.getText().equals("Nenhum arquivo selecionado.")) {
             try {
                 control.ManipularArquivos.enviarArquivoServico(lblNomeArquivo.getText(),
                         lblDiretorioArquivo.getText(), lblCodigoServicoInicial.getText() + txtCodigoServico.getText());
+                envioConcluido = true;
             } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Não foi possível enviar o arquivo para o servidor.\n\n"
+                    +"Verifique com o administrador do sistema se o servidor socket está funcionando\n"
+                    +"e se a porta do socket é a mesma utilizada no sistema cliente.zn"
+                    +"Caso as portas sejam as mesmas e o servidor esteja operacional, ocorreu algum problema\n "
+                    + "na transferência do arquivo. O Serviço será cadastrado sem nenhum arquivo de descrição.\n "
+                    + "Você pode adicionar manualmente um arquivo futuramente através da Listagem de Serviços.\n\n", 
+                    "Erro ao enviar arquivo para o servidor",0);
                 Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
+                envioConcluido = false;
             }
         } else {
+            envioConcluido = true;
         }
+        return envioConcluido;
     }
 }

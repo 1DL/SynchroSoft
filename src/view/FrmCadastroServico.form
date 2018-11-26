@@ -692,7 +692,7 @@
               <Format format="#####-###" subtype="-1" type="5"/>
             </Property>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-              <ComponentRef name="txtCodFunc"/>
+              <ComponentRef name="txtNumeroLogradouro"/>
             </Property>
           </Properties>
           <Events>
@@ -937,6 +937,11 @@
           </Constraints>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNumeroLogradouro">
+          <Properties>
+            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="btnSelecionarArquivo"/>
+            </Property>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNumeroLogradouroActionPerformed"/>
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNumeroLogradouroKeyReleased"/>

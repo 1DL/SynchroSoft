@@ -44,6 +44,8 @@ public class DaoServico {
             st.setDate(7, null);
 
             st.executeUpdate();
+            
+            
 
             sql = "INSERT INTO SYNCHROSOFT.TB_FUNC_SERVICO (CD_FUNCIONARIO, CD_SERVICO) VALUES (?,?)";
             PreparedStatement st2 = con.prepareStatement(sql);
@@ -51,6 +53,7 @@ public class DaoServico {
                 st2.setString(1, servico.getListaFuncionario().get(i).getCodigoFuncionario());
                 st2.setString(2, servico.getCodigoServico());
                 st2.executeUpdate();
+                
             }
 
             if (servico.getTipoClienteBanco() == 0) {
@@ -60,6 +63,7 @@ public class DaoServico {
                 st3.setString(2, servico.getCodigoServico());
                 st3.executeUpdate();
                 st3.close();
+                
             } else {
                 sql = "INSERT INTO SYNCHROSOFT.TB_PESSOAJ_SERVICO (CD_CNPJ, CD_SERVICO) VALUES (?,?)";
                 PreparedStatement st3 = con.prepareStatement(sql);
@@ -67,9 +71,10 @@ public class DaoServico {
                 st3.setString(2, servico.getCodigoServico());
                 st3.executeUpdate();
                 st3.close();
+                
             }
             
-            sql = "INSERT INTO SYNCHROSOFT.TB_ENDERECO_SERVICO (CD_CEP, CD_SERVICO) VALUES (?,?,?)";
+            sql = "INSERT INTO SYNCHROSOFT.TB_ENDERECO_SERVICO (CD_CEP, CD_SERVICO, NR_LOGRADOURO) VALUES (?,?,?)";
             PreparedStatement st4 = con.prepareStatement(sql);
             
             st4.setString(1, servico.getEndereco().getCep());

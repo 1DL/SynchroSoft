@@ -573,7 +573,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
             }
         });
         panDadosServico.add(txtCpfCnpj);
-        txtCpfCnpj.setBounds(340, 40, 120, 25);
+        txtCpfCnpj.setBounds(350, 40, 110, 25);
 
         lblCpfCnpjExiste.setForeground(java.awt.Color.red);
         lblCpfCnpjExiste.setText("CPF Inválido.");
@@ -599,6 +599,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtfCep.setNextFocusableComponent(txtNumeroLogradouro);
         txtfCep.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtfCepFocusLost(evt);
@@ -1115,7 +1116,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHojeInicioActionPerformed
 
     private void btnRemoverArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverArquivoActionPerformed
-        //removerArquivo();
+        removerArquivo();
     }//GEN-LAST:event_btnRemoverArquivoActionPerformed
 
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
@@ -2130,5 +2131,10 @@ Data Encerramento Entre/Até
             }
 
         
+    }
+    
+    private void removerArquivo() {
+        lblNomeArquivo.setText("Nenhum arquivo selecionado.");
+        lblDiretorioArquivo.setText("...");
     }
 }
