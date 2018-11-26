@@ -328,6 +328,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         getContentPane().add(lblBackground);
         lblBackground.setBounds(0, -20, 1150, 650);
 
+        menu_sistema.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/menu_sistema.png"))); // NOI18N
         menu_sistema.setText("Sistema");
 
         menu_fecharJanelas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/sistema_fecharjanelas.png"))); // NOI18N
@@ -359,6 +360,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menu.add(menu_sistema);
 
+        menu_cadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/menu_cadastro.png"))); // NOI18N
         menu_cadastro.setText("Cadastro");
 
         menu_endereco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/cadastro_endereco.png"))); // NOI18N
