@@ -148,9 +148,17 @@ public class Servico {
 
     public String getStatusServicoSTR() {
         if (this.statusServico == 0) {
-            return "Inativo";
+            return "Encerrado";
         } else {
             return "Ativo";
+        }
+    }
+    
+    public boolean getStatusServicoBooleano() {
+        if (this.statusServico == 0) {
+            return false;
+        } else {
+            return true;
         }
     }
 

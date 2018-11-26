@@ -11,6 +11,33 @@ package control;
  */
 public class TextSize {
     
+    public static String maxLenghtServicoAtivo(String str) {
+        String valor = "";
+        if (str.length() > 3) {
+            valor = str.substring(0, 3);
+            str = valor;
+        }
+        return str;
+    }
+    
+    public static String maxLenghtTipoServico(String str) {
+        String valor = "";
+        if (str.length() > 30) {
+            valor = str.substring(0, 30);
+            str = valor;
+        }
+        return str;
+    }
+    
+    public static String maxLenghtCodigoServico(String str) {
+        String valor = "";
+        if (str.length() > 10) {
+            valor = str.substring(0, 10);
+            str = valor;
+        }
+        return str;
+    }
+    
     public static String maxLenghtOrcamentoPago(String str) {
         String valor = "";
         if (str.length() > 3) {
@@ -38,14 +65,6 @@ public class TextSize {
         return str;
     }
     
-    public static String maxLenghtCodigoServico(String str) {
-        String valor = "";
-        if (str.length() > 10) {
-            valor = str.substring(0, 10);
-            str = valor;
-        }
-        return str;
-    }
     
     public static String maxLenghtNivelAdministrativo(String str) {
         String valor = "";

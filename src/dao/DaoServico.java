@@ -266,42 +266,77 @@ public class DaoServico {
         return lista;
     }
 
-    public static ArrayList listarServicoFiltrada(String cmbFiltro, String txtPesquisa) {
+    public static ArrayList listarServicoFiltrada(String cmbFiltro, String txtPesquisa, String dataDe, String dataAte) {
         ArrayList<Servico> lista = new ArrayList<>();
         try {
             Connection con = Conexao.conectar();
             String sql = "";
             /*
 Código Serviço
-Status Serviço
 Tipo Serviço
-Descrição Serviço
+Serviço Ativo?
 Data Início
-Data Encerramento        
+Data Encerramento
+Data Início Entre/Até
+Data Encerramento Entre/Até
              */
 
             switch (cmbFiltro) {
                 case "Código Serviço":
                     sql = "SELECT * FROM SYNCHROSOFT.TB_SERVICO WHERE LOWER(CD_SERVICO) LIKE LOWER(?)";
                     break;
-                case "Status Serviço":
+                case "Serviço Ativo?":
+                    txtPesquisa = txtPesquisa.substring(0, 1);
+                    if (txtPesquisa.equals("s")) {
+                        txtPesquisa = "1";
+                    } else if (txtPesquisa.equals("n")) {
+                        txtPesquisa = "0";
+                    }
                     sql = "SELECT * FROM SYNCHROSOFT.TB_SERVICO WHERE LOWER(ID_STATUS_SERVICO) LIKE LOWER(?)";
                     break;
                 case "Tipo Serviço":
                     sql = "SELECT * FROM SYNCHROSOFT.TB_SERVICO WHERE LOWER(DS_TIPO_SERVICO) LIKE LOWER(?)";
                     break;
-                case "Descrição Serviço":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_SERVICO WHERE LOWER(DS_SERVICO) LIKE LOWER(?)";
-                    break;
                 case "Data Início":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_SERVICO WHERE LOWER(DT_SERVICO_INICIO) LIKE LOWER(?)";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_SERVICO "
+                            + "WHERE DT_SERVICO_INICIO = TO_DATE(?, 'yyyy-mm-dd')";
                     break;
                 case "Data Encerramento":
-                    sql = "SELECT * FROM SYNCHROSOFT.TB_SERVICO WHERE LOWER(DT_SERVICO_FIM) LIKE LOWER(?)";
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_SERVICO "
+                            + "WHERE DT_SERVICO_FIM = TO_DATE(?, 'yyyy-mm-dd')";
                     break;
+                case "Data Início Entre/Até":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_SERVICO "
+                            + "WHERE DT_SERVICO_INICIO BETWEEN TO_DATE(?, 'yyyy-mm-dd') AND TO_DATE (?, 'yyyy-mm-dd')";
+                    break; 
+                case "Data Encerramento Entre/Até":
+                    sql = "SELECT * FROM SYNCHROSOFT.TB_SERVICO "
+                        + "WHERE DT_SERVICO_FIM BETWEEN TO_DATE(?, 'yyyy-mm-dd') AND TO_DATE (?, 'yyyy-mm-dd')";
+                    break;    
             }
             PreparedStatement st = con.prepareStatement(sql);
-            st.setString(1, "%" + txtPesquisa + "%");
+            
+            if (cmbFiltro.equals("Data Início") || cmbFiltro.equals("Data Encerramento")) {
+                try {
+                    dataDe = control.Datas.converterParaAmericana(dataDe);
+
+                } catch (Exception ex) {
+
+                }
+                st.setString(1, dataDe);
+            } else if (cmbFiltro.equals("Data Início Entre/Até") || cmbFiltro.equals("Data Encerramento Entre/Até")) {
+                try {
+                    dataDe = control.Datas.converterParaAmericana(dataDe);
+                    dataAte = control.Datas.converterParaAmericana(dataAte);
+                } catch (Exception ex) {
+
+                }
+                st.setString(1, dataDe);
+                st.setString(2, dataAte);
+            } else {
+                st.setString(1, "%" + txtPesquisa + "%");
+            }
+            
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Servico s = new Servico();
@@ -316,10 +351,16 @@ Data Encerramento
             }
             st.close();
             rs.close();
-        } catch (Exception ex) {
-            System.err.println("DaoServico Listagem Java: " + ex.getMessage());
+            
+            return lista;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível listar os serviços via filtro.\n\nErro Nº:"
+                    + ex.getErrorCode()+"\n"+ex.getMessage(), "Erro: DaoServico - Listar Serviços Filtrado",0);
+            return null;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoServico.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
-        return lista;
     }
 
     public static boolean verificarServicoAtivo(String codigoServico) {

@@ -189,22 +189,28 @@ public class DaoOrcamento {
             Connection con = Conexao.conectar();
             String sql = "";
             /*
-Código Orçamento
-Código Serviço
-Status
+Código do Orçamento
+Código do Serviço
+Orçamento Pago?
 Valor Mão De Obra
 Valor Total
             
              */
             switch (cmbFiltro) {
 
-                case "Código Orçamento":
+                case "Código do Orçamento":
                     sql = "SELECT * FROM SYNCHROSOFT.TB_ORCAMENTO WHERE LOWER(CD_ORCAMENTO) LIKE LOWER(?)";
                     break;
-                case "Código Serviço":
+                case "Código do Serviço":
                     sql = "SELECT * FROM SYNCHROSOFT.TB_ORCAMENTO WHERE LOWER(CD_SERVICO) LIKE LOWER(?)";
                     break;
-                case "Status":
+                case "Orçamento Pago?":
+                    txtPesquisa = txtPesquisa.substring(0, 1);
+                    if (txtPesquisa.equals("n")) {
+                        txtPesquisa = "0";
+                    } else if (txtPesquisa.equals("s")) {
+                        txtPesquisa = "1";
+                    }
                     sql = "SELECT * FROM SYNCHROSOFT.TB_ORCAMENTO WHERE LOWER(ID_STATUS_ORCAMENTO) LIKE LOWER(?)";
                     break;
                 case "Valor Mão De Obra":
