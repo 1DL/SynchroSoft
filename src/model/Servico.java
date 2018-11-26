@@ -177,6 +177,14 @@ public class Servico {
     public int getTipoClienteBanco() {
         return tipoCliente;
     }
+    
+    public boolean getTipoClienteBooleano() {
+        if (this.tipoCliente == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public String getTipoClienteSTR() {
         if (this.tipoCliente == 0) {

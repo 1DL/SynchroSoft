@@ -64,20 +64,20 @@ public class DaoEndereco {
                     + ex, "Erro : DaoEndereco - Deletar Endereço", 0);
         }
     }
-    
+
     public static boolean deletarTodosEnderecos() {
         try {
             Connection con = Conexao.conectar();
             String sql = "DELETE FROM SYNCHROSOFT.TB_ENDERECO";
             PreparedStatement st = con.prepareStatement(sql);
-    
+
             st.executeUpdate();
             st.close();
-            
+
             JOptionPane.showMessageDialog(null, "Todos os registros de Endereços foram removidos do banco de dados.",
                     "Exclusão total concluída", 1);
             return true;
-            
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível remover os endereços.\n\nErro Nº :"
                     + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro : DaoEndereco - Deletar Todos Endereço", 0);
@@ -106,11 +106,11 @@ public class DaoEndereco {
             return lista;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível listar os endereços.\n\n Erro Nº"
-            +ex.getErrorCode()+"\n"+ex.getMessage(), "Erro: DaoEndereco - Listar Endereço",0);
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoEndereco - Listar Endereço", 0);
             return null;
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível listar os endereços.\n\n Erro:"
-            +ex, "Erro: DaoEndereco - Listar Endereço",0);
+                    + ex, "Erro: DaoEndereco - Listar Endereço", 0);
             return null;
         }
     }
@@ -165,6 +165,50 @@ public class DaoEndereco {
 
     }
 
+    public static Endereco popularEnderecoServico(String codigoServico) {
+        String cepServico;
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "SELECT CD_CEP "
+                    + "FROM SYNCHROSOFT.TB_ENDERECO_SERVICO "
+                    + "WHERE CD_SERVICO = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, codigoServico);
+            ResultSet rs = st.executeQuery();
+            rs.next();
+            cepServico = rs.getString("CD_CEP");
+            
+
+            sql = "SELECT * "
+                    + "FROM SYNCHROSOFT.TB_ENDERECO "
+                    + "WHERE CD_CEP = ?";
+            
+            PreparedStatement st2 = con.prepareStatement(sql);
+            
+            st2.setString(1, cepServico);
+            
+            ResultSet rs2 = st2.executeQuery();
+            
+            rs2.next();
+            Endereco end = new Endereco(rs2.getString("CD_CEP"), rs2.getString("DS_LOGRADOURO"),
+                    rs2.getString("NM_BAIRRO"), rs2.getString("NM_CIDADE"), rs2.getString("SG_ESTADO"));
+            
+            st.close();
+            rs.close();
+            st2.close();
+            rs2.close();
+            return end;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não  foi possível popular o Endereço do Servico.\n\nErro Nº:"
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoEndereco - Popular Endereco Servico", 0);
+            return null;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoEndereco.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
+    }
+
     public static boolean alterarEndereco(Endereco end, String PK_REF) {
         try {
             Connection con = Conexao.conectar();
@@ -179,21 +223,21 @@ public class DaoEndereco {
             st.setString(4, end.getCidade());
             st.setString(5, end.getEstado());
             st.setString(6, PK_REF);
-            
+
             st.executeUpdate();
-            
+
             JOptionPane.showMessageDialog(null, "O endereço foi alterado com sucesso!",
                     "Alteração concluída", 1);
-            
+
             return true;
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar alterar o endereço.\n\nErro Nº "+
-                ex.getErrorCode()+"\n"+ex.getMessage(),"Erro: DaoEndereco - Alterar Endereço", 0);
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar alterar o endereço.\n\nErro Nº "
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoEndereco - Alterar Endereço", 0);
             return false;
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar alterar o endereço.\n\nErro:"+
-                ex,"Erro: DaoEndereco - Alterar Endereço", 0);
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar alterar o endereço.\n\nErro:"
+                    + ex, "Erro: DaoEndereco - Alterar Endereço", 0);
             return false;
         }
     }

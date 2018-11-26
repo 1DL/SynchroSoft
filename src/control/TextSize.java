@@ -13,8 +13,8 @@ public class TextSize {
     
     public static String maxLenghtServicoAtivo(String str) {
         String valor = "";
-        if (str.length() > 3) {
-            valor = str.substring(0, 3);
+        if (str.length() > 15) {
+            valor = str.substring(0, 15);
             str = valor;
         }
         return str;

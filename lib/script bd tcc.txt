@@ -366,6 +366,8 @@ ___________________________________________
 alter table "TB_FUNCIONARIO" add ("ID_EFETIVADO" NUMBER(1,0));
 __________________________________________
 
+alter table "TB_ENDERECO_SERVICO" add ("NR_LOGRADOURO" VARCHAR2(10));
+____________________________________
 
 *******Novas Queries SQL devem ser inseridas acima dessa sessão***********************
 

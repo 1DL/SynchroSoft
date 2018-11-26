@@ -145,6 +145,8 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         btnListarPessoa1 = new javax.swing.JButton();
         lblNomeArquivo = new javax.swing.JLabel();
         btnRemoverArquivo = new javax.swing.JButton();
+        lblNumeroLogradouro = new javax.swing.JLabel();
+        txtNumeroLogradouro = new javax.swing.JTextField();
         btnMenuPrincipal = new javax.swing.JButton();
         btnFecharFrame = new javax.swing.JButton();
         lblBackground = new javax.swing.JLabel();
@@ -168,7 +170,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnLimpar);
-        btnLimpar.setBounds(800, 325, 100, 30);
+        btnLimpar.setBounds(800, 350, 100, 30);
 
         lblCampoCpfCnpj.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCampoCpfCnpj.setText("CPF:");
@@ -232,7 +234,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         lblRelatorioServico.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblRelatorioServico.setText("Relatório do serviço:");
         panPrincipal.add(lblRelatorioServico);
-        lblRelatorioServico.setBounds(10, 90, 170, 25);
+        lblRelatorioServico.setBounds(280, 90, 170, 25);
 
         lblSelecionarFunc.setForeground(java.awt.Color.red);
         lblSelecionarFunc.setText("Funcionário Inválido.");
@@ -247,11 +249,11 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnSelecionarArquivo);
-        btnSelecionarArquivo.setBounds(182, 88, 73, 30);
+        btnSelecionarArquivo.setBounds(450, 90, 73, 30);
 
         lblDiretorioArquivo.setText("...");
         panPrincipal.add(lblDiretorioArquivo);
-        lblDiretorioArquivo.setBounds(480, 90, 480, 25);
+        lblDiretorioArquivo.setBounds(680, 90, 280, 25);
 
         lblCodigoFunc.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCodigoFunc.setText("Cód. Funcionário:");
@@ -278,7 +280,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnCadastrar);
-        btnCadastrar.setBounds(920, 325, 160, 30);
+        btnCadastrar.setBounds(920, 350, 160, 30);
 
         panPessoa.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados da Pessoa"));
         panPessoa.setOpaque(false);
@@ -376,7 +378,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         lblSexoValor.setBounds(700, 100, 190, 25);
 
         panPrincipal.add(panPessoa);
-        panPessoa.setBounds(30, 355, 1056, 140);
+        panPessoa.setBounds(10, 380, 1070, 140);
 
         cmbTipoServico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Preventivo", "Corretivo", "Emergencial" }));
         cmbTipoServico.setNextFocusableComponent(txtfDataServico);
@@ -544,7 +546,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         btnRemoveLinhaFunc.setBounds(700, 40, 160, 30);
 
         panPrincipal.add(panTabelaFunc);
-        panTabelaFunc.setBounds(10, 155, 870, 165);
+        panTabelaFunc.setBounds(10, 180, 870, 165);
 
         panUtilidade.setBorder(javax.swing.BorderFactory.createTitledBorder("Acesso Rápido"));
         panUtilidade.setOpaque(false);
@@ -569,11 +571,11 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         btnListarPessoa1.setBounds(30, 30, 110, 30);
 
         panPrincipal.add(panUtilidade);
-        panUtilidade.setBounds(920, 155, 160, 165);
+        panUtilidade.setBounds(920, 180, 160, 165);
 
         lblNomeArquivo.setText("Nenhum arquivo selecionado.");
         panPrincipal.add(lblNomeArquivo);
-        lblNomeArquivo.setBounds(258, 90, 210, 25);
+        lblNomeArquivo.setBounds(530, 90, 150, 25);
 
         btnRemoverArquivo.setText("Remover Arquivo");
         btnRemoverArquivo.addActionListener(new java.awt.event.ActionListener() {
@@ -584,8 +586,26 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         panPrincipal.add(btnRemoverArquivo);
         btnRemoverArquivo.setBounds(960, 88, 120, 30);
 
+        lblNumeroLogradouro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblNumeroLogradouro.setText("Nº Logradouro:");
+        panPrincipal.add(lblNumeroLogradouro);
+        lblNumeroLogradouro.setBounds(10, 90, 140, 25);
+
+        txtNumeroLogradouro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumeroLogradouroActionPerformed(evt);
+            }
+        });
+        txtNumeroLogradouro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNumeroLogradouroKeyReleased(evt);
+            }
+        });
+        panPrincipal.add(txtNumeroLogradouro);
+        txtNumeroLogradouro.setBounds(155, 90, 120, 25);
+
         getContentPane().add(panPrincipal);
-        panPrincipal.setBounds(10, 10, 1125, 510);
+        panPrincipal.setBounds(10, 10, 1125, 530);
 
         btnMenuPrincipal.setText("Menu Principal");
         btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
@@ -725,6 +745,14 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         removerArquivo();
     }//GEN-LAST:event_btnRemoverArquivoActionPerformed
 
+    private void txtNumeroLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroLogradouroActionPerformed
+
+    }//GEN-LAST:event_txtNumeroLogradouroActionPerformed
+
+    private void txtNumeroLogradouroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroLogradouroKeyReleased
+        txtNumeroLogradouro.setText(TextSize.maxLenghtNrLogradouro(txtNumeroLogradouro.getText()));
+    }//GEN-LAST:event_txtNumeroLogradouroKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -802,6 +830,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JLabel lblNomeFicticio;
     private javax.swing.JLabel lblNomeFunc;
     private javax.swing.JLabel lblNomeFuncValor;
+    private javax.swing.JLabel lblNumeroLogradouro;
     private javax.swing.JLabel lblRazaoSocial;
     private javax.swing.JLabel lblRelatorioServico;
     private javax.swing.JLabel lblSelecionarFunc;
@@ -828,6 +857,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     private javax.swing.JTextField txtLogradouro;
     private javax.swing.JTextField txtNomePessoaFicticio;
     private javax.swing.JTextField txtNumero;
+    private javax.swing.JTextField txtNumeroLogradouro;
     private javax.swing.JTextField txtRazaoSocial;
     private javax.swing.JTextField txtTelefone;
     private javax.swing.JFormattedTextField txtfCep;
@@ -1105,7 +1135,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
                 servico.setFuncionarioNaLista(funcionario);
             }
             boolean cadastroSucedido;
-            cadastroSucedido = dao.DaoServico.cadastrarServico(servico);
+            cadastroSucedido = dao.DaoServico.cadastrarServico(servico, txtNumeroLogradouro.getText());
             if (cadastroSucedido) {
                 salvarArquivo();
                 iniciarTabela();
@@ -1212,6 +1242,10 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             if (txtCpfCnpj.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "CPF em branco. \nDigite um CPF válido.", "Erro - CPF Inválido", 0);
                 txtCpfCnpj.requestFocus();
+                return false;
+            } else if (txtNumeroLogradouro.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Número do logradouro em branco. \nDigite um número/complemento de logradouro válido.", "Erro - Nr Logradouro Inválido", 0);
+                txtNumeroLogradouro.requestFocus();
                 return false;
             } else if (!existeCpf) {
                 JOptionPane.showMessageDialog(null, "CPF Inválido. \nDigite um CPF que esteja cadastrado no sistema.", "Erro - CPF Inválido", 0);
