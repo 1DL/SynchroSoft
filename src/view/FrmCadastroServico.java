@@ -1125,7 +1125,6 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             cep = cep.trim();
             servico.setEndereco(dao.DaoEndereco.popularEndereco(cep));
             servico.setCnpjCliente(txtCpfCnpj.getText());
-            servico.setDescricaoServicoFILE(lblNomeArquivo.getText());
             servico.setStatusServico(true);
 
             DefaultTableModel model = (DefaultTableModel) tblFuncSelecionados.getModel();
@@ -1138,6 +1137,8 @@ public class FrmCadastroServico extends javax.swing.JFrame {
             if (!salvarArquivo()){
                 servico.setDescricaoServicoFILE("Nenhum arquivo selecionado.");
                 removerArquivo();
+            } else {
+                servico.setDescricaoServicoFILE(lblCodigoServicoInicial.getText() + txtCodigoServico.getText() + "-" +lblNomeArquivo.getText());
             }
             
             boolean cadastroSucedido;
@@ -1178,6 +1179,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         lblDiretorioArquivo.setText("Nenhum arquivo selecionado.");
         iniciarTabela();
         removerArquivo();
+        verificarFuncionario();
     }
 
     private void verificarFuncionario() {
