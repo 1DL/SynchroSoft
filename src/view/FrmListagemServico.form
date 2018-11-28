@@ -4,7 +4,7 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="grupoTipoCliente">
     </Component>
-    <Component class="javax.swing.JFileChooser" name="db">
+    <Component class="javax.swing.JFileChooser" name="selecionarArquivo">
     </Component>
   </NonVisualComponents>
   <Properties>
@@ -335,7 +335,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="592" y="70" width="330" height="25"/>
+                  <AbsoluteConstraints x="592" y="70" width="170" height="25"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -379,7 +379,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Malgun Gothic" size="18" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Nome"/>
+                    <Property name="text" type="java.lang.String" value="Nome:"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -402,7 +402,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Malgun Gothic" size="18" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Telefone"/>
+                    <Property name="text" type="java.lang.String" value="Telefone:"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -425,7 +425,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Malgun Gothic" size="18" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Celular"/>
+                    <Property name="text" type="java.lang.String" value="Celular:"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -438,7 +438,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Malgun Gothic" size="18" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Logradouro"/>
+                    <Property name="text" type="java.lang.String" value="Logradouro:"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -461,7 +461,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Malgun Gothic" size="18" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Cidade"/>
+                    <Property name="text" type="java.lang.String" value="Cidade:"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -484,7 +484,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Malgun Gothic" size="18" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Estado"/>
+                    <Property name="text" type="java.lang.String" value="Estado:"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -507,7 +507,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Malgun Gothic" size="18" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Bairro"/>
+                    <Property name="text" type="java.lang.String" value="Bairro:"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -530,7 +530,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Malgun Gothic" size="18" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="N&#xb0;"/>
+                    <Property name="text" type="java.lang.String" value="N&#xb0;:"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -563,7 +563,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Malgun Gothic" size="18" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Raz&#xe3;o Social"/>
+                    <Property name="text" type="java.lang.String" value="Raz&#xe3;o Social:"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -586,7 +586,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Malgun Gothic" size="18" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Sexo"/>
+                    <Property name="text" type="java.lang.String" value="Sexo:"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -870,6 +870,7 @@
             <Component class="javax.swing.JButton" name="btnAbrirArquivoRelatorio">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Abrir Arquivo"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAbrirArquivoRelatorioActionPerformed"/>
@@ -877,13 +878,6 @@
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="400" y="67" width="100" height="30"/>
-                </Constraint>
-              </Constraints>
-            </Component>
-            <Component class="javax.swing.JProgressBar" name="barraProgArquivo">
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="790" y="70" width="-1" height="25"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -1020,6 +1014,16 @@
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JLabel" name="lblDiretorioArquivoTrocado">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="..."/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="770" y="70" width="170" height="25"/>
+                </Constraint>
+              </Constraints>
+            </Component>
           </SubComponents>
         </Container>
         <Component class="javax.swing.JButton" name="btnLimparTabela">

@@ -42,7 +42,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
     /**
      * Creates new form FrmCadastroOrcamento
      */
-    public FrmListagemOrcamento(int nvlAdm) throws SQLException, ClassNotFoundException {
+    public FrmListagemOrcamento(int nvlAdm) {
         initComponents();
         iniciarTabelaOrcamento();
         iniciarTabelaProduto();
@@ -703,13 +703,9 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
+                
                     new FrmListagemOrcamento(control.SynchroSoft.getNvlAdm()).setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(FrmListagemOrcamento.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(FrmListagemOrcamento.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                
             }
         });
     }

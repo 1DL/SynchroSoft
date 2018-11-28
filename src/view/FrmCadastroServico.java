@@ -1134,13 +1134,12 @@ public class FrmCadastroServico extends javax.swing.JFrame {
                 funcionario.setCodigoFuncionario(((String) model.getValueAt(i, 0)));
                 servico.setFuncionarioNaLista(funcionario);
             }
-            if (!salvarArquivo()){
-                servico.setDescricaoServicoFILE("Nenhum arquivo selecionado.");
-                removerArquivo();
+            if (lblNomeArquivo.getText().equals("Nenhum arquivo selecionado.")) {
+                servico.setDescricaoServicoFILE(lblNomeArquivo.getText());
             } else {
+                salvarArquivo();
                 servico.setDescricaoServicoFILE(lblCodigoServicoInicial.getText() + txtCodigoServico.getText() + "-" +lblNomeArquivo.getText());
             }
-            
             boolean cadastroSucedido;
             cadastroSucedido = dao.DaoServico.cadastrarServico(servico, txtNumeroLogradouro.getText());
             if (cadastroSucedido) {                
@@ -1349,27 +1348,23 @@ public class FrmCadastroServico extends javax.swing.JFrame {
         }
     }
 
-    private boolean salvarArquivo() {
-        boolean envioConcluido = false;
-        if (!lblNomeArquivo.getText().equals("Nenhum arquivo selecionado.")) {
+    private void salvarArquivo() {
+        
             try {
                 control.ManipularArquivos.enviarArquivoServico(lblNomeArquivo.getText(),
                         lblDiretorioArquivo.getText(), lblCodigoServicoInicial.getText() + txtCodigoServico.getText());
-                envioConcluido = true;
+                
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "Não foi possível enviar o arquivo para o servidor.\n\n"
                     +"Verifique com o administrador do sistema se o servidor socket está funcionando\n"
-                    +"e se a porta do socket é a mesma utilizada no sistema cliente.zn"
+                    +"e se a porta do socket é a mesma utilizada no sistema cliente.\n"
                     +"Caso as portas sejam as mesmas e o servidor esteja operacional, ocorreu algum problema\n "
                     + "na transferência do arquivo. O Serviço será cadastrado sem nenhum arquivo de descrição.\n "
                     + "Você pode adicionar manualmente um arquivo futuramente através da Listagem de Serviços.\n\n", 
                     "Erro ao enviar arquivo para o servidor",0);
                 Logger.getLogger(FrmCadastroServico.class.getName()).log(Level.SEVERE, null, ex);
-                envioConcluido = false;
+               
             }
-        } else {
-            envioConcluido = true;
-        }
-        return envioConcluido;
+        
     }
 }

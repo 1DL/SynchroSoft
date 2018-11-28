@@ -207,7 +207,7 @@ public class Janelas {
         ManipularArquivos.escreverArquivoJanelas();
     }
 
-    public static void abrirListagemOrçamento() throws SQLException, ClassNotFoundException {
+    public static void abrirListagemOrçamento() {
         FrmListagemOrcamento telaListaOrc = new FrmListagemOrcamento(SynchroSoft.getNvlAdm());
         telaListaOrc.setVisible(true);
     }

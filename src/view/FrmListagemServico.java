@@ -60,7 +60,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         inicializarTabelaFuncionario();
         modoPesquisaNormal();
         selecionarAoFocar();
-        barraProgArquivo.setVisible(false);
+        
     }
 
     /**
@@ -73,7 +73,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
     private void initComponents() {
 
         grupoTipoCliente = new javax.swing.ButtonGroup();
-        db = new javax.swing.JFileChooser();
+        selecionarArquivo = new javax.swing.JFileChooser();
         panPrincipal = new javax.swing.JPanel();
         btnAlterar = new javax.swing.JButton();
         cmbFiltro = new javax.swing.JComboBox<>();
@@ -135,7 +135,6 @@ public class FrmListagemServico extends javax.swing.JFrame {
         txtfCep = new javax.swing.JFormattedTextField();
         lblCepExiste = new javax.swing.JLabel();
         btnAbrirArquivoRelatorio = new javax.swing.JButton();
-        barraProgArquivo = new javax.swing.JProgressBar();
         lblDataEncerramento = new javax.swing.JLabel();
         txtfDataEncerramento = new javax.swing.JFormattedTextField();
         btnHojeFim = new javax.swing.JButton();
@@ -146,6 +145,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         lblOrcamento = new javax.swing.JLabel();
         lblAtivo = new javax.swing.JLabel();
         btnAtivarDesativar = new javax.swing.JButton();
+        lblDiretorioArquivoTrocado = new javax.swing.JLabel();
         btnLimparTabela = new javax.swing.JButton();
         btnCadastrarServico = new javax.swing.JButton();
         lblDigiteODado = new javax.swing.JLabel();
@@ -318,7 +318,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
 
         lblNomeArquivoTrocado.setText("Nenhum arquivo selecionado.");
         panDadosServico.add(lblNomeArquivoTrocado);
-        lblNomeArquivoTrocado.setBounds(592, 70, 330, 25);
+        lblNomeArquivoTrocado.setBounds(592, 70, 170, 25);
 
         jLabel5.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel5.setText("Relat. do Serviço:");
@@ -330,7 +330,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         panDadosCliente.setLayout(null);
 
         lblNomeFicticio.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblNomeFicticio.setText("Nome");
+        lblNomeFicticio.setText("Nome:");
         panDadosCliente.add(lblNomeFicticio);
         lblNomeFicticio.setBounds(20, 10, 140, 25);
 
@@ -339,7 +339,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         txtNomePessoaFicticio.setBounds(160, 10, 310, 25);
 
         lblTelefone.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblTelefone.setText("Telefone");
+        lblTelefone.setText("Telefone:");
         panDadosCliente.add(lblTelefone);
         lblTelefone.setBounds(20, 70, 140, 25);
 
@@ -348,12 +348,12 @@ public class FrmListagemServico extends javax.swing.JFrame {
         txtTelefone.setBounds(160, 70, 310, 25);
 
         lblCelularRamal.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCelularRamal.setText("Celular");
+        lblCelularRamal.setText("Celular:");
         panDadosCliente.add(lblCelularRamal);
         lblCelularRamal.setBounds(540, 70, 140, 25);
 
         lblLogradouro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblLogradouro.setText("Logradouro");
+        lblLogradouro.setText("Logradouro:");
         panDadosCliente.add(lblLogradouro);
         lblLogradouro.setBounds(540, 10, 140, 25);
 
@@ -362,7 +362,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         txtLogradouro.setBounds(700, 10, 316, 25);
 
         lblCidade.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblCidade.setText("Cidade");
+        lblCidade.setText("Cidade:");
         panDadosCliente.add(lblCidade);
         lblCidade.setBounds(20, 40, 140, 25);
 
@@ -371,7 +371,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         txtCidade.setBounds(160, 40, 114, 25);
 
         lblEstado.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblEstado.setText("Estado");
+        lblEstado.setText("Estado:");
         panDadosCliente.add(lblEstado);
         lblEstado.setBounds(280, 40, 73, 25);
 
@@ -380,7 +380,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         txtEstado.setBounds(350, 40, 120, 25);
 
         lblBairro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblBairro.setText("Bairro");
+        lblBairro.setText("Bairro:");
         panDadosCliente.add(lblBairro);
         lblBairro.setBounds(540, 40, 140, 25);
 
@@ -389,7 +389,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         txtBairro.setBounds(700, 40, 178, 25);
 
         lblNumeroLog.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblNumeroLog.setText("N°");
+        lblNumeroLog.setText("N°:");
         panDadosCliente.add(lblNumeroLog);
         lblNumeroLog.setBounds(900, 40, 39, 25);
 
@@ -402,7 +402,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         txtCelularRamal.setBounds(700, 70, 316, 25);
 
         lblRazaoSocial.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblRazaoSocial.setText("Razão Social");
+        lblRazaoSocial.setText("Razão Social:");
         panDadosCliente.add(lblRazaoSocial);
         lblRazaoSocial.setBounds(20, 100, 140, 25);
 
@@ -411,7 +411,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         txtRazaoSocial.setBounds(160, 100, 310, 25);
 
         lblSexoDesc.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblSexoDesc.setText("Sexo");
+        lblSexoDesc.setText("Sexo:");
         panDadosCliente.add(lblSexoDesc);
         lblSexoDesc.setBounds(540, 100, 140, 25);
 
@@ -569,6 +569,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         lblCepExiste.setBounds(792, 40, 130, 25);
 
         btnAbrirArquivoRelatorio.setText("Abrir Arquivo");
+        btnAbrirArquivoRelatorio.setEnabled(false);
         btnAbrirArquivoRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAbrirArquivoRelatorioActionPerformed(evt);
@@ -576,8 +577,6 @@ public class FrmListagemServico extends javax.swing.JFrame {
         });
         panDadosServico.add(btnAbrirArquivoRelatorio);
         btnAbrirArquivoRelatorio.setBounds(400, 67, 100, 30);
-        panDadosServico.add(barraProgArquivo);
-        barraProgArquivo.setBounds(790, 70, 146, 25);
 
         lblDataEncerramento.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDataEncerramento.setText("Data Fim:");
@@ -653,6 +652,10 @@ public class FrmListagemServico extends javax.swing.JFrame {
 
         panDadosServico.add(jPanel2);
         jPanel2.setBounds(890, 130, 200, 130);
+
+        lblDiretorioArquivoTrocado.setText("...");
+        panDadosServico.add(lblDiretorioArquivoTrocado);
+        lblDiretorioArquivoTrocado.setBounds(770, 70, 170, 25);
 
         panPrincipal.add(panDadosServico);
         panDadosServico.setBounds(10, 30, 1100, 395);
@@ -967,18 +970,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbTipoServicoActionPerformed
 
     private void btnArquivoRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArquivoRelatorioActionPerformed
-        FileFilter ft1 = new FileNameExtensionFilter("Documentos do Word", "docx");
-        FileFilter ft2 = new FileNameExtensionFilter("Arquivos de texto", "txt");
-        db.addChoosableFileFilter(ft1);
-        db.addChoosableFileFilter(ft2);
-
-        int returnVal = db.showOpenDialog(this);
-
-        if (returnVal == javax.swing.JFileChooser.APPROVE_OPTION) {
-            java.io.File file = db.getSelectedFile();
-            String fileConvert = file.toString();
-            lblNomeArquivoTrocado.setText(" " + fileConvert + " ");
-        }
+        trocarArquivo();
     }//GEN-LAST:event_btnArquivoRelatorioActionPerformed
 
     private void rbtFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtFisicaActionPerformed
@@ -1437,7 +1429,6 @@ public class FrmListagemServico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JProgressBar barraProgArquivo;
     private javax.swing.JButton btnAbrirArquivoRelatorio;
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnArquivoRelatorio;
@@ -1461,7 +1452,6 @@ public class FrmListagemServico extends javax.swing.JFrame {
     private javax.swing.JButton btnSelecionarfunc;
     private javax.swing.JComboBox<String> cmbFiltro;
     private javax.swing.JComboBox<String> cmbTipoServico;
-    private javax.swing.JFileChooser db;
     private javax.swing.ButtonGroup grupoTipoCliente;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -1488,6 +1478,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
     private javax.swing.JLabel lblDataCadastro;
     private javax.swing.JLabel lblDataEncerramento;
     private javax.swing.JLabel lblDigiteODado;
+    private javax.swing.JLabel lblDiretorioArquivoTrocado;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblLogradouro;
     private javax.swing.JLabel lblNomeArquivo;
@@ -1509,6 +1500,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
     private javax.swing.JPanel panPrincipal;
     private javax.swing.JRadioButton rbtFisica;
     private javax.swing.JRadioButton rbtJuridica;
+    private javax.swing.JFileChooser selecionarArquivo;
     private javax.swing.JTable tblFuncionarioTrabalhando;
     private javax.swing.JTable tblListagemServico;
     private javax.swing.JTextField txtBairro;
@@ -1728,6 +1720,8 @@ Data Encerramento Entre/Até
         txtfCep.setText("");
         lblNomeArquivoTrocado.setText("Nenhum arquivo selecionado.");
         lblNomeArquivo.setText("...");
+        lblDiretorioArquivoTrocado.setText("...");
+        btnAbrirArquivoRelatorio.setEnabled(false);
         txtCodFunc.setText("");
         lblNomeFuncValor.setText("-");
         inicializarTabelaFuncionario();
@@ -1943,6 +1937,11 @@ Data Encerramento Entre/Até
         txtBairro.setText(endereco.getBairro());
         txtNumero.setText((String) lista.get(3));
         lblNomeArquivo.setText(servico.getDescricaoServicoFILE());
+        if (servico.getDescricaoServicoFILE().equals("Nenhum arquivo selecionado.")) {
+            btnAbrirArquivoRelatorio.setEnabled(false);
+        } else {
+            btnAbrirArquivoRelatorio.setEnabled(true);
+        }
 
         if (!servico.getTipoClienteBooleano()) {
             PessoaFisica pessoaFisica = new PessoaFisica();
@@ -2018,8 +2017,9 @@ Data Encerramento Entre/Até
                 btnOrcamento.setText("Criar Orçamento");
                 btnOrcamento.setEnabled(true);
             }
-
         }
+        
+        
     }
 
     private void atualizarTabelaFuncionario(String codigoServico) {
@@ -2119,5 +2119,22 @@ Data Encerramento Entre/Até
             control.ManipularArquivos.lerEAbrirArquivoServidor(lblNomeArquivo.getText());
         }
     };
+
+    private void trocarArquivo() {
+        FileFilter filtroDocx = new FileNameExtensionFilter("Documentos do Word", "docx");
+        FileFilter filtroTxt = new FileNameExtensionFilter("Arquivos de texto", "txt");
+        selecionarArquivo.addChoosableFileFilter(filtroDocx);
+        selecionarArquivo.addChoosableFileFilter(filtroTxt);
+
+        int retornoJFileChooser = selecionarArquivo.showOpenDialog(this);
+
+        if (retornoJFileChooser == javax.swing.JFileChooser.APPROVE_OPTION) {
+            java.io.File arquivo = selecionarArquivo.getSelectedFile();
+            String nomeArquivo = arquivo.getName().toString();
+            String diretorioArquivo = arquivo.toString();
+            lblNomeArquivoTrocado.setText(nomeArquivo);
+            lblDiretorioArquivoTrocado.setText(diretorioArquivo);
+        }
+    }
 
 }

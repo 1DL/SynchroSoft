@@ -102,6 +102,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menu_listaFuncionario = new javax.swing.JMenuItem();
         menu_listaUsuario = new javax.swing.JMenuItem();
         menu_listaOrdemServico = new javax.swing.JMenuItem();
+        menu_orcamento = new javax.swing.JMenuItem();
         menu_listaProduto = new javax.swing.JMenuItem();
         menu_listaDespesa = new javax.swing.JMenuItem();
         menu_vendas = new javax.swing.JMenu();
@@ -492,6 +493,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menu_listagem.add(menu_listaOrdemServico);
 
+        menu_orcamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/vendas2.png"))); // NOI18N
+        menu_orcamento.setText("Orçamento");
+        menu_orcamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_orcamentoActionPerformed(evt);
+            }
+        });
+        menu_listagem.add(menu_orcamento);
+
         menu_listaProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/listagem_produto.png"))); // NOI18N
         menu_listaProduto.setText("Produto");
         menu_listaProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -730,6 +740,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         expandirRetrairJanMaisAcessadas();
     }//GEN-LAST:event_btnExpandBtnDinamicoActionPerformed
 
+    private void menu_orcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_orcamentoActionPerformed
+        control.Janelas.abrirListagemOrçamento();
+    }//GEN-LAST:event_menu_orcamentoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -788,6 +802,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menu_listaUsuario;
     private javax.swing.JMenu menu_listagem;
     private javax.swing.JMenuItem menu_logoff;
+    private javax.swing.JMenuItem menu_orcamento;
     private javax.swing.JMenuItem menu_os;
     private javax.swing.JMenuItem menu_pessoa;
     private javax.swing.JMenuItem menu_produto;
