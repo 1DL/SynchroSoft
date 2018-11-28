@@ -76,7 +76,6 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         btnRemoveLinhaPeca = new javax.swing.JButton();
         lblMaoDeObra = new javax.swing.JLabel();
         btnListarOrcamentos = new javax.swing.JButton();
-        txtValorTotal = new javax.swing.JTextField();
         lblValorTotal = new javax.swing.JLabel();
         btnExcluirTodasPecas = new javax.swing.JButton();
         pnlPeca = new javax.swing.JPanel();
@@ -86,7 +85,6 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         txtNomePeca = new javax.swing.JTextField();
         lblCategoriaProd = new javax.swing.JLabel();
         lblQtdProduto = new javax.swing.JLabel();
-        txtfQuantidadePeca = new javax.swing.JTextField();
         txtCategoria = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         txtQtdEstoque = new javax.swing.JTextField();
@@ -97,9 +95,11 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         btnAdicionarPeca = new javax.swing.JButton();
         btnListarPeca = new javax.swing.JButton();
         lblPecaExiste = new javax.swing.JLabel();
+        txtfQuantidadePeca = new javax.swing.JFormattedTextField();
         lblCodigoServico = new javax.swing.JLabel();
         btnCadOrcamento = new javax.swing.JButton();
         txtfMaoDeObra = new javax.swing.JFormattedTextField();
+        txtfValorTotal = new javax.swing.JFormattedTextField();
         btnFecharFrame = new javax.swing.JButton();
         lblBackground = new javax.swing.JLabel();
 
@@ -164,21 +164,10 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         panPrincipal.add(btnListarOrcamentos);
         btnListarOrcamentos.setBounds(390, 10, 120, 30);
 
-        txtValorTotal.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        txtValorTotal.setText("0,00");
-        txtValorTotal.setFocusable(false);
-        txtValorTotal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtValorTotalActionPerformed(evt);
-            }
-        });
-        panPrincipal.add(txtValorTotal);
-        txtValorTotal.setBounds(180, 440, 190, 40);
-
         lblValorTotal.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lblValorTotal.setText("Valor Total:");
         panPrincipal.add(lblValorTotal);
-        lblValorTotal.setBounds(40, 450, 160, 25);
+        lblValorTotal.setBounds(20, 450, 160, 25);
 
         btnExcluirTodasPecas.setText("Remover todos os produtos");
         btnExcluirTodasPecas.addActionListener(new java.awt.event.ActionListener() {
@@ -240,19 +229,6 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         lblQtdProduto.setText("Quantidade:");
         pnlPeca.add(lblQtdProduto);
         lblQtdProduto.setBounds(320, 10, 110, 25);
-
-        txtfQuantidadePeca.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtfQuantidadePecaFocusGained(evt);
-            }
-        });
-        txtfQuantidadePeca.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtfQuantidadePecaKeyReleased(evt);
-            }
-        });
-        pnlPeca.add(txtfQuantidadePeca);
-        txtfQuantidadePeca.setBounds(430, 10, 90, 30);
 
         txtCategoria.setEditable(false);
         txtCategoria.setFocusable(false);
@@ -333,6 +309,16 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         pnlPeca.add(lblPecaExiste);
         lblPecaExiste.setBounds(10, 50, 190, 25);
 
+        txtfQuantidadePeca.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        txtfQuantidadePeca.setText("0");
+        txtfQuantidadePeca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfQuantidadePecaKeyReleased(evt);
+            }
+        });
+        pnlPeca.add(txtfQuantidadePeca);
+        txtfQuantidadePeca.setBounds(430, 10, 90, 30);
+
         panPrincipal.add(pnlPeca);
         pnlPeca.setBounds(20, 100, 540, 320);
         pnlPeca.getAccessibleContext().setAccessibleName("Venda de peça");
@@ -351,7 +337,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         panPrincipal.add(btnCadOrcamento);
         btnCadOrcamento.setBounds(410, 440, 150, 40);
 
-        txtfMaoDeObra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        txtfMaoDeObra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
         txtfMaoDeObra.setText("0,00");
         txtfMaoDeObra.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         txtfMaoDeObra.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -365,7 +351,13 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(txtfMaoDeObra);
-        txtfMaoDeObra.setBounds(210, 50, 170, 40);
+        txtfMaoDeObra.setBounds(210, 50, 210, 40);
+
+        txtfValorTotal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtfValorTotal.setText("0,00");
+        txtfValorTotal.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        panPrincipal.add(txtfValorTotal);
+        txtfValorTotal.setBounds(160, 440, 240, 40);
 
         getContentPane().add(panPrincipal);
         panPrincipal.setBounds(10, 10, 1125, 510);
@@ -398,10 +390,6 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     private void txtNomePecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomePecaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomePecaActionPerformed
-
-    private void txtValorTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorTotalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtValorTotalActionPerformed
 
     private void btnCadOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadOrcamentoActionPerformed
         vincularOrcamento();
@@ -461,10 +449,6 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtCodPecaKeyReleased
 
-    private void txtfQuantidadePecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfQuantidadePecaKeyReleased
-        calcularValorUnitXQtd();
-    }//GEN-LAST:event_txtfQuantidadePecaKeyReleased
-
     private void btnAdicionarPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarPecaActionPerformed
         boolean flag = true;
         Long flagQtd = Long.parseLong(txtfQuantidadePeca.getText());
@@ -519,13 +503,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharFrameActionPerformed
 
     private void btnListarOrcamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarOrcamentosActionPerformed
-        try {
-            control.Janelas.abrirListagemOrçamento();
-        } catch (SQLException ex) {
-            Logger.getLogger(FrmCadastroOrcamento.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrmCadastroOrcamento.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        control.Janelas.abrirListagemOrçamento();
     }//GEN-LAST:event_btnListarOrcamentosActionPerformed
 
     private void txtfMaoDeObraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfMaoDeObraFocusLost
@@ -546,9 +524,10 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
         txtCodPeca.selectAll();
     }//GEN-LAST:event_txtCodPecaFocusGained
 
-    private void txtfQuantidadePecaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfQuantidadePecaFocusGained
-        txtfQuantidadePeca.selectAll();
-    }//GEN-LAST:event_txtfQuantidadePecaFocusGained
+    private void txtfQuantidadePecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfQuantidadePecaKeyReleased
+        txtfQuantidadePeca.setText(control.TextSize.maxLenghtQuantidadePeca(txtfQuantidadePeca.getText()));
+        calcularValorUnitXQtd();
+    }//GEN-LAST:event_txtfQuantidadePecaKeyReleased
 
     /**
      * @param args the command line arguments
@@ -616,11 +595,11 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
     private javax.swing.JTextField txtCodServico;
     private javax.swing.JTextField txtNomePeca;
     private javax.swing.JTextField txtQtdEstoque;
-    private javax.swing.JTextField txtValorTotal;
     private javax.swing.JTextField txtValorUnitario;
     private javax.swing.JTextField txtValorXQtd;
     private javax.swing.JFormattedTextField txtfMaoDeObra;
-    private javax.swing.JTextField txtfQuantidadePeca;
+    private javax.swing.JFormattedTextField txtfQuantidadePeca;
+    private javax.swing.JFormattedTextField txtfValorTotal;
     // End of variables declaration//GEN-END:variables
 
     private void atualizarValorTotal() {
@@ -632,7 +611,7 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
 
         valorTotal = valorPecas + valorMaoDeObra;
         String valorTotalSTR = (new DecimalFormat("###,###,##0.00").format(valorTotal));
-        txtValorTotal.setText(valorTotalSTR);
+        txtfValorTotal.setText(valorTotalSTR);
 
     }
 
@@ -643,6 +622,17 @@ public class FrmCadastroOrcamento extends javax.swing.JFrame {
                     @Override
                     public void run() {
                         txtfMaoDeObra.selectAll();
+                    }
+                });
+            }
+        });
+        
+        txtfQuantidadePeca.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfQuantidadePeca.selectAll();
                     }
                 });
             }
