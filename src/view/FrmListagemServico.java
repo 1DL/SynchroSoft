@@ -7,15 +7,11 @@ package view;
 
 import dao.DaoFuncionario;
 import dao.DaoOrcamento;
-import dao.DaoPessoa;
 import dao.DaoServico;
 import java.awt.Color;
 import java.awt.Toolkit;
-import java.io.IOException;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -1118,11 +1114,11 @@ public class FrmListagemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHojeFimActionPerformed
 
     private void txtfDataInicioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataInicioKeyReleased
-        txtfDataInicio.setText(control.TextSize.maxLenghtData(txtfDataInicio.getText()));
+        txtfDataInicio.setText(control.Texto.maxLenghtData(txtfDataInicio.getText()));
     }//GEN-LAST:event_txtfDataInicioKeyReleased
 
     private void txtfDataEncerramentoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataEncerramentoKeyReleased
-        txtfDataEncerramento.setText(control.TextSize.maxLenghtData(txtfDataEncerramento.getText()));
+        txtfDataEncerramento.setText(control.Texto.maxLenghtData(txtfDataEncerramento.getText()));
     }//GEN-LAST:event_txtfDataEncerramentoKeyReleased
 
     private void txtNumeroLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroLogradouroActionPerformed
@@ -1130,7 +1126,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumeroLogradouroActionPerformed
 
     private void txtNumeroLogradouroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroLogradouroKeyReleased
-        txtNumeroLogradouro.setText(control.TextSize.maxLenghtNrLogradouro(txtNumeroLogradouro.getText()));
+        txtNumeroLogradouro.setText(control.Texto.maxLenghtNrLogradouro(txtNumeroLogradouro.getText()));
     }//GEN-LAST:event_txtNumeroLogradouroKeyReleased
 
     private void txtCodigoServicoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoServicoKeyReleased
@@ -1536,19 +1532,19 @@ Data Encerramento Entre/Até
         switch (filtro) {
             case "Código Serviço":
                 lblDigiteODado.setText("Digite o Cód. do Serviço:");
-                txtPesquisa.setText(control.TextSize.maxLenghtCodigoServico(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtCodigoServico(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Tipo Serviço":
                 lblDigiteODado.setText("Digite o Tipo do Serviço:");
-                txtPesquisa.setText(control.TextSize.maxLenghtTipoServico(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtTipoServico(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Serviço Ativo?":
                 lblDigiteODado.setText("Digite Sim/Ativo ou Não/Encerrado:");
-                txtPesquisa.setText(control.TextSize.maxLenghtServicoAtivo(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtServicoAtivo(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
@@ -1809,7 +1805,7 @@ Data Encerramento Entre/Até
     }
 
     private void textSizeCpfCnpj() {
-        txtCpfCnpj.setText(control.TextSize.maxLenghtCPFCNPJ(txtCpfCnpj.getText(), rbtFisica.isSelected()));
+        txtCpfCnpj.setText(control.Texto.maxLenghtCPFCNPJ(txtCpfCnpj.getText(), rbtFisica.isSelected()));
     }
 
     private void validarCpfCnpj() {

@@ -5,12 +5,10 @@
  */
 package view;
 
-import control.TextSize;
+import control.Texto;
 import dao.DaoDespesa;
 import java.awt.Toolkit;
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
@@ -42,8 +40,9 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         inicializarTabela();
         txtfDataDe.setText(control.Datas.getDiaHoje());
         txtfDataAte.setText(control.Datas.getDiaHoje());
-        modoPesquisaNormal();
         selecionarAoFocar();
+        modoPesquisaNormal();
+        
         txtPesquisa.setText(String.valueOf(codigoDespesa));
         pesquisarFiltrada();
         selecionarLinhaTabela(codigoDespesa);
@@ -381,11 +380,11 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
     }//GEN-LAST:event_tblListagemDespesaMouseClicked
 
     private void txaDescricaoDespesaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txaDescricaoDespesaKeyReleased
-        txaDescricaoDespesa.setText(TextSize.maxLenghtDescricaoDespesa(txaDescricaoDespesa.getText()));
+        txaDescricaoDespesa.setText(Texto.maxLenghtDescricaoDespesa(txaDescricaoDespesa.getText()));
     }//GEN-LAST:event_txaDescricaoDespesaKeyReleased
 
     private void txtfValorDespesaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfValorDespesaKeyReleased
-        txtfValorDespesa.setText(control.TextSize.maxLenghtValorDespesa(txtfValorDespesa.getText()));
+        txtfValorDespesa.setText(control.Texto.maxLenghtValorDespesa(txtfValorDespesa.getText()));
     }//GEN-LAST:event_txtfValorDespesaKeyReleased
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
@@ -434,7 +433,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
     private void txtfDataDeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataDeKeyReleased
-        txtfDataDe.setText(control.TextSize.maxLenghtData(txtfDataDe.getText()));
+        txtfDataDe.setText(control.Texto.maxLenghtData(txtfDataDe.getText()));
     }//GEN-LAST:event_txtfDataDeKeyReleased
 
     private void btnHojePesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojePesquisaActionPerformed
@@ -443,7 +442,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHojePesquisaActionPerformed
 
     private void txtfDataAteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataAteKeyReleased
-        txtfDataAte.setText(control.TextSize.maxLenghtData(txtfDataAte.getText()));
+        txtfDataAte.setText(control.Texto.maxLenghtData(txtfDataAte.getText()));
     }//GEN-LAST:event_txtfDataAteKeyReleased
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
@@ -715,31 +714,31 @@ Data de Vencimento Entre/Até
         switch (filtro) {
             case "Código":
                 lblDigiteODado.setText("Digite o cód. da despesa:");
-                txtPesquisa.setText(control.TextSize.maxLenghtCodigoDespesa(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtCodigoDespesa(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Tipo de Despesa":
                 lblDigiteODado.setText("Digite o tipo:");
-                txtPesquisa.setText(control.TextSize.maxLenghtTipoDespesa(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtTipoDespesa(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Descrição Detalhada":
                 lblDigiteODado.setText("Digite a descrição:");
-                txtPesquisa.setText(control.TextSize.maxLenghtDescricaoDespesa(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtDescricaoDespesa(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Valor":
                 lblDigiteODado.setText("Digite o valor:");
-                txtPesquisa.setText(control.TextSize.maxLenghtValorDespesa(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtValorDespesa(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Quitada?":
                 lblDigiteODado.setText("Digite Sim ou Não:");
-                txtPesquisa.setText(control.TextSize.maxLenghtDespesaQuitada(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtDespesaQuitada(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;            

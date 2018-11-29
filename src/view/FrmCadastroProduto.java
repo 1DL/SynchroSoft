@@ -5,7 +5,7 @@
  */
 package view;
 
-import control.TextSize;
+import control.Texto;
 import dao.DaoProduto;
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -107,7 +107,7 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
         lblCategoriaPeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCategoriaPeca.setText("Categoria:");
         panPrincipal.add(lblCategoriaPeca);
-        lblCategoriaPeca.setBounds(656, 10, 90, 25);
+        lblCategoriaPeca.setBounds(640, 10, 90, 25);
 
         txtNomePeca.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -128,9 +128,9 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
         lblQuantidadePeca.setBounds(10, 90, 140, 25);
 
         lblValorUnitario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblValorUnitario.setText("Valor Unitário:");
+        lblValorUnitario.setText("Valor Unitário:  R$");
         panPrincipal.add(lblValorUnitario);
-        lblValorUnitario.setBounds(656, 50, 114, 25);
+        lblValorUnitario.setBounds(640, 50, 150, 25);
 
         cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gerador", "Bombas", "Aquecedores", "Alarme de incêndio", "Pressurizadores de escada", "Alarme perimetral", "Cabine primária", "Redutoras de pressão" }));
         panPrincipal.add(cmbCategoria);
@@ -291,11 +291,11 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
     private void txtNomePecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomePecaKeyReleased
-        txtNomePeca.setText(TextSize.maxLenghtNomePeca(txtNomePeca.getText()));
+        txtNomePeca.setText(Texto.maxLenghtNomePeca(txtNomePeca.getText()));
     }//GEN-LAST:event_txtNomePecaKeyReleased
 
     private void txtQuantidadePecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadePecaKeyReleased
-        txtQuantidadePeca.setText(TextSize.maxLenghtQuantidadePeca(txtQuantidadePeca.getText()));
+        txtQuantidadePeca.setText(Texto.maxLenghtQuantidadePeca(txtQuantidadePeca.getText()));
     }//GEN-LAST:event_txtQuantidadePecaKeyReleased
 
     private void txtfValorUnitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfValorUnitarioActionPerformed
@@ -303,7 +303,7 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_txtfValorUnitarioActionPerformed
 
     private void txtfValorUnitarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfValorUnitarioKeyReleased
-        txtfValorUnitario.setText(TextSize.maxLenghtValorPeca(txtfValorUnitario.getText()));
+        txtfValorUnitario.setText(Texto.maxLenghtValorPeca(txtfValorUnitario.getText()));
     }//GEN-LAST:event_txtfValorUnitarioKeyReleased
 
     private void txtQuantidadeMinimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidadeMinimaActionPerformed
@@ -311,7 +311,7 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_txtQuantidadeMinimaActionPerformed
 
     private void txtQuantidadeMinimaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeMinimaKeyReleased
-        txtQuantidadeMinima.setText(TextSize.maxLenghtQuantidadePeca(txtQuantidadeMinima.getText()));
+        txtQuantidadeMinima.setText(Texto.maxLenghtQuantidadePeca(txtQuantidadeMinima.getText()));
     }//GEN-LAST:event_txtQuantidadeMinimaKeyReleased
 
     private void txtQuantidadeMaximaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidadeMaximaActionPerformed
@@ -319,7 +319,7 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_txtQuantidadeMaximaActionPerformed
 
     private void txtQuantidadeMaximaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeMaximaKeyReleased
-        txtQuantidadeMaxima.setText(TextSize.maxLenghtQuantidadePeca(txtQuantidadeMaxima.getText()));
+        txtQuantidadeMaxima.setText(Texto.maxLenghtQuantidadePeca(txtQuantidadeMaxima.getText()));
     }//GEN-LAST:event_txtQuantidadeMaximaKeyReleased
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
@@ -327,7 +327,7 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void txtCodigoPecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoPecaKeyReleased
-        txtCodigoPeca.setText(TextSize.maxLenghtCodigoPeca(txtCodigoPeca.getText()));
+        txtCodigoPeca.setText(Texto.maxLenghtCodigoPeca(txtCodigoPeca.getText()));
         verificarCodigoProduto();
     }//GEN-LAST:event_txtCodigoPecaKeyReleased
 

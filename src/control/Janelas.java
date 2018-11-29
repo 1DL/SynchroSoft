@@ -7,7 +7,6 @@ package control;
 
 import java.awt.Frame;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import view.FrmCadastroDespesa;
@@ -22,9 +21,9 @@ import view.FrmListagemDespesa;
 import view.FrmListagemEndereco;
 import view.FrmListagemFuncionario;
 import view.FrmListagemOrcamento;
-import view.FrmListagemProduto;
 import view.FrmListagemPessoaF;
 import view.FrmListagemPessoaJ;
+import view.FrmListagemProduto;
 import view.FrmListagemServico;
 import view.FrmListagemUsuario;
 import view.FrmLogin;
@@ -209,6 +208,11 @@ public class Janelas {
 
     public static void abrirListagemOrçamento() {
         FrmListagemOrcamento telaListaOrc = new FrmListagemOrcamento(SynchroSoft.getNvlAdm());
+        telaListaOrc.setVisible(true);
+    }
+    
+    public static void abrirListagemOrçamentoPopulado(int codigoOrcamento) {
+        FrmListagemOrcamento telaListaOrc = new FrmListagemOrcamento(SynchroSoft.getNvlAdm(), codigoOrcamento);
         telaListaOrc.setVisible(true);
     }
 

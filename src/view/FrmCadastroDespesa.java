@@ -6,7 +6,7 @@
 package view;
 
 import control.Datas;
-import control.TextSize;
+import control.Texto;
 import java.awt.Toolkit;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -16,7 +16,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 import model.Despesa;
-import model.Endereco;
 
 /**
  *
@@ -223,7 +222,7 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarDespesasActionPerformed
 
     private void txaDescricaoDespesaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txaDescricaoDespesaKeyReleased
-        txaDescricaoDespesa.setText(TextSize.maxLenghtDescricaoDespesa(txaDescricaoDespesa.getText()));
+        txaDescricaoDespesa.setText(Texto.maxLenghtDescricaoDespesa(txaDescricaoDespesa.getText()));
     }//GEN-LAST:event_txaDescricaoDespesaKeyReleased
 
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
@@ -231,7 +230,7 @@ public class FrmCadastroDespesa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
     private void txtfValorDespesaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfValorDespesaKeyReleased
-        txtfValorDespesa.setText(control.TextSize.maxLenghtValorDespesa(txtfValorDespesa.getText()));
+        txtfValorDespesa.setText(control.Texto.maxLenghtValorDespesa(txtfValorDespesa.getText()));
     }//GEN-LAST:event_txtfValorDespesaKeyReleased
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed

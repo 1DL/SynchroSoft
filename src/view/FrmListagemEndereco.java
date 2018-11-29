@@ -5,7 +5,7 @@
  */
 package view;
 
-import control.TextSize;
+import control.Texto;
 import dao.DaoEndereco;
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -345,15 +345,15 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharFrameActionPerformed
 
     private void txtLogradouroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLogradouroKeyReleased
-        txtLogradouro.setText(TextSize.maxLenghtLogradouro(txtLogradouro.getText()));
+        txtLogradouro.setText(Texto.maxLenghtLogradouro(txtLogradouro.getText()));
     }//GEN-LAST:event_txtLogradouroKeyReleased
 
     private void txtCidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCidadeKeyReleased
-        txtCidade.setText(TextSize.maxLenghtCidade(txtCidade.getText()));
+        txtCidade.setText(Texto.maxLenghtCidade(txtCidade.getText()));
     }//GEN-LAST:event_txtCidadeKeyReleased
 
     private void txtBairroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBairroKeyReleased
-        txtBairro.setText(TextSize.maxLenghtBairro(txtBairro.getText()));
+        txtBairro.setText(Texto.maxLenghtBairro(txtBairro.getText()));
     }//GEN-LAST:event_txtBairroKeyReleased
 
     private void txtfCepFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfCepFocusLost
@@ -726,19 +726,19 @@ public class FrmListagemEndereco extends javax.swing.JFrame {
     private void limiteDigitosPesquisa(String filtro) {
         switch (filtro) {
             case "CEP":
-                txtPesquisa.setText(control.TextSize.maxLenghtCep(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtCep(txtPesquisa.getText()));
                 break;
             case "Logradouro":
-                txtPesquisa.setText(control.TextSize.maxLenghtLogradouro(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtLogradouro(txtPesquisa.getText()));
                 break;
             case "Bairro":
-                txtPesquisa.setText(control.TextSize.maxLenghtBairro(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtBairro(txtPesquisa.getText()));
                 break;
             case "Cidade":
-                txtPesquisa.setText(control.TextSize.maxLenghtCidade(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtCidade(txtPesquisa.getText()));
                 break;
             case "Estado":
-                txtPesquisa.setText(control.TextSize.maxLenghtEstado(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtEstado(txtPesquisa.getText()));
                 break;
             default:
                 JOptionPane.showMessageDialog(null, "Erro ao definir limite de caracteres do campo de pesquisa.",

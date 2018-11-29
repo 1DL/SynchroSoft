@@ -5,7 +5,7 @@
  */
 package view;
 
-import control.TextSize;
+import control.Texto;
 import dao.DaoEndereco;
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -257,7 +257,7 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharFrameActionPerformed
 
     private void txtBairroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBairroKeyReleased
-        txtBairro.setText(TextSize.maxLenghtBairro(txtBairro.getText()));
+        txtBairro.setText(Texto.maxLenghtBairro(txtBairro.getText()));
     }//GEN-LAST:event_txtBairroKeyReleased
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
@@ -265,11 +265,11 @@ public class FrmCadastroEndereco extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void txtCidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCidadeKeyReleased
-        txtCidade.setText(TextSize.maxLenghtCidade(txtCidade.getText()));
+        txtCidade.setText(Texto.maxLenghtCidade(txtCidade.getText()));
     }//GEN-LAST:event_txtCidadeKeyReleased
 
     private void txtLogradouroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLogradouroKeyReleased
-        txtLogradouro.setText(TextSize.maxLenghtLogradouro(txtLogradouro.getText()));
+        txtLogradouro.setText(Texto.maxLenghtLogradouro(txtLogradouro.getText()));
     }//GEN-LAST:event_txtLogradouroKeyReleased
 
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed

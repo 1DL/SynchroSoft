@@ -5,7 +5,7 @@
  */
 package view;
 
-import control.TextSize;
+import control.Texto;
 import dao.DaoProduto;
 import java.awt.Toolkit;
 import java.sql.SQLException;
@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import model.Produto;
 import model.Servico;
@@ -33,6 +34,7 @@ public class FrmVendaPeca extends javax.swing.JFrame {
         if (nvlAdm == 0) {
             btnVender.setEnabled(false);
         }
+        selecionarAoFocar();
     }
 
     
@@ -69,27 +71,27 @@ public class FrmVendaPeca extends javax.swing.JFrame {
         btnRemoveLinhaPeca = new javax.swing.JButton();
         btnExcluirTodasPecas = new javax.swing.JButton();
         pnlPeca = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        txtCodPeca = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtNomePeca = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        txtQuantidadePeca = new javax.swing.JTextField();
-        txtCategoria = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        txtQtdEstoque = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        txtValorUnitario = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
-        txtValorXQtd = new javax.swing.JTextField();
-        btnAdicionarPeca = new javax.swing.JButton();
         btnListarPeca = new javax.swing.JButton();
         lblPecaExiste = new javax.swing.JLabel();
+        txtfQuantidadePeca = new javax.swing.JFormattedTextField();
+        lblCategoriaProd = new javax.swing.JLabel();
+        txtCategoria = new javax.swing.JTextField();
+        lblQtdEmEstoque = new javax.swing.JLabel();
+        txtQtdEstoque = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        txtfValorUnitario = new javax.swing.JFormattedTextField();
+        txtfValorXQtd = new javax.swing.JFormattedTextField();
+        jLabel14 = new javax.swing.JLabel();
+        btnAdicionarPeca = new javax.swing.JButton();
+        txtCodPeca = new javax.swing.JTextField();
         btnVender = new javax.swing.JButton();
-        txtValorTotal = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        lblValorTotal = new javax.swing.JLabel();
+        txtfValorTotal = new javax.swing.JFormattedTextField();
         btnMenuPrincipal = new javax.swing.JButton();
         btnFecharFrame = new javax.swing.JButton();
         lblBackground = new javax.swing.JLabel();
@@ -144,25 +146,6 @@ public class FrmVendaPeca extends javax.swing.JFrame {
         pnlPeca.setOpaque(false);
         pnlPeca.setLayout(null);
 
-        jLabel5.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        jLabel5.setText("Qtd Estoque:");
-        pnlPeca.add(jLabel5);
-        jLabel5.setBounds(320, 140, 120, 25);
-
-        txtCodPeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtCodPeca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodPecaActionPerformed(evt);
-            }
-        });
-        txtCodPeca.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCodPecaKeyReleased(evt);
-            }
-        });
-        pnlPeca.add(txtCodPeca);
-        txtCodPeca.setBounds(190, 10, 120, 30);
-
         jLabel6.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel6.setText("Nome:");
         pnlPeca.add(jLabel6);
@@ -177,100 +160,17 @@ public class FrmVendaPeca extends javax.swing.JFrame {
             }
         });
         pnlPeca.add(txtNomePeca);
-        txtNomePeca.setBounds(130, 90, 390, 30);
-
-        jLabel7.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        jLabel7.setText("Categoria:");
-        pnlPeca.add(jLabel7);
-        jLabel7.setBounds(10, 180, 81, 25);
+        txtNomePeca.setBounds(150, 90, 370, 30);
 
         jLabel10.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel10.setText("Quantidade:");
         pnlPeca.add(jLabel10);
         jLabel10.setBounds(320, 10, 98, 25);
 
-        txtQuantidadePeca.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        txtQuantidadePeca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtQuantidadePecaActionPerformed(evt);
-            }
-        });
-        txtQuantidadePeca.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtQuantidadePecaKeyReleased(evt);
-            }
-        });
-        pnlPeca.add(txtQuantidadePeca);
-        txtQuantidadePeca.setBounds(430, 10, 100, 30);
-
-        txtCategoria.setEditable(false);
-        txtCategoria.setFont(new java.awt.Font("Malgun Gothic", 0, 14)); // NOI18N
-        txtCategoria.setFocusable(false);
-        txtCategoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCategoriaActionPerformed(evt);
-            }
-        });
-        pnlPeca.add(txtCategoria);
-        txtCategoria.setBounds(130, 180, 170, 30);
-
         jLabel12.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel12.setText("Código do Produto:");
         pnlPeca.add(jLabel12);
         jLabel12.setBounds(10, 10, 162, 25);
-
-        txtQtdEstoque.setEditable(false);
-        txtQtdEstoque.setFont(new java.awt.Font("Malgun Gothic", 0, 14)); // NOI18N
-        txtQtdEstoque.setFocusable(false);
-        txtQtdEstoque.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtQtdEstoqueActionPerformed(evt);
-            }
-        });
-        pnlPeca.add(txtQtdEstoque);
-        txtQtdEstoque.setBounds(440, 130, 80, 40);
-
-        jLabel13.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        jLabel13.setText("Valor Unitário:");
-        pnlPeca.add(jLabel13);
-        jLabel13.setBounds(10, 140, 114, 25);
-
-        txtValorUnitario.setEditable(false);
-        txtValorUnitario.setFont(new java.awt.Font("Malgun Gothic", 0, 14)); // NOI18N
-        txtValorUnitario.setFocusable(false);
-        txtValorUnitario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtValorUnitarioActionPerformed(evt);
-            }
-        });
-        pnlPeca.add(txtValorUnitario);
-        txtValorUnitario.setBounds(130, 130, 190, 40);
-
-        jLabel14.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        jLabel14.setText("Valor un. x qtd");
-        pnlPeca.add(jLabel14);
-        jLabel14.setBounds(310, 180, 130, 25);
-
-        txtValorXQtd.setEditable(false);
-        txtValorXQtd.setFont(new java.awt.Font("Malgun Gothic", 0, 14)); // NOI18N
-        txtValorXQtd.setFocusable(false);
-        txtValorXQtd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtValorXQtdActionPerformed(evt);
-            }
-        });
-        pnlPeca.add(txtValorXQtd);
-        txtValorXQtd.setBounds(440, 180, 80, 30);
-
-        btnAdicionarPeca.setText("Adicionar produto na lista de venda");
-        btnAdicionarPeca.setEnabled(false);
-        btnAdicionarPeca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdicionarPecaActionPerformed(evt);
-            }
-        });
-        pnlPeca.add(btnAdicionarPeca);
-        btnAdicionarPeca.setBounds(140, 240, 260, 40);
 
         btnListarPeca.setText("Listar Produtos");
         btnListarPeca.addActionListener(new java.awt.event.ActionListener() {
@@ -285,6 +185,92 @@ public class FrmVendaPeca extends javax.swing.JFrame {
         pnlPeca.add(lblPecaExiste);
         lblPecaExiste.setBounds(10, 50, 190, 25);
 
+        txtfQuantidadePeca.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        txtfQuantidadePeca.setText("0");
+        txtfQuantidadePeca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfQuantidadePecaKeyReleased(evt);
+            }
+        });
+        pnlPeca.add(txtfQuantidadePeca);
+        txtfQuantidadePeca.setBounds(430, 10, 90, 30);
+
+        lblCategoriaProd.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblCategoriaProd.setText("Categoria:");
+        pnlPeca.add(lblCategoriaProd);
+        lblCategoriaProd.setBounds(10, 130, 110, 30);
+
+        txtCategoria.setEditable(false);
+        txtCategoria.setFocusable(false);
+        txtCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCategoriaActionPerformed(evt);
+            }
+        });
+        pnlPeca.add(txtCategoria);
+        txtCategoria.setBounds(150, 130, 180, 30);
+
+        lblQtdEmEstoque.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        lblQtdEmEstoque.setText("Qtd Estoque:");
+        pnlPeca.add(lblQtdEmEstoque);
+        lblQtdEmEstoque.setBounds(330, 130, 110, 25);
+
+        txtQtdEstoque.setEditable(false);
+        txtQtdEstoque.setFocusable(false);
+        txtQtdEstoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtQtdEstoqueActionPerformed(evt);
+            }
+        });
+        pnlPeca.add(txtQtdEstoque);
+        txtQtdEstoque.setBounds(440, 130, 80, 30);
+
+        jLabel13.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        jLabel13.setText("Valor Unitário: R$");
+        pnlPeca.add(jLabel13);
+        jLabel13.setBounds(10, 180, 150, 25);
+
+        txtfValorUnitario.setEditable(false);
+        txtfValorUnitario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtfValorUnitario.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        pnlPeca.add(txtfValorUnitario);
+        txtfValorUnitario.setBounds(150, 170, 370, 40);
+
+        txtfValorXQtd.setEditable(false);
+        txtfValorXQtd.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtfValorXQtd.setFocusable(false);
+        txtfValorXQtd.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        pnlPeca.add(txtfValorXQtd);
+        txtfValorXQtd.setBounds(150, 220, 370, 40);
+
+        jLabel14.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
+        jLabel14.setText("Valor un.*qtd: R$");
+        pnlPeca.add(jLabel14);
+        jLabel14.setBounds(10, 230, 140, 25);
+
+        btnAdicionarPeca.setText("Adicionar produto na lista de venda");
+        btnAdicionarPeca.setEnabled(false);
+        btnAdicionarPeca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarPecaActionPerformed(evt);
+            }
+        });
+        pnlPeca.add(btnAdicionarPeca);
+        btnAdicionarPeca.setBounds(130, 270, 280, 40);
+
+        txtCodPeca.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCodPecaFocusGained(evt);
+            }
+        });
+        txtCodPeca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodPecaKeyReleased(evt);
+            }
+        });
+        pnlPeca.add(txtCodPeca);
+        txtCodPeca.setBounds(190, 10, 120, 30);
+
         panPrincipal.add(pnlPeca);
         pnlPeca.setBounds(20, 100, 540, 320);
         pnlPeca.getAccessibleContext().setAccessibleName("Venda de peça");
@@ -296,27 +282,24 @@ public class FrmVendaPeca extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnVender);
-        btnVender.setBounds(410, 440, 150, 40);
-
-        txtValorTotal.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        txtValorTotal.setFocusable(false);
-        txtValorTotal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtValorTotalActionPerformed(evt);
-            }
-        });
-        panPrincipal.add(txtValorTotal);
-        txtValorTotal.setBounds(180, 440, 190, 40);
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel9.setText("Valor Total:");
-        panPrincipal.add(jLabel9);
-        jLabel9.setBounds(40, 450, 160, 25);
+        btnVender.setBounds(430, 440, 130, 40);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 38)); // NOI18N
         jLabel1.setText("Venda de Peças e Produtos");
         panPrincipal.add(jLabel1);
         jLabel1.setBounds(20, 10, 540, 80);
+
+        lblValorTotal.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lblValorTotal.setText("Valor Total: R$");
+        panPrincipal.add(lblValorTotal);
+        lblValorTotal.setBounds(20, 450, 190, 25);
+
+        txtfValorTotal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtfValorTotal.setText("0,00");
+        txtfValorTotal.setFocusable(false);
+        txtfValorTotal.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        panPrincipal.add(txtfValorTotal);
+        txtfValorTotal.setBounds(200, 440, 220, 40);
 
         getContentPane().add(panPrincipal);
         panPrincipal.setBounds(10, 10, 1125, 510);
@@ -347,18 +330,6 @@ public class FrmVendaPeca extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtCodPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodPecaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodPecaActionPerformed
-
-    private void txtNomePecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomePecaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomePecaActionPerformed
-
-    private void txtValorTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorTotalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtValorTotalActionPerformed
-
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
         if (valorTotal>0){
             
@@ -379,133 +350,18 @@ public class FrmVendaPeca extends javax.swing.JFrame {
             if (tblPecas.getRowCount() !=0) {
                 DaoProduto.atualizarEstoque(lista);
                 iniciarTabela();
-                txtValorTotal.setText("0");
+                txtfValorTotal.setValue(0);
                 txtCodPeca.requestFocus();
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Selecione ao menos uma peça para vender.");
+                JOptionPane.showMessageDialog(rootPane, "Selecione ao menos um produto para vender."
+                        ,"Erro - lista de venda vazia", 0);
             }
             
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Selecione ao menos uma peça para vender.");
+            JOptionPane.showMessageDialog(rootPane, "Selecione ao menos um produto para vender."
+                        ,"Erro - lista de venda vazia", 0);
         }
     }//GEN-LAST:event_btnVenderActionPerformed
-
-    private void txtQuantidadePecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidadePecaActionPerformed
-
-    }//GEN-LAST:event_txtQuantidadePecaActionPerformed
-
-    private void txtCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCategoriaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCategoriaActionPerformed
-
-    private void txtQtdEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQtdEstoqueActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtQtdEstoqueActionPerformed
-
-    private void txtValorUnitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorUnitarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtValorUnitarioActionPerformed
-
-    private void txtValorXQtdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorXQtdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtValorXQtdActionPerformed
-
-    private void btnListarPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarPecaActionPerformed
-        control.Janelas.abrirListagemProduto();
-    }//GEN-LAST:event_btnListarPecaActionPerformed
-
-    private void txtCodPecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodPecaKeyReleased
-        txtCodPeca.setText(TextSize.maxLenghtCodigoPeca(txtCodPeca.getText()));
-        if (txtCodPeca.getText().equals("")) {
-            limparPeca();
-            lblPecaExiste.setText("Digite um código de peça.");
-            btnAdicionarPeca.setEnabled(false);
-        } else {
-            try {
-                flagPeca = DaoProduto.existePeca((txtCodPeca.getText()));
-                if (flagPeca) {
-                    lblPecaExiste.setText("Peça encontrada.");
-                    popularPeca((txtCodPeca.getText()));
-                    btnAdicionarPeca.setEnabled(true);
-
-                } else {
-                    lblPecaExiste.setText("Peça não encontrada.");
-                    limparPeca();
-                    btnAdicionarPeca.setEnabled(false);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(FrmVendaPeca.class.getName()).log(Level.SEVERE, null, ex);
-                limparPeca();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(FrmVendaPeca.class.getName()).log(Level.SEVERE, null, ex);
-                limparPeca();
-            } catch (NumberFormatException nfe) {
-                lblPecaExiste.setText("Peça não encontrada.");
-                limparPeca();
-                btnAdicionarPeca.setEnabled(false);
-            }
-        }
-    }//GEN-LAST:event_txtCodPecaKeyReleased
-
-    private void txtQuantidadePecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadePecaKeyReleased
-        txtQuantidadePeca.setText(TextSize.maxLenghtQuantidadePeca(txtQuantidadePeca.getText()));
-        long qtd;
-        float produto;
-        float vlunit;
-        try {
-            qtd = Long.parseLong(txtQuantidadePeca.getText());
-            if (qtd > limitePeca) {
-                txtQuantidadePeca.setText("" + limitePeca);
-                qtd = limitePeca;
-                vlunit = Float.parseFloat(txtValorUnitario.getText());
-                produto = qtd * vlunit;
-                txtValorXQtd.setText("" + produto);
-            } else {
-                vlunit = Float.parseFloat(txtValorUnitario.getText());
-                produto = qtd * vlunit;
-                txtValorXQtd.setText("" + produto);
-            }
-        } catch (NumberFormatException ex) {
-            txtQuantidadePeca.setText("");
-        }
-    }//GEN-LAST:event_txtQuantidadePecaKeyReleased
-
-    private void btnAdicionarPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarPecaActionPerformed
-        boolean flag = true;
-        long flagQtd = Long.parseLong(txtQuantidadePeca.getText());
-        if (flagQtd <= 0 || txtQtdEstoque.equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Digite uma quantidade válida.");
-        } else {
-            DefaultTableModel model = (DefaultTableModel) tblPecas.getModel();
-            Object rowData[] = new Object[6];
-            rowData[0] = (String) txtCodPeca.getText();
-            rowData[1] = (String) txtNomePeca.getText();
-            rowData[2] = (String) txtCategoria.getText();
-            rowData[3] = (String) txtValorUnitario.getText();
-            rowData[4] = (String) txtQuantidadePeca.getText();
-            rowData[5] = (String) txtValorXQtd.getText();
-
-            String aux = (String) rowData[0];
-            String aux2 = "";
-            for (int i = 0; i < model.getRowCount(); i++) {
-                aux2 = (String) model.getValueAt(i, 0);
-                if (aux.equals(aux2)) {
-                    flag = false;
-                }
-            }
-            if (flag) {
-                model.addRow(rowData);
-                tblPecas.setModel(model);
-                txtCodPeca.setText("");
-                limparPeca();
-                txtCodPeca.requestFocus();
-            }
-        }
-        
-       
-        
-       atualizarValorTotal();
-    }//GEN-LAST:event_btnAdicionarPecaActionPerformed
 
     private void btnExcluirTodasPecasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirTodasPecasActionPerformed
         iniciarTabela();
@@ -528,6 +384,41 @@ public class FrmVendaPeca extends javax.swing.JFrame {
     private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnFecharFrameActionPerformed
+
+    private void txtfQuantidadePecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfQuantidadePecaKeyReleased
+        txtfQuantidadePeca.setText(control.Texto.maxLenghtQuantidadePeca(txtfQuantidadePeca.getText()));
+        calcularValorUnitXQtd();
+    }//GEN-LAST:event_txtfQuantidadePecaKeyReleased
+
+    private void btnListarPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarPecaActionPerformed
+        control.Janelas.abrirListagemProduto();
+    }//GEN-LAST:event_btnListarPecaActionPerformed
+
+    private void txtNomePecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomePecaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomePecaActionPerformed
+
+    private void txtCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCategoriaActionPerformed
+
+    private void txtQtdEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQtdEstoqueActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtQtdEstoqueActionPerformed
+
+    private void btnAdicionarPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarPecaActionPerformed
+        adicionarProdutoNaTabela();
+
+    }//GEN-LAST:event_btnAdicionarPecaActionPerformed
+
+    private void txtCodPecaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodPecaFocusGained
+        txtCodPeca.selectAll();
+    }//GEN-LAST:event_txtCodPecaFocusGained
+
+    private void txtCodPecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodPecaKeyReleased
+        procurarProduto();
+
+    }//GEN-LAST:event_txtCodPecaKeyReleased
 
     /**
      * @param args the command line arguments
@@ -570,18 +461,18 @@ public class FrmVendaPeca extends javax.swing.JFrame {
         p = DaoProduto.popularPeca(codigo);
         limitePeca = p.getQuantidadePeca();
         txtNomePeca.setText("" + p.getNomePeca());
-        txtValorUnitario.setText("" + p.getValorUnitarioSTR());
+        txtfValorUnitario.setText("" + p.getValorUnitarioSTR());
         txtQtdEstoque.setText("" + p.getQuantidadePeca());
         txtCategoria.setText("" + p.getCategoriaPeca());
     }
 
     public void limparPeca() {
-        txtQuantidadePeca.setText("0");
+        txtfQuantidadePeca.setText("0");
         txtNomePeca.setText("");
-        txtValorUnitario.setText("0.00");
+        txtfValorUnitario.setText("0,00");
         txtQtdEstoque.setText("0");
         txtCategoria.setText("");
-        txtValorXQtd.setText("");
+        txtfValorXQtd.setText("");
         limitePeca = 0;
 
     }
@@ -618,13 +509,13 @@ public class FrmVendaPeca extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBackground;
+    private javax.swing.JLabel lblCategoriaProd;
     private javax.swing.JLabel lblPecaExiste;
+    private javax.swing.JLabel lblQtdEmEstoque;
+    private javax.swing.JLabel lblValorTotal;
     private javax.swing.JPanel panPrincipal;
     private javax.swing.JPanel pnlPeca;
     private javax.swing.JTable tblPecas;
@@ -632,22 +523,135 @@ public class FrmVendaPeca extends javax.swing.JFrame {
     private javax.swing.JTextField txtCodPeca;
     private javax.swing.JTextField txtNomePeca;
     private javax.swing.JTextField txtQtdEstoque;
-    private javax.swing.JTextField txtQuantidadePeca;
-    private javax.swing.JTextField txtValorTotal;
-    private javax.swing.JTextField txtValorUnitario;
-    private javax.swing.JTextField txtValorXQtd;
+    private javax.swing.JFormattedTextField txtfQuantidadePeca;
+    private javax.swing.JFormattedTextField txtfValorTotal;
+    private javax.swing.JFormattedTextField txtfValorUnitario;
+    private javax.swing.JFormattedTextField txtfValorXQtd;
     // End of variables declaration//GEN-END:variables
 
     private void atualizarValorTotal() {
         
         valorPecas = 0;
         for (int i = 0; i < tblPecas.getRowCount(); i++){
-            valorPecas += Double.parseDouble((String) tblPecas.getValueAt(i, 5));
+            valorPecas += control.Texto.converterStrDoubleFormatada(String.valueOf(tblPecas.getValueAt(i, 5)));
         }
         
         valorTotal = valorPecas + valorMaoDeObra;
-        txtValorTotal.setText(""+valorTotal);
+        txtfValorTotal.setValue(valorTotal);
         
         
+    }
+
+    private void calcularValorUnitXQtd() {
+        txtfQuantidadePeca.setText(Texto.maxLenghtQuantidadePeca(txtfQuantidadePeca.getText()));
+        long qtd;
+        float produto;
+        float vlunit;
+        try {
+            qtd = Long.parseLong(txtfQuantidadePeca.getText());
+            if (qtd > limitePeca) {
+                txtfQuantidadePeca.setValue(limitePeca);
+                qtd = limitePeca;
+                String vlunitSTR = txtfValorUnitario.getText();
+                vlunitSTR = vlunitSTR.replace(".", "");
+                vlunitSTR = vlunitSTR.replace(",", ".");
+                vlunit = Float.parseFloat(vlunitSTR);
+                produto = qtd * vlunit;
+                txtfValorXQtd.setValue(produto);
+            } else {
+                String vlunitSTR = txtfValorUnitario.getText();
+                vlunitSTR = vlunitSTR.replace(".", "");
+                vlunitSTR = vlunitSTR.replace(",", ".");
+                vlunit = Float.parseFloat(vlunitSTR);
+                produto = qtd * vlunit;
+                txtfValorXQtd.setValue(produto);
+            }
+        } catch (NumberFormatException ex) {
+            txtfQuantidadePeca.setValue(0);
+        }
+    }
+
+    private void adicionarProdutoNaTabela() {
+        boolean flag = true;
+        Long flagQtd = Long.parseLong(txtfQuantidadePeca.getText());
+        if (flagQtd <= 0 || txtQtdEstoque.equals("")) {
+            JOptionPane.showMessageDialog(this, "Quantidade do produto inválida.\n"
+                    +"Verifique se há produtos disponíveis no estoque.", "Erro - Quantidade inválida ou estoque zerado", 0);
+        } else {
+            DefaultTableModel model = (DefaultTableModel) tblPecas.getModel();
+            Object rowData[] = new Object[6];
+            rowData[0] = (String) txtCodPeca.getText();
+            rowData[1] = (String) txtNomePeca.getText();
+            rowData[2] = (String) txtCategoria.getText();
+            rowData[3] = (String) txtfValorUnitario.getText();
+            rowData[4] = (String) txtfQuantidadePeca.getText();
+            rowData[5] = (String) txtfValorXQtd.getText();
+
+            String aux = (String) rowData[0];
+            String aux2 = "";
+            for (int i = 0; i < model.getRowCount(); i++) {
+                aux2 = (String) model.getValueAt(i, 0);
+                if (aux.equals(aux2)) {
+                    flag = false;
+                }
+            }
+            if (flag) {
+                model.addRow(rowData);
+                tblPecas.setModel(model);
+                txtCodPeca.setText("");
+                limparPeca();
+                txtCodPeca.requestFocus();
+            }
+        }
+
+        atualizarValorTotal();
+    }
+
+    private void procurarProduto() {
+        txtCodPeca.setText(Texto.maxLenghtCodigoPeca(txtCodPeca.getText()));
+        if (txtCodPeca.getText().equals("")) {
+            limparPeca();
+            lblPecaExiste.setText("Digite um código de peça.");
+            btnAdicionarPeca.setEnabled(false);
+        } else {
+            try {
+                flagPeca = DaoProduto.existePeca((txtCodPeca.getText()));
+                if (flagPeca) {
+                    lblPecaExiste.setText("Peça encontrada.");
+                    popularPeca((txtCodPeca.getText()));
+                    btnAdicionarPeca.setEnabled(true);
+                    txtfQuantidadePeca.setValue(1);
+                    calcularValorUnitXQtd();
+
+                } else {
+                    lblPecaExiste.setText("Peça não encontrada.");
+                    limparPeca();
+                    btnAdicionarPeca.setEnabled(false);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(FrmCadastroOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+                limparPeca();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(FrmCadastroOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+                limparPeca();
+            } catch (NumberFormatException nfe) {
+                lblPecaExiste.setText("Peça não encontrada.");
+                limparPeca();
+                btnAdicionarPeca.setEnabled(false);
+            }
+        }
+    }
+
+    private void selecionarAoFocar() {
+        txtfQuantidadePeca.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtfQuantidadePeca.selectAll();
+                    }
+                });
+            }
+        });
     }
 }

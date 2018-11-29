@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -58,10 +59,9 @@ public class Orcamento {
     }
     
     public String getMaoDeObraSTR(){
-        String valor = "";
-        valor = String.valueOf(this.maoDeObra);
-        valor = valor.replace(".", ",");
-        return valor;
+        DecimalFormat df = new DecimalFormat("#,##0.00");
+        return df.format(this.maoDeObra);
+        
     }
 
     public void setMaoDeObra(Double maoDeObra) {
@@ -69,6 +69,7 @@ public class Orcamento {
     }
     
     public void setMaoDeObraSTR (String maoDeObra) {
+        maoDeObra = maoDeObra.replace(".", "");
         maoDeObra = maoDeObra.replace(",", ".");
         try {
             this.maoDeObra = Double.parseDouble(maoDeObra);
@@ -83,10 +84,8 @@ public class Orcamento {
     }
     
     public String getValorTotalSTR() {
-        String valor = "";
-        valor = String.valueOf(this.valorTotal);
-        valor = valor.replace(".", ",");
-        return valor;
+        DecimalFormat df = new DecimalFormat("#,##0.00");
+        return df.format(this.valorTotal);
     }
 
     public void setValorTotal(Double valorTotal) {

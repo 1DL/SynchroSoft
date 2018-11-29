@@ -5,19 +5,15 @@
  */
 package view;
 
-import control.TextSize;
+import control.Texto;
 import dao.DaoFuncionario;
 import java.awt.Color;
 import java.awt.Toolkit;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import model.Funcionario;
-import model.Pessoa;
 import model.PessoaFisica;
 
 /**
@@ -137,9 +133,9 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         txtCpf.setBounds(720, 10, 90, 25);
 
         lblSalario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblSalario.setText("Salário:");
+        lblSalario.setText("Salário:          R$");
         panDados.add(lblSalario);
-        lblSalario.setBounds(580, 50, 57, 25);
+        lblSalario.setBounds(580, 50, 160, 25);
 
         lblCodigoFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCodigoFuncionario.setText("Código do Funcionário:");
@@ -523,12 +519,12 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharFrameActionPerformed
 
     private void txtCpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyReleased
-        txtCpf.setText(TextSize.maxLenghtCPFCNPJ(txtCpf.getText(), true));
+        txtCpf.setText(Texto.maxLenghtCPFCNPJ(txtCpf.getText(), true));
         verificarCpf();
     }//GEN-LAST:event_txtCpfKeyReleased
 
     private void txtCodigoFuncionarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoFuncionarioKeyReleased
-        txtCodigoFuncionario.setText(TextSize.maxLenghtFuncionario(txtCodigoFuncionario.getText()));
+        txtCodigoFuncionario.setText(Texto.maxLenghtFuncionario(txtCodigoFuncionario.getText()));
         verificarCodFunc();
     }//GEN-LAST:event_txtCodigoFuncionarioKeyReleased
 
@@ -537,7 +533,7 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCargoActionPerformed
 
     private void txtCargoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCargoKeyReleased
-        txtCargo.setText(TextSize.maxLenghtCargo(txtCargo.getText()));
+        txtCargo.setText(Texto.maxLenghtCargo(txtCargo.getText()));
     }//GEN-LAST:event_txtCargoKeyReleased
 
     private void rbtVisualizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtVisualizacaoActionPerformed
@@ -557,11 +553,11 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtfSalarioMouseClicked
 
     private void txtfSalarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfSalarioKeyReleased
-        txtfSalario.setText(control.TextSize.maxLenghtSalario(txtfSalario.getText()));
+        txtfSalario.setText(control.Texto.maxLenghtSalario(txtfSalario.getText()));
     }//GEN-LAST:event_txtfSalarioKeyReleased
 
     private void txtfHorasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfHorasKeyReleased
-        txtfHoras.setText(control.TextSize.maxLenghtHoraMensal(txtfHoras.getText()));
+        txtfHoras.setText(control.Texto.maxLenghtHoraMensal(txtfHoras.getText()));
     }//GEN-LAST:event_txtfHorasKeyReleased
 
     private void btnHojeAdmissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojeAdmissaoActionPerformed
@@ -637,11 +633,11 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtEfetivadoNaoActionPerformed
 
     private void txtfDataAdmissaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataAdmissaoKeyReleased
-        txtfDataAdmissao.setText(control.TextSize.maxLenghtData(txtfDataAdmissao.getText()));
+        txtfDataAdmissao.setText(control.Texto.maxLenghtData(txtfDataAdmissao.getText()));
     }//GEN-LAST:event_txtfDataAdmissaoKeyReleased
 
     private void txtfDataDemissaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataDemissaoKeyReleased
-        txtfDataDemissao.setText(control.TextSize.maxLenghtData(txtfDataDemissao.getText()));
+        txtfDataDemissao.setText(control.Texto.maxLenghtData(txtfDataDemissao.getText()));
     }//GEN-LAST:event_txtfDataDemissaoKeyReleased
 
     /**
@@ -760,79 +756,79 @@ Efetivado
         switch (filtro) {
             case "Nome":
                 lblDigiteODado.setText("Digite o nome:");
-                txtPesquisa.setText(control.TextSize.maxLenghtNomeRazao(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtNomeRazao(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Código":
                 lblDigiteODado.setText("Digite o cód. do Funcionário:");
-                txtPesquisa.setText(control.TextSize.maxLenghtCodigoFuncionario(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtCodigoFuncionario(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "CPF":
                 lblDigiteODado.setText("Digite o CPF:");
-                txtPesquisa.setText(control.TextSize.maxLenghtCPFCNPJ(txtPesquisa.getText(), true));
+                txtPesquisa.setText(control.Texto.maxLenghtCPFCNPJ(txtPesquisa.getText(), true));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "CEP":
                 lblDigiteODado.setText("Digite o CEP:");
-                txtPesquisa.setText(control.TextSize.maxLenghtCep(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtCep(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Sexo":
                 lblDigiteODado.setText("Digite Masculino ou Feminino:");
-                txtPesquisa.setText(control.TextSize.maxLenghtSexo(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtSexo(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Telefone":
                 lblDigiteODado.setText("Digite o telefone:");
-                txtPesquisa.setText(control.TextSize.maxLenghtTelefone(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtTelefone(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Celular":
                 lblDigiteODado.setText("Digite o telefone:");
-                txtPesquisa.setText(control.TextSize.maxLenghtCelularRamal(txtPesquisa.getText(), true));
+                txtPesquisa.setText(control.Texto.maxLenghtCelularRamal(txtPesquisa.getText(), true));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Salário":
                 lblDigiteODado.setText("Digite o salário:");
-                txtPesquisa.setText(control.TextSize.maxLenghtSalario(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtSalario(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Cargo":
                 lblDigiteODado.setText("Digite o cargo:");
-                txtPesquisa.setText(control.TextSize.maxLenghtCargo(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtCargo(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Horas Trabalhadas":
                 lblDigiteODado.setText("Digite as horas mensais:");
-                txtPesquisa.setText(control.TextSize.maxLenghtHoraMensal(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtHoraMensal(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Nível Administrativo":
                 lblDigiteODado.setText("Digite Visualização ou Completo:");
-                txtPesquisa.setText(control.TextSize.maxLenghtNivelAdministrativo(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtNivelAdministrativo(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Logradouro":
                 lblDigiteODado.setText("Digite o logradouro:");
-                txtPesquisa.setText(control.TextSize.maxLenghtLogradouro(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtLogradouro(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Nr Logradouro":
                 lblDigiteODado.setText("Digite o número do logradouro:");
-                txtPesquisa.setText(control.TextSize.maxLenghtNrLogradouro(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtNrLogradouro(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
@@ -858,7 +854,7 @@ Efetivado
                 break;
             case "Efetivado":
                 lblDigiteODado.setText("Digite Sim ou Não:");
-                txtPesquisa.setText(control.TextSize.maxLenghtEfetivado(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtEfetivado(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;

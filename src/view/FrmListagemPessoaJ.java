@@ -5,20 +5,17 @@
  */
 package view;
 
-import control.TextSize;
+import control.Texto;
 import dao.DaoPessoa;
 import java.awt.Color;
 import java.awt.Toolkit;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import model.Endereco;
-import model.PessoaJuridica;
 import model.Pessoa;
+import model.PessoaJuridica;
 
 /**
  *
@@ -496,11 +493,11 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharFrameActionPerformed
 
     private void txtTelefoneKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyReleased
-        txtTelefone.setText(TextSize.maxLenghtTelefone(txtTelefone.getText()));
+        txtTelefone.setText(Texto.maxLenghtTelefone(txtTelefone.getText()));
     }//GEN-LAST:event_txtTelefoneKeyReleased
 
     private void txtNomePessoaFicticioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomePessoaFicticioKeyReleased
-        txtNomePessoaFicticio.setText(TextSize.maxLenghtNomeRazao(txtNomePessoaFicticio.getText()));
+        txtNomePessoaFicticio.setText(Texto.maxLenghtNomeRazao(txtNomePessoaFicticio.getText()));
     }//GEN-LAST:event_txtNomePessoaFicticioKeyReleased
 
     private void btnCadastrarCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCepActionPerformed
@@ -512,7 +509,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumeroLogradouroActionPerformed
 
     private void txtNumeroLogradouroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroLogradouroKeyReleased
-        txtNumeroLogradouro.setText(TextSize.maxLenghtNrLogradouro(txtNumeroLogradouro.getText()));
+        txtNumeroLogradouro.setText(Texto.maxLenghtNrLogradouro(txtNumeroLogradouro.getText()));
     }//GEN-LAST:event_txtNumeroLogradouroKeyReleased
 
     private void rbtSimCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtSimCadastroActionPerformed
@@ -524,7 +521,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtNaoCadastroActionPerformed
 
     private void txtRazaoSocialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazaoSocialKeyReleased
-        txtRazaoSocial.setText(TextSize.maxLenghtNomeRazao(txtRazaoSocial.getText()));
+        txtRazaoSocial.setText(Texto.maxLenghtNomeRazao(txtRazaoSocial.getText()));
     }//GEN-LAST:event_txtRazaoSocialKeyReleased
 
     private void txtCelRamalKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCelRamalKeyReleased
@@ -581,7 +578,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
     private void txtfDataDeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataDeKeyReleased
-        txtfDataDe.setText(control.TextSize.maxLenghtData(txtfDataDe.getText()));
+        txtfDataDe.setText(control.Texto.maxLenghtData(txtfDataDe.getText()));
     }//GEN-LAST:event_txtfDataDeKeyReleased
 
     private void btnHojePesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHojePesquisaActionPerformed
@@ -590,7 +587,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHojePesquisaActionPerformed
 
     private void txtfDataAteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataAteKeyReleased
-        txtfDataAte.setText(control.TextSize.maxLenghtData(txtfDataAte.getText()));
+        txtfDataAte.setText(control.Texto.maxLenghtData(txtfDataAte.getText()));
     }//GEN-LAST:event_txtfDataAteKeyReleased
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
@@ -905,11 +902,11 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     }
 
     private void textSizeCelRamal() {
-        txtCelRamal.setText(TextSize.maxLenghtCelularRamal(txtCelRamal.getText(), false));
+        txtCelRamal.setText(Texto.maxLenghtCelularRamal(txtCelRamal.getText(), false));
     }
 
     private void textSizeCPFJCNPJ() {
-        txtCpfCnpj.setText(TextSize.maxLenghtCPFCNPJ(txtCpfCnpj.getText(), false));
+        txtCpfCnpj.setText(Texto.maxLenghtCPFCNPJ(txtCpfCnpj.getText(), false));
         verificarCpfCnpjEmUso();
     }
 
@@ -1024,48 +1021,48 @@ Data Entre/Até
 */
         switch (filtro) {
             case "Nome Fictício":
-                txtPesquisa.setText(control.TextSize.maxLenghtNomeRazao(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtNomeRazao(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "CNPJ":
-                txtPesquisa.setText(control.TextSize.maxLenghtCPFCNPJ(txtPesquisa.getText(), false));
+                txtPesquisa.setText(control.Texto.maxLenghtCPFCNPJ(txtPesquisa.getText(), false));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "CEP":
-                txtPesquisa.setText(control.TextSize.maxLenghtCep(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtCep(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Logradouro":
-                txtPesquisa.setText(control.TextSize.maxLenghtLogradouro(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtLogradouro(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Nr Logradouro":
-                txtPesquisa.setText(control.TextSize.maxLenghtNrLogradouro(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtNrLogradouro(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Razão Social":
-                txtPesquisa.setText(control.TextSize.maxLenghtNomeRazao(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtNomeRazao(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Telefone":
-                txtPesquisa.setText(control.TextSize.maxLenghtTelefone(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtTelefone(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Ramal":
-                txtPesquisa.setText(control.TextSize.maxLenghtCelularRamal(txtPesquisa.getText(), false));
+                txtPesquisa.setText(control.Texto.maxLenghtCelularRamal(txtPesquisa.getText(), false));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Mantém Contrato?":
                 lblDigiteODado.setText("Digite Sim ou Não:");
-                txtPesquisa.setText(control.TextSize.maxLenghtContrato(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtContrato(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;

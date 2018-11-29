@@ -5,18 +5,14 @@
  */
 package view;
 
-import control.TextSize;
+import control.Texto;
 import dao.DaoFuncionario;
 import dao.DaoUsuario;
 import java.awt.Color;
 import java.awt.Toolkit;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Funcionario;
 import model.Usuario;
 
 /**
@@ -342,21 +338,21 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarFuncionariosActionPerformed
 
     private void txtLoginKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLoginKeyReleased
-        txtLogin.setText(TextSize.maxLenghtLogin(txtLogin.getText()));
+        txtLogin.setText(Texto.maxLenghtLogin(txtLogin.getText()));
         verificarLogin();
     }//GEN-LAST:event_txtLoginKeyReleased
 
     private void txtCodFuncionarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodFuncionarioKeyReleased
-        txtCodFuncionario.setText(TextSize.maxLenghtFuncionario(txtCodFuncionario.getText()));
+        txtCodFuncionario.setText(Texto.maxLenghtFuncionario(txtCodFuncionario.getText()));
         verificarFuncionario();
     }//GEN-LAST:event_txtCodFuncionarioKeyReleased
 
     private void txtSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyReleased
-        txtSenha.setText(TextSize.maxLenghtSenha(txtSenha.getText()));
+        txtSenha.setText(Texto.maxLenghtSenha(txtSenha.getText()));
     }//GEN-LAST:event_txtSenhaKeyReleased
 
     private void txtConfirmaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmaKeyReleased
-        txtConfirma.setText(TextSize.maxLenghtSenha(txtConfirma.getText()));
+        txtConfirma.setText(Texto.maxLenghtSenha(txtConfirma.getText()));
     }//GEN-LAST:event_txtConfirmaKeyReleased
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
@@ -481,13 +477,13 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
     private void limiteDigitosPesquisa(String filtro) {
         switch (filtro) {
             case "Código do Funcionário":
-                txtPesquisa.setText(control.TextSize.maxLenghtFuncionario(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtFuncionario(txtPesquisa.getText()));
                 break;
             case "Login":
-                txtPesquisa.setText(control.TextSize.maxLenghtLogin(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtLogin(txtPesquisa.getText()));
                 break;
             case "Senha":
-                txtPesquisa.setText(control.TextSize.maxLenghtSenha(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtSenha(txtPesquisa.getText()));
                 break;
             default:
                 JOptionPane.showMessageDialog(this, "Erro ao definir limite de caracteres do campo de pesquisa.",

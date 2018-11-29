@@ -5,14 +5,11 @@
  */
 package view;
 
-import control.TextSize;
+import control.Texto;
 import dao.DaoPessoa;
 import java.awt.Color;
 import java.awt.Toolkit;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
@@ -513,11 +510,11 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharFrameActionPerformed
 
     private void txtTelefoneKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyReleased
-        txtTelefone.setText(TextSize.maxLenghtTelefone(txtTelefone.getText()));
+        txtTelefone.setText(Texto.maxLenghtTelefone(txtTelefone.getText()));
     }//GEN-LAST:event_txtTelefoneKeyReleased
 
     private void txtNomePessoaFicticioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomePessoaFicticioKeyReleased
-        txtNomePessoaFicticio.setText(TextSize.maxLenghtNomeRazao(txtNomePessoaFicticio.getText()));
+        txtNomePessoaFicticio.setText(Texto.maxLenghtNomeRazao(txtNomePessoaFicticio.getText()));
     }//GEN-LAST:event_txtNomePessoaFicticioKeyReleased
 
     private void btnCadastrarCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCepActionPerformed
@@ -529,7 +526,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumeroLogradouroActionPerformed
 
     private void txtNumeroLogradouroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroLogradouroKeyReleased
-        txtNumeroLogradouro.setText(TextSize.maxLenghtNrLogradouro(txtNumeroLogradouro.getText()));
+        txtNumeroLogradouro.setText(Texto.maxLenghtNrLogradouro(txtNumeroLogradouro.getText()));
     }//GEN-LAST:event_txtNumeroLogradouroKeyReleased
 
     private void rbtSimCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtSimCadastroActionPerformed
@@ -603,11 +600,11 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHojePesquisaActionPerformed
 
     private void txtfDataDeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataDeKeyReleased
-        txtfDataDe.setText(control.TextSize.maxLenghtData(txtfDataDe.getText()));
+        txtfDataDe.setText(control.Texto.maxLenghtData(txtfDataDe.getText()));
     }//GEN-LAST:event_txtfDataDeKeyReleased
 
     private void txtfDataAteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDataAteKeyReleased
-        txtfDataAte.setText(control.TextSize.maxLenghtData(txtfDataAte.getText()));
+        txtfDataAte.setText(control.Texto.maxLenghtData(txtfDataAte.getText()));
     }//GEN-LAST:event_txtfDataAteKeyReleased
 
     private void tblListagemPessoaFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListagemPessoaFMouseClicked
@@ -844,7 +841,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
     }
 
     private void textSizeCPFJCNPJ() {
-        txtCpfCnpj.setText(TextSize.maxLenghtCPFCNPJ(txtCpfCnpj.getText(), true));
+        txtCpfCnpj.setText(Texto.maxLenghtCPFCNPJ(txtCpfCnpj.getText(), true));
         verificarCpfCnpjEmUso();
     }
 
@@ -877,49 +874,49 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
     private void limiteDigitosPesquisa(String filtro) {
         switch (filtro) {
             case "Nome":
-                txtPesquisa.setText(control.TextSize.maxLenghtNomeRazao(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtNomeRazao(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "CPF":
-                txtPesquisa.setText(control.TextSize.maxLenghtCPFCNPJ(txtPesquisa.getText(), true));
+                txtPesquisa.setText(control.Texto.maxLenghtCPFCNPJ(txtPesquisa.getText(), true));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "CEP":
-                txtPesquisa.setText(control.TextSize.maxLenghtCep(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtCep(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Logradouro":
-                txtPesquisa.setText(control.TextSize.maxLenghtLogradouro(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtLogradouro(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Nr Logradouro":
-                txtPesquisa.setText(control.TextSize.maxLenghtNrLogradouro(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtNrLogradouro(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Sexo":
-                txtPesquisa.setText(control.TextSize.maxLenghtSexo(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtSexo(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 lblDigiteODado.setText("Digite Masculino ou Feminino:");
                 txtPesquisa.requestFocus();
                 break;
             case "Telefone":
-                txtPesquisa.setText(control.TextSize.maxLenghtTelefone(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtTelefone(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Celular":
-                txtPesquisa.setText(control.TextSize.maxLenghtCelularRamal(txtPesquisa.getText(), true));
+                txtPesquisa.setText(control.Texto.maxLenghtCelularRamal(txtPesquisa.getText(), true));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
             case "Mantém Contrato?":
                 lblDigiteODado.setText("Digite Sim ou Não:");
-                txtPesquisa.setText(control.TextSize.maxLenghtContrato(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtContrato(txtPesquisa.getText()));
                 modoPesquisaNormal();
                 txtPesquisa.requestFocus();
                 break;
@@ -1067,7 +1064,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
     }
 
     private void textSizeCelRamal() {
-        txtCelRamal.setText(TextSize.maxLenghtCelularRamal(txtCelRamal.getText(), true));
+        txtCelRamal.setText(Texto.maxLenghtCelularRamal(txtCelRamal.getText(), true));
     }
 
     private void popularCampos() {

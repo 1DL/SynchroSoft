@@ -7,16 +7,15 @@ package view;
 
 import dao.DaoOrcamento;
 import dao.DaoProduto;
-import java.awt.Color;
 import java.awt.Toolkit;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.html.HTML;
 import model.Orcamento;
 import model.Produto;
 import model.Servico;
@@ -29,7 +28,6 @@ import model.VendaPeca;
 public class FrmListagemOrcamento extends javax.swing.JFrame {
 
     boolean flagCriarAlterar;
-    Servico s = new Servico();
     boolean flagPeca;
     long limitePeca = 0;
     double valorTotal;
@@ -49,8 +47,25 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
         selecionarAoFocar();
     }
 
-    public FrmListagemOrcamento(int codigoServico, boolean flag, int nvlAdm) {
+    public FrmListagemOrcamento(int nvlAdm, int codigoOrcamento) {
+        initComponents();
+        iniciarTabelaOrcamento();
+        iniciarTabelaProduto();
+        selecionarAoFocar();
+        txtPesquisa.setText(String.valueOf(codigoOrcamento));
+        pesquisarFiltrada();
+        selecionarLinhaTabela(codigoOrcamento);
+    }
 
+    public FrmListagemOrcamento(int codigoServico, boolean flag, int nvlAdm) {
+        initComponents();
+        iniciarTabelaOrcamento();
+        iniciarTabelaProduto();
+        selecionarAoFocar();
+
+        txtPesquisa.setText(String.valueOf(codigoServico));
+        pesquisarFiltrada();
+        selecionarLinhaTabela(codigoServico);
     }
 
     /**
@@ -98,10 +113,10 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
         txtPesquisa = new javax.swing.JTextField();
         lblDescrever = new javax.swing.JLabel();
         lblPesquisar = new javax.swing.JLabel();
-        btnDeletar = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
         btnLimparTabela = new javax.swing.JButton();
         btnListarTodos = new javax.swing.JButton();
+        btnDeletar = new javax.swing.JButton();
         btnFecharFrame = new javax.swing.JButton();
         lblBackground = new javax.swing.JLabel();
 
@@ -131,7 +146,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
         panProdMaoObra.setLayout(null);
 
         lblMaoDeObra.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblMaoDeObra.setText("Mão de obra total:");
+        lblMaoDeObra.setText("Mão de obra total: R$");
         panProdMaoObra.add(lblMaoDeObra);
         lblMaoDeObra.setBounds(10, 10, 190, 25);
 
@@ -207,12 +222,12 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
         txtQtdEstoque.setBounds(380, 95, 110, 25);
 
         lblValorUnitario.setFont(new java.awt.Font("Malgun Gothic", 0, 14)); // NOI18N
-        lblValorUnitario.setText("Valor Unitário:");
+        lblValorUnitario.setText("Valor Unitário: R$");
         panCamposProd.add(lblValorUnitario);
-        lblValorUnitario.setBounds(10, 95, 89, 25);
+        lblValorUnitario.setBounds(10, 95, 111, 25);
 
         lblValorUnQtd.setFont(new java.awt.Font("Malgun Gothic", 0, 14)); // NOI18N
-        lblValorUnQtd.setText("Valor un. * Qtd.:");
+        lblValorUnQtd.setText("Valor un.*Qtd.: R$");
         panCamposProd.add(lblValorUnQtd);
         lblValorUnQtd.setBounds(265, 125, 130, 25);
 
@@ -239,7 +254,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
         panCamposProd.add(lblPecaExiste);
         lblPecaExiste.setBounds(10, 35, 190, 25);
 
-        txtfQuantidadePeca.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
+        txtfQuantidadePeca.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         txtfQuantidadePeca.setText("0");
         txtfQuantidadePeca.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -264,7 +279,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
         panCamposProd.getAccessibleContext().setAccessibleName("Venda de peça");
 
         lblValorTotal.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblValorTotal.setText("Valor Total:");
+        lblValorTotal.setText("Valor Total:           R$");
         panProdMaoObra.add(lblValorTotal);
         lblValorTotal.setBounds(10, 223, 190, 25);
 
@@ -305,7 +320,6 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
         btnExcluirTodasPecas.setBounds(370, 250, 140, 20);
 
         txtfMaoDeObra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtfMaoDeObra.setText("0,00");
         txtfMaoDeObra.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtfMaoDeObraFocusLost(evt);
@@ -368,26 +382,17 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(txtPesquisa);
-        txtPesquisa.setBounds(380, 10, 190, 25);
+        txtPesquisa.setBounds(350, 10, 220, 25);
 
         lblDescrever.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblDescrever.setText("Descrição:");
+        lblDescrever.setText("Digite:");
         panPrincipal.add(lblDescrever);
-        lblDescrever.setBounds(290, 10, 83, 25);
+        lblDescrever.setBounds(290, 10, 60, 25);
 
         lblPesquisar.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblPesquisar.setText("Pesquisar por: ");
         panPrincipal.add(lblPesquisar);
         lblPesquisar.setBounds(10, 10, 120, 25);
-
-        btnDeletar.setText("Deletar registro selecionado");
-        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeletarActionPerformed(evt);
-            }
-        });
-        panPrincipal.add(btnDeletar);
-        btnDeletar.setBounds(10, 480, 170, 30);
 
         btnAlterar.setText("Alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -415,6 +420,15 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
         });
         panPrincipal.add(btnListarTodos);
         btnListarTodos.setBounds(340, 480, 150, 30);
+
+        btnDeletar.setText("Deletar registro selecionado");
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
+            }
+        });
+        panPrincipal.add(btnDeletar);
+        btnDeletar.setBounds(10, 480, 170, 30);
 
         getContentPane().add(panPrincipal);
         panPrincipal.setBounds(10, 10, 1125, 530);
@@ -453,7 +467,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarPecaActionPerformed
 
     private void txtCodPecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodPecaKeyReleased
-        txtCodPeca.setText(control.TextSize.maxLenghtCodigoPeca(txtCodPeca.getText()));
+        txtCodPeca.setText(control.Texto.maxLenghtCodigoPeca(txtCodPeca.getText()));
         if (txtCodPeca.getText().equals("")) {
             limparPeca();
             lblPecaExiste.setText("Digite um código de peça.");
@@ -465,6 +479,8 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
                     lblPecaExiste.setText("Peça encontrada.");
                     popularPeca((txtCodPeca.getText()));
                     btnAdicionarPeca.setEnabled(true);
+                    txtfQuantidadePeca.setText("1");
+                    calcularValorUnitXQtd();
 
                 } else {
                     lblPecaExiste.setText("Peça não encontrada.");
@@ -486,10 +502,11 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodPecaKeyReleased
 
     private void btnAdicionarPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarPecaActionPerformed
-        boolean flag = true;
+        boolean flagPecaIgual = false;
         long flagQtd = Long.parseLong(txtfQuantidadePeca.getText());
         if (flagQtd <= 0 || txtQtdEstoque.equals("")) {
-            JOptionPane.showMessageDialog(this, "Digite uma quantidade válida.", "Quantidade de peças Inválida!", 0);
+            JOptionPane.showMessageDialog(this, "Quantidade do produto inválida.\n"
+                    +"Verifique se há produtos disponíveis no estoque.", "Erro - Quantidade inválida ou estoque zerado", 0);
         } else {
             DefaultTableModel model = (DefaultTableModel) tblPecas.getModel();
             Object rowData[] = new Object[6];
@@ -505,10 +522,10 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
             for (int i = 0; i < model.getRowCount(); i++) {
                 aux2 = (String) model.getValueAt(i, 0);
                 if (aux.equals(aux2)) {
-                    flag = false;
+                    flagPecaIgual = true;
                 }
             }
-            if (flag) {
+            if (!flagPecaIgual) {
                 model.addRow(rowData);
                 tblPecas.setModel(model);
                 txtCodPeca.setText("");
@@ -540,79 +557,39 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
     private void tblOrcamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOrcamentoMouseClicked
-        if (tblOrcamento.getRowCount() != 0) {
-            popularTabelaPeca(Integer.parseInt((String) tblOrcamento.getValueAt(tblOrcamento.getSelectedRow(), 0)));
-            txtfMaoDeObra.setText((String) tblOrcamento.getValueAt(tblOrcamento.getSelectedRow(), 4));
-            String aux = "";
-            aux = (String) tblOrcamento.getValueAt(tblOrcamento.getSelectedRow(), 2);
-            switch (aux) {
-                case "Pago":
-                    btnPagarOrcamento.setEnabled(false);
-                    break;
-                case "Ativo":
-                    btnPagarOrcamento.setEnabled(true);
-                    break;
+        popularCampos();
 
-            }
-
-        } else {
-
-        }
     }//GEN-LAST:event_tblOrcamentoMouseClicked
 
     private void btnPagarOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarOrcamentoActionPerformed
-
-        ArrayList<VendaPeca> lista = new ArrayList<>();
-        for (int i = 0; i < tblPecas.getRowCount(); i++) {
-            Produto p = new Produto();
-            p.setCodigoPeca((String) tblPecas.getValueAt(i, 0));
-            p.setNomePeca((String) tblPecas.getValueAt(i, 1));
-            p.setCategoriaPeca((String) tblPecas.getValueAt(i, 2));
-            p.setValorUnitario((String) tblPecas.getValueAt(i, 3));
-            p.setQuantidadePeca((String) tblPecas.getValueAt(i, 4));
-            VendaPeca vp = new VendaPeca();
-            vp.setPeca(p);
-            vp.setQuantidadeVendida(p.getQuantidadePeca());
-            lista.add(vp);
+        int opcao = JOptionPane.showConfirmDialog(null,
+                "Deseja atualizar e alterar os produtos modificados primeiro, antes de \n"
+                + "realizar o pagamento?\n\n"
+                + "Se clicar em sim, as modificações atuais dos produtos serão salvas primeiro,\n"
+                + "para depois realizar o pagamento do orçamento e subtrair os produtos do estoque.\n\n"
+                + "Se clicar em não, o pagamento irá ser realizado e subtrair do estoque os produtos e\n"
+                + "suas quantidades originais, antes de serem modificadas. \n\n"
+                + "Uma vez pago, o orçamento não poderá ser mais modificado!",
+                 "Confirmação de pagamento", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        switch (opcao) {
+            case 0:
+                alterarRegistro(true);
+                pagarOrcamento();
+                break;
+            case 1:
+                pagarOrcamento();
+                break;
+            case 2:
+                break;
         }
-
-        if (tblPecas.getRowCount() != 0) {
-            DaoProduto.atualizarEstoque(lista);
-            try {
-                DaoOrcamento.pagarOrcamento(((String) tblOrcamento.getValueAt(tblOrcamento.getSelectedRow(), 1)), true);
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(FrmListagemOrcamento.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                atualizarTabela();
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(FrmListagemOrcamento.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            iniciarTabelaProduto();
-            txtfValorTotal.setText("0,00");
-            txtCodPeca.requestFocus();
-        } else {
-            try {
-                DaoOrcamento.pagarOrcamento(((String) tblOrcamento.getValueAt(tblOrcamento.getSelectedRow(), 1)), true);
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(FrmListagemOrcamento.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-
-
     }//GEN-LAST:event_btnPagarOrcamentoActionPerformed
 
     private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnFecharFrameActionPerformed
 
-    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-        deletarRegistro();
-    }//GEN-LAST:event_btnDeletarActionPerformed
-
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        alterarRegistro();
+        alterarRegistro(false);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnLimparTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparTabelaActionPerformed
@@ -625,36 +602,12 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarTodosActionPerformed
 
     private void txtfMaoDeObraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfMaoDeObraKeyReleased
-        txtfMaoDeObra.setText(control.TextSize.maxLenghtMaoDeObra(txtfMaoDeObra.getText()));
+        txtfMaoDeObra.setText(control.Texto.maxLenghtMaoDeObra(txtfMaoDeObra.getText()));
     }//GEN-LAST:event_txtfMaoDeObraKeyReleased
 
     private void txtfQuantidadePecaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfQuantidadePecaKeyReleased
-        txtfQuantidadePeca.setText(control.TextSize.maxLenghtQuantidadePeca(txtfQuantidadePeca.getText()));
-        long qtd;
-        float produto;
-        float vlunit;
-        try {
-            qtd = Long.parseLong(txtfQuantidadePeca.getText());
-            if (qtd > limitePeca) {
-                txtfQuantidadePeca.setText(String.valueOf(limitePeca));
-                qtd = limitePeca;
-                String valorUnitSTR = txtfValorUnitario.getText();
-                valorUnitSTR = valorUnitSTR.replace(".", "");
-                valorUnitSTR = valorUnitSTR.replace(",", ".");
-                vlunit = Float.parseFloat(valorUnitSTR);
-                produto = qtd * vlunit;
-                txtfValorXQtd.setText(String.valueOf(produto));
-            } else {
-                String valorUnitSTR = txtfValorUnitario.getText();
-                valorUnitSTR = valorUnitSTR.replace(".", "");
-                valorUnitSTR = valorUnitSTR.replace(",", ".");
-                vlunit = Float.parseFloat(valorUnitSTR);
-                produto = qtd * vlunit;
-                txtfValorXQtd.setText(String.valueOf(produto));
-            }
-        } catch (NumberFormatException ex) {
-            txtfQuantidadePeca.setText("0");
-        }
+        txtfQuantidadePeca.setText(control.Texto.maxLenghtQuantidadePeca(txtfQuantidadePeca.getText()));
+        calcularValorUnitXQtd();
     }//GEN-LAST:event_txtfQuantidadePecaKeyReleased
 
     private void txtfMaoDeObraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfMaoDeObraFocusLost
@@ -671,6 +624,10 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
         pesquisarFiltrada();
         txtPesquisa.selectAll();
     }//GEN-LAST:event_txtPesquisaFocusGained
+
+    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
+        deletarRegistro();
+    }//GEN-LAST:event_btnDeletarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -703,9 +660,9 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
-                    new FrmListagemOrcamento(control.SynchroSoft.getNvlAdm()).setVisible(true);
-                
+
+                new FrmListagemOrcamento(control.SynchroSoft.getNvlAdm()).setVisible(true);
+
             }
         });
     }
@@ -732,6 +689,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
     }
 
     public void maoDeObraFocusLost() {
+
         try {
             String maoDeobraSTR = txtfMaoDeObra.getText();
             maoDeobraSTR = maoDeobraSTR.replace(".", "");
@@ -742,6 +700,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
             valorMaoDeObra = 0;
 
         }
+        txtfMaoDeObra.validate();
         atualizarValorTotal();
     }
 
@@ -798,13 +757,9 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
 
             Object rowData[] = new Object[5];
             for (int i = 0; i < lista.size(); i++) {
-                rowData[0] = Integer.toString(lista.get(i).getCodigoOrcamento());
+                rowData[0] = (lista.get(i).getCodigoOrcamento());
                 rowData[1] = lista.get(i).getServico().getCodigoServico();
-                if (lista.get(i).getStatusOrcamento() == 0) {
-                    rowData[2] = "Ativo";
-                } else {
-                    rowData[2] = "Pago";
-                }
+                rowData[2] = lista.get(i).getStatusOrcamentoSTR();
                 rowData[3] = Double.toString(lista.get(i).getValorTotal());
                 rowData[4] = Double.toString(lista.get(i).getMaoDeObra());
 
@@ -829,10 +784,12 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
             rowData[1] = lista.get(i).getNomePeca();
             rowData[2] = lista.get(i).getCategoriaPeca();
             rowData[3] = lista.get(i).getValorUnitarioSTR();
-            rowData[4] = Long.toString(lista.get(i).getQuantidadePeca());
-            Float aux;
-            aux = (lista.get(i).getValorUnitarioBanco() * lista.get(i).getQuantidadePeca());
-            rowData[5] = Float.toString(aux);
+            rowData[4] = lista.get(i).getQuantidadePeca();
+            double vlrSubTotal;
+            vlrSubTotal = (lista.get(i).getValorUnitarioBanco() * lista.get(i).getQuantidadePeca());
+            DecimalFormat df = new DecimalFormat("#,##0.00");
+            String vlrSubTotalSTR = df.format(vlrSubTotal);
+            rowData[5] = vlrSubTotalSTR;
             model.addRow(rowData);
         }
     }
@@ -886,11 +843,14 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
 
         valorPecas = 0;
         for (int i = 0; i < tblPecas.getRowCount(); i++) {
-            valorPecas += Double.parseDouble((String) tblPecas.getValueAt(i, 5));
+            String valorPecasSTR = String.valueOf(tblPecas.getModel().getValueAt(i, 5));
+            valorPecas += control.Texto.converterStrDoubleFormatada(valorPecasSTR);
+
         }
 
         valorTotal = valorPecas + valorMaoDeObra;
-        txtfValorTotal.setText(String.valueOf(valorTotal));
+
+        txtfValorTotal.setValue(valorTotal);
 
     }
 
@@ -945,7 +905,6 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
 
     private void zerarObjetosLocais() {
         flagCriarAlterar = false;
-        s = null;
         flagPeca = false;
         limitePeca = 0;
         valorTotal = 0;
@@ -990,19 +949,19 @@ Valor Total
          */
         switch (filtro) {
             case "Código do Orçamento":
-                txtPesquisa.setText(control.TextSize.maxLenghtCodigoOrcamento(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtCodigoOrcamento(txtPesquisa.getText()));
                 break;
             case "Código do Serviço":
-                txtPesquisa.setText(control.TextSize.maxLenghtCodigoServico(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtCodigoServico(txtPesquisa.getText()));
                 break;
             case "Orçamento Pago?":
-                txtPesquisa.setText(control.TextSize.maxLenghtOrcamentoPago(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtOrcamentoPago(txtPesquisa.getText()));
                 break;
             case "Valor Mão De Obra":
-                txtPesquisa.setText(control.TextSize.maxLenghtMaoDeObra(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtMaoDeObra(txtPesquisa.getText()));
                 break;
             case "Valor Total":
-                txtPesquisa.setText(control.TextSize.maxLenghtValorTotalOrcamento(txtPesquisa.getText()));
+                txtPesquisa.setText(control.Texto.maxLenghtValorTotalOrcamento(txtPesquisa.getText()));
                 break;
             default:
                 JOptionPane.showMessageDialog(this, "Erro ao definir limite de caracteres do campo de pesquisa.",
@@ -1124,31 +1083,32 @@ Valor Total
     private void deletarRegistro() {
         int opcao;
         String codigoOrcamentoSTR = String.valueOf(tblOrcamento.getValueAt(tblOrcamento.getSelectedRow(), 0));
-        int codigoDespesa = Integer.valueOf(codigoOrcamentoSTR);
+        int codigoOrcamento = Integer.valueOf(codigoOrcamentoSTR);
         opcao = JOptionPane.showConfirmDialog(this, "Atenção! Todos os registros relacionados ao código de Orçamento "
-                + codigoDespesa + " serão permanentemente removidos.\n\nDeseja realmente excluir o registro?",
+                + codigoOrcamento + " serão permanentemente removidos.\n\nDeseja realmente excluir o registro?",
                 "Confirmação de exclusão",
                 JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
-        if (opcao == 0) {          
-            dao.DaoDespesa.deletarDespesa(codigoDespesa);
+        if (opcao == 0) {
+            dao.DaoOrcamento.deletarOrcamento(codigoOrcamento);
             atualizarTabelaOrcamento(ultimoTipoPesquisa);
             iniciarTabelaProduto();
             limparCampos();
         }
     }
 
-    private void alterarRegistro() {
-        
+    private void alterarRegistro(boolean alterarAntesDePagar) {
+
         if (valorTotal > 0) {
-            Orcamento o = new Orcamento();
+            Orcamento orcamento = new Orcamento();
+            Servico servico = new Servico();
             String codigoServicoSTR = String.valueOf(tblOrcamento.getValueAt(tblOrcamento.getSelectedRow(), 1));
-            s.setCodigoServico(codigoServicoSTR);
-            o.setServico(s);
+            servico.setCodigoServico(codigoServicoSTR);
+            orcamento.setServico(servico);
             String maoDeObraSTR = txtfMaoDeObra.getText();
             maoDeObraSTR = maoDeObraSTR.replace(".", "");
             maoDeObraSTR = maoDeObraSTR.replace(",", ".");
-            o.setMaoDeObra(Double.valueOf(maoDeObraSTR));
+            orcamento.setMaoDeObra(Double.valueOf(maoDeObraSTR));
             ArrayList<VendaPeca> lista = new ArrayList<>();
             for (int i = 0; i < tblPecas.getRowCount(); i++) {
                 Produto p = new Produto();
@@ -1156,37 +1116,164 @@ Valor Total
                 p.setNomePeca((String) tblPecas.getValueAt(i, 1));
                 p.setCategoriaPeca((String) tblPecas.getValueAt(i, 2));
                 p.setValorUnitario((String) tblPecas.getValueAt(i, 3));
-                p.setQuantidadePeca((String) tblPecas.getValueAt(i, 4));
+                p.setQuantidadePeca(String.valueOf(tblPecas.getValueAt(i, 4)));
                 VendaPeca vp = new VendaPeca();
                 vp.setPeca(p);
                 vp.setQuantidadeVendida(p.getQuantidadePeca());
                 lista.add(vp);
             }
-            o.setPecas(lista);
-            o.setValorTotal(0.0);
+            orcamento.setPecas(lista);
+            orcamento.setValorTotal(0.0);
             for (int i = 0; i < lista.size(); i++) {
-                o.setValorTotal(o.getValorTotal() + (lista.get(i).getPeca().getValorUnitarioBanco()* lista.get(i).getQuantidadeVendida()));
+                orcamento.setValorTotal(orcamento.getValorTotal() + (lista.get(i).getPeca().getValorUnitarioBanco() * lista.get(i).getQuantidadeVendida()));
             }
-            o.setValorTotal(o.getValorTotal() + o.getMaoDeObra());
-            try {
-                if (tblPecas.getRowCount() != 0) {
-                    DaoOrcamento.criarOrcamento(o, true, false);
-                } else {
-                    DaoOrcamento.criarOrcamento(o, false, false);
-                }
-                atualizarTabela();
+            orcamento.setValorTotal(orcamento.getValorTotal() + orcamento.getMaoDeObra());
+
+            if (tblPecas.getRowCount() != 0) {
+                DaoOrcamento.criarOrcamento(orcamento, true, false);
+            } else {
+                DaoOrcamento.criarOrcamento(orcamento, false, false);
+            }
+            if (!alterarAntesDePagar) {
+                atualizarTabelaOrcamento(false);
                 txtfMaoDeObra.setText("0,00");
                 iniciarTabelaProduto();
                 atualizarValorTotal();
-
-            } catch (SQLException ex) {
-                Logger.getLogger(FrmCadastroOrcamento.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(FrmCadastroOrcamento.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Insira um valor de mão de obra e/ou peça.");
+            JOptionPane.showMessageDialog(this, "Insira um valor de mão de obra e/ou peça.", "Erro - Orçamento Inválido", 0);
+        }
+    }
+
+    private void selecionarLinhaTabela(int codigoServico) {
+        int indiceTabela = 0;
+        for (int i = 0; i < tblOrcamento.getModel().getRowCount(); i++) {
+            String codigoDaLinha = String.valueOf(tblOrcamento.getModel().getValueAt(i, 0));
+            if (codigoServico == Integer.parseInt(codigoDaLinha)) {
+                indiceTabela = i;
+            }
+        }
+        tblOrcamento.getSelectionModel().setSelectionInterval(indiceTabela, indiceTabela);
+        popularCampos();
+    }
+
+    private void popularCampos() {
+        if (tblOrcamento.getRowCount() != 0) {
+            String codigoOrcamentoSTR = String.valueOf(tblOrcamento.getValueAt(tblOrcamento.getSelectedRow(), 0));
+            int codigoOrcamento = Integer.valueOf(codigoOrcamentoSTR);
+            popularTabelaPeca(codigoOrcamento);
+            String maoDeObraSTR = String.valueOf(tblOrcamento.getValueAt(tblOrcamento.getSelectedRow(), 3));
+            txtfMaoDeObra.setValue(control.Texto.converterStrDoubleFormatada(maoDeObraSTR));
+            //txtfMaoDeObra.setText((String) tblOrcamento.getValueAt(tblOrcamento.getSelectedRow(), 3));
+
+            String aux = "";
+            aux = (String) tblOrcamento.getValueAt(tblOrcamento.getSelectedRow(), 2);
+            switch (aux) {
+                case "Sim":
+                    btnPagarOrcamento.setEnabled(false);
+                    break;
+                case "Não":
+                    btnPagarOrcamento.setEnabled(true);
+                    break;
+
+            }
+            maoDeObraFocusLost();
+            atualizarValorTotal();
+            boolean orcamentoPago = "Sim".equals(String.valueOf(tblOrcamento.getValueAt(tblOrcamento.getSelectedRow(), 2)));
+            definirRestricaoAlteracao(orcamentoPago);
+
+        } else {
+
+        }
+    }
+
+    private void calcularValorUnitXQtd() {
+        long qtd;
+        float produto;
+        float vlunit;
+        try {
+            qtd = Long.parseLong(txtfQuantidadePeca.getText());
+            if (qtd > limitePeca) {
+                txtfQuantidadePeca.setValue(limitePeca);
+                qtd = limitePeca;
+                String valorUnitSTR = txtfValorUnitario.getText();
+                valorUnitSTR = valorUnitSTR.replace(".", "");
+                valorUnitSTR = valorUnitSTR.replace(",", ".");
+                vlunit = Float.parseFloat(valorUnitSTR);
+                produto = qtd * vlunit;
+                txtfValorXQtd.setValue(produto);
+            } else {
+                String valorUnitSTR = txtfValorUnitario.getText();
+                valorUnitSTR = valorUnitSTR.replace(".", "");
+                valorUnitSTR = valorUnitSTR.replace(",", ".");
+                vlunit = Float.parseFloat(valorUnitSTR);
+                produto = qtd * vlunit;
+                txtfValorXQtd.setValue(produto);
+            }
+        } catch (NumberFormatException ex) {
+            txtfQuantidadePeca.setValue(0);
+        }
+    }
+
+    private void definirRestricaoAlteracao(boolean orcamentoJaPago) {
+        if (orcamentoJaPago) {
+            btnAlterar.setEnabled(false);
+            txtfMaoDeObra.setEnabled(false);
+            txtCodPeca.setEnabled(false);
+            txtfQuantidadePeca.setEnabled(false);
+            btnExcluirTodasPecas.setEnabled(false);
+            btnRemoveLinhaPeca.setEnabled(false);
+            btnDeletar.setEnabled(false);
+        } else {
+            btnAlterar.setEnabled(true);
+            txtfMaoDeObra.setEnabled(true);
+            txtCodPeca.setEnabled(true);
+            txtfQuantidadePeca.setEnabled(true);
+            btnExcluirTodasPecas.setEnabled(true);
+            btnRemoveLinhaPeca.setEnabled(true);
+            btnDeletar.setEnabled(true);
+        }
+    }
+
+    private void pagarOrcamento() {
+        ArrayList<VendaPeca> lista = new ArrayList<>();
+        for (int i = 0; i < tblPecas.getRowCount(); i++) {
+            Produto p = new Produto();
+            p.setCodigoPeca((String) tblPecas.getValueAt(i, 0));
+            p.setNomePeca((String) tblPecas.getValueAt(i, 1));
+            p.setCategoriaPeca((String) tblPecas.getValueAt(i, 2));
+            p.setValorUnitario((String) tblPecas.getValueAt(i, 3));
+            p.setQuantidadePeca(String.valueOf(tblPecas.getValueAt(i, 4)));
+            VendaPeca vp = new VendaPeca();
+            vp.setPeca(p);
+            vp.setQuantidadeVendida(p.getQuantidadePeca());
+            lista.add(vp);
+        }
+
+        if (tblPecas.getRowCount() != 0) {
+            DaoProduto.atualizarEstoque(lista);
+            try {
+                DaoOrcamento.pagarOrcamento(((String) tblOrcamento.getValueAt(tblOrcamento.getSelectedRow(), 1)), true);
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(FrmListagemOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            atualizarTabelaOrcamento(false);
+            atualizarTabelaOrcamento(false);
+            txtfMaoDeObra.setText("0,00");
+            iniciarTabelaProduto();
+            atualizarValorTotal();
+            iniciarTabelaProduto();
+            txtfValorTotal.setText("0,00");
+
+        } else {
+            try {
+                DaoOrcamento.pagarOrcamento(((String) tblOrcamento.getValueAt(tblOrcamento.getSelectedRow(), 1)), true);
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(FrmListagemOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
     }
 }

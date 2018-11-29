@@ -6,8 +6,6 @@
 package view;
 
 import control.Janelas;
-import dao.DaoProduto;
-import java.awt.Frame;
 import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -107,8 +105,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menu_listaDespesa = new javax.swing.JMenuItem();
         menu_vendas = new javax.swing.JMenu();
         menu_vendaPeca = new javax.swing.JMenuItem();
-        menu_relatorio = new javax.swing.JMenu();
-        menu_relatorioOS = new javax.swing.JMenuItem();
         menu_ajuda = new javax.swing.JMenu();
         menu_sobre = new javax.swing.JMenuItem();
 
@@ -536,20 +532,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menu.add(menu_vendas);
 
-        menu_relatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/menu_relatorio.png"))); // NOI18N
-        menu_relatorio.setText("Relatórios");
-
-        menu_relatorioOS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/relatorio_ordemdeservico.png"))); // NOI18N
-        menu_relatorioOS.setText("Ordens de Serviço");
-        menu_relatorioOS.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menu_relatorioOSActionPerformed(evt);
-            }
-        });
-        menu_relatorio.add(menu_relatorioOS);
-
-        menu.add(menu_relatorio);
-
         menu_ajuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/menu_ajuda.png"))); // NOI18N
         menu_ajuda.setText("Ajuda");
 
@@ -665,10 +647,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
             control.Janelas.focarPrincipal();
         }
     }//GEN-LAST:event_menu_fecharJanelasActionPerformed
-
-    private void menu_relatorioOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_relatorioOSActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menu_relatorioOSActionPerformed
 
     private void btn_janMaisAcessada1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_janMaisAcessada1ActionPerformed
         control.Janelas.abrirMaisAcessada(maisAcessadas.get(0).getNome(), true);
@@ -806,8 +784,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menu_os;
     private javax.swing.JMenuItem menu_pessoa;
     private javax.swing.JMenuItem menu_produto;
-    private javax.swing.JMenu menu_relatorio;
-    private javax.swing.JMenuItem menu_relatorioOS;
     private javax.swing.JMenuItem menu_sairSistema;
     private javax.swing.JMenu menu_sistema;
     private javax.swing.JMenuItem menu_sobre;

@@ -91,10 +91,8 @@ public class Funcionario{
     }
     
     public String getSalarioSTR() {
-        String salarioSTR;
-        salarioSTR = (new DecimalFormat("#0.00").format(salario));
-        salarioSTR = salarioSTR.replace(".", ",");
-        return salarioSTR;
+        DecimalFormat df = new DecimalFormat("#,##0.00");
+        return df.format(this.salario);
     }
 
     public void setSalario(String salario) {

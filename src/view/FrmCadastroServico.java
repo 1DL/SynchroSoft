@@ -6,7 +6,7 @@
 package view;
 
 import control.Datas;
-import control.TextSize;
+import control.Texto;
 import dao.DaoFuncionario;
 import dao.DaoServico;
 import java.awt.Color;
@@ -664,7 +664,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void txtCodFuncKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodFuncKeyReleased
-        txtCodFunc.setText(TextSize.maxLenghtFuncionario(txtCodFunc.getText()));
+        txtCodFunc.setText(Texto.maxLenghtFuncionario(txtCodFunc.getText()));
         verificarFuncionario();
     }//GEN-LAST:event_txtCodFuncKeyReleased
 
@@ -673,7 +673,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarFuncActionPerformed
 
     private void txtCodigoServicoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoServicoKeyReleased
-        txtCodigoServico.setText(TextSize.maxLenghtServico(txtCodigoServico.getText()));
+        txtCodigoServico.setText(Texto.maxLenghtServico(txtCodigoServico.getText()));
         verificarCodigoServico();
     }//GEN-LAST:event_txtCodigoServicoKeyReleased
 
@@ -751,7 +751,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumeroLogradouroActionPerformed
 
     private void txtNumeroLogradouroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroLogradouroKeyReleased
-        txtNumeroLogradouro.setText(TextSize.maxLenghtNrLogradouro(txtNumeroLogradouro.getText()));
+        txtNumeroLogradouro.setText(Texto.maxLenghtNrLogradouro(txtNumeroLogradouro.getText()));
     }//GEN-LAST:event_txtNumeroLogradouroKeyReleased
 
     /**
@@ -1323,7 +1323,7 @@ public class FrmCadastroServico extends javax.swing.JFrame {
     }
 
     private void textSizeCpfCnpj() {
-        txtCpfCnpj.setText(TextSize.maxLenghtCPFCNPJ(txtCpfCnpj.getText(), rbtFisica.isSelected()));
+        txtCpfCnpj.setText(Texto.maxLenghtCPFCNPJ(txtCpfCnpj.getText(), rbtFisica.isSelected()));
     }
 
     private void removerArquivo() {

@@ -9,7 +9,24 @@ package control;
  *
  * @author LuizV1
  */
-public class TextSize {
+public class Texto {
+    //Conversores
+    
+    public static float converterStrFloatFormatada(String valor) {
+        valor = valor.replace(".", "");
+        valor = valor.replace(",", ".");
+        return Float.valueOf(valor);
+    }
+    
+    public static double converterStrDoubleFormatada(String valor) {
+        valor = valor.replace(".", "");
+        valor = valor.replace(",", ".");
+        return Double.valueOf(valor);
+    }
+    
+    
+    
+    //limitadores de tamanho de texto
     
     public static String maxLenghtServicoAtivo(String str) {
         String valor = "";

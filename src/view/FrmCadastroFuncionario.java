@@ -6,7 +6,7 @@
 package view;
 
 import control.Datas;
-import control.TextSize;
+import control.Texto;
 import dao.DaoPessoa;
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -155,9 +155,9 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         txtCpf.setBounds(691, 10, 90, 25);
 
         lblSalario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
-        lblSalario.setText("Salário:");
+        lblSalario.setText("Salário: R$");
         panPrincipal.add(lblSalario);
-        lblSalario.setBounds(785, 50, 57, 25);
+        lblSalario.setBounds(760, 50, 90, 25);
 
         lblCodigoFuncionario.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCodigoFuncionario.setText("Código do Funcionário:");
@@ -217,7 +217,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(txtCargo);
-        txtCargo.setBounds(206, 50, 260, 25);
+        txtCargo.setBounds(206, 50, 210, 25);
 
         lblHorasTrabalhadas.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblHorasTrabalhadas.setText("Horas Mensais:");
@@ -409,11 +409,11 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
         lblDataAdmissao.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDataAdmissao.setText("Data Admissão:");
         panPrincipal.add(lblDataAdmissao);
-        lblDataAdmissao.setBounds(470, 50, 126, 25);
+        lblDataAdmissao.setBounds(420, 50, 126, 25);
 
         txtfDataAdmissao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
         panPrincipal.add(txtfDataAdmissao);
-        txtfDataAdmissao.setBounds(603, 50, 113, 25);
+        txtfDataAdmissao.setBounds(550, 50, 113, 25);
 
         btnHoje.setText("Hoje");
         btnHoje.addActionListener(new java.awt.event.ActionListener() {
@@ -422,7 +422,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
             }
         });
         panPrincipal.add(btnHoje);
-        btnHoje.setBounds(726, 50, 55, 25);
+        btnHoje.setBounds(670, 50, 55, 25);
 
         getContentPane().add(panPrincipal);
         panPrincipal.setBounds(10, 10, 1125, 310);
@@ -483,11 +483,11 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharFrame1ActionPerformed
 
     private void txtfHorasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfHorasKeyReleased
-        txtfHoras.setText(control.TextSize.maxLenghtHoraMensal(txtfHoras.getText()));
+        txtfHoras.setText(control.Texto.maxLenghtHoraMensal(txtfHoras.getText()));
     }//GEN-LAST:event_txtfHorasKeyReleased
 
     private void txtfSalarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfSalarioKeyReleased
-        txtfSalario.setText(control.TextSize.maxLenghtSalario(txtfSalario.getText()));
+        txtfSalario.setText(control.Texto.maxLenghtSalario(txtfSalario.getText()));
     }//GEN-LAST:event_txtfSalarioKeyReleased
 
     private void txtNomePessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomePessoaActionPerformed
@@ -507,7 +507,7 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtVisualizacaoActionPerformed
 
     private void txtCargoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCargoKeyReleased
-        txtCargo.setText(TextSize.maxLenghtCargo(txtCargo.getText()));
+        txtCargo.setText(Texto.maxLenghtCargo(txtCargo.getText()));
     }//GEN-LAST:event_txtCargoKeyReleased
 
     private void txtCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCargoActionPerformed
@@ -527,12 +527,12 @@ public class FrmCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void txtCodigoFuncionarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoFuncionarioKeyReleased
-        txtCodigoFuncionario.setText(TextSize.maxLenghtFuncionario(txtCodigoFuncionario.getText()));
+        txtCodigoFuncionario.setText(Texto.maxLenghtFuncionario(txtCodigoFuncionario.getText()));
         verificarCodigoFuncionario();
     }//GEN-LAST:event_txtCodigoFuncionarioKeyReleased
 
     private void txtCpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyReleased
-        txtCpf.setText(TextSize.maxLenghtCPFCNPJ(txtCpf.getText(), true));
+        txtCpf.setText(Texto.maxLenghtCPFCNPJ(txtCpf.getText(), true));
         verificarCpfExiste();
     }//GEN-LAST:event_txtCpfKeyReleased
 

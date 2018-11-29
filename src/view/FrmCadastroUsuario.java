@@ -5,7 +5,7 @@
  */
 package view;
 
-import control.TextSize;
+import control.Texto;
 import dao.DaoFuncionario;
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -333,7 +333,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarUsuariosActionPerformed
 
     private void txtCodFuncionarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodFuncionarioKeyReleased
-        txtCodFuncionario.setText(TextSize.maxLenghtFuncionario(txtCodFuncionario.getText()));
+        txtCodFuncionario.setText(Texto.maxLenghtFuncionario(txtCodFuncionario.getText()));
         verificarFuncionario();
     }//GEN-LAST:event_txtCodFuncionarioKeyReleased
 
@@ -342,16 +342,16 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarFuncionariosActionPerformed
 
     private void txtLoginKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLoginKeyReleased
-        txtLogin.setText(TextSize.maxLenghtLogin(txtLogin.getText()));
+        txtLogin.setText(Texto.maxLenghtLogin(txtLogin.getText()));
         verificarLogin();
     }//GEN-LAST:event_txtLoginKeyReleased
 
     private void txtSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyReleased
-        txtSenha.setText(TextSize.maxLenghtSenha(txtSenha.getText()));
+        txtSenha.setText(Texto.maxLenghtSenha(txtSenha.getText()));
     }//GEN-LAST:event_txtSenhaKeyReleased
 
     private void txtConfirmaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmaKeyReleased
-        txtConfirma.setText(TextSize.maxLenghtSenha(txtConfirma.getText()));
+        txtConfirma.setText(Texto.maxLenghtSenha(txtConfirma.getText()));
     }//GEN-LAST:event_txtConfirmaKeyReleased
 
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed

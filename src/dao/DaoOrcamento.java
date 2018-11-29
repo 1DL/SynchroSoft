@@ -46,7 +46,7 @@ public class DaoOrcamento {
 
     }
 
-    public static void criarOrcamento(Orcamento o, boolean flagTemPeca, boolean flagCriarOuAlterar) {
+    public static boolean criarOrcamento(Orcamento o, boolean flagTemPeca, boolean flagCriarOuAlterar) {
         try {
             if (flagCriarOuAlterar) {
                 if (existeOrcamento(o.getServico().getCodigoServico())) {
@@ -68,6 +68,7 @@ public class DaoOrcamento {
                     }
                     JOptionPane.showMessageDialog(null, "Orçamento criado com sucesso!",
                             "Orçamento vinculado ao serviço", 1);
+                    return true;
 
                 }
             } else {
@@ -86,30 +87,42 @@ public class DaoOrcamento {
                 }
                 JOptionPane.showMessageDialog(null, "Orçamento alterado com sucesso!",
                         "Orçamento alterado", 1);
+                return true;
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao vincular orçamento. \n\nErro nº: "+
-                    ex.getErrorCode()+"\n"+ex.getMessage(), "Erro: DaoOrcamento - Criar Orçamento", 0);
+            JOptionPane.showMessageDialog(null, "Erro ao vincular orçamento. \n\nErro nº: "
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoOrcamento - Criar Orçamento", 0);
+            return false;
         } catch (ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao vincular orçamento. \n\nErro: "+
-                    ex, "Erro: DaoOrcamento - Criar Orçamento", 0);
+            JOptionPane.showMessageDialog(null, "Erro ao vincular orçamento. \n\nErro: "
+                    + ex, "Erro: DaoOrcamento - Criar Orçamento", 0);
+            return false;
         }
-
+        return false;
     }
 
-    public static int buscarOrcamento(String codigoServico) throws SQLException, ClassNotFoundException {
-        int codigoOrcamento = 0;
-        Connection con = Conexao.conectar();
-        String sql = "SELECT CD_ORCAMENTO FROM SYNCHROSOFT.TB_ORCAMENTO WHERE CD_SERVICO = ?";
-        PreparedStatement st = con.prepareStatement(sql);
-        st.setString(1, codigoServico);
-        ResultSet rs = st.executeQuery();
-        while (rs.next()) {
-            codigoOrcamento = rs.getInt("CD_ORCAMENTO");
+    public static int buscarOrcamento(String codigoServico) {
+        try {
+            int codigoOrcamento = 0;
+            Connection con = Conexao.conectar();
+            String sql = "SELECT CD_ORCAMENTO FROM SYNCHROSOFT.TB_ORCAMENTO WHERE CD_SERVICO = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, codigoServico);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                codigoOrcamento = rs.getInt("CD_ORCAMENTO");
+            }
+            rs.close();
+            st.close();
+            return codigoOrcamento;
+        } catch (SQLException ex) {
+            JOptionPane.showConfirmDialog(null, "Não foi possível buscar o código do orçamento.\n\nErro nº: "
+                    + ex.getErrorCode() + "\n\n" + ex.getMessage(), "Erro: DaoOrcamento - Buscar Orçamento", 0);
+            return -1;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
         }
-        rs.close();
-        st.close();
-        return codigoOrcamento;
     }
 
     public static void pagarOrcamento(String codigoServico, boolean flag) throws SQLException, ClassNotFoundException {
@@ -131,28 +144,37 @@ public class DaoOrcamento {
         st.close();
     }
 
-    public static void criarAlterarPecaOrcamento(Orcamento o) throws SQLException, ClassNotFoundException {
-        int codigoOrcamento = buscarOrcamento(o.getServico().getCodigoServico());
-        Connection con = Conexao.conectar();
-        String sql = "DELETE FROM SYNCHROSOFT.TB_PECA_ORCAMENTO WHERE CD_ORCAMENTO = ?";
-        PreparedStatement st = con.prepareStatement(sql);
-        st.setInt(1, codigoOrcamento);
-        st.execute();
-        sql = "INSERT INTO SYNCHROSOFT.TB_PECA_ORCAMENTO (CD_PECA, CD_ORCAMENTO, QT_PECA_VENDIDA, VL_PECA_VENDIDA) VALUES (?,?,?,?)";
+    public static void criarAlterarPecaOrcamento(Orcamento o) {
+        try {
+            int codigoOrcamento = buscarOrcamento(o.getServico().getCodigoServico());
+            Connection con = Conexao.conectar();
+            String sql = "DELETE FROM SYNCHROSOFT.TB_PECA_ORCAMENTO WHERE CD_ORCAMENTO = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, codigoOrcamento);
+            st.execute();
+            sql = "INSERT INTO SYNCHROSOFT.TB_PECA_ORCAMENTO (CD_PECA, CD_ORCAMENTO, QT_PECA_VENDIDA, VL_PECA_VENDIDA) VALUES (?,?,?,?)";
 
-        for (int i = 0; i < o.getPecas().size(); i++) {
-            PreparedStatement st2 = con.prepareStatement(sql);
-            st2.setString(1, o.getPecas().get(i).getPeca().getCodigoPeca());
-            st2.setInt(2, codigoOrcamento);
-            st2.setLong(3, o.getPecas().get(i).getQuantidadeVendida());
-            st2.setFloat(4, o.getPecas().get(i).getPeca().getValorUnitarioBanco());
-            st2.executeUpdate();
-            st2.close();
+            for (int i = 0; i < o.getPecas().size(); i++) {
+                PreparedStatement st2 = con.prepareStatement(sql);
+                st2.setString(1, o.getPecas().get(i).getPeca().getCodigoPeca());
+                st2.setInt(2, codigoOrcamento);
+                st2.setLong(3, o.getPecas().get(i).getQuantidadeVendida());
+                st2.setFloat(4, o.getPecas().get(i).getPeca().getValorUnitarioBanco());
+                st2.executeUpdate();
+                st2.close();
+            }
+
+            st.close();
+
+            JOptionPane.showMessageDialog(null, "Os produtos foram alterados e/ou adicionados com sucesso!",
+                    "Alteração de produtos", 1);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível alterar ou adicionar produtos ao orçamento.\n\nErro Nº:"
+                    + ex.getErrorCode() + "\n\n" + ex.getMessage(),
+                    "Erro: DaoOrcamento - Criar Alterar Prod. Orçamento", 1);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoOrcamento.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        st.close();
-
-        JOptionPane.showMessageDialog(null, "Peças do orçamento adicionadas/alteradas com sucesso.");
 
     }
 
@@ -167,7 +189,7 @@ public class DaoOrcamento {
                 Orcamento o = new Orcamento();
                 o.setCodigoOrcamento(rs.getInt("CD_ORCAMENTO"));
                 Servico s = new Servico();
-                s.setCodigoServico(String.valueOf(rs.getInt("CD_SERVICO")));
+                s.setCodigoServico(rs.getString("CD_SERVICO"));
                 o.setServico(s);
                 o.setStatusOrcamento(rs.getInt("ID_STATUS_ORCAMENTO"));
                 o.setValorTotal(rs.getDouble("VL_ORCAMENTO"));
@@ -176,11 +198,17 @@ public class DaoOrcamento {
             }
             st.close();
             rs.close();
+            return lista;
 
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao popular tabela de peças.\n" + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível criar a lista de orçamentos.\n\nErro Nº:"
+                    + ex.getErrorCode() + "\n\n" + ex.getMessage(), "Erro: DaoOrcamento - Listar Orçamento", 0);
+            return null;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
-        return lista;
+
     }
 
     public static ArrayList listarOrcamentoFiltrada(String cmbFiltro, String txtPesquisa) {
@@ -249,13 +277,13 @@ Valor Total
             rs.close();
 
         } catch (SQLException ex) { //Caso exista a possibilidade de retorno de erro
-            JOptionPane.showMessageDialog(null, "Erro ao listar orçamentos via filtro.\n\nErro nº:" 
-                    +ex.getErrorCode()+"\n\n"+ex.getMessage(),"Erro: DaoOrcamento - Listar Orcamento Filtrado", 0);
+            JOptionPane.showMessageDialog(null, "Erro ao listar orçamentos via filtro.\n\nErro nº:"
+                    + ex.getErrorCode() + "\n\n" + ex.getMessage(), "Erro: DaoOrcamento - Listar Orcamento Filtrado", 0);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DaoOrcamento.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao listar orçamentos via filtro.\n\nErro: " 
-                    +ex,"Erro: DaoOrcamento - Listar Orcamento Filtrado", 0);
+            JOptionPane.showMessageDialog(null, "Erro ao listar orçamentos via filtro.\n\nErro: "
+                    + ex, "Erro: DaoOrcamento - Listar Orcamento Filtrado", 0);
         }
         return lista;
     }
@@ -284,13 +312,27 @@ Valor Total
         return lista;
     }
 
-    public static void deletarOrcamento(int codigoOrcamento) throws SQLException, ClassNotFoundException {
-        Connection con = Conexao.conectar();
-        String sql = "DELETE FROM SYNCHROSOFT.TB_ORCAMENTO WHERE CD_ORCAMENTO = ?";
-        PreparedStatement st = con.prepareStatement(sql);
-        st.setInt(1, codigoOrcamento);
-        st.executeUpdate();
-        JOptionPane.showMessageDialog(null, "Orçamento excluído com sucesso.");
+    public static void deletarOrcamento(int codigoOrcamento) {
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "DELETE FROM SYNCHROSOFT.TB_PECA_ORCAMENTO WHERE CD_ORCAMENTO = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, codigoOrcamento);
+            st.executeUpdate();
+
+            sql = "DELETE FROM SYNCHROSOFT.TB_ORCAMENTO WHERE CD_ORCAMENTO = ?";
+            PreparedStatement st2 = con.prepareStatement(sql);
+            st2.setInt(1, codigoOrcamento);
+            st2.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Orçamento excluído com sucesso.", "Remoção concluída", 1);
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível remover o orçamento.\n\n Erro Nº:"
+                    + ex.getErrorCode() + "\n\n" + ex.getMessage(), "Erro: DaoOrcamento - Deletar Orçamento", 0);
+        } catch (ClassNotFoundException ex) {
+
+        }
     }
 
 }

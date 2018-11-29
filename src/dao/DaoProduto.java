@@ -5,14 +5,10 @@
  */
 package dao;
 
-import java.awt.Image;
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import model.Produto;
 import model.VendaPeca;

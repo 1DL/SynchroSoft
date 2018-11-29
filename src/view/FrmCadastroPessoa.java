@@ -5,7 +5,7 @@
  */
 package view;
 
-import control.TextSize;
+import control.Texto;
 import dao.DaoEndereco;
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -539,7 +539,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCelRamalKeyReleased
 
     private void txtRazaoSocialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazaoSocialKeyReleased
-        txtRazaoSocial.setText(TextSize.maxLenghtNomeRazao(txtRazaoSocial.getText()));
+        txtRazaoSocial.setText(Texto.maxLenghtNomeRazao(txtRazaoSocial.getText()));
     }//GEN-LAST:event_txtRazaoSocialKeyReleased
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
@@ -559,7 +559,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtSimCadastroActionPerformed
 
     private void txtNumeroLogradouroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroLogradouroKeyReleased
-        txtNumeroLogradouro.setText(TextSize.maxLenghtNrLogradouro(txtNumeroLogradouro.getText()));
+        txtNumeroLogradouro.setText(Texto.maxLenghtNrLogradouro(txtNumeroLogradouro.getText()));
     }//GEN-LAST:event_txtNumeroLogradouroKeyReleased
 
     private void txtNumeroLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroLogradouroActionPerformed
@@ -571,7 +571,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarCepActionPerformed
 
     private void txtNomePessoaFicticioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomePessoaFicticioKeyReleased
-        txtNomePessoaFicticio.setText(TextSize.maxLenghtNomeRazao(txtNomePessoaFicticio.getText()));
+        txtNomePessoaFicticio.setText(Texto.maxLenghtNomeRazao(txtNomePessoaFicticio.getText()));
     }//GEN-LAST:event_txtNomePessoaFicticioKeyReleased
 
     private void rbtJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtJuridicaActionPerformed
@@ -583,7 +583,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtFisicaActionPerformed
 
     private void txtTelefoneKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyReleased
-        txtTelefone.setText(TextSize.maxLenghtTelefone(txtTelefone.getText()));
+        txtTelefone.setText(Texto.maxLenghtTelefone(txtTelefone.getText()));
     }//GEN-LAST:event_txtTelefoneKeyReleased
 
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
@@ -813,7 +813,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     }
 
     private void textSizeCPFJCNPJ() {
-        txtCpfCnpj.setText(TextSize.maxLenghtCPFCNPJ(txtCpfCnpj.getText(), rbtFisica.isSelected()));
+        txtCpfCnpj.setText(Texto.maxLenghtCPFCNPJ(txtCpfCnpj.getText(), rbtFisica.isSelected()));
         verificarCpfCnpjEmUso();
     }
 
@@ -910,7 +910,7 @@ public class FrmCadastroPessoa extends javax.swing.JFrame {
     }
 
     private void textSizeCelRamal() {
-        txtCelRamal.setText(TextSize.maxLenghtCelularRamal(txtCelRamal.getText(), rbtFisica.isSelected()));
+        txtCelRamal.setText(Texto.maxLenghtCelularRamal(txtCelRamal.getText(), rbtFisica.isSelected()));
     }
 
     private void verificarCpfCnpjEmUso() {

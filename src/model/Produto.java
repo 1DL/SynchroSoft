@@ -66,6 +66,10 @@ public class Produto {
     public long getQuantidadePeca() {
         return quantidadePeca;
     }
+    
+    public void setQuantidadePecaLong(long quantidadePeca){
+        this.quantidadePeca = quantidadePeca;
+    }
 
     public void setQuantidadePeca(String quantidadePeca) {
         quantidadePeca = quantidadePeca.replace(".", "");
@@ -84,10 +88,8 @@ public class Produto {
         return valorUnitario;
     }
     public String getValorUnitarioSTR(){
-        String valorSTR;
-        valorSTR = (new DecimalFormat("#0.00").format(valorUnitario));
-        valorSTR = valorSTR.replace(".", ",");
-        return valorSTR;
+        DecimalFormat df = new DecimalFormat("#,##0.00");
+        return df.format(this.valorUnitario);
     }
 
     public void setValorUnitario(String valorUnitario) {
