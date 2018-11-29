@@ -533,10 +533,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menu.add(menu_vendas);
 
         menu_ajuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/menu_ajuda.png"))); // NOI18N
-        menu_ajuda.setText("Ajuda");
+        menu_ajuda.setText("Informações");
 
         menu_sobre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/ajuda_sobre.png"))); // NOI18N
-        menu_sobre.setText("Sobre");
+        menu_sobre.setText("Sobre o SynchroSoft");
         menu_sobre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_sobreActionPerformed(evt);
