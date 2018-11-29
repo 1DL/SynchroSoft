@@ -31,6 +31,32 @@ public class DaoOrcamento {
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, codigoServico);
             ResultSet rs = st.executeQuery();
+            
+            flag = rs.isBeforeFirst();
+            
+            st.close();
+            rs.close();
+            return flag;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível verificar a existência do orçamento.\n\nErro Nº "
+                    + ex.getErrorCode() + "\n" + ex.getMessage(), "Erro: DaoOrcamento - Existe Orçamento", 0);
+            return false;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
+    }
+    
+    public static boolean existeOrcamentoPago(String codigoServico) {
+        boolean flag;
+        try {
+            Connection con = Conexao.conectar();
+            String sql = "SELECT * FROM SYNCHROSOFT.TB_ORCAMENTO "
+                    + "WHERE CD_SERVICO = ? AND ID_STATUS_ORCAMENTO = 1";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, codigoServico);
+            ResultSet rs = st.executeQuery();
             flag = rs.isBeforeFirst();
             st.close();
             rs.close();

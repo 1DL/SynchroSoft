@@ -66,6 +66,20 @@ public class Servico {
                 return "Erro Tipo Serviço";
         }
     }
+    
+    public void setTipoServicoSTR(String tipoServico) {
+        switch (tipoServico) {
+            case "Preventivo":
+                this.tipoServico = 0;
+                break;
+            case "Corretivo":
+                this.tipoServico = 1;
+                break;
+            case "Emergencial":
+                this.tipoServico = 2;
+                break;
+        }
+    }
 
     public void setTipoServico(int tipoServico) {
         this.tipoServico = tipoServico;
