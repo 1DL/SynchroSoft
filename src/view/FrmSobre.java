@@ -29,6 +29,7 @@ public class FrmSobre extends javax.swing.JFrame {
             + "Esta versão foi desenvolvida para atender ao modelo de negócio de uma empresa de automação.<br>"
             + "O sistema também está sendo desenvolvido para atender as exigências do Trabalho de Conclusão de Curso da <br>"
             + "Fatec Praia Grande, do curso Análise e Desenvolvimento de Sistemas.<br><br>"
+            + "Desenvolvido em Java 7, utilizando banco de dados Oracle SQL 11g XE.<br><br>"
             + "Desenvolvedores:<br><br>"
             + "Luiz Henrique da Silva Alberto<br>"
             + "Priscila Maioral Maelaro<br>"

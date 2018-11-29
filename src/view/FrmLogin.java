@@ -127,7 +127,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo_nome_pequeno.png"))); // NOI18N
         jpnLogin.add(lblLogo);
-        lblLogo.setBounds(0, 0, 360, 330);
+        lblLogo.setBounds(20, 0, 360, 330);
 
         jLabel2.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel2.setText("Login:");
