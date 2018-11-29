@@ -109,31 +109,35 @@ public class FrmLogin extends javax.swing.JFrame {
         txtf_IpBanco = new javax.swing.JFormattedTextField();
         btnPadrão = new javax.swing.JButton();
         btn_debugrun = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        lblBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Synchrosoft - Login");
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logopng32.png")));
+        setMaximumSize(new java.awt.Dimension(737, 372));
+        setMinimumSize(new java.awt.Dimension(737, 372));
+        setPreferredSize(new java.awt.Dimension(737, 372));
         setResizable(false);
-        setSize(new java.awt.Dimension(1152, 648));
+        setSize(new java.awt.Dimension(737, 372));
+        getContentPane().setLayout(null);
 
         jpnLogin.setAutoscrolls(true);
         jpnLogin.setOpaque(false);
         jpnLogin.setLayout(null);
 
-        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/teste.png"))); // NOI18N
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo_nome_pequeno.png"))); // NOI18N
         jpnLogin.add(lblLogo);
-        lblLogo.setBounds(10, 20, 203, 292);
+        lblLogo.setBounds(0, 0, 360, 330);
 
         jLabel2.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel2.setText("Login:");
         jpnLogin.add(jLabel2);
-        jLabel2.setBounds(230, 20, 49, 25);
+        jLabel2.setBounds(430, 30, 49, 25);
 
         jLabel3.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel3.setText("Senha:");
         jpnLogin.add(jLabel3);
-        jLabel3.setBounds(230, 80, 53, 25);
+        jLabel3.setBounds(430, 90, 53, 25);
 
         txtLogin.setText(control.Opcoes.getLogin());
         txtLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -150,7 +154,7 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
         jpnLogin.add(txtLogin);
-        txtLogin.setBounds(230, 50, 246, 25);
+        txtLogin.setBounds(430, 60, 246, 25);
 
         BtnAcesso.setText("Acessar");
         BtnAcesso.addActionListener(new java.awt.event.ActionListener() {
@@ -164,7 +168,7 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
         jpnLogin.add(BtnAcesso);
-        BtnAcesso.setBounds(360, 150, 110, 30);
+        BtnAcesso.setBounds(560, 160, 110, 30);
 
         txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -175,7 +179,7 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
         jpnLogin.add(txtPassword);
-        txtPassword.setBounds(230, 110, 246, 25);
+        txtPassword.setBounds(430, 120, 246, 25);
 
         panDadosDB.setBorder(javax.swing.BorderFactory.createTitledBorder("Banco de Dados"));
         panDadosDB.setOpaque(false);
@@ -236,7 +240,7 @@ public class FrmLogin extends javax.swing.JFrame {
         btnPadrão.setBounds(210, 68, 90, 20);
 
         jpnLogin.add(panDadosDB);
-        panDadosDB.setBounds(220, 190, 310, 100);
+        panDadosDB.setBounds(420, 200, 310, 100);
 
         btn_debugrun.setText("Debug run");
         btn_debugrun.addActionListener(new java.awt.event.ActionListener() {
@@ -245,23 +249,14 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
         jpnLogin.add(btn_debugrun);
-        btn_debugrun.setBounds(230, 150, 100, 30);
+        btn_debugrun.setBounds(430, 160, 100, 30);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo pequeno.png"))); // NOI18N
-        jLabel4.setLabelFor(this);
-        jpnLogin.add(jLabel4);
-        jLabel4.setBounds(0, 0, 540, 320);
+        lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
+        jpnLogin.add(lblBackground);
+        lblBackground.setBounds(-30, -200, 1150, 650);
 
-        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jpnLogin, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 538, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jpnLogin, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 320, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-        );
+        getContentPane().add(jpnLogin);
+        jpnLogin.setBounds(0, 0, 737, 380);
 
         pack();
         setLocationRelativeTo(null);
@@ -383,8 +378,8 @@ public class FrmLogin extends javax.swing.JFrame {
     private javax.swing.JButton btn_debugrun;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jpnLogin;
+    private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lbl_ip;
     private javax.swing.JLabel lbl_porta;
