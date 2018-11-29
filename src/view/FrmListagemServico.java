@@ -195,6 +195,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         cmbFiltro.setBounds(140, 3, 180, 25);
 
         btnDeletar.setText("Deletar registro selecionado");
+        btnDeletar.setEnabled(false);
         btnDeletar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeletarActionPerformed(evt);
@@ -938,7 +939,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         String codigoServico = String.valueOf(tblListagemServico.getModel().getValueAt(tblListagemServico.getSelectedRow(), 0));
         if (btnOrcamento.getText().equals("Criar Orçamento")) {
             control.Janelas.abrirCadastroOrcamento(codigoServico, true);
-        } else if (btnOrcamento.getText().equals("Alterar Orçamento")) {
+        } else {
             int codigoOrcamento = dao.DaoOrcamento.buscarOrcamento(codigoServico);
             control.Janelas.abrirListagemOrçamentoPopulado(codigoOrcamento);
         }
@@ -1697,6 +1698,7 @@ Data Encerramento Entre/Até
         verificarFuncionario();
         btnAtivarDesativar.setEnabled(false);
         btnOrcamento.setEnabled(false);
+        btnDeletar.setEnabled(false);
     }
 
     public void esvaziarObjetosLocais() {
@@ -2107,8 +2109,9 @@ Data Encerramento Entre/Até
         } else {
             if (existeOrcamento) {
                 if (orcamentoPago) {
-                    btnOrcamento.setEnabled(false);
+                    btnOrcamento.setEnabled(true);
                     lblOrcamento.setText("O orçamento desse serviço já foi pago!");
+                    btnOrcamento.setText("Visualizar Orçamento");
                 } else {
                     btnOrcamento.setEnabled(true);
                     lblOrcamento.setText("Esse serviço já possui um orçamento.");
@@ -2282,6 +2285,14 @@ Data Encerramento Entre/Até
             }
         }
 
+    }
+    
+    private void definirRestricaoDeletar() {
+        if (btnOrcamento.getText().equals("Visualizar Orçamento")) {
+            btnDeletar.setEnabled(false);
+        } else {
+            btnDeletar.setEnabled(true);
+        }
     }
 
 }

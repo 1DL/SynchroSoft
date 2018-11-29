@@ -90,7 +90,6 @@ public class FrmLogin extends javax.swing.JFrame {
     private void initComponents() {
 
         jpnLogin = new javax.swing.JPanel();
-        lblLogo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtLogin = new javax.swing.JTextField();
@@ -108,36 +107,35 @@ public class FrmLogin extends javax.swing.JFrame {
         txt_sid = new javax.swing.JTextField();
         txtf_IpBanco = new javax.swing.JFormattedTextField();
         btnPadrão = new javax.swing.JButton();
-        btn_debugrun = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        panlogo = new javax.swing.JPanel();
+        lblLogo = new javax.swing.JLabel();
         lblBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Synchrosoft - Login");
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logopng32.png")));
-        setMaximumSize(new java.awt.Dimension(737, 372));
-        setMinimumSize(new java.awt.Dimension(737, 372));
-        setPreferredSize(new java.awt.Dimension(737, 372));
+        setMaximumSize(new java.awt.Dimension(737, 388));
+        setMinimumSize(new java.awt.Dimension(737, 388));
+        setPreferredSize(new java.awt.Dimension(737, 388));
         setResizable(false);
-        setSize(new java.awt.Dimension(737, 372));
+        setSize(new java.awt.Dimension(737, 388));
         getContentPane().setLayout(null);
 
         jpnLogin.setAutoscrolls(true);
         jpnLogin.setOpaque(false);
         jpnLogin.setLayout(null);
 
-        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo_nome_pequeno.png"))); // NOI18N
-        jpnLogin.add(lblLogo);
-        lblLogo.setBounds(20, 0, 360, 330);
-
         jLabel2.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel2.setText("Login:");
         jpnLogin.add(jLabel2);
-        jLabel2.setBounds(430, 30, 49, 25);
+        jLabel2.setBounds(400, 10, 49, 25);
 
         jLabel3.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         jLabel3.setText("Senha:");
         jpnLogin.add(jLabel3);
-        jLabel3.setBounds(430, 90, 53, 25);
+        jLabel3.setBounds(400, 70, 53, 25);
 
         txtLogin.setText(control.Opcoes.getLogin());
         txtLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -154,7 +152,7 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
         jpnLogin.add(txtLogin);
-        txtLogin.setBounds(430, 60, 246, 25);
+        txtLogin.setBounds(400, 40, 310, 25);
 
         BtnAcesso.setText("Acessar");
         BtnAcesso.addActionListener(new java.awt.event.ActionListener() {
@@ -168,7 +166,7 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
         jpnLogin.add(BtnAcesso);
-        BtnAcesso.setBounds(560, 160, 110, 30);
+        BtnAcesso.setBounds(600, 140, 110, 30);
 
         txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -179,7 +177,7 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
         jpnLogin.add(txtPassword);
-        txtPassword.setBounds(430, 120, 246, 25);
+        txtPassword.setBounds(400, 100, 310, 25);
 
         panDadosDB.setBorder(javax.swing.BorderFactory.createTitledBorder("Banco de Dados"));
         panDadosDB.setOpaque(false);
@@ -240,23 +238,35 @@ public class FrmLogin extends javax.swing.JFrame {
         btnPadrão.setBounds(210, 68, 90, 20);
 
         jpnLogin.add(panDadosDB);
-        panDadosDB.setBounds(420, 200, 310, 100);
+        panDadosDB.setBounds(400, 180, 310, 100);
 
-        btn_debugrun.setText("Debug run");
-        btn_debugrun.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_debugrunActionPerformed(evt);
-            }
-        });
-        jpnLogin.add(btn_debugrun);
-        btn_debugrun.setBounds(430, 160, 100, 30);
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jTextArea1.setRows(2);
+        jTextArea1.setText("Seja bem vindo ao SynchroSoft! Por favor, digite\nsua senha e login para acessar o sistema.");
+        jTextArea1.setFocusable(false);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jpnLogin.add(jScrollPane1);
+        jScrollPane1.setBounds(400, 300, 310, 40);
+
+        panlogo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        panlogo.setOpaque(false);
+        panlogo.setLayout(null);
+
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo_nome_pequeno_FUNDO_BRANCO.png"))); // NOI18N
+        panlogo.add(lblLogo);
+        lblLogo.setBounds(2, 2, 380, 330);
+
+        jpnLogin.add(panlogo);
+        panlogo.setBounds(10, 10, 379, 334);
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fundo.png"))); // NOI18N
         jpnLogin.add(lblBackground);
         lblBackground.setBounds(-30, -200, 1150, 650);
 
         getContentPane().add(jpnLogin);
-        jpnLogin.setBounds(0, 0, 737, 380);
+        jpnLogin.setBounds(0, 0, 760, 410);
 
         pack();
         setLocationRelativeTo(null);
@@ -307,17 +317,6 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_BtnAcessoKeyPressed
-
-    private void btn_debugrunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_debugrunActionPerformed
-        control.Janelas.abrirPrincipal();
-        control.SynchroSoft.setNvlAdm(1);
-        dao.Conexao.setServerName(txtf_IpBanco.getText());
-        dao.Conexao.setServerPort(txt_portaBanco.getText());
-        dao.Conexao.setUsername(txtp_usuarioDB.getText());
-        dao.Conexao.setPassword(txtp_senhaDB.getText());
-        dao.Conexao.setSid(txt_sid.getText());
-        this.dispose();
-    }//GEN-LAST:event_btn_debugrunActionPerformed
 
     private void txtLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginActionPerformed
         // TODO add your handling code here:
@@ -375,9 +374,10 @@ public class FrmLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAcesso;
     private javax.swing.JButton btnPadrão;
-    private javax.swing.JButton btn_debugrun;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel jpnLogin;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblLogo;
@@ -387,6 +387,7 @@ public class FrmLogin extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_sid;
     private javax.swing.JLabel lbl_user;
     private javax.swing.JPanel panDadosDB;
+    private javax.swing.JPanel panlogo;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txt_portaBanco;
