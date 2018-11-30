@@ -192,61 +192,78 @@ public class DaoServico {
         }
     }
 
-   
-    public static void alterarServico(Servico s, ArrayList<Funcionario> lista, boolean tipoPessoa, String cpfcnpj) {
+    public static boolean alterarServico(Servico s, ArrayList<Funcionario> lista, boolean tipoPessoa, String cpfcnpj, boolean flagAtivo) {
         try {
             Connection con = Conexao.conectar();
             String sql = "UPDATE SYNCHROSOFT.TB_SERVICO "
                     + "SET DS_TIPO_SERVICO = ?, DS_TIPO_CLIENTE = ?, DS_SERVICO = ?, "
                     + "DT_SERVICO_INICIO = ?, DT_SERVICO_FIM = ?"
                     + "WHERE CD_SERVICO = ?";
+
             PreparedStatement st = con.prepareStatement(sql);
+
             st.setInt(1, s.getTipoServicoBanco());
             st.setInt(2, s.getTipoClienteBanco());
-
             st.setString(3, s.getDescricaoServicoFILE());
+
             st.setDate(4, Date.valueOf(control.Datas.converterParaAmericana(s.getDataServico())));
-            if (s.getStatusServicoBooleano()) {
+            if (flagAtivo) {
                 st.setDate(5, null);
             } else {
                 st.setDate(5, Date.valueOf(control.Datas.converterParaAmericana(s.getDataServicoFim())));
             }
+
             st.setString(6, s.getCodigoServico());
             st.executeUpdate();
             st.close();
 
             alterarFuncionarioServico(lista, s.getCodigoServico());
 
-            if (!tipoPessoa) {
-                sql = "UPDATE SYNCHROSOFT.TB_PESSOAF_SERVICO "
-                        + "SET CD_CPF = ?"
-                        + "WHERE CD_SERVICO = ?";
-                PreparedStatement st2 = con.prepareStatement(sql);
-                st2.setString(1, cpfcnpj);
-                st2.setString(2, s.getCodigoServico());
-                st2.executeUpdate();
-                st2.close();
+            sql = "DELETE FROM SYNCHROSOFT.TB_PESSOAJ_SERVICO "
+                    + "WHERE CD_SERVICO = ?";
+            PreparedStatement st2 = con.prepareStatement(sql);
+            st2.setString(1, s.getCodigoServico());
+            st2.executeUpdate();
+            st2.close();
+
+            sql = "DELETE FROM SYNCHROSOFT.TB_PESSOAF_SERVICO "
+                    + "WHERE CD_SERVICO = ?";
+            PreparedStatement st3 = con.prepareStatement(sql);
+            st3.setString(1, s.getCodigoServico());
+            st3.executeUpdate();
+            st3.close();
+
+            if (tipoPessoa) {
+
+                sql = "INSERT INTO SYNCHROSOFT.TB_PESSOAJ_SERVICO "
+                        + "(CD_CNPJ, CD_SERVICO) VALUES (?,?)";
+                PreparedStatement st4 = con.prepareStatement(sql);
+                st4.setString(1, cpfcnpj);
+                st4.setString(2, s.getCodigoServico());
+                st4.executeUpdate();
+                st4.close();
 
             } else {
-                sql = "UPDATE SYNCHROSOFT.TB_PESSOAJ_SERVICO "
-                        + "SET CD_CNPJ = ?"
-                        + "WHERE CD_SERVICO = ?";
-                PreparedStatement st2 = con.prepareStatement(sql);
-                st2.setString(1, cpfcnpj);
-                st2.setString(2, s.getCodigoServico());
-                st2.executeUpdate();
-                st2.close();
+                sql = "INSERT INTO SYNCHROSOFT.TB_PESSOAF_SERVICO "
+                        + "(CD_CPF, CD_SERVICO) VALUES (?,?)";
+                PreparedStatement st4 = con.prepareStatement(sql);
+                st4.setString(1, cpfcnpj);
+                st4.setString(2, s.getCodigoServico());
+                st4.executeUpdate();
+                st4.close();
             }
 
-            JOptionPane.showMessageDialog(null, "Serviço alterado com sucesso!");
+            JOptionPane.showMessageDialog(null, "O Serviço foi alterado com sucesso!", "Alteração concluída", 1);
 
+            return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível alterar o serviço.\n\nErro Nº:"
                     + ex.getErrorCode() + "\n\n" + ex.getMessage(), "Erro: DaoServico - Alterar Serviço", 0);
+            return false;
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DaoServico.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-
     }
 
     public static Servico popularServico(String codigoServico) {
@@ -625,11 +642,11 @@ Data Encerramento Entre/Até
         return lista;
     }
 
-    public static void ativarDesativarServico(String codigoServico, boolean flag, String data) {
+    public static void ativarDesativarServico(String codigoServico, boolean flagAtivo, String data) {
         try {
             Connection con = Conexao.conectar();
             String sql;
-            if (flag) {
+            if (flagAtivo) {
                 sql = "UPDATE SYNCHROSOFT.TB_SERVICO "
                         + "SET ID_STATUS_SERVICO = ?, "
                         + "DT_SERVICO_FIM = ? "
@@ -720,10 +737,10 @@ Data Encerramento Entre/Até
             return null;
         }
     }
-    
+
     public static void deletarServico(String codigoServico) {
         try {
-            
+
             Connection con = Conexao.conectar();
             String sql = "DELETE FROM SYNCHROSOFT.TB_ENDERECO_SERVICO "
                     + "WHERE CD_SERVICO = ?";
@@ -731,63 +748,121 @@ Data Encerramento Entre/Até
             st.setString(1, codigoServico);
             st.executeUpdate();
             st.close();
-            
+
             sql = "DELETE FROM SYNCHROSOFT.TB_PESSOAF_SERVICO "
                     + "WHERE CD_SERVICO = ?";
             PreparedStatement st2 = con.prepareStatement(sql);
             st2.setString(1, codigoServico);
             st2.executeUpdate();
             st2.close();
-            
+
             sql = "DELETE FROM SYNCHROSOFT.TB_PESSOAJ_SERVICO "
                     + "WHERE CD_SERVICO = ?";
             PreparedStatement st3 = con.prepareStatement(sql);
             st3.setString(1, codigoServico);
             st3.executeUpdate();
             st3.close();
-            
+
             sql = "DELETE FROM SYNCHROSOFT.TB_FUNC_SERVICO "
                     + "WHERE CD_SERVICO = ?";
             PreparedStatement st4 = con.prepareStatement(sql);
             st4.setString(1, codigoServico);
             st4.executeUpdate();
             st4.close();
-            
+
             int codigoOrcamento = dao.DaoOrcamento.buscarOrcamento(codigoServico);
-            
+
             sql = "DELETE FROM SYNCHROSOFT.TB_PECA_ORCAMENTO "
                     + "WHERE CD_ORCAMENTO = ?";
             PreparedStatement st5 = con.prepareStatement(sql);
             st5.setInt(1, codigoOrcamento);
             st5.executeUpdate();
             st5.close();
-            
-            
-            
-            
+
             sql = "DELETE FROM SYNCHROSOFT.TB_ORCAMENTO "
                     + "WHERE CD_SERVICO = ?";
             PreparedStatement st6 = con.prepareStatement(sql);
             st6.setString(1, codigoServico);
             st6.executeUpdate();
             st6.close();
-            
+
             sql = "DELETE FROM SYNCHROSOFT.TB_SERVICO "
                     + "WHERE CD_SERVICO = ?";
             PreparedStatement st7 = con.prepareStatement(sql);
             st7.setString(1, codigoServico);
             st7.executeUpdate();
             st7.close();
-            
+
             JOptionPane.showMessageDialog(
                     null, "O endereço do serviço, o orçamento mais os produtos associados\n"
-                        + "e o serviço foram completamente removidos do banco de dados."
-                        ,"Exclusão de serviço concluída",1);
+                    + "e o serviço foram completamente removidos do banco de dados.",
+                     "Exclusão de serviço concluída", 1);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Ocorreu um problema ao excluir o serviço e seus registros associados.\n\nErro Nº:"
-                +ex.getErrorCode()+"\n\n"+ex.getMessage(),"Erro: DaoServico - Remover Servico",0);
+                    + ex.getErrorCode() + "\n\n" + ex.getMessage(), "Erro: DaoServico - Remover Servico", 0);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DaoServico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static PessoaFisica pessoaFisicaServico(String codigoServico) {
+        String cpf;
+        try {
+
+            Connection con = Conexao.conectar();
+            String sql = "SELECT CD_CPF FROM SYNCHROSOFT.TB_PESSOAF_SERVICO "
+                    + "WHERE CD_SERVICO = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, codigoServico);
+            ResultSet rs = st.executeQuery();
+            rs.next();
+            cpf = rs.getString("CD_CPF");
+
+            st.close();
+            rs.close();
+
+            PessoaFisica pessoaFisica = new PessoaFisica();
+
+            pessoaFisica = dao.DaoPessoa.popularPessoaFisica(cpf);
+
+            return pessoaFisica;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível pesquisar a pessoa física do serviço.\n\nErro Nº:"
+                    + ex.getErrorCode() + "\n\n" + ex.getMessage(), "Erro: DaoServico - Pessoa Fisica Servico", 0);
+            return null;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoServico.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public static PessoaJuridica pessoaJuridicaServico(String codigoServico) {
+        String cnpj;
+        try {
+
+            Connection con = Conexao.conectar();
+            String sql = "SELECT CD_CNPJ FROM SYNCHROSOFT.TB_PESSOAJ_SERVICO "
+                    + "WHERE CD_SERVICO = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, codigoServico);
+            ResultSet rs = st.executeQuery();
+            rs.next();
+            cnpj = rs.getString("CD_CNPJ");
+
+            st.close();
+            rs.close();
+
+            PessoaJuridica pessoaJuridica = new PessoaJuridica();
+            pessoaJuridica = dao.DaoPessoa.popularPessoaJuridica(cnpj);
+
+            return pessoaJuridica;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível pesquisar a pessoa jurídica do serviço.\n\nErro Nº:"
+                    + ex.getErrorCode() + "\n\n" + ex.getMessage(), "Erro: DaoServico - Pessoa Jurídica Servico", 0);
+            return null;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoServico.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
     }
 }

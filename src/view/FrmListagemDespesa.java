@@ -33,6 +33,7 @@ public class FrmListagemDespesa extends javax.swing.JFrame {
         txtfDataAte.setText(control.Datas.getDiaHoje());
         selecionarAoFocar();
         modoPesquisaNormal();
+        definirNivelAcesso(nvlAdm);
     }
     
     public FrmListagemDespesa(int nvlAdm, int codigoDespesa) {
@@ -865,6 +866,21 @@ Data de Vencimento Entre/Até
             return true;
         } else {
             return true;
+        }
+    }
+
+    private void definirNivelAcesso(int nvlAdm) {
+        if (nvlAdm == 0) {
+            btnDeletarTodosRegistros.setEnabled(false);
+            btnAlterar.setEnabled(false);
+            btnDeletar.setEnabled(false);
+            btnCadastrarDespesa.setEnabled(false);
+            cmbTipoDespesa.setEnabled(false);
+            txtfDataVencimento.setEnabled(false);
+            txtfValorDespesa.setEnabled(false);
+            rbtQuitadaNao.setEnabled(false);
+            rbtQuitadaSim.setEnabled(false);
+            txaDescricaoDespesa.setEnabled(false);
         }
     }
 }

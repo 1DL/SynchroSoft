@@ -36,15 +36,19 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
 
     private boolean ultimoTipoPesquisa;
     private int PK_REF;
+    int nvlAdm;
 
     /**
      * Creates new form FrmCadastroOrcamento
+     *
+     * @param nvlAdm
      */
     public FrmListagemOrcamento(int nvlAdm) {
         initComponents();
         iniciarTabelaOrcamento();
         iniciarTabelaProduto();
         selecionarAoFocar();
+        this.nvlAdm = nvlAdm;
     }
 
     public FrmListagemOrcamento(int nvlAdm, int codigoOrcamento) {
@@ -55,6 +59,8 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
         txtPesquisa.setText(String.valueOf(codigoOrcamento));
         pesquisarFiltrada();
         selecionarLinhaTabela(codigoOrcamento);
+
+        this.nvlAdm = nvlAdm;
     }
 
     public FrmListagemOrcamento(int codigoServico, boolean flag, int nvlAdm) {
@@ -66,6 +72,8 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
         txtPesquisa.setText(String.valueOf(codigoServico));
         pesquisarFiltrada();
         selecionarLinhaTabela(codigoServico);
+
+        this.nvlAdm = nvlAdm;
     }
 
     /**
@@ -506,7 +514,7 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
         long flagQtd = Long.parseLong(txtfQuantidadePeca.getText());
         if (flagQtd <= 0 || txtQtdEstoque.equals("")) {
             JOptionPane.showMessageDialog(this, "Quantidade do produto inválida.\n"
-                    +"Verifique se há produtos disponíveis no estoque.", "Erro - Quantidade inválida ou estoque zerado", 0);
+                    + "Verifique se há produtos disponíveis no estoque.", "Erro - Quantidade inválida ou estoque zerado", 0);
         } else {
             DefaultTableModel model = (DefaultTableModel) tblPecas.getModel();
             Object rowData[] = new Object[6];
@@ -562,26 +570,29 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_tblOrcamentoMouseClicked
 
     private void btnPagarOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarOrcamentoActionPerformed
-        int opcao = JOptionPane.showConfirmDialog(null,
-                "Deseja atualizar e alterar os produtos modificados primeiro, antes de \n"
-                + "realizar o pagamento?\n\n"
-                + "Se clicar em sim, as modificações atuais dos produtos serão salvas primeiro,\n"
-                + "para depois realizar o pagamento do orçamento e subtrair os produtos do estoque.\n\n"
-                + "Se clicar em não, o pagamento irá ser realizado e subtrair do estoque os produtos e\n"
-                + "suas quantidades originais, antes de serem modificadas. \n\n"
-                + "Uma vez pago, o orçamento não poderá ser mais modificado!",
-                 "Confirmação de pagamento", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-        switch (opcao) {
-            case 0:
-                alterarRegistro(true);
-                pagarOrcamento();
-                break;
-            case 1:
-                pagarOrcamento();
-                break;
-            case 2:
-                break;
+        if (nvlAdm != 0) {
+            int opcao = JOptionPane.showConfirmDialog(null,
+                    "Deseja atualizar e alterar os produtos modificados primeiro, antes de \n"
+                    + "realizar o pagamento?\n\n"
+                    + "Se clicar em sim, as modificações atuais dos produtos serão salvas primeiro,\n"
+                    + "para depois realizar o pagamento do orçamento e subtrair os produtos do estoque.\n\n"
+                    + "Se clicar em não, o pagamento irá ser realizado e subtrair do estoque os produtos e\n"
+                    + "suas quantidades originais, antes de serem modificadas. \n\n"
+                    + "Uma vez pago, o orçamento não poderá ser mais modificado!",
+                    "Confirmação de pagamento", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+            switch (opcao) {
+                case 0:
+                    alterarRegistro(true);
+                    pagarOrcamento();
+                    break;
+                case 1:
+                    pagarOrcamento();
+                    break;
+                case 2:
+                    break;
+            }
         }
+
     }//GEN-LAST:event_btnPagarOrcamentoActionPerformed
 
     private void btnFecharFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharFrameActionPerformed
@@ -589,7 +600,10 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharFrameActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        alterarRegistro(false);
+        if (nvlAdm != 0) {
+            alterarRegistro(false);
+        }
+
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnLimparTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparTabelaActionPerformed
@@ -626,7 +640,10 @@ public class FrmListagemOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesquisaFocusGained
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-        deletarRegistro();
+        if (nvlAdm != 0) {
+            deletarRegistro();
+        }
+
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     /**

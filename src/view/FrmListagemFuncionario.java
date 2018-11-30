@@ -37,6 +37,8 @@ public class FrmListagemFuncionario extends javax.swing.JFrame {
         txtfDataAte.setText(control.Datas.getDiaHoje());
         selecionarAoFocar();
         modoPesquisaNormal();
+
+        definirNivelAcesso(nvlAdm);
     }
 
     /**
@@ -945,11 +947,11 @@ Efetivado
             dadosLinha[11] = lista.get(i).getPessoa().getEndereco().getLogradouro();
             dadosLinha[12] = lista.get(i).getPessoa().getComplementoLogradouro();
             dadosLinha[13] = lista.get(i).getDataContrato();
-            if (lista.get(i).getEfetivadoBooleano()){
+            if (lista.get(i).getEfetivadoBooleano()) {
                 dadosLinha[14] = "   -";
             } else {
                 dadosLinha[14] = lista.get(i).getDataDemissao();
-            }            
+            }
             dadosLinha[15] = lista.get(i).getEfetivadoSTR();
 
             model.addRow(dadosLinha);
@@ -1152,12 +1154,12 @@ Efetivado
             func.setCargo(txtCargo.getText());
             func.setSalario(txtfSalario.getText());
             func.setHorasTrabalhadas(txtfHoras.getText());
-            if (rbtEfetivadoSim.isSelected()){
+            if (rbtEfetivadoSim.isSelected()) {
                 func.setDataContrato(txtfDataAdmissao.getText());
             } else {
                 func.setDataContrato(txtfDataAdmissao.getText());
                 func.setDataDemissao(txtfDataDemissao.getText());
-            }            
+            }
             func.setNivelAdministrativo(rbtVisualizacao.isSelected());
             func.setEfetivadoBooleano(rbtEfetivadoSim.isSelected());
 
@@ -1252,7 +1254,7 @@ Efetivado
                 txtfDataDemissao.setText(func.getDataDemissao());
             }
         } catch (NullPointerException npe) {
-            
+
         }
 
         txtCodigoFuncionario.setText(func.getCodigoFuncionario());
@@ -1265,5 +1267,29 @@ Efetivado
 
         verificarCpf();
         verificarCodFunc();
+    }
+
+    private void definirNivelAcesso(int nvlAdm) {
+        if (nvlAdm == 0) {
+            btnDeletarTodosRegistros.setEnabled(false);
+            btnAlterar.setEnabled(false);
+            btnDeletar.setEnabled(false);
+            btnCadastrarFuncionario.setEnabled(false);
+            txtCodigoFuncionario.setEnabled(false);
+            txtCpf.setEnabled(false);
+            btnCadastrarPessoa.setEnabled(false);
+            txtCargo.setEnabled(false);
+            txtfSalario.setEnabled(false);
+            txtfHoras.setEnabled(false);
+            txtfDataAdmissao.setEnabled(false);
+            btnHojeAdmissao.setEnabled(false);
+            txtfDataDemissao.setEnabled(false);
+            btnHojeDemissao.setEnabled(false);
+            rbtEfetivadoNao.setEnabled(false);
+            rbtEfetivadoSim.setEnabled(false);
+            rbtCompleto.setEnabled(false);
+            rbtVisualizacao.setEnabled(false);
+        }
+
     }
 }

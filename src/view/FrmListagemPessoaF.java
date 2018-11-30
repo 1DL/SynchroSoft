@@ -38,6 +38,8 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         txtfDataAte.setText(control.Datas.getDiaHoje());
         selecionarAoFocar();
         modoPesquisaNormal();
+
+        definirNivelAcesso(nvlAdm);
     }
 
     /**
@@ -84,7 +86,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         btnDeletar = new javax.swing.JButton();
         btnLimparTabela = new javax.swing.JButton();
         btnListarTodos = new javax.swing.JButton();
-        btnCadastraCPF = new javax.swing.JButton();
+        btnCadastrarCPF = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
         txtfDataDe = new javax.swing.JFormattedTextField();
         lblDataAte = new javax.swing.JLabel();
@@ -369,14 +371,14 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         panPrincipal.add(btnListarTodos);
         btnListarTodos.setBounds(550, 230, 147, 30);
 
-        btnCadastraCPF.setText("Cadastrar novo CPF");
-        btnCadastraCPF.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrarCPF.setText("Cadastrar novo CPF");
+        btnCadastrarCPF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastraCPFActionPerformed(evt);
+                btnCadastrarCPFActionPerformed(evt);
             }
         });
-        panPrincipal.add(btnCadastraCPF);
-        btnCadastraCPF.setBounds(720, 230, 150, 30);
+        panPrincipal.add(btnCadastrarCPF);
+        btnCadastrarCPF.setBounds(720, 230, 150, 30);
 
         btnAlterar.setText("Alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -491,7 +493,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
         limiteDigitosPesquisa(cmbFiltro.getSelectedItem().toString());
         pesquisarFiltrada();
@@ -581,9 +583,9 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
         atualizarTabela(false);
     }//GEN-LAST:event_btnListarTodosActionPerformed
 
-    private void btnCadastraCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastraCPFActionPerformed
+    private void btnCadastrarCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCPFActionPerformed
         control.Janelas.abrirCadastroPessoa();
-    }//GEN-LAST:event_btnCadastraCPFActionPerformed
+    }//GEN-LAST:event_btnCadastrarCPFActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         alterarRegistro();
@@ -659,7 +661,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
-    private javax.swing.JButton btnCadastraCPF;
+    private javax.swing.JButton btnCadastrarCPF;
     private javax.swing.JButton btnCadastrarCep;
     private javax.swing.JButton btnDeletar;
     private javax.swing.JButton btnDeletarTodosRegistros;
@@ -782,7 +784,7 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
 
     private boolean validarCampos() {
         boolean selectionEmpty = tblListagemPessoaF.getSelectionModel().isSelectionEmpty();
-        if (selectionEmpty){
+        if (selectionEmpty) {
             JOptionPane.showMessageDialog(this, "Nenhum registro selecionado da tabela.\n\n"
                     + "Pesquise por algum registro e clique em alguma linha da tabela.", "Erro - Não há registro selecionado", 0);
             return false;
@@ -1131,5 +1133,29 @@ public class FrmListagemPessoaF extends javax.swing.JFrame {
             lblDataAte.setVisible(false);
             btnPesquisar.setVisible(true);
         }
+    }
+
+    private void definirNivelAcesso(int nvlAdm) {
+        if (nvlAdm == 0) {
+            btnDeletarTodosRegistros.setEnabled(false);
+            btnAlterar.setEnabled(false);
+            btnDeletar.setEnabled(false);
+            btnCadastrarCPF.setEnabled(false);
+            txtfCep.setEditable(false);
+            rbtSimCadastro.setEnabled(false);
+            rbtNaoCadastro.setEnabled(false);
+            rbtFeminino.setEnabled(false);
+            rbtMasculino.setEnabled(false);
+            txtfDataCadastro.setEnabled(false);
+            txtNomePessoaFicticio.setEnabled(false);
+            txtCpfCnpj.setEnabled(false);
+            txtfCep.setEnabled(false);
+            btnCadastrarCep.setEnabled(false);
+            btnHoje.setEnabled(false);
+            txtNumeroLogradouro.setEnabled(false);
+            txtTelefone.setEnabled(false);
+            txtCelRamal.setEnabled(false);
+        }
+
     }
 }

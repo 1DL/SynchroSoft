@@ -46,6 +46,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         popularListaAlertaDespesa();
         Thread threadTimer = new Thread(timerAlerta);
         iniciarThread(threadTimer);
+        definirNivelAcesso();
     }
 
     /**
@@ -1121,6 +1122,20 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 expandBtnDinamicos = 0;
                 btnExpandBtnDinamico.setText("-");
                 break;                
+        }
+    }
+
+    private void definirNivelAcesso() {
+        if (control.SynchroSoft.getNvlAdm() == 0) {
+            btn_janMaisAcessada1.setEnabled(false);
+            btn_janMaisAcessada2.setEnabled(false);
+            btn_janMaisAcessada3.setEnabled(false);
+            btn_janMaisAcessada4.setEnabled(false);
+            btn_janMaisAcessada5.setEnabled(false);
+            btn_janMaisAcessada6.setEnabled(false);
+            btn_janMaisAcessada7.setEnabled(false);
+            btn_janMaisAcessada8.setEnabled(false);
+            btn_janMaisAcessada9.setEnabled(false);
         }
     }
 }

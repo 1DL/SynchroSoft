@@ -22,12 +22,12 @@ import model.PessoaJuridica;
  * @author Luiz
  */
 public class FrmListagemPessoaJ extends javax.swing.JFrame {
-    
+
     private boolean cepCadastrado;
     private boolean ultimoTipoPesquisa;
     private boolean existeCnpj;
     private String PK_REF;
-    
+
     /**
      * Creates new form FrmListagemPessoa
      */
@@ -38,6 +38,8 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         txtfDataAte.setText(control.Datas.getDiaHoje());
         selecionarAoFocar();
         modoPesquisaNormal();
+
+        definirNivelAcesso(nvlAdm);
     }
 
     /**
@@ -650,10 +652,8 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
                 new FrmListagemPessoaJ(control.SynchroSoft.getNvlAdm()).setVisible(true);
             }
         });
-    }  
-       
-    
-    
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
@@ -703,7 +703,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtfDataCadastro;
     private javax.swing.JFormattedTextField txtfDataDe;
     // End of variables declaration//GEN-END:variables
-    
+
     private void inicializarTabela() {
         String[] nomeColunas = {"Nome Fictício", "CNPJ", "Razão Social", "CEP", "Logradouro", "Nr Logradouro", "Telefone", "Ramal", "Contrato", "Data de Cadastro"};
 
@@ -718,9 +718,8 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
         model.setRowCount(0);
     }
 
-    
-    private void atualizarTabela (boolean filtrada){
-       DefaultTableModel model = new DefaultTableModel();
+    private void atualizarTabela(boolean filtrada) {
+        DefaultTableModel model = new DefaultTableModel();
         model = (DefaultTableModel) tblListagemPessoaJ.getModel();
         model.setRowCount(0);
 
@@ -755,7 +754,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
 
         limparCampos();
     }
-    
+
     private void modoPesquisaData(boolean fixaOuEntre) {
         boolean dataFixa = false;
         boolean dataEntreAte = true;
@@ -972,7 +971,7 @@ public class FrmListagemPessoaJ extends javax.swing.JFrame {
 
     private boolean validarCampos() {
         boolean selectionEmpty = tblListagemPessoaJ.getSelectionModel().isSelectionEmpty();
-        if (selectionEmpty){
+        if (selectionEmpty) {
             JOptionPane.showMessageDialog(this, "Nenhum registro selecionado da tabela.\n\n"
                     + "Pesquise por algum registro e clique em alguma linha da tabela.", "Erro - Não há registro selecionado", 0);
             return false;
@@ -1018,7 +1017,7 @@ Ramal
 Mantém Contrato?
 Data de Cadastro
 Data Entre/Até
-*/
+         */
         switch (filtro) {
             case "Nome Fictício":
                 txtPesquisa.setText(control.Texto.maxLenghtNomeRazao(txtPesquisa.getText()));
@@ -1125,7 +1124,26 @@ Data Entre/Até
         verificarCep();
     }
 
-    
-    
-    
+    private void definirNivelAcesso(int nvlAdm) {
+        if (nvlAdm == 0) {
+            btnDeletarTodosRegistros.setEnabled(false);
+            btnAlterar.setEnabled(false);
+            btnDeletar.setEnabled(false);
+            btnCadastrarCnpj.setEnabled(false);
+            txtfCep.setEditable(false);
+            rbtSimCadastro.setEnabled(false);
+            rbtNaoCadastro.setEnabled(false);
+            txtfDataCadastro.setEnabled(false);
+            txtNomePessoaFicticio.setEnabled(false);
+            txtCpfCnpj.setEnabled(false);
+            txtfCep.setEnabled(false);
+            btnCadastrarCep.setEnabled(false);
+            btnHoje.setEnabled(false);
+            txtNumeroLogradouro.setEnabled(false);
+            txtTelefone.setEnabled(false);
+            txtCelRamal.setEnabled(false);
+            txtRazaoSocial.setEnabled(false);
+        }
+    }
+
 }

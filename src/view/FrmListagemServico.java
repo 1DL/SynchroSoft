@@ -6,7 +6,6 @@
 package view;
 
 import dao.DaoFuncionario;
-import dao.DaoOrcamento;
 import dao.DaoServico;
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -43,6 +42,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
     boolean flagAtivo = false;
     private boolean ultimoTipoPesquisa;
     String PK_REF;
+    int nvlAdm;
 
     Endereco endExibicao;
     PessoaFisica pessoaFisicaExibicao;
@@ -57,6 +57,8 @@ public class FrmListagemServico extends javax.swing.JFrame {
         inicializarTabelaFuncionario();
         modoPesquisaNormal();
         selecionarAoFocar();
+        this.nvlAdm = nvlAdm;
+        definirNivelAcesso(nvlAdm);
 
     }
 
@@ -481,7 +483,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         lblDataCadastro.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblDataCadastro.setText("Data Início:");
         panDadosServico.add(lblDataCadastro);
-        lblDataCadastro.setBounds(590, 10, 90, 25);
+        lblDataCadastro.setBounds(580, 10, 90, 25);
 
         txtfDataInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
         txtfDataInicio.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -490,7 +492,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
             }
         });
         panDadosServico.add(txtfDataInicio);
-        txtfDataInicio.setBounds(690, 10, 100, 25);
+        txtfDataInicio.setBounds(680, 10, 100, 25);
 
         btnHojeInicio.setText("Hoje");
         btnHojeInicio.addActionListener(new java.awt.event.ActionListener() {
@@ -499,7 +501,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
             }
         });
         panDadosServico.add(btnHojeInicio);
-        btnHojeInicio.setBounds(790, 10, 55, 25);
+        btnHojeInicio.setBounds(780, 10, 55, 25);
 
         lblNomeFuncValor.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblNomeFuncValor.setText("-");
@@ -540,7 +542,7 @@ public class FrmListagemServico extends javax.swing.JFrame {
         lblCep.setFont(new java.awt.Font("Malgun Gothic", 0, 18)); // NOI18N
         lblCep.setText("CEP:");
         panDadosServico.add(lblCep);
-        lblCep.setBounds(650, 40, 40, 25);
+        lblCep.setBounds(640, 40, 40, 25);
 
         try {
             txtfCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
@@ -559,12 +561,12 @@ public class FrmListagemServico extends javax.swing.JFrame {
             }
         });
         panDadosServico.add(txtfCep);
-        txtfCep.setBounds(690, 40, 100, 25);
+        txtfCep.setBounds(680, 40, 100, 25);
 
         lblCepExiste.setForeground(java.awt.Color.red);
         lblCepExiste.setText("Cep Inválido.");
         panDadosServico.add(lblCepExiste);
-        lblCepExiste.setBounds(792, 40, 130, 25);
+        lblCepExiste.setBounds(782, 40, 130, 25);
 
         btnAbrirArquivoRelatorio.setText("Abrir Arquivo");
         btnAbrirArquivoRelatorio.setEnabled(false);
@@ -824,12 +826,17 @@ public class FrmListagemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtualizarTabelaActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        alterarServico();
+        if (nvlAdm != 0) {
+            alterarServico();
+        }
+
 
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-        deletarServico();
+        if (nvlAdm != 0) {
+            deletarServico();
+        }
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void cmbFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFiltroActionPerformed
@@ -929,20 +936,25 @@ public class FrmListagemServico extends javax.swing.JFrame {
 
     private void rbtFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtFisicaActionPerformed
         modoFisica();
+        validarCpfCnpj();
     }//GEN-LAST:event_rbtFisicaActionPerformed
 
     private void rbtJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtJuridicaActionPerformed
         modoJuridica();
+        validarCpfCnpj();
     }//GEN-LAST:event_rbtJuridicaActionPerformed
 
     private void btnOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrcamentoActionPerformed
-        String codigoServico = String.valueOf(tblListagemServico.getModel().getValueAt(tblListagemServico.getSelectedRow(), 0));
-        if (btnOrcamento.getText().equals("Criar Orçamento")) {
-            control.Janelas.abrirCadastroOrcamento(codigoServico, true);
-        } else {
-            int codigoOrcamento = dao.DaoOrcamento.buscarOrcamento(codigoServico);
-            control.Janelas.abrirListagemOrçamentoPopulado(codigoOrcamento);
+        if (nvlAdm != 0) {
+            String codigoServico = String.valueOf(tblListagemServico.getModel().getValueAt(tblListagemServico.getSelectedRow(), 0));
+            if (btnOrcamento.getText().equals("Criar Orçamento")) {
+                control.Janelas.abrirCadastroOrcamento(codigoServico, true);
+            } else {
+                int codigoOrcamento = dao.DaoOrcamento.buscarOrcamento(codigoServico);
+                control.Janelas.abrirListagemOrçamentoPopulado(codigoOrcamento);
+            }
         }
+
     }//GEN-LAST:event_btnOrcamentoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -974,37 +986,40 @@ public class FrmListagemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarFuncActionPerformed
 
     private void btnAtivarDesativarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtivarDesativarActionPerformed
-        if (flagAtivo) {
-            if (txtfDataEncerramento.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Data de encerramento do serviço em branco.\n\n"
-                        + "Digite uma data para o encerramento do serviço.", "Erro - Data Encerramento Inválida", 0);
-                txtfDataEncerramento.requestFocus();
-            } else {
-                int opcao = JOptionPane.showConfirmDialog(this, "Deseja realmente Encerrar o serviço?",
-                        "Confirmação de status de serviço", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (opcao == 0) {
-                    dao.DaoServico.ativarDesativarServico(
-                            String.valueOf(tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)),
-                            flagAtivo, txtfDataEncerramento.getText());
-                    atualizarTabelaServico(false);
+        if (nvlAdm != 0) {
+            if (flagAtivo) {
+                if (txtfDataEncerramento.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Data de encerramento do serviço em branco.\n\n"
+                            + "Digite uma data para o encerramento do serviço.", "Erro - Data Encerramento Inválida", 0);
+                    txtfDataEncerramento.requestFocus();
+                } else {
+                    int opcao = JOptionPane.showConfirmDialog(this, "Deseja realmente Encerrar o serviço?",
+                            "Confirmação de status de serviço", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (opcao == 0) {
+                        dao.DaoServico.ativarDesativarServico(
+                                String.valueOf(tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)),
+                                flagAtivo, txtfDataEncerramento.getText());
+                        atualizarTabelaServico(false);
+                    }
                 }
-            }
-        } else {
-            if (txtfDataInicio.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Data de Início do serviço em branco.\n\n"
-                        + "Digite uma data para o início do serviço.", "Erro - Data Início Inválida", 0);
-                txtfDataInicio.requestFocus();
             } else {
-                int opcao = JOptionPane.showConfirmDialog(this, "Deseja realmente Ativar o serviço?",
-                        "Confirmação de status de serviço", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (opcao == 0) {
-                    dao.DaoServico.ativarDesativarServico(
-                            String.valueOf(tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)),
-                            flagAtivo, txtfDataInicio.getText());
-                    atualizarTabelaServico(false);
+                if (txtfDataInicio.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Data de Início do serviço em branco.\n\n"
+                            + "Digite uma data para o início do serviço.", "Erro - Data Início Inválida", 0);
+                    txtfDataInicio.requestFocus();
+                } else {
+                    int opcao = JOptionPane.showConfirmDialog(this, "Deseja realmente Ativar o serviço?",
+                            "Confirmação de status de serviço", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (opcao == 0) {
+                        dao.DaoServico.ativarDesativarServico(
+                                String.valueOf(tblListagemServico.getValueAt(tblListagemServico.getSelectedRow(), 0)),
+                                flagAtivo, txtfDataInicio.getText());
+                        atualizarTabelaServico(false);
+                    }
                 }
             }
         }
+
 
     }//GEN-LAST:event_btnAtivarDesativarActionPerformed
 
@@ -1290,11 +1305,6 @@ public class FrmListagemServico extends javax.swing.JFrame {
 
     public void popularExibicaoPessoaJuridica(PessoaJuridica pj) {
         txtNomePessoaFicticio.setText(pj.getPessoa().getNome());
-        txtLogradouro.setText(pj.getPessoa().getEndereco().getLogradouro());
-        txtCidade.setText(pj.getPessoa().getEndereco().getCidade());
-        txtEstado.setText(pj.getPessoa().getEndereco().getEstado());
-        txtBairro.setText(pj.getPessoa().getEndereco().getBairro());
-        txtNumero.setText(pj.getPessoa().getComplementoLogradouro());
         txtTelefone.setText("" + pj.getPessoa().getTelefone());
         txtCelularRamal.setText("" + pj.getRamalCliente());
         txtRazaoSocial.setText(pj.getRazaoSocial());
@@ -1303,14 +1313,8 @@ public class FrmListagemServico extends javax.swing.JFrame {
 
     public void popularExibicaoPessoa(PessoaFisica pf) {
         txtNomePessoaFicticio.setText(pf.getPessoa().getNome());
-        txtLogradouro.setText(pf.getPessoa().getEndereco().getLogradouro());
-        txtCidade.setText(pf.getPessoa().getEndereco().getCidade());
-        txtEstado.setText(pf.getPessoa().getEndereco().getEstado());
-        txtBairro.setText(pf.getPessoa().getEndereco().getBairro());
-        txtNumero.setText(pf.getPessoa().getComplementoLogradouro());
         txtTelefone.setText("" + pf.getPessoa().getTelefone());
         txtCelularRamal.setText("" + pf.getCelular());
-
         lblSexoValor.setText(pf.getSexoSTR());
 
     }
@@ -1344,11 +1348,6 @@ public class FrmListagemServico extends javax.swing.JFrame {
 
     public void limparExibicaoPessoa() {
         txtNomePessoaFicticio.setText("");
-        txtLogradouro.setText("");
-        txtCidade.setText("");
-        txtEstado.setText("");
-        txtBairro.setText("");
-        txtNumero.setText("");
         txtTelefone.setText("");
         txtCelularRamal.setText("");
 
@@ -1356,9 +1355,9 @@ public class FrmListagemServico extends javax.swing.JFrame {
 
     public boolean verificarFuncVazio() {
         if (tblFuncionarioTrabalhando.getRowCount() == 0) {
-            return false;
-        } else {
             return true;
+        } else {
+            return false;
         }
     }
 
@@ -1699,6 +1698,8 @@ Data Encerramento Entre/Até
         btnAtivarDesativar.setEnabled(false);
         btnOrcamento.setEnabled(false);
         btnDeletar.setEnabled(false);
+        validarCpfCnpj();
+        verificarCepExistente();
     }
 
     public void esvaziarObjetosLocais() {
@@ -1846,7 +1847,7 @@ Data Encerramento Entre/Até
         cep = cep.replace("-", "");
         cep = cep.trim();
         if ((cep.length() < 8) || (cep.length() > 8)) {
-            lblCepExiste.setText("Cep Inválido.");
+            lblCepExiste.setText("CEP Inválido.");
             lblCepExiste.setForeground(Color.red);
             limparExibicaoEndereco();
             existeCep = false;
@@ -1882,13 +1883,21 @@ Data Encerramento Entre/Até
         } else {
             txtfDataEncerramento.setText(servico.getDataServicoFim());
         }
+
         rbtJuridica.setSelected(servico.getTipoClienteBooleano());
         rbtFisica.setSelected(!servico.getTipoClienteBooleano());
         if (rbtFisica.isSelected()) {
             modoFisica();
+            PessoaFisica pf = new PessoaFisica();
+            pf = dao.DaoServico.pessoaFisicaServico(servico.getCodigoServico());
+            txtCpfCnpj.setText(pf.getCpf());
         } else {
+            PessoaJuridica pj = new PessoaJuridica();
+            pj = dao.DaoServico.pessoaJuridicaServico(servico.getCodigoServico());
+            txtCpfCnpj.setText(pj.getCnpj());
             modoJuridica();
         }
+        validarCpfCnpj();
         //Coleta de dados do cliente do serviço e do endereço do serviço
         ArrayList<Object> lista = new ArrayList<>();
 
@@ -1898,11 +1907,8 @@ Data Encerramento Entre/Até
 
         //Dados do endereço adicionado aos campos de texto
         txtfCep.setText(endereco.getCep());
+        verificarCepExistente();
         txtNumeroLogradouro.setText((String) lista.get(3));
-        txtLogradouro.setText(endereco.getLogradouro());
-        txtCidade.setText(endereco.getCidade());
-        txtEstado.setText(endereco.getEstado());
-        txtBairro.setText(endereco.getBairro());
         txtNumero.setText((String) lista.get(3));
 
         //Parte relacinada ao arquivo de descrição do serviço
@@ -1911,25 +1917,6 @@ Data Encerramento Entre/Até
             btnAbrirArquivoRelatorio.setEnabled(false);
         } else {
             btnAbrirArquivoRelatorio.setEnabled(true);
-        }
-
-        //Dados da pessoa, seja fisica ou juridica, adicionado aos campos
-        if (!servico.getTipoClienteBooleano()) {
-            PessoaFisica pessoaFisica = new PessoaFisica();
-            pessoaFisica = (PessoaFisica) lista.get(0);
-            txtCpfCnpj.setText(pessoaFisica.getCpf());
-            lblSexoValor.setText(pessoaFisica.getSexoSTR());
-            txtNomePessoaFicticio.setText(pessoaFisica.getPessoa().getNome());
-            txtCelularRamal.setText(String.valueOf(pessoaFisica.getCelular()));
-            txtTelefone.setText(String.valueOf(pessoaFisica.getPessoa().getTelefone()));
-        } else {
-            PessoaJuridica pessoaJuridica = new PessoaJuridica();
-            pessoaJuridica = (PessoaJuridica) lista.get(1);
-            txtCpfCnpj.setText(pessoaJuridica.getCnpj());
-            txtRazaoSocial.setText(pessoaJuridica.getRazaoSocial());
-            txtNomePessoaFicticio.setText(pessoaJuridica.getPessoa().getNome());
-            txtCelularRamal.setText(String.valueOf(pessoaJuridica.getRamalCliente()));
-            txtTelefone.setText(String.valueOf(pessoaJuridica.getPessoa().getTelefone()));
         }
 
         //LEGADO - definicao de flags de acorto com o serviço ativo ou encerrado
@@ -1954,6 +1941,10 @@ Data Encerramento Entre/Até
 
         //População da tabela de funcionários
         atualizarTabelaFuncionario(codigoServico);
+
+        //Definição restrições para deletar serviço
+        definirRestricaoDeletar();
+
     }
 
     private void definirRestricaoTipoServico(String tipoServicoSTR) {
@@ -2134,10 +2125,11 @@ Data Encerramento Entre/Até
     private void definirRestricaoAtivarServico(String codigoServico) {
         boolean servicoAtivo = dao.DaoServico.verificarServicoAtivo(codigoServico);
         boolean orcamentoPago = dao.DaoOrcamento.existeOrcamentoPago(codigoServico);
+        String tipoServico = String.valueOf(tblListagemServico.getModel().getValueAt(tblListagemServico.getSelectedRow(), 1));
 
         if (servicoAtivo) {
             btnAtivarDesativar.setText("Encerrar Serviço");
-            if (!orcamentoPago) {
+            if (!orcamentoPago && !tipoServico.equals("Preventivo")) {
                 lblAtivo.setText("Orçamento ainda não foi pago!");
                 btnAtivarDesativar.setEnabled(false);
             } else {
@@ -2152,8 +2144,12 @@ Data Encerramento Entre/Até
 
     private void salvarArquivo() {
         try {
-            control.ManipularArquivos.enviarArquivoServico(lblNomeArquivoTrocado.getText(),
-                    lblDiretorioArquivoTrocado.getText(), txtCodigoServico.getText());
+            if (lblNomeArquivoTrocado.equals("Nenhum arquivo selecionado.")) {
+
+            } else {
+                control.ManipularArquivos.enviarArquivoServico(lblNomeArquivoTrocado.getText(),
+                        lblDiretorioArquivoTrocado.getText(), txtCodigoServico.getText());
+            }
 
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Não foi possível enviar o arquivo para o servidor.\n\n"
@@ -2170,41 +2166,9 @@ Data Encerramento Entre/Até
     }
 
     private void alterarServico() {
-        //validacao feita as pressas. A estrutura está horrível, precisa ser refeita após o TCC.
+        if (validarCampos()) {
+            //caso passou pelas validações
 
-        boolean validacao = true;
-        if (verificarFuncVazio() && (existeCnpj || existeCpf)) {
-            validacao = false;
-        } else {
-            JOptionPane.showMessageDialog(this, "Funcionário vazio, ou os dados do CPF/CNPJ estão inválidos.", "Erro - Dados inválidos!", 0);
-        }
-//
-//        if (validacao) {
-//            if (flagAtivo) {
-//                if (txtfDataInicio.getText().isEmpty() || txtfDataEncerramento.getText().isEmpty()) {
-//                    validacao = false;
-//                    JOptionPane.showMessageDialog(this, "Campo de Data de Inicio e Encerramento em branco.", "Erro - Datas inválidas", 0);
-//                }
-//            } else {
-//                if (txtfDataInicio.getText().isEmpty()) {
-//                    validacao = false;
-//                    JOptionPane.showMessageDialog(this, "Campo de Data de Inicio branco.", "Erro - Data inválida", 0);
-//                    txtfDataInicio.requestFocus();
-//                }
-//
-//            }
-//        }
-
-        if (validacao) {
-            if (txtNumeroLogradouro.getText().isEmpty()) {
-                validacao = false;
-                JOptionPane.showMessageDialog(this, "Campo de Número de Logradouro em branco.", "Erro - Nr Logradouro inválido", 0);
-                txtNumeroLogradouro.requestFocus();
-            }
-        }
-
-        //caso passou pelas validações
-        if (validacao) {
             try {
                 tblListagemServico.getCellEditor().stopCellEditing();
                 tblFuncionarioTrabalhando.getCellEditor().stopCellEditing();
@@ -2220,19 +2184,22 @@ Data Encerramento Entre/Até
 
             if (rbtFisica.isSelected()) {
                 servico.setCpfCliente(txtCpfCnpj.getText());
+                servico.setTipoCliente(false);
             } else if (rbtJuridica.isSelected()) {
                 servico.setCnpjCliente(txtCpfCnpj.getText());
+                servico.setTipoCliente(true);
             }
 
             servico.setTipoServicoSTR(String.valueOf(cmbTipoServico.getSelectedItem()));
 
             if (flagAtivo) {
                 servico.setDataServico(txtfDataInicio.getText());
-                servico.setDataServicoFim(txtfDataEncerramento.getText());
+                servico.setDataServicoFim(txtfDataInicio.getText());
             } else {
                 servico.setDataServico(txtfDataInicio.getText());
-                servico.setDataServicoFim(txtfDataInicio.getText());
+                servico.setDataServicoFim(txtfDataEncerramento.getText());
             }
+
             Endereco end = new Endereco();
             String cepSTR = txtfCep.getText();
             cepSTR = cepSTR.replace("-", "");
@@ -2245,8 +2212,10 @@ Data Encerramento Entre/Até
                 servico.setDescricaoServicoFILE(lblNomeArquivo.getText());
             } else {
                 salvarArquivo();
-                servico.setDescricaoServicoFILE(txtCodigoServico.getText() + "-" + lblNomeArquivo.getText());
+                servico.setDescricaoServicoFILE(txtCodigoServico.getText() + "-" + lblNomeArquivoTrocado.getText());
             }
+
+            //Parte de população de funcionários atribuido a esse serviço
             ArrayList<Funcionario> listaFunc = new ArrayList<>();
 
             for (int i = 0; i < tblFuncionarioTrabalhando.getRowCount(); i++) {
@@ -2257,10 +2226,16 @@ Data Encerramento Entre/Até
 
             //altera endereço servico
             dao.DaoServico.alterarEnderecoServico(servico, txtNumeroLogradouro.getText());
-            //finalmente altera o serviço 
-            DaoServico.alterarServico(servico, listaFunc, rbtJuridica.isSelected(), txtCpfCnpj.getText());
+            //finalmente altera o serviço
+            boolean alteracaoSucedida = dao.DaoServico.alterarServico(servico, listaFunc, rbtJuridica.isSelected(), txtCpfCnpj.getText(), flagAtivo);
+
+            if (alteracaoSucedida) {
+                atualizarTabelaServico(false);
+                limparCampos();
+            }
 
         }
+
     }
 
     private void deletarServico() {
@@ -2286,12 +2261,78 @@ Data Encerramento Entre/Até
         }
 
     }
-    
+
     private void definirRestricaoDeletar() {
         if (btnOrcamento.getText().equals("Visualizar Orçamento")) {
             btnDeletar.setEnabled(false);
         } else {
             btnDeletar.setEnabled(true);
+        }
+    }
+
+    private boolean validarCampos() {
+        boolean selectionEmpty = tblListagemServico.getSelectionModel().isSelectionEmpty();
+        if (selectionEmpty) {
+            JOptionPane.showMessageDialog(this, "Nenhum registro selecionado da tabela de Serviços.\n\n"
+                    + "Pesquise por algum registro e clique em alguma linha da tabela.", "Erro - Não há registro selecionado", 0);
+            txtPesquisa.requestFocus();
+            return false;
+        } else if (verificarFuncVazio()) {
+            JOptionPane.showMessageDialog(this, "Nenhum funcionário selecionado para o serviço.\n\n"
+                    + "Pesquise por algum código de funcionário e clique selecionar funcionário.", "Erro - Não há funcionário selecionado", 0);
+            txtCodFunc.requestFocus();
+            return false;
+        } else if (flagAtivo && txtfDataInicio.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Data de início do serviço em branco\n\n"
+                    + "Digite uma data de início válida.", "Erro - Data Início Inválida", 0);
+            txtfDataInicio.requestFocus();
+            return false;
+        } else if (!flagAtivo && txtfDataInicio.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Data de início do serviço em branco\n\n"
+                    + "Digite uma data de início válida.", "Erro - Data Início Inválida", 0);
+            txtfDataInicio.requestFocus();
+            return false;
+        } else if (!flagAtivo && txtfDataEncerramento.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Data de encerramento do serviço em branco\n\n"
+                    + "Digite uma data de encerramento válida.", "Erro - Data Encerramento Inválida", 0);
+            txtfDataEncerramento.requestFocus();
+            return false;
+        } else if (rbtFisica.isSelected() && !existeCpf) {
+            JOptionPane.showMessageDialog(this, "CPF inválido. Verifique se o CPF informado está cadastrado\n\n"
+                    + "ou se o mesmo possui contrato.", "Erro - CPF Inválida", 0);
+            txtCpfCnpj.requestFocus();
+            return false;
+        } else if (rbtJuridica.isSelected() && !existeCnpj) {
+            JOptionPane.showMessageDialog(this, "CNPJ inválido. Verifique se o CNPJ informado está cadastrado\n\n"
+                    + "ou se o mesmo possui contrato.", "Erro - CNPJ Inválida", 0);
+            txtCpfCnpj.requestFocus();
+            return false;
+        } else if (!existeCep) {
+            JOptionPane.showMessageDialog(this, "CEP inválido. Verifique se o CEP informado está cadastrado\n\n"
+                    + "ou digitado de forma correta.", "Erro - CEP Inválida", 0);
+            txtfCep.requestFocus();
+            return false;
+        } else if (txtNumeroLogradouro.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Número do Logradouro em branco. \n\nInforme o número da Rua.",
+                    "Erro - Nr Logradouro Inválido", 0);
+            txtNumeroLogradouro.requestFocus();
+            return false;
+        } else if (lblOrcamento.getText().equals("O orçamento desse serviço já foi pago!")) {
+            JOptionPane.showMessageDialog(this, "Esse serviço não pode ser mais alterado.\n\n"
+                    + "O orçamento desse serviço já foi pago, por isso não é possivel alterar esse serviço.",
+                    "Erro - Serviço com orçamento já quitado", 0);
+            txtPesquisa.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private void definirNivelAcesso(int nvlAdm) {
+        if (nvlAdm == 0) {
+            btnCadastrarPessoaJ.setEnabled(false);
+            btnCadastrarCep.setEnabled(false);
+            btnCadastrarServico.setEnabled(false);
         }
     }
 
