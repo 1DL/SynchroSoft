@@ -480,7 +480,7 @@ public class ManipularArquivos {
          */
         for (int i = 0; i < Janelas.qtdJanelas; i++) {
             if (i < 10) {
-                Janelas jan = new Janelas("J0" + i, 0);
+                Janelas jan = new Janelas("J0" + i, 1);
                 Janelas.acessoTelas.add(jan);
             } else {
                 Janelas jan = new Janelas("J" + i, 0);

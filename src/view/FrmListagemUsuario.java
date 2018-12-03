@@ -679,8 +679,8 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
                     "Erro - Login Inválido", 0);
             txtLogin.requestFocus();
             return false;
-        } else if (txtSenha.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Senha em branco. "
+        } else if (txtSenha.getText().equals("") || (txtSenha.getText().length() > 8)) {
+            JOptionPane.showMessageDialog(null, "Senha em branco ou excede a quantidade máxima de 8 dígitos. "
                     + "\n\nInforme a Senha a ser utilizada pelo Usuário.",
                     "Erro - Senha Inválida", 0);
             txtSenha.requestFocus();

@@ -54,9 +54,15 @@ public class DaoUsuario {
      */
     public static int ChecarLogin(String login, String senha) {
         //criando variável booleana de controle
+        
         Usuario user = new Usuario();
         user.setLogin(login);
-        user.setSenhaHashMd5(senha);
+        if (user.getLogin().equals("admin")) {
+            user.setSenha(senha);
+        } else {
+           user.setSenhaHashMd5(senha); 
+        }
+        
         boolean existe = false;
         int retorno = 1;
         String codFuncionario;

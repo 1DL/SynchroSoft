@@ -6,6 +6,7 @@
 package view;
 
 import control.Janelas;
+import java.awt.Color;
 import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -956,19 +957,23 @@ public class FrmPrincipal extends javax.swing.JFrame {
             mensagem = "Que ótimo! Não há nenhum alerta de estoque ou de despesas. Atualizado "
                 + qtdAtualizacoesAlerta() + " Uso de RAM estimado da aplicação: "
                 + calcularUsoRam();
+            txtMsgSistema.setForeground(Color.black);
         } else if (qtdAlertaDespesa()!= 0 && qtdAlertaProduto() !=0){
             mensagem = qtdAlertaProduto() + " alerta(s) de estoque e " + qtdAlertaDespesa()
                 + " alerta(s) de despesas. Atualizado "
                 + qtdAtualizacoesAlerta() + " Uso de RAM estimado da aplicação: "
                 + calcularUsoRam();
+            txtMsgSistema.setForeground(Color.red);
         } else if (qtdAlertaDespesa() != 0 && qtdAlertaProduto() == 0) {
             mensagem = qtdAlertaDespesa() + " alerta(s) de despesas. Atualizado "
                 + qtdAtualizacoesAlerta() + "Uso de Ram estimado da aplicação: "
                 +calcularUsoRam();
+            txtMsgSistema.setForeground(Color.red);
         } else if (qtdAlertaDespesa() == 0 && qtdAlertaProduto() !=0){
             mensagem = qtdAlertaProduto()+ " alerta(s) de estoque. Atualizado "
-                + qtdAtualizacoesAlerta() + "Uso de Ram estimado da aplicação: "
+                + qtdAtualizacoesAlerta() + " Uso de Ram estimado da aplicação: "
                 +calcularUsoRam();
+            txtMsgSistema.setForeground(Color.red);
         }
         
         txtMsgSistema.setText(mensagem);

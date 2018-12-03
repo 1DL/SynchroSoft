@@ -166,7 +166,7 @@ CREATE TABLE tb_usuario
  cd_usuario NUMERIC(4),
  cd_funcionario varchar2(10),
  ds_login VARCHAR2(100),
- ds_senha VARCHAR2(8),
+ ds_senha VARCHAR2(50),
  CONSTRAINT pk_usuario PRIMARY KEY(cd_usuario),
  CONSTRAINT fk_funcionario_usuario FOREIGN KEY(cd_funcionario) REFERENCES tb_funcionario(cd_funcionario)
 );
@@ -356,6 +356,7 @@ alter table "TB_PECA_ORCAMENTO" modify ("VL_PECA_VENDIDA" NUMBER(10,2));
 --------------------------------------------------------------------------
 
 ALTER TABLE tb_usuario ADD nm_login VARCHAR2(50);
+
 ALTER TABLE tb_usuario ADD CONSTRAINT login_unico UNIQUE(nm_login);
   
 ___________________________________________
