@@ -54,6 +54,9 @@ public class DaoUsuario {
      */
     public static int ChecarLogin(String login, String senha) {
         //criando variável booleana de controle
+        Usuario user = new Usuario();
+        user.setLogin(login);
+        user.setSenhaHashMd5(senha);
         boolean existe = false;
         int retorno = 1;
         String codFuncionario;
@@ -70,16 +73,16 @@ public class DaoUsuario {
             PreparedStatement st = con.prepareStatement(sql);
 
             //Realizando passagem por parâmetro da condicional da query
-            st.setString(1, login);
-            st.setString(2, senha);
+            st.setString(1, user.getLogin());
+            st.setString(2, user.getSenha());
 
             //Executando linha de comando
             ResultSet rs = st.executeQuery();
 
             //Executando verificação de existencia de resultado da query
             while (rs.next()) {
-                if (login.equals(rs.getString("CD_USUARIO"))) {
-                    if (senha.equals(rs.getString("DS_SENHA"))) {
+                if (user.getLogin().equals(rs.getString("CD_USUARIO"))) {
+                    if (user.getSenha().equals(rs.getString("DS_SENHA"))) {
                         existe = true;
                         codFuncionario = rs.getString("CD_FUNCIONARIO");
                         logarUsuario(existe, codFuncionario);

@@ -637,7 +637,7 @@ public class FrmListagemUsuario extends javax.swing.JFrame {
 
             usuario.setCodigoFuncionario(txtCodFuncionario.getText());
             usuario.setLogin(txtLogin.getText());
-            usuario.setSenha(txtSenha.getText());
+            usuario.setSenhaHashMd5(txtSenha.getText());
             /*
             String de controle PK_REF. Seu valor é baseado no campo oculto PK_REF da tabela.
             Irá armazenar o código original, inalterado, da linha selecionada. Esse valor
